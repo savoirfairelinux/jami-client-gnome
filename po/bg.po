@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Любомир Василев, 2016-2017,2020
-# Симонъ–Севаръ С. Болокановъ <sbolokanov@abv.bg>, 2016
-# Симонъ–Севаръ С. Болокановъ <sbolokanov@abv.bg>, 2016
+# С. С. Болокановъ <sbolokanov@abv.bg>, 2016
+# С. С. Болокановъ <sbolokanov@abv.bg>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 03:09-0400\n"
-"PO-Revision-Date: 2020-05-20 15:37+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-06-01 03:09-0400\n"
+"PO-Revision-Date: 2020-05-27 21:51+0000\n"
+"Last-Translator: Peter LAlovsky <peter@lalovsky.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/savoirfairelinux/jami/language/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -205,7 +205,7 @@ msgstr "Парола"
 
 #: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr ""
+msgstr "Управление на профила"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
@@ -1099,7 +1099,7 @@ msgstr ""
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "Спиране на записа"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
@@ -1202,7 +1202,7 @@ msgstr "Паролите не съвпадат"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Внасяне от резервно копие"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:904

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 03:09-0400\n"
-"PO-Revision-Date: 2020-05-22 16:56+0000\n"
+"POT-Creation-Date: 2020-06-01 03:09-0400\n"
+"PO-Revision-Date: 2020-05-27 18:54+0000\n"
 "Last-Translator: Kateryna K <katerynakostiukGer@gmail.com>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/savoirfairelinux/jami/language/fr_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -330,7 +330,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
-msgstr ""
+msgstr "Avancé ..."
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
@@ -1439,7 +1439,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:1752
 msgid "Unknown error"
-msgstr ""
+msgstr "Erreur inconnue"
 
 #: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"

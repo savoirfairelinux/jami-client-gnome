@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 03:09-0400\n"
-"PO-Revision-Date: 2020-05-20 15:37+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-06-01 03:09-0400\n"
+"PO-Revision-Date: 2020-05-29 11:48+0000\n"
+"Last-Translator: Gnusuario gnu <aguasmenores@protonmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/savoirfairelinux/jami/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -520,7 +520,7 @@ msgstr "Mostra vista de xat a la dreta (a baix de tot si està deshabilitat)"
 
 #: ui/generalsettingsview.ui:500
 msgid "Download folder"
-msgstr "Descarrega carpeta"
+msgstr "Carpeta de descàrrega"
 
 #: ui/generalsettingsview.ui:537
 msgid "History"
@@ -560,15 +560,15 @@ msgstr "Transferència de fitxers"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
-msgstr ""
+msgstr "Permet fitxers entrants de contactes desconeguts"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
-msgstr ""
+msgstr "Accepta automàticament fitxers entrants"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr ""
+msgstr "Accepta transferències per sota de (Mb, 0 = iŀlimitat)"
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -719,7 +719,7 @@ msgstr "Preferències de trucada"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "Permet trucades entrants de contactes desconeguts"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"

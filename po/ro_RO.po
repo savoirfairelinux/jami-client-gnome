@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 03:09-0400\n"
-"PO-Revision-Date: 2020-05-24 17:17+0000\n"
+"POT-Creation-Date: 2020-06-01 03:09-0400\n"
+"PO-Revision-Date: 2020-05-30 19:23+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgstr ""
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Conversations"
-msgstr ""
+msgstr "Conversații"
 
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
@@ -70,7 +70,7 @@ msgstr ""
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Clear history"
-msgstr ""
+msgstr "Șterge cronologia"
 
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
@@ -85,7 +85,7 @@ msgstr ""
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
-msgstr ""
+msgstr "Blochează contactul"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
@@ -162,7 +162,7 @@ msgstr ""
 #: ui/mainwindow.ui:113 ui/accountcreationwizard.ui:523
 #: ui/newaccountsettingsview.ui:387
 msgid "Account"
-msgstr ""
+msgstr "Cont"
 
 #: ui/mainwindow.ui:150 src/mainwindow.cpp:1840
 msgid "Settings"
@@ -170,7 +170,7 @@ msgstr "Reglări"
 
 #: ui/mainwindow.ui:271 ui/mainwindow.ui:278
 msgid "Conversations"
-msgstr ""
+msgstr "Conversații"
 
 #: ui/mainwindow.ui:304 ui/mainwindow.ui:311
 msgid "Contact requests"
@@ -245,7 +245,7 @@ msgstr ""
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:342
 #: ui/currentcallview.ui:484
 msgid "Hold"
-msgstr ""
+msgstr "Așteptare"
 
 #: ui/currentcallview.ui:338
 msgid "Toggle mute audio"
@@ -354,7 +354,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
-msgstr ""
+msgstr "PIN"
 
 #: ui/accountcreationwizard.ui:349
 msgid ""
@@ -376,12 +376,12 @@ msgstr ""
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:711
 #: ui/accountcreationwizard.ui:1092
 msgid "Next"
-msgstr ""
+msgstr "Următorul"
 
 #: ui/accountcreationwizard.ui:442 ui/profile.ui:7
 #: ui/newaccountsettingsview.ui:307
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: ui/accountcreationwizard.ui:560
 msgid "Register username"
@@ -430,7 +430,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:813
 msgid "Skip"
-msgstr ""
+msgstr "Omite"
 
 #: ui/accountcreationwizard.ui:839
 msgid "Registering username…"
@@ -446,7 +446,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
@@ -466,7 +466,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
-msgstr ""
+msgstr "Sistem"
 
 #: ui/generalsettingsview.ui:96
 msgid "Start application on login"
@@ -653,7 +653,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:864
 msgid "Cancel"
-msgstr ""
+msgstr "Renunță"
 
 #: ui/newaccountsettingsview.ui:211
 msgid "Export on the network"
@@ -677,7 +677,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
-msgstr ""
+msgstr "parolă"
 
 #: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1371
 msgid "Proxy"
@@ -917,7 +917,7 @@ msgstr ""
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
-msgstr ""
+msgstr "Acceptă"
 
 #: ui/incomingcallview.ui:172
 msgid "Reject"
@@ -925,7 +925,7 @@ msgstr ""
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr ""
+msgstr "Fă o poză"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
@@ -1036,17 +1036,17 @@ msgstr ""
 #: src/notifier.cpp:344 src/notifier.cpp:360
 msgctxt ""
 msgid "Accept"
-msgstr ""
+msgstr "Acceptă"
 
 #: src/notifier.cpp:351
 msgctxt ""
 msgid "Refuse"
-msgstr ""
+msgstr "Refuză"
 
 #: src/notifier.cpp:367
 msgctxt ""
 msgid "Decline"
-msgstr ""
+msgstr "Refuză"
 
 #: src/video/video_widget.cpp:558
 msgid "Share _screen area"
@@ -1291,7 +1291,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2638
 msgid "Clear history"
-msgstr ""
+msgstr "Șterge cronologia"
 
 #: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
@@ -1307,7 +1307,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2670
 msgid "Block contact"
-msgstr ""
+msgstr "Blochează contactul"
 
 #: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
@@ -1327,7 +1327,7 @@ msgstr ""
 
 #: src/chatview.cpp:1019
 msgid "Send"
-msgstr ""
+msgstr "Trimite"
 
 #: src/client.cpp:115
 #, c-format
@@ -1423,7 +1423,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:848
 msgid "New password"
-msgstr ""
+msgstr "Parolă nouă"
 
 #: src/newaccountsettingsview.cpp:1711
 msgid "Exporting account…"
@@ -1439,7 +1439,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:1752
 msgid "Unknown error"
-msgstr ""
+msgstr "Eroare necunoscută"
 
 #: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 03:09-0400\n"
-"PO-Revision-Date: 2020-05-24 18:33+0000\n"
+"POT-Creation-Date: 2020-06-01 03:09-0400\n"
+"PO-Revision-Date: 2020-05-27 18:45+0000\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Occitan (post 1500) (http://www.transifex.com/savoirfairelinux/jami/language/oc/)\n"
 "MIME-Version: 1.0\n"
@@ -315,7 +315,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "Importar d’un aparelh"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
@@ -323,11 +323,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr ""
+msgstr "Importar d’una salvagarda&"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "Importar un compte via un archiu"
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
@@ -343,7 +343,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
-msgstr ""
+msgstr "Ajustar un compte SIP novèl"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
@@ -487,7 +487,7 @@ msgstr "Notificacions"
 
 #: ui/generalsettingsview.ui:243
 msgid "Enable notifications for incoming calls"
-msgstr "Activar las notificacions per las sonadas dintrentas"
+msgstr "Activar las notificacions per las sonadas dintrantas"
 
 #: ui/generalsettingsview.ui:279
 msgid "Enable notifications for pending requests"
@@ -950,7 +950,7 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:179
 msgid "Invalid username"
-msgstr ""
+msgstr "Nom d’utilizaire invalid"
 
 #: src/usernameregistrationbox.cpp:193
 msgid "Lookup unavailable, check your network connection"
@@ -1083,7 +1083,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Free as in Freedom\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "« Liure coma dins libertat » \ncompilat lo %.25s"
 
 #: src/dialogs.c:137
 msgid ""
@@ -1412,7 +1412,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:802
 msgid "Incorrect password!"
-msgstr ""
+msgstr "Marrit senhal !"
 
 #: src/newaccountsettingsview.cpp:839
 msgid "Note: this will change the password only on this device."

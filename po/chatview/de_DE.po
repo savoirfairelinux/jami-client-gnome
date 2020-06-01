@@ -7,7 +7,7 @@
 # Blanca Iris Almagro, 2019
 # Arledrian <hvuzgr@gmail.com>, 2019
 # FeuRenard0, 2019
-# Wolfgang Traylor <wolfgang.traylor@senckenberg.de>, 2019
+# 89fad4243b4ee9886d33f7f164422ac4_1810ae6 <9e0748c82be297907dc98c0b52462aa6_765157>, 2019
 # gh df, 2020
 # 
 #, fuzzy

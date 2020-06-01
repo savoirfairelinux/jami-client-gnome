@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Sjaak De Beer <inactive+Jieeofle@transifex.com>, 2016
+# 0d2c640ab632d89b26ad2ddde3415af1_7d23f12 <a68b108aa699f6b13591daced93fbe41_497247>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-25 03:09-0400\n"
+"POT-Creation-Date: 2020-06-01 03:09-0400\n"
 "PO-Revision-Date: 2020-05-20 15:37+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/savoirfairelinux/jami/language/nl_NL/)\n"
