@@ -29,6 +29,7 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
+#include <clutter-gtk/clutter-gtk.h>
 
 // Qt
 #include <QSize>
@@ -47,6 +48,7 @@
 #include "native/pixbufmanipulator.h"
 #include "utils/drawing.h"
 #include "utils/files.h"
+#include "video/video_widget.h"
 
 struct _IncomingCallView
 {
@@ -71,8 +73,13 @@ struct _IncomingCallViewPrivate
     GtkWidget *button_accept_incoming;
     GtkWidget *button_reject_incoming;
     GtkWidget *frame_chat;
+    GtkWidget *frame_call;
+    GtkWidget *vbox_call;
     GtkWidget *box_messaging_widget;
     GtkWidget *messaging_widget;
+    GtkWidget *video_widget;
+    GtkWidget *preview_box;
+    GtkWidget *preview_row;
     bool showMessaging {false};
 
     // The webkit_chat_container is created once, then reused for all chat views
@@ -82,6 +89,7 @@ struct _IncomingCallViewPrivate
     AccountInfoPointer const * accountInfo_;
 
     QMetaObject::Connection state_change_connection;
+    QMetaObject::Connection local_renderer_connection;
 
     GSettings *settings;
 
@@ -91,6 +99,7 @@ struct _IncomingCallViewPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(IncomingCallView, incoming_call_view, GTK_TYPE_BOX);
 
 #define INCOMING_CALL_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), INCOMING_CALL_VIEW_TYPE, IncomingCallViewPrivate))
+#define VIDEO_WIDGET_TYPE              (video_widget_get_type())
 
 static void
 incoming_call_view_dispose(GObject *object)
@@ -107,6 +116,7 @@ incoming_call_view_dispose(GObject *object)
     chat_view_set_header_visible(CHAT_VIEW(chat_view), TRUE);
 
     QObject::disconnect(priv->state_change_connection);
+    QObject::disconnect(priv->local_renderer_connection);
 
     g_clear_object(&priv->settings);
 
@@ -216,7 +226,11 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_reject_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, frame_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, frame_call);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, vbox_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, box_messaging_widget);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, preview_box);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, preview_row);
 }
 
 static void
@@ -327,6 +341,8 @@ incoming_call_view_new(WebKitChatContainer* view,
 
     set_call_info(INCOMING_CALL_VIEW(self));
 
+    incoming_call_show_preview(INCOMING_CALL_VIEW(self));
+
     return GTK_WIDGET(self);
 }
 
@@ -362,4 +378,50 @@ is_showing_let_a_message_view(IncomingCallView* view, lrc::api::conversation::In
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
     g_return_val_if_fail(priv->conversation_->uid == conv.uid, false);
     return priv->showMessaging;
+}
+
+void
+incoming_call_show_preview(IncomingCallView* view)
+{
+    g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
+    auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
+
+    priv->video_widget = video_widget_new();
+    gtk_container_add(GTK_CONTAINER(priv->frame_call), priv->video_widget);
+    gtk_widget_show_all(priv->frame_call);
+
+    try {
+        const lrc::api::video::Renderer* previewRenderer =
+                &priv->avModel_->getRenderer(
+                lrc::api::video::PREVIEW_RENDERER_ID);
+        if (previewRenderer->isRendering()) {
+            video_widget_add_new_renderer(VIDEO_WIDGET(priv->video_widget),
+                priv->avModel_, previewRenderer, VIDEO_RENDERER_REMOTE);
+        } else {
+            priv->local_renderer_connection = QObject::connect(
+                &*priv->avModel_,
+                &lrc::api::AVModel::rendererStarted,
+                [=](const QString& id) {
+                    if (id != lrc::api::video::PREVIEW_RENDERER_ID)
+                        return;
+                    video_widget_add_new_renderer(
+                        VIDEO_WIDGET(priv->video_widget),
+                        priv->avModel_,
+                        previewRenderer, VIDEO_RENDERER_REMOTE);
+                });
+            priv->avModel_->startPreview();
+        }
+    } catch (const std::out_of_range& e) {
+        g_warning("Cannot start preview");
+    }
+
+    auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
+    clutter_actor_set_opacity(stage,120);
+
+    auto actor_incoming_box = gtk_clutter_actor_new_with_contents(priv->vbox_call);
+    clutter_actor_add_child(stage, actor_incoming_box);
+    clutter_actor_set_x_align(actor_incoming_box, CLUTTER_ACTOR_ALIGN_FILL);
+    clutter_actor_set_y_align(actor_incoming_box, CLUTTER_ACTOR_ALIGN_CENTER);
+    clutter_actor_show(actor_incoming_box);
+
 }

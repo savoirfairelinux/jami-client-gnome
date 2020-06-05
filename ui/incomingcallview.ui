@@ -1,6 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="3.10"/>
+  <!-- Video Preview -->
+  <object class="GtkListBoxRow" id="preview_row">
+    <property name="visible">True</property>
+    <property name="can_focus">True</property>
+    <property name="halign">fill</property>
+    <child>
+      <object class="GtkBox" id="preview_box">
+        <property name="visible">True</property>
+        <property name="valign">fill</property>
+        <property name="halign">fill</property>
+        <property name="orientation">vertical</property>
+        <property name="height-request">200</property>
+        <property name="height-request">200</property>
+      </object>
+    </child>
+  </object>
+
+  <!-- box call -->
+  <object class="GtkBox" id="vbox_call">
+    <property name="visible">True</property>
+    <property name="orientation">vertical</property>
+
+    <!-- info vbox -->
+    <child>
+      <object class="GtkBox" id="vbox_incoming_info">
+        <property name="visible">True</property>
+        <property name="valign">center</property>
+        <property name="border_width">15</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">15</property>
+        <!-- image of contact -->
+        <child>
+          <object class="GtkImage" id="image_incoming">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="halign">center</property>
+            <property name="xpad">10</property>
+            <property name="ypad">10</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <!-- end image of contact -->
+        <!-- name or other identity of contact -->
+        <child>
+          <object class="GtkLabel" id="label_name">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="halign">center</property>
+            <property name="selectable">True</property>
+            <property name="ellipsize">end</property>
+            <attributes>
+              <attribute name="scale" value="1.5"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <!-- end name or other identity of contact -->
+        <!-- uri of contact -->
+        <child>
+          <object class="GtkLabel" id="label_bestId">
+            <property name="visible">False</property>
+            <property name="can_focus">True</property>
+            <property name="halign">center</property>
+            <property name="selectable">True</property>
+            <property name="ellipsize">end</property>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <!-- end uri of contact -->
+        <!-- call initialization progress -->
+        <child>
+          <object class="GtkSpinner" id="spinner_status">
+            <property name="visible">False</property>
+            <property name="can_focus">False</property>
+            <property name="active">True</property>
+            <property name="height-request">25</property>
+          </object>
+        </child>
+        <!-- end of call initialization progress -->
+        <!-- call state info -->
+        <child>
+          <object class="GtkLabel" id="label_status">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Incoming…</property>
+            <property name="ellipsize">end</property>
+            <style>
+              <class name="dim-label"/>
+            </style>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <!-- end info vbox -->
+
+    <!-- box action bar -->
+    <child>
+      <object class="GtkBox" id="box_messaging_widget">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">20</property>
+        <property name="border_width">20</property>
+        <property name="valign">center</property>
+        <property name="halign">center</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <!-- end box messaging widget -->
+
+    <!-- hbox action bar -->
+    <child>
+      <object class="GtkBox" id="hbox_action_bar">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">20</property>
+        <property name="border_width">20</property>
+        <property name="valign">center</property>
+        <property name="halign">center</property>
+        <!-- accept button -->
+        <child>
+          <object class="GtkButton" id="button_accept_incoming">
+            <style>
+              <class name="green-button"/>
+              <class name="flat-button"/>
+            </style>
+            <property name="width-request">48</property>
+            <property name="height-request">48</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="has_tooltip">True</property>
+            <property name="tooltip-text" translatable="yes">Accept</property>
+            <property name="image">image_accept</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <!-- end accept button -->
+        <!-- reject button -->
+        <child>
+          <object class="GtkButton" id="button_reject_incoming">
+            <style>
+              <class name="red-button"/>
+              <class name="flat-button"/>
+            </style>
+            <property name="width-request">48</property>
+            <property name="height-request">48</property>
+            <property name="visible">True</property>
+            <property name="has_tooltip">True</property>
+            <property name="tooltip-text" translatable="yes">Reject</property>
+            <property name="can_focus">True</property>
+            <property name="image">image_reject</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <!-- end reject button -->
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <!-- end hbox action bar -->
+  </object>
+  <!-- end box call -->
+
   <template class="IncomingCallView" parent="GtkBox">
     <property name="visible">True</property>
 
@@ -12,184 +201,10 @@
         <!-- call goes in this frame -->
         <child>
           <object class="GtkFrame" id="frame_call">
-            <property name="visible">True</property>
+            <property name="visible">False</property>
             <property name="shadow-type">GTK_SHADOW_NONE</property>
-            <property name="valign">center</property>
-
-            <!-- box call -->
-            <child>
-              <object class="GtkBox" id="vbox_call">
-                <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-
-                <!-- info vbox -->
-                <child>
-                  <object class="GtkBox" id="vbox_incoming_info">
-                    <property name="visible">True</property>
-                    <property name="valign">center</property>
-                    <property name="border_width">15</property>
-                    <property name="orientation">vertical</property>
-                    <property name="spacing">15</property>
-                    <!-- image of contact -->
-                    <child>
-                      <object class="GtkImage" id="image_incoming">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="halign">center</property>
-                        <property name="xpad">10</property>
-                        <property name="ypad">10</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                      </packing>
-                    </child>
-                    <!-- end image of contact -->
-                    <!-- name or other identity of contact -->
-                    <child>
-                      <object class="GtkLabel" id="label_name">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="halign">center</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <attributes>
-                          <attribute name="scale" value="1.5"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                      </packing>
-                    </child>
-                    <!-- end name or other identity of contact -->
-                    <!-- uri of contact -->
-                    <child>
-                      <object class="GtkLabel" id="label_bestId">
-                        <property name="visible">False</property>
-                        <property name="can_focus">True</property>
-                        <property name="halign">center</property>
-                        <property name="selectable">True</property>
-                        <property name="ellipsize">end</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                      </packing>
-                    </child>
-                    <!-- end uri of contact -->
-                    <!-- call initialization progress -->
-                    <child>
-                      <object class="GtkSpinner" id="spinner_status">
-                        <property name="visible">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="active">True</property>
-                        <property name="height-request">25</property>
-                      </object>
-                    </child>
-                    <!-- end of call initialization progress -->
-                    <!-- call state info -->
-                    <child>
-                      <object class="GtkLabel" id="label_status">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Incoming…</property>
-                        <property name="ellipsize">end</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                  </packing>
-                </child>
-                <!-- end info vbox -->
-
-                <!-- box action bar -->
-                <child>
-                  <object class="GtkBox" id="box_messaging_widget">
-                    <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
-                    <property name="spacing">20</property>
-                    <property name="border_width">20</property>
-                    <property name="valign">center</property>
-                    <property name="halign">center</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                  </packing>
-                </child>
-                <!-- end box messaging widget -->
-
-                <!-- hbox action bar -->
-                <child>
-                  <object class="GtkBox" id="hbox_action_bar">
-                    <property name="visible">True</property>
-                    <property name="orientation">horizontal</property>
-                    <property name="spacing">20</property>
-                    <property name="border_width">20</property>
-                    <property name="valign">center</property>
-                    <property name="halign">center</property>
-                    <!-- accept button -->
-                    <child>
-                      <object class="GtkButton" id="button_accept_incoming">
-                        <style>
-                          <class name="green-button"/>
-                          <class name="flat-button"/>
-                        </style>
-                        <property name="width-request">48</property>
-                        <property name="height-request">48</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip-text" translatable="yes">Accept</property>
-                        <property name="image">image_accept</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                      </packing>
-                    </child>
-                    <!-- end accept button -->
-                    <!-- reject button -->
-                    <child>
-                      <object class="GtkButton" id="button_reject_incoming">
-                        <style>
-                          <class name="red-button"/>
-                          <class name="flat-button"/>
-                        </style>
-                        <property name="width-request">48</property>
-                        <property name="height-request">48</property>
-                        <property name="visible">True</property>
-                        <property name="has_tooltip">True</property>
-                        <property name="tooltip-text" translatable="yes">Reject</property>
-                        <property name="can_focus">True</property>
-                        <property name="image">image_reject</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                      </packing>
-                    </child>
-                    <!-- end reject button -->
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                  </packing>
-                </child>
-                <!-- end hbox action bar -->
-              </object>
-            </child>
-            <!-- end box call -->
-
+            <property name="height-request">150</property>
+            <property name="width-request">200</property>
           </object>
           <packing>
             <property name="shrink">False</property>
