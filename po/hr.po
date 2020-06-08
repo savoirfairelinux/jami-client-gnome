@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-01 03:09-0400\n"
-"PO-Revision-Date: 2020-05-20 15:37+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-06-08 03:09-0400\n"
+"PO-Revision-Date: 2020-06-08 07:09+0000\n"
+"Last-Translator: caeccf822bd54c9a426f75ffdae7dd94_ad50a00\n"
 "Language-Team: Croatian (http://www.transifex.com/savoirfairelinux/jami/language/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -577,56 +577,56 @@ msgstr ""
 msgid "QR Code"
 msgstr ""
 
-#: ui/mediasettingsview.ui:24
-msgid "Audio Settings"
+#: ui/mediasettingsview.ui:28
+msgid "Audio"
+msgstr "Zvuk"
+
+#: ui/mediasettingsview.ui:67
+msgid "Audio manager"
 msgstr ""
 
-#: ui/mediasettingsview.ui:40
-msgid "Audio manager:"
+#: ui/mediasettingsview.ui:104
+msgid "Ringtone device"
 msgstr ""
 
-#: ui/mediasettingsview.ui:52
-msgid "Ringtone device:"
-msgstr "Uređaj melodija zvona:"
-
-#: ui/mediasettingsview.ui:64
-msgid "Output device:"
-msgstr "Izlazni uređaj:"
-
-#: ui/mediasettingsview.ui:76
-msgid "Input device:"
+#: ui/mediasettingsview.ui:141
+msgid "Output device"
 msgstr ""
 
-#: ui/mediasettingsview.ui:88
-msgid "Input volume meter:"
+#: ui/mediasettingsview.ui:178
+msgid "Input device"
 msgstr ""
 
-#: ui/mediasettingsview.ui:156
-msgid "Camera Settings"
+#: ui/mediasettingsview.ui:215
+msgid "Input volume meter"
 msgstr ""
 
-#: ui/mediasettingsview.ui:172
-msgid "Device:"
-msgstr "Uređaj:"
+#: ui/mediasettingsview.ui:251
+msgid "Video"
+msgstr "Video"
 
-#: ui/mediasettingsview.ui:184
-msgid "Channel:"
-msgstr "Kanal:"
-
-#: ui/mediasettingsview.ui:196
-msgid "Resolution:"
-msgstr "Razlučivost:"
-
-#: ui/mediasettingsview.ui:208
-msgid "Frame rate:"
+#: ui/mediasettingsview.ui:293
+msgid "No camera detected"
 msgstr ""
 
-#: ui/mediasettingsview.ui:266
-msgid "Hardware Acceleration"
+#: ui/mediasettingsview.ui:339
+msgid "Device"
+msgstr "Uređaj"
+
+#: ui/mediasettingsview.ui:375
+msgid "Channel"
 msgstr ""
 
-#: ui/mediasettingsview.ui:282
-msgid "Enable hardware acceleration:"
+#: ui/mediasettingsview.ui:411
+msgid "Resolution"
+msgstr "Razlučivost"
+
+#: ui/mediasettingsview.ui:447
+msgid "Framerate"
+msgstr ""
+
+#: ui/mediasettingsview.ui:484
+msgid "Enable hardware acceleration"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:15

@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# liberi liberi <postav@pm.me>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-01 03:09-0400\n"
-"PO-Revision-Date: 2020-05-30 19:23+0000\n"
-"Last-Translator: liberi liberi <postav@pm.me>\n"
+"POT-Creation-Date: 2020-06-08 03:09-0400\n"
+"PO-Revision-Date: 2020-06-08 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +21,7 @@ msgstr ""
 #: ui/help-overlay.ui:13
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
@@ -153,11 +154,11 @@ msgstr ""
 
 #: ui/mainwindow.ui:80
 msgid "General"
-msgstr ""
+msgstr "Generale"
 
 #: ui/mainwindow.ui:96
 msgid "Media"
-msgstr ""
+msgstr "Media"
 
 #: ui/mainwindow.ui:113 ui/accountcreationwizard.ui:523
 #: ui/newaccountsettingsview.ui:387
@@ -186,23 +187,23 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:597
 #: ui/accountcreationwizard.ui:982 ui/profile.ui:73
 #: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
 msgid "Username"
-msgstr ""
+msgstr "Nume de Utilizator"
 
 #: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:191
 #: ui/accountcreationwizard.ui:624 ui/accountcreationwizard.ui:1018
 #: ui/newaccountsettingsview.ui:502 ui/newaccountsettingsview.ui:742
 msgid "Password"
-msgstr ""
+msgstr "Parolă"
 
 #: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr ""
+msgstr "Administrator cont"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
@@ -417,16 +418,16 @@ msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "Acest cont există doar pe acest dispozitiv. Dacă ai pierdut dispozitivul sau ai dezinstalat aplicația, contul tău va fi șters. Poți face o copie de rezervă acum sau mai tîrziu."
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
-msgstr ""
+msgstr "Nu îmi mai arăta asta"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
 msgid "Export account"
-msgstr ""
+msgstr "Exportă cont"
 
 #: ui/accountcreationwizard.ui:813
 msgid "Skip"
@@ -576,56 +577,56 @@ msgstr ""
 msgid "QR Code"
 msgstr ""
 
-#: ui/mediasettingsview.ui:24
-msgid "Audio Settings"
+#: ui/mediasettingsview.ui:28
+msgid "Audio"
 msgstr ""
 
-#: ui/mediasettingsview.ui:40
-msgid "Audio manager:"
+#: ui/mediasettingsview.ui:67
+msgid "Audio manager"
 msgstr ""
 
-#: ui/mediasettingsview.ui:52
-msgid "Ringtone device:"
+#: ui/mediasettingsview.ui:104
+msgid "Ringtone device"
 msgstr ""
 
-#: ui/mediasettingsview.ui:64
-msgid "Output device:"
+#: ui/mediasettingsview.ui:141
+msgid "Output device"
 msgstr ""
 
-#: ui/mediasettingsview.ui:76
-msgid "Input device:"
+#: ui/mediasettingsview.ui:178
+msgid "Input device"
 msgstr ""
 
-#: ui/mediasettingsview.ui:88
-msgid "Input volume meter:"
+#: ui/mediasettingsview.ui:215
+msgid "Input volume meter"
 msgstr ""
 
-#: ui/mediasettingsview.ui:156
-msgid "Camera Settings"
+#: ui/mediasettingsview.ui:251
+msgid "Video"
 msgstr ""
 
-#: ui/mediasettingsview.ui:172
-msgid "Device:"
+#: ui/mediasettingsview.ui:293
+msgid "No camera detected"
 msgstr ""
 
-#: ui/mediasettingsview.ui:184
-msgid "Channel:"
+#: ui/mediasettingsview.ui:339
+msgid "Device"
 msgstr ""
 
-#: ui/mediasettingsview.ui:196
-msgid "Resolution:"
+#: ui/mediasettingsview.ui:375
+msgid "Channel"
 msgstr ""
 
-#: ui/mediasettingsview.ui:208
-msgid "Frame rate:"
+#: ui/mediasettingsview.ui:411
+msgid "Resolution"
 msgstr ""
 
-#: ui/mediasettingsview.ui:266
-msgid "Hardware Acceleration"
+#: ui/mediasettingsview.ui:447
+msgid "Framerate"
 msgstr ""
 
-#: ui/mediasettingsview.ui:282
-msgid "Enable hardware acceleration:"
+#: ui/mediasettingsview.ui:484
+msgid "Enable hardware acceleration"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:15
@@ -681,19 +682,19 @@ msgstr "parolă"
 
 #: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1371
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
-msgstr ""
+msgstr "Mesagerie Vocală"
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "Dispozitivele cunoscute legate de acest cont Jami"
 
 #: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
-msgstr ""
+msgstr "Conectează alt dispozitiv"
 
 #: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
@@ -701,7 +702,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1054
 msgid "Advanced settings"
-msgstr ""
+msgstr "Reglări avansate"
 
 #: ui/newaccountsettingsview.ui:1090
 msgid "General settings"
@@ -709,31 +710,31 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
-msgstr ""
+msgstr "Reglări apel"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "Permite apelurile primite de la contacte necunoscute"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
-msgstr ""
+msgstr "Răspunde automat la apeluri"
 
 #: ui/newaccountsettingsview.ui:1217
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Sonerie personalizată"
 
 #: ui/newaccountsettingsview.ui:1261
 msgid "Name server"
-msgstr ""
+msgstr "Server de nume"
 
 #: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
 msgid "Address"
-msgstr ""
+msgstr "Adresă"
 
 #: ui/newaccountsettingsview.ui:1332
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "Configurare OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1416
 msgid "Auto connect on local network"
@@ -741,51 +742,51 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1452
 msgid "Bootstrap"
-msgstr ""
+msgstr "Pornire"
 
 #: ui/newaccountsettingsview.ui:1512
 msgid "Encrypt media streams (SRTP)"
-msgstr ""
+msgstr "Cifrează fluxurile media (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1547
 msgid "Enable SDES for key exchange protocol"
-msgstr ""
+msgstr "Activează SDES pentru protocolul de schimbat chei"
 
 #: ui/newaccountsettingsview.ui:1583
 msgid "Fallback on RTP on encryption failure"
-msgstr ""
+msgstr "Folosește RTP cînd cifrarea eșuează"
 
 #: ui/newaccountsettingsview.ui:1618
 msgid "Encrypt negotiation (TLS)"
-msgstr ""
+msgstr "Cifrează negocierea (TLS)"
 
 #: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
-msgstr ""
+msgstr "Certificat CA"
 
 #: ui/newaccountsettingsview.ui:1689
 msgid "User certificate"
-msgstr ""
+msgstr "Certificat de utilizator"
 
 #: ui/newaccountsettingsview.ui:1725
 msgid "Private key"
-msgstr ""
+msgstr "Cheie privată"
 
 #: ui/newaccountsettingsview.ui:1761
 msgid "Private key password"
-msgstr ""
+msgstr "Parola cheii private"
 
 #: ui/newaccountsettingsview.ui:1799
 msgid "TLS protocol method"
-msgstr ""
+msgstr "Metoda protocolului TLS"
 
 #: ui/newaccountsettingsview.ui:1835
 msgid "Outgoing TLS server name"
-msgstr ""
+msgstr "Numele serverului TLS de expediere"
 
 #: ui/newaccountsettingsview.ui:1870
 msgid "Negotiation timeout (seconds)"
-msgstr ""
+msgstr "Timp de negociere (secunde)"
 
 #: ui/newaccountsettingsview.ui:1906
 msgid "Verify incoming certificates (server side)"
@@ -793,35 +794,35 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1941
 msgid "Verify answer certificates (client side)"
-msgstr ""
+msgstr "Verifică certificatele de răspuns (partea clientului)"
 
 #: ui/newaccountsettingsview.ui:1976
 msgid "Require a certificate for incoming TLS connections"
-msgstr ""
+msgstr "Solicită un certificat pentru conexiunile TLS primite"
 
 #: ui/newaccountsettingsview.ui:2000
 msgid "Security"
-msgstr ""
+msgstr "Protecție"
 
 #: ui/newaccountsettingsview.ui:2025
 msgid "Connectivity"
-msgstr ""
+msgstr "Conectare"
 
 #: ui/newaccountsettingsview.ui:2063
 msgid "Registration expire timeout (seconds)"
-msgstr ""
+msgstr "Întîrziere maximă de înregistrare (secunde)"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Network interface"
-msgstr ""
+msgstr "Interfață de rețea"
 
 #: ui/newaccountsettingsview.ui:2136
 msgid "UPnP"
-msgstr ""
+msgstr "UPnP"
 
 #: ui/newaccountsettingsview.ui:2171
 msgid "Use TURN"
-msgstr ""
+msgstr "Folosește TURN"
 
 #: ui/newaccountsettingsview.ui:2206
 msgid "(TURN) address"
@@ -841,7 +842,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2346
 msgid "Use STUN"
-msgstr ""
+msgstr "Folosește STUN"
 
 #: ui/newaccountsettingsview.ui:2381
 msgid "(STUN) address"
@@ -849,19 +850,19 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2414
 msgid "Published address"
-msgstr ""
+msgstr "Adresa publică"
 
 #: ui/newaccountsettingsview.ui:2451
 msgid "Use custom address and port"
-msgstr ""
+msgstr "Folosește adresă și port personalizate"
 
 #: ui/newaccountsettingsview.ui:2522
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: ui/newaccountsettingsview.ui:2558
 msgid "Video codecs"
-msgstr ""
+msgstr "Codec video"
 
 #: ui/newaccountsettingsview.ui:2621
 msgid "Enable video"
@@ -869,11 +870,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2648
 msgid "Audio codecs"
-msgstr ""
+msgstr "Codec audio"
 
 #: ui/newaccountsettingsview.ui:2718
 msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr ""
+msgstr "Negociere Sesiune SDP (folosește ICE în caz de eșec)"
 
 #: ui/newaccountsettingsview.ui:2730
 msgid "Only used during SDP negotiation in case ICE is not supported."
@@ -945,11 +946,11 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
-msgstr ""
+msgstr "Nume de utilizator deja ales"
 
 #: src/usernameregistrationbox.cpp:179
 msgid "Invalid username"
-msgstr ""
+msgstr "Numele de utilizator este greșit"
 
 #: src/usernameregistrationbox.cpp:193
 msgid "Lookup unavailable, check your network connection"
@@ -1026,7 +1027,7 @@ msgstr ""
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr "Jami este un program liber pentru comunicații universale care respectă libertățile și intimitatea utilizatorilor săi."
+msgstr "Jami este un program liber pentru comunicare universală care respectă libertățile și intimitatea utilizatorilor săi."
 
 #: src/notifier.cpp:336
 msgctxt ""
@@ -1319,7 +1320,7 @@ msgstr ""
 
 #: src/chatview.cpp:338
 msgid "Retry"
-msgstr ""
+msgstr "Încearcă din nou"
 
 #: src/chatview.cpp:501
 msgid "Stop"
@@ -1386,11 +1387,11 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Edit name"
-msgstr ""
+msgstr "Modifică nume"
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Revoke device"
-msgstr ""
+msgstr "Deconectează dispozitivul"
 
 #: src/newaccountsettingsview.cpp:682
 msgid "Error when revoking device"
@@ -1403,7 +1404,7 @@ msgstr ""
 #: src/newaccountsettingsview.cpp:778 src/newaccountsettingsview.cpp:801
 #: src/newaccountsettingsview.cpp:825 src/newaccountsettingsview.cpp:861
 msgid "Change password"
-msgstr ""
+msgstr "Schimbă parola"
 
 #: src/newaccountsettingsview.cpp:791
 msgid "New password and its confirmation are different!"
@@ -1459,7 +1460,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2003
 msgid "Offline"
-msgstr ""
+msgstr "Deconectat"
 
 #: src/newaccountsettingsview.cpp:2006
 msgid "Connecting…"
@@ -1467,7 +1468,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2009
 msgid "Online"
-msgstr ""
+msgstr "Conectat"
 
 #: src/newaccountsettingsview.cpp:2013
 msgid "Unknown status"

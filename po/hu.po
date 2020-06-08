@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-01 03:09-0400\n"
-"PO-Revision-Date: 2020-05-21 00:20+0000\n"
-"Last-Translator: . . <ovari123@zoho.com>\n"
+"POT-Creation-Date: 2020-06-08 03:09-0400\n"
+"PO-Revision-Date: 2020-06-08 07:09+0000\n"
+"Last-Translator: Zsolt <maxigaz@protonmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -580,56 +580,56 @@ msgstr "Azonosító"
 msgid "QR Code"
 msgstr "QR-kód"
 
-#: ui/mediasettingsview.ui:24
-msgid "Audio Settings"
-msgstr "Hangbeállítások"
+#: ui/mediasettingsview.ui:28
+msgid "Audio"
+msgstr "Hang"
 
-#: ui/mediasettingsview.ui:40
-msgid "Audio manager:"
-msgstr "Hangkezelő:"
+#: ui/mediasettingsview.ui:67
+msgid "Audio manager"
+msgstr ""
 
-#: ui/mediasettingsview.ui:52
-msgid "Ringtone device:"
-msgstr "Csengőhang eszköz:"
+#: ui/mediasettingsview.ui:104
+msgid "Ringtone device"
+msgstr ""
 
-#: ui/mediasettingsview.ui:64
-msgid "Output device:"
-msgstr "Kimeneti eszköz:"
+#: ui/mediasettingsview.ui:141
+msgid "Output device"
+msgstr ""
 
-#: ui/mediasettingsview.ui:76
-msgid "Input device:"
-msgstr "Beviteli eszköz:"
+#: ui/mediasettingsview.ui:178
+msgid "Input device"
+msgstr ""
 
-#: ui/mediasettingsview.ui:88
-msgid "Input volume meter:"
-msgstr "Bemeneti hangerő mérő:"
+#: ui/mediasettingsview.ui:215
+msgid "Input volume meter"
+msgstr ""
 
-#: ui/mediasettingsview.ui:156
-msgid "Camera Settings"
-msgstr "Videobeállítások"
+#: ui/mediasettingsview.ui:251
+msgid "Video"
+msgstr "Videó"
 
-#: ui/mediasettingsview.ui:172
-msgid "Device:"
-msgstr "Eszköz:"
+#: ui/mediasettingsview.ui:293
+msgid "No camera detected"
+msgstr ""
 
-#: ui/mediasettingsview.ui:184
-msgid "Channel:"
-msgstr "Csatorna:"
+#: ui/mediasettingsview.ui:339
+msgid "Device"
+msgstr "Eszköz"
 
-#: ui/mediasettingsview.ui:196
-msgid "Resolution:"
-msgstr "Felbontás:"
+#: ui/mediasettingsview.ui:375
+msgid "Channel"
+msgstr ""
 
-#: ui/mediasettingsview.ui:208
-msgid "Frame rate:"
-msgstr "Képkockasebesség:"
+#: ui/mediasettingsview.ui:411
+msgid "Resolution"
+msgstr "Felbontás"
 
-#: ui/mediasettingsview.ui:266
-msgid "Hardware Acceleration"
-msgstr "Hardveres gyorsítás"
+#: ui/mediasettingsview.ui:447
+msgid "Framerate"
+msgstr ""
 
-#: ui/mediasettingsview.ui:282
-msgid "Enable hardware acceleration:"
+#: ui/mediasettingsview.ui:484
+msgid "Enable hardware acceleration"
 msgstr "Hardveres gyorsítás engedélyezése"
 
 #: ui/newaccountsettingsview.ui:15

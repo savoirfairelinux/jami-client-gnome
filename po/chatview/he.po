@@ -5,6 +5,7 @@
 # 
 # Translators:
 # GenghisKhan <genghiskhan@gmx.ca>, 2019
+# Sruli Saurymper <sruli@saurymper.com>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-25 14:38+0200\n"
 "PO-Revision-Date: 2019-05-27 14:08+0000\n"
-"Last-Translator: GenghisKhan <genghiskhan@gmx.ca>, 2019\n"
+"Last-Translator: Sruli Saurymper <sruli@saurymper.com>, 2020\n"
 "Language-Team: Hebrew (https://www.transifex.com/savoirfairelinux/teams/49466/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,19 +24,19 @@ msgstr ""
 
 #: web/chatview.html:181
 msgid "Hide chat view"
-msgstr ""
+msgstr "הסתר תצוגת צ'ט"
 
 #: web/chatview.html:182
 msgid "Place video call"
-msgstr ""
+msgstr "בצע שיחת וידאו"
 
 #: web/chatview.html:183
 msgid "Place audio call"
-msgstr ""
+msgstr "בצע שיחה קולית"
 
 #: web/chatview.html:184
 msgid "Add to conversations"
-msgstr ""
+msgstr "הוסף לשיחות"
 
 #: web/chatview.html:185
 msgid "Unban contact"
@@ -47,7 +48,7 @@ msgstr "שלח"
 
 #: web/chatview.html:187
 msgid "SendFile"
-msgstr ""
+msgstr "שלח קובץ"
 
 #: web/chatview.html:188 web/chatview.html:933
 msgid "Accept"
@@ -55,52 +56,52 @@ msgstr "קבל"
 
 #: web/chatview.html:189 web/chatview.html:943
 msgid "Refuse"
-msgstr ""
+msgstr "סרב"
 
 #: web/chatview.html:190
 msgid "Block"
-msgstr ""
+msgstr "חסום"
 
 #: web/chatview.html:194
 msgid "Type a message"
-msgstr ""
+msgstr "הקלד הודעה"
 
 #: web/chatview.html:301
 msgid "Note: an interaction will create a new contact."
-msgstr ""
+msgstr "הערה: אינטראקציה תיצור איש קשר חדש."
 
 #: web/chatview.html:336
 #, javascript-format
 msgid "%s is not in your contacts"
-msgstr ""
+msgstr "%s אינו נמצא באנשי הקשר שלך"
 
 #: web/chatview.html:338
 msgid ""
 "Note: you can automatically accept this invitation by sending a message."
-msgstr ""
+msgstr "הערה: ניתן לקבל הזמנה זו אוטומטית על ידי שליחת הודעה."
 
 #: web/chatview.html:515
 #, javascript-format
 msgid "%d days ago"
-msgstr ""
+msgstr "לפני %d ימים"
 
 #: web/chatview.html:518
 msgid "one day ago"
-msgstr ""
+msgstr "לפני יום"
 
 #: web/chatview.html:523
 #, javascript-format
 msgid "%d hours ago"
-msgstr ""
+msgstr "לפני %d שעות"
 
 #: web/chatview.html:526
 msgid "one hour ago"
-msgstr ""
+msgstr "לפני שעה"
 
 #: web/chatview.html:531
 #, javascript-format
 msgid "%d minutes ago"
-msgstr ""
+msgstr "לפני %d דקות"
 
 #: web/chatview.html:534
 msgid "just now"
@@ -108,11 +109,11 @@ msgstr ""
 
 #: web/chatview.html:634
 msgid "Sending"
-msgstr ""
+msgstr "שולח"
 
 #: web/chatview.html:637
 msgid "Failure"
-msgstr ""
+msgstr "כישלון"
 
 #: web/chatview.html:1286
 msgid "Delete"
@@ -120,4 +121,4 @@ msgstr "מחק"
 
 #: web/chatview.html:1473
 msgid "Retry"
-msgstr ""
+msgstr "נסה שוב"

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-01 03:09-0400\n"
-"PO-Revision-Date: 2020-05-20 15:37+0000\n"
+"POT-Creation-Date: 2020-06-08 03:09-0400\n"
+"PO-Revision-Date: 2020-06-08 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/savoirfairelinux/jami/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -580,56 +580,56 @@ msgstr "المُعرّف"
 msgid "QR Code"
 msgstr ""
 
-#: ui/mediasettingsview.ui:24
-msgid "Audio Settings"
-msgstr "إعدادات الصوت"
-
-#: ui/mediasettingsview.ui:40
-msgid "Audio manager:"
-msgstr "مدير الصوت:"
-
-#: ui/mediasettingsview.ui:52
-msgid "Ringtone device:"
-msgstr "جهاز النغمة:"
-
-#: ui/mediasettingsview.ui:64
-msgid "Output device:"
-msgstr "جهاز الإنتاج:"
-
-#: ui/mediasettingsview.ui:76
-msgid "Input device:"
-msgstr "جهاز الإدخال:"
-
-#: ui/mediasettingsview.ui:88
-msgid "Input volume meter:"
+#: ui/mediasettingsview.ui:28
+msgid "Audio"
 msgstr ""
 
-#: ui/mediasettingsview.ui:156
-msgid "Camera Settings"
-msgstr "إعدادات الكاميرا"
-
-#: ui/mediasettingsview.ui:172
-msgid "Device:"
-msgstr "جهاز:"
-
-#: ui/mediasettingsview.ui:184
-msgid "Channel:"
-msgstr "قناة:"
-
-#: ui/mediasettingsview.ui:196
-msgid "Resolution:"
-msgstr "دقة العرض (resolution):"
-
-#: ui/mediasettingsview.ui:208
-msgid "Frame rate:"
-msgstr "معدل الاطار (frame rate):"
-
-#: ui/mediasettingsview.ui:266
-msgid "Hardware Acceleration"
+#: ui/mediasettingsview.ui:67
+msgid "Audio manager"
 msgstr ""
 
-#: ui/mediasettingsview.ui:282
-msgid "Enable hardware acceleration:"
+#: ui/mediasettingsview.ui:104
+msgid "Ringtone device"
+msgstr ""
+
+#: ui/mediasettingsview.ui:141
+msgid "Output device"
+msgstr ""
+
+#: ui/mediasettingsview.ui:178
+msgid "Input device"
+msgstr ""
+
+#: ui/mediasettingsview.ui:215
+msgid "Input volume meter"
+msgstr ""
+
+#: ui/mediasettingsview.ui:251
+msgid "Video"
+msgstr ""
+
+#: ui/mediasettingsview.ui:293
+msgid "No camera detected"
+msgstr ""
+
+#: ui/mediasettingsview.ui:339
+msgid "Device"
+msgstr ""
+
+#: ui/mediasettingsview.ui:375
+msgid "Channel"
+msgstr ""
+
+#: ui/mediasettingsview.ui:411
+msgid "Resolution"
+msgstr ""
+
+#: ui/mediasettingsview.ui:447
+msgid "Framerate"
+msgstr ""
+
+#: ui/mediasettingsview.ui:484
+msgid "Enable hardware acceleration"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:15
