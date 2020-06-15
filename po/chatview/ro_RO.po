@@ -23,7 +23,7 @@ msgstr ""
 
 #: web/chatview.html:181
 msgid "Hide chat view"
-msgstr "Ascunde chat"
+msgstr "Ascunde mesajele"
 
 #: web/chatview.html:182
 msgid "Place video call"

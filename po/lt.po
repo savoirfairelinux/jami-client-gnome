@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-08 03:09-0400\n"
-"PO-Revision-Date: 2020-06-08 07:09+0000\n"
+"POT-Creation-Date: 2020-06-15 03:09-0400\n"
+"PO-Revision-Date: 2020-06-09 16:29+0000\n"
 "Last-Translator: Moo\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/jami/language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -609,7 +609,7 @@ msgstr "Vaizdas"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
-msgstr ""
+msgstr "Neaptikta jokios kameros"
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
@@ -629,7 +629,7 @@ msgstr "Kadrų dažnis"
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
-msgstr ""
+msgstr "Įjungti aparatinės įrangos spartinimą"
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
@@ -1202,7 +1202,7 @@ msgstr "Slaptažodžiai nesutampa"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Importuoti iš atsarginės kopijos"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:904
@@ -1241,11 +1241,11 @@ msgstr "atverti pokalbį"
 
 #: src/mainwindow.cpp:1056
 msgid "Jami - Migration needed"
-msgstr ""
+msgstr "Jami - Reikalingas perkėlimas"
 
 #: src/mainwindow.cpp:1069
 msgid "Migration in progress... please do not close this window."
-msgstr ""
+msgstr "Vyksta perkėlimas... neužverkite šio lango."
 
 #: src/mainwindow.cpp:1344
 msgctxt ""

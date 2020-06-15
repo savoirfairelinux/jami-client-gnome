@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-08 03:09-0400\n"
+"POT-Creation-Date: 2020-06-15 03:09-0400\n"
 "PO-Revision-Date: 2020-06-08 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"Last-Translator: michelangelo.marchesi2 <michelangelo.marchesi@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/savoirfairelinux/jami/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -583,7 +583,7 @@ msgstr "Codice QR"
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
@@ -607,7 +607,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
@@ -615,7 +615,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
-msgstr ""
+msgstr "Dispositivo"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"

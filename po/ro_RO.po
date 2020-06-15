@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-08 03:09-0400\n"
-"PO-Revision-Date: 2020-06-08 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-06-15 03:09-0400\n"
+"PO-Revision-Date: 2020-06-14 20:18+0000\n"
+"Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,32 +26,32 @@ msgstr "General"
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
 msgid "Open application menu"
-msgstr ""
+msgstr "Deschide meniul aplicației"
 
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr ""
+msgstr "Deschide lista de conturi"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Select search bar"
-msgstr ""
+msgstr "Alege bara de căutare"
 
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Focus the list of conversations"
-msgstr ""
+msgstr "Vezi lista conversațiilor"
 
 #: ui/help-overlay.ui:46
 msgctxt "shortcut window"
 msgid "Focus the list pending requests"
-msgstr ""
+msgstr "Vezi lista cererilor în așteptare"
 
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Dă pe tot ecranul"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -61,12 +61,12 @@ msgstr "Conversații"
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Start a video call"
-msgstr ""
+msgstr "Începe un apel video"
 
 #: ui/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Start an audio call"
-msgstr ""
+msgstr "Începe un apel audio"
 
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
@@ -76,12 +76,12 @@ msgstr "Șterge cronologia"
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr ""
+msgstr "Adaugă conversația"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
-msgstr ""
+msgstr "Elimină conversația"
 
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
@@ -91,27 +91,27 @@ msgstr "Blochează contactul"
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Unblock contact"
-msgstr ""
+msgstr "Deblochează contactul"
 
 #: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
-msgstr ""
+msgstr "Copiază numele contactului"
 
 #: ui/help-overlay.ui:127
 msgctxt "shortcut window"
 msgid "Call"
-msgstr ""
+msgstr "Apel"
 
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
-msgstr ""
+msgstr "Acceptă apelul"
 
 #: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
-msgstr ""
+msgstr "Refuză apelul"
 
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
@@ -121,36 +121,36 @@ msgstr "Reglări"
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
-msgstr ""
+msgstr "Deschide/Închide pagina Reglări"
 
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
-msgstr ""
+msgstr "Deschide Reglări generale"
 
 #: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
-msgstr ""
+msgstr "Deschide Reglări media"
 
 #: ui/help-overlay.ui:174
 msgctxt "shortcut window"
 msgid "Open account settings"
-msgstr ""
+msgstr "Deschide reglările contului"
 
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
-msgstr ""
+msgstr "Mesaje"
 
 #: ui/help-overlay.ui:189
 msgctxt "shortcut window"
 msgid "Write on a new line"
-msgstr ""
+msgstr "Scrie pe un rînd nou"
 
 #: ui/mainwindow.ui:57
 msgid "Menu"
-msgstr ""
+msgstr "Meniu"
 
 #: ui/mainwindow.ui:80
 msgid "General"
@@ -179,11 +179,11 @@ msgstr "Solicitări de contact"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
-msgstr ""
+msgstr "E necesar transferul contului"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "Acest cont este incorect, te rog introdu parola ta"
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
@@ -203,41 +203,41 @@ msgstr "Parolă"
 
 #: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
 msgid "Account manager"
-msgstr "Administrator cont"
+msgstr "Administrare cont"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
 #: src/newaccountsettingsview.cpp:971 src/newaccountsettingsview.cpp:2102
 msgid "Delete account"
-msgstr ""
+msgstr "Șterge contul"
 
 #: ui/accountmigrationview.ui:251
 msgid "Migrate account"
-msgstr ""
+msgstr "Transferă contul"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "Se transferă contul tău Jami..."
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
-msgstr ""
+msgstr "Transferul nu a reușit, parola e greșită?"
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
-msgstr ""
+msgstr "Închide acest apel"
 
 #: ui/currentcallview.ui:255 ui/currentcallview.ui:511
 msgid "End call"
-msgstr ""
+msgstr "Închide apelul"
 
 #: ui/currentcallview.ui:275 ui/currentcallview.ui:493
 msgid "Add participant"
-msgstr ""
+msgstr "Adaugă participant"
 
 #: ui/currentcallview.ui:294
 msgid "Toggle transfer"
-msgstr ""
+msgstr "Act/Dez transferul"
 
 #: ui/currentcallview.ui:313
 msgid "Toggle hold"
@@ -323,7 +323,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr ""
+msgstr "Importă de la o copie de rezervă"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
@@ -331,11 +331,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
-msgstr ""
+msgstr "Avansate..."
 
 #: ui/accountcreationwizard.ui:111
 msgid "Connect to account manager"
-msgstr ""
+msgstr "Conectează-te la Administrare cont"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
@@ -343,7 +343,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
-msgstr ""
+msgstr "Adaugă un cont SIP nou"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
@@ -579,7 +579,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
@@ -603,7 +603,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
@@ -611,7 +611,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
-msgstr ""
+msgstr "Dispozitiv"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
@@ -627,7 +627,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
-msgstr ""
+msgstr "Activează accelerarea hardware"
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
@@ -1097,7 +1097,7 @@ msgstr ""
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "Oprește înregistrarea"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
@@ -1196,11 +1196,11 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Parolele nu se potrivesc"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr ""
+msgstr "Importă de la o copie de rezervă"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:904
@@ -1300,7 +1300,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2654
 msgid "Remove conversation"
-msgstr ""
+msgstr "Elimină conversația"
 
 #: src/mainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
@@ -1484,4 +1484,4 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2102
 msgid "Remove account"
-msgstr ""
+msgstr "Elimină contul"

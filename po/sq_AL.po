@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-08 03:09-0400\n"
-"PO-Revision-Date: 2020-06-08 07:09+0000\n"
+"POT-Creation-Date: 2020-06-15 03:09-0400\n"
+"PO-Revision-Date: 2020-06-08 19:14+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/jami/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -584,23 +584,23 @@ msgstr "Audio"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
-msgstr ""
+msgstr "Përgjegjës tingulli:"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
-msgstr ""
+msgstr "Pajisje zilesh:"
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr ""
+msgstr "Pajisje output-i:"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
-msgstr ""
+msgstr "Pajisje input-i:"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
-msgstr ""
+msgstr "Matës volumi në hyrje:"
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
@@ -608,7 +608,7 @@ msgstr "Video"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
-msgstr ""
+msgstr "S’u pikas kamera"
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
@@ -616,7 +616,7 @@ msgstr "Pajisje"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
-msgstr ""
+msgstr "Kanal"
 
 #: ui/mediasettingsview.ui:411
 msgid "Resolution"
@@ -624,7 +624,7 @@ msgstr "Qartësi"
 
 #: ui/mediasettingsview.ui:447
 msgid "Framerate"
-msgstr ""
+msgstr "Shpejtësi kuadrosh:"
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"

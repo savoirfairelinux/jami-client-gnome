@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-08 03:09-0400\n"
-"PO-Revision-Date: 2020-06-08 07:09+0000\n"
+"POT-Creation-Date: 2020-06-15 03:09-0400\n"
+"PO-Revision-Date: 2020-06-08 14:15+0000\n"
 "Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/jami/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -583,23 +583,23 @@ msgstr "Ljud"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
-msgstr ""
+msgstr "Ljudhanterare"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
-msgstr ""
+msgstr "Ringsignalenhet"
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr ""
+msgstr "Utdataenhet"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
-msgstr ""
+msgstr "Indataenhet"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
-msgstr ""
+msgstr "Volymmätare för indata"
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
@@ -607,7 +607,7 @@ msgstr "Video"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
-msgstr ""
+msgstr "Ingen kamera identifierad"
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
@@ -615,7 +615,7 @@ msgstr "Enhet"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
-msgstr ""
+msgstr "Kanal"
 
 #: ui/mediasettingsview.ui:411
 msgid "Resolution"
@@ -623,11 +623,11 @@ msgstr "Upplösning"
 
 #: ui/mediasettingsview.ui:447
 msgid "Framerate"
-msgstr ""
+msgstr "Bildfrekvens"
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
-msgstr ""
+msgstr "Aktivera hårdvaruacceleration"
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
