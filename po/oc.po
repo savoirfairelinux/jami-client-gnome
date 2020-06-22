@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-15 03:09-0400\n"
-"PO-Revision-Date: 2020-06-08 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-06-22 03:09-0400\n"
+"PO-Revision-Date: 2020-06-21 12:41+0000\n"
+"Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Occitan (post 1500) (http://www.transifex.com/savoirfairelinux/jami/language/oc/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -439,7 +439,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:846
 msgid "This may take a few minutes."
-msgstr ""
+msgstr "Aquò pòt trigar unas minutas."
 
 #: ui/accountcreationwizard.ui:872
 msgid "Retrieving your Jami account…"
@@ -447,7 +447,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
 msgid "OK"
-msgstr ""
+msgstr "D’ACÒRDI"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
@@ -579,11 +579,11 @@ msgstr "Còdi QR"
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
-msgstr ""
+msgstr "Àudio"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
-msgstr ""
+msgstr "Gestionari àudio"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
@@ -591,11 +591,11 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr ""
+msgstr "Periferic de sortida"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
-msgstr ""
+msgstr "Periferic d’entrada"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
@@ -603,7 +603,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
-msgstr ""
+msgstr "Vidèo"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
@@ -611,15 +611,15 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
-msgstr ""
+msgstr "Periferic"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
-msgstr ""
+msgstr "Canal"
 
 #: ui/mediasettingsview.ui:411
 msgid "Resolution"
-msgstr ""
+msgstr "Resolucion"
 
 #: ui/mediasettingsview.ui:447
 msgid "Framerate"
@@ -627,7 +627,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
-msgstr ""
+msgstr "Activar accelaracion materiala"
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
@@ -1027,7 +1027,7 @@ msgstr ""
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami es un logicial liure per comunicacions universalas que respèctan la libertat e la vida privada de sos utilizaires."
 
 #: src/notifier.cpp:336
 msgctxt ""
@@ -1432,11 +1432,11 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"
-msgstr ""
+msgstr "Marrit senhal"
 
 #: src/newaccountsettingsview.cpp:1744
 msgid "Network error, try again"
-msgstr ""
+msgstr "Error ret, tornatz ensajar"
 
 #: src/newaccountsettingsview.cpp:1752
 msgid "Unknown error"

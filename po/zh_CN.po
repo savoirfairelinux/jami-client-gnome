@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-15 03:09-0400\n"
-"PO-Revision-Date: 2020-06-08 07:09+0000\n"
-"Last-Translator: Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>\n"
+"POT-Creation-Date: 2020-06-22 03:09-0400\n"
+"PO-Revision-Date: 2020-06-16 02:21+0000\n"
+"Last-Translator: Tiansworld <tiansworld@fedoraproject.org>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgstr "打开应用程序菜单"
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr "打开帐户列表"
+msgstr "打开账户列表"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
@@ -170,7 +170,7 @@ msgstr "媒体"
 #: ui/mainwindow.ui:113 ui/accountcreationwizard.ui:523
 #: ui/newaccountsettingsview.ui:387
 msgid "Account"
-msgstr "帐户"
+msgstr "账户"
 
 #: ui/mainwindow.ui:150 src/mainwindow.cpp:1840
 msgid "Settings"
@@ -186,11 +186,11 @@ msgstr "联系人请求"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
-msgstr "需要帐户迁移"
+msgstr "需要账户迁移"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr "该帐户格式不正确，请输入密码"
+msgstr "该账户格式不正确，请输入密码"
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
@@ -216,15 +216,15 @@ msgstr "账户管理器"
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
 #: src/newaccountsettingsview.cpp:971 src/newaccountsettingsview.cpp:2102
 msgid "Delete account"
-msgstr "删除帐户"
+msgstr "删除账户"
 
 #: ui/accountmigrationview.ui:251
 msgid "Migrate account"
-msgstr "迁移帐户"
+msgstr "迁移账户"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr "正在迁移您的Jami帐户…"
+msgstr "正在迁移您的 Jami 账户…"
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
@@ -314,11 +314,11 @@ msgstr "欢迎来到"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr "创建本地帐户"
+msgstr "创建本地账户"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr "创建新的Jami帐户（新用户）"
+msgstr "在此设备上创建新的 Jami 账户（新用户）"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
@@ -346,11 +346,11 @@ msgstr "连接到账户管理器"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
-msgstr "通过你的凭据获取你的帐户。"
+msgstr "通过您的凭据获取您的账户。"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
-msgstr "添加SIP帐户"
+msgstr "添加SIP账户"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
@@ -389,7 +389,7 @@ msgstr "下一步"
 #: ui/accountcreationwizard.ui:442 ui/profile.ui:7
 #: ui/newaccountsettingsview.ui:307
 msgid "Profile"
-msgstr "帐户资料"
+msgstr "账户资料"
 
 #: ui/accountcreationwizard.ui:560
 msgid "Register username"
@@ -406,7 +406,7 @@ msgstr "通过选中此选项，您将在Jami网络上注册唯一的用户名�
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr "该密码用于加密您的帐户数据，以及将其他设备与您的帐户进行连接。"
+msgstr "该密码用于加密您的账户数据，以及将其他设备与您的账户进行连接。"
 
 #: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:854
 msgid "Confirm password"
@@ -414,11 +414,11 @@ msgstr "确认密码"
 
 #: ui/accountcreationwizard.ui:735
 msgid "Generating your Jami account…"
-msgstr "正在生成您的Jami帐户…"
+msgstr "正在生成您的Jami账户…"
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr "备份您的帐户！"
+msgstr "备份您的账户！"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
@@ -434,7 +434,7 @@ msgstr "不再向我显示这个"
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
 msgid "Export account"
-msgstr "导出帐户"
+msgstr "导出账户"
 
 #: ui/accountcreationwizard.ui:813
 msgid "Skip"
@@ -450,7 +450,7 @@ msgstr "可能需要数分钟。"
 
 #: ui/accountcreationwizard.ui:872
 msgid "Retrieving your Jami account…"
-msgstr "正在获取您的Jami帐户…"
+msgstr "正在获取您的Jami账户…"
 
 #: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
 msgid "OK"
@@ -562,15 +562,15 @@ msgstr "文件传输"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
-msgstr ""
+msgstr "允许接收来自未知联系人的文件"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
-msgstr ""
+msgstr "自动接收文件"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr ""
+msgstr "允许低于设定值的传输（单位 Mb，0 = 不限制）"
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -590,23 +590,23 @@ msgstr "音频"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
-msgstr ""
+msgstr "音频管理器"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
-msgstr ""
+msgstr "响铃设备"
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr ""
+msgstr "输出设备"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
-msgstr ""
+msgstr "输入设备"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
-msgstr ""
+msgstr "输入音量显示"
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
@@ -614,7 +614,7 @@ msgstr "视频"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
-msgstr ""
+msgstr "未监测到摄像头"
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
@@ -622,7 +622,7 @@ msgstr "设备"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
-msgstr ""
+msgstr "通道"
 
 #: ui/mediasettingsview.ui:411
 msgid "Resolution"
@@ -630,7 +630,7 @@ msgstr "分辨率"
 
 #: ui/mediasettingsview.ui:447
 msgid "Framerate"
-msgstr ""
+msgstr "帧率"
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
@@ -649,7 +649,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr "要在新设备上添加您的Jami帐户，您需要使用Jami导出该帐户。您会获得一个PIN，并且有5分钟时间将该PIN码输入您的新设备。"
+msgstr "要在新设备上添加您的Jami账户，您需要使用Jami导出该账户。您会获得一个PIN，并且有5分钟时间将该PIN码输入您的新设备。"
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -721,7 +721,7 @@ msgstr "呼叫设置"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "允许未知联系人的来电"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
@@ -969,7 +969,7 @@ msgstr "正在进行查找…"
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
-msgstr "输入您的Jami帐户密码"
+msgstr "输入您的Jami账户密码"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
@@ -1185,11 +1185,11 @@ msgstr "（无）"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr "创建帐户期间发生错误。"
+msgstr "创建账户期间发生错误。"
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr "无法获取任何帐户，请验证您的PIN码和密码。"
+msgstr "无法获取任何账户，请验证您的 PIN 码和密码。"
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
@@ -1224,15 +1224,15 @@ msgstr "输入密码以导出归档"
 
 #: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Account exported!"
-msgstr "帐户已导出！"
+msgstr "账户已导出！"
 
 #: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Export account failure."
-msgstr "导出帐户失败。"
+msgstr "导出账户失败。"
 
 #: src/mainwindow.cpp:192
 msgid "Add account…"
-msgstr "添加帐户…"
+msgstr "添加账户…"
 
 #: src/mainwindow.cpp:846
 msgctxt "button next to search entry will place a new call"
@@ -1363,7 +1363,7 @@ msgstr "退出"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr "警告！此操作将从此设备上删除该帐户！\n注意：此操作无法撤消。同时，您也会失去已注册的用户名！"
+msgstr "警告！此操作将从此设备上删除该账户！\n注意：此操作无法撤消。同时，您也会失去已注册的用户名！"
 
 #: src/currentcallview.cpp:969
 msgid "Current conference (all accounts)"
@@ -1435,7 +1435,7 @@ msgstr "新密码"
 
 #: src/newaccountsettingsview.cpp:1711
 msgid "Exporting account…"
-msgstr "正在导出帐户…"
+msgstr "正在导出账户…"
 
 #: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"

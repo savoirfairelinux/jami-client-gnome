@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-15 03:09-0400\n"
-"PO-Revision-Date: 2020-06-08 07:09+0000\n"
-"Last-Translator: Masahiko Imanaka <chimantaea_mirabilis@yahoo.co.jp>\n"
+"POT-Creation-Date: 2020-06-22 03:09-0400\n"
+"PO-Revision-Date: 2020-06-19 19:40+0000\n"
+"Last-Translator: 323484\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/jami/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -594,11 +594,11 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr ""
+msgstr "出力デバイス"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
-msgstr ""
+msgstr "入力デバイス"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
@@ -618,7 +618,7 @@ msgstr "デバイス"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
-msgstr ""
+msgstr "チャンネル"
 
 #: ui/mediasettingsview.ui:411
 msgid "Resolution"
@@ -626,11 +626,11 @@ msgstr "解像度"
 
 #: ui/mediasettingsview.ui:447
 msgid "Framerate"
-msgstr ""
+msgstr "フレームレート"
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
-msgstr ""
+msgstr "ハードウェアアクセラレーションを有効化"
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"

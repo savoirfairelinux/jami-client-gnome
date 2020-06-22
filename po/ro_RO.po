@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-15 03:09-0400\n"
-"PO-Revision-Date: 2020-06-14 20:18+0000\n"
+"POT-Creation-Date: 2020-06-22 03:09-0400\n"
+"PO-Revision-Date: 2020-06-21 19:17+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -141,7 +141,7 @@ msgstr "Deschide reglările contului"
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
-msgstr "Mesaje"
+msgstr "Vezi discuția"
 
 #: ui/help-overlay.ui:189
 msgctxt "shortcut window"
@@ -241,7 +241,7 @@ msgstr "Act/Dez transferul"
 
 #: ui/currentcallview.ui:313
 msgid "Toggle hold"
-msgstr ""
+msgstr "Act/Dez așteptarea"
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:342
 #: ui/currentcallview.ui:484
@@ -250,84 +250,84 @@ msgstr "Așteptare"
 
 #: ui/currentcallview.ui:338
 msgid "Toggle mute audio"
-msgstr ""
+msgstr "Act/Dez audio"
 
 #: ui/currentcallview.ui:363
 msgid "Toggle mute video"
-msgstr ""
+msgstr "Act/Dez video fără sonor"
 
 #: ui/currentcallview.ui:367 ui/currentcallview.ui:475
 msgid "Mute video"
-msgstr ""
+msgstr "Video fără sonor"
 
 #: ui/currentcallview.ui:388
 msgid "Toggle recording"
-msgstr ""
+msgstr "Act/Dez înregistrarea"
 
 #: ui/currentcallview.ui:391 ui/currentcallview.ui:529
 #: ui/messagingwidget.ui:29 src/chatview.cpp:348
 msgid "Record"
-msgstr ""
+msgstr "Înregistrează"
 
 #: ui/currentcallview.ui:412
 msgid "Adjust outgoing video quality"
-msgstr ""
+msgstr "Reglează calitatea video în ieșire"
 
 #: ui/currentcallview.ui:417 ui/currentcallview.ui:520
 msgid "Video quality"
-msgstr ""
+msgstr "Calitate video"
 
 #: ui/currentcallview.ui:436
 msgid "Toggle show chat"
-msgstr ""
+msgstr "Act/Dez arată discuția"
 
 #: ui/currentcallview.ui:440 ui/currentcallview.ui:457
 msgid "Chat"
-msgstr ""
+msgstr "Discuție"
 
 #: ui/currentcallview.ui:466
 msgid "Mute audio"
-msgstr ""
+msgstr "Fără sonor"
 
 #: ui/currentcallview.ui:502
 msgid "Transfer"
-msgstr ""
+msgstr "Transferă"
 
 #: ui/currentcallview.ui:552
 msgid "Transfer to"
-msgstr ""
+msgstr "Transferă către"
 
 #: ui/currentcallview.ui:616
 msgid "Add"
-msgstr ""
+msgstr "Adaugă"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
-msgstr ""
+msgstr "Bine ai venit pe"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr ""
+msgstr "Creează un cont local"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Creează un cont Jami nou pe acest dispozitiv (pentru utilizatori noi)"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
-msgstr ""
+msgstr "Importă din dispozitiv"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "Importă un cont cu codul PIN generat pe alt dispozitiv"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Import from archive backup"
-msgstr "Importă de la o copie de rezervă"
+msgstr "Importă dintr-o copie de rezervă"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "Importă un cont dintr-o arhivă"
 
 #: ui/accountcreationwizard.ui:100
 msgid "Advanced…"
@@ -339,7 +339,7 @@ msgstr "Conectează-te la Administrare cont"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
-msgstr ""
+msgstr "Obține contul cu datele de autentificare"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
@@ -347,11 +347,11 @@ msgstr "Adaugă un cont SIP nou"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
-msgstr ""
+msgstr "Arhivă"
 
 #: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
 msgid "Informations."
-msgstr ""
+msgstr "Informații."
 
 #: ui/accountcreationwizard.ui:287
 msgid "PIN"
@@ -361,23 +361,23 @@ msgstr "PIN"
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Poți obține o arhivă făcînd clic pe \"Exportă contul\" în reglările contului. Asta va crea un fișier .gz pe dispozitiv."
 
 #: ui/accountcreationwizard.ui:382
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr ""
+msgstr "Pentru a obține un cod PIN (valabil 10 minute), trebuie să deschizi reglările contului pe celălalt dispozitiv și să faci clic pe \"Conectează la alt dispozitiv\"."
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
 msgid "Previous"
-msgstr ""
+msgstr "Înapoi"
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:711
 #: ui/accountcreationwizard.ui:1092
 msgid "Next"
-msgstr "Următorul"
+msgstr "Înainte"
 
 #: ui/accountcreationwizard.ui:442 ui/profile.ui:7
 #: ui/newaccountsettingsview.ui:307
@@ -386,32 +386,32 @@ msgstr "Profil"
 
 #: ui/accountcreationwizard.ui:560
 msgid "Register username"
-msgstr ""
+msgstr "Înregistrează numele de utilizator"
 
 #: ui/accountcreationwizard.ui:561
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Dacă bifezi asta, vei înregistra un nume de utilizator unic în rețeaua Jami. Ceilalți îl pot folosi ca să te contacteze  în loc de ID-ul tău de 40 de caractere."
 
 #: ui/accountcreationwizard.ui:625
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "Această parolă va fi folosită pentru cifrarea datelor contului tău și pentru a conecta dispozitive noi la contul tău."
 
 #: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:854
 msgid "Confirm password"
-msgstr ""
+msgstr "Confirmă parola"
 
 #: ui/accountcreationwizard.ui:735
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "Se creează contul tău Jami..."
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr ""
+msgstr "Fă o copie de rezervă a contului!"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
@@ -427,7 +427,7 @@ msgstr "Nu îmi mai arăta asta"
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
 #: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
 msgid "Export account"
-msgstr "Exportă cont"
+msgstr "Exportă contul"
 
 #: ui/accountcreationwizard.ui:813
 msgid "Skip"
@@ -435,15 +435,15 @@ msgstr "Omite"
 
 #: ui/accountcreationwizard.ui:839
 msgid "Registering username…"
-msgstr ""
+msgstr "Se înregistrează numele de utilizator..."
 
 #: ui/accountcreationwizard.ui:846
 msgid "This may take a few minutes."
-msgstr ""
+msgstr "Aceasta poate dura cîteva minute."
 
 #: ui/accountcreationwizard.ui:872
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "Se recuperează contul tău Jami..."
 
 #: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
 msgid "OK"
@@ -451,19 +451,19 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "Autentificare"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
-msgstr ""
+msgstr "Comenzi _Rapide"
 
 #: ui/gearsmenu.ui:11
 msgid "_About"
-msgstr ""
+msgstr "_Despre"
 
 #: ui/gearsmenu.ui:17
 msgid "_Quit"
-msgstr ""
+msgstr "_Ieși"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
@@ -471,83 +471,83 @@ msgstr "Sistem"
 
 #: ui/generalsettingsview.ui:96
 msgid "Start application on login"
-msgstr ""
+msgstr "Deschide Jami la autentificare"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr ""
+msgstr "Menține Jami activ cînd fereastra e închisă."
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
+msgstr "Adu Jami în prim-plan la apelurile primite"
 
 #: ui/generalsettingsview.ui:204
 msgid "Notifications"
-msgstr ""
+msgstr "Notificări"
 
 #: ui/generalsettingsview.ui:243
 msgid "Enable notifications for incoming calls"
-msgstr ""
+msgstr "Activează notificările pentru apelurile primite"
 
 #: ui/generalsettingsview.ui:279
 msgid "Enable notifications for pending requests"
-msgstr ""
+msgstr "Activează notificările pentru cererile în așteptare"
 
 #: ui/generalsettingsview.ui:315
 msgid "Enable notifications for new chat messages"
-msgstr ""
+msgstr "Activează notificările pentru noile mesaje"
 
 #: ui/generalsettingsview.ui:351
 msgid "Chatview"
-msgstr ""
+msgstr "Vezi discuția"
 
 #: ui/generalsettingsview.ui:390
 msgid "Show typing indications"
-msgstr ""
+msgstr "Arată indicator de scriere"
 
 #: ui/generalsettingsview.ui:426
 msgid "Display images and videos into the chatview"
-msgstr ""
+msgstr "Afișează imagini și video în discuție"
 
 #: ui/generalsettingsview.ui:463
 msgid "Show chatview on the right (on the bottom if off)"
-msgstr ""
+msgstr "Arată discuția în dreapta (jos, dacă e dezactivată)"
 
 #: ui/generalsettingsview.ui:500
 msgid "Download folder"
-msgstr ""
+msgstr "Dosarul descărcării"
 
 #: ui/generalsettingsview.ui:537
 msgid "History"
-msgstr ""
+msgstr "Cronologie"
 
 #: ui/generalsettingsview.ui:576
 msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
+msgstr "Păstrează cronologia  (zile, 0 = nelimitat)"
 
 #: ui/generalsettingsview.ui:606
 msgid "Clear all history"
-msgstr ""
+msgstr "Șterge toată cronologia"
 
 #: ui/generalsettingsview.ui:638
 msgid "Call Recording"
-msgstr ""
+msgstr "Se înregistrează apelul"
 
 #: ui/generalsettingsview.ui:676
 msgid "Record local video"
-msgstr ""
+msgstr "Înregistrează video local"
 
 #: ui/generalsettingsview.ui:712
 msgid "Always record calls"
-msgstr ""
+msgstr "Înregistrează mereu apelurile"
 
 #: ui/generalsettingsview.ui:749
 msgid "Record folder"
-msgstr ""
+msgstr "Dosarul înregistrării"
 
 #: ui/generalsettingsview.ui:786
 msgid "Bitrate for call recordings (kb/s)"
-msgstr ""
+msgstr "Bitrate pentru înregistrări de apeluri (kb/s)"
 
 #: ui/generalsettingsview.ui:824
 msgid "File transfer"
@@ -555,27 +555,27 @@ msgstr "Transfer de fișier"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
-msgstr ""
+msgstr "Permite fișierele primite de la contacte necunoscute"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
-msgstr ""
+msgstr "Acceptă automat fișierele primite"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr ""
+msgstr "Acceptă transferul mai mic decît (în Mb, 0 = nelimitat)"
 
 #: ui/profile.ui:58
 msgid "Informations"
-msgstr ""
+msgstr "Informații"
 
 #: ui/profile.ui:88 ui/newaccountsettingsview.ui:433
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "Cod QR"
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
@@ -583,23 +583,23 @@ msgstr "Audio"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
-msgstr ""
+msgstr "Administrare Audio"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
-msgstr ""
+msgstr "Dispozitiv pentru sonerie"
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr ""
+msgstr "Dispozitiv de ieșire"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
-msgstr ""
+msgstr "Dispozitiv de intrare"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
-msgstr ""
+msgstr "Indicatorul volumului de intrare"
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
@@ -994,7 +994,7 @@ msgstr ""
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr ""
+msgstr "Această operație e ireversibilă. Sigur vrei să ștergi toate discuțiile și cronologia apelurilor?"
 
 #: src/generalsettingsview.cpp:231
 msgid "Choose download folder"
@@ -1200,7 +1200,7 @@ msgstr "Parolele nu se potrivesc"
 
 #: src/accountcreationwizard.cpp:610
 msgid "Import from backup"
-msgstr "Importă de la o copie de rezervă"
+msgstr "Importă dintr-o copie de rezervă"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:904
@@ -1235,7 +1235,7 @@ msgstr ""
 #: src/mainwindow.cpp:849
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr ""
+msgstr "deschide discuția"
 
 #: src/mainwindow.cpp:1056
 msgid "Jami - Migration needed"
@@ -1476,7 +1476,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2046
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2046
 msgid "no password set"

@@ -10,7 +10,7 @@
 # cypherpunks01 cypherpunks01, 2018-2019
 # Dmitri Kazankov <kazankov_dv@outlook.com>, 2018
 # contactobscurantist <gokigen@disroot.org>, 2019
-# Ilia Draga, 2019-2020
+# Elijah Draga, 2019-2020
 # Konstantin, 2016
 # Marat Gubaidullin <marat.gubaidullin@savoirfairelinux.com>, 2015
 # Natalia <sonaux@gmail.com>, 2015
@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-15 03:09-0400\n"
+"POT-Creation-Date: 2020-06-22 03:09-0400\n"
 "PO-Revision-Date: 2020-06-08 07:09+0000\n"
 "Last-Translator: Natalia <sonaux@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
