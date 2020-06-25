@@ -827,10 +827,7 @@ print_text_recording(ChatView *self)
 
     // Read interactions
     if (!priv->conversation_) return;
-    for (const auto& it: priv->conversation_->interactions) {
-        if (!it.second.isRead)
-            (*priv->accountInfo_)->conversationModel->setInteractionRead(priv->conversation_->uid, it.first);
-    }
+    (*priv->accountInfo_)->conversationModel->clearUnreadInteractions(priv->conversation_->uid);
 
     webkit_chat_container_print_history(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
