@@ -9,6 +9,7 @@
     <file preprocess="xml-stripblanks">accountmigrationview.ui</file>
     <file preprocess="xml-stripblanks">newaccountsettingsview.ui</file>
     <file preprocess="xml-stripblanks">mediasettingsview.ui</file>
+    <file preprocess="xml-stripblanks">pluginsettingsview.ui</file>
     <file preprocess="xml-stripblanks">generalsettingsview.ui</file>
     <file preprocess="xml-stripblanks">chatview.ui</file>
     <file preprocess="xml-stripblanks">messagingwidget.ui</file>

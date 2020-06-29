@@ -29,6 +29,7 @@
 
 // Lrc
 #include <api/avmodel.h>
+#include <api/pluginmodel.h>
 #include <api/newaccountmodel.h>
 #include <api/conversationmodel.h>
 #include <api/contact.h>
@@ -46,6 +47,8 @@
 #include <QSize>
 
 #include <set>
+
+#define PLUGIN_ICON_SIZE 20
 
 enum class RowType {
     CONTACT,
@@ -92,6 +95,7 @@ struct CurrentCallViewPrivate
     GtkWidget *togglebutton_muteaudio;
     GtkWidget *togglebutton_mutevideo;
     GtkWidget *togglebutton_add_participant;
+    GtkWidget *togglebutton_activate_plugin;
     GtkWidget *togglebutton_transfer;
     GtkWidget *siptransfer_popover;
     GtkWidget *siptransfer_filter_entry;
@@ -99,6 +103,8 @@ struct CurrentCallViewPrivate
     GtkWidget *add_participant_popover;
     GtkWidget *conversation_filter_entry;
     GtkWidget *list_conversations_invite;
+    GtkWidget *activate_plugin_popover;
+    GtkWidget *list_media_handlers_available;
     GtkWidget *togglebutton_hold;
     GtkWidget *togglebutton_record;
     GtkWidget *button_hangup;
@@ -214,11 +220,15 @@ public:
                AccountInfoPointer const & account_info,
                lrc::api::conversation::Info* conversation,
                lrc::api::AVModel& avModel);
+
     void updateConvList();
+    void updatePluginList();
     void add_transfer_contact(const std::string& uri);
     void add_title(const QString& title);
+    void add_media_handler_title(const QString& title);
     void add_present_contact(const QString& uri, const QString& custom_data, RowType custom_type, const QString& accountId);
     void add_conference(const VectorString& uris, const QString& custom_data, const QString& accountId);
+    void add_media_handler(lrc::api::plugin::MediaHandlerDetails mediaHandlerDetails);
 
     void insertControls();
     void checkControlsFading();
@@ -252,6 +262,8 @@ public:
 
     std::vector<std::string> titles_;
     std::set<std::string> hiddenTitles_;
+    std::vector<std::string> mediaHandlers_;
+    std::set<std::string> hiddenMediaHandlers_;
 
     std::string currentCall_ {};
 private:
@@ -672,6 +684,64 @@ on_search_participant(GtkSearchEntry* search_entry, CurrentCallView* self)
 }
 
 static void
+activate_media_handler(GtkListBox*, GtkListBoxRow* row, CurrentCallView* self)
+{
+    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    auto* label = get_address_label(GTK_LIST_BOX_ROW(row));
+    std::string content = gtk_label_get_text(label);
+    for (auto mediaHandler: priv->cpp->mediaHandlers_) {
+        if (content != mediaHandler) continue;
+        bool isHiddenMediaHandler = priv->cpp->hiddenMediaHandlers_.find(content) != priv->cpp->hiddenMediaHandlers_.end();
+        auto* image = get_image(row);
+        if (!isHiddenMediaHandler) {
+            priv->cpp->hiddenMediaHandlers_.insert(content);
+            gtk_image_set_from_icon_name(image, "pan-up-symbolic", GTK_ICON_SIZE_MENU);
+        } else {
+            priv->cpp->hiddenMediaHandlers_.erase(content);
+            gtk_image_set_from_icon_name(image, "pan-down-symbolic", GTK_ICON_SIZE_MENU);
+        }
+        auto changeState = false;
+        auto rowIdx = 0;
+        while (auto* children = gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_media_handlers_available), rowIdx)) {
+            rowIdx++;
+            if (children == row) {
+                changeState = true;
+                continue;
+            }
+            if (!changeState) continue;
+            auto* mediaHandler = get_address_label(GTK_LIST_BOX_ROW(children));
+            std::string content2 = gtk_label_get_text(mediaHandler);
+            for (auto mediaHandler: priv->cpp->mediaHandlers_) {
+                if (content2 == mediaHandler) return; // Other title, stop here.
+            }
+            if (!isHiddenMediaHandler)
+                gtk_widget_hide(GTK_WIDGET(children));
+            else {
+                gtk_widget_show(GTK_WIDGET(children));
+            }
+        }
+        return;
+    }
+
+    auto rowIdx = 0;
+    while (auto* children = gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_media_handlers_available), rowIdx)) {
+        if (children == row) {
+            QString mediaHandlerID = QString::fromStdString((gchar*)g_object_get_data(G_OBJECT(label), "mediaHandlerID"));
+            priv->cpp->lrc_.getPluginModel().toggleCallMediaHandler(mediaHandlerID);
+            break;
+        }
+        ++rowIdx;
+    }
+
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_popover_popdown(GTK_POPOVER(priv->activate_plugin_popover));
+#else
+    gtk_widget_hide(GTK_WIDGET(priv->activate_plugin_popover));
+#endif
+}
+
+static void
 invite_to_conversation(GtkListBox*, GtkListBoxRow* row, CurrentCallView* self)
 {
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
@@ -793,6 +863,40 @@ filter_transfer_list(CurrentCallView *self)
 }
 
 static void
+media_handler_list(CurrentCallView *self)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+
+    auto row = 0;
+    while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_media_handlers_available), row))) {
+        auto* mediaHandlerName = get_address_label(GTK_LIST_BOX_ROW(children));
+
+        std::string mediaHandlerNameStr = gtk_label_get_text(GTK_LABEL(mediaHandlerName));
+        gtk_widget_show_all(children);
+
+        ++row;
+    }
+}
+
+static void
+on_button_activate_plugin_clicked(CurrentCallView *self)
+{
+    // Show and init list
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(self));
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    priv->cpp->updatePluginList();
+    gtk_popover_set_relative_to(GTK_POPOVER(priv->activate_plugin_popover), GTK_WIDGET(priv->togglebutton_activate_plugin));
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_popover_popdown(GTK_POPOVER(priv->activate_plugin_popover));
+#else
+    gtk_widget_show_all(GTK_WIDGET(priv->activate_plugin_popover));
+#endif
+    gtk_widget_show_all(priv->activate_plugin_popover);
+    media_handler_list(self);
+}
+
+static void
 on_button_add_participant_clicked(CurrentCallView *self)
 {
     // Show and init list
@@ -901,6 +1005,7 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
     gtk_widget_hide(widgets->togglebutton_transfer);
 
     updateConvList();
+    updatePluginList();
 
     g_signal_connect(widgets->conversation_filter_entry, "search-changed", G_CALLBACK(on_search_participant), self);
 
@@ -923,9 +1028,68 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
 }
 
 void
+CppImpl::add_media_handler(lrc::api::plugin::MediaHandlerDetails mediaHandlerDetails)
+{
+    QString bestName = _("Close plugins");
+    if (!mediaHandlerDetails.name.isEmpty())
+    {
+        bestName = mediaHandlerDetails.name;
+    }
+    std::string mediaHandlerID = (mediaHandlerDetails.id).toStdString();
+
+    auto* mediaHandlerImage = gtk_image_new_from_icon_name("edit-delete-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
+    if (!mediaHandlerDetails.iconPath.isEmpty()) {
+        GdkPixbuf* mediaHandlerIcon = gdk_pixbuf_new_from_file_at_size((mediaHandlerDetails.iconPath).toStdString().c_str(), PLUGIN_ICON_SIZE, PLUGIN_ICON_SIZE, NULL);
+        mediaHandlerImage = gtk_image_new_from_pixbuf(mediaHandlerIcon);
+    }
+
+    gchar* text = nullptr;
+    text = g_markup_printf_escaped(
+        "<span font=\"10\">%s</span>",
+        qUtf8Printable(bestName)
+    );
+
+    auto* box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    gtk_widget_set_name(box_item, mediaHandlerID.c_str());
+    auto* info = gtk_label_new(nullptr);
+    gtk_label_set_markup(GTK_LABEL(info), text);
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(mediaHandlerImage));
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(info));
+    g_object_set(G_OBJECT(info), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+
+    g_object_set_data(G_OBJECT(info), "mediaHandlerID", (void*)g_strdup(qUtf8Printable(mediaHandlerDetails.id)));
+
+    gtk_list_box_insert(GTK_LIST_BOX(widgets->list_media_handlers_available), GTK_WIDGET(box_item), -1);
+}
+
+void
+CppImpl::updatePluginList()
+{
+    auto row = 0;
+    while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(widgets->list_media_handlers_available), row))) {
+        gtk_container_remove(GTK_CONTAINER(widgets->list_media_handlers_available), children);
+    }
+
+    add_media_handler_title(_("Available Plugins"));
+
+    auto callMediaHandlers = lrc_.getPluginModel().listCallMediaHandlers();
+
+    if (lrc_.getPluginModel().listCallMediaHandlers().size() > 0)
+    {
+        lrc::api::plugin::MediaHandlerDetails mediaHandlerDetails = lrc::api::plugin::MediaHandlerDetails();
+        add_media_handler(mediaHandlerDetails);
+
+        for(const auto& callMediaHandler : callMediaHandlers)
+        {
+            mediaHandlerDetails = lrc_.getPluginModel().getCallMediaHandlerDetails(callMediaHandler);
+            add_media_handler(mediaHandlerDetails);
+        }
+    }
+}
+
+void
 CppImpl::updateConvList()
 {
-
     auto row = 0;
     while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(widgets->list_conversations_invite), row))) {
         gtk_container_remove(GTK_CONTAINER(widgets->list_conversations_invite), children);
@@ -1025,6 +1189,21 @@ CppImpl::updateConvList()
             }
         } catch (...) {}
     }
+}
+
+void
+CppImpl::add_media_handler_title(const QString& title) {
+    auto* box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    auto* avatar = gtk_image_new_from_icon_name("pan-down-symbolic", GTK_ICON_SIZE_MENU);
+    auto* info = gtk_label_new(nullptr);
+    gtk_label_set_markup(GTK_LABEL(info), qUtf8Printable(title));
+    gtk_widget_set_halign(info, GTK_ALIGN_CENTER);
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(avatar));
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(info));
+    g_object_set(G_OBJECT(info), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+    gtk_list_box_insert(GTK_LIST_BOX(widgets->list_media_handlers_available), GTK_WIDGET(box_item), -1);
+
+    mediaHandlers_.emplace_back(title.toStdString());
 }
 
 void
@@ -1306,7 +1485,6 @@ CppImpl::setCallInfo()
         });
 
 
-
     // catch double click to make full screen
     g_signal_connect(widgets->video_widget, "button-press-event",
                      G_CALLBACK(on_button_press_in_video_event), self);
@@ -1391,11 +1569,13 @@ CppImpl::insertControls()
     /* connect the controllers (new model) */
     g_signal_connect_swapped(widgets->button_hangup, "clicked", G_CALLBACK(on_button_hangup_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_add_participant, "clicked", G_CALLBACK(on_button_add_participant_clicked), self);
+    g_signal_connect_swapped(widgets->togglebutton_activate_plugin, "clicked", G_CALLBACK(on_button_activate_plugin_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_transfer, "clicked", G_CALLBACK(on_button_transfer_clicked), self);
     g_signal_connect_swapped(widgets->siptransfer_filter_entry, "activate", G_CALLBACK(on_siptransfer_filter_activated), self);
     g_signal_connect(widgets->siptransfer_filter_entry, "search-changed", G_CALLBACK(on_siptransfer_text_changed), self);
     g_signal_connect(widgets->list_conversations, "row-activated", G_CALLBACK(transfer_to_conversation), self);
     g_signal_connect(widgets->list_conversations_invite, "row-activated", G_CALLBACK(invite_to_conversation), self);
+    g_signal_connect(widgets->list_media_handlers_available, "row-activated", G_CALLBACK(activate_media_handler), self);
     g_signal_connect_swapped(widgets->togglebutton_hold, "clicked", G_CALLBACK(on_togglebutton_hold_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_muteaudio, "clicked", G_CALLBACK(on_togglebutton_muteaudio_clicked), self);
     g_signal_connect_swapped(widgets->togglebutton_record, "clicked", G_CALLBACK(on_togglebutton_record_clicked), self);
@@ -1745,6 +1925,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_add_participant);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_activate_plugin);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_transfer);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_hold);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_muteaudio);
@@ -1758,6 +1939,8 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, add_participant_popover);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, conversation_filter_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, list_conversations_invite);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, activate_plugin_popover);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, list_media_handlers_available);
 
     details::current_call_view_signals[VIDEO_DOUBLE_CLICKED] = g_signal_new (
         "video-double-clicked",
@@ -1785,6 +1968,13 @@ current_call_view_new(WebKitChatContainer* chat_widget,
     priv->cpp = new details::CppImpl(*view, lrc);
     priv->cpp->init();
     priv->cpp->setup(chat_widget, accountInfo, conversation, avModel);
+
+    // only shows the plugin button if plugins are enabled AND there is any plugin loaded
+    if (priv->cpp->lrc_.getPluginModel().getPluginsEnabled() && priv->cpp->lrc_.getPluginModel().listLoadedPlugins().size() > 0)
+    {
+        gtk_widget_show_all(priv->togglebutton_activate_plugin);
+    }
+
     return GTK_WIDGET(self);
 }
 
