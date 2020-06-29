@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.10"/>
+  <object class="GtkImage" id="image-folder">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="xpad">5</property>
+    <property name="stock">gtk-directory</property>
+  </object>
+  <object class="GtkImage" id="image-add-device">
+    <property name="visible">True</property>
+    <property name="icon_name">list-add-symbolic</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_invite-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Add device</property>
+      </object>
+    </child>
+  </object>
+
+  <template class="PluginSettingsView" parent="GtkScrolledWindow">
+    <property name="visible">True</property>
+
+    <child>
+      <object class="GtkBox" id="vbox_main_columns">
+        <property name="visible">True</property>
+        <property name="spacing">24</property>
+        <property name="border_width">10</property>
+        <property name="orientation">vertical</property>
+        <property name="halign">center</property>
+        <property name="valign">center</property>
+
+        <!-- Plugins settings -->
+        <child>
+          <object class="GtkBox" id="box_plugins_settings">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="halign">fill</property>
+            <property name="spacing">8</property>
+            <!-- Title -->
+            <child>
+              <object class="GtkLabel" id="label_plugins_settings">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Plugins</property>
+                <property name="halign">start</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">out</property>
+                <child>
+                  <object class="GtkListBox" id="at_startup_plugins_settings">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">fill</property>
+                    <property name="selection_mode">none</property>
+
+                    <child>
+                      <!-- Plugins Enabled -->
+                      <object class="GtkListBoxRow" id="at_startup_plugins_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <!-- <property name="halign">fill</property> -->
+                        <child>
+                          <object class="GtkBox" id="at_startup_plugins_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_plugins_enabled">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Enable plugins</property>
+                                <property name="margin_right">12</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="plugins_enabled_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                  </object>
+                </child>
+              </object>
+
+            </child>
+          </object>
+        </child>
+
+        <!-- Plugins List -->
+        <child>
+          <object class="GtkBox" id="vbox_plugins_list">
+            <property name="visible">False</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">8</property>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">horizontal</property>
+                <property name="spacing">10</property>
+                <child>
+                  <object class="GtkLabel" id="plugins_installed">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Installed Plugins</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="button_choose_jpl_file">
+                    <property name="label" translatable="yes">Install Plugin</property>
+                    <property name="image">image-add-device</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">fill</property>
+                  </object>
+                  <packing>
+                    <property name="pack_type">end</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolled_window_installed_plugins">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="hscrollbar_policy">never</property>
+                <property name="shadow_type">in</property>
+                <property name="min_content_height">200</property>
+                <property name="halign">fill</property>
+                <child>
+                  <object class="GtkListBox" id="list_installed_plugins">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+
+    </object>
+    <packing>
+      <property name="expand">True</property>
+      <property name="fill">True</property>
+    </packing>
+  </child>
+
+  </template>
+</interface>
