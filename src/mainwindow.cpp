@@ -2,6 +2,7 @@
  *  Copyright (C) 2015-2020 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *  Author: Guillaume Roguez <guillaume.roguez@savoirfairelinux.com>
+ *  Author : Aline Gondim Santos <aline.gondimsantos@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -32,6 +33,7 @@
 // LRC
 #include <api/account.h>
 #include <api/avmodel.h>
+#include <api/pluginmodel.h>
 #include <api/behaviorcontroller.h>
 #include <api/contact.h>
 #include <api/contactmodel.h>
@@ -53,6 +55,7 @@
 #include "currentcallview.h"
 #include "dialogs.h"
 #include "generalsettingsview.h"
+#include "pluginsettingsview.h"
 #include "incomingcallview.h"
 #include "mediasettingsview.h"
 #include "models/gtkqtreemodel.h"
@@ -103,11 +106,13 @@ struct MainWindowPrivate
     GtkWidget *welcome_view;
     GtkWidget *button_new_conversation;
     GtkWidget *media_settings_view;
+    GtkWidget *plugin_settings_view;
     GtkWidget *new_account_settings_view;
     GtkWidget *general_settings_view;
     GtkWidget *last_settings_view;
     GtkWidget *radiobutton_new_account_settings;
     GtkWidget *radiobutton_general_settings;
+    GtkWidget *radiobutton_plugin_settings;
     GtkWidget *radiobutton_media_settings;
     GtkWidget *account_creation_wizard;
     GtkWidget *account_migration_view;
@@ -159,6 +164,7 @@ static constexpr const char* ACCOUNT_MIGRATION_VIEW_NAME       = "account-migrat
 static constexpr const char* GENERAL_SETTINGS_VIEW_NAME        = "general";
 static constexpr const char* MEDIA_SETTINGS_VIEW_NAME          = "media";
 static constexpr const char* NEW_ACCOUNT_SETTINGS_VIEW_NAME    = "account";
+static constexpr const char* PLUGIN_SETTINGS_VIEW_NAME          = "plugin";
 
 inline namespace helpers
 {
@@ -675,6 +681,21 @@ on_show_general_settings(GtkToggleButton* navbutton, MainWindow* self)
     if (gtk_toggle_button_get_active(navbutton)) {
         gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), GENERAL_SETTINGS_VIEW_NAME);
         priv->last_settings_view = priv->general_settings_view;
+    }
+}
+
+static void
+on_show_plugin_settings(GtkToggleButton* navbutton, MainWindow* self)
+{
+    g_return_if_fail(IS_MAIN_WINDOW(self));
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
+
+    if (gtk_toggle_button_get_active(navbutton)) {
+        plugin_settings_view_show(PLUGIN_SETTINGS_VIEW(priv->plugin_settings_view), TRUE);
+        gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_main_view), PLUGIN_SETTINGS_VIEW_NAME);
+        priv->last_settings_view = priv->plugin_settings_view;
+    } else {
+        plugin_settings_view_show(PLUGIN_SETTINGS_VIEW(priv->plugin_settings_view), FALSE);
     }
 }
 
@@ -1288,6 +1309,10 @@ CppImpl::init()
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->media_settings_view,
                         MEDIA_SETTINGS_VIEW_NAME);
 
+    widgets->plugin_settings_view = plugin_settings_view_new(lrc_->getPluginModel());
+    gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->plugin_settings_view,
+                        PLUGIN_SETTINGS_VIEW_NAME);
+
     if (not accountIds.empty()) {
         widgets->new_account_settings_view = new_account_settings_view_new(accountInfo_, lrc_->getAVModel());
         gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->new_account_settings_view,
@@ -1319,6 +1344,7 @@ CppImpl::init()
     g_signal_connect(widgets->radiobutton_media_settings, "toggled", G_CALLBACK(on_show_media_settings), self);
     g_signal_connect(widgets->radiobutton_general_settings, "toggled", G_CALLBACK(on_show_general_settings), self);
     g_signal_connect(widgets->radiobutton_new_account_settings, "toggled", G_CALLBACK(on_show_new_account_settings), self);
+    g_signal_connect(widgets->radiobutton_plugin_settings, "toggled", G_CALLBACK(on_show_plugin_settings), self);
     g_signal_connect(widgets->notebook_contacts, "switch-page", G_CALLBACK(on_tab_changed), self);
 
     /* welcome/default view */
@@ -1824,6 +1850,9 @@ CppImpl::enterSettingsView()
     if (widgets->last_settings_view == widgets->new_account_settings_view)
         new_account_settings_view_show(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view),
                                        TRUE);
+    /* make sure to start preview if we're showing the video settings */
+    if (widgets->last_settings_view == widgets->plugin_settings_view)
+        plugin_settings_view_show(PLUGIN_SETTINGS_VIEW(widgets->plugin_settings_view), TRUE);
 
     gtk_stack_set_visible_child(GTK_STACK(widgets->stack_main_view), widgets->last_settings_view);
 }
@@ -1845,6 +1874,7 @@ CppImpl::leaveSettingsView()
     media_settings_view_show_preview(MEDIA_SETTINGS_VIEW(widgets->media_settings_view), FALSE);
     new_account_settings_view_show(NEW_ACCOUNT_SETTINGS_VIEW(widgets->new_account_settings_view),
                                    FALSE);
+    plugin_settings_view_show(PLUGIN_SETTINGS_VIEW(widgets->plugin_settings_view), FALSE);
 
     gtk_stack_set_visible_child_name(GTK_STACK(widgets->stack_main_view), CALL_VIEW_NAME);
 
@@ -2873,6 +2903,7 @@ main_window_class_init(MainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, frame_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, button_new_conversation  );
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, radiobutton_general_settings);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, radiobutton_plugin_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, radiobutton_media_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, radiobutton_new_account_settings);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, combobox_account_selector);
