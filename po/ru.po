@@ -21,7 +21,7 @@
 # W. Studinsky, 2019
 # W. Studinsky, 2019-2020
 # Yaroslav Molochko <onorua@gmail.com>, 2015
-# Alexander Filev, 2017
+# AlexanderFilev, 2017
 # Александр Суслов <suslikkreal@gmail.com>, 2015
 # Александр Асланьян <asl174@yandex.ru>, 2015
 # Андрей Шевчук <andrei@shevchuk.co>, 2016-2017
@@ -31,7 +31,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-22 03:09-0400\n"
+"POT-Creation-Date: 2020-06-29 03:09-0400\n"
 "PO-Revision-Date: 2020-06-08 07:09+0000\n"
 "Last-Translator: Natalia <sonaux@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
@@ -1349,7 +1349,7 @@ msgstr "Повторить"
 msgid "Stop"
 msgstr "Стоп"
 
-#: src/chatview.cpp:1019
+#: src/chatview.cpp:1016
 msgid "Send"
 msgstr "Отправить"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-22 03:09-0400\n"
+"POT-Creation-Date: 2020-06-29 03:09-0400\n"
 "PO-Revision-Date: 2020-06-08 07:09+0000\n"
 "Last-Translator: Tiberiu Barna <tikkanu@voicegate.ro>\n"
 "Language-Team: Romanian (http://www.transifex.com/savoirfairelinux/jami/language/ro/)\n"
@@ -1325,7 +1325,7 @@ msgstr ""
 msgid "Stop"
 msgstr "Stop"
 
-#: src/chatview.cpp:1019
+#: src/chatview.cpp:1016
 msgid "Send"
 msgstr "Trimite"
 

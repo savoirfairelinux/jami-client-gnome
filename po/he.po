@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-22 03:09-0400\n"
+"POT-Creation-Date: 2020-06-29 03:09-0400\n"
 "PO-Revision-Date: 2020-06-08 07:09+0000\n"
 "Last-Translator: GenghisKhan <genghiskhan@gmx.ca>\n"
 "Language-Team: Hebrew (http://www.transifex.com/savoirfairelinux/jami/language/he/)\n"
@@ -1327,7 +1327,7 @@ msgstr "נסה שוב"
 msgid "Stop"
 msgstr "עצור"
 
-#: src/chatview.cpp:1019
+#: src/chatview.cpp:1016
 msgid "Send"
 msgstr "שלח"
 

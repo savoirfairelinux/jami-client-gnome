@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-22 03:09-0400\n"
-"PO-Revision-Date: 2020-06-19 19:40+0000\n"
+"POT-Creation-Date: 2020-06-29 03:09-0400\n"
+"PO-Revision-Date: 2020-06-26 20:33+0000\n"
 "Last-Translator: 323484\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/jami/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -829,15 +829,15 @@ msgstr "TURNを使用"
 
 #: ui/newaccountsettingsview.ui:2206
 msgid "(TURN) address"
-msgstr ""
+msgstr "(TURN) アドレス"
 
 #: ui/newaccountsettingsview.ui:2241
 msgid "(TURN) username"
-msgstr ""
+msgstr "(TURN) ユーザー名"
 
 #: ui/newaccountsettingsview.ui:2275
 msgid "(TURN) password"
-msgstr ""
+msgstr "(TURN) パスワード"
 
 #: ui/newaccountsettingsview.ui:2312
 msgid "(TURN) realm"
@@ -849,7 +849,7 @@ msgstr "STUNを使用"
 
 #: ui/newaccountsettingsview.ui:2381
 msgid "(STUN) address"
-msgstr ""
+msgstr "(STUN) アドレス"
 
 #: ui/newaccountsettingsview.ui:2414
 msgid "Published address"
@@ -1329,7 +1329,7 @@ msgstr ""
 msgid "Stop"
 msgstr "停止"
 
-#: src/chatview.cpp:1019
+#: src/chatview.cpp:1016
 msgid "Send"
 msgstr "送信"
 

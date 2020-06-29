@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-22 03:09-0400\n"
+"POT-Creation-Date: 2020-06-29 03:09-0400\n"
 "PO-Revision-Date: 2020-06-16 02:21+0000\n"
 "Last-Translator: Tiansworld <tiansworld@fedoraproject.org>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
@@ -1333,7 +1333,7 @@ msgstr "重试"
 msgid "Stop"
 msgstr "停止"
 
-#: src/chatview.cpp:1019
+#: src/chatview.cpp:1016
 msgid "Send"
 msgstr "发送"
 

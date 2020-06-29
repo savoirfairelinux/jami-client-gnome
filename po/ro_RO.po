@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-22 03:09-0400\n"
-"PO-Revision-Date: 2020-06-21 19:17+0000\n"
+"POT-Creation-Date: 2020-06-29 03:09-0400\n"
+"PO-Revision-Date: 2020-06-28 22:09+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -607,7 +607,7 @@ msgstr "Video"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
-msgstr ""
+msgstr "Nicio videocameră detectată"
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
@@ -615,15 +615,15 @@ msgstr "Dispozitiv"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
-msgstr ""
+msgstr "Canal"
 
 #: ui/mediasettingsview.ui:411
 msgid "Resolution"
-msgstr ""
+msgstr "Rezoluție"
 
 #: ui/mediasettingsview.ui:447
 msgid "Framerate"
-msgstr ""
+msgstr "imagini/sec."
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
@@ -631,26 +631,26 @@ msgstr "Activează accelerarea hardware"
 
 #: ui/newaccountsettingsview.ui:15
 msgid "Add device"
-msgstr ""
+msgstr "Adaugă un dispozitiv"
 
 #: ui/newaccountsettingsview.ui:131
 msgid "Add New Device"
-msgstr ""
+msgstr "Adaugă un nou dispozitiv"
 
 #: ui/newaccountsettingsview.ui:146
 msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "Pentru a adăuga un dispozitiv nou la contul tău Jami, exportă contul pe Jami. Asta va crea un cod PIN care trebuie introdus pe noul dispozitiv în 5 minute de la crearea sa."
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
-msgstr ""
+msgstr "Parolă (obligatoriu):"
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
-msgstr ""
+msgstr "Introdu parola arhivei"
 
 #: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:864
 msgid "Cancel"
@@ -658,23 +658,23 @@ msgstr "Renunță"
 
 #: ui/newaccountsettingsview.ui:211
 msgid "Export on the network"
-msgstr ""
+msgstr "Exportă în rețea"
 
 #: ui/newaccountsettingsview.ui:231
 msgid "Your generated pin:"
-msgstr ""
+msgstr "PIN-ul creat pentru tine:"
 
 #: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
-msgstr ""
+msgstr "Clic pentru a schimba parola"
 
 #: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
-msgstr ""
+msgstr "Activează contul"
 
 #: ui/newaccountsettingsview.ui:670
 msgid "SIP server"
-msgstr ""
+msgstr "Server SIP"
 
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
@@ -698,7 +698,7 @@ msgstr "Conectează alt dispozitiv"
 
 #: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
-msgstr ""
+msgstr "Contacte blocate"
 
 #: ui/newaccountsettingsview.ui:1054
 msgid "Advanced settings"
@@ -706,7 +706,7 @@ msgstr "Reglări avansate"
 
 #: ui/newaccountsettingsview.ui:1090
 msgid "General settings"
-msgstr ""
+msgstr "Reglări generale"
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
@@ -738,7 +738,7 @@ msgstr "Configurare OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1416
 msgid "Auto connect on local network"
-msgstr ""
+msgstr "Conectare automată la rețeaua locală"
 
 #: ui/newaccountsettingsview.ui:1452
 msgid "Bootstrap"
@@ -790,7 +790,7 @@ msgstr "Timp de negociere (secunde)"
 
 #: ui/newaccountsettingsview.ui:1906
 msgid "Verify incoming certificates (server side)"
-msgstr ""
+msgstr "Verifică certificatele primite (partea server)"
 
 #: ui/newaccountsettingsview.ui:1941
 msgid "Verify answer certificates (client side)"
@@ -826,19 +826,19 @@ msgstr "Folosește TURN"
 
 #: ui/newaccountsettingsview.ui:2206
 msgid "(TURN) address"
-msgstr ""
+msgstr "Adresă (TURN)"
 
 #: ui/newaccountsettingsview.ui:2241
 msgid "(TURN) username"
-msgstr ""
+msgstr "Nume de utilizator (TURN)"
 
 #: ui/newaccountsettingsview.ui:2275
 msgid "(TURN) password"
-msgstr ""
+msgstr "Parolă (TURN)"
 
 #: ui/newaccountsettingsview.ui:2312
 msgid "(TURN) realm"
-msgstr ""
+msgstr "Domeniul (TURN)"
 
 #: ui/newaccountsettingsview.ui:2346
 msgid "Use STUN"
@@ -846,7 +846,7 @@ msgstr "Folosește STUN"
 
 #: ui/newaccountsettingsview.ui:2381
 msgid "(STUN) address"
-msgstr ""
+msgstr "Adresă (STUN)"
 
 #: ui/newaccountsettingsview.ui:2414
 msgid "Published address"
@@ -866,7 +866,7 @@ msgstr "Codec video"
 
 #: ui/newaccountsettingsview.ui:2621
 msgid "Enable video"
-msgstr ""
+msgstr "Activează video"
 
 #: ui/newaccountsettingsview.ui:2648
 msgid "Audio codecs"
@@ -878,43 +878,43 @@ msgstr "Negociere Sesiune SDP (folosește ICE în caz de eșec)"
 
 #: ui/newaccountsettingsview.ui:2730
 msgid "Only used during SDP negotiation in case ICE is not supported."
-msgstr ""
+msgstr "Folosit numai în timpul negocierii SDP în caz că ICE nu este acceptat"
 
 #: ui/newaccountsettingsview.ui:2764
 msgid "Audio RTP Min port"
-msgstr ""
+msgstr "Audio RTP Min port"
 
 #: ui/newaccountsettingsview.ui:2799
 msgid "Audio RTP Max port"
-msgstr ""
+msgstr "Audio RTP Max port"
 
 #: ui/newaccountsettingsview.ui:2834
 msgid "Video RTP Min port"
-msgstr ""
+msgstr "Video RTP Min port"
 
 #: ui/newaccountsettingsview.ui:2869
 msgid "Video RTP Max port"
-msgstr ""
+msgstr "Video RTP Max port"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "înregistrează numele de utilizator"
 
 #: ui/chatview.ui:39
 msgid "Send Invitation"
-msgstr ""
+msgstr "Trimite Invitația"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
-msgstr ""
+msgstr "Înregistreză un mesaj audio"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "Termină fără mesaj"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
-msgstr ""
+msgstr "Sosește..."
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
@@ -922,7 +922,7 @@ msgstr "Acceptă"
 
 #: ui/incomingcallview.ui:172
 msgid "Reject"
-msgstr ""
+msgstr "Refuză"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
@@ -930,19 +930,19 @@ msgstr "Fă o poză"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr ""
+msgstr "Alege imaginea din fișier"
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
-msgstr ""
+msgstr "Înapoi"
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
-msgstr ""
+msgstr "Folosește imaginea selectată"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
-msgstr ""
+msgstr "Înregistrează acest nume de utilizator pe serverul de nume"
 
 #: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
@@ -954,41 +954,41 @@ msgstr "Numele de utilizator este greșit"
 
 #: src/usernameregistrationbox.cpp:193
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "Căutarea e indisponibilă, verifică conectarea la rețea"
 
 #: src/usernameregistrationbox.cpp:273
 msgid "Performing lookup…"
-msgstr ""
+msgstr "Căutare în curs..."
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
-msgstr ""
+msgstr "Introdu parola contului tău Jami"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
-msgstr ""
+msgstr "Înregistrare în curs..."
 
 #: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
-msgstr ""
+msgstr "Eroare de înregistrare a numelui"
 
 #: src/usernameregistrationbox.cpp:434
 msgid ""
 "Unable to register name (Invalid name). Your username should contains "
 "between 3 and 32 alphanumerics characters (or underscore)."
-msgstr ""
+msgstr "Numele nu poate fi înregistrat (nume incorect). Numele de utilizator trebuie să conțină între 3 și 32 de caractere alfanumerice (sau _ )."
 
 #: src/usernameregistrationbox.cpp:438
 msgid "Unable to register name (Wrong password)."
-msgstr ""
+msgstr "Numele nu poate fi înregistrat (Parolă greșită)."
 
 #: src/usernameregistrationbox.cpp:442
 msgid "Unable to register name (Username already taken)."
-msgstr ""
+msgstr "Numele nu poate fi înregistrat (Nume de utilizator deja ales)."
 
 #: src/usernameregistrationbox.cpp:446
 msgid "Unable to register name (Network error) - check your connection."
-msgstr ""
+msgstr "Numele nu poate fi înregistrat (Eroare de rețea) - verifică conexiunea."
 
 #: src/generalsettingsview.cpp:161
 msgid ""
@@ -998,30 +998,30 @@ msgstr "Această operație e ireversibilă. Sigur vrei să ștergi toate discuț
 
 #: src/generalsettingsview.cpp:231
 msgid "Choose download folder"
-msgstr ""
+msgstr "Alege dosarul descărcării"
 
 #: src/generalsettingsview.cpp:234 src/avatarmanipulation.cpp:414
 #: src/accountcreationwizard.cpp:757 src/chatview.cpp:284
 #: src/newaccountsettingsview.cpp:907
 msgid "_Cancel"
-msgstr ""
+msgstr "_Anulează"
 
 #: src/generalsettingsview.cpp:236 src/accountcreationwizard.cpp:759
 #: src/chatview.cpp:286 src/newaccountsettingsview.cpp:909
 msgid "_Save"
-msgstr ""
+msgstr "_Salvează"
 
 #: src/welcomeview.cpp:92
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Acesta e numele tău de utilizator Jami.\nCopiază-l și distribuie-l prietenilor!"
 
 #: src/welcomeview.cpp:100
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Acesta e ID-ul tău. \nCopiază-l și distribuie-l prietenilor!"
 
 #: src/welcomeview.cpp:195
 msgid ""
@@ -1032,7 +1032,7 @@ msgstr "Jami este un program liber pentru comunicare universală care respectă 
 #: src/notifier.cpp:336
 msgctxt ""
 msgid "Open conversation"
-msgstr ""
+msgstr "Deschide conversația"
 
 #: src/notifier.cpp:344 src/notifier.cpp:360
 msgctxt ""
@@ -1051,31 +1051,31 @@ msgstr "Refuză"
 
 #: src/video/video_widget.cpp:558
 msgid "Share _screen area"
-msgstr ""
+msgstr "Distribuie _zona ecranului"
 
 #: src/video/video_widget.cpp:566
 msgid "Share _monitor"
-msgstr ""
+msgstr "Distribuie _ecranul"
 
 #: src/video/video_widget.cpp:573
 msgid "Stream _file"
-msgstr ""
+msgstr "Transferă _fișier"
 
 #: src/video/video_widget.cpp:583
 msgid "Show advanced information"
-msgstr ""
+msgstr "Arată informații avansate"
 
 #: src/avatarmanipulation.cpp:411
 msgid "Open Avatar Image"
-msgstr ""
+msgstr "Deschide poza de profil"
 
 #: src/avatarmanipulation.cpp:416 src/chatview.cpp:286
 msgid "_Open"
-msgstr ""
+msgstr "_Deschide"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "Se lucrează..."
 
 #: src/dialogs.c:84
 #, c-format
@@ -1083,17 +1083,17 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Free as in Freedom\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Free as in Freedom\"\nconstruit pe %.25s"
 
 #: src/dialogs.c:137
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami pentru GNOME.\nJami este un program liber pentru comunicare universală care respectă libertățile și intimitatea utilizatorilor săi."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
-msgstr ""
+msgstr "Contactul pare ocupat. Lași un mesaj ?"
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
@@ -1101,98 +1101,98 @@ msgstr "Oprește înregistrarea"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
-msgstr ""
+msgstr "Trimite mesajul înregistrat"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Eroare jami"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr ""
+msgstr "Reconectare la procesul de sistem Jami (dring)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "Imposibilă reconectarea la procesul de sistem Jami (dring).\nJami se va închide acum."
 
 #: src/client_options.c:66
 msgid "Enable debug"
-msgstr ""
+msgstr "Activează depanarea"
 
 #: src/client_options.c:68
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr ""
+msgstr "Restabilește starea ascunsă a ferestrei principale (aplicabilă numai primei instanțe)"
 
 #: src/client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr ""
+msgstr "- Jami pentru GNOME"
 
 #: src/conversationpopupmenu.cpp:199
 msgid "Place _video call"
-msgstr ""
+msgstr "Fă _apel video"
 
 #: src/conversationpopupmenu.cpp:202
 msgid "Place _audio call"
-msgstr ""
+msgstr "Fă _apel audio"
 
 #: src/conversationpopupmenu.cpp:210
 msgid "_Add to conversations"
-msgstr ""
+msgstr "_Adaugă la conversații"
 
 #: src/conversationpopupmenu.cpp:214
 msgid "_Discard invitation"
-msgstr ""
+msgstr "_Refuză invitația"
 
 #: src/conversationpopupmenu.cpp:217
 msgid "_Block invitations"
-msgstr ""
+msgstr "_Blochează invitațiile"
 
 #: src/conversationpopupmenu.cpp:222
 msgid "C_lear history"
-msgstr ""
+msgstr "_Șterge cronologia"
 
 #: src/conversationpopupmenu.cpp:225
 msgid "_Remove conversation"
-msgstr ""
+msgstr "_Elimină conversația"
 
 #: src/conversationpopupmenu.cpp:231
 msgid "_Block contact"
-msgstr ""
+msgstr "_Blochează contactul"
 
 #: src/conversationpopupmenu.cpp:235
 msgid "_Unblock contact"
-msgstr ""
+msgstr "_Deblochează contactul"
 
 #: src/conversationpopupmenu.cpp:242
 msgid "_Profile"
-msgstr ""
+msgstr "_Profil"
 
 #: src/profileview.cpp:111
 msgid "(None)"
-msgstr ""
+msgstr "(Niciunul)"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "O eroare a apărut în timpul creării contului."
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "Nu pot recupera niciun cont, verifică codul PIN și parola."
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Nu pot recupera niciun cont, verifică arhiva și parola."
 
 #: src/accountcreationwizard.cpp:301
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "Nu mă pot conecta la Administrare cont. Verifică datele de autentificare."
 
 #: src/accountcreationwizard.cpp:487
 msgid "Passwords don't match"
@@ -1205,32 +1205,32 @@ msgstr "Importă dintr-o copie de rezervă"
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:904
 msgid "Save File"
-msgstr ""
+msgstr "Salvează Fișierul"
 
 #: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:931
 msgid "You need to enter your password to export the full archive."
-msgstr ""
+msgstr "Trebuie să introduci parola pentru a exporta toată arhiva."
 
 #: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:932
 msgid "Enter password to export archive"
-msgstr ""
+msgstr "Introdu parola pentru exportarea arhivei"
 
 #: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Account exported!"
-msgstr ""
+msgstr "Cont exportat!"
 
 #: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Export account failure."
-msgstr ""
+msgstr "Contul nu a putut fi exportat."
 
 #: src/mainwindow.cpp:192
 msgid "Add account…"
-msgstr ""
+msgstr "Adaugă cont..."
 
 #: src/mainwindow.cpp:846
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr ""
+msgstr "fă apel"
 
 #: src/mainwindow.cpp:849
 msgctxt "button next to search entry will open chat"
@@ -1239,56 +1239,56 @@ msgstr "deschide discuția"
 
 #: src/mainwindow.cpp:1056
 msgid "Jami - Migration needed"
-msgstr ""
+msgstr "Jami - Transfer necesar"
 
 #: src/mainwindow.cpp:1069
 msgid "Migration in progress... please do not close this window."
-msgstr ""
+msgstr "Transfer în curs... nu închide această fereastră."
 
 #: src/mainwindow.cpp:1344
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr ""
+msgstr "Caută sau începe o conversație"
 
 #: src/mainwindow.cpp:1815
 msgid "Leave settings page"
-msgstr ""
+msgstr "Lasă pagina reglărilor"
 
 #: src/mainwindow.cpp:2241
 msgid "There are active calls"
-msgstr ""
+msgstr "Există apeluri în curs"
 
 #: src/mainwindow.cpp:2293
 msgid " is calling you!"
-msgstr ""
+msgstr "te sună!"
 
 #: src/mainwindow.cpp:2296
 msgid "Incoming call"
-msgstr "Apel"
+msgstr "Apel primit"
 
 #: src/mainwindow.cpp:2441
 msgid "New request from "
-msgstr ""
+msgstr "O nouă cerere de la"
 
 #: src/mainwindow.cpp:2444
 msgid "Trust request"
-msgstr ""
+msgstr "Cerere de încredere"
 
 #: src/mainwindow.cpp:2507
 msgid "New message"
-msgstr ""
+msgstr "Mesaj nou"
 
 #: src/mainwindow.cpp:2570
 msgid "Stop current call?"
-msgstr ""
+msgstr "Oprești apelul în curs?"
 
 #: src/mainwindow.cpp:2571
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
-msgstr ""
+msgstr "Un apel e acum în curs. Vrei să închizi fereastra și să oprești toate apelurile în curs?"
 
 #: src/mainwindow.cpp:2638
 msgid "Clear history"
@@ -1296,7 +1296,7 @@ msgstr "Șterge cronologia"
 
 #: src/mainwindow.cpp:2639
 msgid "Do you really want to clear the history of this conversation?"
-msgstr ""
+msgstr "Chiar vrei să ștergi cronologia acestei conversații?"
 
 #: src/mainwindow.cpp:2654
 msgid "Remove conversation"
@@ -1304,7 +1304,7 @@ msgstr "Elimină conversația"
 
 #: src/mainwindow.cpp:2655
 msgid "Do you really want to remove this conversation?"
-msgstr ""
+msgstr "Chiar vrei să ștergi această conversație?"
 
 #: src/mainwindow.cpp:2670
 msgid "Block contact"
@@ -1312,11 +1312,11 @@ msgstr "Blochează contactul"
 
 #: src/mainwindow.cpp:2671
 msgid "Do you really want to block this contact?"
-msgstr ""
+msgstr "Chiar vrei să blochezi acest contact?"
 
 #: src/chatview.cpp:281
 msgid "Send File"
-msgstr ""
+msgstr "Trimite Fișier"
 
 #: src/chatview.cpp:338
 msgid "Retry"
@@ -1324,9 +1324,9 @@ msgstr "Încearcă din nou"
 
 #: src/chatview.cpp:501
 msgid "Stop"
-msgstr ""
+msgstr "Stop"
 
-#: src/chatview.cpp:1019
+#: src/chatview.cpp:1016
 msgid "Send"
 msgstr "Trimite"
 
@@ -1336,54 +1336,54 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Nu pot inițializa.\nFi sigur că procesul de sistem Jami (dring) e activ.\nEroare: %s"
 
 #: src/client.cpp:118
 msgid "Jami Error"
-msgstr ""
+msgstr "Eroare jami"
 
 #: src/client.cpp:395
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "Arată Jami"
 
 #: src/client.cpp:399
 msgid "Quit"
-msgstr ""
+msgstr "Ieși"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:970
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
+msgstr "Atenție! Această acțiune va elimina acest cont de pe acest dispozitiv!\nNotă: această acțiune este ireversibilă și poți pierde numele pe care l-ai înregistrat!"
 
 #: src/currentcallview.cpp:969
 msgid "Current conference (all accounts)"
-msgstr ""
+msgstr "Conferința în curs (toate conturile)"
 
 #: src/currentcallview.cpp:1004
 msgid "Current calls (all accounts)"
-msgstr ""
+msgstr "Apeluri în curs (toate conturile)"
 
 #: src/currentcallview.cpp:1021
 msgid "Online contacts"
-msgstr ""
+msgstr "Contacte conectate"
 
 #: src/currentcallview.cpp:1429
 msgctxt "Enable automatic video quality"
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 #: src/newaccountsettingsview.cpp:601
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Atenție! Această acțiune va deconecta dispozitivul!\nNotă: această acțiune este ireversibilă."
 
 #: src/newaccountsettingsview.cpp:602
 msgid "Enter password to revoke device"
-msgstr ""
+msgstr "Introdu parola pentru a deconecta dispozitivul"
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Edit name"
@@ -1395,11 +1395,11 @@ msgstr "Deconectează dispozitivul"
 
 #: src/newaccountsettingsview.cpp:682
 msgid "Error when revoking device"
-msgstr ""
+msgstr "Eroare la deconectarea dispozitivului"
 
 #: src/newaccountsettingsview.cpp:755
 msgid "Unban"
-msgstr ""
+msgstr "Deblochează"
 
 #: src/newaccountsettingsview.cpp:778 src/newaccountsettingsview.cpp:801
 #: src/newaccountsettingsview.cpp:825 src/newaccountsettingsview.cpp:861
@@ -1408,19 +1408,19 @@ msgstr "Schimbă parola"
 
 #: src/newaccountsettingsview.cpp:791
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "Noua parolă și confirmarea nu sînt la fel!"
 
 #: src/newaccountsettingsview.cpp:802
 msgid "Incorrect password!"
-msgstr ""
+msgstr "Parolă greșită!"
 
 #: src/newaccountsettingsview.cpp:839
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "Notă: asta va schimba parola numai pe acest dispozitiv."
 
 #: src/newaccountsettingsview.cpp:842
 msgid "Current password"
-msgstr ""
+msgstr "Parola actuală"
 
 #: src/newaccountsettingsview.cpp:848
 msgid "New password"
@@ -1428,15 +1428,15 @@ msgstr "Parolă nouă"
 
 #: src/newaccountsettingsview.cpp:1711
 msgid "Exporting account…"
-msgstr ""
+msgstr "Se exportă contul..."
 
 #: src/newaccountsettingsview.cpp:1736
 msgid "Bad password"
-msgstr ""
+msgstr "Parolă incorectă"
 
 #: src/newaccountsettingsview.cpp:1744
 msgid "Network error, try again"
-msgstr ""
+msgstr "Eroare de rețea, încearcă din nou"
 
 #: src/newaccountsettingsview.cpp:1752
 msgid "Unknown error"
@@ -1444,19 +1444,19 @@ msgstr "Eroare necunoscută"
 
 #: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "Nu pot începe exportul către Jami, încearcă din nou"
 
 #: src/newaccountsettingsview.cpp:1824
 msgid "Error: wrong password!"
-msgstr ""
+msgstr "Eroare: parolă greșită!"
 
 #: src/newaccountsettingsview.cpp:1827
 msgid "Error: unknown device!"
-msgstr ""
+msgstr "Eroare: dispozitiv necunoscut!"
 
 #: src/newaccountsettingsview.cpp:2000
 msgid "Initializing…"
-msgstr ""
+msgstr "Inițializare..."
 
 #: src/newaccountsettingsview.cpp:2003
 msgid "Offline"
@@ -1464,7 +1464,7 @@ msgstr "Deconectat"
 
 #: src/newaccountsettingsview.cpp:2006
 msgid "Connecting…"
-msgstr ""
+msgstr "Se conectează..."
 
 #: src/newaccountsettingsview.cpp:2009
 msgid "Online"
@@ -1472,7 +1472,7 @@ msgstr "Conectat"
 
 #: src/newaccountsettingsview.cpp:2013
 msgid "Unknown status"
-msgstr ""
+msgstr "Stare necunoscută"
 
 #: src/newaccountsettingsview.cpp:2046
 msgid "••••••••"
@@ -1480,7 +1480,7 @@ msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2046
 msgid "no password set"
-msgstr ""
+msgstr "nicio parolă aleasă"
 
 #: src/newaccountsettingsview.cpp:2102
 msgid "Remove account"
