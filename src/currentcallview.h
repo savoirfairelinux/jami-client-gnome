@@ -32,6 +32,7 @@ namespace lrc
 namespace api
 {
     class AVModel;
+    class PluginModel;
 namespace conversation
 {
     struct Info;
