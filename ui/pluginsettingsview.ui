@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.10"/>
+  <template class="PluginSettingsView" parent="GtkScrolledWindow">
+    <property name="visible">True</property>
+
+    <child>
+      <object class="GtkBox" id="vbox_main_columns">
+        <property name="visible">True</property>
+        <property name="spacing">24</property>
+        <property name="border_width">10</property>
+        <property name="orientation">vertical</property>
+        <property name="halign">center</property>
+        <property name="valign">center</property>
+        
+        <!-- Plugins settings -->
+        <child>
+          <object class="GtkBox" id="box_plugins_settings">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <property name="halign">fill</property>
+            <property name="spacing">8</property>
+            <!-- Title -->
+            <child>
+              <object class="GtkLabel" id="label_plugins_settings">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Plugins</property>
+                <property name="halign">start</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+            </child>
+            <child>
+              <object class="GtkFrame">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">out</property>
+                <child>
+                  <object class="GtkListBox" id="at_startup_plugins_settings">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">fill</property>
+                    <property name="selection_mode">none</property>
+                    <child>
+                      <!-- Start on login -->
+                      <object class="GtkListBoxRow" id="at_startup_plugins_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="at_startup_plugins_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_plugins_enabled">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Plugins enable</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkSwitch" id="plugins_enabled_button">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <!-- Install plugin -->
+                      <object class="GtkListBoxRow" id="install_plugins_row">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">fill</property>
+                        <child>
+                          <object class="GtkBox" id="install_plugins_box">
+                            <property name="visible">True</property>
+                            <property name="halign">fill</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="margin_left">12</property>
+                            <property name="margin_right">12</property>
+                            <property name="margin_top">12</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="GtkLabel" id="label_install_plugins">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Plugin File</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="button_choose_jpl_file">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="image">image-folder</property>
+                              </object>
+                              <packing>
+                                <property name="pack_type">end</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                  </object>
+                </child>
+              </object>
+
+            </child>
+          </object>
+        </child>
+
+    </object>
+    <packing>
+      <property name="expand">True</property>
+      <property name="fill">True</property>
+    </packing>
+  </child>
+  </template>
+</interface>

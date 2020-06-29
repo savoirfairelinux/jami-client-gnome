@@ -281,6 +281,8 @@ SET( SRC_FILES
    src/dialogs.c
    src/mediasettingsview.h
    src/mediasettingsview.cpp
+   src/pluginsettingsview.h
+   src/pluginsettingsview.cpp
    src/newaccountsettingsview.h
    src/newaccountsettingsview.cpp
    src/generalsettingsview.h
