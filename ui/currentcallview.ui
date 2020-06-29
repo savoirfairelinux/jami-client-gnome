@@ -398,6 +398,25 @@
       </packing>
     </child>
     <child>
+      <object class="GtkToggleButton" id="togglebutton_activate_plugin">
+        <style>
+          <class name="call-button"/>
+        </style>
+        <property name="visible">False</property>
+        <property name="can_focus">True</property>
+        <property name="receives_default">True</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
+        <property name="has_tooltip">True</property>
+        <!-- <property name="tooltip-text" translatable="yes">Plugin</property> -->
+        <property name="image">image_activate_plugin</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <child>
       <object class="GtkScaleButton" id="scalebutton_quality">
         <style>
           <class name="call-button"/>
@@ -491,6 +510,15 @@
     <child internal-child="accessible">
       <object class="AtkObject" id="image_add_participant-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Add participant</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkImage" id="image_activate_plugin">
+    <property name="visible">True</property>
+    <property name="resource">/net/jami/JamiGnome/plugin_white</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_activate_plugin-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">Activate Plugin</property>
       </object>
     </child>
   </object>
@@ -660,6 +688,42 @@
             <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <object class="GtkPopover" id="activate_plugin_popover">
+    <property name="can_focus">False</property>
+    <property name="height_request">200</property>
+    <property name="width_request">300</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">10</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="halign">center</property>
+            <property name="label" translatable="yes">Choose Plugin</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="visible">True</property>
+              <property name="can_focus">True</property>
+              <property name="shadow_type">in</property>
+              <property name="min_content_height">200</property>
+              <property name="halign">fill</property>
+            <child>
+              <object class="GtkListBox" id="list_media_handlers_available">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+              </object>
+            </child>
+          </object>
         </child>
       </object>
     </child>
