@@ -20,6 +20,11 @@
     <property name="icon_name">preferences-system-symbolic</property>
     <property name="icon_size">2</property>
   </object>
+  <object class="GtkImage" id="image_plugin_settings">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="resource">/net/jami/JamiGnome/plugin_settings</property>
+  </object>
   <object class="GtkImage" id="image_history">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -123,6 +128,23 @@
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="radiobutton_plugin_settings">
+                    <property name="label" translatable="yes">Plugin</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="image">image_plugin_settings</property>
+                    <property name="draw_indicator">False</property>
+                    <property name="group">radiobutton_general_settings</property>
+                    <accelerator key="i" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
                 <style>
