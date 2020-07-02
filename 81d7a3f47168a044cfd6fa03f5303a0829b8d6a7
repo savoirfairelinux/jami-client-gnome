@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "408c7472_f81ffc49",
+        "filename": "pixmaps/extension_black_24dp.svg",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-07-02T16:21:40Z",
+      "side": 1,
+      "message": "Use application-x-addon-symbolic and remove this file",
+      "range": {
+        "startLine": 2,
+        "startChar": 127,
+        "endLine": 2,
+        "endChar": 301
+      },
+      "revId": "81d7a3f47168a044cfd6fa03f5303a0829b8d6a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0539192_753976a9",
+        "filename": "pixmaps/pixmaps.gresource.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-07-02T16:21:40Z",
+      "side": 1,
+      "message": "to remove",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 56
+      },
+      "revId": "81d7a3f47168a044cfd6fa03f5303a0829b8d6a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b3bb601_984bc1fc",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-07-02T16:21:40Z",
+      "side": 1,
+      "message": "trailing",
+      "range": {
+        "startLine": 55,
+        "startChar": 9,
+        "endLine": 55,
+        "endChar": 11
+      },
+      "revId": "81d7a3f47168a044cfd6fa03f5303a0829b8d6a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52982025_13fae97e",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-07-02T16:21:40Z",
+      "side": 1,
+      "message": "trailing",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 4
+      },
+      "revId": "81d7a3f47168a044cfd6fa03f5303a0829b8d6a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce63328d_a289fff4",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 694,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-07-02T16:21:40Z",
+      "side": 1,
+      "message": "this button can be hidden if no plugin is available",
+      "range": {
+        "startLine": 694,
+        "startChar": 0,
+        "endLine": 694,
+        "endChar": 22
+      },
+      "revId": "81d7a3f47168a044cfd6fa03f5303a0829b8d6a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "850b051e_805228cb",
+        "filename": "src/currentcallview.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-07-02T16:21:40Z",
+      "side": 1,
+      "message": "Not used",
+      "range": {
+        "startLine": 34,
+        "startChar": 18,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "81d7a3f47168a044cfd6fa03f5303a0829b8d6a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a1acfa_42ebf2e2",
+        "filename": "src/mainwindow.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1314,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-07-02T16:21:40Z",
+      "side": 1,
+      "message": "By default, the account page should be shown. Also I think we should get \"General, Media, Plugins, Account\" instead of \"Account, Plugin\"",
+      "range": {
+        "startLine": 1312,
+        "startChar": 54,
+        "endLine": 1314,
+        "endChar": 51
+      },
+      "revId": "81d7a3f47168a044cfd6fa03f5303a0829b8d6a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c8bd872_002ca32d",
+        "filename": "src/pluginsettingsview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-07-02T16:21:40Z",
+      "side": 1,
+      "message": "incorrect style but it\u0027s a detail",
+      "range": {
+        "startLine": 223,
+        "startChar": 4,
+        "endLine": 225,
+        "endChar": 13
+      },
+      "revId": "81d7a3f47168a044cfd6fa03f5303a0829b8d6a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "561b3fb8_c545f6bb",
+        "filename": "src/pluginsettingsview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-07-02T16:21:40Z",
+      "side": 1,
+      "message": "Uninstall, also the icon should be change to a trash",
+      "range": {
+        "startLine": 268,
+        "startChar": 60,
+        "endLine": 268,
+        "endChar": 66
+      },
+      "revId": "81d7a3f47168a044cfd6fa03f5303a0829b8d6a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
