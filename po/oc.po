@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-29 03:09-0400\n"
-"PO-Revision-Date: 2020-06-21 12:41+0000\n"
+"POT-Creation-Date: 2020-07-06 03:09-0400\n"
+"PO-Revision-Date: 2020-07-02 19:32+0000\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Occitan (post 1500) (http://www.transifex.com/savoirfairelinux/jami/language/oc/)\n"
 "MIME-Version: 1.0\n"
@@ -758,7 +758,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1618
 msgid "Encrypt negotiation (TLS)"
-msgstr ""
+msgstr "Negociacion chiframent (TLS)"
 
 #: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
@@ -774,11 +774,11 @@ msgstr "Clau privada"
 
 #: ui/newaccountsettingsview.ui:1761
 msgid "Private key password"
-msgstr ""
+msgstr "Senhal de clau privada"
 
 #: ui/newaccountsettingsview.ui:1799
 msgid "TLS protocol method"
-msgstr ""
+msgstr "metòde de protocòl TLS"
 
 #: ui/newaccountsettingsview.ui:1835
 msgid "Outgoing TLS server name"
@@ -830,11 +830,11 @@ msgstr "Adreça (TURN)"
 
 #: ui/newaccountsettingsview.ui:2241
 msgid "(TURN) username"
-msgstr ""
+msgstr "nom d’utilizaire (TURN)"
 
 #: ui/newaccountsettingsview.ui:2275
 msgid "(TURN) password"
-msgstr ""
+msgstr "senhal (TURN)"
 
 #: ui/newaccountsettingsview.ui:2312
 msgid "(TURN) realm"
@@ -946,7 +946,7 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
-msgstr ""
+msgstr "Nom d’utilizaire ja pres"
 
 #: src/usernameregistrationbox.cpp:179
 msgid "Invalid username"
@@ -1015,7 +1015,7 @@ msgstr "_Enregistrar"
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Aquò es vòstre nom d’utilizaire Jami.\nCopiatz-lo e partejatz-lo a vòstres amics !"
 
 #: src/welcomeview.cpp:100
 msgid ""
@@ -1089,7 +1089,7 @@ msgstr "« Liure coma dins libertat » \ncompilat lo %.25s"
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "Client GNOME per Jami.\nJami es un logicial liure per comunicacions universalas que respèctan la libertat e la vida privada de sos utilizaires."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -1250,7 +1250,7 @@ msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr ""
+msgstr "Trobar o aviar una conversacion"
 
 #: src/mainwindow.cpp:1815
 msgid "Leave settings page"

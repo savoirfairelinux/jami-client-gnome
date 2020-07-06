@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-29 03:09-0400\n"
-"PO-Revision-Date: 2020-06-28 22:09+0000\n"
+"POT-Creation-Date: 2020-07-06 03:09-0400\n"
+"PO-Revision-Date: 2020-06-30 18:38+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -367,7 +367,7 @@ msgstr "Poți obține o arhivă făcînd clic pe \"Exportă contul\" în reglăr
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr "Pentru a obține un cod PIN (valabil 10 minute), trebuie să deschizi reglările contului pe celălalt dispozitiv și să faci clic pe \"Conectează la alt dispozitiv\"."
+msgstr "Pentru a obține un cod PIN (valabil 10 minute), trebuie să deschizi reglările contului pe celălalt dispozitiv și să faci clic pe \"Asociază alt dispozitiv\"."
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
@@ -399,7 +399,7 @@ msgstr "Dacă bifezi asta, vei înregistra un nume de utilizator unic în rețea
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr "Această parolă va fi folosită pentru cifrarea datelor contului tău și pentru a conecta dispozitive noi la contul tău."
+msgstr "Această parolă va fi folosită pentru cifrarea datelor contului tău și pentru a asocia dispozitive noi contului tău."
 
 #: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:854
 msgid "Confirm password"
@@ -642,7 +642,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr "Pentru a adăuga un dispozitiv nou la contul tău Jami, exportă contul pe Jami. Asta va crea un cod PIN care trebuie introdus pe noul dispozitiv în 5 minute de la crearea sa."
+msgstr "Pentru a adăuga un dispozitiv nou la contul tău Jami, exportă contul pe Jami. Asta va genera un cod PIN care trebuie introdus pe noul dispozitiv în 5 minute de la crearea sa."
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -662,7 +662,7 @@ msgstr "Exportă în rețea"
 
 #: ui/newaccountsettingsview.ui:231
 msgid "Your generated pin:"
-msgstr "PIN-ul creat pentru tine:"
+msgstr "Codul PIN creat pentru tine:"
 
 #: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
@@ -690,11 +690,11 @@ msgstr "Mesagerie Vocală"
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
-msgstr "Dispozitivele cunoscute legate de acest cont Jami"
+msgstr "Dispozitivele cunoscute asociate acestui cont Jami"
 
 #: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
-msgstr "Conectează alt dispozitiv"
+msgstr "Asociază alt dispozitiv"
 
 #: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"

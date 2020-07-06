@@ -5,15 +5,17 @@
 # Translators:
 # Kimmo Kujansuu <mrkujansuu@gmail.com>, 2020
 # Nikolay Korotkiy <sikmir@gmail.com>, 2019
+# nomen omen, 2020
+# nomen omen, 2020
 # Kolmis <pekka.hapuli@gmail.com>, 2016
 # Tuomas Hietala <tuomas.hietala@kapsi.fi>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-29 03:09-0400\n"
-"PO-Revision-Date: 2020-06-08 17:02+0000\n"
-"Last-Translator: Kimmo Kujansuu <mrkujansuu@gmail.com>\n"
+"POT-Creation-Date: 2020-07-06 03:09-0400\n"
+"PO-Revision-Date: 2020-07-03 17:29+0000\n"
+"Last-Translator: nomen omen\n"
 "Language-Team: Finnish (http://www.transifex.com/savoirfairelinux/jami/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +36,7 @@ msgstr "Avaa sovellusvalikko"
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr "Avaa tililuettelo"
+msgstr "Avaa tunnusluettelo"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
@@ -139,7 +141,7 @@ msgstr "Avaa media-asetukset"
 #: ui/help-overlay.ui:174
 msgctxt "shortcut window"
 msgid "Open account settings"
-msgstr "Avaa tiliasetukset"
+msgstr "Avaa Tilin asetukset"
 
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
@@ -186,7 +188,7 @@ msgstr "Vaaditaan tunnuksen siirtoa"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr "Tämä tili on väärin muotoiltu, anna salasanasi"
+msgstr "Tämä tunnus on väärin muotoiltu, anna salasanasi"
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
@@ -310,11 +312,11 @@ msgstr "Tervetuloa"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create local account"
-msgstr "Luo paikallinen tili"
+msgstr "Luo paikallinen tunnus"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr "Luo uusi Jami-tili tälle laitteelle (uusille käyttäjille)"
+msgstr "Luo uusi Jami-tunnus tälle laitteelle (uusille käyttäjille)"
 
 #: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
 msgid "Import from device"
@@ -342,11 +344,11 @@ msgstr "Yhteyden muodostaminen tilinhallintaan"
 
 #: ui/accountcreationwizard.ui:112
 msgid "Get your account via your credentials."
-msgstr "Hanki tilisi tunnistetiedoilla."
+msgstr "Hanki tunnuksesi tunnistetiedoilla."
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
-msgstr "Lisää uusi SIP tunnus"
+msgstr "Lisää uusi SIP-tunnus"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
@@ -364,13 +366,13 @@ msgstr "PIN"
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr "Voit tehdä pakatun varmistuksen napsauttamalla \"Vie tili\" tiliasetuksissa. Tämä luo .gz-tiedoston laitteellesi."
+msgstr "Voit tehdä pakatun varmistuksen napsauttamalla \"Vie tili\"  Tilin asetuksissa. Tämä luo .gz-tiedoston laitteellesi."
 
 #: ui/accountcreationwizard.ui:382
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
-msgstr "PIN-koodin saaminen (voimassa 10 minuuttia) edellyttää, että avaat toisen laitteen tiliasetukset ja napsautat \"Linkitä toiseen laitteeseen\"."
+msgstr "PIN-koodin saaminen (voimassa 10 minuuttia) edellyttää, että avaat Tilin asetukset toisessa laitteessaa napsautat \"Linkitä toiseen laitteeseen\"."
 
 #: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
 #: ui/accountcreationwizard.ui:1084
@@ -410,18 +412,18 @@ msgstr "Varmista salasana"
 
 #: ui/accountcreationwizard.ui:735
 msgid "Generating your Jami account…"
-msgstr "Luodaan Jami-tiliä..."
+msgstr "Luodaan Jami-tunnusta..."
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
-msgstr "Varmuuskopioi tilisi!"
+msgstr "Varmuuskopioi tunnuksesi!"
 
 #: ui/accountcreationwizard.ui:782
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr "Tämä tili on olemassa vain tässä laitteessa. Jos kadotat laitteen tai poistat sovelluksen, tilisi myös poistuu. Voit varmuuskopioida tilisi nyt tai myöhemmin."
+msgstr "Tämä tunnus on olemassa vain tässä laitteessa. Jos kadotat laitteen tai poistat sovelluksen, tunnuksesii myös poistuu. Voit varmuuskopioida tunnuksesi nyt tai myöhemmin."
 
 #: ui/accountcreationwizard.ui:789
 msgid "Never show me this again"
@@ -446,7 +448,7 @@ msgstr "Tämä voi kestää muutaman minuutin."
 
 #: ui/accountcreationwizard.ui:872
 msgid "Retrieving your Jami account…"
-msgstr "Noudetaan Jami-tiliäsi…"
+msgstr "Noudetaan Jami-tunnustasi…"
 
 #: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
 msgid "OK"
@@ -645,7 +647,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr "Jos haluat lisätä uuden laitteen Jami-tiliisi, vie tunnukset Jami-tilillesi. Tämä tuottaa koodin, joka on syötettävä uuteen laitteeseen 5 minuutin kuluessa sen saapumisesta."
+msgstr "Jos haluat lisätä uuden laitteen Jami-tunnukseesi, vie tunnukesi Jami-tunnukseen. Tämä tuottaa koodin, joka on syötettävä uuteen laitteeseen 5 minuutin kuluessa sen saapumisesta."
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -665,7 +667,7 @@ msgstr "Vienti verkossa"
 
 #: ui/newaccountsettingsview.ui:231
 msgid "Your generated pin:"
-msgstr "Sinulle arvottu pin-koodi:"
+msgstr "Sinulle luotu pin-koodi:"
 
 #: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
@@ -673,7 +675,7 @@ msgstr "Vaihda salasana napsauttamalla"
 
 #: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
-msgstr "Hyväksy tili"
+msgstr "Hyväksy tunnus"
 
 #: ui/newaccountsettingsview.ui:670
 msgid "SIP server"
@@ -693,7 +695,7 @@ msgstr "Ääniviesti"
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
-msgstr "Tähän Jami-tiliin linkitetyt laitteet"
+msgstr "Tähän Jami-tunnukseen linkitetyt laitteet"
 
 #: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
@@ -765,11 +767,11 @@ msgstr "Salaa neuvottelu (TLS)"
 
 #: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
-msgstr "CA-sertifikaatti"
+msgstr "CA-varmenne"
 
 #: ui/newaccountsettingsview.ui:1689
 msgid "User certificate"
-msgstr "Käyttäjäsertifikaatti"
+msgstr "Käyttäjävarmenne"
 
 #: ui/newaccountsettingsview.ui:1725
 msgid "Private key"
@@ -793,7 +795,7 @@ msgstr "Neuvottelun aikakatkaisu (sekunteja)"
 
 #: ui/newaccountsettingsview.ui:1906
 msgid "Verify incoming certificates (server side)"
-msgstr "Varmenna saapuvat sertifikaatit (palvelinpuoli)"
+msgstr "Vahvista saapuvat varmenteet (palvelinpuoli)"
 
 #: ui/newaccountsettingsview.ui:1941
 msgid "Verify answer certificates (client side)"
@@ -801,7 +803,7 @@ msgstr "Vahvista varmenteet (asiakaspuoli)"
 
 #: ui/newaccountsettingsview.ui:1976
 msgid "Require a certificate for incoming TLS connections"
-msgstr "Vaadi saapuvilta TLS-yhteyksiltä sertifikaatti"
+msgstr "Vaadi saapuvilta TLS-yhteyksiltä varmenne"
 
 #: ui/newaccountsettingsview.ui:2000
 msgid "Security"
@@ -965,7 +967,7 @@ msgstr "Suoritetaan hakua..."
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
-msgstr "Anna Jami-tilisi salasana"
+msgstr "Anna Jami-tunnuksesi salasana"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
@@ -1181,11 +1183,11 @@ msgstr "(Ei mitään)"
 
 #: src/accountcreationwizard.cpp:289
 msgid "An error occured during the account creation."
-msgstr "Tilin luomisessa tapahtui virhe."
+msgstr "Tunnuksen luomisessa tapahtui virhe."
 
 #: src/accountcreationwizard.cpp:293
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr "Tiliä ei voi noutaa, tarkista PIN-koodisi ja salasanasi."
+msgstr "Tunnusta ei voi noutaa, tarkista PIN-koodisi ja salasanasi."
 
 #: src/accountcreationwizard.cpp:297
 msgid ""
@@ -1220,11 +1222,11 @@ msgstr "Anna salasana viedäksesi arkiston"
 
 #: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Account exported!"
-msgstr "Tili viety!"
+msgstr "Tunnus viety!"
 
 #: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
 msgid "Export account failure."
-msgstr "Tilin vienti epäonnistui"
+msgstr "Tunnuksen vienti epäonnistui"
 
 #: src/mainwindow.cpp:192
 msgid "Add account…"
@@ -1359,7 +1361,7 @@ msgstr "Lopeta"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr "Varoitus! Tämä toiminto poistaa tämän tilin tästä laitteesta!\nHuomautus: tätä toimintoa ei voi kumota. Myös rekisteröity nimi voidaan menettää!"
+msgstr "Varoitus! Tämä toiminto poistaa tämän tunnuksen tästä laitteesta!\nHuomautus: tätä toimintoa ei voi kumota. Myös rekisteröity nimi voidaan menettää!"
 
 #: src/currentcallview.cpp:969
 msgid "Current conference (all accounts)"

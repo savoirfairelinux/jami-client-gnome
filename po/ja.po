@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-29 03:09-0400\n"
-"PO-Revision-Date: 2020-06-26 20:33+0000\n"
+"POT-Creation-Date: 2020-07-06 03:09-0400\n"
+"PO-Revision-Date: 2020-07-05 02:41+0000\n"
 "Last-Translator: 323484\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/jami/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -462,7 +462,7 @@ msgstr "キーボードショートカット (_S)"
 
 #: ui/gearsmenu.ui:11
 msgid "_About"
-msgstr "Ringについて(_A)"
+msgstr "Jami について(_A)"
 
 #: ui/gearsmenu.ui:17
 msgid "_Quit"
@@ -474,15 +474,15 @@ msgstr "システム"
 
 #: ui/generalsettingsview.ui:96
 msgid "Start application on login"
-msgstr ""
+msgstr "ログイン時にアプリを起動"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr ""
+msgstr "ウィンドウを閉じても Jami を有効なままにする"
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
+msgstr "着信時に Jami を最前面に表示"
 
 #: ui/generalsettingsview.ui:204
 msgid "Notifications"
@@ -502,11 +502,11 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:351
 msgid "Chatview"
-msgstr ""
+msgstr "チャット表示"
 
 #: ui/generalsettingsview.ui:390
 msgid "Show typing indications"
-msgstr ""
+msgstr "入力中インジケータを表示"
 
 #: ui/generalsettingsview.ui:426
 msgid "Display images and videos into the chatview"
@@ -526,7 +526,7 @@ msgstr "履歴"
 
 #: ui/generalsettingsview.ui:576
 msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
+msgstr "履歴を保持する期間 (単位は日、0 の場合は無制限)"
 
 #: ui/generalsettingsview.ui:606
 msgid "Clear all history"
@@ -558,11 +558,11 @@ msgstr "ファイル転送"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
-msgstr ""
+msgstr "未知の連絡先からのファイルの受信を許可"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
-msgstr ""
+msgstr "ファイルの受信を自動的に許可"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
@@ -586,7 +586,7 @@ msgstr "音声"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
-msgstr ""
+msgstr "オーディオマネージャー"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
@@ -602,7 +602,7 @@ msgstr "入力デバイス"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
-msgstr ""
+msgstr "入力音量メーター"
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
@@ -610,7 +610,7 @@ msgstr "動画"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
-msgstr ""
+msgstr "カメラが見つかりません"
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
@@ -693,7 +693,7 @@ msgstr "ボイスメール"
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
-msgstr "このJamiアカウントにリンクされている既知のデバイス"
+msgstr "この Jami アカウントにリンクされている既知のデバイス"
 
 #: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
@@ -717,7 +717,7 @@ msgstr "通話設定"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "未知の連絡先からの着信を許可"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
@@ -1030,7 +1030,7 @@ msgstr "これがあなたのIDです。\nコピーして友達とシェアし�
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr "Jamiは、世界中のユーザーと繋がることができるユーザーの自由とプライバシーを尊重したフリーソフトウェアです。"
+msgstr "Jami は、世界中のユーザーと繋がることができるユーザーの自由とプライバシーを尊重したフリーソフトウェアです。"
 
 #: src/notifier.cpp:336
 msgctxt ""
@@ -1253,7 +1253,7 @@ msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr ""
+msgstr "会話の検索と開始"
 
 #: src/mainwindow.cpp:1815
 msgid "Leave settings page"
@@ -1349,7 +1349,7 @@ msgstr ""
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "Jami を表示"
 
 #: src/client.cpp:399
 msgid "Quit"
