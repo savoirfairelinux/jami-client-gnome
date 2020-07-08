@@ -699,9 +699,9 @@ activate_media_handler(GtkListBox*, GtkListBoxRow* row, CurrentCallView* self)
         if (children == row) {
             QString mediaHandlerID = QString::fromStdString((gchar*)g_object_get_data(G_OBJECT(label), "mediaHandlerID"));
 
-            priv->cpp->lrc_.getPluginModel().toggleCallMediaHandler(mediaHandlerID);
-            auto mediaHandlerStatus = priv->cpp->lrc_.getPluginModel().getCallMediaHandlerStatus();
-            if (mediaHandlerStatus["state"] == _("true")) {
+            priv->cpp->lrc_.getPluginModel().toggleCallMediaHandler(priv->cpp->conversation->callId, mediaHandlerID);
+            auto mediaHandlerStatus = priv->cpp->lrc_.getPluginModel().getCallMediaHandlerStatus(priv->cpp->conversation->callId);
+            if (!mediaHandlerStatus["name"].isEmpty()) {
                 text = g_markup_printf_escaped(
                     "<span font=\"10\">%s</span>",
                     qUtf8Printable(_("Deactivate") + labelText)
@@ -1012,11 +1012,11 @@ CppImpl::add_media_handler(lrc::api::plugin::MediaHandlerDetails mediaHandlerDet
     QString bestName = _("No name!");
     auto* mediaHandlerImage = gtk_image_new_from_icon_name("application-x-addon-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
 
-    auto mediaHandlerStatus = lrc_.getPluginModel().getCallMediaHandlerStatus();
+    auto mediaHandlerStatus = lrc_.getPluginModel().getCallMediaHandlerStatus(conversation->callId);
     if (!mediaHandlerDetails.name.isEmpty())
     {
         bestName = _(" Activate ") + mediaHandlerDetails.name;
-        if (mediaHandlerStatus["name"]==mediaHandlerDetails.id && mediaHandlerStatus["state"]==_("true"))
+        if (mediaHandlerStatus["name"] == mediaHandlerDetails.id)
             bestName = _(" Deactivate ") + mediaHandlerDetails.name;
     }
     
