@@ -730,7 +730,7 @@ activate_media_handler(GtkToggleButton* switchBtn, GParamSpec*, CurrentCallView*
 
             priv->cpp->lrc_.getPluginModel().toggleCallMediaHandler(mediaHandlerID);
             auto mediaHandlerStatus = priv->cpp->lrc_.getPluginModel().getCallMediaHandlerStatus();
-            toggled = !mediaHandlerStatus["name"].isEmpty();
+            toggled = !mediaHandlerStatus["name"].isEmpty() && mediaHandlerStatus["name"] == mediaHandlerID;
         }
         gtk_toggle_button_set_active (btn, toggled);
 
@@ -1039,10 +1039,10 @@ CppImpl::add_media_handler(lrc::api::plugin::MediaHandlerDetails mediaHandlerDet
     auto* mediaHandlerImage = gtk_image_new_from_icon_name("application-x-addon-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
 
     auto mediaHandlerStatus = lrc_.getPluginModel().getCallMediaHandlerStatus();
-        auto isActive = false;
+    bool isActive = false;
     if (!mediaHandlerDetails.name.isEmpty()) {
         bestName = mediaHandlerDetails.name;
-        isActive = (mediaHandlerStatus["name"]==mediaHandlerDetails.id && mediaHandlerStatus["state"]==_("true"));
+        isActive = (mediaHandlerStatus["name"] == mediaHandlerDetails.id);
     }
 
     std::string mediaHandlerID = (mediaHandlerDetails.id).toStdString();
