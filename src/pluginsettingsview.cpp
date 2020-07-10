@@ -168,6 +168,13 @@ get_toggle_button_from_row(GtkWidget* row)
     auto current_child = g_list_last(list_iterator)->prev;  // button
     return GTK_WIDGET(current_child->data);
 }
+static GtkWidget*
+get_manage_button_from_row(GtkWidget* row)
+{
+    auto* list_iterator = get_row_iterator(row);
+    auto current_child = g_list_last(list_iterator)->prev->prev;  // button
+    return GTK_WIDGET(current_child->data);    
+}
 
 static void
 uninstall_plugin(GtkButton* button, PluginSettingsView *view)
@@ -222,6 +229,37 @@ toggle_plugin(GtkToggleButton* checkButton, PluginSettingsView *view)
 }
 
 static void
+manage_plugin(GtkButton* button, PluginSettingsView *view)
+{
+    g_return_if_fail(IS_PLUGIN_SETTINGS_VIEW(view));
+    auto* priv = PLUGIN_SETTINGS_VIEW_GET_PRIVATE(view);
+
+    auto row = 0;
+    while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_installed_plugins), row))) {
+        if (GTK_BUTTON(get_manage_button_from_row(children)) == button) {
+            auto plugin = gtk_widget_get_name(GTK_WIDGET(button));
+            auto* top_window = GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view)));
+            auto* manage_dialog = gtk_message_dialog_new(top_window,
+                GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_QUESTION, GTK_BUTTONS_OK_CANCEL,
+                _("You can manage your plugin preferences.\nYour choices will take place once you confirm them!"));
+            gtk_window_set_title(GTK_WINDOW(manage_dialog), _("Apply preferences"));
+            gtk_dialog_set_default_response(GTK_DIALOG(manage_dialog), GTK_RESPONSE_OK);
+
+            auto res = gtk_dialog_run(GTK_DIALOG(manage_dialog));
+            // if (res == GTK_RESPONSE_OK)
+            //     priv->cpp->pluginModel_->unloadPlugin(plugin);
+            //     priv->cpp->pluginModel_->setNewPreferencesPlugin(plugin);
+            //     priv->cpp->pluginModel_->loadPlugin(plugin);
+
+            gtk_widget_destroy(manage_dialog);
+        }
+        ++row;
+    }
+
+    refreshPluginsList(view);
+}
+
+static void
 add_plugin(PluginSettingsView *view, const QString plugin)
 {
     g_return_if_fail(IS_PLUGIN_SETTINGS_VIEW(view));
@@ -269,6 +307,20 @@ add_plugin(PluginSettingsView *view, const QString plugin)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(load_plugin_button), details.loaded);
     g_signal_connect(load_plugin_button, "clicked", G_CALLBACK(toggle_plugin), view);
     gtk_box_pack_end(GTK_BOX(plugin_box), GTK_WIDGET(load_plugin_button), false, false, 0);
+
+    // Add preferences button
+    auto preferences_image = gtk_image_new_from_icon_name("emblem-system-symbolic", GTK_ICON_SIZE_SMALL_TOOLBAR);
+    auto* preferences_plugin_button = gtk_button_new();
+    gtk_widget_set_can_focus(preferences_plugin_button, false);
+    gtk_button_set_relief(GTK_BUTTON(preferences_plugin_button), GTK_RELIEF_NONE);
+    gtk_widget_set_tooltip_text(preferences_plugin_button, _("Manage plugin"));
+    gtk_button_set_image(GTK_BUTTON(preferences_plugin_button), preferences_image);
+    context = gtk_widget_get_style_context(GTK_WIDGET(preferences_plugin_button));
+    gtk_style_context_add_class(context, "transparent-button");
+    gtk_widget_set_name(preferences_plugin_button, label_btn.c_str());
+    g_signal_connect(preferences_plugin_button, "clicked", G_CALLBACK(manage_plugin), view);
+    gtk_box_pack_end(GTK_BOX(plugin_box), GTK_WIDGET(preferences_plugin_button), false, false, 0);
+
 
     // Insert at the end of the list
     gtk_list_box_insert(GTK_LIST_BOX(priv->list_installed_plugins), plugin_box, -1);
