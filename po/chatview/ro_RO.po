@@ -39,7 +39,7 @@ msgstr "Adaugă la conversații"
 
 #: web/chatview.html:185
 msgid "Unban contact"
-msgstr "Deblochează contact"
+msgstr "Deblochează contactul"
 
 #: web/chatview.html:186
 msgid "Send"

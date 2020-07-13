@@ -10,6 +10,7 @@ ui/mediasettingsview.ui
 ui/newaccountsettingsview.ui
 ui/usernameregistrationbox.ui
 ui/webkitchatcontainer.ui
+ui/pluginsettingsview.ui
 ui/chatview.ui
 ui/messagingwidget.ui
 ui/incomingcallview.ui
@@ -17,6 +18,7 @@ ui/avatarmanipulation.ui
 src/conversationsview.cpp
 src/mediasettingsview.cpp
 src/marshals.cpp
+src/pluginsettingsview.cpp
 src/usernameregistrationbox.cpp
 src/generalsettingsview.cpp
 src/utils/files.cpp

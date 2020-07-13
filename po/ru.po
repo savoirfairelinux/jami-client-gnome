@@ -31,9 +31,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-06 03:09-0400\n"
-"PO-Revision-Date: 2020-06-08 07:09+0000\n"
-"Last-Translator: Natalia <sonaux@gmail.com>\n"
+"POT-Creation-Date: 2020-07-13 03:09-0400\n"
+"PO-Revision-Date: 2020-07-13 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -171,32 +171,36 @@ msgctxt "shortcut window"
 msgid "Write on a new line"
 msgstr "Написать в новой строке"
 
-#: ui/mainwindow.ui:57
+#: ui/mainwindow.ui:63
 msgid "Menu"
 msgstr "Меню"
 
-#: ui/mainwindow.ui:80
+#: ui/mainwindow.ui:86
 msgid "General"
 msgstr "Общие"
 
-#: ui/mainwindow.ui:96
+#: ui/mainwindow.ui:102
 msgid "Media"
 msgstr "Медиа"
 
-#: ui/mainwindow.ui:113 ui/accountcreationwizard.ui:523
+#: ui/mainwindow.ui:119
+msgid "Plugin"
+msgstr ""
+
+#: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:523
 #: ui/newaccountsettingsview.ui:387
 msgid "Account"
 msgstr "Аккаунт"
 
-#: ui/mainwindow.ui:150 src/mainwindow.cpp:1840
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1869
 msgid "Settings"
 msgstr "Настройки"
 
-#: ui/mainwindow.ui:271 ui/mainwindow.ui:278
+#: ui/mainwindow.ui:294 ui/mainwindow.ui:301
 msgid "Conversations"
 msgstr "Разговоры"
 
-#: ui/mainwindow.ui:304 ui/mainwindow.ui:311
+#: ui/mainwindow.ui:327 ui/mainwindow.ui:334
 msgid "Contact requests"
 msgstr "Запросы на добавление в контакты"
 
@@ -250,11 +254,11 @@ msgstr "Ошибка переноса, неверный пароль?"
 msgid "End this call"
 msgstr "Завершить этот звонок"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:511
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:539
 msgid "End call"
 msgstr "Завершить вызов"
 
-#: ui/currentcallview.ui:275 ui/currentcallview.ui:493
+#: ui/currentcallview.ui:275 ui/currentcallview.ui:512
 msgid "Add participant"
 msgstr "Добавить участника"
 
@@ -267,7 +271,7 @@ msgid "Toggle hold"
 msgstr "Поставить/снять с удержания"
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:342
-#: ui/currentcallview.ui:484
+#: ui/currentcallview.ui:503
 msgid "Hold"
 msgstr "Удерживать"
 
@@ -279,7 +283,7 @@ msgstr "Включить/выключить звук"
 msgid "Toggle mute video"
 msgstr "Включить/выключить видео"
 
-#: ui/currentcallview.ui:367 ui/currentcallview.ui:475
+#: ui/currentcallview.ui:367 ui/currentcallview.ui:494
 msgid "Mute video"
 msgstr "Отключить видео"
 
@@ -287,42 +291,50 @@ msgstr "Отключить видео"
 msgid "Toggle recording"
 msgstr "Начать/остановить запись"
 
-#: ui/currentcallview.ui:391 ui/currentcallview.ui:529
+#: ui/currentcallview.ui:391 ui/currentcallview.ui:557
 #: ui/messagingwidget.ui:29 src/chatview.cpp:348
 msgid "Record"
 msgstr "Запись"
 
-#: ui/currentcallview.ui:412
+#: ui/currentcallview.ui:431
 msgid "Adjust outgoing video quality"
 msgstr "Настроить качество исходящего видео"
 
-#: ui/currentcallview.ui:417 ui/currentcallview.ui:520
+#: ui/currentcallview.ui:436 ui/currentcallview.ui:548
 msgid "Video quality"
 msgstr "Качество видео"
 
-#: ui/currentcallview.ui:436
+#: ui/currentcallview.ui:455
 msgid "Toggle show chat"
 msgstr "Показать/скрыть чат"
 
-#: ui/currentcallview.ui:440 ui/currentcallview.ui:457
+#: ui/currentcallview.ui:459 ui/currentcallview.ui:476
 msgid "Chat"
 msgstr "Чат"
 
-#: ui/currentcallview.ui:466
+#: ui/currentcallview.ui:485
 msgid "Mute audio"
 msgstr "Отключить звук"
 
-#: ui/currentcallview.ui:502
+#: ui/currentcallview.ui:521
+msgid "Activate Plugin"
+msgstr ""
+
+#: ui/currentcallview.ui:530
 msgid "Transfer"
 msgstr "Переадресация"
 
-#: ui/currentcallview.ui:552
+#: ui/currentcallview.ui:580
 msgid "Transfer to"
 msgstr "Переадресовать на"
 
-#: ui/currentcallview.ui:616
+#: ui/currentcallview.ui:644
 msgid "Add"
 msgstr "Добавить"
+
+#: ui/currentcallview.ui:710 src/pluginsettingsview.cpp:124
+msgid "Choose plugin"
+msgstr ""
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -652,7 +664,7 @@ msgstr "Частота кадров"
 msgid "Enable hardware acceleration"
 msgstr "Включить аппаратное ускорение"
 
-#: ui/newaccountsettingsview.ui:15
+#: ui/newaccountsettingsview.ui:15 ui/pluginsettingsview.ui:15
 msgid "Add device"
 msgstr "Добавить устройство"
 
@@ -923,6 +935,22 @@ msgstr "Максимальный порт RTP для видео"
 msgid "register username"
 msgstr "Зарегистрировать имя пользователя"
 
+#: ui/pluginsettingsview.ui:44
+msgid "Plugins"
+msgstr ""
+
+#: ui/pluginsettingsview.ui:85
+msgid "Enable plugins"
+msgstr ""
+
+#: ui/pluginsettingsview.ui:128
+msgid "Installed Plugins"
+msgstr ""
+
+#: ui/pluginsettingsview.ui:136
+msgid "Install Plugin"
+msgstr ""
+
 #: ui/chatview.ui:39
 msgid "Send Invitation"
 msgstr "Отправить приглашение"
@@ -962,6 +990,32 @@ msgstr "Вернуться"
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
 msgstr "Установить выбранное в качестве изображения"
+
+#: src/pluginsettingsview.cpp:127 src/generalsettingsview.cpp:234
+#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:757
+#: src/chatview.cpp:284 src/newaccountsettingsview.cpp:907
+msgid "_Cancel"
+msgstr "_Отмена"
+
+#: src/pluginsettingsview.cpp:129 src/generalsettingsview.cpp:236
+#: src/accountcreationwizard.cpp:759 src/chatview.cpp:286
+#: src/newaccountsettingsview.cpp:909
+msgid "_Save"
+msgstr "_Сохранить"
+
+#: src/pluginsettingsview.cpp:185
+msgid ""
+"Warning! This action will uninstall the plugin!\n"
+"Note: this action cannot be undone."
+msgstr ""
+
+#: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
+msgid "Uninstall Plugin"
+msgstr ""
+
+#: src/pluginsettingsview.cpp:268
+msgid "Load/Unload Plugin"
+msgstr ""
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
@@ -1022,17 +1076,6 @@ msgstr "Это разрушительная операция. Вы уверен�
 #: src/generalsettingsview.cpp:231
 msgid "Choose download folder"
 msgstr "Выберите папку для загрузок"
-
-#: src/generalsettingsview.cpp:234 src/avatarmanipulation.cpp:414
-#: src/accountcreationwizard.cpp:757 src/chatview.cpp:284
-#: src/newaccountsettingsview.cpp:907
-msgid "_Cancel"
-msgstr "_Отмена"
-
-#: src/generalsettingsview.cpp:236 src/accountcreationwizard.cpp:759
-#: src/chatview.cpp:286 src/newaccountsettingsview.cpp:909
-msgid "_Save"
-msgstr "_Сохранить"
 
 #: src/welcomeview.cpp:92
 msgid ""
@@ -1246,94 +1289,94 @@ msgstr "Аккаунт экспортирован!"
 msgid "Export account failure."
 msgstr "Экспорт аккаунта не выполнен."
 
-#: src/mainwindow.cpp:192
+#: src/mainwindow.cpp:198
 msgid "Add account…"
 msgstr "Добавить аккаунт…"
 
-#: src/mainwindow.cpp:846
+#: src/mainwindow.cpp:867
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "позвонить"
 
-#: src/mainwindow.cpp:849
+#: src/mainwindow.cpp:870
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "открыть чат"
 
-#: src/mainwindow.cpp:1056
+#: src/mainwindow.cpp:1077
 msgid "Jami - Migration needed"
 msgstr "Jami - необходима миграция"
 
-#: src/mainwindow.cpp:1069
+#: src/mainwindow.cpp:1090
 msgid "Migration in progress... please do not close this window."
 msgstr "Идет миграция... пожалуйста, не закрывайте это окно."
 
-#: src/mainwindow.cpp:1344
+#: src/mainwindow.cpp:1370
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Найти или начать разговор"
 
-#: src/mainwindow.cpp:1815
+#: src/mainwindow.cpp:1841
 msgid "Leave settings page"
 msgstr "Выйти из настроек"
 
-#: src/mainwindow.cpp:2241
+#: src/mainwindow.cpp:2271
 msgid "There are active calls"
 msgstr "Есть активные звонки"
 
-#: src/mainwindow.cpp:2293
+#: src/mainwindow.cpp:2323
 msgid " is calling you!"
 msgstr "звонит вам!"
 
-#: src/mainwindow.cpp:2296
+#: src/mainwindow.cpp:2326
 msgid "Incoming call"
 msgstr "Входящий вызов"
 
-#: src/mainwindow.cpp:2441
+#: src/mainwindow.cpp:2471
 msgid "New request from "
 msgstr "Новый запрос от"
 
-#: src/mainwindow.cpp:2444
+#: src/mainwindow.cpp:2474
 msgid "Trust request"
 msgstr "Запрос доверия"
 
-#: src/mainwindow.cpp:2507
+#: src/mainwindow.cpp:2537
 msgid "New message"
 msgstr "Новое сообщение"
 
-#: src/mainwindow.cpp:2570
+#: src/mainwindow.cpp:2600
 msgid "Stop current call?"
 msgstr "Завершить текущий звонок?"
 
-#: src/mainwindow.cpp:2571
+#: src/mainwindow.cpp:2601
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "В настоящее время идёт беседа. Хотите закрыть окно и остановить все текущие вызовы?"
 
-#: src/mainwindow.cpp:2638
+#: src/mainwindow.cpp:2668
 msgid "Clear history"
 msgstr "Очистить историю"
 
-#: src/mainwindow.cpp:2639
+#: src/mainwindow.cpp:2669
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Вы действительно хотите очистить историю этой переписки? "
 
-#: src/mainwindow.cpp:2654
+#: src/mainwindow.cpp:2684
 msgid "Remove conversation"
 msgstr "Удалить диалог"
 
-#: src/mainwindow.cpp:2655
+#: src/mainwindow.cpp:2685
 msgid "Do you really want to remove this conversation?"
 msgstr "Вы действительно хотите удалить этой переписку? "
 
-#: src/mainwindow.cpp:2670
+#: src/mainwindow.cpp:2700
 msgid "Block contact"
 msgstr "Заблокировать контакт"
 
-#: src/mainwindow.cpp:2671
+#: src/mainwindow.cpp:2701
 msgid "Do you really want to block this contact?"
 msgstr "Вы действительно хотите заблокировать этот контакт?"
 
@@ -1381,19 +1424,27 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Предупреждение: Это действие удалит выбранную учетную запись с данного устройства!\nОбратите внимание: это действие невозможно отменить. Ваше зарегистрированное имя так же может быть утрачено!"
 
-#: src/currentcallview.cpp:969
+#: src/currentcallview.cpp:1023
+msgid "No name!"
+msgstr ""
+
+#: src/currentcallview.cpp:1030
+msgid "true"
+msgstr ""
+
+#: src/currentcallview.cpp:1133
 msgid "Current conference (all accounts)"
 msgstr "Текущая конференция (все аккаунты)"
 
-#: src/currentcallview.cpp:1004
+#: src/currentcallview.cpp:1168
 msgid "Current calls (all accounts)"
 msgstr "Текущие звонки (все аккаунты)"
 
-#: src/currentcallview.cpp:1021
+#: src/currentcallview.cpp:1185
 msgid "Online contacts"
 msgstr "Интернет контакты"
 
-#: src/currentcallview.cpp:1429
+#: src/currentcallview.cpp:1593
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Автоматически"
