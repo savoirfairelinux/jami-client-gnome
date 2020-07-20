@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 03:09-0400\n"
-"PO-Revision-Date: 2020-07-13 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-07-20 03:09-0400\n"
+"PO-Revision-Date: 2020-07-13 09:27+0000\n"
+"Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/jami/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -162,7 +162,7 @@ msgstr "Media"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
-msgstr ""
+msgstr "Insticksmodul"
 
 #: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:523
 #: ui/newaccountsettingsview.ui:387
@@ -295,7 +295,7 @@ msgstr "Pausa ljud"
 
 #: ui/currentcallview.ui:521
 msgid "Activate Plugin"
-msgstr ""
+msgstr "Aktivera insticksmodul"
 
 #: ui/currentcallview.ui:530
 msgid "Transfer"
@@ -311,7 +311,7 @@ msgstr "Lägg till"
 
 #: ui/currentcallview.ui:710 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
-msgstr ""
+msgstr "Välj insticksmodul"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -914,19 +914,19 @@ msgstr "Registrera användarnamn"
 
 #: ui/pluginsettingsview.ui:44
 msgid "Plugins"
-msgstr ""
+msgstr "Insticksmoduler"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
-msgstr ""
+msgstr "Aktivera insticksmoduler"
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
-msgstr ""
+msgstr "Installerade instcksmoduler"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr ""
+msgstr "Installera insticksmodul"
 
 #: ui/chatview.ui:39
 msgid "Send Invitation"
@@ -984,15 +984,15 @@ msgstr "_Spara"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Varning! Denna åtgärd avinstallerar insticksmodulen!\nNotera att åtgärden inte kan ångras."
 
 #: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
 msgid "Uninstall Plugin"
-msgstr ""
+msgstr "Avinstallera insticksmodul"
 
 #: src/pluginsettingsview.cpp:268
 msgid "Load/Unload Plugin"
-msgstr ""
+msgstr "Aktivera/Avaktivera insticksmodul"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
@@ -1403,11 +1403,11 @@ msgstr "Varning! Denna åtgärd kommer att ta bort detta konto på denna enhet!\
 
 #: src/currentcallview.cpp:1023
 msgid "No name!"
-msgstr ""
+msgstr "Inget namn!"
 
 #: src/currentcallview.cpp:1030
 msgid "true"
-msgstr ""
+msgstr "sant "
 
 #: src/currentcallview.cpp:1133
 msgid "Current conference (all accounts)"

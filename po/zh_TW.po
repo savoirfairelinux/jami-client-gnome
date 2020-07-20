@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 03:09-0400\n"
-"PO-Revision-Date: 2020-07-13 07:09+0000\n"
+"POT-Creation-Date: 2020-07-20 03:09-0400\n"
+"PO-Revision-Date: 2020-07-14 01:37+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -165,7 +165,7 @@ msgstr "媒體"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
-msgstr ""
+msgstr "外掛程式"
 
 #: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:523
 #: ui/newaccountsettingsview.ui:387
@@ -298,7 +298,7 @@ msgstr "靜音"
 
 #: ui/currentcallview.ui:521
 msgid "Activate Plugin"
-msgstr ""
+msgstr "啟動外掛程式"
 
 #: ui/currentcallview.ui:530
 msgid "Transfer"
@@ -314,7 +314,7 @@ msgstr "新增"
 
 #: ui/currentcallview.ui:710 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
-msgstr ""
+msgstr "選擇外掛程式"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -921,15 +921,15 @@ msgstr "外掛程式"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
-msgstr ""
+msgstr "啟用外掛程式"
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
-msgstr ""
+msgstr "已安裝的外掛程式"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr ""
+msgstr "安裝外掛程式"
 
 #: ui/chatview.ui:39
 msgid "Send Invitation"
@@ -987,15 +987,15 @@ msgstr "儲存(_S)"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "警告！此動作將會解除安裝外掛程式！\n注意：此動作無法復原。"
 
 #: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
 msgid "Uninstall Plugin"
-msgstr ""
+msgstr "解除安裝外掛程式"
 
 #: src/pluginsettingsview.cpp:268
 msgid "Load/Unload Plugin"
-msgstr ""
+msgstr "載入／取消載入外掛程式"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
@@ -1406,11 +1406,11 @@ msgstr "警告！此動作將會在此裝置上移除此帳號！\n注意：此�
 
 #: src/currentcallview.cpp:1023
 msgid "No name!"
-msgstr ""
+msgstr "沒有名稱！"
 
 #: src/currentcallview.cpp:1030
 msgid "true"
-msgstr ""
+msgstr "true"
 
 #: src/currentcallview.cpp:1133
 msgid "Current conference (all accounts)"

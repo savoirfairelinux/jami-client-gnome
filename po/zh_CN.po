@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Zkdc, 2019
+# Beta Ba <linsui555@gmail.com>, 2020
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2017
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2016
 # Shuisi Liu <forevoliu@gmail.com>, 2020
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 03:09-0400\n"
-"PO-Revision-Date: 2020-07-13 07:09+0000\n"
-"Last-Translator: Xu Eric\n"
+"POT-Creation-Date: 2020-07-20 03:09-0400\n"
+"PO-Revision-Date: 2020-07-16 03:52+0000\n"
+"Last-Translator: Beta Ba <linsui555@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -169,7 +170,7 @@ msgstr "媒体"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
-msgstr ""
+msgstr "插件"
 
 #: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:523
 #: ui/newaccountsettingsview.ui:387
@@ -302,7 +303,7 @@ msgstr "静音"
 
 #: ui/currentcallview.ui:521
 msgid "Activate Plugin"
-msgstr ""
+msgstr "激活插件"
 
 #: ui/currentcallview.ui:530
 msgid "Transfer"
@@ -318,7 +319,7 @@ msgstr "添加"
 
 #: ui/currentcallview.ui:710 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
-msgstr ""
+msgstr "选择插件"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -362,7 +363,7 @@ msgstr "通过您的凭据获取您的账户。"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Add a new SIP account"
-msgstr "添加SIP账户"
+msgstr "添加 SIP 账户"
 
 #: ui/accountcreationwizard.ui:234
 msgid "Archive"
@@ -412,7 +413,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr "通过选中此选项，您将在Jami网络上注册唯一的用户名。 人们可以使用它来替代40个字符长的ID与您联系。"
+msgstr "通过选中此选项，您将在 Jami 网络上注册唯一的用户名。 人们可以使用它来替代 40 个字符长的 ID 与您联系。"
 
 #: ui/accountcreationwizard.ui:625
 msgid ""
@@ -426,7 +427,7 @@ msgstr "确认密码"
 
 #: ui/accountcreationwizard.ui:735
 msgid "Generating your Jami account…"
-msgstr "正在生成您的Jami账户…"
+msgstr "正在生成您的 Jami 账户…"
 
 #: ui/accountcreationwizard.ui:766
 msgid "Backup your account!"
@@ -462,7 +463,7 @@ msgstr "可能需要数分钟。"
 
 #: ui/accountcreationwizard.ui:872
 msgid "Retrieving your Jami account…"
-msgstr "正在获取您的Jami账户…"
+msgstr "正在获取您的 Jami 账户…"
 
 #: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
 msgid "OK"
@@ -494,11 +495,11 @@ msgstr "登录时启动应用"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr "窗口关闭时保持Jami的活跃状态"
+msgstr "窗口关闭时保持 Jami 的活跃状态"
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr "来电时将Jami切换到前台"
+msgstr "来电时将 Jami 切换到前台"
 
 #: ui/generalsettingsview.ui:204
 msgid "Notifications"
@@ -566,7 +567,7 @@ msgstr "录制文件夹"
 
 #: ui/generalsettingsview.ui:786
 msgid "Bitrate for call recordings (kb/s)"
-msgstr "通话录音比特率(kb/s)"
+msgstr "通话录音比特率 (kb/s)"
 
 #: ui/generalsettingsview.ui:824
 msgid "File transfer"
@@ -661,7 +662,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr "要在新设备上添加您的Jami账户，您需要使用Jami导出该账户。您会获得一个PIN，并且有5分钟时间将该PIN码输入您的新设备。"
+msgstr "要在新设备上添加您的 Jami 账户，您需要使用 Jami 导出该账户。您会获得一个 PIN，并且有 5 分钟时间将该 PIN 码输入您的新设备。"
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -693,7 +694,7 @@ msgstr "启用账户"
 
 #: ui/newaccountsettingsview.ui:670
 msgid "SIP server"
-msgstr "SIP服务器"
+msgstr "SIP 服务器"
 
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
@@ -753,7 +754,7 @@ msgstr "地址"
 
 #: ui/newaccountsettingsview.ui:1332
 msgid "OpenDHT configuration"
-msgstr "OpenDHT配置"
+msgstr "OpenDHT 配置"
 
 #: ui/newaccountsettingsview.ui:1416
 msgid "Auto connect on local network"
@@ -925,15 +926,15 @@ msgstr "插件"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
-msgstr ""
+msgstr "启用插件"
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
-msgstr ""
+msgstr "已安装的插件"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr ""
+msgstr "安装插件"
 
 #: ui/chatview.ui:39
 msgid "Send Invitation"
@@ -991,15 +992,15 @@ msgstr "保存(_S)"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "警告！该操作将卸载此插件注：此操作无法撤消"
 
 #: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
 msgid "Uninstall Plugin"
-msgstr ""
+msgstr "卸载插件"
 
 #: src/pluginsettingsview.cpp:268
 msgid "Load/Unload Plugin"
-msgstr ""
+msgstr "加载/禁用插件"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
@@ -1037,7 +1038,7 @@ msgstr "名称注册错误"
 msgid ""
 "Unable to register name (Invalid name). Your username should contains "
 "between 3 and 32 alphanumerics characters (or underscore)."
-msgstr "无法注册名称（无效名称）。 您的用户名应包含3到32个字母或数字（或下划线）。"
+msgstr "无法注册名称（无效名称）。 您的用户名应包含 3 到 32 个字母或数字（或下划线）。"
 
 #: src/usernameregistrationbox.cpp:438
 msgid "Unable to register name (Wrong password)."
@@ -1065,19 +1066,19 @@ msgstr "选择下载文件夹"
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr "这是您的Jami用户名。\n复制并发送给您的朋友！"
+msgstr "这是您的 Jami 用户名。\n复制并发送给您的朋友！"
 
 #: src/welcomeview.cpp:100
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr "这是您的ID。\n复制并发送给您的朋友！"
+msgstr "这是您的 ID。\n复制并发送给您的朋友！"
 
 #: src/welcomeview.cpp:195
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr "Jami是一种自由通信软件，它尊重用户的自由和隐私。"
+msgstr "Jami 是一种自由通信软件，它尊重用户的自由和隐私。"
 
 #: src/notifier.cpp:336
 msgctxt ""
@@ -1139,7 +1140,7 @@ msgstr "\"Free as in Freedom\"\n构建于%.25s"
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "Jami：GNOME客户端\nJami是自由软件，尊重用户的通讯自由与隐私。"
+msgstr "Jami GNOME 客户端\nJami 是用于通用通信的自由软件，尊重用户的自由与隐私。"
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
@@ -1156,17 +1157,17 @@ msgstr "发送录好的消息"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr "Jami错误"
+msgstr "Jami 错误"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr "正在重试连接Jami守护进程（dring）…"
+msgstr "正在重试连接 Jami 守护进程（dring）…"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
-msgstr "无法连接至Jami守护进程（dring）。\nJami将立即退出。"
+msgstr "无法连接至 Jami 守护进程（dring）。\nJami 将立即退出。"
 
 #: src/client_options.c:66
 msgid "Enable debug"
@@ -1180,7 +1181,7 @@ msgstr "恢复主窗口的隐藏状态（仅应用于主实例）"
 
 #: src/client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr "- Jami的GNOME客户端"
+msgstr "- Jami 的 GNOME 客户端"
 
 #: src/conversationpopupmenu.cpp:199
 msgid "Place _video call"
@@ -1386,17 +1387,17 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr "无法初始化。\n请确保Jami守护程序（dring）正在运行。\n错误：%s"
+msgstr "无法初始化。\n请确保 Jami 守护程序（dring）正在运行。\n错误：%s"
 
 #: src/client.cpp:118
 msgid "Jami Error"
-msgstr "Jami错误"
+msgstr "Jami 错误"
 
 #: src/client.cpp:395
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr "显示Jami"
+msgstr "显示 Jami"
 
 #: src/client.cpp:399
 msgid "Quit"
@@ -1410,11 +1411,11 @@ msgstr "警告！此操作将从此设备上删除该账户！\n注意：此操�
 
 #: src/currentcallview.cpp:1023
 msgid "No name!"
-msgstr ""
+msgstr "无名称！"
 
 #: src/currentcallview.cpp:1030
 msgid "true"
-msgstr ""
+msgstr "true"
 
 #: src/currentcallview.cpp:1133
 msgid "Current conference (all accounts)"
@@ -1502,7 +1503,7 @@ msgstr "未知错误"
 
 #: src/newaccountsettingsview.cpp:1765
 msgid "Could not initiate export to the Jami, try again"
-msgstr "无法导出至Jami，请重试"
+msgstr "无法导出至 Jami，请重试"
 
 #: src/newaccountsettingsview.cpp:1824
 msgid "Error: wrong password!"

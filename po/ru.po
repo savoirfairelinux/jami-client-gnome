@@ -11,10 +11,11 @@
 # Dmitri Kazankov <kazankov_dv@outlook.com>, 2018
 # contactobscurantist <gokigen@disroot.org>, 2019
 # Elijah Draga, 2019-2020
+# ​⠀ ​⠀ <kereyi3325@mailivw.com>, 2020
 # Konstantin, 2016
 # Marat Gubaidullin <marat.gubaidullin@savoirfairelinux.com>, 2015
 # Natalia <sonaux@gmail.com>, 2015
-# ruwebstyle, 2015
+# a2dfa1b0a2c50d1f7310301b498d8835_a2e43ad, 2015
 # Viktor Filinkov <bruteforce@sigil.tk>, 2015
 # Viktoria Phibo <queegam@gmail.com>, 2019
 # Vladimir Stoiakin, 2018-2019
@@ -31,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 03:09-0400\n"
-"PO-Revision-Date: 2020-07-13 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-07-20 03:09-0400\n"
+"PO-Revision-Date: 2020-07-18 09:41+0000\n"
+"Last-Translator: ​⠀ ​⠀ <kereyi3325@mailivw.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -185,7 +186,7 @@ msgstr "Медиа"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
-msgstr ""
+msgstr "Дополнение"
 
 #: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:523
 #: ui/newaccountsettingsview.ui:387
@@ -318,7 +319,7 @@ msgstr "Отключить звук"
 
 #: ui/currentcallview.ui:521
 msgid "Activate Plugin"
-msgstr ""
+msgstr "Включить дополнение"
 
 #: ui/currentcallview.ui:530
 msgid "Transfer"
@@ -334,7 +335,7 @@ msgstr "Добавить"
 
 #: ui/currentcallview.ui:710 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
-msgstr ""
+msgstr "Выбрать дополнение"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -626,7 +627,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr ""
+msgstr "Устройство вывода"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"

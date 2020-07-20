@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 03:09-0400\n"
-"PO-Revision-Date: 2020-07-13 07:09+0000\n"
+"POT-Creation-Date: 2020-07-20 03:09-0400\n"
+"PO-Revision-Date: 2020-07-13 10:50+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/jami/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -163,7 +163,7 @@ msgstr "Media"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
-msgstr ""
+msgstr "Shtojcë"
 
 #: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:523
 #: ui/newaccountsettingsview.ui:387
@@ -296,7 +296,7 @@ msgstr "Mbylli zërin"
 
 #: ui/currentcallview.ui:521
 msgid "Activate Plugin"
-msgstr ""
+msgstr "Aktivizoje Shtojcën"
 
 #: ui/currentcallview.ui:530
 msgid "Transfer"
@@ -312,7 +312,7 @@ msgstr "Shtoje"
 
 #: ui/currentcallview.ui:710 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
-msgstr ""
+msgstr "Zgjidhni shtojcë"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -919,15 +919,15 @@ msgstr "Shtojca"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
-msgstr ""
+msgstr "Aktivizoni shtojca"
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
-msgstr ""
+msgstr "Shtojca të Instaluara"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr ""
+msgstr "Instalo Shtojcë"
 
 #: ui/chatview.ui:39
 msgid "Send Invitation"
@@ -985,15 +985,15 @@ msgstr "_Ruaje"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Kujdes! Ky veprim do të çinstalojë shtojcën!\nShënim: ky veprim s’mund të zhbëhet."
 
 #: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
 msgid "Uninstall Plugin"
-msgstr ""
+msgstr "Çinstaloje Shtojcën"
 
 #: src/pluginsettingsview.cpp:268
 msgid "Load/Unload Plugin"
-msgstr ""
+msgstr "Ngarko/Shkarko Shtojcën"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
@@ -1404,7 +1404,7 @@ msgstr "Kujdes! Ky veprim do të shkaktojë heqjen e kësaj llogarie në këtë 
 
 #: src/currentcallview.cpp:1023
 msgid "No name!"
-msgstr ""
+msgstr "S’ka emër!"
 
 #: src/currentcallview.cpp:1030
 msgid "true"

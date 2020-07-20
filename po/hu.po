@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-13 03:09-0400\n"
-"PO-Revision-Date: 2020-07-13 07:09+0000\n"
+"POT-Creation-Date: 2020-07-20 03:09-0400\n"
+"PO-Revision-Date: 2020-07-15 08:39+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -165,7 +165,7 @@ msgstr "Média"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
-msgstr ""
+msgstr "Beépülő modul"
 
 #: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:523
 #: ui/newaccountsettingsview.ui:387
@@ -298,7 +298,7 @@ msgstr "Hang némítása"
 
 #: ui/currentcallview.ui:521
 msgid "Activate Plugin"
-msgstr ""
+msgstr "Beépülő modul aktiválása"
 
 #: ui/currentcallview.ui:530
 msgid "Transfer"
@@ -314,7 +314,7 @@ msgstr "Hozzáadás"
 
 #: ui/currentcallview.ui:710 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
-msgstr ""
+msgstr "Beépülő modul kiválasztása"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -921,15 +921,15 @@ msgstr "Beépülő modulok"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
-msgstr ""
+msgstr "Beépülő modulok engedélyezése"
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
-msgstr ""
+msgstr "Telepített beépülő modulok"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr ""
+msgstr "Beépülő modul telepítése"
 
 #: ui/chatview.ui:39
 msgid "Send Invitation"
@@ -987,15 +987,15 @@ msgstr "_Mentés"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Figyelem! Ez a művelet eltávolítja a beépülő modult!\nMegjegyzés: ezt a műveletet nem lehet visszavonni."
 
 #: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
 msgid "Uninstall Plugin"
-msgstr ""
+msgstr "Beépülő modul eltávolítása"
 
 #: src/pluginsettingsview.cpp:268
 msgid "Load/Unload Plugin"
-msgstr ""
+msgstr "Beépülő modul betöltése/kirakodása"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
@@ -1406,11 +1406,11 @@ msgstr "Figyelmeztetés! Ez a művelet eltávolítja ezt a fiókot az eszközön
 
 #: src/currentcallview.cpp:1023
 msgid "No name!"
-msgstr ""
+msgstr "Nincs név!"
 
 #: src/currentcallview.cpp:1030
 msgid "true"
-msgstr ""
+msgstr "igaz"
 
 #: src/currentcallview.cpp:1133
 msgid "Current conference (all accounts)"
