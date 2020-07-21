@@ -92,6 +92,7 @@ struct CurrentCallViewPrivate
     GtkWidget *video_widget;
     GtkWidget *frame_chat;
     GtkWidget *togglebutton_chat;
+    GtkWidget *togglebutton_view;
     GtkWidget *togglebutton_muteaudio;
     GtkWidget *togglebutton_mutevideo;
     GtkWidget *togglebutton_add_participant;
@@ -339,6 +340,31 @@ on_togglebutton_chat_toggled(GtkToggleButton* widget, CurrentCallView* view)
     } else {
         gtk_widget_hide(priv->frame_chat);
     }
+}
+
+static void
+on_togglebutton_view_toggled(GtkToggleButton* widget, CurrentCallView* view)
+{
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
+
+    auto confId = priv->cpp->conversation->confId;
+    if (!confId.isEmpty()) {
+        auto call = (*priv->cpp->accountInfo)->callModel->getCall(confId);
+        switch (call.layout) {
+            case lrc::api::call::Layout::GRID:
+                (*priv->cpp->accountInfo)->callModel->setConferenceLayout(confId, lrc::api::call::Layout::ONE_WITH_SMALL);
+                break;
+            case lrc::api::call::Layout::ONE_WITH_SMALL:
+                (*priv->cpp->accountInfo)->callModel->setConferenceLayout(confId, lrc::api::call::Layout::ONE);
+                break;
+            case lrc::api::call::Layout::ONE:
+                (*priv->cpp->accountInfo)->callModel->setConferenceLayout(confId, lrc::api::call::Layout::GRID);
+                break;
+        }
+    }
+        (*priv->cpp->accountInfo)->callModel->setActiveParticipant(confId, "");
+
 }
 
 static gboolean
@@ -1576,6 +1602,7 @@ CppImpl::insertControls()
 
     /* toggle whether or not the chat is displayed */
     g_signal_connect(widgets->togglebutton_chat, "toggled", G_CALLBACK(on_togglebutton_chat_toggled), self);
+    g_signal_connect(widgets->togglebutton_view, "toggled", G_CALLBACK(on_togglebutton_view_toggled), self);
 
     /* bind the chat orientation to the gsetting */
     widgets->settings = g_settings_new_full(get_settings_schema(), nullptr, nullptr);
@@ -1663,7 +1690,7 @@ CppImpl::updateState()
 
         auto audioButton = GTK_TOGGLE_BUTTON(widgets->togglebutton_muteaudio);
         gtk_widget_set_sensitive(GTK_WIDGET(widgets->togglebutton_muteaudio),
-                                 (call.type != lrc::api::call::Type::CONFERENCE));
+                                 (conversation->confId.isEmpty()));
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->togglebutton_muteaudio), call.audioMuted);
         auto imageMuteAudio = gtk_image_new_from_resource ("/net/jami/JamiGnome/mute_audio");
         if (call.audioMuted)
@@ -1678,7 +1705,7 @@ CppImpl::updateState()
                 imageMuteVideo = gtk_image_new_from_resource ("/net/jami/JamiGnome/unmute_video");
             gtk_button_set_image(GTK_BUTTON(videoButton), imageMuteVideo);
             gtk_widget_set_sensitive(GTK_WIDGET(widgets->togglebutton_mutevideo),
-                                 (call.type != lrc::api::call::Type::CONFERENCE));
+                                 (conversation->confId.isEmpty()));
 
             gtk_widget_show(widgets->togglebutton_mutevideo);
             gtk_widget_show(widgets->scalebutton_quality);
@@ -1693,6 +1720,11 @@ CppImpl::updateState()
     } catch (std::out_of_range& e) {
         g_warning("Can't update state for callId=%s", qUtf8Printable(callId));
     }
+
+    if (conversation->confId.isEmpty())
+        gtk_widget_hide(widgets->togglebutton_view);
+    else
+        gtk_widget_show(widgets->togglebutton_view);
 }
 
 void
@@ -1925,6 +1957,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_add_participant);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_activate_plugin);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_transfer);
