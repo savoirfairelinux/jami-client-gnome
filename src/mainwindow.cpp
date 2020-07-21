@@ -2410,6 +2410,9 @@ CppImpl::slotShowCallView(const std::string& id, lrc::api::conversation::Info or
             return;
     }
 
+    if (!origin.confId.isEmpty())
+        accountInfo_->callModel->setActiveParticipant(origin.confId, origin.callId);
+
     changeView(CURRENT_CALL_VIEW_TYPE, origin);
 }
 

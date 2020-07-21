@@ -424,6 +424,31 @@
       </packing>
     </child>
     <child>
+      <object class="GtkToggleButton" id="togglebutton_view">
+        <style>
+          <class name="call-button"/>
+        </style>
+        <property name="visible">True</property>
+        <property name="sensitive">True</property>
+        <property name="can_focus">True</property>
+        <property name="width-request">48</property>
+        <property name="height-request">48</property>
+        <property name="has_tooltip">True</property>
+        <property name="relief">normal</property>
+        <property name="tooltip-text" translatable="yes">Toggle view</property>
+        <property name="image">image_view</property>
+        <child internal-child="accessible">
+          <object class="AtkObject" id="togglebutton_view-atkobject">
+            <property name="AtkObject::accessible-name" translatable="yes">Change video layout</property>
+          </object>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+      </packing>
+    </child>
+    <child>
       <object class="GtkToggleButton" id="togglebutton_chat">
         <style>
           <class name="call-button"/>
@@ -455,6 +480,15 @@
     <child internal-child="accessible">
       <object class="AtkObject" id="image_chat-atkobject">
         <property name="AtkObject::accessible-description" translatable="yes">Chat</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkImage" id="image_view">
+    <property name="visible">True</property>
+    <property name="resource">/net/jami/JamiGnome/view</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="image_view-atkobject">
+        <property name="AtkObject::accessible-description" translatable="yes">View</property>
       </object>
     </child>
   </object>
