@@ -322,7 +322,6 @@ public:
     void toggleFullScreen();
     void resetToWelcome();
     void refreshPendingContactRequestTab();
-    void changeAccountSelection(const std::string& id);
     void onAccountSelectionChange(const std::string& id);
     void enterAccountCreationWizard(bool showControls = false);
     void leaveAccountCreationWizard();
@@ -364,7 +363,6 @@ public:
     QMetaObject::Connection closeTrustRequestNotification_;
     QMetaObject::Connection slotNewInteraction_;
     QMetaObject::Connection slotReadInteraction_;
-    QMetaObject::Connection changeAccountConnection_;
     QMetaObject::Connection newAccountConnection_;
     QMetaObject::Connection rmAccountConnection_;
     QMetaObject::Connection invalidAccountConnection_;
@@ -1446,7 +1444,6 @@ CppImpl::~CppImpl()
     QObject::disconnect(filterChangedConnection_);
     QObject::disconnect(newConversationConnection_);
     QObject::disconnect(conversationRemovedConnection_);
-    QObject::disconnect(changeAccountConnection_);
     QObject::disconnect(newAccountConnection_);
     QObject::disconnect(rmAccountConnection_);
     QObject::disconnect(invalidAccountConnection_);
@@ -1778,35 +1775,6 @@ CppImpl::leaveAccountCreationWizard()
     showAccountSelectorWidget();
 }
 
-/// Change the selection of the account ComboBox by account Id.
-/// Find in displayed accounts with one corresponding to the given id, then select it
-void
-CppImpl::changeAccountSelection(const std::string& id)
-{
-    // already selected?
-    if (id == accountInfo_->id.toStdString())
-        return;
-
-    if (auto* model = gtk_combo_box_get_model(GTK_COMBO_BOX(widgets->combobox_account_selector))) {
-        GtkTreeIter iter;
-        auto valid = gtk_tree_model_get_iter_first(model, &iter);
-        while (valid) {
-            gchar* account_id;
-            gtk_tree_model_get(model, &iter, 0 /* col# */, &account_id /* data */, -1);
-            if (id == account_id) {
-                widgets->set_top_account_flag = false;
-                gtk_combo_box_set_active_iter(GTK_COMBO_BOX(widgets->combobox_account_selector), &iter);
-                g_free(account_id);
-                return;
-            }
-            valid = gtk_tree_model_iter_next(model, &iter);
-            g_free(account_id);
-        }
-
-        g_debug("BUGS: account not listed: %s", id.c_str());
-    }
-}
-
 void
 CppImpl::onAccountSelectionChange(const std::string& id)
 {
@@ -1938,7 +1906,6 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     QObject::disconnect(showLeaveMessageViewConnection_);
     QObject::disconnect(showChatViewConnection_);
     QObject::disconnect(showIncomingViewConnection_);
-    QObject::disconnect(changeAccountConnection_);
     QObject::disconnect(showCallViewConnection_);
     QObject::disconnect(newTrustRequestNotification_);
     QObject::disconnect(closeTrustRequestNotification_);
@@ -2395,7 +2362,8 @@ CppImpl::slotShowChatView(const std::string& id, lrc::api::conversation::Info or
     if (IS_INCOMING_CALL_VIEW(old_view) && is_showing_let_a_message_view(INCOMING_CALL_VIEW(old_view), origin)) {
         return;
     }
-    changeAccountSelection(id);
+    if (accountInfo_->id.toStdString() != id)
+        return;
     // Show chat view if not in call (unless if it's the same conversation)
     lrc::api::conversation::Info current_item;
     current_item.uid = "-1";
@@ -2425,7 +2393,8 @@ CppImpl::slotShowLeaveMessageView(lrc::api::conversation::Info conv)
 void
 CppImpl::slotShowCallView(const std::string& id, lrc::api::conversation::Info origin)
 {
-    changeAccountSelection(id);
+    if (accountInfo_->id.toStdString() != id)
+        return;
     // Change the view if we want a different view.
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
 
@@ -2562,7 +2531,8 @@ CppImpl::slotCloseInteraction(const std::string& accountId, const std::string& c
 void
 CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation::Info origin)
 {
-    changeAccountSelection(id);
+    if (accountInfo_->id.toStdString() != id)
+        return;
 
     /* call changeView even if we are already in an incoming call view, since
        the incoming call view holds a copy of the conversation info which has
