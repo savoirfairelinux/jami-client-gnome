@@ -114,6 +114,7 @@ struct _NewAccountSettingsViewPrivate
     GtkWidget* allow_call_row;
         GtkWidget* call_allow_button;
     GtkWidget* auto_answer_button;
+    GtkWidget* rendez_vous_button;
     GtkWidget* custom_ringtone_button;
     GtkWidget* filechooserbutton_custom_ringtone;
     GtkWidget* box_name_server;
@@ -291,6 +292,7 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, allow_call_row);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, call_allow_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, auto_answer_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, rendez_vous_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, custom_ringtone_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, filechooserbutton_custom_ringtone);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, box_name_server);
@@ -1000,6 +1002,18 @@ update_auto_answer(GObject*, GParamSpec*, NewAccountSettingsView *view)
     auto newState = gtk_switch_get_active(GTK_SWITCH(priv->auto_answer_button));
     if (newState != priv->currentProp_->autoAnswer) {
         priv->currentProp_->autoAnswer = newState;
+        new_account_settings_view_save_account(view);
+    }
+}
+
+static void
+update_rendez_vous(GObject*, GParamSpec*, NewAccountSettingsView *view)
+{
+    if (!is_config_ok(view)) return;
+    auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
+    auto newState = gtk_switch_get_active(GTK_SWITCH(priv->rendez_vous_button));
+    if (newState != priv->currentProp_->isRendezVous) {
+        priv->currentProp_->isRendezVous = newState;
         new_account_settings_view_save_account(view);
     }
 }
@@ -1917,6 +1931,7 @@ build_settings_view(NewAccountSettingsView* view)
     g_signal_connect_swapped(priv->sip_button_delete_account, "clicked", G_CALLBACK(remove_account), view);
     g_signal_connect(priv->call_allow_button, "notify::active", G_CALLBACK(update_allow_call), view);
     g_signal_connect(priv->auto_answer_button, "notify::active", G_CALLBACK(update_auto_answer), view);
+    g_signal_connect(priv->rendez_vous_button, "notify::active", G_CALLBACK(update_rendez_vous), view);
     g_signal_connect(priv->custom_ringtone_button, "notify::active", G_CALLBACK(enable_custom_ringtone), view);
     g_signal_connect(priv->filechooserbutton_custom_ringtone, "file-set", G_CALLBACK(update_custom_ringtone), view);
     g_signal_connect(priv->entry_name_server, "focus-out-event", G_CALLBACK(update_nameserver), view);
@@ -2186,6 +2201,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
     // advanced
     gtk_switch_set_active(GTK_SWITCH(priv->call_allow_button), priv->currentProp_->DHT.PublicInCalls);
     gtk_switch_set_active(GTK_SWITCH(priv->auto_answer_button), priv->currentProp_->autoAnswer);
+    gtk_switch_set_active(GTK_SWITCH(priv->rendez_vous_button), priv->currentProp_->isRendezVous);
 
     gtk_entry_set_text(GTK_ENTRY(priv->entry_name_server), qUtf8Printable(priv->currentProp_->RingNS.uri));
     gtk_entry_set_text(GTK_ENTRY(priv->entry_dht_proxy), qUtf8Printable(priv->currentProp_->proxyServer));
