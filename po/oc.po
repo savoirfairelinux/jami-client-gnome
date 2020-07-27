@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-20 03:09-0400\n"
-"PO-Revision-Date: 2020-07-18 07:08+0000\n"
-"Last-Translator: Quentin PAGÈS\n"
+"POT-Creation-Date: 2020-07-27 03:09-0400\n"
+"PO-Revision-Date: 2020-07-27 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Occitan (post 1500) (http://www.transifex.com/savoirfairelinux/jami/language/oc/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -221,7 +221,7 @@ msgstr "Mudar lo compte"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "Migracion del compte Jami..."
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
@@ -231,11 +231,11 @@ msgstr ""
 msgid "End this call"
 msgstr "Terminar aquesta sonada"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:539
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:573
 msgid "End call"
 msgstr "Terminar"
 
-#: ui/currentcallview.ui:275 ui/currentcallview.ui:512
+#: ui/currentcallview.ui:275 ui/currentcallview.ui:546
 msgid "Add participant"
 msgstr "Ajustar participant"
 
@@ -248,7 +248,7 @@ msgid "Toggle hold"
 msgstr ""
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:342
-#: ui/currentcallview.ui:503
+#: ui/currentcallview.ui:537
 msgid "Hold"
 msgstr ""
 
@@ -260,7 +260,7 @@ msgstr ""
 msgid "Toggle mute video"
 msgstr ""
 
-#: ui/currentcallview.ui:367 ui/currentcallview.ui:494
+#: ui/currentcallview.ui:367 ui/currentcallview.ui:528
 msgid "Mute video"
 msgstr "Copar la vidèo"
 
@@ -268,7 +268,7 @@ msgstr "Copar la vidèo"
 msgid "Toggle recording"
 msgstr ""
 
-#: ui/currentcallview.ui:391 ui/currentcallview.ui:557
+#: ui/currentcallview.ui:391 ui/currentcallview.ui:591
 #: ui/messagingwidget.ui:29 src/chatview.cpp:348
 msgid "Record"
 msgstr "Enregistrar"
@@ -277,39 +277,51 @@ msgstr "Enregistrar"
 msgid "Adjust outgoing video quality"
 msgstr ""
 
-#: ui/currentcallview.ui:436 ui/currentcallview.ui:548
+#: ui/currentcallview.ui:436 ui/currentcallview.ui:582
 msgid "Video quality"
 msgstr "Qualitat vidèo"
 
-#: ui/currentcallview.ui:455
+#: ui/currentcallview.ui:457
+msgid "Toggle view"
+msgstr ""
+
+#: ui/currentcallview.ui:461
+msgid "Change video layout"
+msgstr ""
+
+#: ui/currentcallview.ui:480
 msgid "Toggle show chat"
 msgstr ""
 
-#: ui/currentcallview.ui:459 ui/currentcallview.ui:476
+#: ui/currentcallview.ui:484 ui/currentcallview.ui:501
 msgid "Chat"
 msgstr "Conversacion"
 
-#: ui/currentcallview.ui:485
+#: ui/currentcallview.ui:510
+msgid "View"
+msgstr ""
+
+#: ui/currentcallview.ui:519
 msgid "Mute audio"
 msgstr "Copar lo son"
 
-#: ui/currentcallview.ui:521
+#: ui/currentcallview.ui:555
 msgid "Activate Plugin"
 msgstr ""
 
-#: ui/currentcallview.ui:530
+#: ui/currentcallview.ui:564
 msgid "Transfer"
 msgstr ""
 
-#: ui/currentcallview.ui:580
+#: ui/currentcallview.ui:614
 msgid "Transfer to"
 msgstr "Transferir a"
 
-#: ui/currentcallview.ui:644
+#: ui/currentcallview.ui:678
 msgid "Add"
 msgstr "Ajustar"
 
-#: ui/currentcallview.ui:710 src/pluginsettingsview.cpp:124
+#: ui/currentcallview.ui:744 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
 msgstr ""
 
@@ -463,7 +475,7 @@ msgstr "D’ACÒRDI"
 
 #: ui/accountcreationwizard.ui:938
 msgid "Sign in"
-msgstr ""
+msgstr "S’inscriure"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
@@ -543,19 +555,19 @@ msgstr "Escafar totes los istorics"
 
 #: ui/generalsettingsview.ui:638
 msgid "Call Recording"
-msgstr ""
+msgstr "Enregistrament sonadas"
 
 #: ui/generalsettingsview.ui:676
 msgid "Record local video"
-msgstr ""
+msgstr "Enregistrar la vidèo locala"
 
 #: ui/generalsettingsview.ui:712
 msgid "Always record calls"
-msgstr ""
+msgstr "Totjorn enregistrar las sonadas"
 
 #: ui/generalsettingsview.ui:749
 msgid "Record folder"
-msgstr ""
+msgstr "Dossièr d’enregistrament"
 
 #: ui/generalsettingsview.ui:786
 msgid "Bitrate for call recordings (kb/s)"
@@ -662,7 +674,7 @@ msgstr "Senhal (requerit) :"
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
-msgstr ""
+msgstr "Picatz lo senhal dels archius"
 
 #: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:864
 msgid "Cancel"
@@ -914,19 +926,19 @@ msgstr ""
 
 #: ui/pluginsettingsview.ui:44
 msgid "Plugins"
-msgstr ""
+msgstr "Extensions"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
-msgstr ""
+msgstr "Activar las extensions"
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
-msgstr ""
+msgstr "Extensions installadas"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr ""
+msgstr "Installar extension"
 
 #: ui/chatview.ui:39
 msgid "Send Invitation"
@@ -1282,11 +1294,11 @@ msgstr "dobrir conversacion"
 
 #: src/mainwindow.cpp:1077
 msgid "Jami - Migration needed"
-msgstr ""
+msgstr "Jami - Migracion requesida"
 
 #: src/mainwindow.cpp:1090
 msgid "Migration in progress... please do not close this window."
-msgstr ""
+msgstr "Migracion en cors... tampetz pas aquesta fenèstra."
 
 #: src/mainwindow.cpp:1370
 msgctxt ""
@@ -1311,49 +1323,49 @@ msgstr "vos sona !"
 msgid "Incoming call"
 msgstr ""
 
-#: src/mainwindow.cpp:2471
+#: src/mainwindow.cpp:2474
 msgid "New request from "
 msgstr ""
 
-#: src/mainwindow.cpp:2474
+#: src/mainwindow.cpp:2477
 msgid "Trust request"
 msgstr ""
 
-#: src/mainwindow.cpp:2537
+#: src/mainwindow.cpp:2540
 msgid "New message"
 msgstr "Nòu messatge"
 
-#: src/mainwindow.cpp:2600
+#: src/mainwindow.cpp:2603
 msgid "Stop current call?"
 msgstr ""
 
-#: src/mainwindow.cpp:2601
+#: src/mainwindow.cpp:2604
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/mainwindow.cpp:2668
+#: src/mainwindow.cpp:2671
 msgid "Clear history"
 msgstr "Escafar l’istoric"
 
-#: src/mainwindow.cpp:2669
+#: src/mainwindow.cpp:2672
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2684
+#: src/mainwindow.cpp:2687
 msgid "Remove conversation"
 msgstr "Suprimir discutida"
 
-#: src/mainwindow.cpp:2685
+#: src/mainwindow.cpp:2688
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2700
+#: src/mainwindow.cpp:2703
 msgid "Block contact"
 msgstr "Blocar contacte"
 
-#: src/mainwindow.cpp:2701
+#: src/mainwindow.cpp:2704
 msgid "Do you really want to block this contact?"
 msgstr ""
 
@@ -1401,27 +1413,27 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/currentcallview.cpp:1023
+#: src/currentcallview.cpp:1049
 msgid "No name!"
-msgstr ""
+msgstr "Cap de nom !"
 
-#: src/currentcallview.cpp:1030
+#: src/currentcallview.cpp:1056
 msgid "true"
 msgstr ""
 
-#: src/currentcallview.cpp:1133
+#: src/currentcallview.cpp:1159
 msgid "Current conference (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:1168
+#: src/currentcallview.cpp:1194
 msgid "Current calls (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:1185
+#: src/currentcallview.cpp:1211
 msgid "Online contacts"
 msgstr "Contactes en linha"
 
-#: src/currentcallview.cpp:1593
+#: src/currentcallview.cpp:1620
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
@@ -1531,7 +1543,7 @@ msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2046
 msgid "no password set"
-msgstr ""
+msgstr "Cap de senhal pas definit"
 
 #: src/newaccountsettingsview.cpp:2102
 msgid "Remove account"

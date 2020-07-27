@@ -9,16 +9,16 @@
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2016
 # Shuisi Liu <forevoliu@gmail.com>, 2020
 # Tiansworld <tiansworld@fedoraproject.org>, 2020
-# Xu Eric, 2020
+# QWERT Eric, 2020
 # 李文睿 <happy.lwr@gmail.com>, 2017
 # 李文睿 <happy.lwr@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-20 03:09-0400\n"
-"PO-Revision-Date: 2020-07-16 03:52+0000\n"
-"Last-Translator: Beta Ba <linsui555@gmail.com>\n"
+"POT-Creation-Date: 2020-07-27 03:09-0400\n"
+"PO-Revision-Date: 2020-07-27 07:09+0000\n"
+"Last-Translator: Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -239,11 +239,11 @@ msgstr "迁移失败。密码错误？"
 msgid "End this call"
 msgstr "结束该通话"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:539
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:573
 msgid "End call"
 msgstr "结束通话"
 
-#: ui/currentcallview.ui:275 ui/currentcallview.ui:512
+#: ui/currentcallview.ui:275 ui/currentcallview.ui:546
 msgid "Add participant"
 msgstr "添加参与者"
 
@@ -256,7 +256,7 @@ msgid "Toggle hold"
 msgstr "等待/取消等待"
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:342
-#: ui/currentcallview.ui:503
+#: ui/currentcallview.ui:537
 msgid "Hold"
 msgstr "等待"
 
@@ -268,7 +268,7 @@ msgstr "开启声音/静音"
 msgid "Toggle mute video"
 msgstr "开启/关闭视频"
 
-#: ui/currentcallview.ui:367 ui/currentcallview.ui:494
+#: ui/currentcallview.ui:367 ui/currentcallview.ui:528
 msgid "Mute video"
 msgstr "关闭视频"
 
@@ -276,7 +276,7 @@ msgstr "关闭视频"
 msgid "Toggle recording"
 msgstr "录制开始/结束"
 
-#: ui/currentcallview.ui:391 ui/currentcallview.ui:557
+#: ui/currentcallview.ui:391 ui/currentcallview.ui:591
 #: ui/messagingwidget.ui:29 src/chatview.cpp:348
 msgid "Record"
 msgstr "录制"
@@ -285,39 +285,51 @@ msgstr "录制"
 msgid "Adjust outgoing video quality"
 msgstr "设置我的视频画质"
 
-#: ui/currentcallview.ui:436 ui/currentcallview.ui:548
+#: ui/currentcallview.ui:436 ui/currentcallview.ui:582
 msgid "Video quality"
 msgstr "视频画质"
 
-#: ui/currentcallview.ui:455
+#: ui/currentcallview.ui:457
+msgid "Toggle view"
+msgstr ""
+
+#: ui/currentcallview.ui:461
+msgid "Change video layout"
+msgstr ""
+
+#: ui/currentcallview.ui:480
 msgid "Toggle show chat"
 msgstr "显示/隐藏聊天栏"
 
-#: ui/currentcallview.ui:459 ui/currentcallview.ui:476
+#: ui/currentcallview.ui:484 ui/currentcallview.ui:501
 msgid "Chat"
 msgstr "聊天"
 
-#: ui/currentcallview.ui:485
+#: ui/currentcallview.ui:510
+msgid "View"
+msgstr "查看"
+
+#: ui/currentcallview.ui:519
 msgid "Mute audio"
 msgstr "静音"
 
-#: ui/currentcallview.ui:521
+#: ui/currentcallview.ui:555
 msgid "Activate Plugin"
 msgstr "激活插件"
 
-#: ui/currentcallview.ui:530
+#: ui/currentcallview.ui:564
 msgid "Transfer"
 msgstr "已转接"
 
-#: ui/currentcallview.ui:580
+#: ui/currentcallview.ui:614
 msgid "Transfer to"
 msgstr "传递到"
 
-#: ui/currentcallview.ui:644
+#: ui/currentcallview.ui:678
 msgid "Add"
 msgstr "添加"
 
-#: ui/currentcallview.ui:710 src/pluginsettingsview.cpp:124
+#: ui/currentcallview.ui:744 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
 msgstr "选择插件"
 
@@ -1319,49 +1331,49 @@ msgstr "正在呼叫您！"
 msgid "Incoming call"
 msgstr "来电"
 
-#: src/mainwindow.cpp:2471
+#: src/mainwindow.cpp:2474
 msgid "New request from "
 msgstr "新请求来自"
 
-#: src/mainwindow.cpp:2474
+#: src/mainwindow.cpp:2477
 msgid "Trust request"
 msgstr "信任请求"
 
-#: src/mainwindow.cpp:2537
+#: src/mainwindow.cpp:2540
 msgid "New message"
 msgstr "新消息"
 
-#: src/mainwindow.cpp:2600
+#: src/mainwindow.cpp:2603
 msgid "Stop current call?"
 msgstr "停止当前通话吗？"
 
-#: src/mainwindow.cpp:2601
+#: src/mainwindow.cpp:2604
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "当前有通话正在进行。您要关闭窗口并停止当前所有通话吗？"
 
-#: src/mainwindow.cpp:2668
+#: src/mainwindow.cpp:2671
 msgid "Clear history"
 msgstr "清除历史记录"
 
-#: src/mainwindow.cpp:2669
+#: src/mainwindow.cpp:2672
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "您真的要清除此会话的历史记录吗？"
 
-#: src/mainwindow.cpp:2684
+#: src/mainwindow.cpp:2687
 msgid "Remove conversation"
 msgstr "移除会话"
 
-#: src/mainwindow.cpp:2685
+#: src/mainwindow.cpp:2688
 msgid "Do you really want to remove this conversation?"
 msgstr "您真的要删除此会话吗？"
 
-#: src/mainwindow.cpp:2700
+#: src/mainwindow.cpp:2703
 msgid "Block contact"
 msgstr "屏蔽联系人"
 
-#: src/mainwindow.cpp:2701
+#: src/mainwindow.cpp:2704
 msgid "Do you really want to block this contact?"
 msgstr "您真的要屏蔽此联系人吗？"
 
@@ -1409,27 +1421,27 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "警告！此操作将从此设备上删除该账户！\n注意：此操作无法撤消。同时，您也会失去已注册的用户名！"
 
-#: src/currentcallview.cpp:1023
+#: src/currentcallview.cpp:1049
 msgid "No name!"
 msgstr "无名称！"
 
-#: src/currentcallview.cpp:1030
+#: src/currentcallview.cpp:1056
 msgid "true"
 msgstr "true"
 
-#: src/currentcallview.cpp:1133
+#: src/currentcallview.cpp:1159
 msgid "Current conference (all accounts)"
 msgstr "当前会议 (所有账户)"
 
-#: src/currentcallview.cpp:1168
+#: src/currentcallview.cpp:1194
 msgid "Current calls (all accounts)"
 msgstr "当前通话 (所有账户)"
 
-#: src/currentcallview.cpp:1185
+#: src/currentcallview.cpp:1211
 msgid "Online contacts"
 msgstr "在线联系人"
 
-#: src/currentcallview.cpp:1593
+#: src/currentcallview.cpp:1620
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自动"

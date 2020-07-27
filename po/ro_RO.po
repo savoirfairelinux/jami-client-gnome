@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-20 03:09-0400\n"
-"PO-Revision-Date: 2020-07-19 14:17+0000\n"
+"POT-Creation-Date: 2020-07-27 03:09-0400\n"
+"PO-Revision-Date: 2020-07-27 07:09+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "General"
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
 msgid "Open application menu"
-msgstr "Deschide meniul aplicației"
+msgstr "Deschide opțiunile programului"
 
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
@@ -126,12 +126,12 @@ msgstr "Deschide/Închide pagina Reglări"
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
-msgstr "Deschide Reglări generale"
+msgstr "Deschide Reglările generale"
 
 #: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
-msgstr "Deschide Reglări media"
+msgstr "Deschide Reglările media"
 
 #: ui/help-overlay.ui:174
 msgctxt "shortcut window"
@@ -150,7 +150,7 @@ msgstr "Scrie pe un rînd nou"
 
 #: ui/mainwindow.ui:63
 msgid "Menu"
-msgstr "Meniu"
+msgstr "Opțiuni"
 
 #: ui/mainwindow.ui:86
 msgid "General"
@@ -231,11 +231,11 @@ msgstr "Transferul nu a reușit, parola e greșită?"
 msgid "End this call"
 msgstr "Închide acest apel"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:539
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:573
 msgid "End call"
 msgstr "Închide apelul"
 
-#: ui/currentcallview.ui:275 ui/currentcallview.ui:512
+#: ui/currentcallview.ui:275 ui/currentcallview.ui:546
 msgid "Add participant"
 msgstr "Adaugă un participant"
 
@@ -248,7 +248,7 @@ msgid "Toggle hold"
 msgstr "Act/Dez așteptarea"
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:342
-#: ui/currentcallview.ui:503
+#: ui/currentcallview.ui:537
 msgid "Hold"
 msgstr "Așteptare"
 
@@ -260,7 +260,7 @@ msgstr "Act/Dez audio"
 msgid "Toggle mute video"
 msgstr "Act/Dez video fără sonor"
 
-#: ui/currentcallview.ui:367 ui/currentcallview.ui:494
+#: ui/currentcallview.ui:367 ui/currentcallview.ui:528
 msgid "Mute video"
 msgstr "Video fără sonor"
 
@@ -268,7 +268,7 @@ msgstr "Video fără sonor"
 msgid "Toggle recording"
 msgstr "Act/Dez înregistrarea"
 
-#: ui/currentcallview.ui:391 ui/currentcallview.ui:557
+#: ui/currentcallview.ui:391 ui/currentcallview.ui:591
 #: ui/messagingwidget.ui:29 src/chatview.cpp:348
 msgid "Record"
 msgstr "Înregistrează"
@@ -277,39 +277,51 @@ msgstr "Înregistrează"
 msgid "Adjust outgoing video quality"
 msgstr "Reglează calitatea video în ieșire"
 
-#: ui/currentcallview.ui:436 ui/currentcallview.ui:548
+#: ui/currentcallview.ui:436 ui/currentcallview.ui:582
 msgid "Video quality"
 msgstr "Calitate video"
 
-#: ui/currentcallview.ui:455
+#: ui/currentcallview.ui:457
+msgid "Toggle view"
+msgstr ""
+
+#: ui/currentcallview.ui:461
+msgid "Change video layout"
+msgstr ""
+
+#: ui/currentcallview.ui:480
 msgid "Toggle show chat"
 msgstr "Act/Dez arată discuția"
 
-#: ui/currentcallview.ui:459 ui/currentcallview.ui:476
+#: ui/currentcallview.ui:484 ui/currentcallview.ui:501
 msgid "Chat"
 msgstr "Discuție"
 
-#: ui/currentcallview.ui:485
+#: ui/currentcallview.ui:510
+msgid "View"
+msgstr "Vizualizare"
+
+#: ui/currentcallview.ui:519
 msgid "Mute audio"
 msgstr "Fără sonor"
 
-#: ui/currentcallview.ui:521
+#: ui/currentcallview.ui:555
 msgid "Activate Plugin"
 msgstr "Activează Extensia"
 
-#: ui/currentcallview.ui:530
+#: ui/currentcallview.ui:564
 msgid "Transfer"
 msgstr "Transferă"
 
-#: ui/currentcallview.ui:580
+#: ui/currentcallview.ui:614
 msgid "Transfer to"
 msgstr "Transferă către"
 
-#: ui/currentcallview.ui:644
+#: ui/currentcallview.ui:678
 msgid "Add"
 msgstr "Adaugă"
 
-#: ui/currentcallview.ui:710 src/pluginsettingsview.cpp:124
+#: ui/currentcallview.ui:744 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
 msgstr "Alege extensia"
 
@@ -475,7 +487,7 @@ msgstr "_Despre"
 
 #: ui/gearsmenu.ui:17
 msgid "_Quit"
-msgstr "_Ieși"
+msgstr "_Închide"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
@@ -722,7 +734,7 @@ msgstr "Reglări generale"
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
-msgstr "Reglări apel"
+msgstr "Reglările apelului"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
@@ -822,7 +834,7 @@ msgstr "Conectare"
 
 #: ui/newaccountsettingsview.ui:2063
 msgid "Registration expire timeout (seconds)"
-msgstr "Întîrziere maximă de înregistrare (secunde)"
+msgstr "Întîrziere maximă de înscriere (secunde)"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Network interface"
@@ -966,7 +978,7 @@ msgstr "Înapoi"
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
-msgstr "Folosește imaginea selectată"
+msgstr "Folosește imaginea aleasă"
 
 #: src/pluginsettingsview.cpp:127 src/generalsettingsview.cpp:234
 #: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:757
@@ -1020,11 +1032,11 @@ msgstr "Introdu parola contului tău Jami"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
-msgstr "Înregistrare în curs..."
+msgstr "Înscriere în curs..."
 
 #: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
-msgstr "Eroare de înregistrare a numelui"
+msgstr "Eroare de înscriere a numelui"
 
 #: src/usernameregistrationbox.cpp:434
 msgid ""
@@ -1311,49 +1323,49 @@ msgstr "te sună!"
 msgid "Incoming call"
 msgstr "Apel primit"
 
-#: src/mainwindow.cpp:2471
+#: src/mainwindow.cpp:2474
 msgid "New request from "
 msgstr "O nouă cerere de la"
 
-#: src/mainwindow.cpp:2474
+#: src/mainwindow.cpp:2477
 msgid "Trust request"
 msgstr "Cerere de încredere"
 
-#: src/mainwindow.cpp:2537
+#: src/mainwindow.cpp:2540
 msgid "New message"
 msgstr "Mesaj nou"
 
-#: src/mainwindow.cpp:2600
+#: src/mainwindow.cpp:2603
 msgid "Stop current call?"
 msgstr "Oprești apelul în curs?"
 
-#: src/mainwindow.cpp:2601
+#: src/mainwindow.cpp:2604
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Un apel e acum în curs. Vrei să închizi fereastra și să oprești toate apelurile în curs?"
 
-#: src/mainwindow.cpp:2668
+#: src/mainwindow.cpp:2671
 msgid "Clear history"
 msgstr "Șterge cronologia"
 
-#: src/mainwindow.cpp:2669
+#: src/mainwindow.cpp:2672
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Chiar vrei să ștergi cronologia acestei conversații?"
 
-#: src/mainwindow.cpp:2684
+#: src/mainwindow.cpp:2687
 msgid "Remove conversation"
 msgstr "Șterge conversația"
 
-#: src/mainwindow.cpp:2685
+#: src/mainwindow.cpp:2688
 msgid "Do you really want to remove this conversation?"
 msgstr "Chiar vrei să ștergi această conversație?"
 
-#: src/mainwindow.cpp:2700
+#: src/mainwindow.cpp:2703
 msgid "Block contact"
 msgstr "Blochează contactul"
 
-#: src/mainwindow.cpp:2701
+#: src/mainwindow.cpp:2704
 msgid "Do you really want to block this contact?"
 msgstr "Chiar vrei să blochezi acest contact?"
 
@@ -1393,7 +1405,7 @@ msgstr "Arată Jami"
 
 #: src/client.cpp:399
 msgid "Quit"
-msgstr "Ieși"
+msgstr "Închide"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:970
 msgid ""
@@ -1401,27 +1413,27 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Atenție! Această acțiune va elimina acest cont de pe acest dispozitiv!\nNotă: această acțiune este ireversibilă și poți pierde numele pe care l-ai înscris!"
 
-#: src/currentcallview.cpp:1023
+#: src/currentcallview.cpp:1049
 msgid "No name!"
 msgstr "Niciun nume!"
 
-#: src/currentcallview.cpp:1030
+#: src/currentcallview.cpp:1056
 msgid "true"
 msgstr "adevărat"
 
-#: src/currentcallview.cpp:1133
+#: src/currentcallview.cpp:1159
 msgid "Current conference (all accounts)"
 msgstr "Conferința în curs (toate conturile)"
 
-#: src/currentcallview.cpp:1168
+#: src/currentcallview.cpp:1194
 msgid "Current calls (all accounts)"
 msgstr "Apeluri în curs (toate conturile)"
 
-#: src/currentcallview.cpp:1185
+#: src/currentcallview.cpp:1211
 msgid "Online contacts"
 msgstr "Contacte conectate"
 
-#: src/currentcallview.cpp:1593
+#: src/currentcallview.cpp:1620
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
@@ -1438,7 +1450,7 @@ msgstr "Introdu parola pentru a elimina dispozitivul"
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Edit name"
-msgstr "Modifică nume"
+msgstr "Modifică numele"
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Revoke device"

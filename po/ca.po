@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-20 03:09-0400\n"
-"PO-Revision-Date: 2020-07-13 07:09+0000\n"
+"POT-Creation-Date: 2020-07-27 03:09-0400\n"
+"PO-Revision-Date: 2020-07-27 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/savoirfairelinux/jami/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -236,11 +236,11 @@ msgstr "Migració fallida, contrasenya equivocada?"
 msgid "End this call"
 msgstr "Finalitza aquesta trucada"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:539
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:573
 msgid "End call"
 msgstr "Finalitza la trucada"
 
-#: ui/currentcallview.ui:275 ui/currentcallview.ui:512
+#: ui/currentcallview.ui:275 ui/currentcallview.ui:546
 msgid "Add participant"
 msgstr "Afegir participant"
 
@@ -253,7 +253,7 @@ msgid "Toggle hold"
 msgstr "Mantenir en espera"
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:342
-#: ui/currentcallview.ui:503
+#: ui/currentcallview.ui:537
 msgid "Hold"
 msgstr "En espera"
 
@@ -265,7 +265,7 @@ msgstr "Activa silenci d'àudio"
 msgid "Toggle mute video"
 msgstr "Activa silenci de vídeo"
 
-#: ui/currentcallview.ui:367 ui/currentcallview.ui:494
+#: ui/currentcallview.ui:367 ui/currentcallview.ui:528
 msgid "Mute video"
 msgstr "Silencia el vídeo"
 
@@ -273,7 +273,7 @@ msgstr "Silencia el vídeo"
 msgid "Toggle recording"
 msgstr "Activa enregistrament"
 
-#: ui/currentcallview.ui:391 ui/currentcallview.ui:557
+#: ui/currentcallview.ui:391 ui/currentcallview.ui:591
 #: ui/messagingwidget.ui:29 src/chatview.cpp:348
 msgid "Record"
 msgstr "Grava"
@@ -282,39 +282,51 @@ msgstr "Grava"
 msgid "Adjust outgoing video quality"
 msgstr "Ajusta la qualitat del vídeo sortint"
 
-#: ui/currentcallview.ui:436 ui/currentcallview.ui:548
+#: ui/currentcallview.ui:436 ui/currentcallview.ui:582
 msgid "Video quality"
 msgstr "Qualitat de vídeo"
 
-#: ui/currentcallview.ui:455
+#: ui/currentcallview.ui:457
+msgid "Toggle view"
+msgstr ""
+
+#: ui/currentcallview.ui:461
+msgid "Change video layout"
+msgstr ""
+
+#: ui/currentcallview.ui:480
 msgid "Toggle show chat"
 msgstr "Mostra el xat"
 
-#: ui/currentcallview.ui:459 ui/currentcallview.ui:476
+#: ui/currentcallview.ui:484 ui/currentcallview.ui:501
 msgid "Chat"
 msgstr "Xat"
 
-#: ui/currentcallview.ui:485
+#: ui/currentcallview.ui:510
+msgid "View"
+msgstr ""
+
+#: ui/currentcallview.ui:519
 msgid "Mute audio"
 msgstr "Silencia l'àudio"
 
-#: ui/currentcallview.ui:521
+#: ui/currentcallview.ui:555
 msgid "Activate Plugin"
 msgstr ""
 
-#: ui/currentcallview.ui:530
+#: ui/currentcallview.ui:564
 msgid "Transfer"
 msgstr "Transferència"
 
-#: ui/currentcallview.ui:580
+#: ui/currentcallview.ui:614
 msgid "Transfer to"
 msgstr "Transfereix a"
 
-#: ui/currentcallview.ui:644
+#: ui/currentcallview.ui:678
 msgid "Add"
 msgstr "Afegir"
 
-#: ui/currentcallview.ui:710 src/pluginsettingsview.cpp:124
+#: ui/currentcallview.ui:744 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
 msgstr ""
 
@@ -1316,49 +1328,49 @@ msgstr "t'està trucant!"
 msgid "Incoming call"
 msgstr "Trucada entrant"
 
-#: src/mainwindow.cpp:2471
+#: src/mainwindow.cpp:2474
 msgid "New request from "
 msgstr "Nova petició de"
 
-#: src/mainwindow.cpp:2474
+#: src/mainwindow.cpp:2477
 msgid "Trust request"
 msgstr "Petició de confiança"
 
-#: src/mainwindow.cpp:2537
+#: src/mainwindow.cpp:2540
 msgid "New message"
 msgstr "Nou missatge"
 
-#: src/mainwindow.cpp:2600
+#: src/mainwindow.cpp:2603
 msgid "Stop current call?"
 msgstr "Penjar la conversa actual?"
 
-#: src/mainwindow.cpp:2601
+#: src/mainwindow.cpp:2604
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Una trucada està en curs. Voleu tancar la finestra i penjar totes les trucades actuals?"
 
-#: src/mainwindow.cpp:2668
+#: src/mainwindow.cpp:2671
 msgid "Clear history"
 msgstr "Neteja historial"
 
-#: src/mainwindow.cpp:2669
+#: src/mainwindow.cpp:2672
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Realment vol netejar l'historial d'aquesta conversa?"
 
-#: src/mainwindow.cpp:2684
+#: src/mainwindow.cpp:2687
 msgid "Remove conversation"
 msgstr "Esborra conversa"
 
-#: src/mainwindow.cpp:2685
+#: src/mainwindow.cpp:2688
 msgid "Do you really want to remove this conversation?"
 msgstr "Realment vol eliminar aquesta conversa?"
 
-#: src/mainwindow.cpp:2700
+#: src/mainwindow.cpp:2703
 msgid "Block contact"
 msgstr "Bloqueja el contacte"
 
-#: src/mainwindow.cpp:2701
+#: src/mainwindow.cpp:2704
 msgid "Do you really want to block this contact?"
 msgstr "Realment vol blocar aquest contacte?"
 
@@ -1406,27 +1418,27 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Atenció! Aquesta acció eliminarà el compte d'aquest dispositiu!\nNota: aquesta acció no es pot desfer. A més, el vostre nom registrat es pot perdre!"
 
-#: src/currentcallview.cpp:1023
+#: src/currentcallview.cpp:1049
 msgid "No name!"
 msgstr ""
 
-#: src/currentcallview.cpp:1030
+#: src/currentcallview.cpp:1056
 msgid "true"
 msgstr ""
 
-#: src/currentcallview.cpp:1133
+#: src/currentcallview.cpp:1159
 msgid "Current conference (all accounts)"
 msgstr "Conferència actual (tots els comptes)"
 
-#: src/currentcallview.cpp:1168
+#: src/currentcallview.cpp:1194
 msgid "Current calls (all accounts)"
 msgstr "Trucades actuals (tots els comptes)"
 
-#: src/currentcallview.cpp:1185
+#: src/currentcallview.cpp:1211
 msgid "Online contacts"
 msgstr "Contactes en línia"
 
-#: src/currentcallview.cpp:1593
+#: src/currentcallview.cpp:1620
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automàtic"

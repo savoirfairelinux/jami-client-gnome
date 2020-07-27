@@ -47,7 +47,7 @@ msgstr "Trimite"
 
 #: web/chatview.html:187
 msgid "SendFile"
-msgstr "TrimiteFișier"
+msgstr "TrimiteFișierul"
 
 #: web/chatview.html:188 web/chatview.html:933
 msgid "Accept"
