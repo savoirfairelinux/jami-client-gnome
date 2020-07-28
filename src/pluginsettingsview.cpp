@@ -347,6 +347,7 @@ plugin_settings_view_show(PluginSettingsView *self, gboolean show_preview)
     PluginSettingsViewPrivate *priv = PLUGIN_SETTINGS_VIEW_GET_PRIVATE(self);
 
     if(show_preview) {
+        gtk_switch_set_active(GTK_SWITCH(priv->plugins_enabled_button), priv->cpp->pluginModel_->getPluginsEnabled());
         gtk_widget_show_all(priv->plugins_enabled_button);
         gtk_widget_show_all(priv->button_choose_jpl_file);
         refreshPluginsList(self);

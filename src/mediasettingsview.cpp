@@ -802,6 +802,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
     g_return_if_fail(IS_MEDIA_SETTINGS_VIEW(self));
     MediaSettingsViewPrivate *priv = MEDIA_SETTINGS_VIEW_GET_PRIVATE(self);
 
+    gtk_switch_set_active(GTK_SWITCH(priv->hardware_accel_button), priv->cpp->avModel_->getHardwareAcceleration());
     if (priv->cpp) {
         // Update view (we don't listen for events while not displaying)
         priv->cpp->drawAudioDevices();
