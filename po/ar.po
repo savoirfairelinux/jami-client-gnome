@@ -7,13 +7,14 @@
 # Jihed Amine Maaref <jihed-amine.maaref@savoirfairelinux.com>, 2015
 # Moo Dooh <mxr2z@grr.la>, 2016
 # OmarRi <om_80_m@yahoo.com>, 2016
+# Waleed Moussa <askme9000@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-27 03:09-0400\n"
-"PO-Revision-Date: 2020-07-27 07:09+0000\n"
-"Last-Translator: Jihed Amine Maaref <jihed-amine.maaref@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-08-03 03:09-0400\n"
+"PO-Revision-Date: 2020-07-31 10:33+0000\n"
+"Last-Translator: Waleed Moussa <askme9000@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/savoirfairelinux/jami/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -153,7 +154,7 @@ msgstr ""
 
 #: ui/mainwindow.ui:63
 msgid "Menu"
-msgstr "قائمة (menu)"
+msgstr "قائمة"
 
 #: ui/mainwindow.ui:86
 msgid "General"
@@ -161,7 +162,7 @@ msgstr "عام"
 
 #: ui/mainwindow.ui:102
 msgid "Media"
-msgstr "ميديا"
+msgstr "وسائط"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
@@ -232,11 +233,11 @@ msgstr ""
 
 #: ui/currentcallview.ui:251
 msgid "End this call"
-msgstr "أنهي هذه المكالمة"
+msgstr "إنهاء هذه المكالمة"
 
 #: ui/currentcallview.ui:255 ui/currentcallview.ui:573
 msgid "End call"
-msgstr "أنهي المكالمة"
+msgstr "إنهاء المكالمة"
 
 #: ui/currentcallview.ui:275 ui/currentcallview.ui:546
 msgid "Add participant"
@@ -248,24 +249,24 @@ msgstr ""
 
 #: ui/currentcallview.ui:313
 msgid "Toggle hold"
-msgstr "غير حالة التوقف"
+msgstr "تبديل التعليق"
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:342
 #: ui/currentcallview.ui:537
 msgid "Hold"
-msgstr "توقف"
+msgstr "تعليق"
 
 #: ui/currentcallview.ui:338
 msgid "Toggle mute audio"
-msgstr "غير حالة إبكام الصوت"
+msgstr "تبديل كتم الصوت"
 
 #: ui/currentcallview.ui:363
 msgid "Toggle mute video"
-msgstr "غير حالة إبكام الفيديو"
+msgstr "تبديل كتم الفيديو"
 
 #: ui/currentcallview.ui:367 ui/currentcallview.ui:528
 msgid "Mute video"
-msgstr "أبكم الفيديو"
+msgstr "كتم الفيديو"
 
 #: ui/currentcallview.ui:388
 msgid "Toggle recording"
@@ -294,11 +295,11 @@ msgstr ""
 
 #: ui/currentcallview.ui:480
 msgid "Toggle show chat"
-msgstr "غير حالة إظهار الدردشة"
+msgstr "تبديل ظهور المحادثة الكتابية"
 
 #: ui/currentcallview.ui:484 ui/currentcallview.ui:501
 msgid "Chat"
-msgstr "دردشة"
+msgstr "محادثة كتابية"
 
 #: ui/currentcallview.ui:510
 msgid "View"
@@ -306,7 +307,7 @@ msgstr "العرض"
 
 #: ui/currentcallview.ui:519
 msgid "Mute audio"
-msgstr "أبكم الصوت"
+msgstr "كتم الصوت"
 
 #: ui/currentcallview.ui:555
 msgid "Activate Plugin"
@@ -486,11 +487,11 @@ msgstr ""
 
 #: ui/gearsmenu.ui:11
 msgid "_About"
-msgstr "عن RING"
+msgstr "_عن"
 
 #: ui/gearsmenu.ui:17
 msgid "_Quit"
-msgstr "غادر"
+msgstr "_مغادرة"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
@@ -554,7 +555,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:606
 msgid "Clear all history"
-msgstr "أزل كل التاريخ"
+msgstr "إفراغ كل المؤرخ"
 
 #: ui/generalsettingsview.ui:638
 msgid "Call Recording"
@@ -729,7 +730,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1054
 msgid "Advanced settings"
-msgstr ""
+msgstr "إعدادات متقدمة"
 
 #: ui/newaccountsettingsview.ui:1090
 msgid "General settings"
@@ -741,7 +742,7 @@ msgstr "إعدادات الاتصال"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "السماح بمكالمات من جهات إتصال غير معروفة"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
@@ -753,7 +754,7 @@ msgstr "نغمة مخصصة"
 
 #: ui/newaccountsettingsview.ui:1261
 msgid "Name server"
-msgstr ""
+msgstr "اسم خادم"
 
 #: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
 msgid "Address"
@@ -773,19 +774,19 @@ msgstr "تشغيل ذاتي"
 
 #: ui/newaccountsettingsview.ui:1512
 msgid "Encrypt media streams (SRTP)"
-msgstr "تشفير تيارات الميديا (SRTP)"
+msgstr "نظام تشفير تدفق الوسائط (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1547
 msgid "Enable SDES for key exchange protocol"
-msgstr ""
+msgstr "تمكين SDES في نظام تبادل المفاتيح"
 
 #: ui/newaccountsettingsview.ui:1583
 msgid "Fallback on RTP on encryption failure"
-msgstr "إلجأ إلى RTP عند فشل التشفير"
+msgstr "الرجوع الى نظام  RTP عند فشل التشفير"
 
 #: ui/newaccountsettingsview.ui:1618
 msgid "Encrypt negotiation (TLS)"
-msgstr "تشفير التفاوض (TLS)"
+msgstr "نظام تشفير التفاوض (TLS)"
 
 #: ui/newaccountsettingsview.ui:1653
 msgid "CA certificate"
@@ -805,7 +806,7 @@ msgstr "كلمة سر المفتاح الخاص"
 
 #: ui/newaccountsettingsview.ui:1799
 msgid "TLS protocol method"
-msgstr "أسلوب بروتوكول TLS"
+msgstr "نهج نظام TLS"
 
 #: ui/newaccountsettingsview.ui:1835
 msgid "Outgoing TLS server name"
@@ -817,15 +818,15 @@ msgstr "إنقضاء فترة التفاوض (ثواني)"
 
 #: ui/newaccountsettingsview.ui:1906
 msgid "Verify incoming certificates (server side)"
-msgstr "تحقق من الشهادات الواردة (من جانب الخادم)"
+msgstr "التحقق من الشهادات الواردة (من جانب الخادم)"
 
 #: ui/newaccountsettingsview.ui:1941
 msgid "Verify answer certificates (client side)"
-msgstr "تحقق من الشهادات الواردة (من جانب الزبون)"
+msgstr "التحقق من الشهادات الواردة (من جانب التابع)"
 
 #: ui/newaccountsettingsview.ui:1976
 msgid "Require a certificate for incoming TLS connections"
-msgstr "استلزم شهادة للإتصالات TLS الواردة"
+msgstr "ضرورة وجود شهادة لإتصالات TLS الواردة"
 
 #: ui/newaccountsettingsview.ui:2000
 msgid "Security"
@@ -837,7 +838,7 @@ msgstr "الاتصال"
 
 #: ui/newaccountsettingsview.ui:2063
 msgid "Registration expire timeout (seconds)"
-msgstr ""
+msgstr "إنقضت فترة التسجيل (ثواني)"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Network interface"
@@ -849,7 +850,7 @@ msgstr "بروتوكول UPnP"
 
 #: ui/newaccountsettingsview.ui:2171
 msgid "Use TURN"
-msgstr "إستعمل TURN"
+msgstr "إستعمل خادم TURN"
 
 #: ui/newaccountsettingsview.ui:2206
 msgid "(TURN) address"
@@ -869,7 +870,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2346
 msgid "Use STUN"
-msgstr "إستعمل STUN"
+msgstr "إستعمل خادم STUN"
 
 #: ui/newaccountsettingsview.ui:2381
 msgid "(STUN) address"
@@ -885,7 +886,7 @@ msgstr "استخدام عنوان ونقطة عبور مخصصين"
 
 #: ui/newaccountsettingsview.ui:2522
 msgid "Port"
-msgstr "نقطة عبور ( port )"
+msgstr "منفذ عبور"
 
 #: ui/newaccountsettingsview.ui:2558
 msgid "Video codecs"
@@ -929,7 +930,7 @@ msgstr ""
 
 #: ui/pluginsettingsview.ui:44
 msgid "Plugins"
-msgstr ""
+msgstr "الإضافات"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
@@ -1079,7 +1080,7 @@ msgstr ""
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "هذه هويتك الشخصية. انسخها وشاركها مع أصدقائك!"
 
 #: src/welcomeview.cpp:195
 msgid ""
@@ -1178,13 +1179,13 @@ msgstr ""
 
 #: src/client_options.c:66
 msgid "Enable debug"
-msgstr "فعل التصحيح"
+msgstr "تفعيل مصحح الأخطاء"
 
 #: src/client_options.c:68
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr "إستعداد الحالة المخفية للنافذة الرئيسية (تنطبق فقط على النموذج الأول)"
+msgstr "إستعادة الحالة المخفية للنافذة الرئيسية (تنطبق فقط على النموذج الأول)"
 
 #: src/client_options.c:85
 msgid "- GNOME client for Jami"
@@ -1457,7 +1458,7 @@ msgstr "تعديل الاسم"
 
 #: src/newaccountsettingsview.cpp:660
 msgid "Revoke device"
-msgstr ""
+msgstr "إبطال جهاز"
 
 #: src/newaccountsettingsview.cpp:682
 msgid "Error when revoking device"
@@ -1470,7 +1471,7 @@ msgstr ""
 #: src/newaccountsettingsview.cpp:778 src/newaccountsettingsview.cpp:801
 #: src/newaccountsettingsview.cpp:825 src/newaccountsettingsview.cpp:861
 msgid "Change password"
-msgstr ""
+msgstr "تغيير كلمة المرور"
 
 #: src/newaccountsettingsview.cpp:791
 msgid "New password and its confirmation are different!"
@@ -1478,7 +1479,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:802
 msgid "Incorrect password!"
-msgstr ""
+msgstr "كلمة سر غير صحيحة"
 
 #: src/newaccountsettingsview.cpp:839
 msgid "Note: this will change the password only on this device."
@@ -1530,7 +1531,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2006
 msgid "Connecting…"
-msgstr ""
+msgstr "اتصال جاري..."
 
 #: src/newaccountsettingsview.cpp:2009
 msgid "Online"

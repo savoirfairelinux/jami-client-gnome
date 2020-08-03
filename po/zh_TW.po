@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-27 03:09-0400\n"
-"PO-Revision-Date: 2020-07-27 07:09+0000\n"
-"Last-Translator: Hsiu-Ming Chang <cges30901@gmail.com>\n"
+"POT-Creation-Date: 2020-08-03 03:09-0400\n"
+"PO-Revision-Date: 2020-07-28 02:41+0000\n"
+"Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -286,11 +286,11 @@ msgstr "視訊品質"
 
 #: ui/currentcallview.ui:457
 msgid "Toggle view"
-msgstr ""
+msgstr "切換檢視"
 
 #: ui/currentcallview.ui:461
 msgid "Change video layout"
-msgstr ""
+msgstr "變更視訊佈局"
 
 #: ui/currentcallview.ui:480
 msgid "Toggle show chat"

@@ -5,6 +5,7 @@
 # Translators:
 # Zkdc, 2019
 # Beta Ba <linsui555@gmail.com>, 2020
+# Sak94664 <hdudhhhdh@gmail.com>, 2020
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2017
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2016
 # Shuisi Liu <forevoliu@gmail.com>, 2020
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-27 03:09-0400\n"
-"PO-Revision-Date: 2020-07-27 07:09+0000\n"
-"Last-Translator: Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>\n"
+"POT-Creation-Date: 2020-08-03 03:09-0400\n"
+"PO-Revision-Date: 2020-08-02 00:46+0000\n"
+"Last-Translator: Sak94664 <hdudhhhdh@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -291,7 +292,7 @@ msgstr "视频画质"
 
 #: ui/currentcallview.ui:457
 msgid "Toggle view"
-msgstr ""
+msgstr "切换视图"
 
 #: ui/currentcallview.ui:461
 msgid "Change video layout"

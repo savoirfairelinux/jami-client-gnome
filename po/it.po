@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-27 03:09-0400\n"
+"POT-Creation-Date: 2020-08-03 03:09-0400\n"
 "PO-Revision-Date: 2020-07-27 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"Last-Translator: Ettore D <noettore@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/savoirfairelinux/jami/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -303,7 +303,7 @@ msgstr "Chat"
 
 #: ui/currentcallview.ui:510
 msgid "View"
-msgstr ""
+msgstr "Visualizza"
 
 #: ui/currentcallview.ui:519
 msgid "Mute audio"

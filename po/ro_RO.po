@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-27 03:09-0400\n"
-"PO-Revision-Date: 2020-07-27 07:09+0000\n"
+"POT-Creation-Date: 2020-08-03 03:09-0400\n"
+"PO-Revision-Date: 2020-07-27 15:43+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -283,11 +283,11 @@ msgstr "Calitate video"
 
 #: ui/currentcallview.ui:457
 msgid "Toggle view"
-msgstr ""
+msgstr "Act/Dez vizualizarea"
 
 #: ui/currentcallview.ui:461
 msgid "Change video layout"
-msgstr ""
+msgstr "Schimbă aspectul video"
 
 #: ui/currentcallview.ui:480
 msgid "Toggle show chat"
@@ -766,7 +766,7 @@ msgstr "Conectare automată la rețeaua locală"
 
 #: ui/newaccountsettingsview.ui:1452
 msgid "Bootstrap"
-msgstr "Pornire"
+msgstr "Server de conectare"
 
 #: ui/newaccountsettingsview.ui:1512
 msgid "Encrypt media streams (SRTP)"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-27 03:09-0400\n"
-"PO-Revision-Date: 2020-07-27 07:09+0000\n"
+"POT-Creation-Date: 2020-08-03 03:09-0400\n"
+"PO-Revision-Date: 2020-07-27 19:05+0000\n"
 "Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/jami/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -283,11 +283,11 @@ msgstr "Videokvalitet"
 
 #: ui/currentcallview.ui:457
 msgid "Toggle view"
-msgstr ""
+msgstr "Växla vy"
 
 #: ui/currentcallview.ui:461
 msgid "Change video layout"
-msgstr ""
+msgstr "Ändra videolayout"
 
 #: ui/currentcallview.ui:480
 msgid "Toggle show chat"
