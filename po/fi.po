@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 03:09-0400\n"
-"PO-Revision-Date: 2020-07-27 20:58+0000\n"
-"Last-Translator: Kimmo Kujansuu <mrkujansuu@gmail.com>\n"
+"POT-Creation-Date: 2020-08-10 03:09-0400\n"
+"PO-Revision-Date: 2020-08-10 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/savoirfairelinux/jami/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -174,7 +174,7 @@ msgstr "Lisäosa"
 msgid "Account"
 msgstr "Tunnus"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1869
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1837
 msgid "Settings"
 msgstr "Asetukset"
 
@@ -216,7 +216,7 @@ msgstr "Tilin hallinta"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:971 src/newaccountsettingsview.cpp:2102
+#: src/newaccountsettingsview.cpp:973 src/newaccountsettingsview.cpp:2117
 msgid "Delete account"
 msgstr "Poista tunnus"
 
@@ -430,7 +430,7 @@ msgid ""
 "devices to your account."
 msgstr "Tätä salasanaa käytetään tilitietojen salaamiseen ja uusien laitteiden linkittämiseen tiliisi."
 
-#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:854
+#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:856
 msgid "Confirm password"
 msgstr "Varmista salasana"
 
@@ -454,7 +454,7 @@ msgid "Never show me this again"
 msgstr "Älä näytä tätä uudestaan"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
-#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
+#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2050
 msgid "Export account"
 msgstr "Vie tunnus"
 
@@ -681,7 +681,7 @@ msgstr "Salasana (pakollinen):"
 msgid "Enter archive password"
 msgstr "Anna arkiston salasana"
 
-#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:864
+#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:866
 msgid "Cancel"
 msgstr "Peru"
 
@@ -709,7 +709,7 @@ msgstr "SIP-palvelin"
 msgid "password"
 msgstr "salasana"
 
-#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1371
+#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
 msgid "Proxy"
 msgstr "Välityspalvelin"
 
@@ -753,175 +753,179 @@ msgstr "Vastaa puheluihin automaattisesti"
 msgid "Custom ringtone"
 msgstr "Oma soittoääni"
 
-#: ui/newaccountsettingsview.ui:1261
+#: ui/newaccountsettingsview.ui:1264
+msgid "(Experimental) Rendez-vous: turn your account into a conference room"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
 msgstr "Nimipalvelin"
 
-#: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
+#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2525
 msgid "Address"
 msgstr "Osoite"
 
-#: ui/newaccountsettingsview.ui:1332
+#: ui/newaccountsettingsview.ui:1370
 msgid "OpenDHT configuration"
 msgstr "OpenDHT-määritykset"
 
-#: ui/newaccountsettingsview.ui:1416
+#: ui/newaccountsettingsview.ui:1454
 msgid "Auto connect on local network"
 msgstr "Automaattinen yhteys paikallisessa verkossa"
 
-#: ui/newaccountsettingsview.ui:1452
+#: ui/newaccountsettingsview.ui:1490
 msgid "Bootstrap"
 msgstr "Bootstrap"
 
-#: ui/newaccountsettingsview.ui:1512
+#: ui/newaccountsettingsview.ui:1550
 msgid "Encrypt media streams (SRTP)"
 msgstr "Salattu mediavirta (SRTP)"
 
-#: ui/newaccountsettingsview.ui:1547
+#: ui/newaccountsettingsview.ui:1585
 msgid "Enable SDES for key exchange protocol"
 msgstr "Ota SDES-protokolla käyttöön avaimien vaihdossa"
 
-#: ui/newaccountsettingsview.ui:1583
+#: ui/newaccountsettingsview.ui:1621
 msgid "Fallback on RTP on encryption failure"
 msgstr "Varavalinta RTP:n salausvirheestä"
 
-#: ui/newaccountsettingsview.ui:1618
+#: ui/newaccountsettingsview.ui:1656
 msgid "Encrypt negotiation (TLS)"
 msgstr "Salaa neuvottelu (TLS)"
 
-#: ui/newaccountsettingsview.ui:1653
+#: ui/newaccountsettingsview.ui:1691
 msgid "CA certificate"
 msgstr "CA-varmenne"
 
-#: ui/newaccountsettingsview.ui:1689
+#: ui/newaccountsettingsview.ui:1727
 msgid "User certificate"
 msgstr "Käyttäjävarmenne"
 
-#: ui/newaccountsettingsview.ui:1725
+#: ui/newaccountsettingsview.ui:1763
 msgid "Private key"
 msgstr "Henkilökohtainen salausavain"
 
-#: ui/newaccountsettingsview.ui:1761
+#: ui/newaccountsettingsview.ui:1799
 msgid "Private key password"
 msgstr "Henkilökohtaisen salausavaimen salasana"
 
-#: ui/newaccountsettingsview.ui:1799
+#: ui/newaccountsettingsview.ui:1837
 msgid "TLS protocol method"
 msgstr "Menetelmä TLS-protokolla"
 
-#: ui/newaccountsettingsview.ui:1835
+#: ui/newaccountsettingsview.ui:1873
 msgid "Outgoing TLS server name"
 msgstr "Lähtevän TLS-palvelimen nimi"
 
-#: ui/newaccountsettingsview.ui:1870
+#: ui/newaccountsettingsview.ui:1908
 msgid "Negotiation timeout (seconds)"
 msgstr "Neuvottelun aikakatkaisu (sekunteja)"
 
-#: ui/newaccountsettingsview.ui:1906
+#: ui/newaccountsettingsview.ui:1944
 msgid "Verify incoming certificates (server side)"
 msgstr "Vahvista saapuvat varmenteet (palvelinpuoli)"
 
-#: ui/newaccountsettingsview.ui:1941
+#: ui/newaccountsettingsview.ui:1979
 msgid "Verify answer certificates (client side)"
 msgstr "Vahvista varmenteet (asiakaspuoli)"
 
-#: ui/newaccountsettingsview.ui:1976
+#: ui/newaccountsettingsview.ui:2014
 msgid "Require a certificate for incoming TLS connections"
 msgstr "Vaadi saapuvilta TLS-yhteyksiltä varmenne"
 
-#: ui/newaccountsettingsview.ui:2000
+#: ui/newaccountsettingsview.ui:2038
 msgid "Security"
 msgstr "Turvallisuus"
 
-#: ui/newaccountsettingsview.ui:2025
+#: ui/newaccountsettingsview.ui:2063
 msgid "Connectivity"
 msgstr "Yhteydet"
 
-#: ui/newaccountsettingsview.ui:2063
+#: ui/newaccountsettingsview.ui:2101
 msgid "Registration expire timeout (seconds)"
 msgstr "Rekistöröinnin aikakatkaisu (sekunneissa)"
 
-#: ui/newaccountsettingsview.ui:2100
+#: ui/newaccountsettingsview.ui:2138
 msgid "Network interface"
 msgstr "Verkkoliitäntä"
 
-#: ui/newaccountsettingsview.ui:2136
+#: ui/newaccountsettingsview.ui:2174
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2171
+#: ui/newaccountsettingsview.ui:2209
 msgid "Use TURN"
 msgstr "Käytä TURNia"
 
-#: ui/newaccountsettingsview.ui:2206
+#: ui/newaccountsettingsview.ui:2244
 msgid "(TURN) address"
 msgstr "(TURN) osoite"
 
-#: ui/newaccountsettingsview.ui:2241
+#: ui/newaccountsettingsview.ui:2279
 msgid "(TURN) username"
 msgstr "(TURN) käyttäjänimi"
 
-#: ui/newaccountsettingsview.ui:2275
+#: ui/newaccountsettingsview.ui:2313
 msgid "(TURN) password"
 msgstr "(TURN) salasana"
 
-#: ui/newaccountsettingsview.ui:2312
+#: ui/newaccountsettingsview.ui:2350
 msgid "(TURN) realm"
 msgstr "(TURN) -alue"
 
-#: ui/newaccountsettingsview.ui:2346
+#: ui/newaccountsettingsview.ui:2384
 msgid "Use STUN"
 msgstr "Käytä STUNia"
 
-#: ui/newaccountsettingsview.ui:2381
+#: ui/newaccountsettingsview.ui:2419
 msgid "(STUN) address"
 msgstr "(STUN) osoite"
 
-#: ui/newaccountsettingsview.ui:2414
+#: ui/newaccountsettingsview.ui:2452
 msgid "Published address"
 msgstr "Julkinen osoite"
 
-#: ui/newaccountsettingsview.ui:2451
+#: ui/newaccountsettingsview.ui:2489
 msgid "Use custom address and port"
 msgstr "Käytä mukautettua osoitetta ja porttia"
 
-#: ui/newaccountsettingsview.ui:2522
+#: ui/newaccountsettingsview.ui:2560
 msgid "Port"
 msgstr "Portti"
 
-#: ui/newaccountsettingsview.ui:2558
+#: ui/newaccountsettingsview.ui:2596
 msgid "Video codecs"
 msgstr "Videokoodekit"
 
-#: ui/newaccountsettingsview.ui:2621
+#: ui/newaccountsettingsview.ui:2659
 msgid "Enable video"
 msgstr "Video käyttöön"
 
-#: ui/newaccountsettingsview.ui:2648
+#: ui/newaccountsettingsview.ui:2686
 msgid "Audio codecs"
 msgstr "Äänikoodekit"
 
-#: ui/newaccountsettingsview.ui:2718
+#: ui/newaccountsettingsview.ui:2756
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP-istunnon neuvottelut (ICE Fallback)"
 
-#: ui/newaccountsettingsview.ui:2730
+#: ui/newaccountsettingsview.ui:2768
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Käytetään vain SDP-neuvotteluissa, jos ICE ei ole tuettu."
 
-#: ui/newaccountsettingsview.ui:2764
+#: ui/newaccountsettingsview.ui:2802
 msgid "Audio RTP Min port"
 msgstr "Ääni RTP alin portti"
 
-#: ui/newaccountsettingsview.ui:2799
+#: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Max port"
 msgstr "Ääni RTP ylin portti"
 
-#: ui/newaccountsettingsview.ui:2834
+#: ui/newaccountsettingsview.ui:2872
 msgid "Video RTP Min port"
 msgstr "Video RTP alin portti"
 
-#: ui/newaccountsettingsview.ui:2869
+#: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Max port"
 msgstr "Video RTP ylin portti"
 
@@ -987,13 +991,13 @@ msgstr "Valitse alue kuvalle"
 
 #: src/pluginsettingsview.cpp:127 src/generalsettingsview.cpp:234
 #: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:757
-#: src/chatview.cpp:284 src/newaccountsettingsview.cpp:907
+#: src/chatview.cpp:284 src/newaccountsettingsview.cpp:909
 msgid "_Cancel"
 msgstr "_Peruuta"
 
 #: src/pluginsettingsview.cpp:129 src/generalsettingsview.cpp:236
 #: src/accountcreationwizard.cpp:759 src/chatview.cpp:286
-#: src/newaccountsettingsview.cpp:909
+#: src/newaccountsettingsview.cpp:911
 msgid "_Save"
 msgstr "_Tallenna"
 
@@ -1263,23 +1267,23 @@ msgid "Import from backup"
 msgstr "Tuo varmuuskopiosta"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
-#: src/newaccountsettingsview.cpp:904
+#: src/newaccountsettingsview.cpp:906
 msgid "Save File"
 msgstr "Tallenna tiedosto"
 
-#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:931
+#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:933
 msgid "You need to enter your password to export the full archive."
 msgstr "Sinun on annettava salasanasi, jotta voit viedä koko arkiston."
 
-#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:932
+#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:934
 msgid "Enter password to export archive"
 msgstr "Anna salasana viedäksesi arkiston"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:957
 msgid "Account exported!"
 msgstr "Tunnus viety!"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:957
 msgid "Export account failure."
 msgstr "Tunnuksen vienti epäonnistui"
 
@@ -1287,90 +1291,90 @@ msgstr "Tunnuksen vienti epäonnistui"
 msgid "Add account…"
 msgstr "Lisää tunnus…"
 
-#: src/mainwindow.cpp:867
+#: src/mainwindow.cpp:865
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "aloita puhelu"
 
-#: src/mainwindow.cpp:870
+#: src/mainwindow.cpp:868
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "avaa chatti"
 
-#: src/mainwindow.cpp:1077
+#: src/mainwindow.cpp:1075
 msgid "Jami - Migration needed"
 msgstr "Jami - päivitys tarvitaan"
 
-#: src/mainwindow.cpp:1090
+#: src/mainwindow.cpp:1088
 msgid "Migration in progress... please do not close this window."
 msgstr "Päivitys käynnissä... älä sulje tätä ikkunaa."
 
-#: src/mainwindow.cpp:1370
+#: src/mainwindow.cpp:1368
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Etsi tai aloita keskustelu"
 
-#: src/mainwindow.cpp:1841
+#: src/mainwindow.cpp:1809
 msgid "Leave settings page"
 msgstr "Poistu asetussivulta"
 
-#: src/mainwindow.cpp:2271
+#: src/mainwindow.cpp:2238
 msgid "There are active calls"
 msgstr "Täällä on aktiivisia puheluja"
 
-#: src/mainwindow.cpp:2323
+#: src/mainwindow.cpp:2290
 msgid " is calling you!"
 msgstr "soittaa sinulle!"
 
-#: src/mainwindow.cpp:2326
+#: src/mainwindow.cpp:2293
 msgid "Incoming call"
 msgstr "Saapuva puhelu"
 
-#: src/mainwindow.cpp:2474
+#: src/mainwindow.cpp:2443
 msgid "New request from "
 msgstr "Uusi pyyntö käyttäjältä"
 
-#: src/mainwindow.cpp:2477
+#: src/mainwindow.cpp:2446
 msgid "Trust request"
 msgstr "Luottamuspyyntö"
 
-#: src/mainwindow.cpp:2540
+#: src/mainwindow.cpp:2509
 msgid "New message"
 msgstr "Uusi viesti"
 
-#: src/mainwindow.cpp:2603
+#: src/mainwindow.cpp:2573
 msgid "Stop current call?"
 msgstr "Lopeta nykyinen puhelu?"
 
-#: src/mainwindow.cpp:2604
+#: src/mainwindow.cpp:2574
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Puhelu on parhaillaan käynnissä. Haluatko sulkea ikkunan ja lopettaa kaikki nykyiset puhelut?"
 
-#: src/mainwindow.cpp:2671
+#: src/mainwindow.cpp:2641
 msgid "Clear history"
 msgstr "Tyhjennä historia"
 
-#: src/mainwindow.cpp:2672
+#: src/mainwindow.cpp:2642
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Haluatko todella tyhjentää tämän keskustelun historian?"
 
-#: src/mainwindow.cpp:2687
+#: src/mainwindow.cpp:2657
 msgid "Remove conversation"
 msgstr "Poista keskustelu"
 
-#: src/mainwindow.cpp:2688
+#: src/mainwindow.cpp:2658
 msgid "Do you really want to remove this conversation?"
 msgstr "Haluatko todella poistaa tämän keskustelun?"
 
-#: src/mainwindow.cpp:2703
+#: src/mainwindow.cpp:2673
 msgid "Block contact"
 msgstr "Estä yhteystieto"
 
-#: src/mainwindow.cpp:2704
+#: src/mainwindow.cpp:2674
 msgid "Do you really want to block this contact?"
 msgstr "Haluatko todella estää tämän kontaktin?"
 
@@ -1412,7 +1416,7 @@ msgstr "Näytä Jami"
 msgid "Quit"
 msgstr "Lopeta"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:970
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:972
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1443,113 +1447,113 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automaattinen"
 
-#: src/newaccountsettingsview.cpp:601
+#: src/newaccountsettingsview.cpp:603
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Varoitus! Tämä toiminto peruuttaa laitteen!\nHuomautus: tätä toimintoa ei voi kumota."
 
-#: src/newaccountsettingsview.cpp:602
+#: src/newaccountsettingsview.cpp:604
 msgid "Enter password to revoke device"
 msgstr "Kirjoita salasana peruuttaaksesi laitteen"
 
-#: src/newaccountsettingsview.cpp:660
+#: src/newaccountsettingsview.cpp:662
 msgid "Edit name"
 msgstr "Muokkaa nimeä"
 
-#: src/newaccountsettingsview.cpp:660
+#: src/newaccountsettingsview.cpp:662
 msgid "Revoke device"
 msgstr "Peruuta laite"
 
-#: src/newaccountsettingsview.cpp:682
+#: src/newaccountsettingsview.cpp:684
 msgid "Error when revoking device"
 msgstr "Virhe laitteen peruuttamisessa"
 
-#: src/newaccountsettingsview.cpp:755
+#: src/newaccountsettingsview.cpp:757
 msgid "Unban"
 msgstr "Poista kielto"
 
-#: src/newaccountsettingsview.cpp:778 src/newaccountsettingsview.cpp:801
-#: src/newaccountsettingsview.cpp:825 src/newaccountsettingsview.cpp:861
+#: src/newaccountsettingsview.cpp:780 src/newaccountsettingsview.cpp:803
+#: src/newaccountsettingsview.cpp:827 src/newaccountsettingsview.cpp:863
 msgid "Change password"
 msgstr "Vaihda salasana"
 
-#: src/newaccountsettingsview.cpp:791
+#: src/newaccountsettingsview.cpp:793
 msgid "New password and its confirmation are different!"
 msgstr "Uusi salasana ja sen varmistus ovat erilaiset!"
 
-#: src/newaccountsettingsview.cpp:802
+#: src/newaccountsettingsview.cpp:804
 msgid "Incorrect password!"
 msgstr "Väärä salasana!"
 
-#: src/newaccountsettingsview.cpp:839
+#: src/newaccountsettingsview.cpp:841
 msgid "Note: this will change the password only on this device."
 msgstr "Huomaa: tämä muuttaa vain tämän laitteen salasanan."
 
-#: src/newaccountsettingsview.cpp:842
+#: src/newaccountsettingsview.cpp:844
 msgid "Current password"
 msgstr "Nykyinen salasana"
 
-#: src/newaccountsettingsview.cpp:848
+#: src/newaccountsettingsview.cpp:850
 msgid "New password"
 msgstr "Uusi salasana"
 
-#: src/newaccountsettingsview.cpp:1711
+#: src/newaccountsettingsview.cpp:1725
 msgid "Exporting account…"
 msgstr "Viedään tiliä..."
 
-#: src/newaccountsettingsview.cpp:1736
+#: src/newaccountsettingsview.cpp:1750
 msgid "Bad password"
 msgstr "Virheellinen salasana"
 
-#: src/newaccountsettingsview.cpp:1744
+#: src/newaccountsettingsview.cpp:1758
 msgid "Network error, try again"
 msgstr "Verkkovirhe, yritä uudelleen"
 
-#: src/newaccountsettingsview.cpp:1752
+#: src/newaccountsettingsview.cpp:1766
 msgid "Unknown error"
 msgstr "Tuntematon virhe"
 
-#: src/newaccountsettingsview.cpp:1765
+#: src/newaccountsettingsview.cpp:1779
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Ei voitu aloittaa Jamin vientiä, yritä uudelleen"
 
-#: src/newaccountsettingsview.cpp:1824
+#: src/newaccountsettingsview.cpp:1838
 msgid "Error: wrong password!"
 msgstr "Virhe, väärä salasana!"
 
-#: src/newaccountsettingsview.cpp:1827
+#: src/newaccountsettingsview.cpp:1841
 msgid "Error: unknown device!"
 msgstr "Virhe: tuntematon laite!"
 
-#: src/newaccountsettingsview.cpp:2000
+#: src/newaccountsettingsview.cpp:2015
 msgid "Initializing…"
 msgstr "Valmistellaan..."
 
-#: src/newaccountsettingsview.cpp:2003
+#: src/newaccountsettingsview.cpp:2018
 msgid "Offline"
 msgstr "Poissa"
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2021
 msgid "Connecting…"
 msgstr "Yhdistää..."
 
-#: src/newaccountsettingsview.cpp:2009
+#: src/newaccountsettingsview.cpp:2024
 msgid "Online"
 msgstr "Verkossa"
 
-#: src/newaccountsettingsview.cpp:2013
+#: src/newaccountsettingsview.cpp:2028
 msgid "Unknown status"
 msgstr "Tuntematon tila"
 
-#: src/newaccountsettingsview.cpp:2046
+#: src/newaccountsettingsview.cpp:2061
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2046
+#: src/newaccountsettingsview.cpp:2061
 msgid "no password set"
 msgstr "salasanaa ei ole asetettu"
 
-#: src/newaccountsettingsview.cpp:2102
+#: src/newaccountsettingsview.cpp:2117
 msgid "Remove account"
 msgstr "Poista tili"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 03:09-0400\n"
-"PO-Revision-Date: 2020-07-27 07:09+0000\n"
-"Last-Translator: caeccf822bd54c9a426f75ffdae7dd94_ad50a00\n"
+"POT-Creation-Date: 2020-08-10 03:09-0400\n"
+"PO-Revision-Date: 2020-08-10 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Croatian (http://www.transifex.com/savoirfairelinux/jami/language/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -169,7 +169,7 @@ msgstr ""
 msgid "Account"
 msgstr "Račun"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1869
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1837
 msgid "Settings"
 msgstr "Postavke"
 
@@ -211,7 +211,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:971 src/newaccountsettingsview.cpp:2102
+#: src/newaccountsettingsview.cpp:973 src/newaccountsettingsview.cpp:2117
 msgid "Delete account"
 msgstr ""
 
@@ -425,7 +425,7 @@ msgid ""
 "devices to your account."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:854
+#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:856
 msgid "Confirm password"
 msgstr "Potvrdi lozinku"
 
@@ -449,7 +449,7 @@ msgid "Never show me this again"
 msgstr ""
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
-#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
+#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2050
 msgid "Export account"
 msgstr ""
 
@@ -676,7 +676,7 @@ msgstr ""
 msgid "Enter archive password"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:864
+#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:866
 msgid "Cancel"
 msgstr "Poništi"
 
@@ -704,7 +704,7 @@ msgstr ""
 msgid "password"
 msgstr "lozinka"
 
-#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1371
+#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
 msgid "Proxy"
 msgstr "Proxy"
 
@@ -748,175 +748,179 @@ msgstr ""
 msgid "Custom ringtone"
 msgstr "Prilagođena melodija zvona"
 
-#: ui/newaccountsettingsview.ui:1261
+#: ui/newaccountsettingsview.ui:1264
+msgid "(Experimental) Rendez-vous: turn your account into a conference room"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
+#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2525
 msgid "Address"
 msgstr "Adresa"
 
-#: ui/newaccountsettingsview.ui:1332
+#: ui/newaccountsettingsview.ui:1370
 msgid "OpenDHT configuration"
 msgstr "OpenDHT konfiguracija"
 
-#: ui/newaccountsettingsview.ui:1416
+#: ui/newaccountsettingsview.ui:1454
 msgid "Auto connect on local network"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1452
+#: ui/newaccountsettingsview.ui:1490
 msgid "Bootstrap"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1512
+#: ui/newaccountsettingsview.ui:1550
 msgid "Encrypt media streams (SRTP)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1547
+#: ui/newaccountsettingsview.ui:1585
 msgid "Enable SDES for key exchange protocol"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1583
+#: ui/newaccountsettingsview.ui:1621
 msgid "Fallback on RTP on encryption failure"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1618
+#: ui/newaccountsettingsview.ui:1656
 msgid "Encrypt negotiation (TLS)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1653
+#: ui/newaccountsettingsview.ui:1691
 msgid "CA certificate"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1689
+#: ui/newaccountsettingsview.ui:1727
 msgid "User certificate"
 msgstr "Korisnički certifikat"
 
-#: ui/newaccountsettingsview.ui:1725
+#: ui/newaccountsettingsview.ui:1763
 msgid "Private key"
 msgstr "Privatni ključ"
 
-#: ui/newaccountsettingsview.ui:1761
+#: ui/newaccountsettingsview.ui:1799
 msgid "Private key password"
 msgstr "Lozinka privatnog ključa"
 
-#: ui/newaccountsettingsview.ui:1799
+#: ui/newaccountsettingsview.ui:1837
 msgid "TLS protocol method"
 msgstr "Metoda TSL protokola"
 
-#: ui/newaccountsettingsview.ui:1835
+#: ui/newaccountsettingsview.ui:1873
 msgid "Outgoing TLS server name"
 msgstr "Ime odlaznoga TSL poslužitelja"
 
-#: ui/newaccountsettingsview.ui:1870
+#: ui/newaccountsettingsview.ui:1908
 msgid "Negotiation timeout (seconds)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1906
+#: ui/newaccountsettingsview.ui:1944
 msgid "Verify incoming certificates (server side)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1941
+#: ui/newaccountsettingsview.ui:1979
 msgid "Verify answer certificates (client side)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:1976
+#: ui/newaccountsettingsview.ui:2014
 msgid "Require a certificate for incoming TLS connections"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2000
+#: ui/newaccountsettingsview.ui:2038
 msgid "Security"
 msgstr "Sigurnost"
 
-#: ui/newaccountsettingsview.ui:2025
+#: ui/newaccountsettingsview.ui:2063
 msgid "Connectivity"
 msgstr "Spojivost"
 
-#: ui/newaccountsettingsview.ui:2063
+#: ui/newaccountsettingsview.ui:2101
 msgid "Registration expire timeout (seconds)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2100
+#: ui/newaccountsettingsview.ui:2138
 msgid "Network interface"
 msgstr "Mrežno sučelje"
 
-#: ui/newaccountsettingsview.ui:2136
+#: ui/newaccountsettingsview.ui:2174
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2171
+#: ui/newaccountsettingsview.ui:2209
 msgid "Use TURN"
 msgstr "Koristi TURN"
 
-#: ui/newaccountsettingsview.ui:2206
+#: ui/newaccountsettingsview.ui:2244
 msgid "(TURN) address"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2241
+#: ui/newaccountsettingsview.ui:2279
 msgid "(TURN) username"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2275
+#: ui/newaccountsettingsview.ui:2313
 msgid "(TURN) password"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2312
+#: ui/newaccountsettingsview.ui:2350
 msgid "(TURN) realm"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2346
+#: ui/newaccountsettingsview.ui:2384
 msgid "Use STUN"
 msgstr "Koristi STUN"
 
-#: ui/newaccountsettingsview.ui:2381
+#: ui/newaccountsettingsview.ui:2419
 msgid "(STUN) address"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2414
+#: ui/newaccountsettingsview.ui:2452
 msgid "Published address"
 msgstr "Objavljena adresa"
 
-#: ui/newaccountsettingsview.ui:2451
+#: ui/newaccountsettingsview.ui:2489
 msgid "Use custom address and port"
 msgstr "Koristi prilagođenu adresu i port"
 
-#: ui/newaccountsettingsview.ui:2522
+#: ui/newaccountsettingsview.ui:2560
 msgid "Port"
 msgstr "Port"
 
-#: ui/newaccountsettingsview.ui:2558
+#: ui/newaccountsettingsview.ui:2596
 msgid "Video codecs"
 msgstr "Video kodeci"
 
-#: ui/newaccountsettingsview.ui:2621
+#: ui/newaccountsettingsview.ui:2659
 msgid "Enable video"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2648
+#: ui/newaccountsettingsview.ui:2686
 msgid "Audio codecs"
 msgstr "Audio kodeci"
 
-#: ui/newaccountsettingsview.ui:2718
+#: ui/newaccountsettingsview.ui:2756
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2730
+#: ui/newaccountsettingsview.ui:2768
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2764
+#: ui/newaccountsettingsview.ui:2802
 msgid "Audio RTP Min port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2799
+#: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Max port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2834
+#: ui/newaccountsettingsview.ui:2872
 msgid "Video RTP Min port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2869
+#: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Max port"
 msgstr ""
 
@@ -982,13 +986,13 @@ msgstr ""
 
 #: src/pluginsettingsview.cpp:127 src/generalsettingsview.cpp:234
 #: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:757
-#: src/chatview.cpp:284 src/newaccountsettingsview.cpp:907
+#: src/chatview.cpp:284 src/newaccountsettingsview.cpp:909
 msgid "_Cancel"
 msgstr ""
 
 #: src/pluginsettingsview.cpp:129 src/generalsettingsview.cpp:236
 #: src/accountcreationwizard.cpp:759 src/chatview.cpp:286
-#: src/newaccountsettingsview.cpp:909
+#: src/newaccountsettingsview.cpp:911
 msgid "_Save"
 msgstr ""
 
@@ -1258,23 +1262,23 @@ msgid "Import from backup"
 msgstr ""
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
-#: src/newaccountsettingsview.cpp:904
+#: src/newaccountsettingsview.cpp:906
 msgid "Save File"
 msgstr "Spremi datoteku"
 
-#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:931
+#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:933
 msgid "You need to enter your password to export the full archive."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:932
+#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:934
 msgid "Enter password to export archive"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:957
 msgid "Account exported!"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:957
 msgid "Export account failure."
 msgstr ""
 
@@ -1282,90 +1286,90 @@ msgstr ""
 msgid "Add account…"
 msgstr ""
 
-#: src/mainwindow.cpp:867
+#: src/mainwindow.cpp:865
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/mainwindow.cpp:870
+#: src/mainwindow.cpp:868
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/mainwindow.cpp:1077
+#: src/mainwindow.cpp:1075
 msgid "Jami - Migration needed"
 msgstr ""
 
-#: src/mainwindow.cpp:1090
+#: src/mainwindow.cpp:1088
 msgid "Migration in progress... please do not close this window."
 msgstr ""
 
-#: src/mainwindow.cpp:1370
+#: src/mainwindow.cpp:1368
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:1841
+#: src/mainwindow.cpp:1809
 msgid "Leave settings page"
 msgstr ""
 
-#: src/mainwindow.cpp:2271
+#: src/mainwindow.cpp:2238
 msgid "There are active calls"
 msgstr ""
 
-#: src/mainwindow.cpp:2323
+#: src/mainwindow.cpp:2290
 msgid " is calling you!"
 msgstr ""
 
-#: src/mainwindow.cpp:2326
+#: src/mainwindow.cpp:2293
 msgid "Incoming call"
 msgstr "Dolazni poziv"
 
-#: src/mainwindow.cpp:2474
+#: src/mainwindow.cpp:2443
 msgid "New request from "
 msgstr ""
 
-#: src/mainwindow.cpp:2477
+#: src/mainwindow.cpp:2446
 msgid "Trust request"
 msgstr ""
 
-#: src/mainwindow.cpp:2540
+#: src/mainwindow.cpp:2509
 msgid "New message"
 msgstr ""
 
-#: src/mainwindow.cpp:2603
+#: src/mainwindow.cpp:2573
 msgid "Stop current call?"
 msgstr ""
 
-#: src/mainwindow.cpp:2604
+#: src/mainwindow.cpp:2574
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/mainwindow.cpp:2671
+#: src/mainwindow.cpp:2641
 msgid "Clear history"
 msgstr "Očisti povijest"
 
-#: src/mainwindow.cpp:2672
+#: src/mainwindow.cpp:2642
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2687
+#: src/mainwindow.cpp:2657
 msgid "Remove conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:2688
+#: src/mainwindow.cpp:2658
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2703
+#: src/mainwindow.cpp:2673
 msgid "Block contact"
 msgstr "Blokiraj kontakt"
 
-#: src/mainwindow.cpp:2704
+#: src/mainwindow.cpp:2674
 msgid "Do you really want to block this contact?"
 msgstr ""
 
@@ -1407,7 +1411,7 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:970
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:972
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1438,113 +1442,113 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:601
+#: src/newaccountsettingsview.cpp:603
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:602
+#: src/newaccountsettingsview.cpp:604
 msgid "Enter password to revoke device"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:660
+#: src/newaccountsettingsview.cpp:662
 msgid "Edit name"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:660
+#: src/newaccountsettingsview.cpp:662
 msgid "Revoke device"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:682
+#: src/newaccountsettingsview.cpp:684
 msgid "Error when revoking device"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:755
+#: src/newaccountsettingsview.cpp:757
 msgid "Unban"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:778 src/newaccountsettingsview.cpp:801
-#: src/newaccountsettingsview.cpp:825 src/newaccountsettingsview.cpp:861
+#: src/newaccountsettingsview.cpp:780 src/newaccountsettingsview.cpp:803
+#: src/newaccountsettingsview.cpp:827 src/newaccountsettingsview.cpp:863
 msgid "Change password"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:791
+#: src/newaccountsettingsview.cpp:793
 msgid "New password and its confirmation are different!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:802
+#: src/newaccountsettingsview.cpp:804
 msgid "Incorrect password!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:839
+#: src/newaccountsettingsview.cpp:841
 msgid "Note: this will change the password only on this device."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:842
+#: src/newaccountsettingsview.cpp:844
 msgid "Current password"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:848
+#: src/newaccountsettingsview.cpp:850
 msgid "New password"
 msgstr "Nova lozinka"
 
-#: src/newaccountsettingsview.cpp:1711
+#: src/newaccountsettingsview.cpp:1725
 msgid "Exporting account…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1736
+#: src/newaccountsettingsview.cpp:1750
 msgid "Bad password"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1744
+#: src/newaccountsettingsview.cpp:1758
 msgid "Network error, try again"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1752
+#: src/newaccountsettingsview.cpp:1766
 msgid "Unknown error"
 msgstr "Nepoznata greška"
 
-#: src/newaccountsettingsview.cpp:1765
+#: src/newaccountsettingsview.cpp:1779
 msgid "Could not initiate export to the Jami, try again"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1824
+#: src/newaccountsettingsview.cpp:1838
 msgid "Error: wrong password!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1827
+#: src/newaccountsettingsview.cpp:1841
 msgid "Error: unknown device!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2000
+#: src/newaccountsettingsview.cpp:2015
 msgid "Initializing…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2003
+#: src/newaccountsettingsview.cpp:2018
 msgid "Offline"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2021
 msgid "Connecting…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2009
+#: src/newaccountsettingsview.cpp:2024
 msgid "Online"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2013
+#: src/newaccountsettingsview.cpp:2028
 msgid "Unknown status"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2046
+#: src/newaccountsettingsview.cpp:2061
 msgid "••••••••"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2046
+#: src/newaccountsettingsview.cpp:2061
 msgid "no password set"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2102
+#: src/newaccountsettingsview.cpp:2117
 msgid "Remove account"
 msgstr ""

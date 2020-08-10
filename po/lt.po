@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 03:09-0400\n"
-"PO-Revision-Date: 2020-07-27 07:09+0000\n"
-"Last-Translator: Moo\n"
+"POT-Creation-Date: 2020-08-10 03:09-0400\n"
+"PO-Revision-Date: 2020-08-10 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/savoirfairelinux/jami/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -171,7 +171,7 @@ msgstr ""
 msgid "Account"
 msgstr "Paskyra"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1869
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1837
 msgid "Settings"
 msgstr "Nustatymai"
 
@@ -213,7 +213,7 @@ msgstr "Paskyros tvarkytuvė"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:971 src/newaccountsettingsview.cpp:2102
+#: src/newaccountsettingsview.cpp:973 src/newaccountsettingsview.cpp:2117
 msgid "Delete account"
 msgstr "Ištrinti paskyrą"
 
@@ -427,7 +427,7 @@ msgid ""
 "devices to your account."
 msgstr "Šis slaptažodis bus naudojamas jūsų paskyros duomenų šifravimui ir, norint susieti naują įrenginį su jūsų paskyra."
 
-#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:854
+#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:856
 msgid "Confirm password"
 msgstr "Patvirtinkite slaptažodį"
 
@@ -451,7 +451,7 @@ msgid "Never show me this again"
 msgstr "Daugiau neberodyti"
 
 #: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
-#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2035
+#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2050
 msgid "Export account"
 msgstr "Eksportuoti paskyrą"
 
@@ -678,7 +678,7 @@ msgstr "Slaptažodis (būtinas):"
 msgid "Enter archive password"
 msgstr "Įveskite archyvo slaptažodį"
 
-#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:864
+#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:866
 msgid "Cancel"
 msgstr "Atsisakyti"
 
@@ -706,7 +706,7 @@ msgstr "SIP serveris"
 msgid "password"
 msgstr "slaptažodis"
 
-#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1371
+#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
 msgid "Proxy"
 msgstr "Įgaliotasis serveris"
 
@@ -750,175 +750,179 @@ msgstr "Automatiškai atsiliepti į skambučius"
 msgid "Custom ringtone"
 msgstr "Tinkinta skambučio melodija"
 
-#: ui/newaccountsettingsview.ui:1261
+#: ui/newaccountsettingsview.ui:1264
+msgid "(Experimental) Rendez-vous: turn your account into a conference room"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
 msgstr "Vardų serveris"
 
-#: ui/newaccountsettingsview.ui:1298 ui/newaccountsettingsview.ui:2487
+#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2525
 msgid "Address"
 msgstr "Adresas"
 
-#: ui/newaccountsettingsview.ui:1332
+#: ui/newaccountsettingsview.ui:1370
 msgid "OpenDHT configuration"
 msgstr "OpenDHT konfigūracija"
 
-#: ui/newaccountsettingsview.ui:1416
+#: ui/newaccountsettingsview.ui:1454
 msgid "Auto connect on local network"
 msgstr "Automatiškai prisijungti vietiniame tinkle"
 
-#: ui/newaccountsettingsview.ui:1452
+#: ui/newaccountsettingsview.ui:1490
 msgid "Bootstrap"
 msgstr "Pradinė įkeltis"
 
-#: ui/newaccountsettingsview.ui:1512
+#: ui/newaccountsettingsview.ui:1550
 msgid "Encrypt media streams (SRTP)"
 msgstr "Šifruoti medija srautus (SRTP)"
 
-#: ui/newaccountsettingsview.ui:1547
+#: ui/newaccountsettingsview.ui:1585
 msgid "Enable SDES for key exchange protocol"
 msgstr "Raktų mainų protokolui įjungti SDES"
 
-#: ui/newaccountsettingsview.ui:1583
+#: ui/newaccountsettingsview.ui:1621
 msgid "Fallback on RTP on encryption failure"
 msgstr "Nepavykus šifravimui, pereiti į RTP surogatinę veikseną"
 
-#: ui/newaccountsettingsview.ui:1618
+#: ui/newaccountsettingsview.ui:1656
 msgid "Encrypt negotiation (TLS)"
 msgstr "Šifruoti derėjimąsi (TLS)"
 
-#: ui/newaccountsettingsview.ui:1653
+#: ui/newaccountsettingsview.ui:1691
 msgid "CA certificate"
 msgstr "LĮ liudijimas"
 
-#: ui/newaccountsettingsview.ui:1689
+#: ui/newaccountsettingsview.ui:1727
 msgid "User certificate"
 msgstr "Naudotojo liudijimas"
 
-#: ui/newaccountsettingsview.ui:1725
+#: ui/newaccountsettingsview.ui:1763
 msgid "Private key"
 msgstr "Privatusis raktas"
 
-#: ui/newaccountsettingsview.ui:1761
+#: ui/newaccountsettingsview.ui:1799
 msgid "Private key password"
 msgstr "Privačiojo rakto slaptažodis"
 
-#: ui/newaccountsettingsview.ui:1799
+#: ui/newaccountsettingsview.ui:1837
 msgid "TLS protocol method"
 msgstr "TLS protokolo metodas"
 
-#: ui/newaccountsettingsview.ui:1835
+#: ui/newaccountsettingsview.ui:1873
 msgid "Outgoing TLS server name"
 msgstr "TLS išsiuntimo serverio pavadinimas"
 
-#: ui/newaccountsettingsview.ui:1870
+#: ui/newaccountsettingsview.ui:1908
 msgid "Negotiation timeout (seconds)"
 msgstr "Derėjimuisi skirtas laikas (sekundžių)"
 
-#: ui/newaccountsettingsview.ui:1906
+#: ui/newaccountsettingsview.ui:1944
 msgid "Verify incoming certificates (server side)"
 msgstr "Tikrinti gaunamus liudijimus (serverio pusėje)"
 
-#: ui/newaccountsettingsview.ui:1941
+#: ui/newaccountsettingsview.ui:1979
 msgid "Verify answer certificates (client side)"
 msgstr "Tikrinti atsakomuosius liudijimus (kliento pusėje)"
 
-#: ui/newaccountsettingsview.ui:1976
+#: ui/newaccountsettingsview.ui:2014
 msgid "Require a certificate for incoming TLS connections"
 msgstr "Reikalauti liudijimo gaunamiems TLS ryšiams"
 
-#: ui/newaccountsettingsview.ui:2000
+#: ui/newaccountsettingsview.ui:2038
 msgid "Security"
 msgstr "Saugumas"
 
-#: ui/newaccountsettingsview.ui:2025
+#: ui/newaccountsettingsview.ui:2063
 msgid "Connectivity"
 msgstr "Jungiamumas"
 
-#: ui/newaccountsettingsview.ui:2063
+#: ui/newaccountsettingsview.ui:2101
 msgid "Registration expire timeout (seconds)"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2100
+#: ui/newaccountsettingsview.ui:2138
 msgid "Network interface"
 msgstr "Tinklo sąsaja"
 
-#: ui/newaccountsettingsview.ui:2136
+#: ui/newaccountsettingsview.ui:2174
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2171
+#: ui/newaccountsettingsview.ui:2209
 msgid "Use TURN"
 msgstr "Naudoti TURN"
 
-#: ui/newaccountsettingsview.ui:2206
+#: ui/newaccountsettingsview.ui:2244
 msgid "(TURN) address"
 msgstr "(TURN) adresas"
 
-#: ui/newaccountsettingsview.ui:2241
+#: ui/newaccountsettingsview.ui:2279
 msgid "(TURN) username"
 msgstr "(TURN) naudotojo vardas"
 
-#: ui/newaccountsettingsview.ui:2275
+#: ui/newaccountsettingsview.ui:2313
 msgid "(TURN) password"
 msgstr "(TURN) slaptažodis"
 
-#: ui/newaccountsettingsview.ui:2312
+#: ui/newaccountsettingsview.ui:2350
 msgid "(TURN) realm"
 msgstr "(TURN) sritis"
 
-#: ui/newaccountsettingsview.ui:2346
+#: ui/newaccountsettingsview.ui:2384
 msgid "Use STUN"
 msgstr "Naudoti STUN"
 
-#: ui/newaccountsettingsview.ui:2381
+#: ui/newaccountsettingsview.ui:2419
 msgid "(STUN) address"
 msgstr "(STUN) adresas"
 
-#: ui/newaccountsettingsview.ui:2414
+#: ui/newaccountsettingsview.ui:2452
 msgid "Published address"
 msgstr "Paskelbtas adresas"
 
-#: ui/newaccountsettingsview.ui:2451
+#: ui/newaccountsettingsview.ui:2489
 msgid "Use custom address and port"
 msgstr "Naudoti tinkintą adresą ir prievadą"
 
-#: ui/newaccountsettingsview.ui:2522
+#: ui/newaccountsettingsview.ui:2560
 msgid "Port"
 msgstr "Prievadas"
 
-#: ui/newaccountsettingsview.ui:2558
+#: ui/newaccountsettingsview.ui:2596
 msgid "Video codecs"
 msgstr "Vaizdo kodekai"
 
-#: ui/newaccountsettingsview.ui:2621
+#: ui/newaccountsettingsview.ui:2659
 msgid "Enable video"
 msgstr "Įjungti vaizdą"
 
-#: ui/newaccountsettingsview.ui:2648
+#: ui/newaccountsettingsview.ui:2686
 msgid "Audio codecs"
 msgstr "Garso kodekai"
 
-#: ui/newaccountsettingsview.ui:2718
+#: ui/newaccountsettingsview.ui:2756
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP seanso derėjimasis (ICE surogatas)"
 
-#: ui/newaccountsettingsview.ui:2730
+#: ui/newaccountsettingsview.ui:2768
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Naudojama tik SDP derėjimosi metu tuo atveju, jei ICE yra nepalaikoma."
 
-#: ui/newaccountsettingsview.ui:2764
+#: ui/newaccountsettingsview.ui:2802
 msgid "Audio RTP Min port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2799
+#: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Max port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2834
+#: ui/newaccountsettingsview.ui:2872
 msgid "Video RTP Min port"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:2869
+#: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Max port"
 msgstr ""
 
@@ -984,13 +988,13 @@ msgstr "Nustatyti pažymėtą sritį kaip paveikslą"
 
 #: src/pluginsettingsview.cpp:127 src/generalsettingsview.cpp:234
 #: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:757
-#: src/chatview.cpp:284 src/newaccountsettingsview.cpp:907
+#: src/chatview.cpp:284 src/newaccountsettingsview.cpp:909
 msgid "_Cancel"
 msgstr "_Atsisakyti"
 
 #: src/pluginsettingsview.cpp:129 src/generalsettingsview.cpp:236
 #: src/accountcreationwizard.cpp:759 src/chatview.cpp:286
-#: src/newaccountsettingsview.cpp:909
+#: src/newaccountsettingsview.cpp:911
 msgid "_Save"
 msgstr "Į_rašyti"
 
@@ -1260,23 +1264,23 @@ msgid "Import from backup"
 msgstr "Importuoti iš atsarginės kopijos"
 
 #: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
-#: src/newaccountsettingsview.cpp:904
+#: src/newaccountsettingsview.cpp:906
 msgid "Save File"
 msgstr "Įrašyti failą"
 
-#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:931
+#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:933
 msgid "You need to enter your password to export the full archive."
 msgstr "Norėdami eksportuoti pilną archyvą, turite įvesti savo slaptažodį."
 
-#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:932
+#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:934
 msgid "Enter password to export archive"
 msgstr "Norėdami eksportuoti archyvą, įveskite slaptažodį"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:957
 msgid "Account exported!"
 msgstr "Paskyra eksportuota!"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:955
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:957
 msgid "Export account failure."
 msgstr "Paskyros eksportavimas nepavyko."
 
@@ -1284,90 +1288,90 @@ msgstr "Paskyros eksportavimas nepavyko."
 msgid "Add account…"
 msgstr "Pridėti paskyrą…"
 
-#: src/mainwindow.cpp:867
+#: src/mainwindow.cpp:865
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "skambinti"
 
-#: src/mainwindow.cpp:870
+#: src/mainwindow.cpp:868
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "atverti pokalbį"
 
-#: src/mainwindow.cpp:1077
+#: src/mainwindow.cpp:1075
 msgid "Jami - Migration needed"
 msgstr "Jami - Reikalingas perkėlimas"
 
-#: src/mainwindow.cpp:1090
+#: src/mainwindow.cpp:1088
 msgid "Migration in progress... please do not close this window."
 msgstr "Vyksta perkėlimas... neužverkite šio lango."
 
-#: src/mainwindow.cpp:1370
+#: src/mainwindow.cpp:1368
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:1841
+#: src/mainwindow.cpp:1809
 msgid "Leave settings page"
 msgstr "Išeiti iš nustatymų puslapio"
 
-#: src/mainwindow.cpp:2271
+#: src/mainwindow.cpp:2238
 msgid "There are active calls"
 msgstr ""
 
-#: src/mainwindow.cpp:2323
+#: src/mainwindow.cpp:2290
 msgid " is calling you!"
 msgstr " jums skambina!"
 
-#: src/mainwindow.cpp:2326
+#: src/mainwindow.cpp:2293
 msgid "Incoming call"
 msgstr "Gaunamasis skambutis"
 
-#: src/mainwindow.cpp:2474
+#: src/mainwindow.cpp:2443
 msgid "New request from "
 msgstr ""
 
-#: src/mainwindow.cpp:2477
+#: src/mainwindow.cpp:2446
 msgid "Trust request"
 msgstr ""
 
-#: src/mainwindow.cpp:2540
+#: src/mainwindow.cpp:2509
 msgid "New message"
 msgstr "Nauja žinutė"
 
-#: src/mainwindow.cpp:2603
+#: src/mainwindow.cpp:2573
 msgid "Stop current call?"
 msgstr ""
 
-#: src/mainwindow.cpp:2604
+#: src/mainwindow.cpp:2574
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/mainwindow.cpp:2671
+#: src/mainwindow.cpp:2641
 msgid "Clear history"
 msgstr "Išvalyti istoriją"
 
-#: src/mainwindow.cpp:2672
+#: src/mainwindow.cpp:2642
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Ar tikrai norite išvalyti šio pokalbio istoriją?"
 
-#: src/mainwindow.cpp:2687
+#: src/mainwindow.cpp:2657
 msgid "Remove conversation"
 msgstr "Šalinti pokalbį"
 
-#: src/mainwindow.cpp:2688
+#: src/mainwindow.cpp:2658
 msgid "Do you really want to remove this conversation?"
 msgstr "Ar tikrai norite pašalinti šį pokalbį?"
 
-#: src/mainwindow.cpp:2703
+#: src/mainwindow.cpp:2673
 msgid "Block contact"
 msgstr "Užblokuoti adresatą"
 
-#: src/mainwindow.cpp:2704
+#: src/mainwindow.cpp:2674
 msgid "Do you really want to block this contact?"
 msgstr "Ar tikrai norite užblokuoti šį adresatą?"
 
@@ -1409,7 +1413,7 @@ msgstr "Rodyti Jami"
 msgid "Quit"
 msgstr "Išeiti"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:970
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:972
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1440,113 +1444,113 @@ msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automatinė"
 
-#: src/newaccountsettingsview.cpp:601
+#: src/newaccountsettingsview.cpp:603
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Įspėjimas! Šis veiksmas panaikins įrenginį!\nPastaba: šio veiksmo neįmanoma bus atšaukti."
 
-#: src/newaccountsettingsview.cpp:602
+#: src/newaccountsettingsview.cpp:604
 msgid "Enter password to revoke device"
 msgstr "Norėdami panaikinti įrenginį, įveskite slaptažodį"
 
-#: src/newaccountsettingsview.cpp:660
+#: src/newaccountsettingsview.cpp:662
 msgid "Edit name"
 msgstr "Taisyti pavadinimą"
 
-#: src/newaccountsettingsview.cpp:660
+#: src/newaccountsettingsview.cpp:662
 msgid "Revoke device"
 msgstr "Panaikinti įrenginį"
 
-#: src/newaccountsettingsview.cpp:682
+#: src/newaccountsettingsview.cpp:684
 msgid "Error when revoking device"
 msgstr "Klaida, panaikinant įrenginį"
 
-#: src/newaccountsettingsview.cpp:755
+#: src/newaccountsettingsview.cpp:757
 msgid "Unban"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:778 src/newaccountsettingsview.cpp:801
-#: src/newaccountsettingsview.cpp:825 src/newaccountsettingsview.cpp:861
+#: src/newaccountsettingsview.cpp:780 src/newaccountsettingsview.cpp:803
+#: src/newaccountsettingsview.cpp:827 src/newaccountsettingsview.cpp:863
 msgid "Change password"
 msgstr "Pakeisti slaptažodį"
 
-#: src/newaccountsettingsview.cpp:791
+#: src/newaccountsettingsview.cpp:793
 msgid "New password and its confirmation are different!"
 msgstr "Naujas slaptažodis ir jo patvirtinimas nesutampa!"
 
-#: src/newaccountsettingsview.cpp:802
+#: src/newaccountsettingsview.cpp:804
 msgid "Incorrect password!"
 msgstr "Neteisingas slaptažodis!"
 
-#: src/newaccountsettingsview.cpp:839
+#: src/newaccountsettingsview.cpp:841
 msgid "Note: this will change the password only on this device."
 msgstr "Pastaba: tai pakeis slaptažodį tik šiame įrenginyje."
 
-#: src/newaccountsettingsview.cpp:842
+#: src/newaccountsettingsview.cpp:844
 msgid "Current password"
 msgstr "Dabartinis slaptažodis"
 
-#: src/newaccountsettingsview.cpp:848
+#: src/newaccountsettingsview.cpp:850
 msgid "New password"
 msgstr "Naujas slaptažodis"
 
-#: src/newaccountsettingsview.cpp:1711
+#: src/newaccountsettingsview.cpp:1725
 msgid "Exporting account…"
 msgstr "Eksportuojama paskyra…"
 
-#: src/newaccountsettingsview.cpp:1736
+#: src/newaccountsettingsview.cpp:1750
 msgid "Bad password"
 msgstr "Blogas slaptažodis"
 
-#: src/newaccountsettingsview.cpp:1744
+#: src/newaccountsettingsview.cpp:1758
 msgid "Network error, try again"
 msgstr "Tinklo klaida, bandykite dar kartą"
 
-#: src/newaccountsettingsview.cpp:1752
+#: src/newaccountsettingsview.cpp:1766
 msgid "Unknown error"
 msgstr "Nežinoma klaida"
 
-#: src/newaccountsettingsview.cpp:1765
+#: src/newaccountsettingsview.cpp:1779
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Nepavyko inicijuoti eksportavimą į Jami, bandykite dar kartą"
 
-#: src/newaccountsettingsview.cpp:1824
+#: src/newaccountsettingsview.cpp:1838
 msgid "Error: wrong password!"
 msgstr "Klaida: neteisingas slaptažodis!"
 
-#: src/newaccountsettingsview.cpp:1827
+#: src/newaccountsettingsview.cpp:1841
 msgid "Error: unknown device!"
 msgstr "Klaida: nežinomas įrenginys!"
 
-#: src/newaccountsettingsview.cpp:2000
+#: src/newaccountsettingsview.cpp:2015
 msgid "Initializing…"
 msgstr "Inicijuojama…"
 
-#: src/newaccountsettingsview.cpp:2003
+#: src/newaccountsettingsview.cpp:2018
 msgid "Offline"
 msgstr "Atsijungęs"
 
-#: src/newaccountsettingsview.cpp:2006
+#: src/newaccountsettingsview.cpp:2021
 msgid "Connecting…"
 msgstr "Jungiamasi…"
 
-#: src/newaccountsettingsview.cpp:2009
+#: src/newaccountsettingsview.cpp:2024
 msgid "Online"
 msgstr "Prisijungęs"
 
-#: src/newaccountsettingsview.cpp:2013
+#: src/newaccountsettingsview.cpp:2028
 msgid "Unknown status"
 msgstr "Nežinoma būsena"
 
-#: src/newaccountsettingsview.cpp:2046
+#: src/newaccountsettingsview.cpp:2061
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2046
+#: src/newaccountsettingsview.cpp:2061
 msgid "no password set"
 msgstr "slaptažodis nėra nustatytas"
 
-#: src/newaccountsettingsview.cpp:2102
+#: src/newaccountsettingsview.cpp:2117
 msgid "Remove account"
 msgstr "Šalinti paskyrą"
