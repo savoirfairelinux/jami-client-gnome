@@ -184,7 +184,10 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return;
     auto path = gtk_tree_model_get_path(model, &iter);
     auto idx = gtk_tree_path_get_indices(path);
-    auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(idx[0]);
+    auto conversation = (*priv->accountInfo_)->conversationModel->searchResultForRow(idx[0]);
+    if (conversation.uid.isEmpty()) {
+        conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(idx[0]);
+    }
     priv->row_ = idx[0];
     try {
         auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(conversation.participants.front());
