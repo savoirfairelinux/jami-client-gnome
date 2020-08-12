@@ -33,6 +33,10 @@
 // Qt
 #include <QItemSelectionModel>
 
+namespace { namespace details {
+class CppImpl;
+}}
+
 struct _ConversationPopupMenu
 {
     GtkMenu parent;
@@ -50,18 +54,30 @@ struct _ConversationPopupMenuPrivate
     GtkTreeView *treeview;
 
     AccountInfoPointer const *accountInfo_;
-    int row_;
+    details::CppImpl* cpp {nullptr};
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ConversationPopupMenu, conversation_popup_menu, GTK_TYPE_MENU);
 
 #define CONVERSATION_POPUP_MENU_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CONVERSATION_POPUP_MENU_TYPE, ConversationPopupMenuPrivate))
 
+namespace { namespace details {
+class CppImpl
+{
+public:
+    explicit CppImpl();
+    QString uid_;
+};
+CppImpl::CppImpl()
+    : uid_("")
+{}
+}}
+
 static void
 show_profile(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 {
-    if (!priv) return;
-    auto *profile = profile_view_new(*priv->accountInfo_, priv->row_);
+    if (!priv or !priv->cpp) return;
+    auto *profile = profile_view_new(*priv->accountInfo_, priv->cpp->uid_);
     if (profile) gtk_widget_show_all(GTK_WIDGET(profile));
 }
 
@@ -70,12 +86,13 @@ remove_history_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenu
 {
     try
     {
-        auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
+        if (!priv->cpp) return;
+        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
         (*priv->accountInfo_)->conversationModel->clearHistory(conversation.uid);
     }
     catch (...)
     {
-        g_warning("Can't get conversation at row %i", priv->row_);
+        g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
     }
 }
 
@@ -84,12 +101,12 @@ remove_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate*
 {
     try
     {
-        auto conversationUid = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_).uid;
-        (*priv->accountInfo_)->conversationModel->removeConversation(conversationUid);
+        if (!priv->cpp) return;
+        (*priv->accountInfo_)->conversationModel->removeConversation(priv->cpp->uid_);
     }
     catch (...)
     {
-        g_warning("Can't get conversation at row %i", priv->row_);
+        g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
     }
 }
 
@@ -98,7 +115,8 @@ unblock_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate
 {
     try
     {
-        auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
+        if (!priv->cpp) return;
+        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
         auto uri = conversation.participants[0];
 
         auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(uri);
@@ -112,7 +130,7 @@ unblock_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate
     }
     catch (...)
     {
-        g_warning("Can't get conversation at row %i", priv->row_);
+        g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
     }
 }
 
@@ -121,12 +139,12 @@ block_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* 
 {
     try
     {
-        auto conversationUid = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_).uid;
-        (*priv->accountInfo_)->conversationModel->removeConversation(conversationUid, true);
+        if (!priv->cpp) return;
+        (*priv->accountInfo_)->conversationModel->removeConversation(priv->cpp->uid_, true);
     }
     catch (...)
     {
-        g_warning("Can't get conversation at row %i", priv->row_);
+        g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
     }
 }
 
@@ -135,12 +153,12 @@ add_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
 {
     try
     {
-        auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
-        (*priv->accountInfo_)->conversationModel->makePermanent(conversation.uid);
+        if (!priv->cpp) return;
+        (*priv->accountInfo_)->conversationModel->makePermanent(priv->cpp->uid_);
     }
     catch (...)
     {
-        g_warning("Can't get conversation at row %i", priv->row_);
+        g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
     }
 }
 
@@ -149,10 +167,11 @@ place_video_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
 {
     try
     {
-        auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
+        if (!priv->cpp) return;
+        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
         (*priv->accountInfo_)->conversationModel->placeCall(conversation.uid);
     } catch (...) {
-        g_warning("Can't get conversation at row %i", priv->row_);
+        g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
     }
 }
 
@@ -161,10 +180,11 @@ place_audio_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
 {
     try
     {
-        auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
+        if (!priv->cpp) return;
+        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
         (*priv->accountInfo_)->conversationModel->placeAudioOnlyCall(conversation.uid);
     } catch (...) {
-        g_warning("Can't get conversation at row %i", priv->row_);
+        g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
     }
 }
 
@@ -182,13 +202,24 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     GtkTreeIter iter;
     GtkTreeModel *model;
     if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return;
-    auto path = gtk_tree_model_get_path(model, &iter);
-    auto idx = gtk_tree_path_get_indices(path);
-    auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(idx[0]);
-    priv->row_ = idx[0];
+
+    gchar *uid;
+    gtk_tree_model_get (model, &iter,
+                        0 /* col# */, &uid /* data */,
+                        -1);
+
+    auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
+    if (priv->cpp) priv->cpp->uid_ = uid;
     try {
+        if (conversation.participants.isEmpty()) {
+            g_free(uid);
+            return;
+        }
         auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(conversation.participants.front());
-        if (contactInfo.profileInfo.uri.isEmpty()) return;
+        if (contactInfo.profileInfo.uri.isEmpty()) {
+            g_free(uid);
+            return;
+        }
 
         // we always build a menu, however in some cases some or all of the conversations will be deactivated
         // we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case
@@ -248,11 +279,16 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
     }
+
+    g_free(uid);
 }
 
 static void
 conversation_popup_menu_dispose(GObject *object)
 {
+    auto* priv = CONVERSATION_POPUP_MENU_GET_PRIVATE(object);
+    delete priv->cpp;
+    priv->cpp = nullptr;
     G_OBJECT_CLASS(conversation_popup_menu_parent_class)->dispose(object);
 }
 
@@ -284,6 +320,7 @@ conversation_popup_menu_new (GtkTreeView *treeview, AccountInfoPointer const & a
     priv->accountInfo_ = &accountInfo;
 
     priv->treeview = treeview;
+    priv->cpp = new details::CppImpl();
     GtkTreeSelection *selection = gtk_tree_view_get_selection(priv->treeview);
 
     // build the menu for the first time
