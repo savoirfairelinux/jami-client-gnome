@@ -57,6 +57,10 @@ struct _ConversationsViewClass
 
 typedef struct _ConversationsViewPrivate ConversationsViewPrivate;
 
+namespace { namespace details {
+class CppImpl;
+}}
+
 struct _ConversationsViewPrivate
 {
     AccountInfoPointer const *accountInfo_;
@@ -64,10 +68,13 @@ struct _ConversationsViewPrivate
     GtkWidget* popupMenu_;
 
     bool useDarkTheme {false};
+    details::CppImpl* cpp {nullptr};
 
     QMetaObject::Connection selection_updated;
     QMetaObject::Connection layout_changed;
     QMetaObject::Connection modelSortedConnection_;
+    QMetaObject::Connection searchChangedConnection_;
+    QMetaObject::Connection searchStatusChangedConnection_;
     QMetaObject::Connection conversationUpdatedConnection_;
     QMetaObject::Connection filterChangedConnection_;
     QMetaObject::Connection callChangedConnection_;
@@ -76,6 +83,22 @@ struct _ConversationsViewPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(ConversationsView, conversations_view, GTK_TYPE_TREE_VIEW);
 
 #define CONVERSATIONS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CONVERSATIONS_VIEW_TYPE, ConversationsViewPrivate))
+
+namespace { namespace details {
+
+class CppImpl
+{
+public:
+    explicit CppImpl();
+
+    QString status;
+};
+
+CppImpl::CppImpl()
+    : status("")
+{}
+
+}}
 
 static void
 render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
@@ -90,18 +113,30 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     if (row == -1) return;
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
     if (!priv) return;
+    gchar *uid;
+
+    gtk_tree_model_get (model, iter,
+                        0 /* col# */, &uid /* data */,
+                        -1);
+
     try
     {
         // Draw first contact.
         // NOTE: We just draw the first contact, must change this for conferences when they will have their own object
-        auto conversationInfo = (*priv->accountInfo_)->conversationModel->filteredConversation(row);
-        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(conversationInfo.participants.front());
+        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
+        auto isPresent = false;
+        auto isBanned = false;
+        if (not conversation.participants.empty()) {
+            auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(conversation.participants.front());
+            isPresent = contactInfo.isPresent;
+            isBanned = contactInfo.isBanned;
+        }
         std::shared_ptr<GdkPixbuf> image;
         auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
-            conversationInfo,
+            conversation,
             **(priv->accountInfo_),
             QSize(50, 50),
-            contactInfo.isPresent
+            isPresent
         );
         image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
 
@@ -111,12 +146,14 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         g_object_set(G_OBJECT(cell), "pixbuf", image.get(), NULL);
 
         // Banned contacts should be displayed with grey bg
-        g_object_set(G_OBJECT(cell), "cell-background", contactInfo.isBanned ? "#BDBDBD" : NULL, NULL);
+        g_object_set(G_OBJECT(cell), "cell-background", isBanned ? "#BDBDBD" : NULL, NULL);
     }
     catch (const std::exception&)
     {
         g_warning("Can't get conversation at row %i", row);
     }
+
+    g_free(uid);
 }
 
 static void
@@ -141,10 +178,6 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(treeview);
     if (!priv) return;
 
-    auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(row);
-    auto contactUri = conversation.participants.front();
-    auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
-
     auto grey = priv->useDarkTheme? "#bbb" : "#666";
 
     gtk_tree_model_get (model, iter,
@@ -156,7 +189,16 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                         -1);
 
     auto bestId = std::string(registeredName).empty() ? uri: registeredName;
-    if (contactInfo.isBanned) {
+
+    auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
+    auto isBanned = false;
+    if (not conversation.participants.empty()) {
+        auto contactUri = conversation.participants.front();
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
+        isBanned = contactInfo.isBanned;
+    }
+
+    if (isBanned) {
         // Contact is banned, display it clearly
         text = g_markup_printf_escaped(
             "<span font_weight=\"bold\">%s</span>\n<span size=\"smaller\" font_weight=\"bold\">Banned contact</span>",
@@ -191,7 +233,7 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     }
 
     // Banned contacts should be displayed with grey bg
-    g_object_set(G_OBJECT(cell), "cell-background", contactInfo.isBanned ? "#BDBDBD" : NULL, NULL);
+    g_object_set(G_OBJECT(cell), "cell-background", isBanned ? "#BDBDBD" : NULL, NULL);
 
     g_object_set(G_OBJECT(cell), "markup", text, NULL);
     g_free(text);
@@ -216,9 +258,23 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     auto path = gtk_tree_model_get_path(model, iter);
     auto row = std::atoi(gtk_tree_path_to_string(path));
     g_return_if_fail(row != -1);
+    gchar *uid;
 
-    try {
-        auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(row);
+    gtk_tree_model_get (model, iter,
+                        0 /* col# */, &uid /* data */,
+                        -1);
+    if (g_strcmp0(uid, "") == 0) {
+        g_object_set(G_OBJECT(cell), "markup", "", NULL);
+        g_free(uid);
+        return;
+    }
+
+    try
+    {
+        // Draw first contact.
+        // NOTE: We just draw the first contact, must change this for conferences when they will have their own object
+        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
+        if (conversation.participants.empty()) return;
         auto contactUri = conversation.participants.front();
         auto& contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
 
@@ -230,6 +286,7 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             auto call = (*priv->accountInfo_)->callModel->getCall(callId);
             if (call.status != lrc::api::call::Status::ENDED) {
                 g_object_set(G_OBJECT(cell), "markup", qUtf8Printable(lrc::api::call::to_string(call.status)), NULL);
+                g_free(uid);
                 return;
             }
         }
@@ -249,12 +306,14 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             g_object_set(G_OBJECT(cell), "markup", text, NULL);
 
             g_free(text);
+            g_free(uid);
             return;
         }
     } catch (const std::exception&) {
         g_warning("Can't get conversation at row %i", row);
     }
 
+    g_free(uid);
     g_object_set(G_OBJECT(cell), "markup", "", NULL);
 }
 
@@ -321,33 +380,51 @@ create_and_fill_model(ConversationsView *self)
     if(!priv) GTK_TREE_MODEL (store);
     GtkTreeIter iter;
 
-    for (auto conversation : (*priv->accountInfo_)->conversationModel->allFilteredConversations()) {
-        if (conversation.participants.empty()) {
-            g_debug("Found conversation with empty list of participants - most likely the result of earlier bug.");
-            break;
-        }
-
-        auto contactUri = conversation.participants.front();
-        try {
-            auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
-            auto lastMessage = conversation.interactions.empty() ? "" :
-                conversation.interactions.at(conversation.lastMessageUid).body;
-            std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
-            gtk_list_store_append (store, &iter);
-            auto alias = contactInfo.profileInfo.alias;
-            alias.remove('\r');
-            gtk_list_store_set (store, &iter,
-                                0 /* col # */ , qUtf8Printable(conversation.uid) /* celldata */,
-                                1 /* col # */ , qUtf8Printable(alias) /* celldata */,
-                                2 /* col # */ , qUtf8Printable(contactInfo.profileInfo.uri) /* celldata */,
-                                3 /* col # */ , qUtf8Printable(contactInfo.registeredName) /* celldata */,
-                                4 /* col # */ , qUtf8Printable(contactInfo.profileInfo.avatar) /* celldata */,
-                                5 /* col # */ , qUtf8Printable(lastMessage) /* celldata */,
-                                -1 /* end */);
-        } catch (const std::out_of_range&) {
-            // ContactModel::getContact() exception
-        }
+    if (priv->cpp && !priv->cpp->status.isEmpty()) {
+        gtk_list_store_append (store, &iter);
+        gtk_list_store_set (store, &iter,
+                            0 /* col # */ , "" /* celldata */,
+                            1 /* col # */ , qUtf8Printable(priv->cpp->status) /* celldata */,
+                            2 /* col # */ , "" /* celldata */,
+                            3 /* col # */ , "" /* celldata */,
+                            4 /* col # */ , "" /* celldata */,
+                            5 /* col # */ , "" /* celldata */,
+                            -1 /* end */);
     }
+
+
+    auto fillModelLambda = [&](const auto& queue) {
+        for (auto conversation : queue) {
+            if (conversation.participants.empty()) {
+                g_debug("Found conversation with empty list of participants - most likely the result of earlier bug.");
+                break;
+            }
+
+            auto contactUri = conversation.participants.front();
+            try {
+                auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
+                auto lastMessage = conversation.interactions.empty() ? "" :
+                    conversation.interactions.at(conversation.lastMessageUid).body;
+                std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
+                gtk_list_store_append (store, &iter);
+                auto alias = contactInfo.profileInfo.alias;
+                alias.remove('\r');
+                gtk_list_store_set (store, &iter,
+                                    0 /* col # */ , qUtf8Printable(conversation.uid) /* celldata */,
+                                    1 /* col # */ , qUtf8Printable(alias) /* celldata */,
+                                    2 /* col # */ , qUtf8Printable(contactInfo.profileInfo.uri) /* celldata */,
+                                    3 /* col # */ , qUtf8Printable(contactInfo.registeredName) /* celldata */,
+                                    4 /* col # */ , qUtf8Printable(contactInfo.profileInfo.avatar) /* celldata */,
+                                    5 /* col # */ , qUtf8Printable(lastMessage) /* celldata */,
+                                    -1 /* end */);
+            } catch (const std::out_of_range&) {
+                // ContactModel::getContact() exception
+            }
+        }
+    };
+
+    fillModelLambda((*priv->accountInfo_)->conversationModel->getAllSearchResults());
+    fillModelLambda((*priv->accountInfo_)->conversationModel->allFilteredConversations());
 
     return GTK_TREE_MODEL (store);
 }
@@ -568,7 +645,7 @@ on_drag_data_received(GtkWidget        *treeview,
 static void
 build_conversations_view(ConversationsView *self)
 {
-    auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
+    auto* priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(self), FALSE);
 
     auto model = create_and_fill_model(self);
@@ -629,6 +706,60 @@ build_conversations_view(ConversationsView *self)
         gtk_tree_view_set_model(GTK_TREE_VIEW(self),
                                 GTK_TREE_MODEL(model));
     });
+
+
+    priv->searchChangedConnection_ = QObject::connect(
+    &*(*priv->accountInfo_)->conversationModel,
+    &lrc::api::ConversationModel::searchResultUpdated,
+    [self] () {
+        auto model = create_and_fill_model(self);
+
+        gtk_tree_view_set_model(GTK_TREE_VIEW(self),
+                                GTK_TREE_MODEL(model));
+    });
+    priv->searchStatusChangedConnection_ = QObject::connect(
+    &*(*priv->accountInfo_)->conversationModel,
+    &lrc::api::ConversationModel::searchStatusChanged,
+    [self] (const QString& status) {
+        auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
+        if (!priv or !priv->cpp) return;
+        priv->cpp->status = status;
+        if (status.isEmpty()) return;
+
+        auto model = gtk_tree_view_get_model(GTK_TREE_VIEW(self));
+        GtkTreeIter iter;
+
+        auto addItem = true;
+        if (gtk_tree_model_iter_children(model, &iter, nullptr)) {
+            gchar *conversationUid = nullptr;
+            gtk_tree_model_get(model, &iter, 0, &conversationUid, -1);
+            if (g_strcmp0(conversationUid, "") == 0) {
+                addItem = false;
+                gtk_list_store_set (GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(self))), &iter,
+                                    0 /* col # */ , "" /* celldata */,
+                                    1 /* col # */ , qUtf8Printable(status) /* celldata */,
+                                    2 /* col # */ , "" /* celldata */,
+                                    3 /* col # */ , "" /* celldata */,
+                                    4 /* col # */ , "" /* celldata */,
+                                    5 /* col # */ , "" /* celldata */,
+                                    -1 /* end */);
+            }
+            g_free(conversationUid);
+        }
+
+        if (addItem) {
+            gtk_list_store_append (GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(self))), &iter);
+            gtk_list_store_set (GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(self))), &iter,
+                                0 /* col # */ , "" /* celldata */,
+                                1 /* col # */ , qUtf8Printable(status) /* celldata */,
+                                2 /* col # */ , "" /* celldata */,
+                                3 /* col # */ , "" /* celldata */,
+                                4 /* col # */ , "" /* celldata */,
+                                5 /* col # */ , "" /* celldata */,
+                                -1 /* end */);
+        }
+
+    });
     priv->conversationUpdatedConnection_ = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel,
     &lrc::api::ConversationModel::conversationUpdated,
@@ -665,6 +796,8 @@ build_conversations_view(ConversationsView *self)
 
         // make sure conversation remains selected
         conversations_view_select_conversation(self, conversationUid);
+
+        g_free(conversationUid);
     });
 
     gtk_widget_show_all(GTK_WIDGET(self));
@@ -694,6 +827,8 @@ build_conversations_view(ConversationsView *self)
     g_signal_connect(self, "drag-drop", G_CALLBACK(on_drag_drop), nullptr);
     g_signal_connect(self, "drag-motion", G_CALLBACK(on_drag_motion), nullptr);
     g_signal_connect(self, "drag_data_received", G_CALLBACK(on_drag_data_received), nullptr);
+
+    priv->cpp = new details::CppImpl();
 }
 
 static void
@@ -705,6 +840,8 @@ conversations_view_dispose(GObject *object)
     QObject::disconnect(priv->selection_updated);
     QObject::disconnect(priv->layout_changed);
     QObject::disconnect(priv->modelSortedConnection_);
+    QObject::disconnect(priv->searchChangedConnection_);
+    QObject::disconnect(priv->searchStatusChangedConnection_);
     QObject::disconnect(priv->conversationUpdatedConnection_);
     QObject::disconnect(priv->filterChangedConnection_);
     QObject::disconnect(priv->callChangedConnection_);
@@ -780,7 +917,6 @@ conversations_view_select_conversation(ConversationsView *self, const std::strin
 int
 conversations_view_get_current_selected(ConversationsView *self)
 {
-
     g_return_val_if_fail(IS_CONVERSATIONS_VIEW(self), -1);
 
     /* we always drag the selected row */

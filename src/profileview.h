@@ -20,6 +20,7 @@
 #pragma once
 
 #include <gtk/gtk.h>
+#include <QString>
 
 #include "accountinfopointer.h"
 
@@ -29,4 +30,4 @@
 
 G_DECLARE_FINAL_TYPE (ProfileView, profile_view, PROFILE, VIEW, GtkDialog)
 
-GtkWidget*        profile_view_new(AccountInfoPointer const & accountInfo, int row_);
+GtkWidget*        profile_view_new(AccountInfoPointer const & accountInfo, const QString& uid);

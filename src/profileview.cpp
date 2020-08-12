@@ -33,6 +33,10 @@
 #include <api/conversationmodel.h>
 #include <globalinstances.h>
 
+namespace { namespace details {
+class CppImpl;
+}}
+
 struct _ProfileView
 {
   GtkDialog parent;
@@ -43,7 +47,7 @@ typedef struct _ProfileViewPrivate ProfileViewPrivate;
 struct _ProfileViewPrivate
 {
     AccountInfoPointer const *accountInfo_ = nullptr;
-    int row_;
+    details::CppImpl* cpp {nullptr};
 
     GtkWidget* avatar;
 
@@ -56,6 +60,18 @@ struct _ProfileViewPrivate
 
 G_DEFINE_TYPE_WITH_PRIVATE(ProfileView, profile_view, GTK_TYPE_DIALOG)
 #define PROFILE_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), PROFILE_VIEW_TYPE, _ProfileViewPrivate))
+
+namespace { namespace details {
+class CppImpl
+{
+public:
+    explicit CppImpl();
+    QString uid_;
+};
+CppImpl::CppImpl()
+    : uid_("")
+{}
+}}
 
 static void
 profile_view_init(ProfileView *prefs)
@@ -93,7 +109,7 @@ build_view(ProfileView* view)
 
     try
     {
-        const auto& conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(priv->row_);
+        const auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
         if (conversation.participants.empty()) return false;
         const auto& contact = (*priv->accountInfo_)->contactModel->getContact(conversation.participants.front());
 
@@ -143,19 +159,20 @@ build_view(ProfileView* view)
     }
     catch (...)
     {
-        g_warning("Can't get conversation at row %i", priv->row_);
+        g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
         return false;
     }
     return true;
 }
 
 GtkWidget*
-profile_view_new(AccountInfoPointer const & accountInfo, int row)
+profile_view_new(AccountInfoPointer const & accountInfo, const QString& uid)
 {
     gpointer view = g_object_new(PROFILE_VIEW_TYPE, NULL);
     auto* priv = PROFILE_VIEW_GET_PRIVATE(view);
     priv->accountInfo_ = &accountInfo;
-    priv->row_ = row;
+    priv->cpp = new details::CppImpl();
+    priv->cpp->uid_ = uid;
     if (!build_view(PROFILE_VIEW(view))) return nullptr;
 
     auto provider = gtk_css_provider_new();

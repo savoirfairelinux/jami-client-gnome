@@ -220,7 +220,7 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
             }
         } catch (...) {}
     }
-    return QVariant::fromValue(scaleAndFrame(generateAvatar("", "").get(), size, displayInformation));
+    return QVariant::fromValue(scaleAndFrame(temporaryItemAvatar().get(), size, displayInformation));
 
 }
 
