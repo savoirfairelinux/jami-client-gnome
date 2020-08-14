@@ -109,8 +109,6 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 {
     // Get active conversation
     auto path = gtk_tree_model_get_path(model, iter);
-    auto row = std::atoi(gtk_tree_path_to_string(path));
-    if (row == -1) return;
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
     if (!priv) return;
     gchar *uid;
@@ -150,7 +148,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     }
     catch (const std::exception&)
     {
-        g_warning("Can't get conversation at row %i", row);
+        g_warning("Can't get conversation %s", uid);
     }
 
     g_free(uid);
@@ -330,15 +328,15 @@ update_conversation(ConversationsView *self, const std::string& uid) {
         iterIsCorrect = gtk_tree_model_iter_nth_child (model, &iter, nullptr, idx);
         if (!iterIsCorrect)
             break;
-        gchar *ringId;
+        gchar *uid;
         gtk_tree_model_get (model, &iter,
-                            0 /* col# */, &ringId /* data */,
+                            0 /* col# */, &uid /* data */,
                             -1);
-        if(std::string(ringId) == uid) {
+        if(std::string(uid) == uid) {
             // Get informations
-            auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(idx);
+            auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
             if (conversation.participants.empty()) {
-                g_free(ringId);
+                g_free(uid);
                 return;
             }
             auto contactUri = conversation.participants.front();
@@ -357,10 +355,10 @@ update_conversation(ConversationsView *self, const std::string& uid) {
                                 4 /* col # */ , qUtf8Printable(contactInfo.profileInfo.avatar) /* celldata */,
                                 5 /* col # */ , qUtf8Printable(lastMessage) /* celldata */,
                                 -1 /* end */);
-            g_free(ringId);
+            g_free(uid);
             return;
         }
-        g_free(ringId);
+        g_free(uid);
         idx++;
     }
 }
@@ -431,16 +429,25 @@ create_and_fill_model(ConversationsView *self)
 
 static void
 call_conversation(GtkTreeView *self,
-                  GtkTreePath *path,
+                  G_GNUC_UNUSED GtkTreePath *path,
                   G_GNUC_UNUSED GtkTreeViewColumn *column,
                   G_GNUC_UNUSED gpointer user_data)
 {
-    auto row = std::atoi(gtk_tree_path_to_string(path));
-    if (row == -1) return;
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
     if (!priv) return;
-    auto conversation = (*priv->accountInfo_)->conversationModel->filteredConversation(row);
-    (*priv->accountInfo_)->conversationModel->placeCall(conversation.uid);
+    GtkTreeIter iter;
+    GtkTreeModel *model = nullptr;
+    gchar *uid = nullptr;
+
+    auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
+    if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return;
+
+    gtk_tree_model_get(model, &iter,
+                       0, &uid,
+                       -1);
+
+    (*priv->accountInfo_)->conversationModel->placeCall(uid);
+    g_free(uid);
 }
 
 static void
@@ -916,10 +923,10 @@ conversations_view_select_conversation(ConversationsView *self, const std::strin
     }
 }
 
-int
+std::string
 conversations_view_get_current_selected(ConversationsView *self)
 {
-    g_return_val_if_fail(IS_CONVERSATIONS_VIEW(self), -1);
+    g_return_val_if_fail(IS_CONVERSATIONS_VIEW(self), "");
 
     /* we always drag the selected row */
     auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self));
@@ -927,11 +934,16 @@ conversations_view_get_current_selected(ConversationsView *self)
     GtkTreeIter iter;
 
     if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-        auto path = gtk_tree_model_get_path(model, &iter);
-        auto idx = gtk_tree_path_get_indices(path);
-        return idx[0];
+        gchar* uid;
+        gtk_tree_model_get(model, &iter,
+                        0, &uid,
+                        -1);
+        if (!uid) return {};
+        std::string result = uid;
+        g_free(uid);
+        return result;
     }
-    return -1;
+    return {};
 }
 
 void

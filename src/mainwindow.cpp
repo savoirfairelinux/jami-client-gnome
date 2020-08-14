@@ -328,7 +328,7 @@ public:
     void enterSettingsView();
     void leaveSettingsView();
 
-    int getCurrentUid();
+    std::string getCurrentUid();
     void forCurrentConversation(const std::function<void(const lrc::api::conversation::Info&)>& func);
     bool showOkCancelDialog(const std::string& title, const std::string& text);
 
@@ -716,7 +716,7 @@ on_search_entry_activated(MainWindow* self)
 
     // Select the first conversation of the list
     auto& conversationModel = priv->cpp->accountInfo_->conversationModel;
-    auto conversations = conversationModel->allFilteredConversations();
+    auto conversations = conversationModel->getAllSearchResults();
 
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(priv->search_entry));
 
@@ -1857,7 +1857,7 @@ CppImpl::leaveSettingsView()
     }
 }
 
-int
+std::string
 CppImpl::getCurrentUid()
 {
     const auto &treeview = gtk_notebook_get_current_page(
@@ -1871,9 +1871,9 @@ void
 CppImpl::forCurrentConversation(const std::function<void(const lrc::api::conversation::Info&)>& func)
 {
     const auto current = getCurrentUid();
-    if (current == -1) return;
+    if (current.empty()) return;
     try {
-        auto conversation = accountInfo_->conversationModel->filteredConversation(current);
+        auto conversation = accountInfo_->conversationModel->getConversationForUID(current.c_str());
         if (conversation.participants.empty()) return;
         func(conversation);
     } catch (...) {
@@ -2732,9 +2732,9 @@ main_window_accept_call(MainWindow *win)
 
     // Select the first conversation of the list
     auto current = priv->cpp->getCurrentUid();
-    if (current == -1) return;
+    if (current.empty()) return;
     try {
-        auto conversation = priv->cpp->accountInfo_->conversationModel->filteredConversation(current);
+        auto conversation = priv->cpp->accountInfo_->conversationModel->getConversationForUID(current.c_str());
         if (conversation.participants.empty()) return;
         auto contactUri = conversation.participants.at(0);
         auto contact = priv->cpp->accountInfo_->contactModel->getContact(contactUri);
