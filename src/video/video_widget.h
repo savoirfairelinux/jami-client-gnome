@@ -23,6 +23,9 @@
 #include <gtk/gtk.h>
 #include <video/renderer.h>
 #include <api/newvideo.h>
+#include <QJsonObject>
+
+#include "../accountinfopointer.h"
 
 namespace lrc
 {
@@ -67,6 +70,10 @@ gboolean        video_widget_on_button_press_in_screen_event (VideoWidget *self,
 void            video_widget_take_snapshot (VideoWidget *self);
 GdkPixbuf*      video_widget_get_snapshot  (VideoWidget *self);
 void            video_widget_set_preview_visible (VideoWidget *self, bool show);
+void            video_widget_add_participant_hover(VideoWidget *self, const QJsonObject& participant);
+void            video_widget_set_call_info(VideoWidget *self, AccountInfoPointer const & accountInfo, const QString& callId);
+void            video_widget_remove_hovers(VideoWidget *self);
+void            video_widget_on_event(VideoWidget *self, GdkEvent* event);
 
 G_END_DECLS
 

@@ -45,6 +45,7 @@
 #include <glib/gi18n.h>
 
 #include <QSize>
+#include <QJsonObject>
 
 #include <set>
 
@@ -92,7 +93,6 @@ struct CurrentCallViewPrivate
     GtkWidget *video_widget;
     GtkWidget *frame_chat;
     GtkWidget *togglebutton_chat;
-    GtkWidget *togglebutton_view;
     GtkWidget *togglebutton_muteaudio;
     GtkWidget *togglebutton_mutevideo;
     GtkWidget *togglebutton_add_participant;
@@ -233,6 +233,7 @@ public:
     void insertControls();
     void checkControlsFading();
     void update_view();
+    void update_participants_hovers(const QString& callId);
     CurrentCallView* self = nullptr; // The GTK widget itself
     CurrentCallViewPrivate* widgets = nullptr;
 
@@ -241,6 +242,7 @@ public:
     lrc::api::AVModel* avModel_;
 
     QMetaObject::Connection state_change_connection;
+    QMetaObject::Connection layout_change_connection;
     QMetaObject::Connection update_vcard_connection;
     QMetaObject::Connection renderer_connection;
     QMetaObject::Connection smartinfo_refresh_connection;
@@ -342,31 +344,6 @@ on_togglebutton_chat_toggled(GtkToggleButton* widget, CurrentCallView* view)
     }
 }
 
-static void
-on_togglebutton_view_toggled(GtkToggleButton* widget, CurrentCallView* view)
-{
-    g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
-    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-
-    auto confId = priv->cpp->conversation->confId;
-    if (!confId.isEmpty()) {
-        auto call = (*priv->cpp->accountInfo)->callModel->getCall(confId);
-        switch (call.layout) {
-            case lrc::api::call::Layout::GRID:
-                (*priv->cpp->accountInfo)->callModel->setConferenceLayout(confId, lrc::api::call::Layout::ONE_WITH_SMALL);
-                break;
-            case lrc::api::call::Layout::ONE_WITH_SMALL:
-                (*priv->cpp->accountInfo)->callModel->setConferenceLayout(confId, lrc::api::call::Layout::ONE);
-                break;
-            case lrc::api::call::Layout::ONE:
-                (*priv->cpp->accountInfo)->callModel->setConferenceLayout(confId, lrc::api::call::Layout::GRID);
-                break;
-        }
-    }
-        (*priv->cpp->accountInfo)->callModel->setActiveParticipant(confId, "");
-
-}
-
 static gboolean
 on_timer_fade_timeout(CurrentCallView* view)
 {
@@ -390,7 +367,10 @@ on_button_hangup_clicked(CurrentCallView* view)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
-    (*priv->cpp->accountInfo)->callModel->hangUp(priv->cpp->conversation->callId);
+    auto callToStop = priv->cpp->conversation->callId;
+    if (!priv->cpp->conversation->confId.isEmpty())
+        callToStop = priv->cpp->conversation->confId;
+    (*priv->cpp->accountInfo)->callModel->hangUp(callToStop);
 }
 
 static void
@@ -460,12 +440,20 @@ on_togglebutton_mutevideo_clicked(CurrentCallView* view)
 }
 
 static gboolean
-on_mouse_moved(CurrentCallView* view)
+on_mouse_moved(CurrentCallView* view, GdkEvent *event, GtkWidget* widget)
 {
     g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), FALSE);
+    g_return_val_if_fail(IS_VIDEO_WIDGET(widget), FALSE);
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
     priv->cpp->time_last_mouse_motion = g_get_monotonic_time();
+
+    // HACK: Cf https://gitlab.gnome.org/GNOME/clutter-gtk/-/issues/11
+    // Because the participants_hovers can't have correct mouse events,
+    // we need to pass the event to the video_widget and check if hovers
+    // need to be notified
+    if (event)
+        video_widget_on_event(VIDEO_WIDGET(priv->video_widget), event);
 
     // since the mouse moved, make sure the controls are shown
     if (clutter_timeline_get_direction(CLUTTER_TIMELINE(priv->cpp->fade_info)) == CLUTTER_TIMELINE_FORWARD) {
@@ -560,7 +548,7 @@ on_video_widget_focus(GtkWidget* widget, GtkDirectionType direction, CurrentCall
     // otherwise we want the focus to go to and change between the call control buttons
     if (gtk_widget_child_focus(GTK_WIDGET(priv->hbox_call_controls), direction)) {
         // selected a child, make sure call controls are shown
-        on_mouse_moved(view);
+        on_mouse_moved(view, nullptr, widget);
         return TRUE;
     }
 
@@ -962,6 +950,7 @@ CppImpl::CppImpl(CurrentCallView& widget, const lrc::api::Lrc& lrc)
 CppImpl::~CppImpl()
 {
     QObject::disconnect(state_change_connection);
+    QObject::disconnect(layout_change_connection);
     QObject::disconnect(update_vcard_connection);
     QObject::disconnect(renderer_connection);
     QObject::disconnect(smartinfo_refresh_connection);
@@ -1095,7 +1084,6 @@ CppImpl::add_media_handler(lrc::api::plugin::MediaHandlerDetails mediaHandlerDet
 void
 CppImpl::updatePluginList()
 {
-    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
     auto row = 0;
     while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(widgets->list_media_handlers_available), row))) {
         gtk_container_remove(GTK_CONTAINER(widgets->list_media_handlers_available), children);
@@ -1413,7 +1401,9 @@ CppImpl::setCallInfo()
         try {
             auto call = (*accountInfo)->callModel->getCall(callToRender);
             video_widget_set_preview_visible(VIDEO_WIDGET(widgets->video_widget),
-                (call.status != lrc::api::call::Status::PAUSED) && conversation->confId.isEmpty());
+                        call.status != lrc::api::call::Status::PAUSED
+                        && call.type != lrc::api::call::Type::CONFERENCE
+                        && call.participantsInfos.empty());
         } catch (...) {
             g_warning("Can't change preview visibility for non existant call");
         }
@@ -1428,7 +1418,7 @@ CppImpl::setCallInfo()
         // The renderer doesn't exist for now. Ignore
     }
 
-
+    update_participants_hovers(callToRender);
 
     // callback for local renderer
     renderer_connection = QObject::connect(
@@ -1445,7 +1435,9 @@ CppImpl::setCallInfo()
                             avModel_, previewRenderer, VIDEO_RENDERER_LOCAL);
                         auto call = (*accountInfo)->callModel->getCall(callToRender);
                         video_widget_set_preview_visible(VIDEO_WIDGET(widgets->video_widget),
-                            (call.status != lrc::api::call::Status::PAUSED));
+                            call.status != lrc::api::call::Status::PAUSED
+                            && call.type != lrc::api::call::Type::CONFERENCE
+                            && call.participantsInfos.empty());
                     }
                 } catch (...) {
                     g_warning("Preview renderer is not accessible! This should not happen");
@@ -1473,17 +1465,29 @@ CppImpl::setCallInfo()
         &*(*accountInfo)->callModel,
         &lrc::api::NewCallModel::callStatusChanged,
         [this] (const QString& callId) {
+            auto callToRender = conversation->callId;
+            if (!conversation->confId.isEmpty())
+                callToRender = conversation->confId;
             if (callId == conversation->callId) {
                 try {
-                    auto call = (*accountInfo)->callModel->getCall(callId);
+                    auto call = (*accountInfo)->callModel->getCall(callToRender);
                     video_widget_set_preview_visible(VIDEO_WIDGET(widgets->video_widget),
-                        (call.status != lrc::api::call::Status::PAUSED));
+                        call.status != lrc::api::call::Status::PAUSED
+                        && call.type != lrc::api::call::Type::CONFERENCE
+                        && call.participantsInfos.empty());
                 } catch (...) {
                     g_warning("Can't set preview visible for inexistant call");
                 }
                 updateNameAndPhoto();
                 updateState();
             }
+        });
+
+    layout_change_connection = QObject::connect(
+        &*(*accountInfo)->callModel,
+        &lrc::api::NewCallModel::onParticipantsChanged,
+        [this] (const QString& callId) {
+            update_participants_hovers(callId);
         });
 
     update_vcard_connection = QObject::connect(
@@ -1552,6 +1556,7 @@ CppImpl::insertControls()
     clutter_actor_add_child(stage, actor_controls);
     clutter_actor_set_x_align(actor_controls, CLUTTER_ACTOR_ALIGN_CENTER);
     clutter_actor_set_y_align(actor_controls, CLUTTER_ACTOR_ALIGN_END);
+    clutter_actor_set_z_position(actor_controls, 4); // Controls should be in front of the hovers
 
     clutter_actor_add_child(stage, actor_smartInfo);
     clutter_actor_set_x_align(actor_smartInfo, CLUTTER_ACTOR_ALIGN_END);
@@ -1602,7 +1607,6 @@ CppImpl::insertControls()
 
     /* toggle whether or not the chat is displayed */
     g_signal_connect(widgets->togglebutton_chat, "toggled", G_CALLBACK(on_togglebutton_chat_toggled), self);
-    g_signal_connect(widgets->togglebutton_view, "toggled", G_CALLBACK(on_togglebutton_view_toggled), self);
 
     /* bind the chat orientation to the gsetting */
     widgets->settings = g_settings_new_full(get_settings_schema(), nullptr, nullptr);
@@ -1670,6 +1674,61 @@ CppImpl::updateDetails()
 }
 
 void
+CppImpl::update_participants_hovers(const QString& callId)
+{
+    if (callId == conversation->callId or callId == conversation->confId) {
+        // Remove previouses hovers, because they are now invalid
+        video_widget_remove_hovers(
+            VIDEO_WIDGET(widgets->video_widget)
+        );
+        // Update callInfo for the video_widget
+        video_widget_set_call_info(VIDEO_WIDGET(widgets->video_widget), *accountInfo, callId);
+        try {
+            auto call = (*accountInfo)->callModel->getCall(callId);
+            // Create participant hovers
+            for (const auto& participant: call.participantsInfos) {
+                QJsonObject data;
+                data["x"] = participant["x"].toInt();
+                data["y"] = participant["y"].toInt();
+                data["w"] = participant["w"].toInt();
+                data["h"] = participant["h"].toInt();
+                data["active"] = participant["active"] == "true";
+                auto bestName = participant["uri"];
+                data["isLocal"] = false;
+                if (bestName == (*accountInfo)->profileInfo.uri) {
+                    bestName = _("me");
+                    data["isLocal"] = true;
+                } else {
+                    try {
+                        auto &contact = (*accountInfo)->contactModel->getContact(participant["uri"]);
+                        bestName = contact.profileInfo.alias;
+                        if (bestName.isEmpty())
+                            bestName = contact.registeredName;
+                        if (bestName.isEmpty())
+                            bestName = contact.profileInfo.uri;
+                        bestName.remove('\r');
+                    } catch (...) {}
+                }
+                data["bestName"] = bestName;
+                data["uri"] = participant["uri"];
+                video_widget_add_participant_hover(
+                    VIDEO_WIDGET(widgets->video_widget),
+                    data
+                );
+            }
+            // Update preview visibility, show preview if the call is not hold and
+            // not a conference host or participant
+            video_widget_set_preview_visible(VIDEO_WIDGET(widgets->video_widget),
+                        call.status != lrc::api::call::Status::PAUSED
+                        && call.type != lrc::api::call::Type::CONFERENCE
+                        && call.participantsInfos.empty());
+        } catch (...) {
+            g_warning("Can't set preview visible for inexistant call");
+        }
+    }
+}
+
+void
 CppImpl::updateState()
 {
     if (!conversation) {
@@ -1720,11 +1779,6 @@ CppImpl::updateState()
     } catch (std::out_of_range& e) {
         g_warning("Can't update state for callId=%s", qUtf8Printable(callId));
     }
-
-    if (conversation->confId.isEmpty())
-        gtk_widget_hide(widgets->togglebutton_view);
-    else
-        gtk_widget_show(widgets->togglebutton_view);
 }
 
 void
@@ -1957,7 +2011,6 @@ current_call_view_class_init(CurrentCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_video);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, frame_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_chat);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_view);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_add_participant);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_activate_plugin);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), CurrentCallView, togglebutton_transfer);
