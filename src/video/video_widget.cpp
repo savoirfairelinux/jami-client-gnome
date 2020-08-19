@@ -32,6 +32,10 @@
 
 // LRC
 #include <api/avmodel.h>
+#include <api/call.h>
+#include <api/newcallmodel.h>
+#include <api/newaccountmodel.h>
+#include <api/conversationmodel.h>
 #include <smartinfohub.h>
 #include <QSize>
 
@@ -47,6 +51,11 @@ static constexpr const char* JOIN_CALL_KEY = "call_data";
  * use 30 ms (about 30 fps) since we don't expect to
  * receive video frames faster than that */
 static constexpr int FRAME_RATE_PERIOD           = 30;
+
+namespace { namespace details
+{
+class CppImpl;
+}}
 
 enum SnapshotStatus {
     NOTHING,
@@ -89,6 +98,9 @@ struct _VideoWidgetPrivate {
     GtkWidget               *popup_menu;
 
     lrc::api::AVModel* avModel_;
+    details::CppImpl* cpp; ///< Non-UI and C++ only code
+
+    GtkWidget *actions_popover;
 };
 
 struct _VideoWidgetRenderer {
@@ -114,6 +126,24 @@ struct _VideoWidgetRenderer {
 G_DEFINE_TYPE_WITH_PRIVATE(VideoWidget, video_widget, GTK_CLUTTER_TYPE_EMBED);
 
 #define VIDEO_WIDGET_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), VIDEO_WIDGET_TYPE, VideoWidgetPrivate))
+
+namespace { namespace details {
+
+class CppImpl
+{
+public:
+    explicit CppImpl(VideoWidget& widget) : self(&widget) {}
+
+    std::mutex hoversMtx_ {};
+    std::map<std::string, ClutterActor*> hovers_ {};
+    std::map<std::string, QJsonObject> hoversInfos_ {};
+    VideoWidget* self = nullptr; // The GTK widget itself
+    AccountInfoPointer const *accountInfo = nullptr;
+    QString callId {};
+};
+
+}
+}
 
 /* static prototypes */
 static gboolean check_frame_queue              (VideoWidget *);
@@ -159,6 +189,9 @@ video_widget_dispose(GObject *object)
         g_async_queue_unref(priv->new_renderer_queue);
         priv->new_renderer_queue = NULL;
     }
+
+    delete priv->cpp;
+    priv->cpp = nullptr;
 
     gtk_widget_destroy(priv->popup_menu);
 
@@ -287,6 +320,294 @@ on_drag_end(G_GNUC_UNUSED ClutterDragAction   *action,
     clutter_actor_add_constraint(actor, constraint_y);
 }
 
+static void
+on_hangup(GtkButton *button, VideoWidget *self)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    QString uri = QString::fromStdString((gchar*)g_object_get_data(G_OBJECT(button), "uri"));
+    try {
+        auto& callModel = (*priv->cpp->accountInfo)->callModel;
+        auto call = callModel->getCall(priv->cpp->callId);
+        auto callId = "";
+        auto conversations = (*priv->cpp->accountInfo)->conversationModel->allFilteredConversations();
+        for (const auto& conversation: conversations) {
+            if (conversation.participants.empty()) continue;
+            auto participant = conversation.participants.front();
+            if (uri == participant) {
+                callModel->hangUp(conversation.callId);
+                return;
+            }
+        }
+    } catch (...) {}
+}
+
+static void
+on_maximize(GObject *button, VideoWidget *self)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    QString uri = QString::fromStdString((gchar*)g_object_get_data(G_OBJECT(button), "uri"));
+    bool active = (bool)g_object_get_data(G_OBJECT(button), "active");
+    try {
+        auto& callModel = (*priv->cpp->accountInfo)->callModel;
+        auto call = callModel->getCall(priv->cpp->callId);
+        QString callId = "";
+        auto conversations = (*priv->cpp->accountInfo)->conversationModel->allFilteredConversations();
+        for (const auto& conversation: conversations) {
+            if (conversation.participants.empty()) continue;
+            auto participant = conversation.participants.front();
+            if (uri == participant) {
+                callId = conversation.callId;
+                break;
+            }
+        }
+        switch (call.layout) {
+            case lrc::api::call::Layout::GRID:
+                callModel->setActiveParticipant(priv->cpp->callId, callId);
+                callModel->setConferenceLayout(priv->cpp->callId, lrc::api::call::Layout::ONE_WITH_SMALL);
+                break;
+            case lrc::api::call::Layout::ONE_WITH_SMALL:
+                callModel->setActiveParticipant(priv->cpp->callId, callId);
+                callModel->setConferenceLayout(priv->cpp->callId,
+                    active? lrc::api::call::Layout::ONE : lrc::api::call::Layout::ONE_WITH_SMALL);
+                break;
+            case lrc::api::call::Layout::ONE:
+                callModel->setActiveParticipant(priv->cpp->callId, callId);
+                callModel->setConferenceLayout(priv->cpp->callId, lrc::api::call::Layout::GRID);
+                break;
+        };
+    } catch (...) {}
+}
+
+static void
+on_minimize(GtkButton *button, VideoWidget *self)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    QString uri = QString::fromStdString((gchar*)g_object_get_data(G_OBJECT(button), "uri"));
+    try {
+        auto& callModel = (*priv->cpp->accountInfo)->callModel;
+        auto call = callModel->getCall(priv->cpp->callId);
+        switch (call.layout) {
+            case lrc::api::call::Layout::GRID:
+                break;
+            case lrc::api::call::Layout::ONE_WITH_SMALL:
+                callModel->setConferenceLayout(priv->cpp->callId, lrc::api::call::Layout::GRID);
+                break;
+            case lrc::api::call::Layout::ONE:
+                callModel->setConferenceLayout(priv->cpp->callId, lrc::api::call::Layout::ONE_WITH_SMALL);
+                break;
+        };
+    } catch (...) {}
+}
+
+static void
+on_show_actions_popover(GtkButton *button, VideoWidget *self)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    GtkStyleContext* context;
+
+    priv->actions_popover = gtk_popover_new(GTK_WIDGET(self));
+    gtk_popover_set_relative_to(GTK_POPOVER(priv->actions_popover), GTK_WIDGET(button));
+
+    auto* box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    bool isLocal = (bool)g_object_get_data(G_OBJECT(button), "isLocal");
+    bool active = (bool)g_object_get_data(G_OBJECT(button), "active");
+    auto* uri = g_object_get_data(G_OBJECT(button), "uri");
+    g_object_set_data(G_OBJECT(priv->actions_popover), "uri", uri);
+    if (!isLocal) {
+        auto* hangupBtn = gtk_button_new();
+        gtk_button_set_label(GTK_BUTTON(hangupBtn), _("Hangup"));
+        gtk_box_pack_start(GTK_BOX(box), hangupBtn, TRUE, TRUE, 0);
+        g_object_set_data(G_OBJECT(hangupBtn), "uri", uri);
+        context = gtk_widget_get_style_context(hangupBtn);
+        gtk_style_context_add_class(context, "options-btn");
+        auto image = gtk_image_new_from_icon_name("call-stop-symbolic", GTK_ICON_SIZE_BUTTON);
+        gtk_button_set_relief(GTK_BUTTON(hangupBtn), GTK_RELIEF_NONE);
+        gtk_button_set_image(GTK_BUTTON(hangupBtn), image);
+        gtk_button_set_alignment(GTK_BUTTON(hangupBtn), 0, -1);
+        g_signal_connect(hangupBtn, "clicked", G_CALLBACK(on_hangup), self);
+    }
+    try {
+        auto call = (*priv->cpp->accountInfo)->callModel->getCall(priv->cpp->callId);
+        if (call.layout != lrc::api::call::Layout::ONE) {
+            auto* maxBtn = gtk_button_new();
+            gtk_button_set_label(GTK_BUTTON(maxBtn), _("Maximize"));
+            gtk_box_pack_start(GTK_BOX(box), maxBtn, FALSE, TRUE, 0);
+            g_object_set_data(G_OBJECT(maxBtn), "uri", uri);
+            g_object_set_data(G_OBJECT(maxBtn), "active", (void*)active);
+            context = gtk_widget_get_style_context(maxBtn);
+            gtk_style_context_add_class(context, "options-btn");
+            auto image = gtk_image_new_from_icon_name("view-fullscreen-symbolic", GTK_ICON_SIZE_BUTTON);
+            gtk_button_set_relief(GTK_BUTTON(maxBtn), GTK_RELIEF_NONE);
+            gtk_button_set_image(GTK_BUTTON(maxBtn), image);
+            gtk_button_set_alignment(GTK_BUTTON(maxBtn), 0, -1);
+            g_signal_connect(maxBtn, "clicked", G_CALLBACK(on_maximize), self);
+        }
+        if (!(call.layout == lrc::api::call::Layout::GRID
+            || (call.layout == lrc::api::call::Layout::ONE_WITH_SMALL && !active))) {
+            auto* minBtn = gtk_button_new();
+            gtk_button_set_label(GTK_BUTTON(minBtn), _("Minimize"));
+            context = gtk_widget_get_style_context(minBtn);
+            gtk_style_context_add_class(context, "options-btn");
+            gtk_box_pack_start(GTK_BOX(box), minBtn, FALSE, TRUE, 0);
+            g_object_set_data(G_OBJECT(minBtn), "uri", uri);
+            g_object_set_data(G_OBJECT(minBtn), "active", (void*)active);
+            auto image = gtk_image_new_from_icon_name("view-restore-symbolic", GTK_ICON_SIZE_BUTTON);
+            gtk_button_set_relief(GTK_BUTTON(minBtn), GTK_RELIEF_NONE);
+            gtk_button_set_image(GTK_BUTTON(minBtn), image);
+            gtk_button_set_alignment(GTK_BUTTON(minBtn), 0, -1);
+            g_signal_connect(minBtn, "clicked", G_CALLBACK(on_minimize), self);
+        }
+    } catch (...) {}
+    gtk_container_add(GTK_CONTAINER(GTK_POPOVER(priv->actions_popover)), box);
+
+    gtk_widget_set_size_request(priv->actions_popover, -1, -1);
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_popover_popdown(GTK_POPOVER(priv->actions_popover));
+#else
+    gtk_widget_show_all(GTK_WIDGET(priv->actions_popover));
+#endif
+    gtk_widget_show_all(priv->actions_popover);
+}
+
+void
+video_widget_add_participant_hover(VideoWidget *self, const QJsonObject& participant)
+{
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    GtkStyleContext* context;
+
+    auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(self));
+    auto* box_participant = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    auto* hover_participant = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
+    auto* label_participant = gtk_label_new(participant["bestName"].toString().toLocal8Bit().constData());
+    gtk_label_set_xalign(GTK_LABEL(label_participant), 0);
+    gtk_box_pack_start(GTK_BOX(hover_participant), label_participant, TRUE, TRUE, 0);
+    gtk_widget_set_visible(GTK_WIDGET(label_participant), TRUE);
+
+    auto call = (*priv->cpp->accountInfo)->callModel->getCall(priv->cpp->callId);
+    auto isMaster = call.type == lrc::api::call::Type::CONFERENCE;
+
+    if (isMaster) {
+        auto* options_btn = gtk_button_new();
+
+        GError *error = nullptr;
+        auto image = gtk_image_new();
+        GdkPixbuf* optionsBuf = gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/more",
+                                                                    -1, 12, TRUE, &error);
+        if (!optionsBuf) {
+            g_debug("Could not load image: %s", error->message);
+            g_clear_error(&error);
+        } else
+            gtk_image_set_from_pixbuf(GTK_IMAGE(image), optionsBuf);
+
+
+        gtk_button_set_relief(GTK_BUTTON(options_btn), GTK_RELIEF_NONE);
+        gtk_widget_set_tooltip_text(options_btn, _("More options"));
+        gtk_button_set_image(GTK_BUTTON(options_btn), image);
+        g_object_set_data(G_OBJECT(options_btn), "uri", (void*)g_strdup(qUtf8Printable(participant["uri"].toString())));
+        g_object_set_data(G_OBJECT(options_btn), "isLocal", (void*)participant["isLocal"].toBool());
+        g_object_set_data(G_OBJECT(options_btn), "active", (void*)participant["active"].toBool());
+        g_signal_connect(options_btn, "clicked", G_CALLBACK(on_show_actions_popover), self);
+
+        gtk_box_pack_start(GTK_BOX(hover_participant), options_btn, FALSE, TRUE, 0);
+        gtk_widget_set_visible(GTK_WIDGET(options_btn), TRUE);
+        context = gtk_widget_get_style_context(options_btn);
+        gtk_style_context_add_class(context, "options-btn");
+    }
+
+    gtk_box_pack_end(GTK_BOX(box_participant), hover_participant, FALSE, FALSE, 0);
+    gtk_widget_set_visible(GTK_WIDGET(hover_participant), TRUE);
+    gtk_widget_set_size_request(GTK_WIDGET(hover_participant), -1, 32);
+
+    context = gtk_widget_get_style_context(hover_participant);
+    gtk_style_context_add_class(context, "participant-hover");
+    context = gtk_widget_get_style_context(label_participant);
+    gtk_style_context_add_class(context, "label-hover");
+    auto* actor_info = gtk_clutter_actor_new_with_contents(GTK_WIDGET(box_participant));
+
+    g_object_set_data(G_OBJECT(actor_info), "uri", (void*)g_strdup(qUtf8Printable(participant["uri"].toString())));
+    g_object_set_data(G_OBJECT(actor_info), "isLocal", (void*)participant["isLocal"].toBool());
+    g_object_set_data(G_OBJECT(actor_info), "active", (void*)participant["active"].toBool());
+
+    clutter_actor_add_child(stage, actor_info);
+    clutter_actor_set_y_align(actor_info, CLUTTER_ACTOR_ALIGN_START);
+    clutter_actor_set_x_align(actor_info, CLUTTER_ACTOR_ALIGN_START);
+    {
+        std::lock_guard<std::mutex> lk(priv->cpp->hoversMtx_);
+        priv->cpp->hoversInfos_[participant["uri"].toString().toStdString()] = participant;
+        priv->cpp->hovers_[participant["uri"].toString().toStdString()] = actor_info;
+    }
+    clutter_actor_hide(actor_info);
+}
+
+void
+video_widget_set_call_info(VideoWidget *self, AccountInfoPointer const & accountInfo, const QString& callId)
+{
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    if (not priv or not priv->cpp)
+        return;
+    priv->cpp->callId = callId;
+    priv->cpp->accountInfo = &accountInfo;
+}
+
+
+void
+video_widget_remove_hovers(VideoWidget *self)
+{
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    std::lock_guard<std::mutex> lk(priv->cpp->hoversMtx_);
+    priv->cpp->hoversInfos_.clear();
+    for (const auto& [uri, actor]: priv->cpp->hovers_)
+        clutter_actor_destroy(actor);
+    priv->cpp->hovers_.clear();
+}
+
+void
+video_widget_on_event(VideoWidget *self, GdkEvent* event)
+{
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    g_return_if_fail(priv && event);
+
+    guint button;
+    // Ignore right click
+    if (gdk_event_get_button(event, &button) && button == GDK_BUTTON_SECONDARY)
+        return;
+
+    // HACK-HACK-HACK-HACK-HACK
+    // https://gitlab.gnome.org/GNOME/clutter-gtk/-/issues/11
+    // Retrieve real coordinates in widget and avoid coordinates
+    // in hovers
+    GdkDisplay *display = gdk_display_get_default ();
+    GdkDeviceManager *device_manager = gdk_display_get_device_manager (display);
+    GdkDevice *device = gdk_device_manager_get_client_pointer (device_manager);
+    int dx, dy;
+    gdk_device_get_position (device, NULL, &dx, &dy);
+    gint wx, wy;
+    gdk_window_get_origin (gtk_widget_get_window(GTK_WIDGET(self)), &wx, &wy);
+    int posX = dx - wx;
+    int posY = dy - wy;
+
+    std::lock_guard<std::mutex> lk(priv->cpp->hoversMtx_);
+    for (const auto& [uri, actor]: priv->cpp->hovers_) {
+        if (!CLUTTER_IS_ACTOR(actor)) return;
+        gfloat x = clutter_actor_get_x(actor), y = clutter_actor_get_y(actor), w, h;
+        clutter_actor_get_size(actor, &w, &h);
+        if (posX >= x && posX <= x + w && posY >= y && posY <= y + h) {
+            // The mouse is in the hover
+            if (event->type == GDK_BUTTON_PRESS) {
+                // Let the button clickable without maximizing the participant
+                if (!(posX >= x + w - 12 && posY >= y + h - 12))
+                    on_maximize(G_OBJECT(actor), self);
+            }
+            clutter_actor_show(actor);
+        } else {
+            clutter_actor_hide(actor);
+        }
+    }
+}
 
 /*
  * video_widget_init()
@@ -738,6 +1059,31 @@ check_frame_queue(VideoWidget *self)
     if (priv->show_preview)
         clutter_render_image(priv->local);
     clutter_render_image(priv->remote);
+
+    // HACK: https://gitlab.gnome.org/GNOME/clutter-gtk/-/issues/11
+    // Because the CLUTTER_CONTENT_GRAVITY_RESIZE_ASPECT change the ratio of the widget inside the actor
+    // and we can't get the real dimensions of the rendered renderer, we need to
+    // re-calculate the real dimensions the actor has
+    if (priv->remote->actor && priv->remote->v_renderer) {
+        auto zoomX = priv->remote->v_renderer->size().rwidth() / clutter_actor_get_width(priv->remote->actor);
+        auto zoomY = priv->remote->v_renderer->size().rheight() / clutter_actor_get_height(priv->remote->actor);
+        auto zoom = std::max(zoomX, zoomY);
+        auto real_width = priv->remote->v_renderer->size().rwidth() / zoom;
+        auto real_height = priv->remote->v_renderer->size().rheight() / zoom;
+        auto offsetY = (clutter_actor_get_height(priv->remote->actor) - real_height) / 2;
+        auto offsetX = (clutter_actor_get_width(priv->remote->actor) - real_width) / 2;
+
+        std::lock_guard<std::mutex> lk(priv->cpp->hoversMtx_);
+        for (const auto& [uri, actor] : priv->cpp->hovers_) {
+            auto participant = priv->cpp->hoversInfos_[uri];
+
+            clutter_actor_set_height(actor, participant["h"].toInt() / zoom);
+            clutter_actor_set_width(actor, participant["w"].toInt() / zoom);
+            clutter_actor_set_x(actor, offsetX + participant["x"].toInt() / zoom);
+            clutter_actor_set_y(actor, offsetY + participant["y"].toInt() / zoom);
+        }
+    }
+
     if (priv->remote->snapshot_status == HAS_A_NEW_ONE) {
         priv->remote->snapshot_status = NOTHING;
         g_signal_emit(G_OBJECT(self), video_widget_signals[SNAPSHOT_SIGNAL], 0);
@@ -841,6 +1187,19 @@ GtkWidget*
 video_widget_new(void)
 {
     GtkWidget *self = (GtkWidget *)g_object_new(VIDEO_WIDGET_TYPE, NULL);
+    auto* priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    // CSS styles
+    auto provider = gtk_css_provider_new();
+    std::string css = ".participant-hover { background: rgba(0,0,0,0.5); color: white; padding-left: 8; font-size: .8em;}\
+    .options-btn:hover {background: rgba(0,0,0,0); border: 0;} \
+    .options-btn {background: rgba(0,0,0,0); border: 0;} \
+    .label-hover { color: white; }";
+    gtk_css_provider_load_from_data(provider, css.c_str(), -1, nullptr);
+    gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
+                                              GTK_STYLE_PROVIDER(provider),
+                                              GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    priv->cpp = new details::CppImpl(*VIDEO_WIDGET(self));
+
     return self;
 }
 
@@ -906,5 +1265,9 @@ video_widget_set_preview_visible(VideoWidget *self, bool show)
     VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
     if (priv) {
         priv->show_preview = show;
+        if (!show)
+            clutter_actor_hide(priv->local->actor);
+        else
+            clutter_actor_show(priv->local->actor);
     }
 }
