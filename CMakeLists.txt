@@ -11,7 +11,7 @@ IF (CMAKE_COMPILER_IS_GNUCC)
    ENDIF()
 ENDIF()
 
-set (CMAKE_CXX_STANDARD 14)
+set (CMAKE_CXX_STANDARD 17)
 
 # set project name and version
 PROJECT(jami-client-gnome)
