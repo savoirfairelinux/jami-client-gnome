@@ -45,6 +45,7 @@
 #include <glib/gi18n.h>
 
 #include <QSize>
+#include <QJsonObject>
 
 #include <set>
 
@@ -241,6 +242,7 @@ public:
     lrc::api::AVModel* avModel_;
 
     QMetaObject::Connection state_change_connection;
+    QMetaObject::Connection layout_change_connection;
     QMetaObject::Connection update_vcard_connection;
     QMetaObject::Connection renderer_connection;
     QMetaObject::Connection smartinfo_refresh_connection;
@@ -343,7 +345,7 @@ on_togglebutton_chat_toggled(GtkToggleButton* widget, CurrentCallView* view)
 }
 
 static void
-on_togglebutton_view_toggled(GtkToggleButton* widget, CurrentCallView* view)
+on_togglebutton_view_toggled(GtkToggleButton*, CurrentCallView* view)
 {
     g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
@@ -460,12 +462,22 @@ on_togglebutton_mutevideo_clicked(CurrentCallView* view)
 }
 
 static gboolean
-on_mouse_moved(CurrentCallView* view)
+on_mouse_moved(CurrentCallView* view, GdkEvent *event, GtkWidget* widget)
 {
     g_return_val_if_fail(IS_CURRENT_CALL_VIEW(view), FALSE);
+    g_return_val_if_fail(IS_VIDEO_WIDGET(widget), FALSE);
     auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
     priv->cpp->time_last_mouse_motion = g_get_monotonic_time();
+
+    
+    
+    if (event) {
+        GdkRectangle rect;
+        gtk_widget_get_allocation(widget, &rect);
+        g_warning("@@@ %u", rect.width);
+        video_widget_on_event(VIDEO_WIDGET(priv->video_widget), event);
+    }
 
     // since the mouse moved, make sure the controls are shown
     if (clutter_timeline_get_direction(CLUTTER_TIMELINE(priv->cpp->fade_info)) == CLUTTER_TIMELINE_FORWARD) {
@@ -560,7 +572,7 @@ on_video_widget_focus(GtkWidget* widget, GtkDirectionType direction, CurrentCall
     // otherwise we want the focus to go to and change between the call control buttons
     if (gtk_widget_child_focus(GTK_WIDGET(priv->hbox_call_controls), direction)) {
         // selected a child, make sure call controls are shown
-        on_mouse_moved(view);
+        on_mouse_moved(view, nullptr, widget);
         return TRUE;
     }
 
@@ -962,6 +974,7 @@ CppImpl::CppImpl(CurrentCallView& widget, const lrc::api::Lrc& lrc)
 CppImpl::~CppImpl()
 {
     QObject::disconnect(state_change_connection);
+    QObject::disconnect(layout_change_connection);
     QObject::disconnect(update_vcard_connection);
     QObject::disconnect(renderer_connection);
     QObject::disconnect(smartinfo_refresh_connection);
@@ -1095,7 +1108,6 @@ CppImpl::add_media_handler(lrc::api::plugin::MediaHandlerDetails mediaHandlerDet
 void
 CppImpl::updatePluginList()
 {
-    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
     auto row = 0;
     while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(widgets->list_media_handlers_available), row))) {
         gtk_container_remove(GTK_CONTAINER(widgets->list_media_handlers_available), children);
@@ -1483,6 +1495,53 @@ CppImpl::setCallInfo()
                 }
                 updateNameAndPhoto();
                 updateState();
+            }
+        });
+
+    layout_change_connection = QObject::connect(
+        &*(*accountInfo)->callModel,
+        &lrc::api::NewCallModel::onParticipantsChanged,
+        [this] (const QString& callId) {
+            if (callId == conversation->callId or callId == conversation->confId) {
+                video_widget_remove_hovers(
+                    VIDEO_WIDGET(widgets->video_widget)
+                );
+                video_widget_set_call_info(VIDEO_WIDGET(widgets->video_widget), *accountInfo, callId);
+                try {
+                    auto call = (*accountInfo)->callModel->getCall(callId);
+                    for (const auto& participant: call.participantsInfos) {
+                        QJsonObject data;
+                        data["x"] = participant["x"].toInt();
+                        data["y"] = participant["y"].toInt();
+                        data["w"] = participant["w"].toInt();
+                        data["h"] = participant["h"].toInt();
+                        data["active"] = participant["active"] == "true";
+                        auto bestName = participant["uri"];
+                        data["isLocal"] = false;
+                        if (bestName == (*accountInfo)->profileInfo.uri) {
+                            bestName = _("me");
+                            data["isLocal"] = true;
+                        } else {
+                            try {
+                                auto &contact = (*accountInfo)->contactModel->getContact(participant["uri"]);
+                                bestName = contact.profileInfo.alias;
+                                if (bestName.isEmpty())
+                                    bestName = contact.registeredName;
+                                if (bestName.isEmpty())
+                                    bestName = contact.profileInfo.uri;
+                                bestName.remove('\r');
+                            } catch (...) {}
+                        }
+                        data["bestName"] = bestName;
+                        data["uri"] = participant["uri"];
+                        video_widget_add_participant_hover(
+                            VIDEO_WIDGET(widgets->video_widget),
+                            data
+                        );
+                    }
+                } catch (...) {
+                    g_warning("Can't set preview visible for inexistant call");
+                }
             }
         });
 
