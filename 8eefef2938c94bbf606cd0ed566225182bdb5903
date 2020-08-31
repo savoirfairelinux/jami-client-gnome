@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e11665b1_1405e8fd",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-08-31T17:53:12Z",
+      "side": 1,
+      "message": "format",
+      "range": {
+        "startLine": 81,
+        "startChar": 32,
+        "endLine": 83,
+        "endChar": 41
+      },
+      "revId": "8eefef2938c94bbf606cd0ed566225182bdb5903",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
