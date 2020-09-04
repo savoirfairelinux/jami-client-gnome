@@ -328,15 +328,15 @@ update_conversation(ConversationsView *self, const std::string& uid) {
         iterIsCorrect = gtk_tree_model_iter_nth_child (model, &iter, nullptr, idx);
         if (!iterIsCorrect)
             break;
-        gchar *uid;
+        gchar *uidModel;
         gtk_tree_model_get (model, &iter,
-                            0 /* col# */, &uid /* data */,
+                            0 /* col# */, &uidModel /* data */,
                             -1);
-        if(std::string(uid) == uid) {
+        if(std::string(uid) == uidModel) {
             // Get informations
-            auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
+            auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uidModel);
             if (conversation.participants.empty()) {
-                g_free(uid);
+                g_free(uidModel);
                 return;
             }
             auto contactUri = conversation.participants.front();
@@ -347,6 +347,7 @@ update_conversation(ConversationsView *self, const std::string& uid) {
             auto alias = contactInfo.profileInfo.alias;
             alias.remove('\r');
             // Update iter
+
             gtk_list_store_set (GTK_LIST_STORE(model), &iter,
                                 0 /* col # */ , qUtf8Printable(conversation.uid) /* celldata */,
                                 1 /* col # */ , qUtf8Printable(alias) /* celldata */,
@@ -355,10 +356,10 @@ update_conversation(ConversationsView *self, const std::string& uid) {
                                 4 /* col # */ , qUtf8Printable(contactInfo.profileInfo.avatar) /* celldata */,
                                 5 /* col # */ , qUtf8Printable(lastMessage) /* celldata */,
                                 -1 /* end */);
-            g_free(uid);
+            g_free(uidModel);
             return;
         }
-        g_free(uid);
+        g_free(uidModel);
         idx++;
     }
 }
