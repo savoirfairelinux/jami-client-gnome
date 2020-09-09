@@ -322,12 +322,9 @@ set_record_animation(CurrentCallViewPrivate* priv)
     auto callToRender = priv->cpp->conversation->callId;
     if (!priv->cpp->conversation->confId.isEmpty())
         callToRender = priv->cpp->conversation->confId;
-    bool nextStatus = (*priv->cpp->accountInfo)->callModel->isRecording(callToRender);
     bool currentStatus = (*priv->cpp->accountInfo)->callModel->isRecording(callToRender);
-    if (nextStatus != currentStatus) {
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_record),
-            (*priv->cpp->accountInfo)->callModel->isRecording(callToRender));
-    }
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(priv->togglebutton_record),
+        currentStatus);
 }
 
 static void
