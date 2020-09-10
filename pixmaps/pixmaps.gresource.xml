@@ -62,5 +62,6 @@
     <file alias="plugin_white">extension_white_24dp.svg</file>
     <file alias="view">view.svg</file>
     <file alias="more">more_vert-24px.svg</file>
+    <file alias="groups">groups-24px.svg</file>
   </gresource>
 </gresources>

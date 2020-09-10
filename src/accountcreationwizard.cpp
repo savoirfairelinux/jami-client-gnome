@@ -48,7 +48,8 @@ enum class Mode {
     ADD_LOCAL,
     IMPORT_FROM_DEVICE,
     IMPORT_FROM_BACKUP,
-    CONNECT_TO_MANAGER
+    CONNECT_TO_MANAGER,
+    ADD_RENDEZVOUS
 };
 
 struct _AccountCreationWizardPrivate
@@ -66,6 +67,7 @@ struct _AccountCreationWizardPrivate
     GtkWidget *choose_account_type_vbox;
     GtkWidget *choose_account_type_ring_logo;
     GtkWidget *button_new_account;
+    GtkWidget *button_new_rendezvous;
     GtkWidget *button_import_from_device;
     GtkWidget *button_import_from_backup;
     GtkWidget *button_show_advanced;
@@ -96,6 +98,8 @@ struct _AccountCreationWizardPrivate
     GtkWidget *button_account_creation_previous;
     GtkWidget *box_avatarselection;
     GtkWidget *avatar_manipulation;
+    GtkWidget *label_register;
+    GtkWidget *label_username;
     GtkWidget *box_username_entry;
     GtkWidget *switch_register;
     GtkWidget *username_registration_box;
@@ -103,6 +107,7 @@ struct _AccountCreationWizardPrivate
 
     /* generating_account_spinner */
     GtkWidget *vbox_generating_account_spinner;
+    GtkWidget *generating_label;
 
     /* registering_username_spinner */
     GtkWidget *vbox_registering_username_spinner;
@@ -190,6 +195,7 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, choose_account_type_vbox);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, choose_account_type_ring_logo);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_new_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_new_rendezvous);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_device);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_backup);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_show_advanced);
@@ -218,12 +224,15 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_creation_previous);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, box_avatarselection);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, label_password_error);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, label_register);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, label_username);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, box_username_entry);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, switch_register);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_display_name);
 
     /* generating_account_spinner */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, vbox_generating_account_spinner);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, generating_label);
 
     /* registering_username_spinner */
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, vbox_registering_username_spinner);
@@ -287,6 +296,10 @@ account_creation_show_error_view(AccountCreationWizard *view, const std::string&
             case Mode::ADD_LOCAL:
                 gtk_label_set_text(GTK_LABEL(priv->label_error_view),
                     _("An error occured during the account creation."));
+                break;
+            case Mode::ADD_RENDEZVOUS:
+                gtk_label_set_text(GTK_LABEL(priv->label_error_view),
+                    _("An error occured during the rendez-vous creation."));
                 break;
             case Mode::IMPORT_FROM_DEVICE:
                 gtk_label_set_text(GTK_LABEL(priv->label_error_view),
@@ -374,6 +387,12 @@ account_creation_wizard_account_added(AccountCreationWizard *view, const std::st
         } catch (std::out_of_range&) {
             g_warning("Can't set avatar for unknown account");
         }
+    }
+
+    if (priv->mode == Mode::ADD_RENDEZVOUS) {
+        auto conf = priv->accountModel_->getAccountConfig(priv->accountId);
+        conf.isRendezVous = true;
+        priv->accountModel_->setAccountConfig(priv->accountId, conf);
     }
 
     if (!g_settings_get_boolean(priv->settings, "never-show-backup-again") && priv->mode == Mode::ADD_LOCAL) {
@@ -470,6 +489,11 @@ static void
 show_generating_account_spinner(AccountCreationWizard *view)
 {
     auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+    if (priv->mode == Mode::ADD_RENDEZVOUS) {
+        gtk_label_set_text(GTK_LABEL(priv->generating_label), _("Generating your rendez-vous…"));
+    } else {
+        gtk_label_set_text(GTK_LABEL(priv->generating_label), _("Generating your Jami account…"));
+    }
     gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->vbox_generating_account_spinner);
 }
 
@@ -853,6 +877,7 @@ build_creation_wizard_view(AccountCreationWizard *view)
 
     /* choose_account_type signals */
     g_signal_connect_swapped(priv->button_new_account, "clicked", G_CALLBACK(account_creation_wizard_show_preview), view);
+    g_signal_connect_swapped(priv->button_new_rendezvous, "clicked", G_CALLBACK(show_rendezvous_creation_wizard), view);
     g_signal_connect_swapped(priv->button_import_from_device, "clicked", G_CALLBACK(show_import_from_device), view);
     g_signal_connect_swapped(priv->button_import_from_backup, "clicked", G_CALLBACK(show_import_from_backup), view);
     g_signal_connect(priv->button_show_advanced, "clicked", G_CALLBACK(show_advanced), view);
@@ -928,12 +953,14 @@ account_creation_wizard_show_preview(AccountCreationWizard *win, gboolean show_p
     auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
 
     if (priv->account_creation) {
-        if (show_preview)
+        gtk_label_set_text(GTK_LABEL(priv->label_register), _("Register username"));
+        gtk_label_set_text(GTK_LABEL(priv->label_username), _("Username"));
+        if (show_preview) {
             gtk_widget_show(priv->account_creation);
-        else
+            priv->mode = Mode::ADD_LOCAL;
+        } else
             gtk_widget_hide(priv->account_creation);
     }
-    priv->mode = Mode::ADD_LOCAL;
 
     /* Similarily to general settings view, we construct and destroy the avatar manipulation widget
        each time the profile is made visible / hidden. While not the most elegant solution, this
@@ -950,3 +977,32 @@ account_creation_wizard_show_preview(AccountCreationWizard *win, gboolean show_p
         priv->avatar_manipulation = nullptr;
     }
 }
+
+void
+show_rendezvous_creation_wizard(AccountCreationWizard *win)
+{
+    auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
+
+    if (priv->account_creation) {
+        gtk_label_set_text(GTK_LABEL(priv->label_register), _("Register name"));
+        gtk_label_set_text(GTK_LABEL(priv->label_username), _("Name"));
+        gtk_widget_show(priv->account_creation);
+    }
+    priv->mode = Mode::ADD_RENDEZVOUS;
+
+    /* Similarily to general settings view, we construct and destroy the avatar manipulation widget
+       each time the profile is made visible / hidden. While not the most elegant solution, this
+       allows us to run the preview if and only if it is displayed, and always stop it when hidden. */
+    if (!priv->avatar_manipulation) {
+        priv->avatar_manipulation = avatar_manipulation_new_from_wizard(priv->avModel_);
+        gtk_box_pack_start(GTK_BOX(priv->box_avatarselection), priv->avatar_manipulation, true, true, 0);
+        gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->account_creation);
+    } else {
+        /* make sure the AvatarManipulation widget is destroyed so the VideoWidget inside of it is too;
+         * NOTE: destorying its parent (box_avatarselection) first will cause a mystery 'BadDrawable'
+         * crash due to X error */
+        gtk_container_remove(GTK_CONTAINER(priv->box_avatarselection), priv->avatar_manipulation);
+        priv->avatar_manipulation = nullptr;
+    }
+}
+

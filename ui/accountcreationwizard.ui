@@ -80,6 +80,14 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkButton" id="button_new_rendezvous">
+                        <property name="label" translatable="yes">Create a rendez-vous</property>
+                        <property name="tooltip_text" translatable="yes">Create new rendez-vous</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkButton" id="button_import_from_device">
                         <property name="label" translatable="yes">Import from device</property>
                         <property name="tooltip_text" translatable="yes">Import an account with your PIN generated on another device</property>
@@ -554,7 +562,7 @@
                                     <property name="margin_top">10</property>
                                     <property name="margin_bottom">10</property>
                                     <child>
-                                      <object class="GtkLabel">
+                                      <object class="GtkLabel" id="label_register">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="label" translatable="yes">Register username</property>
@@ -591,10 +599,9 @@
                                     <property name="margin_top">10</property>
                                     <property name="margin_bottom">10</property>
                                     <child>
-                                      <object class="GtkLabel">
+                                      <object class="GtkLabel" id="label_username">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Username</property>
                                       </object>
                                     </child>
                                   </object>
@@ -729,10 +736,9 @@
                 <property name="orientation">vertical</property>
                 <property name="spacing">15</property>
                 <child>
-                  <object class="GtkLabel">
+                  <object class="GtkLabel" id="generating_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Generating your Jami account…</property>
                   </object>
                 </child>
                 <child>

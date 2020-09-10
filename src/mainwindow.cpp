@@ -422,6 +422,40 @@ private:
 
 inline namespace gtk_callbacks
 {
+
+static void
+render_rendezvous_mode(GtkCellLayout*,
+                      GtkCellRenderer *cell,
+                      GtkTreeModel *model,
+                      GtkTreeIter *iter,
+                      MainWindowPrivate* priv)
+{
+    g_return_if_fail(priv->cpp->accountInfo_);
+    
+    gchar *id;
+    gchar* avatar;
+    gchar* status;
+
+    gtk_tree_model_get (model, iter,
+                        0 /* col# */, &id /* data */,
+                        -1);
+
+    if (g_strcmp0("", id) != 0) {
+        try {
+            auto conf = priv->cpp->accountInfo_->accountModel->getAccountConfig(id);
+            if (conf.isRendezVous) {
+                GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/net/jami/JamiGnome/groups", nullptr);
+                g_object_set(G_OBJECT(cell), "width", 32, nullptr);
+                g_object_set(G_OBJECT(cell), "height", 32, nullptr);
+                g_object_set(G_OBJECT(cell), "pixbuf", icon, nullptr);
+            } else {
+                g_object_set(G_OBJECT(cell), "pixbuf", nullptr, nullptr);
+            }
+        } catch (...) {}
+    }
+    g_free(id);
+}
+
 static void
 on_video_double_clicked(MainWindow* self)
 {
@@ -1386,6 +1420,13 @@ CppImpl::init()
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(widgets->combobox_account_selector),
                                        renderer,
                                        (GtkCellLayoutDataFunc )print_account_and_state,
+                                       widgets, nullptr);
+
+    renderer = gtk_cell_renderer_pixbuf_new();
+    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(widgets->combobox_account_selector), renderer, true);
+    gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(widgets->combobox_account_selector),
+                                       renderer,
+                                       (GtkCellLayoutDataFunc )render_rendezvous_mode,
                                        widgets, nullptr);
 
     // we closing any view opened to avoid confusion (especially between SIP and  protocols).
