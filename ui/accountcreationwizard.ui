@@ -81,8 +81,8 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="button_new_rendezvous">
-                        <property name="label" translatable="yes">Create a rendez-vous</property>
-                        <property name="tooltip_text" translatable="yes">Create new rendez-vous</property>
+                        <property name="label" translatable="yes">Create a Rendezvous point</property>
+                        <property name="tooltip_text" translatable="yes">Create a Rendezvous point</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>

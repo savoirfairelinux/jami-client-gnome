@@ -452,6 +452,8 @@ render_rendezvous_mode(GtkCellLayout*,
                 g_object_set(G_OBJECT(cell), "pixbuf", nullptr, nullptr);
             }
         } catch (...) {}
+    } else {
+        g_object_set(G_OBJECT(cell), "pixbuf", nullptr, nullptr);
     }
     g_free(id);
 }
