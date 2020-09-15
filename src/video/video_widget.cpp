@@ -353,14 +353,9 @@ on_maximize(GObject *button, VideoWidget *self)
         auto& callModel = (*priv->cpp->accountInfo)->callModel;
         auto call = callModel->getCall(priv->cpp->callId);
         QString callId = "";
-        auto conversations = (*priv->cpp->accountInfo)->conversationModel->allFilteredConversations();
-        for (const auto& conversation: conversations) {
-            if (conversation.participants.empty()) continue;
-            auto participant = conversation.participants.front();
-            if (uri == participant) {
-                callId = conversation.callId;
-                break;
-            }
+        if ((*priv->cpp->accountInfo)->profileInfo.uri != uri) {
+            auto participantCall = (*priv->cpp->accountInfo)->callModel->getCallFromURI(uri);
+            callId = participantCall.id;
         }
         switch (call.layout) {
             case lrc::api::call::Layout::GRID:
