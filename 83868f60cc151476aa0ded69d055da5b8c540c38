@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "817c28c5_538a72d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-09-15T18:59:18Z",
+      "side": 1,
+      "message": "avoid caps",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "83868f60cc151476aa0ded69d055da5b8c540c38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d77d63a_8a38c40a",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-09-15T18:59:18Z",
+      "side": 1,
+      "message": "auto*",
+      "range": {
+        "startLine": 179,
+        "startChar": 4,
+        "endLine": 179,
+        "endChar": 8
+      },
+      "revId": "83868f60cc151476aa0ded69d055da5b8c540c38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a53fed1a_f92c4be4",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1467,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-09-15T18:59:18Z",
+      "side": 1,
+      "message": "clean logs\n\nalso you need to install the clang format hook (./make-ring.py --init)",
+      "range": {
+        "startLine": 1466,
+        "startChar": 5,
+        "endLine": 1467,
+        "endChar": 43
+      },
+      "revId": "83868f60cc151476aa0ded69d055da5b8c540c38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0626bfc9_9b2fb0bc",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1990,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-09-15T18:59:18Z",
+      "side": 1,
+      "message": "should be the URI imho",
+      "range": {
+        "startLine": 1990,
+        "startChar": 57,
+        "endLine": 1990,
+        "endChar": 69
+      },
+      "revId": "83868f60cc151476aa0ded69d055da5b8c540c38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "944e2a6e_30ce9730",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1993,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-09-15T18:59:18Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 1993,
+        "startChar": 21,
+        "endLine": 1993,
+        "endChar": 27
+      },
+      "revId": "83868f60cc151476aa0ded69d055da5b8c540c38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "097904ab_415599c2",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2038,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-09-15T18:59:18Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 2038,
+        "startChar": 31,
+        "endLine": 2038,
+        "endChar": 43
+      },
+      "revId": "83868f60cc151476aa0ded69d055da5b8c540c38",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
