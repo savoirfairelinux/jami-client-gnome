@@ -358,7 +358,6 @@ public:
     QMetaObject::Connection showChatViewConnection_;
     QMetaObject::Connection showLeaveMessageViewConnection_;
     QMetaObject::Connection showCallViewConnection_;
-    QMetaObject::Connection showIncomingViewConnection_;
     QMetaObject::Connection newTrustRequestNotification_;
     QMetaObject::Connection closeTrustRequestNotification_;
     QMetaObject::Connection slotNewInteraction_;
@@ -401,7 +400,7 @@ private:
     void slotAccountStatusChanged(const std::string& id);
     void slotConversationCleared(const std::string& uid);
     void slotModelSorted();
-    void slotNewIncomingCall(const std::string& callId);
+    void slotNewIncomingCall(const std::string& accountId, lrc::api::conversation::Info origin);
     void slotCallStatusChanged(const std::string& callId);
     void slotCallStarted(const std::string& callId);
     void slotCallEnded(const std::string& callId);
@@ -411,7 +410,6 @@ private:
     void slotShowChatView(const std::string& id, lrc::api::conversation::Info origin);
     void slotShowLeaveMessageView(lrc::api::conversation::Info conv);
     void slotShowCallView(const std::string& id, lrc::api::conversation::Info origin);
-    void slotShowIncomingCallView(const std::string& id, lrc::api::conversation::Info origin);
     void slotNewTrustRequest(const std::string& id, const std::string& contactUri);
     void slotCloseTrustRequest(const std::string& id, const std::string& contactUri);
     void slotNewInteraction(const std::string& accountId, const std::string& conversation,
@@ -1434,7 +1432,6 @@ CppImpl::~CppImpl()
 {
     QObject::disconnect(showLeaveMessageViewConnection_);
     QObject::disconnect(showChatViewConnection_);
-    QObject::disconnect(showIncomingViewConnection_);
     QObject::disconnect(historyClearedConnection_);
     QObject::disconnect(modelSortedConnection_);
     QObject::disconnect(callChangedConnection_);
@@ -1905,7 +1902,6 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     // Disconnect old signals.
     QObject::disconnect(showLeaveMessageViewConnection_);
     QObject::disconnect(showChatViewConnection_);
-    QObject::disconnect(showIncomingViewConnection_);
     QObject::disconnect(showCallViewConnection_);
     QObject::disconnect(newTrustRequestNotification_);
     QObject::disconnect(closeTrustRequestNotification_);
@@ -1979,9 +1975,10 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
                                               &lrc::api::NewCallModel::callEnded,
                                               [this] (const QString& callId) { slotCallEnded(callId.toStdString()); });
 
-    newIncomingCallConnection_ = QObject::connect(&*accountInfo_->callModel,
-                                                  &lrc::api::NewCallModel::newIncomingCall,
-                                                  [this] (const QString&, const QString& callId) { slotNewIncomingCall(callId.toStdString()); });
+    newIncomingCallConnection_ = QObject::connect(&lrc_->getBehaviorController(),
+                                                  &lrc::api::BehaviorController::showIncomingCallView,
+                                                  [this] (const QString& accountId, lrc::api::conversation::Info origin) {
+                                                    slotNewIncomingCall(accountId.toStdString(), origin); });
 
     filterChangedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                 &lrc::api::ConversationModel::filterChanged,
@@ -2014,11 +2011,6 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     closeTrustRequestNotification_ = QObject::connect(&lrc_->getBehaviorController(),
                                                       &lrc::api::BehaviorController::trustRequestTreated,
                                                       [this] (const QString& id, const QString& contactUri) { slotCloseTrustRequest(id.toStdString(), contactUri.toStdString()); });
-
-    showIncomingViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
-                                                   &lrc::api::BehaviorController::showIncomingCallView,
-                                                   [this] (const QString& id, lrc::api::conversation::Info origin)
-                                                          { slotShowIncomingCallView(id.toStdString(), origin); });
 
     slotNewInteraction_ = QObject::connect(&lrc_->getBehaviorController(),
                                            &lrc::api::BehaviorController::newUnreadInteraction,
@@ -2254,18 +2246,17 @@ CppImpl::slotCallEnded(const std::string& /*callId*/)
 }
 
 void
-CppImpl::slotNewIncomingCall(const std::string& callId)
+CppImpl::slotNewIncomingCall(const std::string& accountId, lrc::api::conversation::Info origin)
 {
-    if (!accountInfo_) {
-        return;
-    }
     if (g_settings_get_boolean(widgets->window_settings, "bring-window-to-front")) {
         g_settings_set_boolean(widgets->window_settings, "show-main-window", TRUE);
     }
+    auto callId = origin.callId;
     try {
-        auto call = accountInfo_->callModel->getCall(callId.c_str());
+        auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId.c_str());
+        auto call = accountInfo.callModel->getCall(callId);
         auto peer = call.peerUri.remove("ring:");
-        auto& contactModel = accountInfo_->contactModel;
+        auto& contactModel = accountInfo.contactModel;
         QString avatar = "", name = "", uri = "";
         std::string notifId = "";
         try {
@@ -2279,9 +2270,9 @@ CppImpl::slotNewIncomingCall(const std::string& callId)
                     name = contactInfo.profileInfo.uri;
                 }
             }
-            notifId = accountInfo_->id.toStdString() + ":call:" + callId;
+            notifId = accountInfo.id.toStdString() + ":call:" + callId.toStdString();
         } catch (...) {
-            g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo_->id));
+            g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo.id));
             return;
         }
 
@@ -2293,8 +2284,16 @@ CppImpl::slotNewIncomingCall(const std::string& callId)
                               notifId, _("Incoming call"), body, NotificationType::CALL);
         }
     } catch (const std::exception& e) {
-        g_warning("Can't get call %s for this account.", callId.c_str());
+        g_warning("Can't get call %s for this account.", callId.toStdString().c_str());
     }
+
+    if (not accountInfo_ or accountInfo_->id.toStdString() != accountId)
+        return;
+
+    // call changeView even if we are already in an incoming call view, since
+    // the incoming call view holds a copy of the conversation info which has
+    // the be updated
+    changeView(INCOMING_CALL_VIEW_TYPE, origin);
 }
 
 void
@@ -2526,18 +2525,6 @@ CppImpl::slotCloseInteraction(const std::string& accountId, const std::string& c
     } catch (...) {
         g_warning("Can't get account %s", accountId.c_str());
     }
-}
-
-void
-CppImpl::slotShowIncomingCallView(const std::string& id, lrc::api::conversation::Info origin)
-{
-    if (accountInfo_->id.toStdString() != id)
-        return;
-
-    /* call changeView even if we are already in an incoming call view, since
-       the incoming call view holds a copy of the conversation info which has
-       the be updated */
-    changeView(INCOMING_CALL_VIEW_TYPE, origin);
 }
 
 void
