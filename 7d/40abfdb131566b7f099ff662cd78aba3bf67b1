@@ -1,0 +1,7 @@
+Verified+1: Jenkins CI <jenkins@ring-packaging.cx>
+Code-Review+2: Pierre Lespagnol <pierre.lespagnol@savoirfairelinux.com>
+Submitted-by: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
+Submitted-at: Fri, 18 Sep 2020 11:48:49 -0400
+Reviewed-on: https://review.jami.net/c/ring-client-gnome/+/15706
+Project: ring-client-gnome
+Branch: refs/heads/master
