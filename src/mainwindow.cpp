@@ -2303,33 +2303,36 @@ CppImpl::slotNewIncomingCall(const std::string& accountId, lrc::api::conversatio
     try {
         auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId.c_str());
         auto call = accountInfo.callModel->getCall(callId);
-        auto peer = call.peerUri.remove("ring:");
-        auto& contactModel = accountInfo.contactModel;
-        QString avatar = "", name = "", uri = "";
-        std::string notifId = "";
-        try {
-            auto contactInfo = contactModel->getContact(peer);
-            uri = contactInfo.profileInfo.uri;
-            avatar = contactInfo.profileInfo.avatar;
-            name = contactInfo.profileInfo.alias;
-            if (name.isEmpty()) {
-                name = contactInfo.registeredName;
+        // workaround for https://git.jami.net/savoirfairelinux/ring-lrc/issues/433
+        if (call.status == lrc::api::call::Status::INCOMING_RINGING) {
+            auto peer = call.peerUri.remove("ring:");
+            auto& contactModel = accountInfo.contactModel;
+            QString avatar = "", name = "", uri = "";
+            std::string notifId = "";
+            try {
+                auto contactInfo = contactModel->getContact(peer);
+                uri = contactInfo.profileInfo.uri;
+                avatar = contactInfo.profileInfo.avatar;
+                name = contactInfo.profileInfo.alias;
                 if (name.isEmpty()) {
-                    name = contactInfo.profileInfo.uri;
+                    name = contactInfo.registeredName;
+                    if (name.isEmpty()) {
+                        name = contactInfo.profileInfo.uri;
+                    }
                 }
+                notifId = accountInfo.id.toStdString() + ":call:" + callId.toStdString();
+            } catch (...) {
+                g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo.id));
+                return;
             }
-            notifId = accountInfo.id.toStdString() + ":call:" + callId.toStdString();
-        } catch (...) {
-            g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo.id));
-            return;
-        }
 
-        if (g_settings_get_boolean(widgets->window_settings, "enable-call-notifications")) {
-            name.remove('\r');
-            auto body = name.toStdString() + _(" is calling you!");
-            show_notification(NOTIFIER(widgets->notifier),
-                              avatar.toStdString(), uri.toStdString(), name.toStdString(),
-                              notifId, _("Incoming call"), body, NotificationType::CALL);
+            if (g_settings_get_boolean(widgets->window_settings, "enable-call-notifications")) {
+                name.remove('\r');
+                auto body = name.toStdString() + _(" is calling you!");
+                show_notification(NOTIFIER(widgets->notifier),
+                                avatar.toStdString(), uri.toStdString(), name.toStdString(),
+                                notifId, _("Incoming call"), body, NotificationType::CALL);
+            }
         }
     } catch (const std::exception& e) {
         g_warning("Can't get call %s for this account.", callId.toStdString().c_str());
