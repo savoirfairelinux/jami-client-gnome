@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Zkdc, 2019
-# Beta Ba <linsui555@gmail.com>, 2020
-# Sak94664 <hdudhhhdh@gmail.com>, 2020
+# Beta Ba <linsui@inbox.lv>, 2020
+# Sak94664, 2020
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2017
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2016
 # Shuisi Liu <forevoliu@gmail.com>, 2020
@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-10 03:09-0400\n"
-"PO-Revision-Date: 2020-08-10 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-09-19 17:53-0400\n"
+"PO-Revision-Date: 2020-09-19 21:22+0000\n"
+"Last-Translator: Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -173,12 +173,12 @@ msgstr "媒体"
 msgid "Plugin"
 msgstr "插件"
 
-#: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:523
+#: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:531
 #: ui/newaccountsettingsview.ui:387
 msgid "Account"
 msgstr "账户"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1837
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1882
 msgid "Settings"
 msgstr "设置"
 
@@ -202,19 +202,19 @@ msgstr "该账户格式不正确，请输入密码"
 msgid "Alias"
 msgstr "别名"
 
-#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:597
-#: ui/accountcreationwizard.ui:982 ui/profile.ui:73
-#: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
+#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:988
+#: ui/profile.ui:73 ui/newaccountsettingsview.ui:476
+#: ui/newaccountsettingsview.ui:706 src/accountcreationwizard.cpp:957
 msgid "Username"
 msgstr "用户名"
 
-#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:191
-#: ui/accountcreationwizard.ui:624 ui/accountcreationwizard.ui:1018
+#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:199
+#: ui/accountcreationwizard.ui:631 ui/accountcreationwizard.ui:1024
 #: ui/newaccountsettingsview.ui:502 ui/newaccountsettingsview.ui:742
 msgid "Password"
 msgstr "密码"
 
-#: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
+#: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1063
 msgid "Account manager"
 msgstr "账户管理器"
 
@@ -240,11 +240,11 @@ msgstr "迁移失败。密码错误？"
 msgid "End this call"
 msgstr "结束该通话"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:573
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:548
 msgid "End call"
 msgstr "结束通话"
 
-#: ui/currentcallview.ui:275 ui/currentcallview.ui:546
+#: ui/currentcallview.ui:275 ui/currentcallview.ui:521
 msgid "Add participant"
 msgstr "添加参与者"
 
@@ -257,7 +257,7 @@ msgid "Toggle hold"
 msgstr "等待/取消等待"
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:342
-#: ui/currentcallview.ui:537
+#: ui/currentcallview.ui:512
 msgid "Hold"
 msgstr "等待"
 
@@ -269,7 +269,7 @@ msgstr "开启声音/静音"
 msgid "Toggle mute video"
 msgstr "开启/关闭视频"
 
-#: ui/currentcallview.ui:367 ui/currentcallview.ui:528
+#: ui/currentcallview.ui:367 ui/currentcallview.ui:503
 msgid "Mute video"
 msgstr "关闭视频"
 
@@ -277,7 +277,7 @@ msgstr "关闭视频"
 msgid "Toggle recording"
 msgstr "录制开始/结束"
 
-#: ui/currentcallview.ui:391 ui/currentcallview.ui:591
+#: ui/currentcallview.ui:391 ui/currentcallview.ui:566
 #: ui/messagingwidget.ui:29 src/chatview.cpp:348
 msgid "Record"
 msgstr "录制"
@@ -286,51 +286,43 @@ msgstr "录制"
 msgid "Adjust outgoing video quality"
 msgstr "设置我的视频画质"
 
-#: ui/currentcallview.ui:436 ui/currentcallview.ui:582
+#: ui/currentcallview.ui:436 ui/currentcallview.ui:557
 msgid "Video quality"
 msgstr "视频画质"
 
-#: ui/currentcallview.ui:457
-msgid "Toggle view"
-msgstr "切换视图"
-
-#: ui/currentcallview.ui:461
-msgid "Change video layout"
-msgstr "更改视频布局"
-
-#: ui/currentcallview.ui:480
+#: ui/currentcallview.ui:455
 msgid "Toggle show chat"
 msgstr "显示/隐藏聊天栏"
 
-#: ui/currentcallview.ui:484 ui/currentcallview.ui:501
+#: ui/currentcallview.ui:459 ui/currentcallview.ui:476
 msgid "Chat"
 msgstr "聊天"
 
-#: ui/currentcallview.ui:510
+#: ui/currentcallview.ui:485
 msgid "View"
 msgstr "查看"
 
-#: ui/currentcallview.ui:519
+#: ui/currentcallview.ui:494
 msgid "Mute audio"
 msgstr "静音"
 
-#: ui/currentcallview.ui:555
+#: ui/currentcallview.ui:530
 msgid "Activate Plugin"
 msgstr "激活插件"
 
-#: ui/currentcallview.ui:564
+#: ui/currentcallview.ui:539
 msgid "Transfer"
 msgstr "已转接"
 
-#: ui/currentcallview.ui:614
+#: ui/currentcallview.ui:589
 msgid "Transfer to"
 msgstr "传递到"
 
-#: ui/currentcallview.ui:678
+#: ui/currentcallview.ui:653
 msgid "Add"
 msgstr "添加"
 
-#: ui/currentcallview.ui:744 src/pluginsettingsview.cpp:124
+#: ui/currentcallview.ui:719 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
 msgstr "选择插件"
 
@@ -346,143 +338,143 @@ msgstr "创建本地账户"
 msgid "Create a new Jami account on this device (for new users)"
 msgstr "在此设备上创建新的 Jami 账户（新用户）"
 
-#: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
+#: ui/accountcreationwizard.ui:84 ui/accountcreationwizard.ui:85
+msgid "Create a Rendezvous point"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:92 src/accountcreationwizard.cpp:615
 msgid "Import from device"
 msgstr "从设备导入"
 
-#: ui/accountcreationwizard.ui:85
+#: ui/accountcreationwizard.ui:93
 msgid "Import an account with your PIN generated on another device"
 msgstr "用另一个设备上生成的 PIN 码导入账户"
 
-#: ui/accountcreationwizard.ui:92
+#: ui/accountcreationwizard.ui:100
 msgid "Import from archive backup"
 msgstr "从归档备份中导入"
 
-#: ui/accountcreationwizard.ui:93
+#: ui/accountcreationwizard.ui:101
 msgid "Import an account via your archive"
 msgstr "从您的归档导入账户"
 
-#: ui/accountcreationwizard.ui:100
+#: ui/accountcreationwizard.ui:108
 msgid "Advanced…"
 msgstr "高级…"
 
-#: ui/accountcreationwizard.ui:111
+#: ui/accountcreationwizard.ui:119
 msgid "Connect to account manager"
 msgstr "连接到账户管理器"
 
-#: ui/accountcreationwizard.ui:112
+#: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
 msgstr "通过您的凭据获取您的账户。"
 
-#: ui/accountcreationwizard.ui:119
+#: ui/accountcreationwizard.ui:127
 msgid "Add a new SIP account"
 msgstr "添加 SIP 账户"
 
-#: ui/accountcreationwizard.ui:234
+#: ui/accountcreationwizard.ui:242
 msgid "Archive"
 msgstr "归档"
 
-#: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
+#: ui/accountcreationwizard.ui:248 ui/accountcreationwizard.ui:301
 msgid "Informations."
 msgstr "信息。"
 
-#: ui/accountcreationwizard.ui:287
+#: ui/accountcreationwizard.ui:295
 msgid "PIN"
 msgstr "PIN"
 
-#: ui/accountcreationwizard.ui:349
+#: ui/accountcreationwizard.ui:357
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
 msgstr "您可在账户设置中点击“导出账户”获得归档。这会在您的设备上创建一个以 .gz 结尾的文件。"
 
-#: ui/accountcreationwizard.ui:382
+#: ui/accountcreationwizard.ui:390
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
 msgstr "要获得 PIN 码（有效期 10 分钟），您需要在另一台设备上打开账户设置然后点击“关联另一台设备”。"
 
-#: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
-#: ui/accountcreationwizard.ui:1084
+#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:710
+#: ui/accountcreationwizard.ui:1090
 msgid "Previous"
 msgstr "上一步"
 
-#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:711
-#: ui/accountcreationwizard.ui:1092
+#: ui/accountcreationwizard.ui:418 ui/accountcreationwizard.ui:718
+#: ui/accountcreationwizard.ui:1098
 msgid "Next"
 msgstr "下一步"
 
-#: ui/accountcreationwizard.ui:442 ui/profile.ui:7
+#: ui/accountcreationwizard.ui:450 ui/profile.ui:7
 #: ui/newaccountsettingsview.ui:307
 msgid "Profile"
 msgstr "账户资料"
 
-#: ui/accountcreationwizard.ui:560
+#: ui/accountcreationwizard.ui:568 src/accountcreationwizard.cpp:956
 msgid "Register username"
 msgstr "注册用户名"
 
-#: ui/accountcreationwizard.ui:561
+#: ui/accountcreationwizard.ui:569
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
 msgstr "通过选中此选项，您将在 Jami 网络上注册唯一的用户名。 人们可以使用它来替代 40 个字符长的 ID 与您联系。"
 
-#: ui/accountcreationwizard.ui:625
+#: ui/accountcreationwizard.ui:632
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "该密码用于加密您的账户数据，以及将其他设备与您的账户进行连接。"
 
-#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:856
+#: ui/accountcreationwizard.ui:671 src/newaccountsettingsview.cpp:856
 msgid "Confirm password"
 msgstr "确认密码"
 
-#: ui/accountcreationwizard.ui:735
-msgid "Generating your Jami account…"
-msgstr "正在生成您的 Jami 账户…"
-
-#: ui/accountcreationwizard.ui:766
+#: ui/accountcreationwizard.ui:772
 msgid "Backup your account!"
 msgstr "备份您的账户！"
 
-#: ui/accountcreationwizard.ui:782
+#: ui/accountcreationwizard.ui:788
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
 msgstr "本账户仅存在于此设备上。如果您丢失了该设备或卸载了本应用，那么您的账户也会被删除。您可现在或稍后备份您的账户。"
 
-#: ui/accountcreationwizard.ui:789
+#: ui/accountcreationwizard.ui:795
 msgid "Never show me this again"
 msgstr "不再向我显示这个"
 
-#: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
-#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2050
+#: ui/accountcreationwizard.ui:809 ui/newaccountsettingsview.ui:539
+#: src/accountcreationwizard.cpp:399 src/newaccountsettingsview.cpp:2050
 msgid "Export account"
 msgstr "导出账户"
 
-#: ui/accountcreationwizard.ui:813
+#: ui/accountcreationwizard.ui:819
 msgid "Skip"
 msgstr "跳过"
 
-#: ui/accountcreationwizard.ui:839
+#: ui/accountcreationwizard.ui:845
 msgid "Registering username…"
 msgstr "注册用户名…"
 
-#: ui/accountcreationwizard.ui:846
+#: ui/accountcreationwizard.ui:852
 msgid "This may take a few minutes."
 msgstr "可能需要数分钟。"
 
-#: ui/accountcreationwizard.ui:872
+#: ui/accountcreationwizard.ui:878
 msgid "Retrieving your Jami account…"
 msgstr "正在获取您的 Jami 账户…"
 
-#: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
+#: ui/accountcreationwizard.ui:919 ui/newaccountsettingsview.ui:262
 msgid "OK"
 msgstr "确定"
 
-#: ui/accountcreationwizard.ui:938
+#: ui/accountcreationwizard.ui:944
 msgid "Sign in"
 msgstr "登录"
 
@@ -759,7 +751,7 @@ msgstr "自定义铃声"
 
 #: ui/newaccountsettingsview.ui:1264
 msgid "(Experimental) Rendez-vous: turn your account into a conference room"
-msgstr ""
+msgstr " （实验性）Rendez-vous：将您的账户变成会议室"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -994,13 +986,13 @@ msgid "Set selection as image"
 msgstr "设置选区为头像"
 
 #: src/pluginsettingsview.cpp:127 src/generalsettingsview.cpp:234
-#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:757
+#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:781
 #: src/chatview.cpp:284 src/newaccountsettingsview.cpp:909
 msgid "_Cancel"
 msgstr "取消(_C)"
 
 #: src/pluginsettingsview.cpp:129 src/generalsettingsview.cpp:236
-#: src/accountcreationwizard.cpp:759 src/chatview.cpp:286
+#: src/accountcreationwizard.cpp:783 src/chatview.cpp:286
 #: src/newaccountsettingsview.cpp:911
 msgid "_Save"
 msgstr "保存(_S)"
@@ -1117,19 +1109,35 @@ msgctxt ""
 msgid "Decline"
 msgstr "拒接"
 
-#: src/video/video_widget.cpp:558
+#: src/video/video_widget.cpp:417
+msgid "Hangup"
+msgstr "挂断"
+
+#: src/video/video_widget.cpp:432
+msgid "Maximize"
+msgstr ""
+
+#: src/video/video_widget.cpp:447
+msgid "Minimize"
+msgstr "最小化"
+
+#: src/video/video_widget.cpp:503
+msgid "More options"
+msgstr "更多选项"
+
+#: src/video/video_widget.cpp:874
 msgid "Share _screen area"
 msgstr "共享屏幕区域(_s)"
 
-#: src/video/video_widget.cpp:566
+#: src/video/video_widget.cpp:882
 msgid "Share _monitor"
 msgstr "共享监视器(_m)"
 
-#: src/video/video_widget.cpp:573
+#: src/video/video_widget.cpp:889
 msgid "Stream _file"
 msgstr "流 _文件"
 
-#: src/video/video_widget.cpp:583
+#: src/video/video_widget.cpp:899
 msgid "Show advanced information"
 msgstr "显示高级信息"
 
@@ -1149,11 +1157,11 @@ msgstr "正在工作…"
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"\"Free as in Freedom\"\n"
+"\"Together\"\n"
 "built on %.25s"
-msgstr "\"Free as in Freedom\"\n构建于%.25s"
+msgstr ""
 
-#: src/dialogs.c:137
+#: src/dialogs.c:150
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1200,185 +1208,205 @@ msgstr "恢复主窗口的隐藏状态（仅应用于主实例）"
 msgid "- GNOME client for Jami"
 msgstr "- Jami 的 GNOME 客户端"
 
-#: src/conversationpopupmenu.cpp:199
+#: src/conversationpopupmenu.cpp:230
 msgid "Place _video call"
 msgstr "发起视频通话(_v)"
 
-#: src/conversationpopupmenu.cpp:202
+#: src/conversationpopupmenu.cpp:233
 msgid "Place _audio call"
 msgstr "发起语音通话(_a)"
 
-#: src/conversationpopupmenu.cpp:210
+#: src/conversationpopupmenu.cpp:241
 msgid "_Add to conversations"
 msgstr "添加到会话(_A)"
 
-#: src/conversationpopupmenu.cpp:214
+#: src/conversationpopupmenu.cpp:245
 msgid "_Discard invitation"
 msgstr "丢弃邀请(_D)"
 
-#: src/conversationpopupmenu.cpp:217
+#: src/conversationpopupmenu.cpp:248
 msgid "_Block invitations"
 msgstr "屏蔽邀请(_B)"
 
-#: src/conversationpopupmenu.cpp:222
+#: src/conversationpopupmenu.cpp:253
 msgid "C_lear history"
 msgstr "清除历史记录(_l)"
 
-#: src/conversationpopupmenu.cpp:225
+#: src/conversationpopupmenu.cpp:256
 msgid "_Remove conversation"
 msgstr "删除会话(_R)"
 
-#: src/conversationpopupmenu.cpp:231
+#: src/conversationpopupmenu.cpp:262
 msgid "_Block contact"
 msgstr "屏蔽联系人(_B)"
 
-#: src/conversationpopupmenu.cpp:235
+#: src/conversationpopupmenu.cpp:266
 msgid "_Unblock contact"
 msgstr "取消屏蔽联系人(_U)"
 
-#: src/conversationpopupmenu.cpp:242
+#: src/conversationpopupmenu.cpp:273
 msgid "_Profile"
 msgstr "资料(_P)"
 
-#: src/profileview.cpp:111
+#: src/profileview.cpp:130
 msgid "(None)"
 msgstr "（无）"
 
-#: src/accountcreationwizard.cpp:289
+#: src/accountcreationwizard.cpp:298
 msgid "An error occured during the account creation."
 msgstr "创建账户期间发生错误。"
 
-#: src/accountcreationwizard.cpp:293
+#: src/accountcreationwizard.cpp:302
+msgid "An error occured during the rendez-vous creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:306
 msgid "Cannot retrieve any account, please verify your PIN and your password."
 msgstr "无法获取任何账户，请验证您的 PIN 码和密码。"
 
-#: src/accountcreationwizard.cpp:297
+#: src/accountcreationwizard.cpp:310
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
 msgstr "无法获得账户，请验证您的归档文件和密码是否正确。"
 
-#: src/accountcreationwizard.cpp:301
+#: src/accountcreationwizard.cpp:314
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
 msgstr "无法连接到提供的账户管理器。请检查您的凭据。"
 
-#: src/accountcreationwizard.cpp:487
+#: src/accountcreationwizard.cpp:493
+msgid "Generating your rendez-vous…"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:495
+msgid "Generating your Jami account…"
+msgstr "正在生成您的 Jami 账户…"
+
+#: src/accountcreationwizard.cpp:511
 msgid "Passwords don't match"
 msgstr "密码不匹配"
 
-#: src/accountcreationwizard.cpp:610
+#: src/accountcreationwizard.cpp:634
 msgid "Import from backup"
 msgstr "从备份文件导入"
 
-#: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
+#: src/accountcreationwizard.cpp:778 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:906
 msgid "Save File"
 msgstr "保存文件"
 
-#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:933
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:933
 msgid "You need to enter your password to export the full archive."
 msgstr "您需要密码来导出完整归档。"
 
-#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:934
+#: src/accountcreationwizard.cpp:808 src/newaccountsettingsview.cpp:934
 msgid "Enter password to export archive"
 msgstr "输入密码以导出归档"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:957
+#: src/accountcreationwizard.cpp:831 src/newaccountsettingsview.cpp:957
 msgid "Account exported!"
 msgstr "账户已导出！"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:957
+#: src/accountcreationwizard.cpp:831 src/newaccountsettingsview.cpp:957
 msgid "Export account failure."
 msgstr "导出账户失败。"
+
+#: src/accountcreationwizard.cpp:987
+msgid "Register name"
+msgstr "注册名称"
+
+#: src/accountcreationwizard.cpp:988
+msgid "Name"
+msgstr "姓名"
 
 #: src/mainwindow.cpp:198
 msgid "Add account…"
 msgstr "添加账户…"
 
-#: src/mainwindow.cpp:865
+#: src/mainwindow.cpp:899
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "拨出"
 
-#: src/mainwindow.cpp:868
+#: src/mainwindow.cpp:902
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "发起聊天"
 
-#: src/mainwindow.cpp:1075
+#: src/mainwindow.cpp:1114
 msgid "Jami - Migration needed"
 msgstr "Jami - 需迁移"
 
-#: src/mainwindow.cpp:1088
+#: src/mainwindow.cpp:1127
 msgid "Migration in progress... please do not close this window."
 msgstr "正在进行迁移...请勿关闭此窗口。"
 
-#: src/mainwindow.cpp:1368
+#: src/mainwindow.cpp:1407
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "查找或开始会话"
 
-#: src/mainwindow.cpp:1809
+#: src/mainwindow.cpp:1854
 msgid "Leave settings page"
 msgstr "离开设置页"
 
-#: src/mainwindow.cpp:2238
+#: src/mainwindow.cpp:2278
 msgid "There are active calls"
 msgstr "有进行中的通话"
 
-#: src/mainwindow.cpp:2290
+#: src/mainwindow.cpp:2331
 msgid " is calling you!"
 msgstr "正在呼叫您！"
 
-#: src/mainwindow.cpp:2293
+#: src/mainwindow.cpp:2334
 msgid "Incoming call"
 msgstr "来电"
 
-#: src/mainwindow.cpp:2443
+#: src/mainwindow.cpp:2490
 msgid "New request from "
 msgstr "新请求来自"
 
-#: src/mainwindow.cpp:2446
+#: src/mainwindow.cpp:2493
 msgid "Trust request"
 msgstr "信任请求"
 
-#: src/mainwindow.cpp:2509
+#: src/mainwindow.cpp:2555
 msgid "New message"
 msgstr "新消息"
 
-#: src/mainwindow.cpp:2573
+#: src/mainwindow.cpp:2607
 msgid "Stop current call?"
 msgstr "停止当前通话吗？"
 
-#: src/mainwindow.cpp:2574
+#: src/mainwindow.cpp:2608
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "当前有通话正在进行。您要关闭窗口并停止当前所有通话吗？"
 
-#: src/mainwindow.cpp:2641
+#: src/mainwindow.cpp:2675
 msgid "Clear history"
 msgstr "清除历史记录"
 
-#: src/mainwindow.cpp:2642
+#: src/mainwindow.cpp:2676
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "您真的要清除此会话的历史记录吗？"
 
-#: src/mainwindow.cpp:2657
+#: src/mainwindow.cpp:2691
 msgid "Remove conversation"
 msgstr "移除会话"
 
-#: src/mainwindow.cpp:2658
+#: src/mainwindow.cpp:2692
 msgid "Do you really want to remove this conversation?"
 msgstr "您真的要删除此会话吗？"
 
-#: src/mainwindow.cpp:2673
+#: src/mainwindow.cpp:2707
 msgid "Block contact"
 msgstr "屏蔽联系人"
 
-#: src/mainwindow.cpp:2674
+#: src/mainwindow.cpp:2708
 msgid "Do you really want to block this contact?"
 msgstr "您真的要屏蔽此联系人吗？"
 
@@ -1426,30 +1454,30 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "警告！此操作将从此设备上删除该账户！\n注意：此操作无法撤消。同时，您也会失去已注册的用户名！"
 
-#: src/currentcallview.cpp:1049
+#: src/currentcallview.cpp:1035
 msgid "No name!"
 msgstr "无名称！"
 
-#: src/currentcallview.cpp:1056
-msgid "true"
-msgstr "true"
-
-#: src/currentcallview.cpp:1159
+#: src/currentcallview.cpp:1144
 msgid "Current conference (all accounts)"
 msgstr "当前会议 (所有账户)"
 
-#: src/currentcallview.cpp:1194
+#: src/currentcallview.cpp:1179
 msgid "Current calls (all accounts)"
 msgstr "当前通话 (所有账户)"
 
-#: src/currentcallview.cpp:1211
+#: src/currentcallview.cpp:1196
 msgid "Online contacts"
 msgstr "在线联系人"
 
-#: src/currentcallview.cpp:1620
+#: src/currentcallview.cpp:1621
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自动"
+
+#: src/currentcallview.cpp:1696
+msgid "me"
+msgstr "我"
 
 #: src/newaccountsettingsview.cpp:603
 msgid ""

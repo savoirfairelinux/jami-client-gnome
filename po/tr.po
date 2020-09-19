@@ -6,7 +6,7 @@
 # abc Def <hdogan1974@gmail.com>, 2020
 # Abdussamet Koçak <sssmmt@gmail.com>, 2019
 # Altay dal <yestajoknu@enayu.com>, 2020
-# Caner Başaran <basaran.caner@protonmail.com>, 2016
+# Caner Başaran <basaran.caner@gmail.com>, 2016
 # Emin Tufan <etcetin@gmail.com>, 2016-2017
 # Hüseyin Güç <huseyinguc@outlook.com>, 2020
 # koray arberk <korayarberk@yahoo.com>, 2016
@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-10 03:09-0400\n"
-"PO-Revision-Date: 2020-08-10 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-09-19 17:53-0400\n"
+"PO-Revision-Date: 2020-09-19 21:22+0000\n"
+"Last-Translator: Emin Tufan <etcetin@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/jami/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -172,12 +172,12 @@ msgstr "Ortam"
 msgid "Plugin"
 msgstr ""
 
-#: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:523
+#: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:531
 #: ui/newaccountsettingsview.ui:387
 msgid "Account"
 msgstr "Hesap"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1837
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1882
 msgid "Settings"
 msgstr "Ayarlar"
 
@@ -201,19 +201,19 @@ msgstr "Bu hesap kusurlu, lütfen parolanızı girin"
 msgid "Alias"
 msgstr "Takma ad"
 
-#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:597
-#: ui/accountcreationwizard.ui:982 ui/profile.ui:73
-#: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
+#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:988
+#: ui/profile.ui:73 ui/newaccountsettingsview.ui:476
+#: ui/newaccountsettingsview.ui:706 src/accountcreationwizard.cpp:957
 msgid "Username"
 msgstr "Kullanıcı adı"
 
-#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:191
-#: ui/accountcreationwizard.ui:624 ui/accountcreationwizard.ui:1018
+#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:199
+#: ui/accountcreationwizard.ui:631 ui/accountcreationwizard.ui:1024
 #: ui/newaccountsettingsview.ui:502 ui/newaccountsettingsview.ui:742
 msgid "Password"
 msgstr "Parola"
 
-#: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
+#: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1063
 msgid "Account manager"
 msgstr "Hesap yöneticisi"
 
@@ -239,11 +239,11 @@ msgstr "Taşıma başarısız, parola mı yanlış?"
 msgid "End this call"
 msgstr "Bu çağrıyı sonlandır"
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:573
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:548
 msgid "End call"
 msgstr "Çağrıyı sonlandır"
 
-#: ui/currentcallview.ui:275 ui/currentcallview.ui:546
+#: ui/currentcallview.ui:275 ui/currentcallview.ui:521
 msgid "Add participant"
 msgstr "Katılımcı ekle"
 
@@ -256,7 +256,7 @@ msgid "Toggle hold"
 msgstr "Bekletmeye al"
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:342
-#: ui/currentcallview.ui:537
+#: ui/currentcallview.ui:512
 msgid "Hold"
 msgstr "Beklet"
 
@@ -268,7 +268,7 @@ msgstr "Sessize al"
 msgid "Toggle mute video"
 msgstr "Görüntüyü sessize al"
 
-#: ui/currentcallview.ui:367 ui/currentcallview.ui:528
+#: ui/currentcallview.ui:367 ui/currentcallview.ui:503
 msgid "Mute video"
 msgstr "Görüntüyü kapat"
 
@@ -276,7 +276,7 @@ msgstr "Görüntüyü kapat"
 msgid "Toggle recording"
 msgstr "Kayıt işlemini Aç/Kapat"
 
-#: ui/currentcallview.ui:391 ui/currentcallview.ui:591
+#: ui/currentcallview.ui:391 ui/currentcallview.ui:566
 #: ui/messagingwidget.ui:29 src/chatview.cpp:348
 msgid "Record"
 msgstr "Kaydet"
@@ -285,51 +285,43 @@ msgstr "Kaydet"
 msgid "Adjust outgoing video quality"
 msgstr "Giden görüntü niteliğini ayarla"
 
-#: ui/currentcallview.ui:436 ui/currentcallview.ui:582
+#: ui/currentcallview.ui:436 ui/currentcallview.ui:557
 msgid "Video quality"
 msgstr "Görüntü kalitesi"
 
-#: ui/currentcallview.ui:457
-msgid "Toggle view"
-msgstr ""
-
-#: ui/currentcallview.ui:461
-msgid "Change video layout"
-msgstr ""
-
-#: ui/currentcallview.ui:480
+#: ui/currentcallview.ui:455
 msgid "Toggle show chat"
 msgstr "Sohbet Penceresini Aç/Kapat"
 
-#: ui/currentcallview.ui:484 ui/currentcallview.ui:501
+#: ui/currentcallview.ui:459 ui/currentcallview.ui:476
 msgid "Chat"
 msgstr "Konuşma"
 
-#: ui/currentcallview.ui:510
+#: ui/currentcallview.ui:485
 msgid "View"
 msgstr "Görünüm"
 
-#: ui/currentcallview.ui:519
+#: ui/currentcallview.ui:494
 msgid "Mute audio"
 msgstr "Sesi kapat"
 
-#: ui/currentcallview.ui:555
+#: ui/currentcallview.ui:530
 msgid "Activate Plugin"
 msgstr ""
 
-#: ui/currentcallview.ui:564
+#: ui/currentcallview.ui:539
 msgid "Transfer"
 msgstr "Aktarım"
 
-#: ui/currentcallview.ui:614
+#: ui/currentcallview.ui:589
 msgid "Transfer to"
 msgstr "Şuraya aktar"
 
-#: ui/currentcallview.ui:678
+#: ui/currentcallview.ui:653
 msgid "Add"
 msgstr "Ekle"
 
-#: ui/currentcallview.ui:744 src/pluginsettingsview.cpp:124
+#: ui/currentcallview.ui:719 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
 msgstr ""
 
@@ -345,143 +337,143 @@ msgstr "Yerel hesap oluştur"
 msgid "Create a new Jami account on this device (for new users)"
 msgstr "Bu cihaz üzerinde yeni bir Jami hesabı oluşturun\n(yeni kullanıcılar için)"
 
-#: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
+#: ui/accountcreationwizard.ui:84 ui/accountcreationwizard.ui:85
+msgid "Create a Rendezvous point"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:92 src/accountcreationwizard.cpp:615
 msgid "Import from device"
 msgstr "cihazdan içe aktarın"
 
-#: ui/accountcreationwizard.ui:85
+#: ui/accountcreationwizard.ui:93
 msgid "Import an account with your PIN generated on another device"
 msgstr "Başka bir cihazda PIN ile oluşturulmuş\nhesabı içeriye aktarma"
 
-#: ui/accountcreationwizard.ui:92
+#: ui/accountcreationwizard.ui:100
 msgid "Import from archive backup"
 msgstr "Arşiv yedeklemesinden içe aktar"
 
-#: ui/accountcreationwizard.ui:93
+#: ui/accountcreationwizard.ui:101
 msgid "Import an account via your archive"
 msgstr "Arşiviniz aracılığıyla bir hesabı içe aktarma"
 
-#: ui/accountcreationwizard.ui:100
+#: ui/accountcreationwizard.ui:108
 msgid "Advanced…"
 msgstr "Gelişmiş..."
 
-#: ui/accountcreationwizard.ui:111
+#: ui/accountcreationwizard.ui:119
 msgid "Connect to account manager"
 msgstr "Hesap yöneticisine bağlan"
 
-#: ui/accountcreationwizard.ui:112
+#: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
 msgstr "Hesabınızı kimlik bilgileriniz üzerinden alın."
 
-#: ui/accountcreationwizard.ui:119
+#: ui/accountcreationwizard.ui:127
 msgid "Add a new SIP account"
 msgstr "Yeni bir SIP hesabı ekle"
 
-#: ui/accountcreationwizard.ui:234
+#: ui/accountcreationwizard.ui:242
 msgid "Archive"
 msgstr "Arşiv"
 
-#: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
+#: ui/accountcreationwizard.ui:248 ui/accountcreationwizard.ui:301
 msgid "Informations."
 msgstr "Bilgiler."
 
-#: ui/accountcreationwizard.ui:287
+#: ui/accountcreationwizard.ui:295
 msgid "PIN"
 msgstr "PIN"
 
-#: ui/accountcreationwizard.ui:349
+#: ui/accountcreationwizard.ui:357
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
 msgstr "Hesap ayarlarında \"Hesabı dışa aktar\" ı tıklayarak bir arşiv dosyası üretebilirsiniz. Bu, cihazınızda bir .gz dosyası oluşturur."
 
-#: ui/accountcreationwizard.ui:382
+#: ui/accountcreationwizard.ui:390
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
 msgstr "PIN almak için (10 dakika geçerlidir), diğer cihazdaki hesap ayarlarını açmanız ve \"Başka bir cihaza bağla\" yı tıklamanız gerekir."
 
-#: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
-#: ui/accountcreationwizard.ui:1084
+#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:710
+#: ui/accountcreationwizard.ui:1090
 msgid "Previous"
 msgstr "Önceki"
 
-#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:711
-#: ui/accountcreationwizard.ui:1092
+#: ui/accountcreationwizard.ui:418 ui/accountcreationwizard.ui:718
+#: ui/accountcreationwizard.ui:1098
 msgid "Next"
 msgstr "İleri"
 
-#: ui/accountcreationwizard.ui:442 ui/profile.ui:7
+#: ui/accountcreationwizard.ui:450 ui/profile.ui:7
 #: ui/newaccountsettingsview.ui:307
 msgid "Profile"
 msgstr "Profil"
 
-#: ui/accountcreationwizard.ui:560
+#: ui/accountcreationwizard.ui:568 src/accountcreationwizard.cpp:956
 msgid "Register username"
 msgstr "Kullanıcı adını kaydet"
 
-#: ui/accountcreationwizard.ui:561
+#: ui/accountcreationwizard.ui:569
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
 msgstr "Bunu kontrol ederek, Jami ağına benzersiz bir kullanıcı adı ile kaydolacaksınız. Kullanıcılar, 40 karakter uzunluğundaki kimliğinizi kullanmak yerine sizinle iletişim kurmak için bu adı kullanabilir."
 
-#: ui/accountcreationwizard.ui:625
+#: ui/accountcreationwizard.ui:632
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "Bu parola hesap bilgilerinizi şifrelemek ve hesabınızı yeni aygıtlara bağlamak için kullanılacaktır"
 
-#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:856
+#: ui/accountcreationwizard.ui:671 src/newaccountsettingsview.cpp:856
 msgid "Confirm password"
 msgstr "Parolayı onayla"
 
-#: ui/accountcreationwizard.ui:735
-msgid "Generating your Jami account…"
-msgstr "Jami hesabınız oluşturuluyor..."
-
-#: ui/accountcreationwizard.ui:766
+#: ui/accountcreationwizard.ui:772
 msgid "Backup your account!"
 msgstr "Hesabını yedekle!"
 
-#: ui/accountcreationwizard.ui:782
+#: ui/accountcreationwizard.ui:788
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
 msgstr "Bu hesap sadece bu cihazda bulunur. Eğer cihazınızı kaybeder veya uygulamayı kaldırırsanız hesabınız silinecektir.  Hesabınızı şimdi veya daha sonra yedekleyebilirsiniz."
 
-#: ui/accountcreationwizard.ui:789
+#: ui/accountcreationwizard.ui:795
 msgid "Never show me this again"
 msgstr "Bunu bana bir daha gösterme"
 
-#: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
-#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2050
+#: ui/accountcreationwizard.ui:809 ui/newaccountsettingsview.ui:539
+#: src/accountcreationwizard.cpp:399 src/newaccountsettingsview.cpp:2050
 msgid "Export account"
 msgstr "Hesapları dışa aktar"
 
-#: ui/accountcreationwizard.ui:813
+#: ui/accountcreationwizard.ui:819
 msgid "Skip"
 msgstr "Atla"
 
-#: ui/accountcreationwizard.ui:839
+#: ui/accountcreationwizard.ui:845
 msgid "Registering username…"
 msgstr "Kullanıcı adı kaydediliyor..."
 
-#: ui/accountcreationwizard.ui:846
+#: ui/accountcreationwizard.ui:852
 msgid "This may take a few minutes."
 msgstr "Bu bir kaç dakika sürebilir."
 
-#: ui/accountcreationwizard.ui:872
+#: ui/accountcreationwizard.ui:878
 msgid "Retrieving your Jami account…"
 msgstr "Jami hesabınız alınıyor..."
 
-#: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
+#: ui/accountcreationwizard.ui:919 ui/newaccountsettingsview.ui:262
 msgid "OK"
 msgstr "TAMAM"
 
-#: ui/accountcreationwizard.ui:938
+#: ui/accountcreationwizard.ui:944
 msgid "Sign in"
 msgstr "Oturum açın"
 
@@ -993,13 +985,13 @@ msgid "Set selection as image"
 msgstr "Seçimi görüntü olarak belirle"
 
 #: src/pluginsettingsview.cpp:127 src/generalsettingsview.cpp:234
-#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:757
+#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:781
 #: src/chatview.cpp:284 src/newaccountsettingsview.cpp:909
 msgid "_Cancel"
 msgstr "_İptal"
 
 #: src/pluginsettingsview.cpp:129 src/generalsettingsview.cpp:236
-#: src/accountcreationwizard.cpp:759 src/chatview.cpp:286
+#: src/accountcreationwizard.cpp:783 src/chatview.cpp:286
 #: src/newaccountsettingsview.cpp:911
 msgid "_Save"
 msgstr "_Kaydet"
@@ -1116,19 +1108,35 @@ msgctxt ""
 msgid "Decline"
 msgstr "Reddet"
 
-#: src/video/video_widget.cpp:558
+#: src/video/video_widget.cpp:417
+msgid "Hangup"
+msgstr "Kapat"
+
+#: src/video/video_widget.cpp:432
+msgid "Maximize"
+msgstr ""
+
+#: src/video/video_widget.cpp:447
+msgid "Minimize"
+msgstr "Küçült"
+
+#: src/video/video_widget.cpp:503
+msgid "More options"
+msgstr ""
+
+#: src/video/video_widget.cpp:874
 msgid "Share _screen area"
 msgstr "Ekranı paylaş"
 
-#: src/video/video_widget.cpp:566
+#: src/video/video_widget.cpp:882
 msgid "Share _monitor"
 msgstr "Ekran _paylaş  "
 
-#: src/video/video_widget.cpp:573
+#: src/video/video_widget.cpp:889
 msgid "Stream _file"
 msgstr "Yayın _Dosyası "
 
-#: src/video/video_widget.cpp:583
+#: src/video/video_widget.cpp:899
 msgid "Show advanced information"
 msgstr "İleri bilgileri göster"
 
@@ -1148,11 +1156,11 @@ msgstr "Çalışıyor..."
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"\"Free as in Freedom\"\n"
+"\"Together\"\n"
 "built on %.25s"
-msgstr "\"Özgürlükteki gibi ücretsiz\"\n%.25süzerine inşa ediliyor"
+msgstr ""
 
-#: src/dialogs.c:137
+#: src/dialogs.c:150
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1199,185 +1207,205 @@ msgstr "Ana pencerenin gizli durumunu eski haline döndürür (sadece birincil o
 msgid "- GNOME client for Jami"
 msgstr "- Jami için GNOME istemcisi"
 
-#: src/conversationpopupmenu.cpp:199
+#: src/conversationpopupmenu.cpp:230
 msgid "Place _video call"
 msgstr "Video görüşmesi yapın"
 
-#: src/conversationpopupmenu.cpp:202
+#: src/conversationpopupmenu.cpp:233
 msgid "Place _audio call"
 msgstr "Sesli arama yapın"
 
-#: src/conversationpopupmenu.cpp:210
+#: src/conversationpopupmenu.cpp:241
 msgid "_Add to conversations"
 msgstr "_Görüşmelere ekle"
 
-#: src/conversationpopupmenu.cpp:214
+#: src/conversationpopupmenu.cpp:245
 msgid "_Discard invitation"
 msgstr "_Daveti yok say "
 
-#: src/conversationpopupmenu.cpp:217
+#: src/conversationpopupmenu.cpp:248
 msgid "_Block invitations"
 msgstr "_Davetleri engelle"
 
-#: src/conversationpopupmenu.cpp:222
+#: src/conversationpopupmenu.cpp:253
 msgid "C_lear history"
 msgstr "_Geçmişi sil"
 
-#: src/conversationpopupmenu.cpp:225
+#: src/conversationpopupmenu.cpp:256
 msgid "_Remove conversation"
 msgstr "_Görüşmeyi sil"
 
-#: src/conversationpopupmenu.cpp:231
+#: src/conversationpopupmenu.cpp:262
 msgid "_Block contact"
 msgstr "_Kişiyi engelle"
 
-#: src/conversationpopupmenu.cpp:235
+#: src/conversationpopupmenu.cpp:266
 msgid "_Unblock contact"
 msgstr "_Kişinin engelini kaldır"
 
-#: src/conversationpopupmenu.cpp:242
+#: src/conversationpopupmenu.cpp:273
 msgid "_Profile"
 msgstr "_Profil"
 
-#: src/profileview.cpp:111
+#: src/profileview.cpp:130
 msgid "(None)"
 msgstr "(Hiçbiri)"
 
-#: src/accountcreationwizard.cpp:289
+#: src/accountcreationwizard.cpp:298
 msgid "An error occured during the account creation."
 msgstr "Hesap oluşturulurken bir hata meydana geldi."
 
-#: src/accountcreationwizard.cpp:293
+#: src/accountcreationwizard.cpp:302
+msgid "An error occured during the rendez-vous creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:306
 msgid "Cannot retrieve any account, please verify your PIN and your password."
 msgstr "Herhangi bir hesap alınamıyor, lütfen PIN'inizi ve şifrenizi doğrulayın."
 
-#: src/accountcreationwizard.cpp:297
+#: src/accountcreationwizard.cpp:310
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
 msgstr "Herhangi bir hesap alınamıyor, lütfen arşivinizi ve şifrenizi doğrulayın."
 
-#: src/accountcreationwizard.cpp:301
+#: src/accountcreationwizard.cpp:314
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
 msgstr "Sağlanan hesap yöneticisine bağlanılamıyor. Lütfen kimlik bilgilerinizi kontrol edin."
 
-#: src/accountcreationwizard.cpp:487
+#: src/accountcreationwizard.cpp:493
+msgid "Generating your rendez-vous…"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:495
+msgid "Generating your Jami account…"
+msgstr "Jami hesabınız oluşturuluyor..."
+
+#: src/accountcreationwizard.cpp:511
 msgid "Passwords don't match"
 msgstr "Parolalar uyuşmuyor"
 
-#: src/accountcreationwizard.cpp:610
+#: src/accountcreationwizard.cpp:634
 msgid "Import from backup"
 msgstr "Yedekten içe aktarın"
 
-#: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
+#: src/accountcreationwizard.cpp:778 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:906
 msgid "Save File"
 msgstr "Dosyayı Kaydet"
 
-#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:933
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:933
 msgid "You need to enter your password to export the full archive."
 msgstr "Arşivin tamamını dışa aktarmak için parolanızı girmeniz gerekiyor."
 
-#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:934
+#: src/accountcreationwizard.cpp:808 src/newaccountsettingsview.cpp:934
 msgid "Enter password to export archive"
 msgstr "Arşivi dışa aktarmak için parola girin"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:957
+#: src/accountcreationwizard.cpp:831 src/newaccountsettingsview.cpp:957
 msgid "Account exported!"
 msgstr "Hesap dışa aktarıldı!"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:957
+#: src/accountcreationwizard.cpp:831 src/newaccountsettingsview.cpp:957
 msgid "Export account failure."
 msgstr "Hesap dışa aktarımı başarısız."
+
+#: src/accountcreationwizard.cpp:987
+msgid "Register name"
+msgstr "Adı kaydet"
+
+#: src/accountcreationwizard.cpp:988
+msgid "Name"
+msgstr "isim"
 
 #: src/mainwindow.cpp:198
 msgid "Add account…"
 msgstr "Hesap ekle..."
 
-#: src/mainwindow.cpp:865
+#: src/mainwindow.cpp:899
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "ara"
 
-#: src/mainwindow.cpp:868
+#: src/mainwindow.cpp:902
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "konuşma aç"
 
-#: src/mainwindow.cpp:1075
+#: src/mainwindow.cpp:1114
 msgid "Jami - Migration needed"
 msgstr "Jami - Taşıma gerekli"
 
-#: src/mainwindow.cpp:1088
+#: src/mainwindow.cpp:1127
 msgid "Migration in progress... please do not close this window."
 msgstr "Taşıma devam ediyor ... lütfen bu pencereyi kapatmayın."
 
-#: src/mainwindow.cpp:1368
+#: src/mainwindow.cpp:1407
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Bir konuşma bul veya başlat"
 
-#: src/mainwindow.cpp:1809
+#: src/mainwindow.cpp:1854
 msgid "Leave settings page"
 msgstr "Ayarlar sayfasından ayrıl"
 
-#: src/mainwindow.cpp:2238
+#: src/mainwindow.cpp:2278
 msgid "There are active calls"
 msgstr "Aktif aramalar var"
 
-#: src/mainwindow.cpp:2290
+#: src/mainwindow.cpp:2331
 msgid " is calling you!"
 msgstr "seni arıyor!"
 
-#: src/mainwindow.cpp:2293
+#: src/mainwindow.cpp:2334
 msgid "Incoming call"
 msgstr "Gelen arama"
 
-#: src/mainwindow.cpp:2443
+#: src/mainwindow.cpp:2490
 msgid "New request from "
 msgstr "Adlı kişiden yeni istek"
 
-#: src/mainwindow.cpp:2446
+#: src/mainwindow.cpp:2493
 msgid "Trust request"
 msgstr "Güven isteği"
 
-#: src/mainwindow.cpp:2509
+#: src/mainwindow.cpp:2555
 msgid "New message"
 msgstr "Yeni ileti"
 
-#: src/mainwindow.cpp:2573
+#: src/mainwindow.cpp:2607
 msgid "Stop current call?"
 msgstr "Devam eden çağrıyı kapatmak istiyor musunuz?"
 
-#: src/mainwindow.cpp:2574
+#: src/mainwindow.cpp:2608
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Bir çağrı şu anda devam ediyor. Pencereyi ve devam eden tüm çağrıları kapatmak istiyor musunuz?"
 
-#: src/mainwindow.cpp:2641
+#: src/mainwindow.cpp:2675
 msgid "Clear history"
 msgstr "Geçmişi temizle"
 
-#: src/mainwindow.cpp:2642
+#: src/mainwindow.cpp:2676
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Bu konuşmanın geçmişini gerçekten silmek istiyor musun?"
 
-#: src/mainwindow.cpp:2657
+#: src/mainwindow.cpp:2691
 msgid "Remove conversation"
 msgstr "Konuşma sil"
 
-#: src/mainwindow.cpp:2658
+#: src/mainwindow.cpp:2692
 msgid "Do you really want to remove this conversation?"
 msgstr "Bu konuşmayı gerçekten silmek istiyor musun?"
 
-#: src/mainwindow.cpp:2673
+#: src/mainwindow.cpp:2707
 msgid "Block contact"
 msgstr "Kişiyi engelle"
 
-#: src/mainwindow.cpp:2674
+#: src/mainwindow.cpp:2708
 msgid "Do you really want to block this contact?"
 msgstr "Bu kişiyi gerçekten engellemek istiyor musun?"
 
@@ -1425,30 +1453,30 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Uyarı! Bu eylem bu hesabı cihazdan kaldıracaktır!\nNot: Bu eylem geri alınamaz. Ayrıca, kayıtlı adınız kaybolabilir."
 
-#: src/currentcallview.cpp:1049
+#: src/currentcallview.cpp:1035
 msgid "No name!"
 msgstr ""
 
-#: src/currentcallview.cpp:1056
-msgid "true"
-msgstr ""
-
-#: src/currentcallview.cpp:1159
+#: src/currentcallview.cpp:1144
 msgid "Current conference (all accounts)"
 msgstr "Devam eden konferans (tüm hesaplar)"
 
-#: src/currentcallview.cpp:1194
+#: src/currentcallview.cpp:1179
 msgid "Current calls (all accounts)"
 msgstr "Devam eden görüşmeler (tüm hesaplar)"
 
-#: src/currentcallview.cpp:1211
+#: src/currentcallview.cpp:1196
 msgid "Online contacts"
 msgstr "Çevrimiçi kişiler"
 
-#: src/currentcallview.cpp:1620
+#: src/currentcallview.cpp:1621
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Kendiliğinden"
+
+#: src/currentcallview.cpp:1696
+msgid "me"
+msgstr ""
 
 #: src/newaccountsettingsview.cpp:603
 msgid ""

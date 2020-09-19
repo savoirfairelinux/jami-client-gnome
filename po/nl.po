@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-10 03:09-0400\n"
-"PO-Revision-Date: 2020-08-10 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-09-19 17:53-0400\n"
+"PO-Revision-Date: 2020-09-19 21:22+0000\n"
+"Last-Translator: Nathan Follens\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/jami/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,12 +166,12 @@ msgstr "Media"
 msgid "Plugin"
 msgstr ""
 
-#: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:523
+#: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:531
 #: ui/newaccountsettingsview.ui:387
 msgid "Account"
 msgstr "Account"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1837
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1882
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -195,19 +195,19 @@ msgstr "Dit account is beschadigd, voer uw wachtwoord in"
 msgid "Alias"
 msgstr "Alias"
 
-#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:597
-#: ui/accountcreationwizard.ui:982 ui/profile.ui:73
-#: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
+#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:988
+#: ui/profile.ui:73 ui/newaccountsettingsview.ui:476
+#: ui/newaccountsettingsview.ui:706 src/accountcreationwizard.cpp:957
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:191
-#: ui/accountcreationwizard.ui:624 ui/accountcreationwizard.ui:1018
+#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:199
+#: ui/accountcreationwizard.ui:631 ui/accountcreationwizard.ui:1024
 #: ui/newaccountsettingsview.ui:502 ui/newaccountsettingsview.ui:742
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1057
+#: ui/accountmigrationview.ui:205 ui/accountcreationwizard.ui:1063
 msgid "Account manager"
 msgstr "Accountbeheer"
 
@@ -233,11 +233,11 @@ msgstr "Migratie mislukt, verkeerd wachtwoord?"
 msgid "End this call"
 msgstr "Deze oproep beëindigen "
 
-#: ui/currentcallview.ui:255 ui/currentcallview.ui:573
+#: ui/currentcallview.ui:255 ui/currentcallview.ui:548
 msgid "End call"
 msgstr "Oproep beëindigen"
 
-#: ui/currentcallview.ui:275 ui/currentcallview.ui:546
+#: ui/currentcallview.ui:275 ui/currentcallview.ui:521
 msgid "Add participant"
 msgstr "Deelnemer toevoegen"
 
@@ -250,7 +250,7 @@ msgid "Toggle hold"
 msgstr "Wacht in-/uitschakelen"
 
 #: ui/currentcallview.ui:317 ui/currentcallview.ui:342
-#: ui/currentcallview.ui:537
+#: ui/currentcallview.ui:512
 msgid "Hold"
 msgstr "In wacht zetten"
 
@@ -262,7 +262,7 @@ msgstr "Geluid in-/uitschakelen"
 msgid "Toggle mute video"
 msgstr "Video in-/uitschakelen"
 
-#: ui/currentcallview.ui:367 ui/currentcallview.ui:528
+#: ui/currentcallview.ui:367 ui/currentcallview.ui:503
 msgid "Mute video"
 msgstr "Video uitschakelen"
 
@@ -270,7 +270,7 @@ msgstr "Video uitschakelen"
 msgid "Toggle recording"
 msgstr "Opname in-/uitschakelen"
 
-#: ui/currentcallview.ui:391 ui/currentcallview.ui:591
+#: ui/currentcallview.ui:391 ui/currentcallview.ui:566
 #: ui/messagingwidget.ui:29 src/chatview.cpp:348
 msgid "Record"
 msgstr "Opnemen"
@@ -279,51 +279,43 @@ msgstr "Opnemen"
 msgid "Adjust outgoing video quality"
 msgstr "Uitgaande videokwaliteit aanpassen"
 
-#: ui/currentcallview.ui:436 ui/currentcallview.ui:582
+#: ui/currentcallview.ui:436 ui/currentcallview.ui:557
 msgid "Video quality"
 msgstr "Videokwaliteit"
 
-#: ui/currentcallview.ui:457
-msgid "Toggle view"
-msgstr ""
-
-#: ui/currentcallview.ui:461
-msgid "Change video layout"
-msgstr ""
-
-#: ui/currentcallview.ui:480
+#: ui/currentcallview.ui:455
 msgid "Toggle show chat"
 msgstr "Gesprek tonen/verbergen"
 
-#: ui/currentcallview.ui:484 ui/currentcallview.ui:501
+#: ui/currentcallview.ui:459 ui/currentcallview.ui:476
 msgid "Chat"
 msgstr "Gesprek"
 
-#: ui/currentcallview.ui:510
+#: ui/currentcallview.ui:485
 msgid "View"
 msgstr "Beeld"
 
-#: ui/currentcallview.ui:519
+#: ui/currentcallview.ui:494
 msgid "Mute audio"
 msgstr "Geluid dempen"
 
-#: ui/currentcallview.ui:555
+#: ui/currentcallview.ui:530
 msgid "Activate Plugin"
 msgstr ""
 
-#: ui/currentcallview.ui:564
+#: ui/currentcallview.ui:539
 msgid "Transfer"
 msgstr "Overdracht"
 
-#: ui/currentcallview.ui:614
+#: ui/currentcallview.ui:589
 msgid "Transfer to"
 msgstr "Overdragen naar"
 
-#: ui/currentcallview.ui:678
+#: ui/currentcallview.ui:653
 msgid "Add"
 msgstr ""
 
-#: ui/currentcallview.ui:744 src/pluginsettingsview.cpp:124
+#: ui/currentcallview.ui:719 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
 msgstr ""
 
@@ -339,143 +331,143 @@ msgstr "Lokaal account aanmaken"
 msgid "Create a new Jami account on this device (for new users)"
 msgstr "Maak een nieuw Jami-account aan op dit apparaat (voor nieuwe gebruikers)"
 
-#: ui/accountcreationwizard.ui:84 src/accountcreationwizard.cpp:591
+#: ui/accountcreationwizard.ui:84 ui/accountcreationwizard.ui:85
+msgid "Create a Rendezvous point"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:92 src/accountcreationwizard.cpp:615
 msgid "Import from device"
 msgstr "Importeren van apparaat"
 
-#: ui/accountcreationwizard.ui:85
+#: ui/accountcreationwizard.ui:93
 msgid "Import an account with your PIN generated on another device"
 msgstr "Importeer een account met uw pincode gegenereerd op een ander apparaat"
 
-#: ui/accountcreationwizard.ui:92
+#: ui/accountcreationwizard.ui:100
 msgid "Import from archive backup"
 msgstr "Importeren van back-uparchief"
 
-#: ui/accountcreationwizard.ui:93
+#: ui/accountcreationwizard.ui:101
 msgid "Import an account via your archive"
 msgstr "Importeer een account via uw archief"
 
-#: ui/accountcreationwizard.ui:100
+#: ui/accountcreationwizard.ui:108
 msgid "Advanced…"
 msgstr "Geavanceerd…"
 
-#: ui/accountcreationwizard.ui:111
+#: ui/accountcreationwizard.ui:119
 msgid "Connect to account manager"
 msgstr "Verbinden met accountbeheer"
 
-#: ui/accountcreationwizard.ui:112
+#: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
 msgstr "Haal uw account op d.m.v. uw gebruikersreferenties."
 
-#: ui/accountcreationwizard.ui:119
+#: ui/accountcreationwizard.ui:127
 msgid "Add a new SIP account"
 msgstr "Voeg een nieuw SIP-account toe"
 
-#: ui/accountcreationwizard.ui:234
+#: ui/accountcreationwizard.ui:242
 msgid "Archive"
 msgstr "Archief"
 
-#: ui/accountcreationwizard.ui:240 ui/accountcreationwizard.ui:293
+#: ui/accountcreationwizard.ui:248 ui/accountcreationwizard.ui:301
 msgid "Informations."
 msgstr "Informatie."
 
-#: ui/accountcreationwizard.ui:287
+#: ui/accountcreationwizard.ui:295
 msgid "PIN"
 msgstr "Pincode"
 
-#: ui/accountcreationwizard.ui:349
+#: ui/accountcreationwizard.ui:357
 msgid ""
 "You can obtain an archive by clicking on \"Export account\" in the account "
 "settings. This will create a .gz file on your device."
 msgstr "U kunt een archief verkrijgen door in de accountinstellingen op ‘Account exporteren’ te klikken. Dit zal een .gz-bestand aanmaken op uw apparaat."
 
-#: ui/accountcreationwizard.ui:382
+#: ui/accountcreationwizard.ui:390
 msgid ""
 "To obtain a PIN (valid for 10 minutes), you need to open the account "
 "settings on the other device and click on \"Link to another device\"."
 msgstr "Om een pincode te verkrijgen (10 minuten geldig), opent u de accountinstellingen op het andere apparaat en klikt u op ‘Koppelen aan een ander apparaat’."
 
-#: ui/accountcreationwizard.ui:402 ui/accountcreationwizard.ui:703
-#: ui/accountcreationwizard.ui:1084
+#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:710
+#: ui/accountcreationwizard.ui:1090
 msgid "Previous"
 msgstr "Vorige"
 
-#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:711
-#: ui/accountcreationwizard.ui:1092
+#: ui/accountcreationwizard.ui:418 ui/accountcreationwizard.ui:718
+#: ui/accountcreationwizard.ui:1098
 msgid "Next"
 msgstr "Volgende"
 
-#: ui/accountcreationwizard.ui:442 ui/profile.ui:7
+#: ui/accountcreationwizard.ui:450 ui/profile.ui:7
 #: ui/newaccountsettingsview.ui:307
 msgid "Profile"
 msgstr "Profiel"
 
-#: ui/accountcreationwizard.ui:560
+#: ui/accountcreationwizard.ui:568 src/accountcreationwizard.cpp:956
 msgid "Register username"
 msgstr "Gebruikersnaam registreren"
 
-#: ui/accountcreationwizard.ui:561
+#: ui/accountcreationwizard.ui:569
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:625
+#: ui/accountcreationwizard.ui:632
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "Dit wachtwoord wordt gebruikt om uw accountgegevens te versleutelen en nieuwe apparaten aan uw account te koppelen."
 
-#: ui/accountcreationwizard.ui:664 src/newaccountsettingsview.cpp:856
+#: ui/accountcreationwizard.ui:671 src/newaccountsettingsview.cpp:856
 msgid "Confirm password"
 msgstr "Bevestig wachtwoord"
 
-#: ui/accountcreationwizard.ui:735
-msgid "Generating your Jami account…"
-msgstr "Uw Jami-account wordt aangemaakt…"
-
-#: ui/accountcreationwizard.ui:766
+#: ui/accountcreationwizard.ui:772
 msgid "Backup your account!"
 msgstr "Maak een back-up van uw account!"
 
-#: ui/accountcreationwizard.ui:782
+#: ui/accountcreationwizard.ui:788
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
 msgstr "Dit account bestaat enkel op dit apparaat. Als u uw apparaat verliest of de toepassing verwijdert, zal uw account worden verwijderd. U kunt nu of later een back-up maken."
 
-#: ui/accountcreationwizard.ui:789
+#: ui/accountcreationwizard.ui:795
 msgid "Never show me this again"
 msgstr "Toon deze boodschap nooit meer"
 
-#: ui/accountcreationwizard.ui:803 ui/newaccountsettingsview.ui:539
-#: src/accountcreationwizard.cpp:380 src/newaccountsettingsview.cpp:2050
+#: ui/accountcreationwizard.ui:809 ui/newaccountsettingsview.ui:539
+#: src/accountcreationwizard.cpp:399 src/newaccountsettingsview.cpp:2050
 msgid "Export account"
 msgstr "Account exporteren"
 
-#: ui/accountcreationwizard.ui:813
+#: ui/accountcreationwizard.ui:819
 msgid "Skip"
 msgstr "Overslaan"
 
-#: ui/accountcreationwizard.ui:839
+#: ui/accountcreationwizard.ui:845
 msgid "Registering username…"
 msgstr "Gebruikersnaam wordt geregistreerd…"
 
-#: ui/accountcreationwizard.ui:846
+#: ui/accountcreationwizard.ui:852
 msgid "This may take a few minutes."
 msgstr "Dit kan enkele minuten duren."
 
-#: ui/accountcreationwizard.ui:872
+#: ui/accountcreationwizard.ui:878
 msgid "Retrieving your Jami account…"
 msgstr "Uw Jami-account wordt opgehaald…"
 
-#: ui/accountcreationwizard.ui:913 ui/newaccountsettingsview.ui:262
+#: ui/accountcreationwizard.ui:919 ui/newaccountsettingsview.ui:262
 msgid "OK"
 msgstr "Oké"
 
-#: ui/accountcreationwizard.ui:938
+#: ui/accountcreationwizard.ui:944
 msgid "Sign in"
 msgstr "Aanmelden"
 
@@ -987,13 +979,13 @@ msgid "Set selection as image"
 msgstr "Selectie instellen als afbeelding"
 
 #: src/pluginsettingsview.cpp:127 src/generalsettingsview.cpp:234
-#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:757
+#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:781
 #: src/chatview.cpp:284 src/newaccountsettingsview.cpp:909
 msgid "_Cancel"
 msgstr "_Annuleren"
 
 #: src/pluginsettingsview.cpp:129 src/generalsettingsview.cpp:236
-#: src/accountcreationwizard.cpp:759 src/chatview.cpp:286
+#: src/accountcreationwizard.cpp:783 src/chatview.cpp:286
 #: src/newaccountsettingsview.cpp:911
 msgid "_Save"
 msgstr "Op_slaan"
@@ -1110,19 +1102,35 @@ msgctxt ""
 msgid "Decline"
 msgstr "Weigeren"
 
-#: src/video/video_widget.cpp:558
+#: src/video/video_widget.cpp:417
+msgid "Hangup"
+msgstr "Ophangen"
+
+#: src/video/video_widget.cpp:432
+msgid "Maximize"
+msgstr ""
+
+#: src/video/video_widget.cpp:447
+msgid "Minimize"
+msgstr "Minimaliseren"
+
+#: src/video/video_widget.cpp:503
+msgid "More options"
+msgstr ""
+
+#: src/video/video_widget.cpp:874
 msgid "Share _screen area"
 msgstr "_Schermruimte delen"
 
-#: src/video/video_widget.cpp:566
+#: src/video/video_widget.cpp:882
 msgid "Share _monitor"
 msgstr "Beeldscher_m delen"
 
-#: src/video/video_widget.cpp:573
+#: src/video/video_widget.cpp:889
 msgid "Stream _file"
 msgstr "Bes_tand streamen"
 
-#: src/video/video_widget.cpp:583
+#: src/video/video_widget.cpp:899
 msgid "Show advanced information"
 msgstr "Toon geavanceerde informatie"
 
@@ -1142,11 +1150,11 @@ msgstr "Bezig…"
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"\"Free as in Freedom\"\n"
+"\"Together\"\n"
 "built on %.25s"
 msgstr ""
 
-#: src/dialogs.c:137
+#: src/dialogs.c:150
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1193,185 +1201,205 @@ msgstr "Herstelt de verborgen status van het hoofdscherm (alleen van toepassing 
 msgid "- GNOME client for Jami"
 msgstr " - GNOME-cliënt voor Jami"
 
-#: src/conversationpopupmenu.cpp:199
+#: src/conversationpopupmenu.cpp:230
 msgid "Place _video call"
 msgstr "Video-oproep plaatsen"
 
-#: src/conversationpopupmenu.cpp:202
+#: src/conversationpopupmenu.cpp:233
 msgid "Place _audio call"
 msgstr "_Audio-oproep plaatsen"
 
-#: src/conversationpopupmenu.cpp:210
+#: src/conversationpopupmenu.cpp:241
 msgid "_Add to conversations"
 msgstr "Toevoegen _aan gesprekken"
 
-#: src/conversationpopupmenu.cpp:214
+#: src/conversationpopupmenu.cpp:245
 msgid "_Discard invitation"
 msgstr "Uitnodiging verwij_deren"
 
-#: src/conversationpopupmenu.cpp:217
+#: src/conversationpopupmenu.cpp:248
 msgid "_Block invitations"
 msgstr "Uitnodigingen _blokkeren"
 
-#: src/conversationpopupmenu.cpp:222
+#: src/conversationpopupmenu.cpp:253
 msgid "C_lear history"
 msgstr "_Geschiedenis wissen"
 
-#: src/conversationpopupmenu.cpp:225
+#: src/conversationpopupmenu.cpp:256
 msgid "_Remove conversation"
 msgstr "Gesprek ve_rwijderen"
 
-#: src/conversationpopupmenu.cpp:231
+#: src/conversationpopupmenu.cpp:262
 msgid "_Block contact"
 msgstr "Contact _blokkeren"
 
-#: src/conversationpopupmenu.cpp:235
+#: src/conversationpopupmenu.cpp:266
 msgid "_Unblock contact"
 msgstr "Contact _deblokkeren"
 
-#: src/conversationpopupmenu.cpp:242
+#: src/conversationpopupmenu.cpp:273
 msgid "_Profile"
 msgstr "_Profiel"
 
-#: src/profileview.cpp:111
+#: src/profileview.cpp:130
 msgid "(None)"
 msgstr "(geen)"
 
-#: src/accountcreationwizard.cpp:289
+#: src/accountcreationwizard.cpp:298
 msgid "An error occured during the account creation."
 msgstr "Een fout trad op bij het aanmaken van het account."
 
-#: src/accountcreationwizard.cpp:293
+#: src/accountcreationwizard.cpp:302
+msgid "An error occured during the rendez-vous creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:306
 msgid "Cannot retrieve any account, please verify your PIN and your password."
 msgstr "Kan geen account verkrijgen, controleer uw pincode en wachtwoord."
 
-#: src/accountcreationwizard.cpp:297
+#: src/accountcreationwizard.cpp:310
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:301
+#: src/accountcreationwizard.cpp:314
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
 msgstr "Kan niet verbinden met de geleverde accountbeheerder. Controleer uw gebruikersreferenties."
 
-#: src/accountcreationwizard.cpp:487
+#: src/accountcreationwizard.cpp:493
+msgid "Generating your rendez-vous…"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:495
+msgid "Generating your Jami account…"
+msgstr "Uw Jami-account wordt aangemaakt…"
+
+#: src/accountcreationwizard.cpp:511
 msgid "Passwords don't match"
 msgstr "Wachtwoorden komen niet overeen"
 
-#: src/accountcreationwizard.cpp:610
+#: src/accountcreationwizard.cpp:634
 msgid "Import from backup"
 msgstr "Importeren uit back-up"
 
-#: src/accountcreationwizard.cpp:754 src/chatview.cpp:281
+#: src/accountcreationwizard.cpp:778 src/chatview.cpp:281
 #: src/newaccountsettingsview.cpp:906
 msgid "Save File"
 msgstr "Bestand opslaan"
 
-#: src/accountcreationwizard.cpp:783 src/newaccountsettingsview.cpp:933
+#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:933
 msgid "You need to enter your password to export the full archive."
 msgstr "U dient uw wachtwoord in te voeren om het volledige archief te exporteren."
 
-#: src/accountcreationwizard.cpp:784 src/newaccountsettingsview.cpp:934
+#: src/accountcreationwizard.cpp:808 src/newaccountsettingsview.cpp:934
 msgid "Enter password to export archive"
 msgstr "Voer wachtwoord in om archief te exporteren"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:957
+#: src/accountcreationwizard.cpp:831 src/newaccountsettingsview.cpp:957
 msgid "Account exported!"
 msgstr "Account geëxporteerd!"
 
-#: src/accountcreationwizard.cpp:807 src/newaccountsettingsview.cpp:957
+#: src/accountcreationwizard.cpp:831 src/newaccountsettingsview.cpp:957
 msgid "Export account failure."
 msgstr "Fout bij exporteren van account."
+
+#: src/accountcreationwizard.cpp:987
+msgid "Register name"
+msgstr "Naam registreren"
+
+#: src/accountcreationwizard.cpp:988
+msgid "Name"
+msgstr "Naam"
 
 #: src/mainwindow.cpp:198
 msgid "Add account…"
 msgstr "Account toevoegen…"
 
-#: src/mainwindow.cpp:865
+#: src/mainwindow.cpp:899
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "oproep plaatsen"
 
-#: src/mainwindow.cpp:868
+#: src/mainwindow.cpp:902
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "gesprek openen"
 
-#: src/mainwindow.cpp:1075
+#: src/mainwindow.cpp:1114
 msgid "Jami - Migration needed"
 msgstr "Jami - migratie vereist"
 
-#: src/mainwindow.cpp:1088
+#: src/mainwindow.cpp:1127
 msgid "Migration in progress... please do not close this window."
 msgstr "Migratie is bezig… Gelieve dit venster niet te sluiten."
 
-#: src/mainwindow.cpp:1368
+#: src/mainwindow.cpp:1407
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:1809
+#: src/mainwindow.cpp:1854
 msgid "Leave settings page"
 msgstr "Instellingspagina verlaten"
 
-#: src/mainwindow.cpp:2238
+#: src/mainwindow.cpp:2278
 msgid "There are active calls"
 msgstr "Er zijn actieve oproepen"
 
-#: src/mainwindow.cpp:2290
+#: src/mainwindow.cpp:2331
 msgid " is calling you!"
 msgstr "belt u!"
 
-#: src/mainwindow.cpp:2293
+#: src/mainwindow.cpp:2334
 msgid "Incoming call"
 msgstr "Inkomende oproep"
 
-#: src/mainwindow.cpp:2443
+#: src/mainwindow.cpp:2490
 msgid "New request from "
 msgstr "Nieuw verzoek van"
 
-#: src/mainwindow.cpp:2446
+#: src/mainwindow.cpp:2493
 msgid "Trust request"
 msgstr "Vertrouwensverzoek"
 
-#: src/mainwindow.cpp:2509
+#: src/mainwindow.cpp:2555
 msgid "New message"
 msgstr "Nieuw bericht"
 
-#: src/mainwindow.cpp:2573
+#: src/mainwindow.cpp:2607
 msgid "Stop current call?"
 msgstr "Huidige oproep beëindigen?"
 
-#: src/mainwindow.cpp:2574
+#: src/mainwindow.cpp:2608
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "U bent momenteel in gesprek. Wilt u het venster sluiten en alle huidige oproepen beëindigen?"
 
-#: src/mainwindow.cpp:2641
+#: src/mainwindow.cpp:2675
 msgid "Clear history"
 msgstr "Geschiedenis wissen"
 
-#: src/mainwindow.cpp:2642
+#: src/mainwindow.cpp:2676
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Wilt u de geschiedenis van dit gesprek wissen?"
 
-#: src/mainwindow.cpp:2657
+#: src/mainwindow.cpp:2691
 msgid "Remove conversation"
 msgstr "Gesprek verwijderen"
 
-#: src/mainwindow.cpp:2658
+#: src/mainwindow.cpp:2692
 msgid "Do you really want to remove this conversation?"
 msgstr "Wilt u dit gesprek echt verwijderen?"
 
-#: src/mainwindow.cpp:2673
+#: src/mainwindow.cpp:2707
 msgid "Block contact"
 msgstr "Contact blokkeren"
 
-#: src/mainwindow.cpp:2674
+#: src/mainwindow.cpp:2708
 msgid "Do you really want to block this contact?"
 msgstr "Wilt u dit contact echt blokkeren?"
 
@@ -1419,30 +1447,30 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Let op! Deze handeling zal dit account van dit apparaat verwijderen!\nDeze handeling kan niet ongedaan gemaakt worden. Uw geregistreerde naam zal ook verloren gaan!"
 
-#: src/currentcallview.cpp:1049
+#: src/currentcallview.cpp:1035
 msgid "No name!"
 msgstr ""
 
-#: src/currentcallview.cpp:1056
-msgid "true"
-msgstr ""
-
-#: src/currentcallview.cpp:1159
+#: src/currentcallview.cpp:1144
 msgid "Current conference (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:1194
+#: src/currentcallview.cpp:1179
 msgid "Current calls (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:1211
+#: src/currentcallview.cpp:1196
 msgid "Online contacts"
 msgstr ""
 
-#: src/currentcallview.cpp:1620
+#: src/currentcallview.cpp:1621
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
+
+#: src/currentcallview.cpp:1696
+msgid "me"
+msgstr ""
 
 #: src/newaccountsettingsview.cpp:603
 msgid ""
