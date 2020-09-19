@@ -6,7 +6,7 @@
 # Translators:
 # Alexandre Lision, 2019
 # YASMINA BAHLOUL <yasmina.bahloul@savoirfairelinux.com>, 2019
-# Léo B. <leoboudet@orne-libre.fr>, 2020
+# leø <leoboudet@orne-libre.fr>, 2020
 # Kateryna K <katerynakostiukGer@gmail.com>, 2020
 # 
 #, fuzzy

@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Emiliano Ariel Vazquez <emilianovazquez@gmail.com>, 2019
+# d443967abde8afca61f24fde46cf8ab5_e6f48f8 <aab505380e829fa933da96cb0ef0cc70_97743>, 2019
 # Ernesto Rodriguez Ortiz <ernesto.rodriguezortiz@savoirfairelinux.com>, 2019
 # David <stakewinner00@mykolab.com>, 2019
 # jsagarribay <jsagarribay@gmail.com>, 2019

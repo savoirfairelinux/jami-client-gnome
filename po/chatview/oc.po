@@ -108,7 +108,7 @@ msgstr ""
 
 #: web/chatview.html:634
 msgid "Sending"
-msgstr ""
+msgstr "Mandadís"
 
 #: web/chatview.html:637
 msgid "Failure"
