@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-19 17:53-0400\n"
-"PO-Revision-Date: 2020-09-19 21:22+0000\n"
+"POT-Creation-Date: 2020-09-21 03:09-0400\n"
+"PO-Revision-Date: 2020-09-20 14:48+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -331,7 +331,7 @@ msgstr "Creează un cont Jami nou pe acest dispozitiv (pentru utilizatori noi)"
 
 #: ui/accountcreationwizard.ui:84 ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
-msgstr ""
+msgstr "Creează un loc de întîlnire"
 
 #: ui/accountcreationwizard.ui:92 src/accountcreationwizard.cpp:615
 msgid "Import from device"
@@ -1106,7 +1106,7 @@ msgstr "Închide"
 
 #: src/video/video_widget.cpp:432
 msgid "Maximize"
-msgstr ""
+msgstr "Mărește"
 
 #: src/video/video_widget.cpp:447
 msgid "Minimize"
@@ -1114,7 +1114,7 @@ msgstr "Minimizează"
 
 #: src/video/video_widget.cpp:503
 msgid "More options"
-msgstr ""
+msgstr "Alte opțiuni"
 
 #: src/video/video_widget.cpp:874
 msgid "Share _screen area"
@@ -1150,7 +1150,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Together\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Împreună\"\nconstruit pe %.25s"
 
 #: src/dialogs.c:150
 msgid ""
@@ -1249,7 +1249,7 @@ msgstr "O eroare a apărut în timpul creării contului."
 
 #: src/accountcreationwizard.cpp:302
 msgid "An error occured during the rendez-vous creation."
-msgstr ""
+msgstr "O eroare a apărut în timpul creării locului de întîlnirii."
 
 #: src/accountcreationwizard.cpp:306
 msgid "Cannot retrieve any account, please verify your PIN and your password."
@@ -1267,7 +1267,7 @@ msgstr "Nu mă pot conecta la Administrare cont. Verifică datele de autentifica
 
 #: src/accountcreationwizard.cpp:493
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "Se creează locul de întîlnirea..."
 
 #: src/accountcreationwizard.cpp:495
 msgid "Generating your Jami account…"

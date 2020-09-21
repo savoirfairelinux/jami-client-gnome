@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-19 17:53-0400\n"
-"PO-Revision-Date: 2020-09-19 21:22+0000\n"
+"POT-Creation-Date: 2020-09-21 03:09-0400\n"
+"PO-Revision-Date: 2020-09-20 09:39+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/jami/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -332,7 +332,7 @@ msgstr "Krijoni një llogari të re Jami në këtë pajisje (për përdorues të
 
 #: ui/accountcreationwizard.ui:84 ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
-msgstr ""
+msgstr "Krijoni një pikë Takimi"
 
 #: ui/accountcreationwizard.ui:92 src/accountcreationwizard.cpp:615
 msgid "Import from device"
@@ -1107,7 +1107,7 @@ msgstr "Mbylle"
 
 #: src/video/video_widget.cpp:432
 msgid "Maximize"
-msgstr ""
+msgstr "Maksimizoje"
 
 #: src/video/video_widget.cpp:447
 msgid "Minimize"
@@ -1115,7 +1115,7 @@ msgstr "Minimizoje"
 
 #: src/video/video_widget.cpp:503
 msgid "More options"
-msgstr ""
+msgstr "Më tepër mundësi"
 
 #: src/video/video_widget.cpp:874
 msgid "Share _screen area"
@@ -1151,7 +1151,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Together\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "“Tok”\nmontuar më %.25s"
 
 #: src/dialogs.c:150
 msgid ""
@@ -1250,7 +1250,7 @@ msgstr "Ndodhi një gabim gjatë krijimit të llogarisë."
 
 #: src/accountcreationwizard.cpp:302
 msgid "An error occured during the rendez-vous creation."
-msgstr ""
+msgstr "Ndodhi një gabim gjatë krijimit të takimit."
 
 #: src/accountcreationwizard.cpp:306
 msgid "Cannot retrieve any account, please verify your PIN and your password."
@@ -1268,7 +1268,7 @@ msgstr "S’bëhet dot lidhja me përgjegjësin e dhënë të llogarisë. Ju lut
 
 #: src/accountcreationwizard.cpp:493
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "Po prodhohet takimi juaj…"
 
 #: src/accountcreationwizard.cpp:495
 msgid "Generating your Jami account…"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-19 17:53-0400\n"
-"PO-Revision-Date: 2020-09-19 21:22+0000\n"
+"POT-Creation-Date: 2020-09-21 03:09-0400\n"
+"PO-Revision-Date: 2020-09-20 05:02+0000\n"
 "Last-Translator: Åke Engelbrektson\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/jami/language/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -331,7 +331,7 @@ msgstr "Skapa ett nytt Jami-konto på denna enhet (för nya användare)"
 
 #: ui/accountcreationwizard.ui:84 ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
-msgstr ""
+msgstr "Skapa en mötesplats"
 
 #: ui/accountcreationwizard.ui:92 src/accountcreationwizard.cpp:615
 msgid "Import from device"
@@ -1106,7 +1106,7 @@ msgstr "Lägg på"
 
 #: src/video/video_widget.cpp:432
 msgid "Maximize"
-msgstr ""
+msgstr "Maximera"
 
 #: src/video/video_widget.cpp:447
 msgid "Minimize"
@@ -1114,7 +1114,7 @@ msgstr "Minimera"
 
 #: src/video/video_widget.cpp:503
 msgid "More options"
-msgstr ""
+msgstr "Fler alternativ"
 
 #: src/video/video_widget.cpp:874
 msgid "Share _screen area"
@@ -1150,7 +1150,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Together\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"Tillsammans\"\nkompilerat %.25s"
 
 #: src/dialogs.c:150
 msgid ""
@@ -1249,7 +1249,7 @@ msgstr "Ett fel inträffade när kontot skulle skapas."
 
 #: src/accountcreationwizard.cpp:302
 msgid "An error occured during the rendez-vous creation."
-msgstr ""
+msgstr "Ett fel inträffade när mötet skulle skapas."
 
 #: src/accountcreationwizard.cpp:306
 msgid "Cannot retrieve any account, please verify your PIN and your password."
@@ -1267,7 +1267,7 @@ msgstr "Kan inte ansluta till kontohanteraren. Kontrollera dina inloggningsuppgi
 
 #: src/accountcreationwizard.cpp:493
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "Skapar ditt möte..."
 
 #: src/accountcreationwizard.cpp:495
 msgid "Generating your Jami account…"
@@ -1468,7 +1468,7 @@ msgstr "Auto"
 
 #: src/currentcallview.cpp:1696
 msgid "me"
-msgstr ""
+msgstr "jag"
 
 #: src/newaccountsettingsview.cpp:603
 msgid ""

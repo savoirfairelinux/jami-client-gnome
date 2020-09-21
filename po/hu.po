@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-19 17:53-0400\n"
-"PO-Revision-Date: 2020-09-19 21:22+0000\n"
-"Last-Translator: Zsolt <maxigaz@protonmail.com>\n"
+"POT-Creation-Date: 2020-09-21 03:09-0400\n"
+"PO-Revision-Date: 2020-09-20 12:19+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -334,7 +334,7 @@ msgstr "Új Jami fiók létrehozása (új felhasználóknak)"
 
 #: ui/accountcreationwizard.ui:84 ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
-msgstr ""
+msgstr "Találkozási pont létrehozása"
 
 #: ui/accountcreationwizard.ui:92 src/accountcreationwizard.cpp:615
 msgid "Import from device"
@@ -466,7 +466,7 @@ msgstr "A Jami fiókja lekérése…"
 
 #: ui/accountcreationwizard.ui:919 ui/newaccountsettingsview.ui:262
 msgid "OK"
-msgstr "OK"
+msgstr "Rendben"
 
 #: ui/accountcreationwizard.ui:944
 msgid "Sign in"
@@ -745,7 +745,7 @@ msgstr "Egyéni csengőhang"
 
 #: ui/newaccountsettingsview.ui:1264
 msgid "(Experimental) Rendez-vous: turn your account into a conference room"
-msgstr "(Kísérleti) Rendez-vous: fiókját alakítása konferenciateremre"
+msgstr "(Kísérleti) Találkozási pont: fiókját alakítása konferenciateremre"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -1109,7 +1109,7 @@ msgstr "Hívás befejezése"
 
 #: src/video/video_widget.cpp:432
 msgid "Maximize"
-msgstr ""
+msgstr "Teljes méret"
 
 #: src/video/video_widget.cpp:447
 msgid "Minimize"
@@ -1153,7 +1153,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"Together\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "„Együtt”\nkódtár verziója: %.25s"
 
 #: src/dialogs.c:150
 msgid ""
@@ -1252,7 +1252,7 @@ msgstr "Hiba történt a fiók létrehozása során."
 
 #: src/accountcreationwizard.cpp:302
 msgid "An error occured during the rendez-vous creation."
-msgstr ""
+msgstr "Hiba történt a találkozási pont létrehozása során."
 
 #: src/accountcreationwizard.cpp:306
 msgid "Cannot retrieve any account, please verify your PIN and your password."
@@ -1270,7 +1270,7 @@ msgstr "Nem lehet csatlakozni a megadott fiókkezelőhöz. Kérjük, ellenőrizz
 
 #: src/accountcreationwizard.cpp:493
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "Találkozási pont létrehozása…"
 
 #: src/accountcreationwizard.cpp:495
 msgid "Generating your Jami account…"
