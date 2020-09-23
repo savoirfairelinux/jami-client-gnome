@@ -925,7 +925,7 @@ build_creation_wizard_view(AccountCreationWizard *view)
     auto provider = gtk_css_provider_new();
     gtk_css_provider_load_from_data(provider,
         ".black { color: grey; font-size: 0.8em; }\
-        .transparent-button { margin-left: 10px; border: 0; background-color: rgba(0,0,0,0); margin-right: 0; padding-right: 0;}\
+        .transparent-button { margin-left: 0; border: 0; background-color: rgba(0,0,0,0); margin-right: 0; padding-right: 0;}\
         .infos-button { margin: 0; border: 0; background-color: rgba(0,0,0,0); padding: 0; box-shadow: 0;}",
         -1, nullptr
     );
