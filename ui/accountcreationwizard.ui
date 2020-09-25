@@ -73,7 +73,7 @@
                     <property name="homogeneous">True</property>
                     <child>
                       <object class="GtkButton" id="button_new_account">
-                        <property name="label" translatable="yes">Create local account</property>
+                        <property name="label" translatable="yes">Create a Jami account</property>
                         <property name="tooltip_text" translatable="yes">Create a new Jami account on this device (for new users)</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -81,7 +81,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="button_new_rendezvous">
-                        <property name="label" translatable="yes">Create a Rendezvous point</property>
+                        <property name="label" translatable="yes">Create a rendezvous point</property>
                         <property name="tooltip_text" translatable="yes">Create a Rendezvous point</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -89,7 +89,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="button_import_from_device">
-                        <property name="label" translatable="yes">Import from device</property>
+                        <property name="label" translatable="yes">Link this device to an existing account</property>
                         <property name="tooltip_text" translatable="yes">Import an account with your PIN generated on another device</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -97,7 +97,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="button_import_from_backup">
-                        <property name="label" translatable="yes">Import from archive backup</property>
+                        <property name="label" translatable="yes">Restore an account from backup</property>
                         <property name="tooltip_text" translatable="yes">Import an account via your archive</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -105,7 +105,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="button_show_advanced">
-                        <property name="label" translatable="yes">Advanced…</property>
+                        <property name="label" translatable="yes">Advanced features</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <style>
@@ -116,7 +116,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="button_connect_account_manager">
-                        <property name="label" translatable="yes">Connect to account manager</property>
+                        <property name="label" translatable="yes">Connect to a JAMS server</property>
                         <property name="tooltip_text" translatable="yes">Get your account via your credentials.</property>
                         <property name="visible">False</property>
                         <property name="can_focus">True</property>
@@ -124,7 +124,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="button_new_sip_account">
-                        <property name="label" translatable="yes">Add a new SIP account</property>
+                        <property name="label" translatable="yes">Add a SIP account</property>
                         <property name="visible">False</property>
                         <property name="can_focus">True</property>
                       </object>
@@ -177,49 +177,6 @@
                             <property name="selection_mode">none</property>
 
                             <child>
-                              <!-- Password -->
-                              <object class="GtkListBoxRow">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="halign">fill</property>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="visible">True</property>
-                                    <property name="halign">fill</property>
-                                    <property name="orientation">horizontal</property>
-                                    <property name="margin_left">10</property>
-                                    <property name="margin_right">10</property>
-                                    <property name="margin_top">10</property>
-                                    <property name="margin_bottom">10</property>
-                                    <property name="spacing">10</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Password</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkEntry" id="entry_existing_account_password">
-                                        <property name="halign">center</property>
-                                        <property name="width_request">320</property>
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="xalign">0.5</property>
-                                        <property name="primary_icon_stock">gtk-dialog-authentication</property>
-                                        <property name="input_purpose">password</property>
-                                        <property name="visibility">False</property>
-                                      </object>
-                                      <packing>
-                                        <property name="pack_type">end</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-
-                            <child>
                               <!-- Account archive -->
                               <object class="GtkListBoxRow" id="row_archive">
                                 <property name="visible">True</property>
@@ -263,6 +220,82 @@
                                         <property name="can_focus">True</property>
                                         <property name="halign">center</property>
                                         <property name="title" translatable="yes"/>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+
+                            <child>
+                              <!-- Label backup -->
+                              <object class="GtkListBoxRow" id="row_backup_label">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="halign">fill</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">10</property>
+                                    <property name="margin_right">10</property>
+                                    <property name="margin_top">10</property>
+                                    <property name="margin_bottom">10</property>
+                                    <property name="spacing">10</property>
+                                    <property name="valign">center</property>
+                                    <property name="halign">center</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="wrap">True</property>
+                                        <property name="justify">fill</property>
+                                        <property name="max-width-chars">40</property>
+                                        <property name="label" translatable="yes">You can obtain an archive by clicking on "Backup account" in the account settings. This will create a .gz file on your device.</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+
+                            <child>
+                              <!-- Password -->
+                              <object class="GtkListBoxRow">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="halign">fill</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">10</property>
+                                    <property name="margin_right">10</property>
+                                    <property name="margin_top">10</property>
+                                    <property name="margin_bottom">10</property>
+                                    <property name="spacing">10</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Password</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="entry_existing_account_password">
+                                        <property name="halign">center</property>
+                                        <property name="width_request">320</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="xalign">0.5</property>
+                                        <property name="primary_icon_stock">gtk-dialog-authentication</property>
+                                        <property name="input_purpose">password</property>
+                                        <property name="visibility">False</property>
                                       </object>
                                       <packing>
                                         <property name="pack_type">end</property>
@@ -330,39 +363,6 @@
                             </child>
 
                             <child>
-                              <!-- Label backup -->
-                              <object class="GtkListBoxRow" id="row_backup_label">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="halign">fill</property>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="visible">True</property>
-                                    <property name="halign">fill</property>
-                                    <property name="orientation">horizontal</property>
-                                    <property name="margin_left">10</property>
-                                    <property name="margin_right">10</property>
-                                    <property name="margin_top">10</property>
-                                    <property name="margin_bottom">10</property>
-                                    <property name="spacing">10</property>
-                                    <property name="valign">center</property>
-                                    <property name="halign">center</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="wrap">True</property>
-                                        <property name="justify">fill</property>
-                                        <property name="max-width-chars">40</property>
-                                        <property name="label" translatable="yes">You can obtain an archive by clicking on "Export account" in the account settings. This will create a .gz file on your device.</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-
-                            <child>
                               <!-- Label PIN -->
                               <object class="GtkListBoxRow" id="row_pin_label">
                                 <property name="visible">True</property>
@@ -387,7 +387,7 @@
                                         <property name="wrap">True</property>
                                         <property name="justify">fill</property>
                                         <property name="max-width-chars">40</property>
-                                        <property name="label" translatable="yes">To obtain a PIN (valid for 10 minutes), you need to open the account settings on the other device and click on "Link to another device".</property>
+                                        <property name="label" translatable="yes">Enter the PIN from another configured Jami account. Use the "Link Another Device" feature to obtain a PIN.</property>
                                       </object>
                                     </child>
                                   </object>
@@ -406,16 +406,15 @@
                   <object class="GtkButtonBox">
                     <property name="visible">True</property>
                     <child>
-                      <object class="GtkButton" id="button_import_from_previous">
-                        <property name="label" translatable="yes">Previous</property>
+                      <object class="GtkButton" id="button_import_from_back">
+                        <property name="label" translatable="yes">Back</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="halign">start</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button_import_from_next">
-                        <property name="label" translatable="yes">Next</property>
+                      <object class="GtkButton" id="button_import_from_do">
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
@@ -706,8 +705,8 @@
                   <object class="GtkButtonBox">
                     <property name="visible">True</property>
                     <child>
-                      <object class="GtkButton" id="button_account_creation_previous">
-                        <property name="label" translatable="yes">Previous</property>
+                      <object class="GtkButton" id="button_account_creation_back">
+                        <property name="label" translatable="yes">Back</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="halign">start</property>
@@ -941,7 +940,7 @@
                     <property name="visible">True</property>
                     <property name="halign">start</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Sign in</property>
+                    <property name="label" translatable="yes">Enter Jami Account Management Server (JAMS) URL</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>
                     </attributes>
@@ -966,6 +965,57 @@
                             <property name="can_focus">True</property>
                             <property name="halign">fill</property>
                             <property name="selection_mode">none</property>
+                            <child>
+                              <!-- Account Manager URL -->
+                              <object class="GtkListBoxRow">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="halign">fill</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">10</property>
+                                    <property name="margin_right">10</property>
+                                    <property name="margin_top">10</property>
+                                    <property name="margin_bottom">10</property>
+                                    <property name="spacing">10</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">JAMS URL</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="entry_account_manager_uri">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="halign">start</property>
+                                <property name="margin_left">10</property>
+                                <property name="margin_right">10</property>
+                                <property name="margin_top">10</property>
+                                <property name="margin_bottom">10</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Enter your JAMS credentials</property>
+                                <style>
+                                  <class name="smaller"/>
+                                </style>
+                              </object>
+                            </child>
                             <child>
                               <!-- entry username -->
                               <object class="GtkListBoxRow">
@@ -1040,42 +1090,6 @@
                                 </child>
                               </object>
                             </child>
-                            <child>
-                              <!-- Account Manager URL -->
-                              <object class="GtkListBoxRow">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="halign">fill</property>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="visible">True</property>
-                                    <property name="halign">fill</property>
-                                    <property name="orientation">horizontal</property>
-                                    <property name="margin_left">10</property>
-                                    <property name="margin_right">10</property>
-                                    <property name="margin_top">10</property>
-                                    <property name="margin_bottom">10</property>
-                                    <property name="spacing">10</property>
-                                    <child>
-                                      <object class="GtkLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Account manager</property>
-                                      </object>
-                                    </child>
-                                    <child>
-                                      <object class="GtkEntry" id="entry_account_manager_uri">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                      </object>
-                                      <packing>
-                                        <property name="pack_type">end</property>
-                                      </packing>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
                           </object>
                         </child>
                       </object>
@@ -1086,16 +1100,16 @@
                   <object class="GtkButtonBox">
                     <property name="visible">True</property>
                     <child>
-                      <object class="GtkButton" id="button_account_manager_connect_previous">
-                        <property name="label" translatable="yes">Previous</property>
+                      <object class="GtkButton" id="button_account_manager_connect_back">
+                        <property name="label" translatable="yes">Back</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="halign">start</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkButton" id="button_account_manager_connect_next">
-                        <property name="label" translatable="yes">Next</property>
+                      <object class="GtkButton" id="button_account_manager_connect_connect">
+                        <property name="label" translatable="yes">Connect</property>
                         <property name="sensitive">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
