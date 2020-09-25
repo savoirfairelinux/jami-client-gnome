@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5607388_e7c4efe7",
+        "filename": "ui/accountcreationwizard.ui",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2020-09-25T16:00:20Z",
+      "side": 1,
+      "message": "I also took the liberty to change some of the \u0027Previous\u0027 buttons to \u0027Back\u0027, which I think makes more sense and is more natural when the other action isn\u0027t necessarily a \u0027Next\u0027.  This conceptually matches what I see in the jami-qt screenshots, where the panes have a back arrow.",
+      "range": {
+        "startLine": 410,
+        "startChar": 66,
+        "endLine": 410,
+        "endChar": 70
+      },
+      "revId": "e74a9af1ed97c518c4e69940221847317c437b0a",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
