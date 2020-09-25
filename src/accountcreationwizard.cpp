@@ -81,8 +81,8 @@ struct _AccountCreationWizardPrivate
     GtkWidget *row_pin;
     GtkWidget *button_pin_info;
     GtkWidget *row_pin_label;
-    GtkWidget *button_import_from_next;
-    GtkWidget *button_import_from_previous;
+    GtkWidget *button_import_from_do;
+    GtkWidget *button_import_from_back;
     GtkWidget *entry_existing_account_pin;
     GtkWidget *entry_existing_account_archive;
     GtkWidget *entry_existing_account_password;
@@ -95,7 +95,7 @@ struct _AccountCreationWizardPrivate
     GtkWidget *entry_password_confirm;
     GtkWidget *label_password_error;
     GtkWidget *button_account_creation_next;
-    GtkWidget *button_account_creation_previous;
+    GtkWidget *button_account_creation_back;
     GtkWidget *box_avatarselection;
     GtkWidget *avatar_manipulation;
     GtkWidget *label_register;
@@ -130,8 +130,8 @@ struct _AccountCreationWizardPrivate
     GtkWidget *entry_account_manager_username;
     GtkWidget *entry_account_manager_password;
     GtkWidget *entry_account_manager_uri;
-    GtkWidget *button_account_manager_connect_previous;
-    GtkWidget *button_account_manager_connect_next;
+    GtkWidget *button_account_manager_connect_back;
+    GtkWidget *button_account_manager_connect_connect;
 
     lrc::api::AVModel* avModel_;
     lrc::api::NewAccountModel* accountModel_;
@@ -209,8 +209,8 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, row_pin);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_pin_info);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, row_pin_label);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_next);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_previous);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_do);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_import_from_back);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_existing_account_pin);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_existing_account_archive);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_existing_account_password);
@@ -221,7 +221,7 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_password);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_password_confirm);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_creation_next);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_creation_previous);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_creation_back);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, box_avatarselection);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, label_password_error);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, label_register);
@@ -255,8 +255,8 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_account_manager_username);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_account_manager_password);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_account_manager_uri);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_manager_connect_previous);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_manager_connect_next);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_manager_connect_back);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_manager_connect_connect);
 
     /* add signals */
     account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED] = g_signal_new("account-creation-completed",
@@ -612,7 +612,8 @@ show_import_from_device(AccountCreationWizard *view)
 {
     auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
 
-    gtk_label_set_text(GTK_LABEL(priv->existing_account_label), _("Import from device"));
+    gtk_label_set_text(GTK_LABEL(priv->existing_account_label), _("Enter Jami account password"));
+    gtk_button_set_label(GTK_BUTTON(priv->button_import_from_do), _("Link device"));
     gtk_entry_set_text(GTK_ENTRY(priv->entry_existing_account_pin), "");
     gtk_entry_set_text(GTK_ENTRY(priv->entry_existing_account_password), "");
     gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->entry_existing_account_archive), nullptr);
@@ -632,6 +633,7 @@ show_import_from_backup(AccountCreationWizard *view)
     auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
 
     gtk_label_set_text(GTK_LABEL(priv->existing_account_label), _("Import from backup"));
+    gtk_button_set_label(GTK_BUTTON(priv->button_import_from_do), _("Restore an account from backup"));
     gtk_entry_set_text(GTK_ENTRY(priv->entry_existing_account_pin), "");
     gtk_entry_set_text(GTK_ENTRY(priv->entry_existing_account_password), "");
     gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(priv->entry_existing_account_archive), nullptr);
@@ -691,7 +693,7 @@ entries_existing_account_changed(G_GNUC_UNUSED GtkEntry *entry, AccountCreationW
         (not hasPin)
     );
     gtk_widget_set_sensitive(
-        priv->button_import_from_next,
+        priv->button_import_from_do,
         (hasArchive || hasPin)
     );
 
@@ -728,7 +730,7 @@ entries_connect_account_manager_changed(AccountCreationWizard *view)
     const std::string managerUri = gtk_entry_get_text(GTK_ENTRY(priv->entry_account_manager_uri));
     const std::string password = gtk_entry_get_text(GTK_ENTRY(priv->entry_account_manager_password));
 
-    gtk_widget_set_sensitive(priv->button_account_manager_connect_next, (!username.empty() && !managerUri.empty() && !password.empty()));
+    gtk_widget_set_sensitive(priv->button_account_manager_connect_connect, (!username.empty() && !managerUri.empty() && !password.empty()));
 }
 
 static void
@@ -887,7 +889,7 @@ build_creation_wizard_view(AccountCreationWizard *view)
     /* account_creation signals */
     g_signal_connect_swapped(priv->entry_username, "changed", G_CALLBACK(entries_new_account_changed), view);
     g_signal_connect(priv->button_account_creation_next, "clicked", G_CALLBACK(account_creation_next_clicked), view);
-    g_signal_connect(priv->button_account_creation_previous, "clicked", G_CALLBACK(account_creation_previous_clicked), view);
+    g_signal_connect(priv->button_account_creation_back, "clicked", G_CALLBACK(account_creation_previous_clicked), view);
     g_signal_connect_swapped(priv->entry_password, "changed", G_CALLBACK(entries_new_account_changed), view);
     g_signal_connect_swapped(priv->entry_password_confirm, "changed", G_CALLBACK(entries_new_account_changed), view);
     g_signal_connect_swapped(priv->entry_display_name, "changed", G_CALLBACK(entries_new_account_changed), view);
@@ -895,9 +897,9 @@ build_creation_wizard_view(AccountCreationWizard *view)
     g_signal_connect_swapped(priv->username_registration_box, "username-availability-changed", G_CALLBACK(username_availability_changed), view);
 
     /* existing_account signals */
-    g_signal_connect_swapped(priv->button_import_from_previous, "clicked", G_CALLBACK(show_choose_account_type), view);
+    g_signal_connect_swapped(priv->button_import_from_back, "clicked", G_CALLBACK(show_choose_account_type), view);
     g_signal_connect_swapped(priv->button_pin_info, "clicked", G_CALLBACK(show_pin_label), view);
-    g_signal_connect_swapped(priv->button_import_from_next, "clicked", G_CALLBACK(existing_account_next_clicked), view);
+    g_signal_connect_swapped(priv->button_import_from_do, "clicked", G_CALLBACK(existing_account_next_clicked), view);
     g_signal_connect(priv->entry_existing_account_pin, "changed", G_CALLBACK(entries_existing_account_changed), view);
     g_signal_connect(priv->entry_existing_account_archive, "file-set", G_CALLBACK(entries_existing_account_changed), view);
     g_signal_connect(priv->entry_existing_account_password, "changed", G_CALLBACK(entries_existing_account_changed), view);
@@ -915,8 +917,8 @@ build_creation_wizard_view(AccountCreationWizard *view)
     g_signal_connect_swapped(priv->entry_account_manager_username, "changed", G_CALLBACK(entries_connect_account_manager_changed), view);
     g_signal_connect_swapped(priv->entry_account_manager_password, "changed", G_CALLBACK(entries_connect_account_manager_changed), view);
     g_signal_connect_swapped(priv->entry_account_manager_uri, "changed", G_CALLBACK(entries_connect_account_manager_changed), view);
-    g_signal_connect(priv->button_account_manager_connect_previous, "clicked", G_CALLBACK(connect_account_manager_previous_clicked), view);
-    g_signal_connect(priv->button_account_manager_connect_next, "clicked", G_CALLBACK(connect_account_manager_next_clicked), view);
+    g_signal_connect(priv->button_account_manager_connect_back, "clicked", G_CALLBACK(connect_account_manager_previous_clicked), view);
+    g_signal_connect(priv->button_account_manager_connect_connect, "clicked", G_CALLBACK(connect_account_manager_next_clicked), view);
 
     show_choose_account_type(view);
 
