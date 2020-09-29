@@ -404,10 +404,12 @@ on_show_actions_popover(GtkButton *button, VideoWidget *self)
 
     auto* box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     bool isLocal = (bool)g_object_get_data(G_OBJECT(button), "isLocal");
+    auto call = (*priv->cpp->accountInfo)->callModel->getCall(priv->cpp->callId);
+    auto isHost = call.type == lrc::api::call::Type::CONFERENCE;
     bool active = (bool)g_object_get_data(G_OBJECT(button), "active");
     auto* uri = g_object_get_data(G_OBJECT(button), "uri");
     g_object_set_data(G_OBJECT(priv->actions_popover), "uri", uri);
-    if (!isLocal) {
+    if (!isLocal && isHost) {
         auto* hangupBtn = gtk_button_new();
         gtk_button_set_label(GTK_BUTTON(hangupBtn), _("Hangup"));
         gtk_box_pack_start(GTK_BOX(box), hangupBtn, TRUE, TRUE, 0);
@@ -478,9 +480,17 @@ video_widget_add_participant_hover(VideoWidget *self, const QJsonObject& partici
     gtk_widget_set_visible(GTK_WIDGET(label_participant), TRUE);
 
     auto call = (*priv->cpp->accountInfo)->callModel->getCall(priv->cpp->callId);
-    auto isMaster = call.type == lrc::api::call::Type::CONFERENCE;
+    auto isModerator = call.type == lrc::api::call::Type::CONFERENCE;
+    if (!isModerator && call.participantsInfos.size() != 0) {
+        for (const auto& participant : call.participantsInfos) {
+            if (participant["uri"] == (*priv->cpp->accountInfo)->profileInfo.uri) {
+                isModerator = participant["isModerator"] == "true";
+                break;
+            }
+        }
+    }
 
-    if (isMaster) {
+    if (isModerator) {
         auto* options_btn = gtk_button_new();
 
         GError *error = nullptr;
