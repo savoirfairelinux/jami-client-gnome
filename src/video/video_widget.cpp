@@ -352,23 +352,18 @@ on_maximize(GObject *button, VideoWidget *self)
     try {
         auto& callModel = (*priv->cpp->accountInfo)->callModel;
         auto call = callModel->getCall(priv->cpp->callId);
-        QString callId = "";
-        if ((*priv->cpp->accountInfo)->profileInfo.uri != uri) {
-            auto participantCall = (*priv->cpp->accountInfo)->callModel->getCallFromURI(uri);
-            callId = participantCall.id;
-        }
         switch (call.layout) {
             case lrc::api::call::Layout::GRID:
-                callModel->setActiveParticipant(priv->cpp->callId, callId);
+                callModel->setActiveParticipant(priv->cpp->callId, uri);
                 callModel->setConferenceLayout(priv->cpp->callId, lrc::api::call::Layout::ONE_WITH_SMALL);
                 break;
             case lrc::api::call::Layout::ONE_WITH_SMALL:
-                callModel->setActiveParticipant(priv->cpp->callId, callId);
+                callModel->setActiveParticipant(priv->cpp->callId, uri);
                 callModel->setConferenceLayout(priv->cpp->callId,
                     active? lrc::api::call::Layout::ONE : lrc::api::call::Layout::ONE_WITH_SMALL);
                 break;
             case lrc::api::call::Layout::ONE:
-                callModel->setActiveParticipant(priv->cpp->callId, callId);
+                callModel->setActiveParticipant(priv->cpp->callId, uri);
                 callModel->setConferenceLayout(priv->cpp->callId, lrc::api::call::Layout::GRID);
                 break;
         };
@@ -483,9 +478,17 @@ video_widget_add_participant_hover(VideoWidget *self, const QJsonObject& partici
     gtk_widget_set_visible(GTK_WIDGET(label_participant), TRUE);
 
     auto call = (*priv->cpp->accountInfo)->callModel->getCall(priv->cpp->callId);
-    auto isMaster = call.type == lrc::api::call::Type::CONFERENCE;
+    auto isModerator = call.type == lrc::api::call::Type::CONFERENCE;
+    if (!isModerator && call.participantsInfos.size() != 0) {
+        for (const auto& participant : call.participantsInfos) {
+            if (participant["uri"] == (*priv->cpp->accountInfo)->profileInfo.uri) {
+                isModerator = participant["isModerator"] == "true";
+                break;
+            }
+        }
+    }
 
-    if (isMaster) {
+    if (isModerator) {
         auto* options_btn = gtk_button_new();
 
         GError *error = nullptr;
