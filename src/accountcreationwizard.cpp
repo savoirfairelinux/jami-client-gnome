@@ -49,7 +49,8 @@ enum class Mode {
     IMPORT_FROM_DEVICE,
     IMPORT_FROM_BACKUP,
     CONNECT_TO_MANAGER,
-    ADD_RENDEZVOUS
+    ADD_RENDEZVOUS,
+    ADD_SIP
 };
 
 struct _AccountCreationWizardPrivate
@@ -132,6 +133,15 @@ struct _AccountCreationWizardPrivate
     GtkWidget *entry_account_manager_uri;
     GtkWidget *button_account_manager_connect_back;
     GtkWidget *button_account_manager_connect_connect;
+
+    /* Add SIP account */
+    GtkWidget *box_add_sip_account;
+    GtkWidget *entry_add_sip_account_server;
+    GtkWidget *entry_add_sip_account_proxy;
+    GtkWidget *entry_add_sip_account_username;
+    GtkWidget *entry_add_sip_account_password;
+    GtkWidget *button_add_sip_account_back;
+    GtkWidget *button_add_sip_account_create;
 
     lrc::api::AVModel* avModel_;
     lrc::api::NewAccountModel* accountModel_;
@@ -257,6 +267,15 @@ account_creation_wizard_class_init(AccountCreationWizardClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_account_manager_uri);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_manager_connect_back);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_account_manager_connect_connect);
+
+    /* Add SIP account */
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, box_add_sip_account);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_add_sip_account_server);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_add_sip_account_proxy);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_add_sip_account_username);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, entry_add_sip_account_password);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_add_sip_account_back);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), AccountCreationWizard, button_add_sip_account_create);
 
     /* add signals */
     account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED] = g_signal_new("account-creation-completed",
@@ -392,6 +411,15 @@ account_creation_wizard_account_added(AccountCreationWizard *view, const std::st
     if (priv->mode == Mode::ADD_RENDEZVOUS) {
         auto conf = priv->accountModel_->getAccountConfig(priv->accountId);
         conf.isRendezVous = true;
+        priv->accountModel_->setAccountConfig(priv->accountId, conf);
+    }
+
+    if (priv->mode == Mode::ADD_SIP) {
+        auto conf = priv->accountModel_->getAccountConfig(priv->accountId);
+        conf.hostname = gtk_entry_get_text(GTK_ENTRY(priv->entry_add_sip_account_server));
+        conf.proxyServer = gtk_entry_get_text(GTK_ENTRY(priv->entry_add_sip_account_proxy));
+        conf.username = gtk_entry_get_text(GTK_ENTRY(priv->entry_add_sip_account_username));
+        conf.password = gtk_entry_get_text(GTK_ENTRY(priv->entry_add_sip_account_password));
         priv->accountModel_->setAccountConfig(priv->accountId, conf);
     }
 
@@ -534,6 +562,20 @@ connect_account_manager_next_clicked(G_GNUC_UNUSED GtkButton *button, AccountCre
 }
 
 static void
+add_sip_account_create_clicked(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *win)
+{
+    auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
+    priv->mode = Mode::ADD_SIP;
+    gchar *password = g_strdup(gtk_entry_get_text(GTK_ENTRY(priv->entry_add_sip_account_password)));
+    gtk_entry_set_text(GTK_ENTRY(priv->entry_add_sip_account_password), "");
+    auto accountId = lrc::api::NewAccountModel::createNewAccount(lrc::api::profile::Type::SIP, "SIP", "", password, "");
+    priv->accountId = g_strdup(qUtf8Printable(accountId));
+    g_free(password);
+    g_signal_emit(G_OBJECT(win), account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED], 0);
+    g_object_unref(win);
+}
+
+static void
 show_retrieving_account(AccountCreationWizard *win)
 {
     auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(win);
@@ -608,6 +650,12 @@ connect_account_manager_previous_clicked(G_GNUC_UNUSED GtkButton *button, Accoun
 }
 
 static void
+add_sip_account_back_clicked(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *view)
+{
+    show_choose_account_type(view);
+}
+
+static void
 show_import_from_device(AccountCreationWizard *view)
 {
     auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
@@ -668,9 +716,9 @@ show_advanced(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *view)
 static void
 create_new_sip_account(G_GNUC_UNUSED GtkButton *button, AccountCreationWizard *view)
 {
-    lrc::api::NewAccountModel::createNewAccount(lrc::api::profile::Type::SIP, "SIP");
-    g_signal_emit(G_OBJECT(view), account_creation_wizard_signals[ACCOUNT_CREATION_COMPLETED], 0);
-    g_object_unref(view);
+    auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
+    gtk_widget_show(priv->box_add_sip_account);
+    gtk_stack_set_visible_child(GTK_STACK(priv->stack_account_creation), priv->box_add_sip_account);
 }
 
 static void
@@ -919,6 +967,10 @@ build_creation_wizard_view(AccountCreationWizard *view)
     g_signal_connect_swapped(priv->entry_account_manager_uri, "changed", G_CALLBACK(entries_connect_account_manager_changed), view);
     g_signal_connect(priv->button_account_manager_connect_back, "clicked", G_CALLBACK(connect_account_manager_previous_clicked), view);
     g_signal_connect(priv->button_account_manager_connect_connect, "clicked", G_CALLBACK(connect_account_manager_next_clicked), view);
+
+    /* Add SIP account */
+    g_signal_connect(priv->button_add_sip_account_back, "clicked", G_CALLBACK(add_sip_account_back_clicked), view);
+    g_signal_connect(priv->button_add_sip_account_create, "clicked", G_CALLBACK(add_sip_account_create_clicked), view);
 
     show_choose_account_type(view);
 
