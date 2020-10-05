@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81d22580_d056309d",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-05T20:51:11Z",
+      "side": 1,
+      "message": "you need to set the details for the proxyserver and the server naem too (setAccountDetails)",
+      "range": {
+        "startLine": 559,
+        "startChar": 29,
+        "endLine": 561,
+        "endChar": 21
+      },
+      "revId": "7341ad0987aa225c2168c02a575cb7b1727a1199",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cbc623f_10b4aa6a",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-05T20:51:11Z",
+      "side": 1,
+      "message": "Why? None of these info is needed to create a SIP account :)",
+      "range": {
+        "startLine": 783,
+        "startChar": 28,
+        "endLine": 783,
+        "endChar": 86
+      },
+      "revId": "7341ad0987aa225c2168c02a575cb7b1727a1199",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
