@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10dc8068_f8740d90",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2017,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-06T17:44:59Z",
+      "side": 1,
+      "message": "Can use functions there: https://review.jami.net/c/ring-lrc/+/15964",
+      "range": {
+        "startLine": 2002,
+        "startChar": 17,
+        "endLine": 2017,
+        "endChar": 23
+      },
+      "revId": "33318a97e983e17da02563aea21b4aa0476803e7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
