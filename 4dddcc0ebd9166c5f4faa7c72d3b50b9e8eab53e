@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1929b274_7aa865d7",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-08T17:45:54Z",
+      "side": 1,
+      "message": "This value must be handled by the switches to avoid any unnecessary build warning",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 11
+      },
+      "revId": "4dddcc0ebd9166c5f4faa7c72d3b50b9e8eab53e",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "398376d2_41ce820b",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-08T17:45:54Z",
+      "side": 1,
+      "message": "This is your mistake. If you emit the signal here, the account will be immediately created and the settings will not be set\n\nJust remove these two lines will fix your patch",
+      "range": {
+        "startLine": 574,
+        "startChar": 4,
+        "endLine": 575,
+        "endChar": 24
+      },
+      "revId": "4dddcc0ebd9166c5f4faa7c72d3b50b9e8eab53e",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
