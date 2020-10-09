@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "310dd42f_8b44e2e4",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 2002,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-09T15:36:05Z",
+      "side": 1,
+      "message": "For info, this can return a null string, so in fact, if empty, ignore it",
+      "range": {
+        "startLine": 2002,
+        "startChar": 17,
+        "endLine": 2002,
+        "endChar": 25
+      },
+      "revId": "aa628414780a46e338ca41e24c019bca1eb4d21a",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
