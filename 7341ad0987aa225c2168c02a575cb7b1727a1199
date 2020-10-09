@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c77c5b17_60a9d502",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2020-10-09T16:46:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "81d22580_d056309d",
+      "range": {
+        "startLine": 559,
+        "startChar": 29,
+        "endLine": 561,
+        "endChar": 21
+      },
+      "revId": "7341ad0987aa225c2168c02a575cb7b1727a1199",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cbc623f_10b4aa6a",
         "filename": "src/accountcreationwizard.cpp",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "7341ad0987aa225c2168c02a575cb7b1727a1199",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf546eec_c0309462",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2020-10-09T16:46:17Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7cbc623f_10b4aa6a",
+      "range": {
+        "startLine": 783,
+        "startChar": 28,
+        "endLine": 783,
+        "endChar": 86
+      },
+      "revId": "7341ad0987aa225c2168c02a575cb7b1727a1199",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
