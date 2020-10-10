@@ -601,6 +601,7 @@
                                       <object class="GtkLabel" id="label_username">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
+                                        <property name="margin_right">10</property>
                                       </object>
                                     </child>
                                   </object>
@@ -608,9 +609,63 @@
                               </object>
                             </child>
                             <child>
-                              <!-- Password -->
+                              <!-- Encrypt account with password? -->
                               <object class="GtkListBoxRow">
                                 <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="halign">fill</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">True</property>
+                                    <property name="halign">fill</property>
+                                    <property name="orientation">horizontal</property>
+                                    <property name="margin_left">10</property>
+                                    <property name="margin_right">10</property>
+                                    <property name="margin_top">10</property>
+                                    <property name="margin_bottom">10</property>
+                                    <child>
+                                      <object class="GtkLabel" id="label_encrypt">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Encrypt account with password</property>
+                                        <property name="tooltip_text" translatable="yes">Choose a password to encrypt your account on this device.  Note that the password cannot be recovered.</property>
+                                        <property name="margin_right">10</property>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkSwitch" id="switch_encrypt">
+                                        <property name="active">False</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="pack_type">end</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label_encrypt_info">
+                                <property name="visible">False</property>
+                                <property name="halign">start</property>
+                                <property name="margin_left">10</property>
+                                <property name="margin_right">10</property>
+                                <property name="margin_top">10</property>
+                                <property name="margin_bottom">10</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Choose a password to encrypt your account on this device.
+Note that the password cannot be recovered.</property>
+                                <style>
+                                  <class name="smaller"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <!-- Password -->
+                              <object class="GtkListBoxRow" id="row_password">
+                                <property name="visible">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">fill</property>
                                 <child>
@@ -649,8 +704,8 @@
                             </child>
                             <child>
                               <!-- Password confirm -->
-                              <object class="GtkListBoxRow">
-                                <property name="visible">True</property>
+                              <object class="GtkListBoxRow" id="row_password_confirm">
+                                <property name="visible">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="halign">fill</property>
                                 <child>
