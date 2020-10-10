@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Zsolt <maxigaz@protonmail.com>, 2019
+# 386902c248cb697d9d6d058103e08443_c36ce9b <3e1ab06cc760e2987b063fda7f345e3f_237544>, 2019
 # Balázs Meskó <meskobalazs@mailbox.org>, 2019
 # . . <ovari123@zoho.com>, 2019
 # Gábor Papp <pappgabor9@gmail.com>, 2020
