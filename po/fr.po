@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-10 19:23-0400\n"
-"PO-Revision-Date: 2020-10-10 23:24+0000\n"
+"POT-Creation-Date: 2020-10-12 03:09-0400\n"
+"PO-Revision-Date: 2020-10-11 11:57+0000\n"
 "Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1594,7 +1594,7 @@ msgstr "Une erreur s'est produite lors la création du point de rendez-vous"
 
 #: src/accountcreationwizard.cpp:325
 msgid "An error occured during the SIP account creation."
-msgstr ""
+msgstr "Une erreur s'est produite lors de la création du compte SIP"
 
 #: src/accountcreationwizard.cpp:329
 msgid "Cannot retrieve any account, please verify your PIN and your password."

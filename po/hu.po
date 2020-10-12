@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-10 19:23-0400\n"
-"PO-Revision-Date: 2020-10-10 23:24+0000\n"
+"POT-Creation-Date: 2020-10-12 03:09-0400\n"
+"PO-Revision-Date: 2020-10-11 10:09+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -1578,7 +1578,7 @@ msgstr "Hiba történt a találkozási pont létrehozása során."
 
 #: src/accountcreationwizard.cpp:325
 msgid "An error occured during the SIP account creation."
-msgstr ""
+msgstr "Hiba történt a SIP-fiók létrehozása során."
 
 #: src/accountcreationwizard.cpp:329
 msgid "Cannot retrieve any account, please verify your PIN and your password."

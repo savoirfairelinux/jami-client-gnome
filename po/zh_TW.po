@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-10 19:23-0400\n"
-"PO-Revision-Date: 2020-10-06 05:54+0000\n"
+"POT-Creation-Date: 2020-10-12 03:09-0400\n"
+"PO-Revision-Date: 2020-10-11 02:18+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -1578,7 +1578,7 @@ msgstr "建立 rendez-vous 時發生錯誤。"
 
 #: src/accountcreationwizard.cpp:325
 msgid "An error occured during the SIP account creation."
-msgstr ""
+msgstr "建立 SIP 帳號過程中發生錯誤。"
 
 #: src/accountcreationwizard.cpp:329
 msgid "Cannot retrieve any account, please verify your PIN and your password."

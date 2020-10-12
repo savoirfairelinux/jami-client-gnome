@@ -5,7 +5,7 @@
 # 
 # Translators:
 # 李文睿 <happy.lwr@gmail.com>, 2019
-# QWERT Eric, 2019
+# POIUY, 2019
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2019
 # Zkdc, 2019
 # 
