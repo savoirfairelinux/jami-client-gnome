@@ -34,6 +34,7 @@
 #include <globalinstances.h>
 #include <api/conversationmodel.h>
 #include <api/account.h>
+#include <api/chatview.h>
 
 // Jami  Client
 #include "native/pixbufmanipulator.h"
@@ -356,32 +357,25 @@ webview_script_dialog(WebKitWebView      *self,
 static void
 init_js_i18n(WebKitChatContainer *view)
 {
-    auto locales = g_get_language_names();
     gchar *function_call;
-    GBytes *locale_data;
-
-    int i = 0;
-    while (locales[i] != NULL) {
-        auto res = g_strdup_printf("/net/jami/JamiGnome/i18n/%s.json", locales[i]);
-        locale_data = g_resources_lookup_data(res, G_RESOURCE_LOOKUP_FLAGS_NONE, NULL);
-
-        if (locale_data)
-            break;
-        i++;
+    
+    auto translated = lrc::api::chatview::getTranslatedStrings();
+    QJsonObject trjson;
+    for (auto i = translated.begin(); i != translated.end(); ++i) {
+        QString value = i.value().toString();
+        if (not value.isEmpty()) {
+            trjson[i.key()] = value;
+        }
     }
 
-    if (!locale_data) {
+    QJsonDocument doc(trjson);
+    QString strJson(doc.toJson(QJsonDocument::Compact));
+
+    if (strJson.isEmpty()) {
         /* no translation available for current locale, use default */
         function_call = g_strdup("init_i18n()");
     } else {
-        gsize size;
-        auto data = g_bytes_unref_to_data(locale_data, &size);
-        auto nul_terminated = g_strndup((char*) data, size);
-
-        function_call = g_strdup_printf("init_i18n(%s)", nul_terminated);
-
-        g_free(nul_terminated);
-        g_free(data);
+        function_call = g_strdup_printf("init_i18n(%s)", qUtf8Printable(strJson));
     }
 
     webkit_chat_container_execute_js(view, function_call);
