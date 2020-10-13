@@ -1,5 +1,0 @@
-# chatview translation files
-
-Generate .pot as following:
-
-xgettext -o ring-client-gnome-chatview.pot -L Javascript --from-code=utf-8 -D ../../ -f POTFILES.in
