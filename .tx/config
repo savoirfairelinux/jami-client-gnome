@@ -6,9 +6,3 @@ file_filter = po/<lang>.po
 source_file = po/ring-client-gnome.pot
 source_lang = en
 type = PO
-
-[jami.ring-client-gnome-chatviewpot]
-file_filter = po/chatview/<lang>.po
-source_file = po/chatview/ring-client-gnome-chatview.pot
-source_lang = en
-type = PO
