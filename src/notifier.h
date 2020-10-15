@@ -51,8 +51,11 @@ gboolean    show_notification(Notifier* view,
                                    const std::string& id,
                                    const std::string& title,
                                    const std::string& body,
-                                   NotificationType type);
+                                   NotificationType type,
+                                   const std::string& conversation = "");
 gboolean    hide_notification(Notifier* view, const std::string& id);
+gboolean    has_notification(Notifier* view, const std::string& id);
+std::string get_notification_conversation(Notifier* view, const std::string& id);
 
 G_END_DECLS
 
