@@ -31,6 +31,7 @@
 #include <glib/gi18n.h>
 
 // LRC
+#include <api/behaviorcontroller.h>
 #include <api/avmodel.h>
 #include <api/call.h>
 #include <api/newcallmodel.h>
