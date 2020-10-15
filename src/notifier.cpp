@@ -66,6 +66,12 @@ G_DEFINE_TYPE_WITH_PRIVATE(Notifier, notifier, GTK_TYPE_BOX);
 
 #define NOTIFIER_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), NOTIFIER_TYPE, NotifierPrivate))
 
+struct Notification
+{
+    std::shared_ptr<NotifyNotification> nn;
+    std::string conversation;
+};
+
 /* signals */
 enum {
     SHOW_CHAT,
@@ -99,7 +105,7 @@ public:
     gboolean actions;
 
 #if USE_LIBNOTIFY
-    std::map<std::string, std::shared_ptr<NotifyNotification>> notifications_;
+    std::map<std::string, Notification> notifications_;
 #endif
 private:
     CppImpl() = delete;
@@ -283,7 +289,8 @@ gboolean
 show_notification(Notifier* view, const std::string& icon,
                        const std::string& uri, const std::string& name,
                        const std::string& id, const std::string& title,
-                       const std::string& body, NotificationType type)
+                       const std::string& body, NotificationType type,
+                       const std::string& conversation)
 {
     g_return_val_if_fail(IS_NOTIFIER(view), false);
     gboolean success = FALSE;
@@ -292,7 +299,11 @@ show_notification(Notifier* view, const std::string& icon,
 #if USE_LIBNOTIFY
     std::shared_ptr<NotifyNotification> notification(
         notify_notification_new(title.c_str(), body.c_str(), nullptr), g_object_unref);
-    priv->cpp->notifications_.emplace(id, notification);
+    struct Notification n = {
+        notification,
+        conversation
+    };
+    priv->cpp->notifications_.emplace(id, n);
 
     // Draw icon
     auto firstLetter = (name == uri || name.empty()) ?
@@ -397,7 +408,7 @@ hide_notification(Notifier* view, const std::string& id)
 
     // Close
     GError *error = nullptr;
-    if (!notify_notification_close(notification->second.get(), &error)) {
+    if (!notify_notification_close(notification->second.nn.get(), &error)) {
         g_warning("could not close notification: %s", error->message);
         g_clear_error(&error);
         return FALSE;
@@ -408,4 +419,33 @@ hide_notification(Notifier* view, const std::string& id)
 #endif
 
     return TRUE;
+}
+
+gboolean
+has_notification(Notifier* view, const std::string& id)
+{
+    g_return_val_if_fail(IS_NOTIFIER(view), false);
+    NotifierPrivate *priv = NOTIFIER_GET_PRIVATE(view);
+
+#if USE_LIBNOTIFY
+    return priv->cpp->notifications_.find(id) != priv->cpp->notifications_.end();
+#endif
+
+    return FALSE;
+}
+
+std::string
+get_notification_conversation(Notifier* view, const std::string& id)
+{
+    g_return_val_if_fail(IS_NOTIFIER(view), "");
+    NotifierPrivate *priv = NOTIFIER_GET_PRIVATE(view);
+
+#if USE_LIBNOTIFY
+    auto n = priv->cpp->notifications_.find(id);
+    if (n != priv->cpp->notifications_.end()) {
+        return n->second.conversation;
+    }
+#endif
+
+    return {};
 }
