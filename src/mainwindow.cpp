@@ -2248,8 +2248,19 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
     try {
         auto call = accountInfo_->callModel->getCall(callId.c_str());
         auto peer = call.peerUri.remove("ring:");
+        QString avatar = "", name = "", uri = "";
         std::string notifId = "";
         try {
+            auto contactInfo = accountInfo_->contactModel->getContact(peer);
+            uri = contactInfo.profileInfo.uri;
+            avatar = contactInfo.profileInfo.avatar;
+            name = contactInfo.profileInfo.alias;
+            if (name.isEmpty()) {
+                name = contactInfo.registeredName;
+                if (name.isEmpty()) {
+                    name = contactInfo.profileInfo.uri;
+                }
+            }
             notifId = accountInfo_->id.toStdString() + ":call:" + callId;
         } catch (...) {
             g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo_->id));
@@ -2258,8 +2269,16 @@ CppImpl::slotCallStatusChanged(const std::string& callId)
 
         if (call.status == lrc::api::call::Status::IN_PROGRESS
             || call.status == lrc::api::call::Status::ENDED) {
-            // Call ended, close the notification
-            hide_notification(NOTIFIER(widgets->notifier), notifId);
+            // Call answered and in progress, or ended; close the notification
+            if (hide_notification(NOTIFIER(widgets->notifier), notifId)
+                && call.startTime.time_since_epoch().count() == 0) {
+                // This was a missed call; show a missed call notification
+                name.remove('\r');
+                auto body = _("Missed call from ") + name.toStdString();
+                show_notification(NOTIFIER(widgets->notifier),
+                                avatar.toStdString(), uri.toStdString(), name.toStdString(),
+                                notifId, _("Missed call"), body, NotificationType::CHAT);
+            }
         }
     } catch (const std::exception& e) {
         g_warning("Can't get call %s for this account.", callId.c_str());
@@ -2326,7 +2345,8 @@ CppImpl::slotNewIncomingCall(const std::string& accountId, lrc::api::conversatio
                 return;
             }
 
-            if (g_settings_get_boolean(widgets->window_settings, "enable-call-notifications")) {
+            if (!accountInfo.confProperties.isRendezVous
+                && g_settings_get_boolean(widgets->window_settings, "enable-call-notifications")) {
                 name.remove('\r');
                 auto body = name.toStdString() + _(" is calling you!");
                 show_notification(NOTIFIER(widgets->notifier),
