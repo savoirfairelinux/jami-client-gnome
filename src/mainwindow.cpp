@@ -401,7 +401,7 @@ private:
     void slotConversationCleared(const std::string& uid);
     void slotModelSorted();
     void slotNewIncomingCall(const std::string& accountId, lrc::api::conversation::Info origin);
-    void slotCallStatusChanged(const std::string& callId);
+    void slotCallStatusChanged(const std::string& accountId, const std::string& callId);
     void slotCallStarted(const std::string& callId);
     void slotCallEnded(const std::string& callId);
     void slotFilterChanged();
@@ -1089,15 +1089,36 @@ on_notification_decline_call(GtkWidget*, gchar *title, MainWindow* self)
     auto secondMarker = titleStr.find(":", firstMarker + 1);
     if (secondMarker == std::string::npos) return;
 
-    auto id = titleStr.substr(0, firstMarker);
+    auto accountId = titleStr.substr(0, firstMarker);
     auto type = titleStr.substr(firstMarker + 1, secondMarker - firstMarker - 1);
-    auto information = titleStr.substr(secondMarker + 1);
+    auto callId = titleStr.substr(secondMarker + 1);
 
     try {
-        auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id.c_str());
-        accountInfo.callModel->hangUp(information.c_str());
+        auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(accountId.c_str());
+        accountInfo.callModel->hangUp(callId.c_str());
+        hide_notification(NOTIFIER(priv->notifier),
+                          accountId + ":call:" + callId);
     } catch (const std::out_of_range& e) {
-        g_warning("Can't get account %s: %s", id.c_str(), e.what());
+        g_warning("Can't get account %s: %s", accountId.c_str(), e.what());
+    }
+}
+
+static void
+on_incoming_call_view_decline_call(GtkWidget*, gchar* accountId, gchar* callId,
+                                   MainWindow* self)
+{
+    g_return_if_fail(IS_MAIN_WINDOW(self) && accountId && callId);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
+    if (!priv->cpp->accountInfo_) {
+        g_warning("Notification clicked but accountInfo_ currently empty");
+        return;
+    }
+    try {
+        std::string aId(accountId);
+        std::string cId(callId);
+        hide_notification(NOTIFIER(priv->notifier), aId + ":call:" + cId);
+    } catch (const std::out_of_range& e) {
+        g_warning("Can't get account %s: %s", accountId, e.what());
     }
 }
 
@@ -1557,7 +1578,13 @@ GtkWidget*
 CppImpl::displayIncomingView(lrc::api::conversation::Info conversation, bool redraw_webview)
 {
     chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
-    return incoming_call_view_new(webkitChatContainer(redraw_webview), lrc_->getAVModel(), accountInfo_, chatViewConversation_.get());
+    GtkWidget* incoming_call_view =
+        incoming_call_view_new(webkitChatContainer(redraw_webview),
+                               lrc_->getAVModel(), accountInfo_,
+                               chatViewConversation_.get());
+    g_signal_connect(incoming_call_view, "call-hungup",
+                     G_CALLBACK(on_incoming_call_view_decline_call), self);
+    return incoming_call_view;
 }
 
 GtkWidget*
@@ -2011,9 +2038,9 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
                                               &lrc::api::ConversationModel::modelSorted,
                                               [this] { slotModelSorted(); });
 
-    callChangedConnection_ = QObject::connect(&*accountInfo_->callModel,
-                                              &lrc::api::NewCallModel::callStatusChanged,
-                                              [this] (const QString& callId) { slotCallStatusChanged(callId.toStdString()); });
+    callChangedConnection_ = QObject::connect(&lrc_->getBehaviorController(),
+                                              &lrc::api::BehaviorController::callStatusChanged,
+                                              [this] (const QString& accountId, const QString& callId) { slotCallStatusChanged(accountId.toStdString(), callId.toStdString()); });
 
     callStartedConnection_ = QObject::connect(&*accountInfo_->callModel,
                                               &lrc::api::NewCallModel::callStarted,
@@ -2240,26 +2267,46 @@ CppImpl::slotModelSorted()
 }
 
 void
-CppImpl::slotCallStatusChanged(const std::string& callId)
+CppImpl::slotCallStatusChanged(const std::string& accountId, const std::string& callId)
 {
-    if (!accountInfo_) {
-        return;
-    }
     try {
-        auto call = accountInfo_->callModel->getCall(callId.c_str());
+        auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId.c_str());
+        auto call = accountInfo.callModel->getCall(callId.c_str());
         auto peer = call.peerUri.remove("ring:");
+        QString avatar = "", name = "", uri = "";
         std::string notifId = "";
+        std::string conversation = "";
         try {
-            notifId = accountInfo_->id.toStdString() + ":call:" + callId;
+            auto contactInfo = accountInfo.contactModel->getContact(peer);
+            uri = contactInfo.profileInfo.uri;
+            avatar = contactInfo.profileInfo.avatar;
+            name = accountInfo.contactModel->bestNameForContact(peer);
+            if (name.isEmpty()) {
+                name = accountInfo.contactModel->bestIdForContact(peer);
+            }
+            notifId = accountId + ":call:" + callId;
         } catch (...) {
-            g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo_->id));
+            g_warning("Can't get contact for account %s. Don't show notification", accountId.c_str());
             return;
         }
 
-        if (call.status == lrc::api::call::Status::IN_PROGRESS
-            || call.status == lrc::api::call::Status::ENDED) {
-            // Call ended, close the notification
+        conversation = get_notification_conversation(NOTIFIER(widgets->notifier), notifId);
+
+        if (call.status == lrc::api::call::Status::IN_PROGRESS) {
+            // Call answered and in progress; close the notification
             hide_notification(NOTIFIER(widgets->notifier), notifId);
+        } else if (call.status == lrc::api::call::Status::ENDED) {
+            // Call ended; close the notification
+            if (hide_notification(NOTIFIER(widgets->notifier), notifId)
+                && call.startTime.time_since_epoch().count() == 0) {
+                // This was a missed call; show a missed call notification
+                name.remove('\r');
+                auto body = _("Missed call from ") + name.toStdString();
+                show_notification(NOTIFIER(widgets->notifier),
+                                avatar.toStdString(), uri.toStdString(), name.toStdString(),
+                                accountId + ":interaction:" + conversation + ":0",
+                                _("Missed call"), body, NotificationType::CHAT);
+            }
         }
     } catch (const std::exception& e) {
         g_warning("Can't get call %s for this account.", callId.c_str());
@@ -2326,12 +2373,16 @@ CppImpl::slotNewIncomingCall(const std::string& accountId, lrc::api::conversatio
                 return;
             }
 
-            if (g_settings_get_boolean(widgets->window_settings, "enable-call-notifications")) {
+            if (g_settings_get_boolean(widgets->window_settings, "enable-call-notifications")
+                && !accountInfo.confProperties.isRendezVous
+                && !accountInfo.confProperties.autoAnswer
+                && !has_notification(NOTIFIER(widgets->notifier), notifId)) {
                 name.remove('\r');
                 auto body = name.toStdString() + _(" is calling you!");
                 show_notification(NOTIFIER(widgets->notifier),
                                 avatar.toStdString(), uri.toStdString(), name.toStdString(),
-                                notifId, _("Incoming call"), body, NotificationType::CALL);
+                                notifId, _("Incoming call"), body, NotificationType::CALL,
+                                origin.uid.toStdString());
             }
         }
     } catch (const std::exception& e) {
