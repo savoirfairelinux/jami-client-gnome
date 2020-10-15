@@ -34,6 +34,7 @@
 #include <QSize>
 
 // Lrc
+#include <api/behaviorcontroller.h>
 #include <api/avmodel.h>
 #include <api/newcallmodel.h>
 #include <api/contactmodel.h>
