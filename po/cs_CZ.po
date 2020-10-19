@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-12 03:09-0400\n"
+"POT-Creation-Date: 2020-10-19 03:09-0400\n"
 "PO-Revision-Date: 2020-10-10 23:24+0000\n"
 "Last-Translator: Vít Kučera\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/savoirfairelinux/jami/language/cs_CZ/)\n"
@@ -121,15 +121,15 @@ msgstr "Přezdívka"
 
 #: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
 #: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
-#: ui/accountcreationwizard.ui:1038 ui/accountcreationwizard.ui:1256
-#: src/accountcreationwizard.cpp:1014
+#: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
+#: src/accountcreationwizard.cpp:1053
 msgid "Username"
 msgstr "Uživatelské jméno"
 
 #: ui/accountmigrationview.ui:165 ui/newaccountsettingsview.ui:502
 #: ui/newaccountsettingsview.ui:742 ui/accountcreationwizard.ui:286
-#: ui/accountcreationwizard.ui:630 ui/accountcreationwizard.ui:1074
-#: ui/accountcreationwizard.ui:1292
+#: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
+#: ui/accountcreationwizard.ui:1347
 msgid "Password"
 msgstr "Heslo"
 
@@ -190,7 +190,7 @@ msgstr "Exportovat na síť"
 msgid "Your generated pin:"
 msgstr "Vaše vytvořené osobní identifikační číslo (PIN):"
 
-#: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:918
+#: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:973
 msgid "OK"
 msgstr "Budiž"
 
@@ -207,8 +207,8 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Klepněte pro změnu hesla"
 
-#: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:808
-#: src/newaccountsettingsview.cpp:2050 src/accountcreationwizard.cpp:432
+#: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
+#: src/newaccountsettingsview.cpp:2050 src/accountcreationwizard.cpp:440
 msgid "Export account"
 msgstr "Exportovat účet"
 
@@ -225,7 +225,7 @@ msgid "password"
 msgstr "heslo"
 
 #: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
-#: ui/accountcreationwizard.ui:1221
+#: ui/accountcreationwizard.ui:1276
 msgid "Proxy"
 msgstr "Proxy"
 
@@ -644,7 +644,7 @@ msgstr "Propojit zařízení s již existujícím účtem"
 msgid "Import an account with your PIN generated on another device"
 msgstr "Importovat účet pomocí kódu PIN vygenerovaného na jiném zařízení"
 
-#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:686
+#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:694
 msgid "Restore an account from backup"
 msgstr "Obnovit účet ze zálohy"
 
@@ -692,12 +692,12 @@ msgid ""
 "Device\" feature to obtain a PIN."
 msgstr "Zadejte PIN z jiného nastaveného účtu Jami. Použijte funkci „Připojit další zařízení“ k získání PINu."
 
-#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:709
-#: ui/accountcreationwizard.ui:1104 ui/accountcreationwizard.ui:1322
+#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
+#: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
 msgid "Back"
 msgstr "Zpět"
 
-#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1013
+#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1052
 msgid "Register username"
 msgstr "Zaregistrovat uživatelské jméno"
 
@@ -708,76 +708,92 @@ msgid ""
 "characters long."
 msgstr "Zaškrtnutím tohoto nastavení si zaregistrujete jedinečné uživatelské jméno na síti Jami. Ostatní ho budou moci použít k navázání spojení, namísto obvyklého ID, které je 40 znaků dlouhé."
 
+#: ui/accountcreationwizard.ui:630
+msgid "Encrypt account with password"
+msgstr "Šifrovat účet heslem"
+
 #: ui/accountcreationwizard.ui:631
+msgid ""
+"Choose a password to encrypt your account on this device.  Note that the "
+"password cannot be recovered."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:658
+msgid ""
+"Choose a password to encrypt your account on this device.\n"
+"Note that the password cannot be recovered."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:686
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "Toto heslo bude použito k zašifrování dat vašeho účtu a pro připojování nových zařízení k účtu."
 
-#: ui/accountcreationwizard.ui:670 src/newaccountsettingsview.cpp:856
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:856
 msgid "Confirm password"
 msgstr "Potvrdit heslo"
 
-#: ui/accountcreationwizard.ui:717
+#: ui/accountcreationwizard.ui:772
 msgid "Next"
 msgstr "Další"
 
-#: ui/accountcreationwizard.ui:771
+#: ui/accountcreationwizard.ui:826
 msgid "Backup your account!"
 msgstr "Zálohujte svůj účet!"
 
-#: ui/accountcreationwizard.ui:787
+#: ui/accountcreationwizard.ui:842
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
 msgstr "Tento účet existuje pouze na tomto zařízení. Pokud ztratíte své zařízení nebo odinstalujete aplikaci, váš účet bude smazán. Můžete svůj účet zálohovat teď nebo později."
 
-#: ui/accountcreationwizard.ui:794
+#: ui/accountcreationwizard.ui:849
 msgid "Never show me this again"
 msgstr "Již nikdy nezobrazovat"
 
-#: ui/accountcreationwizard.ui:818
+#: ui/accountcreationwizard.ui:873
 msgid "Skip"
 msgstr "Přeskočit"
 
-#: ui/accountcreationwizard.ui:844
+#: ui/accountcreationwizard.ui:899
 msgid "Registering username…"
 msgstr "Registruje se uživatelské jméno…"
 
-#: ui/accountcreationwizard.ui:851
+#: ui/accountcreationwizard.ui:906
 msgid "This may take a few minutes."
 msgstr "Toto může pár minut trvat."
 
-#: ui/accountcreationwizard.ui:877
+#: ui/accountcreationwizard.ui:932
 msgid "Retrieving your Jami account…"
 msgstr "Získává se váš účet Jami…"
 
-#: ui/accountcreationwizard.ui:943
+#: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
 msgstr "Zadat URL správcovského serveru účtů Jami (JAMS)"
 
-#: ui/accountcreationwizard.ui:988
+#: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
 msgstr "URL JAMS"
 
-#: ui/accountcreationwizard.ui:1013
+#: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
 msgstr "Zadejte přihlašovací údaje JAMS"
 
-#: ui/accountcreationwizard.ui:1112
+#: ui/accountcreationwizard.ui:1167
 msgid "Connect"
 msgstr "Připojit"
 
-#: ui/accountcreationwizard.ui:1140
+#: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
 msgstr "Nastavit existující účet SIP."
 
-#: ui/accountcreationwizard.ui:1185
+#: ui/accountcreationwizard.ui:1240
 msgid "Server"
 msgstr "Server"
 
-#: ui/accountcreationwizard.ui:1330
+#: ui/accountcreationwizard.ui:1385
 msgid "Create SIP account"
 msgstr "Vytvořit účet SIP"
 
@@ -1061,13 +1077,13 @@ msgid "Send File"
 msgstr "Poslat soubor"
 
 #: src/chatview.cpp:281 src/newaccountsettingsview.cpp:906
-#: src/accountcreationwizard.cpp:830
+#: src/accountcreationwizard.cpp:868
 msgid "Save File"
 msgstr "Uložit soubor"
 
 #: src/chatview.cpp:284 src/generalsettingsview.cpp:234
 #: src/newaccountsettingsview.cpp:909 src/pluginsettingsview.cpp:127
-#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:833
+#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:871
 msgid "_Cancel"
 msgstr "_Zrušit"
 
@@ -1077,7 +1093,7 @@ msgstr "_Otevřít"
 
 #: src/chatview.cpp:286 src/generalsettingsview.cpp:236
 #: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:129
-#: src/accountcreationwizard.cpp:835
+#: src/accountcreationwizard.cpp:873
 msgid "_Save"
 msgstr "_Uložit"
 
@@ -1154,19 +1170,19 @@ msgstr "Nynější heslo"
 msgid "New password"
 msgstr "Nové heslo"
 
-#: src/newaccountsettingsview.cpp:933 src/accountcreationwizard.cpp:859
+#: src/newaccountsettingsview.cpp:933 src/accountcreationwizard.cpp:897
 msgid "You need to enter your password to export the full archive."
 msgstr "Pro exportování celého archivu musíte zadat heslo."
 
-#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:860
+#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:898
 msgid "Enter password to export archive"
 msgstr "Zadejte heslo pro exportování archivu"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:883
+#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
 msgid "Account exported!"
 msgstr "Účet exportován!"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:883
+#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
 msgid "Export account failure."
 msgstr "Nepodařilo se exportovat účet."
 
@@ -1383,11 +1399,11 @@ msgstr "Pracuje…"
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"\"Together\"\n"
+"\"%s\"\n"
 "built on %.25s"
-msgstr "\"Together\"\nsestaveno %.25s"
+msgstr ""
 
-#: src/dialogs.c:150
+#: src/dialogs.c:151
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1569,60 +1585,60 @@ msgstr "_Profil"
 msgid "Open Avatar Image"
 msgstr "Otevřít profilový obrázek"
 
-#: src/accountcreationwizard.cpp:317
+#: src/accountcreationwizard.cpp:325
 msgid "An error occured during the account creation."
 msgstr "Při vytváření účtu došlo k chybě."
 
-#: src/accountcreationwizard.cpp:321
+#: src/accountcreationwizard.cpp:329
 msgid "An error occured during the rendez-vous creation."
 msgstr "Při vytváření schůzky došlo k chybě."
 
-#: src/accountcreationwizard.cpp:325
+#: src/accountcreationwizard.cpp:333
 msgid "An error occured during the SIP account creation."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:329
+#: src/accountcreationwizard.cpp:337
 msgid "Cannot retrieve any account, please verify your PIN and your password."
 msgstr "Nelze získat žádný účet. Prosím zkontrolujte svůj kód PIN a své heslo."
 
-#: src/accountcreationwizard.cpp:333
+#: src/accountcreationwizard.cpp:341
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
 msgstr "Nelze získat žádný účet. Prosím zkontrolujte svůj archiv a své heslo."
 
-#: src/accountcreationwizard.cpp:337
+#: src/accountcreationwizard.cpp:345
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
 msgstr "Nelze se připojit k danému správci účtů. Prosím zkontrolujte své přihlašovací údaje."
 
-#: src/accountcreationwizard.cpp:526
+#: src/accountcreationwizard.cpp:534
 msgid "Generating your rendez-vous…"
 msgstr "Vytváří se vaše schůzka…"
 
-#: src/accountcreationwizard.cpp:528
+#: src/accountcreationwizard.cpp:536
 msgid "Generating your Jami account…"
 msgstr "Vytváří se váš účet Jami…"
 
-#: src/accountcreationwizard.cpp:544
+#: src/accountcreationwizard.cpp:552
 msgid "Passwords don't match"
 msgstr "Hesla se neshodují"
 
-#: src/accountcreationwizard.cpp:665
+#: src/accountcreationwizard.cpp:673
 msgid "Enter Jami account password"
 msgstr "Zadejte heslo k účtu Jami."
 
-#: src/accountcreationwizard.cpp:666
+#: src/accountcreationwizard.cpp:674
 msgid "Link device"
 msgstr "Připojit zařízení"
 
-#: src/accountcreationwizard.cpp:685
+#: src/accountcreationwizard.cpp:693
 msgid "Import from backup"
 msgstr "Importovat ze zálohy"
 
-#: src/accountcreationwizard.cpp:1044
+#: src/accountcreationwizard.cpp:1083
 msgid "Register name"
 msgstr "Zaregistrovat jméno"
 
-#: src/accountcreationwizard.cpp:1045
+#: src/accountcreationwizard.cpp:1084
 msgid "Name"
 msgstr "Jméno"

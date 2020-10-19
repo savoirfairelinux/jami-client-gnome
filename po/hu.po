@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-12 03:09-0400\n"
-"PO-Revision-Date: 2020-10-11 10:09+0000\n"
-"Last-Translator: . . <ovari123@zoho.com>\n"
+"POT-Creation-Date: 2020-10-19 03:09-0400\n"
+"PO-Revision-Date: 2020-10-19 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -120,15 +120,15 @@ msgstr "Álnév"
 
 #: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
 #: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
-#: ui/accountcreationwizard.ui:1038 ui/accountcreationwizard.ui:1256
-#: src/accountcreationwizard.cpp:1014
+#: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
+#: src/accountcreationwizard.cpp:1053
 msgid "Username"
 msgstr "Felhasználónév"
 
 #: ui/accountmigrationview.ui:165 ui/newaccountsettingsview.ui:502
 #: ui/newaccountsettingsview.ui:742 ui/accountcreationwizard.ui:286
-#: ui/accountcreationwizard.ui:630 ui/accountcreationwizard.ui:1074
-#: ui/accountcreationwizard.ui:1292
+#: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
+#: ui/accountcreationwizard.ui:1347
 msgid "Password"
 msgstr "Jelszó"
 
@@ -189,7 +189,7 @@ msgstr "Fiók exportálása a hálózaton"
 msgid "Your generated pin:"
 msgstr "Az előállított PIN-kód:"
 
-#: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:918
+#: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:973
 msgid "OK"
 msgstr "Rendben"
 
@@ -206,8 +206,8 @@ msgstr "Azonosító"
 msgid "Click to change password"
 msgstr "Kattintson a jelszó megváltoztatásához"
 
-#: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:808
-#: src/newaccountsettingsview.cpp:2050 src/accountcreationwizard.cpp:432
+#: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
+#: src/newaccountsettingsview.cpp:2050 src/accountcreationwizard.cpp:440
 msgid "Export account"
 msgstr "Fiók exportálása"
 
@@ -224,7 +224,7 @@ msgid "password"
 msgstr "jelszó"
 
 #: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
-#: ui/accountcreationwizard.ui:1221
+#: ui/accountcreationwizard.ui:1276
 msgid "Proxy"
 msgstr "Meghatalmazott"
 
@@ -258,7 +258,7 @@ msgstr "Hívás beállítások"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr "Az ismeretlen kapcsolatoktól érkező bejövő hívások engedélyezése "
+msgstr "Az ismeretlen kapcsolatoktól érkező bejövő hívások engedélyezése"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
@@ -282,7 +282,7 @@ msgstr "Cím"
 
 #: ui/newaccountsettingsview.ui:1370
 msgid "OpenDHT configuration"
-msgstr "OpenDHT beállítások"
+msgstr "OpenDHT-beállítások"
 
 #: ui/newaccountsettingsview.ui:1454
 msgid "Auto connect on local network"
@@ -504,7 +504,7 @@ msgstr "Beszélgetések"
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Start a video call"
-msgstr "Videóhívás indítása"
+msgstr "Videohívás indítása"
 
 #: ui/help-overlay.ui:75
 msgctxt "shortcut window"
@@ -643,7 +643,7 @@ msgstr "Ezen eszköz egy létező fiókhoz kapcsolása"
 msgid "Import an account with your PIN generated on another device"
 msgstr "Importáljon egy fiókot egy másik eszközön létrehozott PIN-kóddal"
 
-#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:686
+#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:694
 msgid "Restore an account from backup"
 msgstr "Fiók visszaállítása biztonsági mentésből"
 
@@ -691,12 +691,12 @@ msgid ""
 "Device\" feature to obtain a PIN."
 msgstr "Adja meg egy másik beállított Jami fiók PIN-kódját. Használja az „Eszköz összekapcsolása fiókhoz” működést a PIN-kód eléréséhez."
 
-#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:709
-#: ui/accountcreationwizard.ui:1104 ui/accountcreationwizard.ui:1322
+#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
+#: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
 msgid "Back"
 msgstr "Vissza"
 
-#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1013
+#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1052
 msgid "Register username"
 msgstr "Felhasználónév bejegyeztetése"
 
@@ -707,76 +707,92 @@ msgid ""
 "characters long."
 msgstr "Ezt bejelölve, bejegyez egy egyedi felhasználónevet a Jami hálózaton. Az emberek ezt az azonosítója (amely 40 karakter hosszú) helyett használhatják, hogy elérjék Önt."
 
+#: ui/accountcreationwizard.ui:630
+msgid "Encrypt account with password"
+msgstr "Fiók titkosítása jelszóval"
+
 #: ui/accountcreationwizard.ui:631
+msgid ""
+"Choose a password to encrypt your account on this device.  Note that the "
+"password cannot be recovered."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:658
+msgid ""
+"Choose a password to encrypt your account on this device.\n"
+"Note that the password cannot be recovered."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:686
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "Ez a jelszó a fiókadatainak titkosítására lesz használva, és arra, hogy más eszközöket kapcsoljon a fiókjához."
 
-#: ui/accountcreationwizard.ui:670 src/newaccountsettingsview.cpp:856
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:856
 msgid "Confirm password"
 msgstr "Jelszó megerősítése"
 
-#: ui/accountcreationwizard.ui:717
+#: ui/accountcreationwizard.ui:772
 msgid "Next"
 msgstr "Következő"
 
-#: ui/accountcreationwizard.ui:771
+#: ui/accountcreationwizard.ui:826
 msgid "Backup your account!"
 msgstr "Biztonsági másolat készítése a fiókjáról"
 
-#: ui/accountcreationwizard.ui:787
+#: ui/accountcreationwizard.ui:842
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
 msgstr "Ez a fiók csak ezen az eszközön létezik. Ha elveszíti eszközét, vagy eltávolította az alkalmazást, akkor fiókját töröljük. Biztonsági másolatot készíthet fiókjáról most vagy később."
 
-#: ui/accountcreationwizard.ui:794
+#: ui/accountcreationwizard.ui:849
 msgid "Never show me this again"
 msgstr "Ne jelenjen meg többé"
 
-#: ui/accountcreationwizard.ui:818
+#: ui/accountcreationwizard.ui:873
 msgid "Skip"
 msgstr "Átugrani"
 
-#: ui/accountcreationwizard.ui:844
+#: ui/accountcreationwizard.ui:899
 msgid "Registering username…"
 msgstr "Felhasználónév bejegyeztetése…"
 
-#: ui/accountcreationwizard.ui:851
+#: ui/accountcreationwizard.ui:906
 msgid "This may take a few minutes."
 msgstr "Ez néhány percet is igénybe vehet."
 
-#: ui/accountcreationwizard.ui:877
+#: ui/accountcreationwizard.ui:932
 msgid "Retrieving your Jami account…"
 msgstr "A Jami fiókja lekérése…"
 
-#: ui/accountcreationwizard.ui:943
+#: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
 msgstr "Jami-fiókkezelő kiszolgáló (JAMS) URL megadása"
 
-#: ui/accountcreationwizard.ui:988
+#: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
 msgstr "JAMS URL-je"
 
-#: ui/accountcreationwizard.ui:1013
+#: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
 msgstr "Adja meg a JAMS hitelesítő adatait"
 
-#: ui/accountcreationwizard.ui:1112
+#: ui/accountcreationwizard.ui:1167
 msgid "Connect"
 msgstr "Kapcsolódás"
 
-#: ui/accountcreationwizard.ui:1140
+#: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
 msgstr "Meglévő SIP-fiók beállítása"
 
-#: ui/accountcreationwizard.ui:1185
+#: ui/accountcreationwizard.ui:1240
 msgid "Server"
 msgstr "Kiszolgáló"
 
-#: ui/accountcreationwizard.ui:1330
+#: ui/accountcreationwizard.ui:1385
 msgid "Create SIP account"
 msgstr "SIP fiók létrehozása"
 
@@ -790,7 +806,7 @@ msgstr "Indítása bejelentkezéskor"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr "Tartsa aktívvá a Jami-t, amikor az ablak bezáródik"
+msgstr "Tartsa futva a Jami-t, amikor az ablak bezáródik"
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
@@ -1060,13 +1076,13 @@ msgid "Send File"
 msgstr "Fájl küldése"
 
 #: src/chatview.cpp:281 src/newaccountsettingsview.cpp:906
-#: src/accountcreationwizard.cpp:830
+#: src/accountcreationwizard.cpp:868
 msgid "Save File"
 msgstr "Fájl mentése"
 
 #: src/chatview.cpp:284 src/generalsettingsview.cpp:234
 #: src/newaccountsettingsview.cpp:909 src/pluginsettingsview.cpp:127
-#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:833
+#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:871
 msgid "_Cancel"
 msgstr "_Mégse"
 
@@ -1076,7 +1092,7 @@ msgstr "_Megnyitás"
 
 #: src/chatview.cpp:286 src/generalsettingsview.cpp:236
 #: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:129
-#: src/accountcreationwizard.cpp:835
+#: src/accountcreationwizard.cpp:873
 msgid "_Save"
 msgstr "_Mentés"
 
@@ -1143,7 +1159,7 @@ msgstr "Hibás jelszó!"
 
 #: src/newaccountsettingsview.cpp:841
 msgid "Note: this will change the password only on this device."
-msgstr "Megjegyzés: a jelszó megváltoztatása csak ezen az eszközön."
+msgstr "Megjegyzés: A jelszó megváltoztatása csak ezen az eszközön."
 
 #: src/newaccountsettingsview.cpp:844
 msgid "Current password"
@@ -1153,19 +1169,19 @@ msgstr "Jelenlegi jelszó"
 msgid "New password"
 msgstr "Új jelszó"
 
-#: src/newaccountsettingsview.cpp:933 src/accountcreationwizard.cpp:859
+#: src/newaccountsettingsview.cpp:933 src/accountcreationwizard.cpp:897
 msgid "You need to enter your password to export the full archive."
 msgstr "Meg kell adnia a jelszót, hogy exportálja a teljes archívumot."
 
-#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:860
+#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:898
 msgid "Enter password to export archive"
 msgstr "Adja meg a jelszót az archívum exportálásához"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:883
+#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
 msgid "Account exported!"
 msgstr "A fiókot exportálták!"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:883
+#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
 msgid "Export account failure."
 msgstr "Fiók exportálási hiba."
 
@@ -1382,11 +1398,11 @@ msgstr "Dolgozik…"
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"\"Together\"\n"
+"\"%s\"\n"
 "built on %.25s"
-msgstr "„Együtt”\nkódtár verziója: %.25s"
+msgstr ""
 
-#: src/dialogs.c:150
+#: src/dialogs.c:151
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1568,60 +1584,60 @@ msgstr "_Profil"
 msgid "Open Avatar Image"
 msgstr "Megtestesüléskép megnyitása"
 
-#: src/accountcreationwizard.cpp:317
+#: src/accountcreationwizard.cpp:325
 msgid "An error occured during the account creation."
 msgstr "Hiba történt a fiók létrehozása során."
 
-#: src/accountcreationwizard.cpp:321
+#: src/accountcreationwizard.cpp:329
 msgid "An error occured during the rendez-vous creation."
 msgstr "Hiba történt a találkozási pont létrehozása során."
 
-#: src/accountcreationwizard.cpp:325
+#: src/accountcreationwizard.cpp:333
 msgid "An error occured during the SIP account creation."
 msgstr "Hiba történt a SIP-fiók létrehozása során."
 
-#: src/accountcreationwizard.cpp:329
+#: src/accountcreationwizard.cpp:337
 msgid "Cannot retrieve any account, please verify your PIN and your password."
 msgstr "Nem lehet lekérni egy fiókot, kérjük, ellenőrizze PIN-kódját és jelszavát."
 
-#: src/accountcreationwizard.cpp:333
+#: src/accountcreationwizard.cpp:341
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
 msgstr "Nem lehet lekérni bármilyen fiókot, kérjük, ellenőrizze archívumát és jelszavát."
 
-#: src/accountcreationwizard.cpp:337
+#: src/accountcreationwizard.cpp:345
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
 msgstr "Nem lehet csatlakozni a megadott fiókkezelőhöz. Kérjük, ellenőrizze hitelesítő adatait."
 
-#: src/accountcreationwizard.cpp:526
+#: src/accountcreationwizard.cpp:534
 msgid "Generating your rendez-vous…"
 msgstr "Találkozási pont létrehozása…"
 
-#: src/accountcreationwizard.cpp:528
+#: src/accountcreationwizard.cpp:536
 msgid "Generating your Jami account…"
 msgstr "Jami-fiók létrehozása…"
 
-#: src/accountcreationwizard.cpp:544
+#: src/accountcreationwizard.cpp:552
 msgid "Passwords don't match"
 msgstr "A jelszók nem egyeznek"
 
-#: src/accountcreationwizard.cpp:665
+#: src/accountcreationwizard.cpp:673
 msgid "Enter Jami account password"
 msgstr "Adja meg a Jami fiók jelszavát"
 
-#: src/accountcreationwizard.cpp:666
+#: src/accountcreationwizard.cpp:674
 msgid "Link device"
 msgstr "Eszköz összekapcsolása"
 
-#: src/accountcreationwizard.cpp:685
+#: src/accountcreationwizard.cpp:693
 msgid "Import from backup"
 msgstr "Importálás biztonsági másolatból"
 
-#: src/accountcreationwizard.cpp:1044
+#: src/accountcreationwizard.cpp:1083
 msgid "Register name"
 msgstr "Név bejegyzése"
 
-#: src/accountcreationwizard.cpp:1045
+#: src/accountcreationwizard.cpp:1084
 msgid "Name"
 msgstr "Név"

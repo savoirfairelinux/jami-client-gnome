@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-12 03:09-0400\n"
-"PO-Revision-Date: 2020-10-10 23:24+0000\n"
+"POT-Creation-Date: 2020-10-19 03:09-0400\n"
+"PO-Revision-Date: 2020-10-19 07:09+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/savoirfairelinux/jami/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
@@ -123,15 +123,15 @@ msgstr "Alias"
 
 #: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
 #: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
-#: ui/accountcreationwizard.ui:1038 ui/accountcreationwizard.ui:1256
-#: src/accountcreationwizard.cpp:1014
+#: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
+#: src/accountcreationwizard.cpp:1053
 msgid "Username"
 msgstr "Utente"
 
 #: ui/accountmigrationview.ui:165 ui/newaccountsettingsview.ui:502
 #: ui/newaccountsettingsview.ui:742 ui/accountcreationwizard.ui:286
-#: ui/accountcreationwizard.ui:630 ui/accountcreationwizard.ui:1074
-#: ui/accountcreationwizard.ui:1292
+#: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
+#: ui/accountcreationwizard.ui:1347
 msgid "Password"
 msgstr "Password"
 
@@ -192,7 +192,7 @@ msgstr "Esporta sulla rete"
 msgid "Your generated pin:"
 msgstr "Il pin generato per te:"
 
-#: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:918
+#: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:973
 msgid "OK"
 msgstr "OK"
 
@@ -209,8 +209,8 @@ msgstr "ID"
 msgid "Click to change password"
 msgstr "Clicca per cambiare la password"
 
-#: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:808
-#: src/newaccountsettingsview.cpp:2050 src/accountcreationwizard.cpp:432
+#: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
+#: src/newaccountsettingsview.cpp:2050 src/accountcreationwizard.cpp:440
 msgid "Export account"
 msgstr "Esporta account"
 
@@ -227,7 +227,7 @@ msgid "password"
 msgstr "password"
 
 #: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
-#: ui/accountcreationwizard.ui:1221
+#: ui/accountcreationwizard.ui:1276
 msgid "Proxy"
 msgstr "Proxy"
 
@@ -646,7 +646,7 @@ msgstr "Collega questo dispositivo ad un account esistente"
 msgid "Import an account with your PIN generated on another device"
 msgstr "Importa un account con il PIN generato su un altro dispositivo"
 
-#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:686
+#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:694
 msgid "Restore an account from backup"
 msgstr ""
 
@@ -694,12 +694,12 @@ msgid ""
 "Device\" feature to obtain a PIN."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:709
-#: ui/accountcreationwizard.ui:1104 ui/accountcreationwizard.ui:1322
+#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
+#: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
 msgid "Back"
 msgstr "Indietro"
 
-#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1013
+#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1052
 msgid "Register username"
 msgstr "Registra il nome utente"
 
@@ -710,76 +710,92 @@ msgid ""
 "characters long."
 msgstr "Controllando questo, registrerai un nome utente univoco sulla rete Jami. Le persone possono usarlo per contattarti invece di usare il tuo ID, che è lungo 40 caratteri."
 
+#: ui/accountcreationwizard.ui:630
+msgid "Encrypt account with password"
+msgstr "Crittografa account con password"
+
 #: ui/accountcreationwizard.ui:631
+msgid ""
+"Choose a password to encrypt your account on this device.  Note that the "
+"password cannot be recovered."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:658
+msgid ""
+"Choose a password to encrypt your account on this device.\n"
+"Note that the password cannot be recovered."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:686
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
 msgstr "Questa password verrà utilizzata per crittografare i tuoi dati dell'account e per collegare i nuovi dispositivi al tuo account."
 
-#: ui/accountcreationwizard.ui:670 src/newaccountsettingsview.cpp:856
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:856
 msgid "Confirm password"
 msgstr "Conferma password"
 
-#: ui/accountcreationwizard.ui:717
+#: ui/accountcreationwizard.ui:772
 msgid "Next"
 msgstr "Prossimo"
 
-#: ui/accountcreationwizard.ui:771
+#: ui/accountcreationwizard.ui:826
 msgid "Backup your account!"
 msgstr "Fai il backup del tuo account!"
 
-#: ui/accountcreationwizard.ui:787
+#: ui/accountcreationwizard.ui:842
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
 msgstr "Questo account esiste solo su questo dispositivo. Se hai perso il dispositivo o disinstallato l'applicazione, il tuo account verrà eliminato. Puoi eseguire il backup del tuo account ora o più tardi."
 
-#: ui/accountcreationwizard.ui:794
+#: ui/accountcreationwizard.ui:849
 msgid "Never show me this again"
 msgstr "Non mostrarmelo mai più"
 
-#: ui/accountcreationwizard.ui:818
+#: ui/accountcreationwizard.ui:873
 msgid "Skip"
 msgstr "Salta"
 
-#: ui/accountcreationwizard.ui:844
+#: ui/accountcreationwizard.ui:899
 msgid "Registering username…"
 msgstr "Registrazione nome utente ..."
 
-#: ui/accountcreationwizard.ui:851
+#: ui/accountcreationwizard.ui:906
 msgid "This may take a few minutes."
 msgstr "Questa operazione potrebbe richiedere alcuni minuti."
 
-#: ui/accountcreationwizard.ui:877
+#: ui/accountcreationwizard.ui:932
 msgid "Retrieving your Jami account…"
 msgstr "Recupero del tuo account Jami ..."
 
-#: ui/accountcreationwizard.ui:943
+#: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:988
+#: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:1013
+#: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:1112
+#: ui/accountcreationwizard.ui:1167
 msgid "Connect"
 msgstr "Connetti"
 
-#: ui/accountcreationwizard.ui:1140
+#: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:1185
+#: ui/accountcreationwizard.ui:1240
 msgid "Server"
 msgstr "Server"
 
-#: ui/accountcreationwizard.ui:1330
+#: ui/accountcreationwizard.ui:1385
 msgid "Create SIP account"
 msgstr ""
 
@@ -1063,13 +1079,13 @@ msgid "Send File"
 msgstr "Invia file"
 
 #: src/chatview.cpp:281 src/newaccountsettingsview.cpp:906
-#: src/accountcreationwizard.cpp:830
+#: src/accountcreationwizard.cpp:868
 msgid "Save File"
 msgstr "Salva File"
 
 #: src/chatview.cpp:284 src/generalsettingsview.cpp:234
 #: src/newaccountsettingsview.cpp:909 src/pluginsettingsview.cpp:127
-#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:833
+#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:871
 msgid "_Cancel"
 msgstr "_Annulla"
 
@@ -1079,7 +1095,7 @@ msgstr "_Apri"
 
 #: src/chatview.cpp:286 src/generalsettingsview.cpp:236
 #: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:129
-#: src/accountcreationwizard.cpp:835
+#: src/accountcreationwizard.cpp:873
 msgid "_Save"
 msgstr "_Salva"
 
@@ -1156,19 +1172,19 @@ msgstr "Password attuale"
 msgid "New password"
 msgstr "Nuova password"
 
-#: src/newaccountsettingsview.cpp:933 src/accountcreationwizard.cpp:859
+#: src/newaccountsettingsview.cpp:933 src/accountcreationwizard.cpp:897
 msgid "You need to enter your password to export the full archive."
 msgstr "È necessario inserire la password per esportare l'archivio completo."
 
-#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:860
+#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:898
 msgid "Enter password to export archive"
 msgstr "Inserisci la password per esportare l'archivio"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:883
+#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
 msgid "Account exported!"
 msgstr "Account esportato!"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:883
+#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
 msgid "Export account failure."
 msgstr "Esportazione account fallito."
 
@@ -1385,11 +1401,11 @@ msgstr "Sto lavorando…"
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
-"\"Together\"\n"
+"\"%s\"\n"
 "built on %.25s"
 msgstr ""
 
-#: src/dialogs.c:150
+#: src/dialogs.c:151
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1571,60 +1587,60 @@ msgstr "_Profilo"
 msgid "Open Avatar Image"
 msgstr "Apri immagine dell'Avatar"
 
-#: src/accountcreationwizard.cpp:317
+#: src/accountcreationwizard.cpp:325
 msgid "An error occured during the account creation."
 msgstr "Si è verificato un errore durante la creazione dell'account."
 
-#: src/accountcreationwizard.cpp:321
+#: src/accountcreationwizard.cpp:329
 msgid "An error occured during the rendez-vous creation."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:325
+#: src/accountcreationwizard.cpp:333
 msgid "An error occured during the SIP account creation."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:329
+#: src/accountcreationwizard.cpp:337
 msgid "Cannot retrieve any account, please verify your PIN and your password."
 msgstr "Impossibile recuperare alcun account, verifica il PIN e la password."
 
-#: src/accountcreationwizard.cpp:333
+#: src/accountcreationwizard.cpp:341
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
 msgstr "Impossibile recuperare alcun account, verifica l'archivio e la password."
 
-#: src/accountcreationwizard.cpp:337
+#: src/accountcreationwizard.cpp:345
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
 msgstr "Impossibile connettersi al gestore account fornito. Controlla le tue credenziali."
 
-#: src/accountcreationwizard.cpp:526
+#: src/accountcreationwizard.cpp:534
 msgid "Generating your rendez-vous…"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:528
+#: src/accountcreationwizard.cpp:536
 msgid "Generating your Jami account…"
 msgstr "Generare il tuo account Jami ..."
 
-#: src/accountcreationwizard.cpp:544
+#: src/accountcreationwizard.cpp:552
 msgid "Passwords don't match"
 msgstr "Le password non coincidono"
 
-#: src/accountcreationwizard.cpp:665
+#: src/accountcreationwizard.cpp:673
 msgid "Enter Jami account password"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:666
+#: src/accountcreationwizard.cpp:674
 msgid "Link device"
 msgstr "Dispositivo di collegamento"
 
-#: src/accountcreationwizard.cpp:685
+#: src/accountcreationwizard.cpp:693
 msgid "Import from backup"
 msgstr "Importa da backup"
 
-#: src/accountcreationwizard.cpp:1044
+#: src/accountcreationwizard.cpp:1083
 msgid "Register name"
 msgstr "Nome registrazione"
 
-#: src/accountcreationwizard.cpp:1045
+#: src/accountcreationwizard.cpp:1084
 msgid "Name"
 msgstr "Nome"
