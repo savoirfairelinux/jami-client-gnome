@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e6481d6_1734c732",
+        "filename": "src/mainwindow.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2276,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-19T19:59:15Z",
+      "side": 1,
+      "message": "Must be move in a signal emitted for all accounts else it will not work",
+      "range": {
+        "startLine": 2276,
+        "startChar": 16,
+        "endLine": 2276,
+        "endChar": 33
+      },
+      "revId": "e234780b0f51f8deeca726cbf17513246f2d49e7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
