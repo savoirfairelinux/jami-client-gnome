@@ -1051,8 +1051,8 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
             gtk_container_remove(GTK_CONTAINER(widgets->list_conversations), children);
         // Fill with SIP contacts
         add_transfer_contact("");  // Temporary item
-        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP))
-            add_transfer_contact(c.participants.front().toStdString());
+        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP).get())
+            add_transfer_contact(c->participants.front().toStdString());
         gtk_widget_show_all(widgets->list_conversations);
         gtk_widget_show(widgets->togglebutton_transfer);
         gtk_widget_show(widgets->togglebutton_hold);
