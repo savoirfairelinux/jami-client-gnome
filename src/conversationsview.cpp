@@ -120,39 +120,34 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                         0 /* col# */, &uid /* data */,
                         -1);
 
-    try
-    {
-        // Draw first contact.
-        // NOTE: We just draw the first contact, must change this for conferences when they will have their own object
-        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
-        auto isPresent = false;
-        auto isBanned = false;
-        if (not conversation.participants.empty()) {
-            auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(conversation.participants.front());
-            isPresent = contactInfo.isPresent;
-            isBanned = contactInfo.isBanned;
-        }
-        std::shared_ptr<GdkPixbuf> image;
-        auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
-            conversation,
-            **(priv->accountInfo_),
-            QSize(50, 50),
-            isPresent
-        );
-        image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
+    auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(uid);
 
-        // set the width of the cell rendered to the width of the photo
-        // so that the other renderers are shifted to the right
-        g_object_set(G_OBJECT(cell), "width", 50, NULL);
-        g_object_set(G_OBJECT(cell), "pixbuf", image.get(), NULL);
+    // Draw first contact.
+    // NOTE: We just draw the first contact, must change this for conferences when they will have their own object
+    auto isPresent = false;
+    auto isBanned = false;
+    if (convOpt && !convOpt->get().participants.empty()) {
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(convOpt->get().participants.front());
+        isPresent = contactInfo.isPresent;
+        isBanned = contactInfo.isBanned;
+    }
+    std::shared_ptr<GdkPixbuf> image;
+    static lrc::api::conversation::Info invalidConverstation = {.uid = "-1"};
+    auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
+        convOpt ? convOpt->get() : invalidConverstation,
+        **(priv->accountInfo_),
+        QSize(50, 50),
+        isPresent
+    );
+    image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
 
-        // Banned contacts should be displayed with grey bg
-        g_object_set(G_OBJECT(cell), "cell-background", isBanned ? "#BDBDBD" : NULL, NULL);
-    }
-    catch (const std::exception&)
-    {
-        g_warning("Can't get conversation %s", uid);
-    }
+    // set the width of the cell rendered to the width of the photo
+    // so that the other renderers are shifted to the right
+    g_object_set(G_OBJECT(cell), "width", 50, NULL);
+    g_object_set(G_OBJECT(cell), "pixbuf", image.get(), NULL);
+
+    // Banned contacts should be displayed with grey bg
+    g_object_set(G_OBJECT(cell), "cell-background", isBanned ? "#BDBDBD" : NULL, NULL);
 
     g_free(uid);
 }
@@ -191,10 +186,10 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
     auto bestId = std::string(registeredName).empty() ? uri: registeredName;
 
-    auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
+    auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(uid);
     auto isBanned = false;
-    if (not conversation.participants.empty()) {
-        auto contactUri = conversation.participants.front();
+    if (convOpt && not convOpt->get().participants.empty()) {
+        auto contactUri = convOpt->get().participants.front();
         auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         isBanned = contactInfo.isBanned;
     }
@@ -274,15 +269,16 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     {
         // Draw first contact.
         // NOTE: We just draw the first contact, must change this for conferences when they will have their own object
-        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
-        if (conversation.participants.empty()) return;
-        auto contactUri = conversation.participants.front();
+        auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(uid);
+        if (!convOpt || convOpt->get().participants.empty()) return;
+        auto& conv = convOpt->get();
+        auto contactUri = conv.participants.front();
         auto& contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
 
         // Banned contacts should be displayed with grey bg
         g_object_set(G_OBJECT(cell), "cell-background", contactInfo.isBanned ? "#BDBDBD" : NULL, NULL);
 
-        auto callId = conversation.confId.isEmpty() ? conversation.callId : conversation.confId;
+        auto callId = conv.confId.isEmpty() ? conv.callId : conv.confId;
         if (!callId.isEmpty()) {
             auto call = (*priv->accountInfo_)->callModel->getCall(callId);
             if (call.status != lrc::api::call::Status::ENDED) {
@@ -292,8 +288,8 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             }
         }
 
-        auto& interactions = conversation.interactions;
-        auto lastUid = conversation.lastMessageUid;
+        auto& interactions = conv.interactions;
+        auto lastUid = conv.lastMessageUid;
 
         if (!interactions.empty() && interactions.find(lastUid) != interactions.end()) {
             std::time_t lastTimestamp = interactions[lastUid].timestamp;
@@ -337,22 +333,24 @@ update_conversation(ConversationsView *self, const std::string& uid) {
                             -1);
         if(std::string(uid) == uidModel) {
             // Get informations
-            auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uidModel);
-            if (conversation.participants.empty()) {
+            auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(uidModel);
+            if (!convOpt || convOpt->get().participants.empty()) {
                 g_free(uidModel);
                 return;
             }
-            auto contactUri = conversation.participants.front();
+            auto& conv = convOpt->get();
+
+            auto contactUri = conv.participants.front();
             auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
-            auto lastMessage = conversation.interactions.empty() ? "" :
-                conversation.interactions.at(conversation.lastMessageUid).body;
+            auto lastMessage = conv.interactions.empty() ? "" :
+                conv.interactions.at(conv.lastMessageUid).body;
             std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
             auto alias = contactInfo.profileInfo.alias;
             alias.remove('\r');
             // Update iter
 
             gtk_list_store_set (GTK_LIST_STORE(model), &iter,
-                                0 /* col # */ , qUtf8Printable(conversation.uid) /* celldata */,
+                                0 /* col # */ , qUtf8Printable(conv.uid) /* celldata */,
                                 1 /* col # */ , qUtf8Printable(alias) /* celldata */,
                                 2 /* col # */ , qUtf8Printable(contactInfo.profileInfo.uri) /* celldata */,
                                 3 /* col # */ , qUtf8Printable(contactInfo.registeredName) /* celldata */,
@@ -396,7 +394,7 @@ create_and_fill_model(ConversationsView *self)
 
 
     auto fillModelLambda = [&](const auto& queue) {
-        for (auto conversation : queue) {
+        for (const lrc::api::conversation::Info& conversation : queue) {
             if (conversation.participants.empty()) {
                 g_debug("Found conversation with empty list of participants - most likely the result of earlier bug.");
                 break;
@@ -426,7 +424,7 @@ create_and_fill_model(ConversationsView *self)
     };
 
     fillModelLambda((*priv->accountInfo_)->conversationModel->getAllSearchResults());
-    fillModelLambda((*priv->accountInfo_)->conversationModel->allFilteredConversations());
+    fillModelLambda((*priv->accountInfo_)->conversationModel->allFilteredConversations().get());
 
     return GTK_TREE_MODEL (store);
 }
@@ -718,7 +716,7 @@ build_conversations_view(ConversationsView *self)
     // This view should be synchronized and redraw at each update.
     priv->modelSortedConnection_ = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel,
-    &lrc::api::ConversationModel::modelSorted,
+    &lrc::api::ConversationModel::modelChanged,
     [self] () {
         auto model = create_and_fill_model(self);
 
