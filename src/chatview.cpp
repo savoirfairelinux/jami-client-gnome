@@ -1150,14 +1150,14 @@ build_chat_view(ChatView* self)
 GtkWidget *
 chat_view_new (WebKitChatContainer* webkit_chat_container,
                AccountInfoPointer const & accountInfo,
-               lrc::api::conversation::Info* conversation,
+               lrc::api::conversation::Info& conversation,
                lrc::api::AVModel& avModel)
 {
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     priv->webkit_chat_container = GTK_WIDGET(webkit_chat_container);
-    priv->conversation_ = conversation;
+    priv->conversation_ = &conversation;
     priv->accountInfo_ = &accountInfo;
 
     build_chat_view(self);
@@ -1173,10 +1173,9 @@ chat_view_update_temporary(ChatView* self)
     update_chatview_frame(self);
 }
 
-lrc::api::conversation::Info
+lrc::api::conversation::Info&
 chat_view_get_conversation(ChatView *self)
 {
-    g_return_val_if_fail(IS_CHAT_VIEW(self), lrc::api::conversation::Info());
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     return *priv->conversation_;
 }
