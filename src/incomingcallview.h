@@ -57,9 +57,9 @@ GType      incoming_call_view_get_type (void) G_GNUC_CONST;
 GtkWidget *incoming_call_view_new (WebKitChatContainer* view,
                                    lrc::api::AVModel& avModel,
                                    AccountInfoPointer const & accountInfo,
-                                   lrc::api::conversation::Info* conversation);
-void incoming_call_view_let_a_message(IncomingCallView* view, lrc::api::conversation::Info conv);
+                                   lrc::api::conversation::Info& conversation);
+void incoming_call_view_let_a_message(IncomingCallView* view, const lrc::api::conversation::Info& conv);
 bool is_showing_let_a_message_view(IncomingCallView* view, lrc::api::conversation::Info conv);
-lrc::api::conversation::Info incoming_call_view_get_conversation (IncomingCallView*);
+lrc::api::conversation::Info& incoming_call_view_get_conversation (IncomingCallView*);
 
 G_END_DECLS

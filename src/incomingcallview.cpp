@@ -299,7 +299,7 @@ set_call_info(IncomingCallView *view) {
 
     auto chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                                          *priv->accountInfo_,
-                                                         priv->conversation_,
+                                                         *priv->conversation_,
                                                          *priv->avModel_);
     gtk_widget_show(chat_view);
     chat_view_set_header_visible(CHAT_VIEW(chat_view), FALSE);
@@ -311,13 +311,13 @@ GtkWidget *
 incoming_call_view_new(WebKitChatContainer* view,
                        lrc::api::AVModel& avModel,
                        AccountInfoPointer const & accountInfo,
-                       lrc::api::conversation::Info* conversation)
+                       lrc::api::conversation::Info& conversation)
 {
     auto self = g_object_new(INCOMING_CALL_VIEW_TYPE, NULL);
 
     IncomingCallViewPrivate *priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
     priv->webkit_chat_container = GTK_WIDGET(view);
-    priv->conversation_ = conversation;
+    priv->conversation_ = &conversation;
     priv->accountInfo_ = &accountInfo;
     priv->avModel_ = &avModel;
 
@@ -330,17 +330,16 @@ incoming_call_view_new(WebKitChatContainer* view,
     return GTK_WIDGET(self);
 }
 
-lrc::api::conversation::Info
+lrc::api::conversation::Info&
 incoming_call_view_get_conversation(IncomingCallView *self)
 {
-    g_return_val_if_fail(IS_INCOMING_CALL_VIEW(self), lrc::api::conversation::Info());
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
 
     return *priv->conversation_;
 }
 
 void
-incoming_call_view_let_a_message(IncomingCallView* view, lrc::api::conversation::Info conv)
+incoming_call_view_let_a_message(IncomingCallView* view, const lrc::api::conversation::Info& conv)
 {
     g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
