@@ -54,10 +54,10 @@ typedef struct _CurrentCallViewClass CurrentCallViewClass;
 GType      current_call_view_get_type      (void) G_GNUC_CONST;
 GtkWidget *current_call_view_new           (WebKitChatContainer* view,
                                            AccountInfoPointer const & accountInfo,
-                                           lrc::api::conversation::Info* conversation,
+                                           lrc::api::conversation::Info& conversation,
                                            lrc::api::AVModel& avModel,
                                            const lrc::api::Lrc& lrc);
-lrc::api::conversation::Info current_call_view_get_conversation(CurrentCallView*);
+lrc::api::conversation::Info& current_call_view_get_conversation(CurrentCallView*);
 GtkWidget *current_call_view_get_chat_view(CurrentCallView*);
 std::string current_call_view_get_rendered_call(CurrentCallView*);
 void current_call_view_show_chat(CurrentCallView*);

@@ -236,7 +236,7 @@ public:
     void init();
     void setup(WebKitChatContainer* chat_widget,
                AccountInfoPointer const & account_info,
-               lrc::api::conversation::Info* conversation,
+               lrc::api::conversation::Info& conversation,
                lrc::api::AVModel& avModel);
 
     void updateConvList();
@@ -1029,11 +1029,11 @@ CppImpl::init()
 void
 CppImpl::setup(WebKitChatContainer* chat_widget,
                AccountInfoPointer const & account_info,
-               lrc::api::conversation::Info* conv_info,
+               lrc::api::conversation::Info& conv_info,
                lrc::api::AVModel& avModel)
 {
     widgets->webkit_chat_container = GTK_WIDGET(chat_widget);
-    conversation = conv_info;
+    conversation = &conv_info;
     accountInfo = &account_info;
     avModel_ = &avModel;
     setCallInfo();
@@ -1051,8 +1051,8 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
             gtk_container_remove(GTK_CONTAINER(widgets->list_conversations), children);
         // Fill with SIP contacts
         add_transfer_contact("");  // Temporary item
-        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP))
-            add_transfer_contact(c.participants.front().toStdString());
+        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP).get())
+            add_transfer_contact(c.get().participants.front().toStdString());
         gtk_widget_show_all(widgets->list_conversations);
         gtk_widget_show(widgets->togglebutton_transfer);
         gtk_widget_show(widgets->togglebutton_hold);
@@ -1219,9 +1219,9 @@ CppImpl::updateConvList()
     }
 
     first = true;
-    for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations((*accountInfo)->profileInfo.type)) {
+    for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations((*accountInfo)->profileInfo.type).get()) {
         try {
-            auto participant = c.participants.front();
+            auto participant = c.get().participants.front();
             auto contactInfo = (*accountInfo)->contactModel->getContact(participant);
             auto isPresent = std::find(uris.cbegin(), uris.cend(), participant) != uris.cend();
             if (!isPresent
@@ -1563,7 +1563,7 @@ CppImpl::setCallInfo()
 
     // init chat view
     widgets->chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(widgets->webkit_chat_container),
-                                       *accountInfo, conversation, *avModel_);
+                                       *accountInfo, *conversation, *avModel_);
     gtk_container_add(GTK_CONTAINER(widgets->frame_chat), widgets->chat_view);
 
     chat_view_set_header_visible(CHAT_VIEW(widgets->chat_view), FALSE);
@@ -2029,10 +2029,9 @@ CppImpl::set_remote_record_animation(std::string callId, QSet<QString> peerName,
 
 //==============================================================================
 
-lrc::api::conversation::Info
+lrc::api::conversation::Info&
 current_call_view_get_conversation(CurrentCallView *self)
 {
-    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), lrc::api::conversation::Info());
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
     return *priv->cpp->conversation;
 }
@@ -2150,7 +2149,7 @@ current_call_view_class_init(CurrentCallViewClass *klass)
 GtkWidget *
 current_call_view_new(WebKitChatContainer* chat_widget,
                       AccountInfoPointer const & accountInfo,
-                      lrc::api::conversation::Info* conversation,
+                      lrc::api::conversation::Info& conversation,
                       lrc::api::AVModel& avModel,
                       const lrc::api::Lrc& lrc)
 {

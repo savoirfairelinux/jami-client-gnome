@@ -88,7 +88,7 @@ public:
 
     void init();
     void setup(lrc::api::AVModel& avModel,
-               lrc::api::conversation::Info* conversation,
+               lrc::api::conversation::Info& conversation,
                AccountInfoPointer const & accountInfo);
     void set_state(MessagingWidgetState newState);
 
@@ -206,10 +206,10 @@ CppImpl::init()
 
 void
 CppImpl::setup(lrc::api::AVModel& avModel,
-               lrc::api::conversation::Info* conversation,
+               lrc::api::conversation::Info& conversation,
                AccountInfoPointer const & accountInfo)
 {
-    conversation_ = conversation;
+    conversation_ = &conversation;
     accountInfo_ = &accountInfo;
     avModel_ = &avModel;
 }
@@ -339,7 +339,7 @@ messaging_widget_init(MessagingWidget *self)
 
 GtkWidget*
 messaging_widget_new(lrc::api::AVModel& avModel,
-                     lrc::api::conversation::Info* conversation,
+                     lrc::api::conversation::Info& conversation,
                      AccountInfoPointer const & accountInfo)
 {
     auto self = g_object_new(MESSAGING_WIDGET_TYPE, NULL);
