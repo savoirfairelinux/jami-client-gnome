@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b13a1082_a0ece16a",
+        "filename": "src/incomingcallview.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-23T20:40:00Z",
+      "side": 1,
+      "message": "emit this before hangup to be sure that the notification will be removed when hangup",
+      "range": {
+        "startLine": 149,
+        "startChar": 22,
+        "endLine": 151,
+        "endChar": 69
+      },
+      "revId": "c305226f5bd84152975c2071c492318002b41d4d",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3729bf46_01158557",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-23T20:40:00Z",
+      "side": 1,
+      "message": "remove your changes here",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 35
+      },
+      "revId": "c305226f5bd84152975c2071c492318002b41d4d",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
