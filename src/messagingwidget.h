@@ -60,7 +60,7 @@ typedef enum
 
 GType       messaging_widget_get_type      (void) G_GNUC_CONST;
 GtkWidget*  messaging_widget_new           (lrc::api::AVModel& avModel,
-                                            lrc::api::conversation::Info* conversation,
+                                            lrc::api::conversation::Info& conversation,
                                             AccountInfoPointer const & accountInfo);
 void        messaging_widget_set_peer_name (MessagingWidget *self, std::string name);
 
