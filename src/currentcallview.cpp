@@ -1051,8 +1051,8 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
             gtk_container_remove(GTK_CONTAINER(widgets->list_conversations), children);
         // Fill with SIP contacts
         add_transfer_contact("");  // Temporary item
-        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP))
-            add_transfer_contact(c.participants.front().toStdString());
+        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP).get())
+            add_transfer_contact(c.get().participants.front().toStdString());
         gtk_widget_show_all(widgets->list_conversations);
         gtk_widget_show(widgets->togglebutton_transfer);
         gtk_widget_show(widgets->togglebutton_hold);
@@ -1219,9 +1219,9 @@ CppImpl::updateConvList()
     }
 
     first = true;
-    for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations((*accountInfo)->profileInfo.type)) {
+    for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations((*accountInfo)->profileInfo.type).get()) {
         try {
-            auto participant = c.participants.front();
+            auto participant = c.get().participants.front();
             auto contactInfo = (*accountInfo)->contactModel->getContact(participant);
             auto isPresent = std::find(uris.cbegin(), uris.cend(), participant) != uris.cend();
             if (!isPresent
@@ -2029,10 +2029,9 @@ CppImpl::set_remote_record_animation(std::string callId, QSet<QString> peerName,
 
 //==============================================================================
 
-lrc::api::conversation::Info
+lrc::api::conversation::Info&
 current_call_view_get_conversation(CurrentCallView *self)
 {
-    g_return_val_if_fail(IS_CURRENT_CALL_VIEW(self), lrc::api::conversation::Info());
     auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
     return *priv->cpp->conversation;
 }

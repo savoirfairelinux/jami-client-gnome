@@ -58,7 +58,7 @@ GtkWidget     *chat_view_new        (WebKitChatContainer* view,
                                      AccountInfoPointer const & accountInfo,
                                      lrc::api::conversation::Info* conversation,
                                      lrc::api::AVModel& avModel);
-lrc::api::conversation::Info chat_view_get_conversation(ChatView*);
+lrc::api::conversation::Info& chat_view_get_conversation(ChatView*);
 void chat_view_update_temporary(ChatView*);
 void chat_view_set_header_visible(ChatView*, gboolean);
 void chat_view_set_record_visible(ChatView*, gboolean);
