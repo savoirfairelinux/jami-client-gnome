@@ -112,9 +112,9 @@ build_view(ProfileView* view)
 
     try
     {
-        const auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
-        if (conversation.participants.empty()) return false;
-        const auto& contact = (*priv->accountInfo_)->contactModel->getContact(conversation.participants.front());
+        const auto conversationOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(priv->cpp->uid_);
+        if (!conversationOpt || conversationOpt->get().participants.empty()) return false;
+        const auto& contact = (*priv->accountInfo_)->contactModel->getContact(conversationOpt->get().participants.front());
 
         auto alias = contact.profileInfo.alias;
         alias.remove('\r');
@@ -139,7 +139,7 @@ build_view(ProfileView* view)
         uint32_t img_size = 128;
         std::shared_ptr<GdkPixbuf> image;
         auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
-            conversation,
+            *conversationOpt,
             **(priv->accountInfo_),
             QSize(img_size, img_size),
             false
