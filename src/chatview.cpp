@@ -1184,7 +1184,7 @@ chat_view_update_temporary(ChatView* self)
     update_chatview_frame(self);
 }
 
-lrc::api::conversation::Info
+lrc::api::conversation::Info&
 chat_view_get_conversation(ChatView *self)
 {
     g_return_val_if_fail(IS_CHAT_VIEW(self), lrc::api::conversation::Info());

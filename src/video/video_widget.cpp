@@ -331,7 +331,7 @@ on_hangup(GtkButton *button, VideoWidget *self)
         auto call = callModel->getCall(priv->cpp->callId);
         auto callId = "";
         auto conversations = (*priv->cpp->accountInfo)->conversationModel->allFilteredConversations();
-        for (const auto& conversation: conversations) {
+        for (const auto& conversation: conversations.get()) {
             if (conversation.participants.empty()) continue;
             auto participant = conversation.participants.front();
             if (uri == participant) {
