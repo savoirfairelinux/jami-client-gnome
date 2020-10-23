@@ -121,7 +121,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     {
         // Draw first contact.
         // NOTE: We just draw the first contact, must change this for conferences when they will have their own object
-        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
+        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUid(uid);
         auto isPresent = false;
         auto isBanned = false;
         if (not conversation.participants.empty()) {
@@ -188,7 +188,7 @@ render_name_and_last_interaction(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
 
     auto bestId = std::string(registeredName).empty() ? uri: registeredName;
 
-    auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
+    auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUid(uid);
     auto isBanned = false;
     if (not conversation.participants.empty()) {
         auto contactUri = conversation.participants.front();
@@ -271,7 +271,7 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     {
         // Draw first contact.
         // NOTE: We just draw the first contact, must change this for conferences when they will have their own object
-        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
+        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUid(uid);
         if (conversation.participants.empty()) return;
         auto contactUri = conversation.participants.front();
         auto& contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
@@ -334,7 +334,7 @@ update_conversation(ConversationsView *self, const std::string& uid) {
                             -1);
         if(std::string(uid) == uidModel) {
             // Get informations
-            auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uidModel);
+            auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUid(uidModel);
             if (conversation.participants.empty()) {
                 g_free(uidModel);
                 return;

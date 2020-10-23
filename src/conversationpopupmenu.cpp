@@ -87,7 +87,7 @@ remove_history_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenu
     try
     {
         if (!priv->cpp) return;
-        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
+        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUid(priv->cpp->uid_);
         (*priv->accountInfo_)->conversationModel->clearHistory(conversation.uid);
     }
     catch (...)
@@ -116,7 +116,7 @@ unblock_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate
     try
     {
         if (!priv->cpp) return;
-        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
+        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUid(priv->cpp->uid_);
         auto uri = conversation.participants[0];
 
         auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(uri);
@@ -168,7 +168,7 @@ place_video_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
     try
     {
         if (!priv->cpp) return;
-        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
+        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUid(priv->cpp->uid_);
         (*priv->accountInfo_)->conversationModel->placeCall(conversation.uid);
     } catch (...) {
         g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
@@ -181,7 +181,7 @@ place_audio_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
     try
     {
         if (!priv->cpp) return;
-        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
+        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUid(priv->cpp->uid_);
         (*priv->accountInfo_)->conversationModel->placeAudioOnlyCall(conversation.uid);
     } catch (...) {
         g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
@@ -208,7 +208,7 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
                         0 /* col# */, &uid /* data */,
                         -1);
 
-    auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
+    auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUid(uid);
     if (priv->cpp) priv->cpp->uid_ = uid;
     try {
         if (conversation.participants.isEmpty()) {
