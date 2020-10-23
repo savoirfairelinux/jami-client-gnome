@@ -744,9 +744,10 @@ on_search_participant(GtkSearchEntry* search_entry, CurrentCallView* self)
 }
 
 static void
-activate_media_handler(GtkToggleButton* switchBtn, GParamSpec*, CurrentCallView* self)
+activate_media_handler(GtkToggleButton* switchBtn, GParamSpec*, CurrentCallView* view)
 {
-    auto priv = CURRENT_CALL_VIEW_GET_PRIVATE(self);
+    g_return_if_fail(IS_CURRENT_CALL_VIEW(view));
+    auto* priv = CURRENT_CALL_VIEW_GET_PRIVATE(view);
 
     auto rowIdx = 0;
     while (auto* children = gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_media_handlers_available), rowIdx)) {
@@ -755,10 +756,20 @@ activate_media_handler(GtkToggleButton* switchBtn, GParamSpec*, CurrentCallView*
         bool toggled = false;
         if (switchBtn == btn) {
             QString mediaHandlerID = QString::fromStdString((gchar*)g_object_get_data(G_OBJECT(label), "mediaHandlerID"));
-
-            priv->cpp->lrc_.getPluginModel().toggleCallMediaHandler(mediaHandlerID);
-            auto mediaHandlerStatus = priv->cpp->lrc_.getPluginModel().getCallMediaHandlerStatus();
-            toggled = !mediaHandlerStatus["name"].isEmpty() && mediaHandlerStatus["name"] == mediaHandlerID;
+            auto callToToggle = priv->cpp->conversation->callId;
+            if (!priv->cpp->conversation->confId.isEmpty())
+                callToToggle = priv->cpp->conversation->confId;
+            priv->cpp->lrc_.getPluginModel().toggleCallMediaHandler(mediaHandlerID, callToToggle);
+            auto mediaHandlerStatus = priv->cpp->lrc_.getPluginModel().getCallMediaHandlerStatus(callToToggle)[callToToggle];
+            
+            toggled = false;
+            if (!mediaHandlerStatus.isEmpty()) {
+                for (const auto& toggledMediaHandler : mediaHandlerStatus)
+                    if (toggledMediaHandler == mediaHandlerID) {
+                        toggled = true;
+                        break;
+                    }
+            }
         }
         gtk_toggle_button_set_active (btn, toggled);
 
@@ -1069,11 +1080,17 @@ CppImpl::add_media_handler(lrc::api::plugin::MediaHandlerDetails mediaHandlerDet
     QString bestName = _("No name!");
     auto* mediaHandlerImage = gtk_image_new_from_icon_name("application-x-addon-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
 
-    auto mediaHandlerStatus = lrc_.getPluginModel().getCallMediaHandlerStatus();
+    auto mediaHandlerStatus = lrc_.getPluginModel().getCallMediaHandlerStatus(conversation->callId)[conversation->callId];
     bool isActive = false;
     if (!mediaHandlerDetails.name.isEmpty()) {
         bestName = mediaHandlerDetails.name;
-        isActive = (mediaHandlerStatus["name"] == mediaHandlerDetails.id);
+        if (!mediaHandlerStatus.isEmpty()) {
+            for (const auto& toggledMediaHandler : mediaHandlerStatus)
+                if (toggledMediaHandler == mediaHandlerDetails.id) {
+                    isActive = true;
+                    break;
+                }
+        }
     }
 
     std::string mediaHandlerID = (mediaHandlerDetails.id).toStdString();
@@ -1966,7 +1983,6 @@ CppImpl::update_view()
     else
     {
         gtk_widget_hide(widgets->togglebutton_activate_plugin);
-        lrc_.getPluginModel().toggleCallMediaHandler(_(""));
     }
 }
 
