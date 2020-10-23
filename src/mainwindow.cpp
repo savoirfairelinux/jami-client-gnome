@@ -429,7 +429,7 @@ render_rendezvous_mode(GtkCellLayout*,
                       MainWindowPrivate* priv)
 {
     g_return_if_fail(priv->cpp->accountInfo_);
-    
+
     gchar *id;
     gchar* avatar;
     gchar* status;
@@ -2025,8 +2025,8 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
 
     newIncomingCallConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                   &lrc::api::BehaviorController::showIncomingCallView,
-                                                  [this] (const QString& accountId, lrc::api::conversation::Info origin) {
-                                                    slotNewIncomingCall(accountId.toStdString(), origin); });
+                                                  [this] (const QString& accountId, const QString& convUid) {
+                                                    slotNewIncomingCall(accountId.toStdString(), convUid.toStdString()); });
 
     filterChangedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                 &lrc::api::ConversationModel::filterChanged,
@@ -2294,48 +2294,60 @@ CppImpl::slotCallEnded(const std::string& /*callId*/)
 }
 
 void
-CppImpl::slotNewIncomingCall(const std::string& accountId, lrc::api::conversation::Info origin)
+CppImpl::slotNewIncomingCall(const std::string& accountId, const std::string& convUid)
 {
+    auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
+    auto convModel = accountInfo.conversationModel.get();
+    auto convOpt = convModel->getConversationForUid(convUid);
+
+    if (!convOpt) {
+        g_warning("No conversation available");
+        return;
+    }
+
+    if (!accountInfo.callModel->hasCall(convOpt->callId)
+        || accountInfo.callModel->getCall(convOpt-callId).isOutgoing) {
+
+        g_warning("Incoming call %s not found", convOpt->callId);
+        return;
+    }
+
+    auto call = accountInfo.callModel->getCall(convOpt->callId);
+
     if (g_settings_get_boolean(widgets->window_settings, "bring-window-to-front")) {
         g_settings_set_boolean(widgets->window_settings, "show-main-window", TRUE);
     }
-    auto callId = origin.callId;
-    try {
-        auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId.c_str());
-        auto call = accountInfo.callModel->getCall(callId);
-        // workaround for https://git.jami.net/savoirfairelinux/ring-lrc/issues/433
-        if (call.status == lrc::api::call::Status::INCOMING_RINGING) {
-            auto peer = call.peerUri.remove("ring:");
-            auto& contactModel = accountInfo.contactModel;
-            QString avatar = "", name = "", uri = "";
-            std::string notifId = "";
-            try {
-                auto contactInfo = contactModel->getContact(peer);
-                uri = contactInfo.profileInfo.uri;
-                avatar = contactInfo.profileInfo.avatar;
-                name = contactInfo.profileInfo.alias;
-                if (name.isEmpty()) {
-                    name = contactInfo.registeredName;
-                    if (name.isEmpty()) {
-                        name = contactInfo.profileInfo.uri;
-                    }
-                }
-                notifId = accountInfo.id.toStdString() + ":call:" + callId.toStdString();
-            } catch (...) {
-                g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo.id));
-                return;
-            }
 
-            if (g_settings_get_boolean(widgets->window_settings, "enable-call-notifications")) {
-                name.remove('\r');
-                auto body = name.toStdString() + _(" is calling you!");
-                show_notification(NOTIFIER(widgets->notifier),
-                                avatar.toStdString(), uri.toStdString(), name.toStdString(),
-                                notifId, _("Incoming call"), body, NotificationType::CALL);
+    // workaround for https://git.jami.net/savoirfairelinux/ring-lrc/issues/433
+    if (call.status == lrc::api::call::Status::INCOMING_RINGING) {
+        auto peer = call.peerUri.remove("ring:");
+        auto& contactModel = accountInfo.contactModel;
+        QString avatar = "", name = "", uri = "";
+        std::string notifId = "";
+        try {
+            auto contactInfo = contactModel->getContact(peer);
+            uri = contactInfo.profileInfo.uri;
+            avatar = contactInfo.profileInfo.avatar;
+            name = contactInfo.profileInfo.alias;
+            if (name.isEmpty()) {
+                name = contactInfo.registeredName;
+                if (name.isEmpty()) {
+                    name = contactInfo.profileInfo.uri;
+                }
             }
+            notifId = accountInfo.id.toStdString() + ":call:" + callId.toStdString();
+        } catch (...) {
+            g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo.id));
+            return;
         }
-    } catch (const std::exception& e) {
-        g_warning("Can't get call %s for this account.", callId.toStdString().c_str());
+
+        if (g_settings_get_boolean(widgets->window_settings, "enable-call-notifications")) {
+            name.remove('\r');
+            auto body = name.toStdString() + _(" is calling you!");
+            show_notification(NOTIFIER(widgets->notifier),
+                            avatar.toStdString(), uri.toStdString(), name.toStdString(),
+                            notifId, _("Incoming call"), body, NotificationType::CALL);
+        }
     }
 
     if (not accountInfo_ or accountInfo_->id.toStdString() != accountId)
