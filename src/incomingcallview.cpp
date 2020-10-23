@@ -330,7 +330,7 @@ incoming_call_view_new(WebKitChatContainer* view,
     return GTK_WIDGET(self);
 }
 
-lrc::api::conversation::Info
+lrc::api::conversation::Info&
 incoming_call_view_get_conversation(IncomingCallView *self)
 {
     g_return_val_if_fail(IS_INCOMING_CALL_VIEW(self), lrc::api::conversation::Info());

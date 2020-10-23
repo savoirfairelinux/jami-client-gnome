@@ -84,16 +84,14 @@ show_profile(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 static void
 remove_history_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 {
-    try
-    {
-        if (!priv->cpp) return;
-        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
-        (*priv->accountInfo_)->conversationModel->clearHistory(conversation.uid);
-    }
-    catch (...)
-    {
+    if (!priv->cpp) return;
+    auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(priv->cpp->uid_);
+    if (!convOpt) {
         g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
+        return;
     }
+
+    (*priv->accountInfo_)->conversationModel->clearHistory(convOpt->uid);
 }
 
 static void
@@ -113,25 +111,22 @@ remove_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate*
 static void
 unblock_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 {
-    try
-    {
-        if (!priv->cpp) return;
-        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
-        auto uri = conversation.participants[0];
-
-        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(uri);
-
-        if (!contactInfo.isBanned) {
-            g_debug("unblock_conversation: trying to unban a contact which isn't banned !");
-            return;
-        }
-
-        (*priv->accountInfo_)->contactModel->addContact(contactInfo);
-    }
-    catch (...)
-    {
+    if (!priv->cpp) return;
+    auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(priv->cpp->uid_);
+    if (!convOpt) {
         g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
+        return;
     }
+    auto uri = convOpt->participants[0];
+
+    auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(uri);
+
+    if (!contactInfo.isBanned) {
+        g_debug("unblock_conversation: trying to unban a contact which isn't banned !");
+        return;
+    }
+
+    (*priv->accountInfo_)->contactModel->addContact(contactInfo);
 }
 
 static void
@@ -165,27 +160,25 @@ add_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
 static void
 place_video_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 {
-    try
-    {
-        if (!priv->cpp) return;
-        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
-        (*priv->accountInfo_)->conversationModel->placeCall(conversation.uid);
-    } catch (...) {
+    if (!priv->cpp) return;
+    auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(priv->cpp->uid_);
+    if (!convOpt) {
         g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
     }
+
+    (*priv->accountInfo_)->conversationModel->placeCall(convOpt->uid);
 }
 
 static void
 place_audio_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 {
-    try
-    {
-        if (!priv->cpp) return;
-        auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(priv->cpp->uid_);
-        (*priv->accountInfo_)->conversationModel->placeAudioOnlyCall(conversation.uid);
-    } catch (...) {
+    if (!priv->cpp) return;
+    auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(priv->cpp->uid_);
+    if (!convOpt) {
         g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
+        return;
     }
+    (*priv->accountInfo_)->conversationModel->placeAudioOnlyCall(convOpt->uid);
 }
 
 /**
@@ -208,14 +201,14 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
                         0 /* col# */, &uid /* data */,
                         -1);
 
-    auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uid);
+    auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(uid);
     if (priv->cpp) priv->cpp->uid_ = uid;
     try {
-        if (conversation.participants.isEmpty()) {
+        if (!convOpt || convOpt->participants.isEmpty()) {
             g_free(uid);
             return;
         }
-        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(conversation.participants.front());
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(convOpt->participants.front());
         if (contactInfo.profileInfo.uri.isEmpty()) {
             g_free(uid);
             return;
@@ -223,7 +216,7 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
 
         // we always build a menu, however in some cases some or all of the conversations will be deactivated
         // we prefer this to having an empty menu because GTK+ behaves weird in the empty menu case
-        auto callId = conversation.confId.isEmpty() ? conversation.callId : conversation.confId;
+        auto callId = convOpt->confId.isEmpty() ? convOpt->callId : convOpt->confId;
 
         // Not in call
         if (!contactInfo.isBanned && (*priv->accountInfo_)->enabled) {

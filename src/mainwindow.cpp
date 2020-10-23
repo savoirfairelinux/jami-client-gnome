@@ -26,6 +26,8 @@
 // std
 #include <algorithm>
 #include <sstream>
+#include <functional>
+#include <optional>
 
 // Qt
 #include <QSize>
@@ -316,7 +318,7 @@ public:
 
     void init();
     void updateLrc(const std::string& accountId, const std::string& accountIdToFlagFreeable = "");
-    void changeView(GType type, lrc::api::conversation::Info conversation = {});
+    void changeView(GType type, lrc::api::conversation::Info& conversation = {});
     void enterFullScreen();
     void leaveFullScreen();
     void toggleFullScreen();
@@ -345,7 +347,7 @@ public:
     std::unique_ptr<lrc::api::Lrc> lrc_;
     AccountInfoPointer accountInfo_ = nullptr;
     AccountInfoPointer accountInfoForMigration_ = nullptr;
-    std::unique_ptr<lrc::api::conversation::Info> chatViewConversation_;
+    std::optional<std::reference_wrapper<lrc::api::conversation::Info>> chatViewConversation_;
     lrc::api::profile::Type currentTypeFilter_;
     bool show_settings = false;
     bool is_fullscreen = false;
@@ -387,10 +389,10 @@ private:
     CppImpl(const CppImpl&) = delete;
     CppImpl& operator=(const CppImpl&) = delete;
 
-    GtkWidget* displayWelcomeView(lrc::api::conversation::Info);
-    GtkWidget* displayIncomingView(lrc::api::conversation::Info, bool redraw_webview);
-    GtkWidget* displayCurrentCallView(lrc::api::conversation::Info, bool redraw_webview);
-    GtkWidget* displayChatView(lrc::api::conversation::Info, bool redraw_webview);
+    GtkWidget* displayWelcomeView(const lrc::api::conversation::Info&);
+    GtkWidget* displayIncomingView(const lrc::api::conversation::Info&, bool redraw_webview);
+    GtkWidget* displayCurrentCallView(const lrc::api::conversation::Info&, bool redraw_webview);
+    GtkWidget* displayChatView(const lrc::api::conversation::Info&, bool redraw_webview);
 
     // Callbacks used as LRC Qt slot
     void slotAccountAddedFromLrc(const std::string& id);
@@ -400,16 +402,16 @@ private:
     void slotAccountStatusChanged(const std::string& id);
     void slotConversationCleared(const std::string& uid);
     void slotModelSorted();
-    void slotNewIncomingCall(const std::string& accountId, lrc::api::conversation::Info origin);
+    void slotNewIncomingCall(const std::string& accountId, const std::string& convUid);
     void slotCallStatusChanged(const std::string& callId);
     void slotCallStarted(const std::string& callId);
     void slotCallEnded(const std::string& callId);
     void slotFilterChanged();
     void slotNewConversation(const std::string& uid);
     void slotConversationRemoved(const std::string& uid);
-    void slotShowChatView(const std::string& id, lrc::api::conversation::Info origin);
-    void slotShowLeaveMessageView(lrc::api::conversation::Info conv);
-    void slotShowCallView(const std::string& id, lrc::api::conversation::Info origin);
+    void slotShowChatView(const std::string& id, const std::string& convUid);
+    void slotShowLeaveMessageView(const std::string& convUid);
+    void slotShowCallView(const std::string& id, const std::string& convUid);
     void slotNewTrustRequest(const std::string& id, const std::string& contactUri);
     void slotCloseTrustRequest(const std::string& id, const std::string& contactUri);
     void slotNewInteraction(const std::string& accountId, const std::string& conversation,
@@ -429,7 +431,7 @@ render_rendezvous_mode(GtkCellLayout*,
                       MainWindowPrivate* priv)
 {
     g_return_if_fail(priv->cpp->accountInfo_);
-    
+
     gchar *id;
     gchar* avatar;
     gchar* status;
@@ -987,7 +989,7 @@ action_notification(gchar* title, MainWindow* self, Action action)
             priv->cpp->accountInfo_->conversationModel->selectConversation(information.c_str());
             conversations_view_select_conversation(CONVERSATIONS_VIEW(priv->treeview_conversations), information);
         } else if (type == "request") {
-            for (const auto& conversation : priv->cpp->accountInfo_->conversationModel->getFilteredConversations(lrc::api::profile::Type::PENDING)) {
+            for (const auto& conversation : priv->cpp->accountInfo_->conversationModel->getFilteredConversations(lrc::api::profile::Type::PENDING).get()) {
                 auto contactRequestsPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(priv->notebook_contacts),
                                                                priv->scrolled_window_contact_requests);
                 gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), contactRequestsPageNum);
@@ -1001,7 +1003,7 @@ action_notification(gchar* title, MainWindow* self, Action action)
         // accept or refuse notifiation
         try {
             auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id.c_str());
-            for (const auto& conversation : accountInfo.conversationModel->getFilteredConversations(lrc::api::profile::Type::PENDING)) {
+            for (const auto& conversation : accountInfo.conversationModel->getFilteredConversations(lrc::api::profile::Type::PENDING).get()) {
                 if (!conversation.participants.empty() && conversation.participants.front().toStdString() == information) {
                     if (action == Action::ACCEPT) {
                         accountInfo.conversationModel->makePermanent(conversation.uid);
@@ -1443,7 +1445,7 @@ CppImpl::init()
     if (accountInfo_) {
         auto& conversationModel = accountInfo_->conversationModel;
         auto conversations = conversationModel->allFilteredConversations();
-        for (const auto& conversation: conversations) {
+        for (const auto& conversation: conversations.get()) {
             if (!conversation.callId.isEmpty()) {
                 accountInfo_->conversationModel->selectConversation(conversation.uid);
             }
@@ -1505,7 +1507,7 @@ CppImpl::~CppImpl()
 }
 
 void
-CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
+CppImpl::changeView(GType type, lrc::api::conversation::Info& conversation)
 {
     leaveFullScreen();
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
@@ -1541,32 +1543,32 @@ CppImpl::changeView(GType type, lrc::api::conversation::Info conversation)
 }
 
 GtkWidget*
-CppImpl::displayWelcomeView(lrc::api::conversation::Info conversation)
+CppImpl::displayWelcomeView(const lrc::api::conversation::Info& conversation)
 {
     (void) conversation;
 
     // TODO select first conversation?
 
-    chatViewConversation_.reset(nullptr);
+    chatViewConversation_.reset();
     refreshPendingContactRequestTab();
 
     return widgets->welcome_view;
 }
 
 GtkWidget*
-CppImpl::displayIncomingView(lrc::api::conversation::Info conversation, bool redraw_webview)
+CppImpl::displayIncomingView(const lrc::api::conversation::Info& conversation, bool redraw_webview)
 {
-    chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
-    return incoming_call_view_new(webkitChatContainer(redraw_webview), lrc_->getAVModel(), accountInfo_, chatViewConversation_.get());
+    chatViewConversation_ = conversation;
+    return incoming_call_view_new(webkitChatContainer(redraw_webview), lrc_->getAVModel(), accountInfo_, *chatViewConversation_);
 }
 
 GtkWidget*
-CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation, bool redraw_webview)
+CppImpl::displayCurrentCallView(const lrc::api::conversation::Info& conversation, bool redraw_webview)
 {
-    chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
+    chatViewConversation_ = conversation;
     auto* new_view = current_call_view_new(webkitChatContainer(redraw_webview),
                                            accountInfo_,
-                                           chatViewConversation_.get(),
+                                           *chatViewConversation_,
                                            lrc_->getAVModel(), *lrc_.get()); // TODO improve. Only LRC is needed
 
     try {
@@ -1584,10 +1586,10 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info conversation, bool 
 }
 
 GtkWidget*
-CppImpl::displayChatView(lrc::api::conversation::Info conversation, bool redraw_webview)
+CppImpl::displayChatView(const lrc::api::conversation::Info& conversation, bool redraw_webview)
 {
-    chatViewConversation_.reset(new lrc::api::conversation::Info(conversation));
-    auto* new_view = chat_view_new(webkitChatContainer(redraw_webview), accountInfo_, chatViewConversation_.get(), lrc_->getAVModel());
+    chatViewConversation_ = conversation;
+    auto* new_view = chat_view_new(webkitChatContainer(redraw_webview), accountInfo_, *chatViewConversation_, lrc_->getAVModel());
     g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(on_hide_view_clicked), self);
     g_signal_connect(new_view, "add-conversation-clicked", G_CALLBACK(on_add_conversation_clicked), self);
     g_signal_connect(new_view, "place-audio-call-clicked", G_CALLBACK(on_place_audio_call_clicked), self);
@@ -1917,13 +1919,13 @@ CppImpl::forCurrentConversation(const std::function<void(const lrc::api::convers
 {
     const auto current = getCurrentUid();
     if (current.empty()) return;
-    try {
-        auto conversation = accountInfo_->conversationModel->getConversationForUID(current.c_str());
-        if (conversation.participants.empty()) return;
-        func(conversation);
-    } catch (...) {
+    auto conversation = accountInfo_->conversationModel->getConversationForUid(current.c_str());
+    if (!conversation) {
         g_warning("Can't retrieve conversation %s", current.c_str());
+        return;
     }
+    if (conversation->participants.empty()) return;
+    func(*conversation);
 }
 
 bool
@@ -2008,7 +2010,7 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
                                                  [this] (const QString& id) { slotConversationCleared(id.toStdString()); });
 
     modelSortedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
-                                              &lrc::api::ConversationModel::modelSorted,
+                                              &lrc::api::ConversationModel::modelChanged,
                                               [this] { slotModelSorted(); });
 
     callChangedConnection_ = QObject::connect(&*accountInfo_->callModel,
@@ -2025,8 +2027,8 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
 
     newIncomingCallConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                   &lrc::api::BehaviorController::showIncomingCallView,
-                                                  [this] (const QString& accountId, lrc::api::conversation::Info origin) {
-                                                    slotNewIncomingCall(accountId.toStdString(), origin); });
+                                                  [this] (const QString& accountId, const QString& convUid) {
+                                                    slotNewIncomingCall(accountId.toStdString(), convUid.toStdString()); });
 
     filterChangedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                 &lrc::api::ConversationModel::filterChanged,
@@ -2042,15 +2044,15 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
 
     showChatViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showChatView,
-                                               [this] (const QString& id, lrc::api::conversation::Info origin) { slotShowChatView(id.toStdString(), origin); });
+                                               [this] (const QString& id, const QString& convUid) { slotShowChatView(id.toStdString(), convUid.toStdString()); });
 
     showLeaveMessageViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showLeaveMessageView,
-                                               [this] (const QString&, lrc::api::conversation::Info conv) { slotShowLeaveMessageView(conv); });
+                                               [this] (const QString&, const QString& convUid) { slotShowLeaveMessageView(convUid.toStdString()); });
 
     showCallViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showCallView,
-                                               [this] (const QString& id, lrc::api::conversation::Info origin) { slotShowCallView(id.toStdString(), origin); });
+                                               [this] (const QString& id, const QString& convUid) { slotShowCallView(id.toStdString(), convUid.toStdString()); });
 
     newTrustRequestNotification_ = QObject::connect(&lrc_->getBehaviorController(),
                                                     &lrc::api::BehaviorController::newTrustRequest,
@@ -2166,20 +2168,19 @@ CppImpl::slotAccountNeedsMigration(const std::string& id)
     }
 }
 
-lrc::api::conversation::Info
+lrc::api::conversation::Info&
 CppImpl::getCurrentConversation(GtkWidget* frame_call)
 {
-    lrc::api::conversation::Info current_item;
-    current_item.uid = "-1";
     if (IS_CHAT_VIEW(frame_call)) {
-        current_item = chat_view_get_conversation(CHAT_VIEW(frame_call));
+        return chat_view_get_conversation(CHAT_VIEW(frame_call));
     } else if (IS_CURRENT_CALL_VIEW(frame_call)) {
-        current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(frame_call));
+        return current_call_view_get_conversation(CURRENT_CALL_VIEW(frame_call));
     } else if (IS_INCOMING_CALL_VIEW(frame_call)) {
-        current_item = incoming_call_view_get_conversation(INCOMING_CALL_VIEW(frame_call));
+        return incoming_call_view_get_conversation(INCOMING_CALL_VIEW(frame_call));
     }
 
-    return current_item;
+    static lrc::api::conversation::Info invalidConverstation = {.uid = "-1"};
+    return invalidConverstation;
 }
 
 void
@@ -2294,48 +2295,60 @@ CppImpl::slotCallEnded(const std::string& /*callId*/)
 }
 
 void
-CppImpl::slotNewIncomingCall(const std::string& accountId, lrc::api::conversation::Info origin)
+CppImpl::slotNewIncomingCall(const std::string& accountId, const std::string& convUid)
 {
+    auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId);
+    auto convModel = accountInfo.conversationModel.get();
+    auto convOpt = convModel->getConversationForUid(convUid);
+
+    if (!convOpt) {
+        g_warning("No conversation available");
+        return;
+    }
+
+    if (!accountInfo.callModel->hasCall(convOpt->callId)
+        || accountInfo.callModel->getCall(convOpt-callId).isOutgoing) {
+
+        g_warning("Incoming call %s not found", convOpt->callId);
+        return;
+    }
+
+    auto call = accountInfo.callModel->getCall(convOpt->callId);
+
     if (g_settings_get_boolean(widgets->window_settings, "bring-window-to-front")) {
         g_settings_set_boolean(widgets->window_settings, "show-main-window", TRUE);
     }
-    auto callId = origin.callId;
-    try {
-        auto& accountInfo = lrc_->getAccountModel().getAccountInfo(accountId.c_str());
-        auto call = accountInfo.callModel->getCall(callId);
-        // workaround for https://git.jami.net/savoirfairelinux/ring-lrc/issues/433
-        if (call.status == lrc::api::call::Status::INCOMING_RINGING) {
-            auto peer = call.peerUri.remove("ring:");
-            auto& contactModel = accountInfo.contactModel;
-            QString avatar = "", name = "", uri = "";
-            std::string notifId = "";
-            try {
-                auto contactInfo = contactModel->getContact(peer);
-                uri = contactInfo.profileInfo.uri;
-                avatar = contactInfo.profileInfo.avatar;
-                name = contactInfo.profileInfo.alias;
-                if (name.isEmpty()) {
-                    name = contactInfo.registeredName;
-                    if (name.isEmpty()) {
-                        name = contactInfo.profileInfo.uri;
-                    }
-                }
-                notifId = accountInfo.id.toStdString() + ":call:" + callId.toStdString();
-            } catch (...) {
-                g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo.id));
-                return;
-            }
 
-            if (g_settings_get_boolean(widgets->window_settings, "enable-call-notifications")) {
-                name.remove('\r');
-                auto body = name.toStdString() + _(" is calling you!");
-                show_notification(NOTIFIER(widgets->notifier),
-                                avatar.toStdString(), uri.toStdString(), name.toStdString(),
-                                notifId, _("Incoming call"), body, NotificationType::CALL);
+    // workaround for https://git.jami.net/savoirfairelinux/ring-lrc/issues/433
+    if (call.status == lrc::api::call::Status::INCOMING_RINGING) {
+        auto peer = call.peerUri.remove("ring:");
+        auto& contactModel = accountInfo.contactModel;
+        QString avatar = "", name = "", uri = "";
+        std::string notifId = "";
+        try {
+            auto contactInfo = contactModel->getContact(peer);
+            uri = contactInfo.profileInfo.uri;
+            avatar = contactInfo.profileInfo.avatar;
+            name = contactInfo.profileInfo.alias;
+            if (name.isEmpty()) {
+                name = contactInfo.registeredName;
+                if (name.isEmpty()) {
+                    name = contactInfo.profileInfo.uri;
+                }
             }
+            notifId = accountInfo.id.toStdString() + ":call:" + callId.toStdString();
+        } catch (...) {
+            g_warning("Can't get contact for account %s. Don't show notification", qUtf8Printable(accountInfo.id));
+            return;
         }
-    } catch (const std::exception& e) {
-        g_warning("Can't get call %s for this account.", callId.toStdString().c_str());
+
+        if (g_settings_get_boolean(widgets->window_settings, "enable-call-notifications")) {
+            name.remove('\r');
+            auto body = name.toStdString() + _(" is calling you!");
+            show_notification(NOTIFIER(widgets->notifier),
+                            avatar.toStdString(), uri.toStdString(), name.toStdString(),
+                            notifId, _("Incoming call"), body, NotificationType::CALL);
+        }
     }
 
     if (not accountInfo_ or accountInfo_->id.toStdString() != accountId)
@@ -2406,7 +2419,7 @@ CppImpl::slotConversationRemoved(const std::string& uid)
 }
 
 void
-CppImpl::slotShowChatView(const std::string& id, lrc::api::conversation::Info origin)
+CppImpl::slotShowChatView(const std::string& id, const std::string& convId)
 {
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
     if (IS_INCOMING_CALL_VIEW(old_view) && is_showing_let_a_message_view(INCOMING_CALL_VIEW(old_view), origin)) {
@@ -2415,51 +2428,53 @@ CppImpl::slotShowChatView(const std::string& id, lrc::api::conversation::Info or
     if (accountInfo_->id.toStdString() != id)
         return;
     // Show chat view if not in call (unless if it's the same conversation)
-    lrc::api::conversation::Info current_item;
-    current_item.uid = "-1";
-    if (IS_CHAT_VIEW(old_view))
-        current_item = chat_view_get_conversation(CHAT_VIEW(old_view));
+    auto convOpt = accountInfo_.conversationModel->getConversationForUid(convId);
+    if (!convOpt) { return; }
     // Do not show a conversation without any participants
-    if (origin.participants.empty()) return;
-    auto firstContactUri = origin.participants.front();
-    auto contactInfo = accountInfo_->contactModel->getContact(firstContactUri);
+    if (convOpt->participants.empty()) return;
     // change view if necessary or just update temporary
-    if (current_item.uid != origin.uid) {
-        changeView(CHAT_VIEW_TYPE, origin);
+    if (IS_CHAT_VIEW(old_view)
+        && chat_view_get_conversation(CHAT_VIEW(old_view)).uid != convOpt->uid) {
+        changeView(CHAT_VIEW_TYPE, *convOpt);
     } else {
         chat_view_update_temporary(CHAT_VIEW(old_view));
     }
 }
 
 void
-CppImpl::slotShowLeaveMessageView(lrc::api::conversation::Info conv)
+CppImpl::slotShowLeaveMessageView(const std:string& convUid)
 {
     auto* current_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
-    if (IS_INCOMING_CALL_VIEW(current_view)) {
-        incoming_call_view_let_a_message(INCOMING_CALL_VIEW(current_view), conv);
+    auto convOpt = accountInfo_.conversationModel->getConversationForUid(convId);
+
+    if (convOpt && IS_INCOMING_CALL_VIEW(current_view)) {
+        incoming_call_view_let_a_message(INCOMING_CALL_VIEW(current_view), *convOpt);
     }
 }
 
 void
-CppImpl::slotShowCallView(const std::string& id, lrc::api::conversation::Info origin)
+CppImpl::slotShowCallView(const std::string& id, const std::string& convUid)
 {
     if (accountInfo_->id.toStdString() != id)
         return;
     // Change the view if we want a different view.
     auto* old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
+    auto convOpt = accountInfo_.conversationModel->getConversationForUid(convId);
+    if (!convOpt) {
+        g_warning("Can't get conversation %s", qUtf8Printable(convUid));
+        return;
+    }
 
-    lrc::api::conversation::Info current_item;
-    if (IS_CURRENT_CALL_VIEW(old_view))
-        current_item = current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view));
-
-    if (IS_CURRENT_CALL_VIEW(old_view) && origin.uid == current_item.uid) {
+    if (IS_CURRENT_CALL_VIEW(old_view)
+        && convOpt->uid == current_call_view_get_conversation(CURRENT_CALL_VIEW(old_view).uid)
+    {
         auto rendered = QString::fromStdString(current_call_view_get_rendered_call(CURRENT_CALL_VIEW(old_view)));
-        auto sameCall = origin.confId.isEmpty() ? origin.callId == rendered : origin.confId == rendered;
+        auto sameCall = convOpt->confId.isEmpty() ? convOpt->callId == rendered : convOpt->confId == rendered;
         if (sameCall)
             return;
     }
 
-    changeView(CURRENT_CALL_VIEW_TYPE, origin);
+    changeView(CURRENT_CALL_VIEW_TYPE, *convOpt);
 }
 
 void
@@ -2768,7 +2783,7 @@ main_window_accept_call(MainWindow *win)
     auto current = priv->cpp->getCurrentUid();
     if (current.empty()) return;
     try {
-        auto conversation = priv->cpp->accountInfo_->conversationModel->getConversationForUID(current.c_str());
+        auto conversation = priv->cpp->accountInfo_->conversationModel->getConversationForUid(current.c_str());
         if (conversation.participants.empty()) return;
         auto contactUri = conversation.participants.at(0);
         auto contact = priv->cpp->accountInfo_->contactModel->getContact(contactUri);
