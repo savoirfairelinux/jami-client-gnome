@@ -22,6 +22,30 @@
       "revId": "08d5f4bb2d96502d48c83a985becb8d8de50d492",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5867725d_6fb9c995",
+        "filename": "src/incomingcallview.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2020-10-23T21:30:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6887610d_5b6011e7",
+      "range": {
+        "startLine": 37,
+        "startChar": 14,
+        "endLine": 37,
+        "endChar": 32
+      },
+      "revId": "08d5f4bb2d96502d48c83a985becb8d8de50d492",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
