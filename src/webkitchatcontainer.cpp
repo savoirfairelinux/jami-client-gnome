@@ -589,6 +589,7 @@ build_view(WebKitChatContainer *view)
     /* Set the WebKitSettings */
     webkit_web_view_set_settings(WEBKIT_WEB_VIEW(priv->webview_chat), webkit_settings);
 
+    gtk_drag_dest_unset(priv->webview_chat);
     g_signal_connect(priv->webview_chat, "drag-data-received", G_CALLBACK(webview_chat_on_drag_data_received), view);
     g_signal_connect(priv->webview_chat, "drag-drop", G_CALLBACK(webview_chat_on_drag_data), view);
     g_signal_connect(priv->webview_chat, "load-changed", G_CALLBACK(webview_chat_load_changed), view);
