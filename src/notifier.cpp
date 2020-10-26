@@ -66,11 +66,13 @@ G_DEFINE_TYPE_WITH_PRIVATE(Notifier, notifier, GTK_TYPE_BOX);
 
 #define NOTIFIER_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), NOTIFIER_TYPE, NotifierPrivate))
 
+#if USE_LIBNOTIFY
 struct Notification
 {
     std::shared_ptr<NotifyNotification> nn;
     std::string conversation;
 };
+#endif
 
 /* signals */
 enum {
