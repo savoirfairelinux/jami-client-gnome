@@ -32,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-19 03:09-0400\n"
-"PO-Revision-Date: 2020-10-19 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-10-26 03:09-0400\n"
+"PO-Revision-Date: 2020-10-26 07:09+0000\n"
+"Last-Translator: Чураков Александр\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +63,7 @@ msgstr "Дополнение"
 msgid "Account"
 msgstr "Аккаунт"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1882
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1909
 msgid "Settings"
 msgstr "Настройки"
 
@@ -700,7 +700,7 @@ msgstr "Информация."
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Архив можно получить, нажав на кнопку «Резервное копирование учетной записи» в настройках аккаунта. В результате будет создан файл .gz на вашем устройстве."
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
@@ -710,7 +710,7 @@ msgstr "PIN"
 msgid ""
 "Enter the PIN from another configured Jami account. Use the \"Link Another "
 "Device\" feature to obtain a PIN."
-msgstr ""
+msgstr "Введите ПИН-код из другой настроенной учетной записи Jami. Используйте функцию «Связать другое устройство», чтобы получить PIN-код."
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
@@ -736,13 +736,13 @@ msgstr "Зашифровать учётную запись паролем"
 msgid ""
 "Choose a password to encrypt your account on this device.  Note that the "
 "password cannot be recovered."
-msgstr ""
+msgstr "Выберите пароль для шифрования вашей учетной записи на этом устройстве. Учтите, что пароль восстановить нельзя."
 
 #: ui/accountcreationwizard.ui:658
 msgid ""
 "Choose a password to encrypt your account on this device.\n"
 "Note that the password cannot be recovered."
-msgstr ""
+msgstr "Выберите пароль для шифрования вашей учетной записи на этом устройстве.\nУчтите, что пароль восстановить нельзя."
 
 #: ui/accountcreationwizard.ui:686
 msgid ""
@@ -791,7 +791,7 @@ msgstr "Идёт извлечение вашего аккаунта Jami…"
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr ""
+msgstr "Введите URL-адрес сервера управления учетной записью Jami (JAMS)"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
@@ -807,7 +807,7 @@ msgstr "Соединение"
 
 #: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
-msgstr ""
+msgstr "Настройте существующую учетную запись SIP"
 
 #: ui/accountcreationwizard.ui:1240
 msgid "Server"
@@ -815,7 +815,7 @@ msgstr "Сервер"
 
 #: ui/accountcreationwizard.ui:1385
 msgid "Create SIP account"
-msgstr ""
+msgstr "Создать SIP aккаунт"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
@@ -1334,80 +1334,88 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "открыть чат"
 
-#: src/mainwindow.cpp:1114
+#: src/mainwindow.cpp:1135
 msgid "Jami - Migration needed"
 msgstr "Jami - необходима миграция"
 
-#: src/mainwindow.cpp:1127
+#: src/mainwindow.cpp:1148
 msgid "Migration in progress... please do not close this window."
 msgstr "Идет миграция... пожалуйста, не закрывайте это окно."
 
-#: src/mainwindow.cpp:1407
+#: src/mainwindow.cpp:1428
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Найти или начать разговор"
 
-#: src/mainwindow.cpp:1854
+#: src/mainwindow.cpp:1881
 msgid "Leave settings page"
 msgstr "Выйти из настроек"
 
-#: src/mainwindow.cpp:2278
+#: src/mainwindow.cpp:2304
+msgid "Missed call from "
+msgstr ""
+
+#: src/mainwindow.cpp:2308
+msgid "Missed call"
+msgstr "Пропущенный вызов"
+
+#: src/mainwindow.cpp:2325
 msgid "There are active calls"
 msgstr "Есть активные звонки"
 
-#: src/mainwindow.cpp:2331
+#: src/mainwindow.cpp:2381
 msgid " is calling you!"
 msgstr "звонит вам!"
 
-#: src/mainwindow.cpp:2334
+#: src/mainwindow.cpp:2384
 msgid "Incoming call"
 msgstr "Входящий вызов"
 
-#: src/mainwindow.cpp:2490
+#: src/mainwindow.cpp:2541
 msgid "New request from "
 msgstr "Новый запрос от"
 
-#: src/mainwindow.cpp:2493
+#: src/mainwindow.cpp:2544
 msgid "Trust request"
 msgstr "Запрос доверия"
 
-#: src/mainwindow.cpp:2555
+#: src/mainwindow.cpp:2606
 msgid "New message"
 msgstr "Новое сообщение"
 
-#: src/mainwindow.cpp:2607
+#: src/mainwindow.cpp:2658
 msgid "Stop current call?"
 msgstr "Завершить текущий звонок?"
 
-#: src/mainwindow.cpp:2608
+#: src/mainwindow.cpp:2659
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "В настоящее время идёт беседа. Хотите закрыть окно и остановить все текущие вызовы?"
 
-#: src/mainwindow.cpp:2675
+#: src/mainwindow.cpp:2726
 msgid "Clear history"
 msgstr "Очистить историю"
 
-#: src/mainwindow.cpp:2676
+#: src/mainwindow.cpp:2727
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Вы действительно хотите очистить историю этой переписки? "
 
-#: src/mainwindow.cpp:2691
+#: src/mainwindow.cpp:2742
 msgid "Remove conversation"
 msgstr "Удалить диалог"
 
-#: src/mainwindow.cpp:2692
+#: src/mainwindow.cpp:2743
 msgid "Do you really want to remove this conversation?"
 msgstr "Вы действительно хотите удалить этой переписку? "
 
-#: src/mainwindow.cpp:2707
+#: src/mainwindow.cpp:2758
 msgid "Block contact"
 msgstr "Заблокировать контакт"
 
-#: src/mainwindow.cpp:2708
+#: src/mainwindow.cpp:2759
 msgid "Do you really want to block this contact?"
 msgstr "Вы действительно хотите заблокировать этот контакт?"
 
@@ -1421,7 +1429,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"%s\"\nпостроен на %.25s"
 
 #: src/dialogs.c:151
 msgid ""
@@ -1461,22 +1469,22 @@ msgstr "Восстанавливает скрытое состояние гла�
 msgid "- GNOME client for Jami"
 msgstr "- клиент GNOME для Jami"
 
-#: src/notifier.cpp:336
+#: src/notifier.cpp:347
 msgctxt ""
 msgid "Open conversation"
 msgstr "Открыть разговор"
 
-#: src/notifier.cpp:344 src/notifier.cpp:360
+#: src/notifier.cpp:355 src/notifier.cpp:371
 msgctxt ""
 msgid "Accept"
 msgstr "Принять"
 
-#: src/notifier.cpp:351
+#: src/notifier.cpp:362
 msgctxt ""
 msgid "Refuse"
 msgstr "Отказать"
 
-#: src/notifier.cpp:367
+#: src/notifier.cpp:378
 msgctxt ""
 msgid "Decline"
 msgstr "Отклонить"
@@ -1615,7 +1623,7 @@ msgstr "Произошла ошибка во время создания вст�
 
 #: src/accountcreationwizard.cpp:333
 msgid "An error occured during the SIP account creation."
-msgstr ""
+msgstr "Произошла ошибка при создании учетной записи SIP."
 
 #: src/accountcreationwizard.cpp:337
 msgid "Cannot retrieve any account, please verify your PIN and your password."
@@ -1633,7 +1641,7 @@ msgstr "Не удалось подключиться к предоставлен
 
 #: src/accountcreationwizard.cpp:534
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "Создание вашей встречи..."
 
 #: src/accountcreationwizard.cpp:536
 msgid "Generating your Jami account…"
