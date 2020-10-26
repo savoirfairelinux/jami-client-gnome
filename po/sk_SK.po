@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-19 03:09-0400\n"
-"PO-Revision-Date: 2020-10-10 23:24+0000\n"
-"Last-Translator: Microtus <hrabosmartin@gmail.com>\n"
+"POT-Creation-Date: 2020-10-26 03:09-0400\n"
+"PO-Revision-Date: 2020-10-26 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/savoirfairelinux/jami/language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "Account"
 msgstr "Účet"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1882
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1909
 msgid "Settings"
 msgstr "Nastavenia"
 
@@ -1312,80 +1312,88 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "otvoriť chat"
 
-#: src/mainwindow.cpp:1114
+#: src/mainwindow.cpp:1135
 msgid "Jami - Migration needed"
 msgstr "Jami - Potrebná migrácia"
 
-#: src/mainwindow.cpp:1127
+#: src/mainwindow.cpp:1148
 msgid "Migration in progress... please do not close this window."
 msgstr "Prebieha migrácia... nezatvárajte prosím toto okno."
 
-#: src/mainwindow.cpp:1407
+#: src/mainwindow.cpp:1428
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Nájsť alebo začať konverzáciu"
 
-#: src/mainwindow.cpp:1854
+#: src/mainwindow.cpp:1881
 msgid "Leave settings page"
 msgstr "Opustiť nastavenia"
 
-#: src/mainwindow.cpp:2278
+#: src/mainwindow.cpp:2304
+msgid "Missed call from "
+msgstr ""
+
+#: src/mainwindow.cpp:2308
+msgid "Missed call"
+msgstr ""
+
+#: src/mainwindow.cpp:2325
 msgid "There are active calls"
 msgstr "Máte aktívne hovory"
 
-#: src/mainwindow.cpp:2331
+#: src/mainwindow.cpp:2381
 msgid " is calling you!"
 msgstr "vám volá!"
 
-#: src/mainwindow.cpp:2334
+#: src/mainwindow.cpp:2384
 msgid "Incoming call"
 msgstr "Prichádzajúci hovor"
 
-#: src/mainwindow.cpp:2490
+#: src/mainwindow.cpp:2541
 msgid "New request from "
 msgstr "Nová žiadosť od"
 
-#: src/mainwindow.cpp:2493
+#: src/mainwindow.cpp:2544
 msgid "Trust request"
 msgstr "Veriť žiadosti"
 
-#: src/mainwindow.cpp:2555
+#: src/mainwindow.cpp:2606
 msgid "New message"
 msgstr "Nová správa"
 
-#: src/mainwindow.cpp:2607
+#: src/mainwindow.cpp:2658
 msgid "Stop current call?"
 msgstr "Zrušiť aktuálny hovor?"
 
-#: src/mainwindow.cpp:2608
+#: src/mainwindow.cpp:2659
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Práve prebieha hovor. Chcete zatvoriť okno a zrušiť všetky prebiehajúce hovory?"
 
-#: src/mainwindow.cpp:2675
+#: src/mainwindow.cpp:2726
 msgid "Clear history"
 msgstr "Vymazať históriu"
 
-#: src/mainwindow.cpp:2676
+#: src/mainwindow.cpp:2727
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Naozaj chcete vymazať históriu tejto konverzácie?"
 
-#: src/mainwindow.cpp:2691
+#: src/mainwindow.cpp:2742
 msgid "Remove conversation"
 msgstr "Odstrániť konverzáciu"
 
-#: src/mainwindow.cpp:2692
+#: src/mainwindow.cpp:2743
 msgid "Do you really want to remove this conversation?"
 msgstr "Naozaj chcete vymazať túto konverzáciu?"
 
-#: src/mainwindow.cpp:2707
+#: src/mainwindow.cpp:2758
 msgid "Block contact"
 msgstr "Zablokovať kontakt"
 
-#: src/mainwindow.cpp:2708
+#: src/mainwindow.cpp:2759
 msgid "Do you really want to block this contact?"
 msgstr "Naozaj chcete zablokovať tento kontakt?"
 
@@ -1439,22 +1447,22 @@ msgstr "Obnovuje skrytý stav hlavného okna (iba v prípade primárnej inštanc
 msgid "- GNOME client for Jami"
 msgstr "- GNOME klient pre Jami"
 
-#: src/notifier.cpp:336
+#: src/notifier.cpp:347
 msgctxt ""
 msgid "Open conversation"
 msgstr "Otvoriť konverzáciu"
 
-#: src/notifier.cpp:344 src/notifier.cpp:360
+#: src/notifier.cpp:355 src/notifier.cpp:371
 msgctxt ""
 msgid "Accept"
 msgstr "Prijať"
 
-#: src/notifier.cpp:351
+#: src/notifier.cpp:362
 msgctxt ""
 msgid "Refuse"
 msgstr "Odmietnuť"
 
-#: src/notifier.cpp:367
+#: src/notifier.cpp:378
 msgctxt ""
 msgid "Decline"
 msgstr "Odmietnuť"

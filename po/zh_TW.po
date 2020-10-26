@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-19 03:09-0400\n"
-"PO-Revision-Date: 2020-10-19 07:09+0000\n"
-"Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
+"POT-Creation-Date: 2020-10-26 03:09-0400\n"
+"PO-Revision-Date: 2020-10-26 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgstr "外掛程式"
 msgid "Account"
 msgstr "帳號"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1882
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1909
 msgid "Settings"
 msgstr "設定"
 
@@ -1313,80 +1313,88 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "開啟聊天"
 
-#: src/mainwindow.cpp:1114
+#: src/mainwindow.cpp:1135
 msgid "Jami - Migration needed"
 msgstr "Jami - 需要遷移"
 
-#: src/mainwindow.cpp:1127
+#: src/mainwindow.cpp:1148
 msgid "Migration in progress... please do not close this window."
 msgstr "正在遷移…… 請不要關閉視窗。"
 
-#: src/mainwindow.cpp:1407
+#: src/mainwindow.cpp:1428
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "尋找或開始對話"
 
-#: src/mainwindow.cpp:1854
+#: src/mainwindow.cpp:1881
 msgid "Leave settings page"
 msgstr "離開設定頁面"
 
-#: src/mainwindow.cpp:2278
+#: src/mainwindow.cpp:2304
+msgid "Missed call from "
+msgstr ""
+
+#: src/mainwindow.cpp:2308
+msgid "Missed call"
+msgstr ""
+
+#: src/mainwindow.cpp:2325
 msgid "There are active calls"
 msgstr "有活躍的通話"
 
-#: src/mainwindow.cpp:2331
+#: src/mainwindow.cpp:2381
 msgid " is calling you!"
 msgstr "正在與您通話！"
 
-#: src/mainwindow.cpp:2334
+#: src/mainwindow.cpp:2384
 msgid "Incoming call"
 msgstr "來電"
 
-#: src/mainwindow.cpp:2490
+#: src/mainwindow.cpp:2541
 msgid "New request from "
 msgstr "新請求從"
 
-#: src/mainwindow.cpp:2493
+#: src/mainwindow.cpp:2544
 msgid "Trust request"
 msgstr "信任請求"
 
-#: src/mainwindow.cpp:2555
+#: src/mainwindow.cpp:2606
 msgid "New message"
 msgstr "新訊息"
 
-#: src/mainwindow.cpp:2607
+#: src/mainwindow.cpp:2658
 msgid "Stop current call?"
 msgstr "停止目前的通話？"
 
-#: src/mainwindow.cpp:2608
+#: src/mainwindow.cpp:2659
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "通話進行中。您想要關閉視窗並停止目前所有的通話嗎？"
 
-#: src/mainwindow.cpp:2675
+#: src/mainwindow.cpp:2726
 msgid "Clear history"
 msgstr "清除記錄"
 
-#: src/mainwindow.cpp:2676
+#: src/mainwindow.cpp:2727
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "您真的想要清除此對話的歷史嗎？"
 
-#: src/mainwindow.cpp:2691
+#: src/mainwindow.cpp:2742
 msgid "Remove conversation"
 msgstr "移除對話"
 
-#: src/mainwindow.cpp:2692
+#: src/mainwindow.cpp:2743
 msgid "Do you really want to remove this conversation?"
 msgstr "您真的想要移除此對話嗎？"
 
-#: src/mainwindow.cpp:2707
+#: src/mainwindow.cpp:2758
 msgid "Block contact"
 msgstr "阻擋連絡人"
 
-#: src/mainwindow.cpp:2708
+#: src/mainwindow.cpp:2759
 msgid "Do you really want to block this contact?"
 msgstr "您真的想要封鎖此聯絡人嗎？"
 
@@ -1440,22 +1448,22 @@ msgstr "還原主視窗的隱藏狀態(只適用於主程序)"
 msgid "- GNOME client for Jami"
 msgstr "- Jami 的 GNOME 用戶端"
 
-#: src/notifier.cpp:336
+#: src/notifier.cpp:347
 msgctxt ""
 msgid "Open conversation"
 msgstr "開啟對話"
 
-#: src/notifier.cpp:344 src/notifier.cpp:360
+#: src/notifier.cpp:355 src/notifier.cpp:371
 msgctxt ""
 msgid "Accept"
 msgstr "接聽"
 
-#: src/notifier.cpp:351
+#: src/notifier.cpp:362
 msgctxt ""
 msgid "Refuse"
 msgstr "拒絕"
 
-#: src/notifier.cpp:367
+#: src/notifier.cpp:378
 msgctxt ""
 msgid "Decline"
 msgstr "拒絕"

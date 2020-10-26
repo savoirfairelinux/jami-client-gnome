@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# CupIvan <mail@cupivan.ru>, 2020
 # Pavel Klimenko <dzy4yzd@gmail.com>, 2016
 # Still Swamp <still.swamp@gmail.com>, 2016
 # Vladimir Stoiakin, 2018
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-19 03:09-0400\n"
-"PO-Revision-Date: 2020-10-19 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-10-26 03:09-0400\n"
+"PO-Revision-Date: 2020-10-20 18:26+0000\n"
+"Last-Translator: CupIvan <mail@cupivan.ru>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/savoirfairelinux/jami/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,14 +38,14 @@ msgstr "Медиа"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
-msgstr ""
+msgstr "Плагин"
 
 #: ui/mainwindow.ui:136 ui/newaccountsettingsview.ui:387
 #: ui/accountcreationwizard.ui:530
 msgid "Account"
 msgstr "Учётная запись"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1882
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1909
 msgid "Settings"
 msgstr "Настройки"
 
@@ -62,23 +63,23 @@ msgstr "Звук"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
-msgstr ""
+msgstr "Менеджер звука"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
-msgstr ""
+msgstr "Устройство для звонка"
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr ""
+msgstr "Устройства вывода"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
-msgstr ""
+msgstr "Устройство для записи"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
-msgstr ""
+msgstr "Уровень входящего звука"
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
@@ -86,7 +87,7 @@ msgstr "Видео"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
-msgstr ""
+msgstr "Камера не обнаружена"
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
@@ -94,7 +95,7 @@ msgstr "Устройство"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
-msgstr ""
+msgstr "Канал"
 
 #: ui/mediasettingsview.ui:411
 msgid "Resolution"
@@ -136,7 +137,7 @@ msgstr "Пароль"
 
 #: ui/accountmigrationview.ui:205
 msgid "Account manager"
-msgstr ""
+msgstr "Менеджер учётной записи"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
@@ -260,7 +261,7 @@ msgstr "Настройки вызовов"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "Разрешить входящие звонки от незнакомых контактов"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
@@ -272,7 +273,7 @@ msgstr "Мелодия звонка"
 
 #: ui/newaccountsettingsview.ui:1264
 msgid "(Experimental) Rendez-vous: turn your account into a conference room"
-msgstr ""
+msgstr "(Экспериментально) Рандеву: переключить ваш аккаунт в комнату конференций"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -288,7 +289,7 @@ msgstr "Конфигурация OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1454
 msgid "Auto connect on local network"
-msgstr ""
+msgstr "Автоматическое соединение в локальной сети"
 
 #: ui/newaccountsettingsview.ui:1490
 msgid "Bootstrap"
@@ -471,12 +472,12 @@ msgstr "Основные"
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
 msgid "Open application menu"
-msgstr ""
+msgstr "Открыть меню приложения"
 
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr ""
+msgstr "Открыть список аккаунтов"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
@@ -506,12 +507,12 @@ msgstr "Разговоры"
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Start a video call"
-msgstr ""
+msgstr "Начать видеозвонок "
 
 #: ui/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Start an audio call"
-msgstr ""
+msgstr "Начать аудиозвонок"
 
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
@@ -536,12 +537,12 @@ msgstr "Заблокировать контакт"
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Unblock contact"
-msgstr ""
+msgstr "Разблокировать контакт"
 
 #: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
-msgstr ""
+msgstr "Скопировать имя контакта"
 
 #: ui/help-overlay.ui:127
 msgctxt "shortcut window"
@@ -551,12 +552,12 @@ msgstr "Вызов"
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
-msgstr ""
+msgstr "Принять звонок"
 
 #: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
-msgstr ""
+msgstr "Отклонить звонок"
 
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
@@ -615,7 +616,7 @@ msgstr ""
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "QR-код"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -627,7 +628,7 @@ msgstr "Создать учётную запись Jami"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Создать новый аккаунт Jami (для новых пользователей)"
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
@@ -643,7 +644,7 @@ msgstr "Привязать это устройство к существующе
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "Импортировать аккаунт с вашим PIN кодом, созданным на другом устройстве"
 
 #: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:694
 msgid "Restore an account from backup"
@@ -711,7 +712,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:630
 msgid "Encrypt account with password"
-msgstr ""
+msgstr "Зашифровать аккаунт с помощью пароля"
 
 #: ui/accountcreationwizard.ui:631
 msgid ""
@@ -981,7 +982,7 @@ msgstr "Отключить звук"
 
 #: ui/currentcallview.ui:563
 msgid "Activate Plugin"
-msgstr ""
+msgstr "Активировать плагин"
 
 #: ui/currentcallview.ui:572
 msgid "Transfer"
@@ -997,23 +998,23 @@ msgstr ""
 
 #: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
-msgstr ""
+msgstr "Выбрать плагин"
 
 #: ui/pluginsettingsview.ui:44
 msgid "Plugins"
-msgstr ""
+msgstr "Плагины"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
-msgstr ""
+msgstr "Включить плагины"
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
-msgstr ""
+msgstr "Установленные плагины"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr ""
+msgstr "Установить плагин"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
@@ -1100,7 +1101,7 @@ msgstr "_Сохранить"
 
 #: src/chatview.cpp:338
 msgid "Retry"
-msgstr ""
+msgstr "Повтор"
 
 #: src/chatview.cpp:501
 msgid "Stop"
@@ -1315,80 +1316,88 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "открыть чат"
 
-#: src/mainwindow.cpp:1114
+#: src/mainwindow.cpp:1135
 msgid "Jami - Migration needed"
 msgstr ""
 
-#: src/mainwindow.cpp:1127
+#: src/mainwindow.cpp:1148
 msgid "Migration in progress... please do not close this window."
 msgstr ""
 
-#: src/mainwindow.cpp:1407
+#: src/mainwindow.cpp:1428
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:1854
+#: src/mainwindow.cpp:1881
 msgid "Leave settings page"
 msgstr "Выйти из настроек"
 
-#: src/mainwindow.cpp:2278
+#: src/mainwindow.cpp:2304
+msgid "Missed call from "
+msgstr ""
+
+#: src/mainwindow.cpp:2308
+msgid "Missed call"
+msgstr "Пропущенный вызов"
+
+#: src/mainwindow.cpp:2325
 msgid "There are active calls"
 msgstr "Есть активные звонки"
 
-#: src/mainwindow.cpp:2331
+#: src/mainwindow.cpp:2381
 msgid " is calling you!"
 msgstr "звонит вам!"
 
-#: src/mainwindow.cpp:2334
+#: src/mainwindow.cpp:2384
 msgid "Incoming call"
 msgstr "Входящий вызов"
 
-#: src/mainwindow.cpp:2490
+#: src/mainwindow.cpp:2541
 msgid "New request from "
 msgstr "Новый запрос от "
 
-#: src/mainwindow.cpp:2493
+#: src/mainwindow.cpp:2544
 msgid "Trust request"
 msgstr "Запрос доверия"
 
-#: src/mainwindow.cpp:2555
+#: src/mainwindow.cpp:2606
 msgid "New message"
 msgstr "Новое сообщение"
 
-#: src/mainwindow.cpp:2607
+#: src/mainwindow.cpp:2658
 msgid "Stop current call?"
 msgstr "Завершить текущий звонок?"
 
-#: src/mainwindow.cpp:2608
+#: src/mainwindow.cpp:2659
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "В настоящее время идёт беседа. Хотите закрыть окно и остановить все текущие вызовы?"
 
-#: src/mainwindow.cpp:2675
+#: src/mainwindow.cpp:2726
 msgid "Clear history"
 msgstr "Очистить историю"
 
-#: src/mainwindow.cpp:2676
+#: src/mainwindow.cpp:2727
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2691
+#: src/mainwindow.cpp:2742
 msgid "Remove conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:2692
+#: src/mainwindow.cpp:2743
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2707
+#: src/mainwindow.cpp:2758
 msgid "Block contact"
 msgstr "Заблокировать контакт"
 
-#: src/mainwindow.cpp:2708
+#: src/mainwindow.cpp:2759
 msgid "Do you really want to block this contact?"
 msgstr ""
 
@@ -1442,22 +1451,22 @@ msgstr "Восстанавливает скрытое состояние гла�
 msgid "- GNOME client for Jami"
 msgstr "- клиент GNOME для Jami"
 
-#: src/notifier.cpp:336
+#: src/notifier.cpp:347
 msgctxt ""
 msgid "Open conversation"
 msgstr "Открыть разговор"
 
-#: src/notifier.cpp:344 src/notifier.cpp:360
+#: src/notifier.cpp:355 src/notifier.cpp:371
 msgctxt ""
 msgid "Accept"
 msgstr "Принять"
 
-#: src/notifier.cpp:351
+#: src/notifier.cpp:362
 msgctxt ""
 msgid "Refuse"
 msgstr "Отказать"
 
-#: src/notifier.cpp:367
+#: src/notifier.cpp:378
 msgctxt ""
 msgid "Decline"
 msgstr "Отклонить"
@@ -1466,15 +1475,15 @@ msgstr "Отклонить"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Предупреждение! Это действие удалит плагин!\nЗамечание: это действие невозможно отменить."
 
 #: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
 msgid "Uninstall Plugin"
-msgstr ""
+msgstr "Удалить плагин"
 
 #: src/pluginsettingsview.cpp:268
 msgid "Load/Unload Plugin"
-msgstr ""
+msgstr "Загрузить/Выгрузить плагин"
 
 #: src/profileview.cpp:130
 msgid "(None)"
@@ -1544,11 +1553,11 @@ msgstr "Отправить записанное сообщение"
 
 #: src/conversationpopupmenu.cpp:230
 msgid "Place _video call"
-msgstr "Сделать _видеозвонок"
+msgstr "Начать _видеозвонок"
 
 #: src/conversationpopupmenu.cpp:233
 msgid "Place _audio call"
-msgstr "Сделать _аудиозвонок"
+msgstr "Начать _аудиозвонок"
 
 #: src/conversationpopupmenu.cpp:241
 msgid "_Add to conversations"

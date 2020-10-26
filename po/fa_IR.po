@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-19 03:09-0400\n"
-"PO-Revision-Date: 2020-10-19 07:09+0000\n"
-"Last-Translator: Hamid reza Zaefarani\n"
+"POT-Creation-Date: 2020-10-26 03:09-0400\n"
+"PO-Revision-Date: 2020-10-26 07:09+0000\n"
+"Last-Translator: Mohammad Amin Sameti <mamins1376@gmail.com>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/jami/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,7 @@ msgstr "افزونه"
 msgid "Account"
 msgstr "حساب کاربری"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1882
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1909
 msgid "Settings"
 msgstr "تنظیمات"
 
@@ -1319,80 +1319,88 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "گشودن گپ"
 
-#: src/mainwindow.cpp:1114
+#: src/mainwindow.cpp:1135
 msgid "Jami - Migration needed"
 msgstr "Jami - نیازمند کوچاندن"
 
-#: src/mainwindow.cpp:1127
+#: src/mainwindow.cpp:1148
 msgid "Migration in progress... please do not close this window."
 msgstr "کوچاندن در جریان... لطفا این پنجره را نبندید."
 
-#: src/mainwindow.cpp:1407
+#: src/mainwindow.cpp:1428
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "پیدا کردن یا شروع یک گفتگو"
 
-#: src/mainwindow.cpp:1854
+#: src/mainwindow.cpp:1881
 msgid "Leave settings page"
 msgstr "خروج از صفحهٔ تنظیمات"
 
-#: src/mainwindow.cpp:2278
+#: src/mainwindow.cpp:2304
+msgid "Missed call from "
+msgstr ""
+
+#: src/mainwindow.cpp:2308
+msgid "Missed call"
+msgstr "تماس از دست رفته"
+
+#: src/mainwindow.cpp:2325
 msgid "There are active calls"
 msgstr "تماس های فعال وجود دارند"
 
-#: src/mainwindow.cpp:2331
+#: src/mainwindow.cpp:2381
 msgid " is calling you!"
 msgstr "در حال تماس گرفتن با شماست!"
 
-#: src/mainwindow.cpp:2334
+#: src/mainwindow.cpp:2384
 msgid "Incoming call"
 msgstr "تماس ورودی"
 
-#: src/mainwindow.cpp:2490
+#: src/mainwindow.cpp:2541
 msgid "New request from "
 msgstr "درخواست جدید از جانب"
 
-#: src/mainwindow.cpp:2493
+#: src/mainwindow.cpp:2544
 msgid "Trust request"
 msgstr "درخواست اعتماد"
 
-#: src/mainwindow.cpp:2555
+#: src/mainwindow.cpp:2606
 msgid "New message"
 msgstr "پیام جدید"
 
-#: src/mainwindow.cpp:2607
+#: src/mainwindow.cpp:2658
 msgid "Stop current call?"
 msgstr "قطع تماس فعلی؟"
 
-#: src/mainwindow.cpp:2608
+#: src/mainwindow.cpp:2659
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "یک تماس در جریان است. آیا میخواهید این پنجره را ببندید و تمام تماس های فعلی را متوقف کنید؟"
 
-#: src/mainwindow.cpp:2675
+#: src/mainwindow.cpp:2726
 msgid "Clear history"
 msgstr "پاک‌سازی تاریخچه"
 
-#: src/mainwindow.cpp:2676
+#: src/mainwindow.cpp:2727
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "آیا واقعا می‌خواهید تا تاریخچه این گفتگو را پاک کنید؟"
 
-#: src/mainwindow.cpp:2691
+#: src/mainwindow.cpp:2742
 msgid "Remove conversation"
 msgstr "حذف گفتگو"
 
-#: src/mainwindow.cpp:2692
+#: src/mainwindow.cpp:2743
 msgid "Do you really want to remove this conversation?"
 msgstr "آیا به حذف این گفتگو مطمئن هستید؟"
 
-#: src/mainwindow.cpp:2707
+#: src/mainwindow.cpp:2758
 msgid "Block contact"
 msgstr "مسدودسازی مخاطب"
 
-#: src/mainwindow.cpp:2708
+#: src/mainwindow.cpp:2759
 msgid "Do you really want to block this contact?"
 msgstr "آیا از مسدود سازی این مخاطب مطمئن هستید؟"
 
@@ -1446,22 +1454,22 @@ msgstr "حالت پنهان پنجره اصلی را بازیابی می کند 
 msgid "- GNOME client for Jami"
 msgstr "- کلاینت GNOME برای Jami"
 
-#: src/notifier.cpp:336
+#: src/notifier.cpp:347
 msgctxt ""
 msgid "Open conversation"
 msgstr "باز‌کردن گفتگو"
 
-#: src/notifier.cpp:344 src/notifier.cpp:360
+#: src/notifier.cpp:355 src/notifier.cpp:371
 msgctxt ""
 msgid "Accept"
 msgstr "قبول"
 
-#: src/notifier.cpp:351
+#: src/notifier.cpp:362
 msgctxt ""
 msgid "Refuse"
 msgstr "رد"
 
-#: src/notifier.cpp:367
+#: src/notifier.cpp:378
 msgctxt ""
 msgid "Decline"
 msgstr "رد کردن"

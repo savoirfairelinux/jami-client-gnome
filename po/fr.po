@@ -27,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-19 03:09-0400\n"
-"PO-Revision-Date: 2020-10-19 07:09+0000\n"
-"Last-Translator: Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-10-26 03:09-0400\n"
+"PO-Revision-Date: 2020-10-26 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,7 +58,7 @@ msgstr "Module d'extension"
 msgid "Account"
 msgstr "Compte"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1882
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1909
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -731,13 +731,13 @@ msgstr "Encrypter mon compte avec un mot de passe"
 msgid ""
 "Choose a password to encrypt your account on this device.  Note that the "
 "password cannot be recovered."
-msgstr ""
+msgstr "Choisissez un mot de passe pour encrypter votre compte sur cet appareil. Notez que le mot de passe ne peut pas être récupéré."
 
 #: ui/accountcreationwizard.ui:658
 msgid ""
 "Choose a password to encrypt your account on this device.\n"
 "Note that the password cannot be recovered."
-msgstr ""
+msgstr "Choisissez un mot de passe pour encrypter votre compte sur cet appareil. \nNotez que le mot de passe ne peut pas être récupéré."
 
 #: ui/accountcreationwizard.ui:686
 msgid ""
@@ -1329,80 +1329,88 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Ouvrir la discussion"
 
-#: src/mainwindow.cpp:1114
+#: src/mainwindow.cpp:1135
 msgid "Jami - Migration needed"
 msgstr "Jami - Migration nécessaire"
 
-#: src/mainwindow.cpp:1127
+#: src/mainwindow.cpp:1148
 msgid "Migration in progress... please do not close this window."
 msgstr "Migration en cours ... S'il vous plaît, ne fermez pas la fenêtre."
 
-#: src/mainwindow.cpp:1407
+#: src/mainwindow.cpp:1428
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Chercher ou démarrer une conversation"
 
-#: src/mainwindow.cpp:1854
+#: src/mainwindow.cpp:1881
 msgid "Leave settings page"
 msgstr "Quitter la page des réglages"
 
-#: src/mainwindow.cpp:2278
+#: src/mainwindow.cpp:2304
+msgid "Missed call from "
+msgstr ""
+
+#: src/mainwindow.cpp:2308
+msgid "Missed call"
+msgstr "Appel manqué"
+
+#: src/mainwindow.cpp:2325
 msgid "There are active calls"
 msgstr "Il y a des appels en cours"
 
-#: src/mainwindow.cpp:2331
+#: src/mainwindow.cpp:2381
 msgid " is calling you!"
 msgstr " vous appelle"
 
-#: src/mainwindow.cpp:2334
+#: src/mainwindow.cpp:2384
 msgid "Incoming call"
 msgstr "Appel entrant"
 
-#: src/mainwindow.cpp:2490
+#: src/mainwindow.cpp:2541
 msgid "New request from "
 msgstr "Nouvelle demande de "
 
-#: src/mainwindow.cpp:2493
+#: src/mainwindow.cpp:2544
 msgid "Trust request"
 msgstr "Invitation"
 
-#: src/mainwindow.cpp:2555
+#: src/mainwindow.cpp:2606
 msgid "New message"
 msgstr "Nouveau message"
 
-#: src/mainwindow.cpp:2607
+#: src/mainwindow.cpp:2658
 msgid "Stop current call?"
 msgstr "Mettre fin à l'appel en cours?"
 
-#: src/mainwindow.cpp:2608
+#: src/mainwindow.cpp:2659
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "I y a un appel en cours. Désirez vous fermer la fenêtre et mettre fin à tous les appels en cours?"
 
-#: src/mainwindow.cpp:2675
+#: src/mainwindow.cpp:2726
 msgid "Clear history"
 msgstr "Effacer l'historique"
 
-#: src/mainwindow.cpp:2676
+#: src/mainwindow.cpp:2727
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Voulez-vous vraiment effacer l'historique de cette conversation ?"
 
-#: src/mainwindow.cpp:2691
+#: src/mainwindow.cpp:2742
 msgid "Remove conversation"
 msgstr "Supprimer la conversation"
 
-#: src/mainwindow.cpp:2692
+#: src/mainwindow.cpp:2743
 msgid "Do you really want to remove this conversation?"
 msgstr "Êtes-vous certain de vouloir supprimer cette conversation ? "
 
-#: src/mainwindow.cpp:2707
+#: src/mainwindow.cpp:2758
 msgid "Block contact"
 msgstr "Bloquer le contact"
 
-#: src/mainwindow.cpp:2708
+#: src/mainwindow.cpp:2759
 msgid "Do you really want to block this contact?"
 msgstr "Souhaitez-vous vraiment bloquer ce contact ?"
 
@@ -1416,7 +1424,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"%s\"\nassemblé le %.25s"
 
 #: src/dialogs.c:151
 msgid ""
@@ -1456,22 +1464,22 @@ msgstr "Restaurer l’état caché de la fenêtre principale (applicable seuleme
 msgid "- GNOME client for Jami"
 msgstr "- le client GNOME de Jami"
 
-#: src/notifier.cpp:336
+#: src/notifier.cpp:347
 msgctxt ""
 msgid "Open conversation"
 msgstr "Ouvrir la conversation"
 
-#: src/notifier.cpp:344 src/notifier.cpp:360
+#: src/notifier.cpp:355 src/notifier.cpp:371
 msgctxt ""
 msgid "Accept"
 msgstr "Accepter"
 
-#: src/notifier.cpp:351
+#: src/notifier.cpp:362
 msgctxt ""
 msgid "Refuse"
 msgstr "Refuser"
 
-#: src/notifier.cpp:367
+#: src/notifier.cpp:378
 msgctxt ""
 msgid "Decline"
 msgstr "Décliner"
