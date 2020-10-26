@@ -1430,8 +1430,14 @@ CppImpl::init()
     /* init chat webkit container so that it starts loading before the first time we need it*/
     (void)webkitChatContainer();
 
-    // setup account selector and select the first account
-    refreshAccountSelectorWidget(0);
+    // set up account selector
+    if (!activeAccountId.isEmpty()) {
+        // if there is a non-disabled account, select the first such account
+        refreshAccountSelectorWidget(-1, activeAccountId.toStdString());
+    } else if(!accountIds.isEmpty()) {
+        // all accounts are disabled, select the first account
+        refreshAccountSelectorWidget(0);
+    }
 
     auto* renderer = gtk_cell_renderer_pixbuf_new();
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(widgets->combobox_account_selector), renderer, true);
