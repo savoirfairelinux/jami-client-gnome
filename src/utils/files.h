@@ -28,6 +28,17 @@ void autostart_symlink(gboolean autostart);
 
 GSettingsSchema *get_settings_schema();
 
+/**
+ * Split the string `uris' using `g_strsplit()' with "\r\n" as the delimiter,
+ * passing each split part through `g_filename_from_uri()', returning them all
+ * at once in a NULL-terminated array of strings.  On error, stores the GError
+ * in `error' and returns a NULL-terminated array containing the element that
+ * `g_filename_from_uri()' failed on.
+ *
+ * Use `g_strfreev()' to free the returned array after use.
+ */
+gchar **strsplit_uris_into_filenames(const gchar *uris, GError **error);
+
 G_END_DECLS
 
 #endif /* _FILES_H */
