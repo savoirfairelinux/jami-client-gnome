@@ -20,6 +20,7 @@
 #ifndef _FILES_H
 #define _FILES_H
 
+#include <functional>
 #include <gio/gio.h>
 
 G_BEGIN_DECLS
@@ -27,6 +28,14 @@ G_BEGIN_DECLS
 void autostart_symlink(gboolean autostart);
 
 GSettingsSchema *get_settings_schema();
+
+/**
+ * Split the string `uris' using `g_strsplit()' with "\r\n" as the delimiter,
+ * passing each split part through `g_filename_from_uri()', and passing the
+ * result as an argument to the provided `cb' callback function.
+ */
+void
+foreach_file(const gchar *uris, const std::function<void(const char*)>& cb);
 
 G_END_DECLS
 

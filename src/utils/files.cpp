@@ -206,3 +206,25 @@ get_settings_schema()
 
     return schema.get();
 }
+
+void
+foreach_file(const gchar *uris, const std::function<void(const char*)>& cb)
+{
+    guint i;
+    gchar **res = g_strsplit(uris, "\r\n", 0);
+    for (i = 0; res[i] != nullptr; i++) {
+        if (g_strcmp0(res[i], "") != 0) {
+            GError *error = nullptr;
+            auto* filename = g_filename_from_uri(res[i], nullptr, &error);
+            if (error) {
+                g_warning("Unable to exec g_filename_from_uri on %s", res[i]);
+                g_error_free(error);
+            }
+            else {
+                cb(filename);
+            }
+            g_free(filename);
+        }
+    }
+    g_strfreev(res);
+}
