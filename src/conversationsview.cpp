@@ -44,6 +44,8 @@
 
 static constexpr const char* CALL_TARGET    = "CALL_TARGET";
 static constexpr int         CALL_TARGET_ID = 0;
+static constexpr const char* TEXT_URI_LIST_TARGET    = "text/uri-list";
+static constexpr int         TEXT_URI_LIST_TARGET_ID = 1;
 
 struct _ConversationsView
 {
@@ -599,7 +601,7 @@ on_drag_data_received(GtkWidget        *treeview,
                       gint              x,
                       gint              y,
                       GtkSelectionData *data,
-                      G_GNUC_UNUSED guint info,
+                      guint             target_type,
                       guint             time,
                       G_GNUC_UNUSED gpointer user_data)
 {
@@ -612,6 +614,7 @@ on_drag_data_received(GtkWidget        *treeview,
     auto path_str_source = (gchar *)gtk_selection_data_get_data(data);
     auto type = gtk_selection_data_get_data_type(data);
     g_debug("data type: %s", gdk_atom_name(type));
+
     if (path_str_source && strlen(path_str_source) > 0) {
         g_debug("source path: %s", path_str_source);
 
@@ -620,30 +623,76 @@ on_drag_data_received(GtkWidget        *treeview,
         if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(treeview), x, y, &dest_path, NULL)) {
             auto model = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
 
-            GtkTreeIter source, dest;
-            gtk_tree_model_get_iter_from_string(model, &source, path_str_source);
-            gtk_tree_model_get_iter(model, &dest, dest_path);
+            switch (target_type) {
+                case CALL_TARGET_ID: {
+                    GtkTreeIter source, dest;
+                    gtk_tree_model_get_iter_from_string(model, &source, path_str_source);
+                    gtk_tree_model_get_iter(model, &dest, dest_path);
 
-            gchar *conversationUidSrc = nullptr;
-            gchar *conversationUidDest = nullptr;
+                    gchar *conversationUidSrc = nullptr;
+                    gchar *conversationUidDest = nullptr;
 
-            gtk_tree_model_get(model, &source,
-                               0, &conversationUidSrc,
-                               -1);
-            gtk_tree_model_get(model, &dest,
-                               0, &conversationUidDest,
-                               -1);
+                    gtk_tree_model_get(model, &source,
+                                       0, &conversationUidSrc,
+                                       -1);
+                    gtk_tree_model_get(model, &dest,
+                                       0, &conversationUidDest,
+                                       -1);
 
-            (*priv->accountInfo_)->conversationModel->joinConversations(
-                conversationUidSrc,
-                conversationUidDest
-            );
+                    (*priv->accountInfo_)->conversationModel->joinConversations(
+                        conversationUidSrc,
+                        conversationUidDest
+                    );
 
-            gtk_tree_path_free(dest_path);
-            g_free(conversationUidSrc);
-            g_free(conversationUidDest);
+                    gtk_tree_path_free(dest_path);
+                    g_free(conversationUidSrc);
+                    g_free(conversationUidDest);
 
-            success = TRUE;
+                    success = TRUE;
+                    break;
+                }
+                case TEXT_URI_LIST_TARGET_ID: {
+                    GtkTreeIter dest;
+                    gtk_tree_model_get_iter(model, &dest, dest_path);
+                    gchar *conversationUid = nullptr;
+                    gtk_tree_model_get(model, &dest, 0, &conversationUid, -1);
+
+                    GError *error = nullptr;
+                    auto* filename_uri = g_filename_from_uri(path_str_source,
+                        nullptr, &error);
+                    if (error) {
+                        g_warning("Unable to exec g_filename_from_uri on %s",
+                            path_str_source);
+                        g_error_free(error);
+                        return;
+                    }
+                    std::string filename = filename_uri;
+                    g_free(filename_uri);
+
+                    if (filename.find("\r\n") == std::string::npos) return;
+                    const auto LEN_END = std::string("\r\n").length();
+                    if (filename.length() > LEN_END) {
+                        // remove \r\n from the string
+                        filename = filename.substr(0,
+                            filename.length() - LEN_END);
+                    } else {
+                        // nothing valid to drop; abort
+                        return;
+                    }
+
+                    (*priv->accountInfo_)->conversationModel->sendFile(
+                        conversationUid, filename.c_str(),
+                        g_path_get_basename(filename.c_str()));
+
+                    gtk_tree_path_free(dest_path);
+                    g_free(conversationUid);
+                    success = TRUE;
+                    break;
+                }
+                default:
+                    g_warning("unhandled drag and drop target type");
+                    success = FALSE;
+            }
         }
     }
 
@@ -823,18 +872,19 @@ build_conversations_view(ConversationsView *self)
     /* drag and drop */
     static GtkTargetEntry targetentries[] = {
         { (gchar *)CALL_TARGET, GTK_TARGET_SAME_WIDGET, CALL_TARGET_ID },
+        { (gchar *)TEXT_URI_LIST_TARGET, GTK_TARGET_OTHER_APP, TEXT_URI_LIST_TARGET_ID },
     };
 
     gtk_tree_view_enable_model_drag_source(GTK_TREE_VIEW(self),
-        GDK_BUTTON1_MASK, targetentries, 1, (GdkDragAction)(GDK_ACTION_DEFAULT | GDK_ACTION_MOVE));
+        GDK_BUTTON1_MASK, targetentries, 2, (GdkDragAction)(GDK_ACTION_DEFAULT | GDK_ACTION_MOVE));
 
     gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(self),
-        targetentries, 1, GDK_ACTION_DEFAULT);
+        targetentries, 2, (GdkDragAction)(GDK_ACTION_DEFAULT | GDK_ACTION_COPY));
 
     g_signal_connect(self, "drag-data-get", G_CALLBACK(on_drag_data_get), nullptr);
     g_signal_connect(self, "drag-drop", G_CALLBACK(on_drag_drop), nullptr);
     g_signal_connect(self, "drag-motion", G_CALLBACK(on_drag_motion), nullptr);
-    g_signal_connect(self, "drag_data_received", G_CALLBACK(on_drag_data_received), nullptr);
+    g_signal_connect(self, "drag-data-received", G_CALLBACK(on_drag_data_received), nullptr);
 
     priv->cpp = new details::CppImpl();
 }
