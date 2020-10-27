@@ -967,30 +967,25 @@ on_webkit_drag_drop(GtkWidget*, gchar* data, ChatView* self)
     if (!data) return;
 
     GError *error = nullptr;
-    auto* filename_uri = g_filename_from_uri(data, nullptr, &error);
+    gchar **uris = strsplit_uris_into_filenames(data, &error);
     if (error) {
-        g_warning("Unable to exec g_filename_from_uri on %s", data);
+        g_warning("Unable to exec g_filename_from_uri on %s",
+            uris[0]);
+        g_strfreev(uris);
         g_error_free(error);
         return;
     }
-    std::string data_str = filename_uri;
-    g_free(filename_uri);
-
-    // Only take files
-    if (data_str.find("\r\n") == std::string::npos) return;
-    const auto LEN_END = std::string("\r\n").length();
-    if (data_str.length() > LEN_END) {
-        // remove \r\n from the string
-        data_str = data_str.substr(0, data_str.length() - LEN_END);
-    } else {
-        // Nothing valid to drop, abort.
-        return;
-    }
-
-    if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
-        model->sendFile(priv->conversation_->uid,
-                        data_str.c_str(),
-                        g_path_get_basename(data_str.c_str()));
+    else {
+        guint i;
+        for (i = 0; uris[i] != NULL; i++) {
+            if (g_strcmp0(uris[i], "") != 0) {
+                if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
+                    model->sendFile(priv->conversation_->uid, uris[i],
+                                    g_path_get_basename(uris[i]));
+                }
+            }
+        }
+        g_strfreev(uris);
     }
 }
 

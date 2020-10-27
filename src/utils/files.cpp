@@ -206,3 +206,28 @@ get_settings_schema()
 
     return schema.get();
 }
+
+gchar **
+strsplit_uris_into_filenames(const gchar *uris, GError **error)
+{
+    guint i;
+    gchar **res = g_strsplit(uris, "\r\n", 0);
+    for (i = 0; res[i] != NULL; i++) {
+        if (g_strcmp0(res[i], "") != 0) {
+            auto* filename = g_filename_from_uri(res[i], nullptr, error);
+            if (*error) {
+                auto* err = g_ptr_array_new();
+                g_ptr_array_add(err, g_strdup(res[i]));
+                g_ptr_array_add(err, NULL);
+                g_strfreev(res);
+                return (gchar **) g_ptr_array_free(err, FALSE);
+            }
+            else {
+                g_free(res[i]);
+                res[i] = g_strdup(filename);
+                g_free(filename);
+            }
+        }
+    }
+    return res;
+}
