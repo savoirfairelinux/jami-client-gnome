@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "948e28f1_adca7c9a",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-27T20:14:39Z",
+      "side": 1,
+      "message": "remove this behavior, this is not useful and I think it\u0027s a bad behavior we know have the button",
+      "range": {
+        "startLine": 627,
+        "startChar": 23,
+        "endLine": 653,
+        "endChar": 17
+      },
+      "revId": "7f25610c952a46c72308b9e98e544e7ff3cac054",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8336d797_42d39f46",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-27T20:14:39Z",
+      "side": 1,
+      "message": "only got one target_type, just keep this one",
+      "range": {
+        "startLine": 654,
+        "startChar": 21,
+        "endLine": 654,
+        "endChar": 44
+      },
+      "revId": "7f25610c952a46c72308b9e98e544e7ff3cac054",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45e5a048_09c50dc9",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-27T20:14:39Z",
+      "side": 1,
+      "message": "Avoid code duplication with on_webkit_drag_drop\n\nAlso in fact this code is far from optimal and doesn\u0027t work for multiple files. So instead you can use QString + QString::split(\"\\n\") \u0026 a loop to be able to send multiple files.",
+      "range": {
+        "startLine": 655,
+        "startChar": 20,
+        "endLine": 690,
+        "endChar": 26
+      },
+      "revId": "7f25610c952a46c72308b9e98e544e7ff3cac054",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e4bbf48_b3f3ccce",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-10-27T20:14:39Z",
+      "side": 1,
+      "message": "fyi I tested with _ and it works too. Anyway drag-data-received is better",
+      "range": {
+        "startLine": 887,
+        "startChar": 27,
+        "endLine": 887,
+        "endChar": 47
+      },
+      "revId": "7f25610c952a46c72308b9e98e544e7ff3cac054",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
