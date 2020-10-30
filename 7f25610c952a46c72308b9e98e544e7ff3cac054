@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0608da12_c949880c",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2020-10-30T17:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "948e28f1_adca7c9a",
+      "range": {
+        "startLine": 627,
+        "startChar": 23,
+        "endLine": 653,
+        "endChar": 17
+      },
+      "revId": "7f25610c952a46c72308b9e98e544e7ff3cac054",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8336d797_42d39f46",
         "filename": "src/conversationsview.cpp",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "7f25610c952a46c72308b9e98e544e7ff3cac054",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "719a73ab_80a8be3e",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2020-10-30T17:30:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8336d797_42d39f46",
+      "range": {
+        "startLine": 654,
+        "startChar": 21,
+        "endLine": 654,
+        "endChar": 44
+      },
+      "revId": "7f25610c952a46c72308b9e98e544e7ff3cac054",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f91a618d_57aa578c",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2020-10-30T17:30:24Z",
+      "side": 1,
+      "message": "Ack. However, I decided to use GLib\u0027s string functions instead of going to Qt\u0027s QString.",
+      "parentUuid": "45e5a048_09c50dc9",
+      "range": {
+        "startLine": 655,
+        "startChar": 20,
+        "endLine": 690,
+        "endChar": 26
+      },
+      "revId": "7f25610c952a46c72308b9e98e544e7ff3cac054",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e4bbf48_b3f3ccce",
         "filename": "src/conversationsview.cpp",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "7f25610c952a46c72308b9e98e544e7ff3cac054",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc821a70_d6d70e67",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2020-10-30T17:30:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8e4bbf48_b3f3ccce",
+      "range": {
+        "startLine": 887,
+        "startChar": 27,
+        "endLine": 887,
+        "endChar": 47
+      },
+      "revId": "7f25610c952a46c72308b9e98e544e7ff3cac054",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
