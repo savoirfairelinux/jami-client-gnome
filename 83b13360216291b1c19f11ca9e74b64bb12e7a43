@@ -22,6 +22,30 @@
       "revId": "83b13360216291b1c19f11ca9e74b64bb12e7a43",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adda05e2_86040a18",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2020-10-30T21:29:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe28e528_c13c9d12",
+      "range": {
+        "startLine": 565,
+        "startChar": 16,
+        "endLine": 597,
+        "endChar": 17
+      },
+      "revId": "83b13360216291b1c19f11ca9e74b64bb12e7a43",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
