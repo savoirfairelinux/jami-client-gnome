@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-26 03:09-0400\n"
+"POT-Creation-Date: 2020-11-02 03:09-0500\n"
 "PO-Revision-Date: 2020-10-26 07:09+0000\n"
 "Last-Translator: Mohammad Amin Sameti <mamins1376@gmail.com>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/jami/language/fa_IR/)\n"
@@ -48,7 +48,7 @@ msgstr "افزونه"
 msgid "Account"
 msgstr "حساب کاربری"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1909
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1915
 msgid "Settings"
 msgstr "تنظیمات"
 
@@ -1334,73 +1334,73 @@ msgctxt ""
 msgid "Find or start a conversation"
 msgstr "پیدا کردن یا شروع یک گفتگو"
 
-#: src/mainwindow.cpp:1881
+#: src/mainwindow.cpp:1887
 msgid "Leave settings page"
 msgstr "خروج از صفحهٔ تنظیمات"
 
-#: src/mainwindow.cpp:2304
+#: src/mainwindow.cpp:2310
 msgid "Missed call from "
 msgstr ""
 
-#: src/mainwindow.cpp:2308
+#: src/mainwindow.cpp:2314
 msgid "Missed call"
 msgstr "تماس از دست رفته"
 
-#: src/mainwindow.cpp:2325
+#: src/mainwindow.cpp:2331
 msgid "There are active calls"
 msgstr "تماس های فعال وجود دارند"
 
-#: src/mainwindow.cpp:2381
+#: src/mainwindow.cpp:2387
 msgid " is calling you!"
 msgstr "در حال تماس گرفتن با شماست!"
 
-#: src/mainwindow.cpp:2384
+#: src/mainwindow.cpp:2390
 msgid "Incoming call"
 msgstr "تماس ورودی"
 
-#: src/mainwindow.cpp:2541
+#: src/mainwindow.cpp:2547
 msgid "New request from "
 msgstr "درخواست جدید از جانب"
 
-#: src/mainwindow.cpp:2544
+#: src/mainwindow.cpp:2550
 msgid "Trust request"
 msgstr "درخواست اعتماد"
 
-#: src/mainwindow.cpp:2606
+#: src/mainwindow.cpp:2612
 msgid "New message"
 msgstr "پیام جدید"
 
-#: src/mainwindow.cpp:2658
+#: src/mainwindow.cpp:2664
 msgid "Stop current call?"
 msgstr "قطع تماس فعلی؟"
 
-#: src/mainwindow.cpp:2659
+#: src/mainwindow.cpp:2665
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "یک تماس در جریان است. آیا میخواهید این پنجره را ببندید و تمام تماس های فعلی را متوقف کنید؟"
 
-#: src/mainwindow.cpp:2726
+#: src/mainwindow.cpp:2732
 msgid "Clear history"
 msgstr "پاک‌سازی تاریخچه"
 
-#: src/mainwindow.cpp:2727
+#: src/mainwindow.cpp:2733
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "آیا واقعا می‌خواهید تا تاریخچه این گفتگو را پاک کنید؟"
 
-#: src/mainwindow.cpp:2742
+#: src/mainwindow.cpp:2748
 msgid "Remove conversation"
 msgstr "حذف گفتگو"
 
-#: src/mainwindow.cpp:2743
+#: src/mainwindow.cpp:2749
 msgid "Do you really want to remove this conversation?"
 msgstr "آیا به حذف این گفتگو مطمئن هستید؟"
 
-#: src/mainwindow.cpp:2758
+#: src/mainwindow.cpp:2764
 msgid "Block contact"
 msgstr "مسدودسازی مخاطب"
 
-#: src/mainwindow.cpp:2759
+#: src/mainwindow.cpp:2765
 msgid "Do you really want to block this contact?"
 msgstr "آیا از مسدود سازی این مخاطب مطمئن هستید؟"
 
@@ -1454,22 +1454,22 @@ msgstr "حالت پنهان پنجره اصلی را بازیابی می کند 
 msgid "- GNOME client for Jami"
 msgstr "- کلاینت GNOME برای Jami"
 
-#: src/notifier.cpp:347
+#: src/notifier.cpp:349
 msgctxt ""
 msgid "Open conversation"
 msgstr "باز‌کردن گفتگو"
 
-#: src/notifier.cpp:355 src/notifier.cpp:371
+#: src/notifier.cpp:357 src/notifier.cpp:373
 msgctxt ""
 msgid "Accept"
 msgstr "قبول"
 
-#: src/notifier.cpp:362
+#: src/notifier.cpp:364
 msgctxt ""
 msgid "Refuse"
 msgstr "رد"
 
-#: src/notifier.cpp:378
+#: src/notifier.cpp:380
 msgctxt ""
 msgid "Decline"
 msgstr "رد کردن"

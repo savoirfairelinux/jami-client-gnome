@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-26 03:09-0400\n"
+"POT-Creation-Date: 2020-11-02 03:09-0500\n"
 "PO-Revision-Date: 2020-10-26 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/savoirfairelinux/jami/language/fi/)\n"
@@ -44,7 +44,7 @@ msgstr "Lisäosa"
 msgid "Account"
 msgstr "Tunnus"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1909
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1915
 msgid "Settings"
 msgstr "Asetukset"
 
@@ -1330,73 +1330,73 @@ msgctxt ""
 msgid "Find or start a conversation"
 msgstr "Etsi tai aloita keskustelu"
 
-#: src/mainwindow.cpp:1881
+#: src/mainwindow.cpp:1887
 msgid "Leave settings page"
 msgstr "Poistu asetussivulta"
 
-#: src/mainwindow.cpp:2304
+#: src/mainwindow.cpp:2310
 msgid "Missed call from "
 msgstr ""
 
-#: src/mainwindow.cpp:2308
+#: src/mainwindow.cpp:2314
 msgid "Missed call"
 msgstr ""
 
-#: src/mainwindow.cpp:2325
+#: src/mainwindow.cpp:2331
 msgid "There are active calls"
 msgstr "Täällä on aktiivisia puheluja"
 
-#: src/mainwindow.cpp:2381
+#: src/mainwindow.cpp:2387
 msgid " is calling you!"
 msgstr "soittaa sinulle!"
 
-#: src/mainwindow.cpp:2384
+#: src/mainwindow.cpp:2390
 msgid "Incoming call"
 msgstr "Saapuva puhelu"
 
-#: src/mainwindow.cpp:2541
+#: src/mainwindow.cpp:2547
 msgid "New request from "
 msgstr "Uusi pyyntö käyttäjältä"
 
-#: src/mainwindow.cpp:2544
+#: src/mainwindow.cpp:2550
 msgid "Trust request"
 msgstr "Luottamuspyyntö"
 
-#: src/mainwindow.cpp:2606
+#: src/mainwindow.cpp:2612
 msgid "New message"
 msgstr "Uusi viesti"
 
-#: src/mainwindow.cpp:2658
+#: src/mainwindow.cpp:2664
 msgid "Stop current call?"
 msgstr "Lopeta nykyinen puhelu?"
 
-#: src/mainwindow.cpp:2659
+#: src/mainwindow.cpp:2665
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Puhelu on parhaillaan käynnissä. Haluatko sulkea ikkunan ja lopettaa kaikki nykyiset puhelut?"
 
-#: src/mainwindow.cpp:2726
+#: src/mainwindow.cpp:2732
 msgid "Clear history"
 msgstr "Tyhjennä historia"
 
-#: src/mainwindow.cpp:2727
+#: src/mainwindow.cpp:2733
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Haluatko todella tyhjentää tämän keskustelun historian?"
 
-#: src/mainwindow.cpp:2742
+#: src/mainwindow.cpp:2748
 msgid "Remove conversation"
 msgstr "Poista keskustelu"
 
-#: src/mainwindow.cpp:2743
+#: src/mainwindow.cpp:2749
 msgid "Do you really want to remove this conversation?"
 msgstr "Haluatko todella poistaa tämän keskustelun?"
 
-#: src/mainwindow.cpp:2758
+#: src/mainwindow.cpp:2764
 msgid "Block contact"
 msgstr "Estä yhteystieto"
 
-#: src/mainwindow.cpp:2759
+#: src/mainwindow.cpp:2765
 msgid "Do you really want to block this contact?"
 msgstr "Haluatko todella estää tämän kontaktin?"
 
@@ -1450,22 +1450,22 @@ msgstr "Palauttaa pääikkunan piilotetun tilan (sovellettavissa ensisijaiseen e
 msgid "- GNOME client for Jami"
 msgstr "- GNOME asiakasohjelma Jamille"
 
-#: src/notifier.cpp:347
+#: src/notifier.cpp:349
 msgctxt ""
 msgid "Open conversation"
 msgstr "Avaa keskustelu"
 
-#: src/notifier.cpp:355 src/notifier.cpp:371
+#: src/notifier.cpp:357 src/notifier.cpp:373
 msgctxt ""
 msgid "Accept"
 msgstr "Hyväksy"
 
-#: src/notifier.cpp:362
+#: src/notifier.cpp:364
 msgctxt ""
 msgid "Refuse"
 msgstr "Kieltäydy"
 
-#: src/notifier.cpp:378
+#: src/notifier.cpp:380
 msgctxt ""
 msgid "Decline"
 msgstr "Kieltäydy"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-26 03:09-0400\n"
-"PO-Revision-Date: 2020-10-20 18:30+0000\n"
+"POT-Creation-Date: 2020-11-02 03:09-0500\n"
+"PO-Revision-Date: 2020-10-29 22:33+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,7 @@ msgstr "Extensie"
 msgid "Account"
 msgstr "Cont"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1909
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1915
 msgid "Settings"
 msgstr "Reglări"
 
@@ -127,7 +127,7 @@ msgstr "Nume de Utilizator"
 #: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
 #: ui/accountcreationwizard.ui:1347
 msgid "Password"
-msgstr "Parolă"
+msgstr "Parola"
 
 #: ui/accountmigrationview.ui:205
 msgid "Account manager"
@@ -168,7 +168,7 @@ msgstr "Pentru a adăuga un aparat nou la contul tău Jami, exportă contul pe J
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
-msgstr "Parolă (obligatoriu):"
+msgstr "Parola (obligatoriu):"
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
@@ -218,7 +218,7 @@ msgstr "Server SIP"
 
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
-msgstr "parolă"
+msgstr "parola"
 
 #: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
 #: ui/accountcreationwizard.ui:1276
@@ -379,7 +379,7 @@ msgstr "Nume de utilizator (TURN)"
 
 #: ui/newaccountsettingsview.ui:2313
 msgid "(TURN) password"
-msgstr "Parolă (TURN)"
+msgstr "Parola (TURN)"
 
 #: ui/newaccountsettingsview.ui:2350
 msgid "(TURN) realm"
@@ -461,7 +461,7 @@ msgstr "Trimite Invitația"
 #: ui/help-overlay.ui:13
 msgctxt "shortcut window"
 msgid "General"
-msgstr "General"
+msgstr "Generale"
 
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
@@ -767,11 +767,11 @@ msgstr "Se recuperează contul tău Jami..."
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr "Introdu adresa Jami Account Management Server (JAMS)"
+msgstr "Introdu URL-ul Serverului de Administrare a Conturilor JAMI (JAMS)"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
-msgstr "JAMS URL"
+msgstr "URL JAMS"
 
 #: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
@@ -1325,73 +1325,73 @@ msgctxt ""
 msgid "Find or start a conversation"
 msgstr "Caută sau începe o conversație"
 
-#: src/mainwindow.cpp:1881
+#: src/mainwindow.cpp:1887
 msgid "Leave settings page"
 msgstr "Lasă pagina reglărilor"
 
-#: src/mainwindow.cpp:2304
+#: src/mainwindow.cpp:2310
 msgid "Missed call from "
-msgstr ""
+msgstr "Apel pierdut de la"
 
-#: src/mainwindow.cpp:2308
+#: src/mainwindow.cpp:2314
 msgid "Missed call"
-msgstr ""
+msgstr "Apel pierdut"
 
-#: src/mainwindow.cpp:2325
+#: src/mainwindow.cpp:2331
 msgid "There are active calls"
 msgstr "Există apeluri în curs"
 
-#: src/mainwindow.cpp:2381
+#: src/mainwindow.cpp:2387
 msgid " is calling you!"
 msgstr "te sună!"
 
-#: src/mainwindow.cpp:2384
+#: src/mainwindow.cpp:2390
 msgid "Incoming call"
 msgstr "Apel primit"
 
-#: src/mainwindow.cpp:2541
+#: src/mainwindow.cpp:2547
 msgid "New request from "
 msgstr "O nouă cerere de la"
 
-#: src/mainwindow.cpp:2544
+#: src/mainwindow.cpp:2550
 msgid "Trust request"
 msgstr "Cerere de încredere"
 
-#: src/mainwindow.cpp:2606
+#: src/mainwindow.cpp:2612
 msgid "New message"
 msgstr "Mesaj nou"
 
-#: src/mainwindow.cpp:2658
+#: src/mainwindow.cpp:2664
 msgid "Stop current call?"
 msgstr "Oprești apelul în curs?"
 
-#: src/mainwindow.cpp:2659
+#: src/mainwindow.cpp:2665
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Un apel e acum în curs. Vrei să închizi fereastra și să oprești toate apelurile în curs?"
 
-#: src/mainwindow.cpp:2726
+#: src/mainwindow.cpp:2732
 msgid "Clear history"
 msgstr "Șterge cronologia"
 
-#: src/mainwindow.cpp:2727
+#: src/mainwindow.cpp:2733
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Chiar vrei să ștergi cronologia acestei conversații?"
 
-#: src/mainwindow.cpp:2742
+#: src/mainwindow.cpp:2748
 msgid "Remove conversation"
 msgstr "Șterge conversația"
 
-#: src/mainwindow.cpp:2743
+#: src/mainwindow.cpp:2749
 msgid "Do you really want to remove this conversation?"
 msgstr "Chiar vrei să ștergi această conversație?"
 
-#: src/mainwindow.cpp:2758
+#: src/mainwindow.cpp:2764
 msgid "Block contact"
 msgstr "Blochează contactul"
 
-#: src/mainwindow.cpp:2759
+#: src/mainwindow.cpp:2765
 msgid "Do you really want to block this contact?"
 msgstr "Chiar vrei să blochezi acest contact?"
 
@@ -1445,22 +1445,22 @@ msgstr "Restabilește starea ascunsă a ferestrei principale (aplicabilă numai 
 msgid "- GNOME client for Jami"
 msgstr "- Jami pentru GNOME"
 
-#: src/notifier.cpp:347
+#: src/notifier.cpp:349
 msgctxt ""
 msgid "Open conversation"
 msgstr "Deschide conversația"
 
-#: src/notifier.cpp:355 src/notifier.cpp:371
+#: src/notifier.cpp:357 src/notifier.cpp:373
 msgctxt ""
 msgid "Accept"
 msgstr "Acceptă"
 
-#: src/notifier.cpp:362
+#: src/notifier.cpp:364
 msgctxt ""
 msgid "Refuse"
 msgstr "Refuză"
 
-#: src/notifier.cpp:378
+#: src/notifier.cpp:380
 msgctxt ""
 msgid "Decline"
 msgstr "Refuză"
@@ -1489,7 +1489,7 @@ msgstr "Înscrie acest nume de utilizator pe serverul de nume"
 
 #: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
-msgstr "Nume de utilizator deja ales"
+msgstr "Nume de utilizator ales deja"
 
 #: src/usernameregistrationbox.cpp:179
 msgid "Invalid username"
@@ -1527,7 +1527,7 @@ msgstr "Numele nu poate fi înscris (Parolă greșită)."
 
 #: src/usernameregistrationbox.cpp:442
 msgid "Unable to register name (Username already taken)."
-msgstr "Numele nu poate fi înscris (Nume de utilizator deja ales)."
+msgstr "Numele nu poate fi înscris (Nume de utilizator ales deja)."
 
 #: src/usernameregistrationbox.cpp:446
 msgid "Unable to register name (Network error) - check your connection."
@@ -1603,12 +1603,12 @@ msgstr "O eroare a apărut în timpul creării contului SIP."
 
 #: src/accountcreationwizard.cpp:337
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr "Nu pot recupera niciun cont, verifică codul PIN și parola."
+msgstr "Nu pot recupera niciun cont; verifică codul PIN și parola."
 
 #: src/accountcreationwizard.cpp:341
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr "Nu pot recupera niciun cont, verifică arhiva și parola."
+msgstr "Nu pot recupera niciun cont; verifică arhiva și parola."
 
 #: src/accountcreationwizard.cpp:345
 msgid ""

@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-26 03:09-0400\n"
-"PO-Revision-Date: 2020-10-26 07:09+0000\n"
-"Last-Translator: est 31 <MTest31@outlook.com>\n"
+"POT-Creation-Date: 2020-11-02 03:09-0500\n"
+"PO-Revision-Date: 2020-10-30 16:11+0000\n"
+"Last-Translator: nautilusx\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -57,7 +57,7 @@ msgstr "Plugin"
 msgid "Account"
 msgstr "Konto"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1909
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1915
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -644,7 +644,7 @@ msgstr "Erzeugen eines neuen Jami-Kontos auf diesem Gerät (für neue Benutzer)"
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
-msgstr ""
+msgstr "Treffpunkt erstellen"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
@@ -1343,73 +1343,73 @@ msgctxt ""
 msgid "Find or start a conversation"
 msgstr "Suche oder starte eine Konversation"
 
-#: src/mainwindow.cpp:1881
+#: src/mainwindow.cpp:1887
 msgid "Leave settings page"
 msgstr "Seite mit Einstellungen verlassen"
 
-#: src/mainwindow.cpp:2304
+#: src/mainwindow.cpp:2310
 msgid "Missed call from "
 msgstr ""
 
-#: src/mainwindow.cpp:2308
+#: src/mainwindow.cpp:2314
 msgid "Missed call"
 msgstr "Verpasster Anruf"
 
-#: src/mainwindow.cpp:2325
+#: src/mainwindow.cpp:2331
 msgid "There are active calls"
 msgstr "Es gibt aktive Anrufe"
 
-#: src/mainwindow.cpp:2381
+#: src/mainwindow.cpp:2387
 msgid " is calling you!"
 msgstr "ruft Sie gerade an!"
 
-#: src/mainwindow.cpp:2384
+#: src/mainwindow.cpp:2390
 msgid "Incoming call"
 msgstr "Eingehender Anruf"
 
-#: src/mainwindow.cpp:2541
+#: src/mainwindow.cpp:2547
 msgid "New request from "
 msgstr "Neue Anfrage von"
 
-#: src/mainwindow.cpp:2544
+#: src/mainwindow.cpp:2550
 msgid "Trust request"
 msgstr "Anfrage vertrauen"
 
-#: src/mainwindow.cpp:2606
+#: src/mainwindow.cpp:2612
 msgid "New message"
 msgstr "Neue Nachricht"
 
-#: src/mainwindow.cpp:2658
+#: src/mainwindow.cpp:2664
 msgid "Stop current call?"
 msgstr "Aktuellen Anruf beenden?"
 
-#: src/mainwindow.cpp:2659
+#: src/mainwindow.cpp:2665
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Ein Aufruf ist derzeit im Gange. Möchten Sie das Fenster schließen und alle aktuellen Anrufe stoppen?"
 
-#: src/mainwindow.cpp:2726
+#: src/mainwindow.cpp:2732
 msgid "Clear history"
 msgstr "Verlauf leeren"
 
-#: src/mainwindow.cpp:2727
+#: src/mainwindow.cpp:2733
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Wollen Sie wirklich den Verlauf dieser Konversation löschen?"
 
-#: src/mainwindow.cpp:2742
+#: src/mainwindow.cpp:2748
 msgid "Remove conversation"
 msgstr "Konversation entfernen"
 
-#: src/mainwindow.cpp:2743
+#: src/mainwindow.cpp:2749
 msgid "Do you really want to remove this conversation?"
 msgstr "Wollen Sie wirklich diese Konversation löschen?"
 
-#: src/mainwindow.cpp:2758
+#: src/mainwindow.cpp:2764
 msgid "Block contact"
 msgstr "Kontakt blockieren"
 
-#: src/mainwindow.cpp:2759
+#: src/mainwindow.cpp:2765
 msgid "Do you really want to block this contact?"
 msgstr "Wollen Sie wirklich diesen Kontakt sperren?"
 
@@ -1463,22 +1463,22 @@ msgstr "Stellt den versteckten Zustand des Hauptfensters wieder her (nur für di
 msgid "- GNOME client for Jami"
 msgstr "- GNOME-Client für Jami"
 
-#: src/notifier.cpp:347
+#: src/notifier.cpp:349
 msgctxt ""
 msgid "Open conversation"
 msgstr "Konversation öffnen"
 
-#: src/notifier.cpp:355 src/notifier.cpp:371
+#: src/notifier.cpp:357 src/notifier.cpp:373
 msgctxt ""
 msgid "Accept"
 msgstr "Akzeptieren"
 
-#: src/notifier.cpp:362
+#: src/notifier.cpp:364
 msgctxt ""
 msgid "Refuse"
 msgstr "Verweigern"
 
-#: src/notifier.cpp:378
+#: src/notifier.cpp:380
 msgctxt ""
 msgid "Decline"
 msgstr "Ablehnen"
