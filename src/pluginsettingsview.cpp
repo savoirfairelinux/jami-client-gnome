@@ -126,7 +126,7 @@ choose_jpl_file(PluginSettingsView *self)
                                         GTK_FILE_CHOOSER_ACTION_OPEN,
                                         _("_Cancel"),
                                         GTK_RESPONSE_CANCEL,
-                                        _("_Save"),
+                                        _("_Open"),
                                         GTK_RESPONSE_ACCEPT,
                                         NULL);
         res = gtk_dialog_run (GTK_DIALOG(dialog));
