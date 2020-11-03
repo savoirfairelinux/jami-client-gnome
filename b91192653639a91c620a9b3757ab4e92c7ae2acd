@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed0c671d_6480d541",
+        "filename": "src/utils/files.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-11-03T17:23:27Z",
+      "side": 1,
+      "message": "avoid NULL, use nullptr\n\nStill a lot of duplicate, can be simplified\n\nvoid\nforeach_file(const gchar *uris, std::function\u003cvoid(const char*)\u003e\u0026 cb)\n\nand use it with\n\nforeach_file(path_str_source, [\u0026](const char* file) {\n                                (*priv-\u003eaccountInfo_)-\u003econversationModel-\u003esendFile(\n                                    conversationUid, file,\n                                    g_path_get_basename(file));\n});\n\nthis will avoid the double for loop on the same strings",
+      "range": {
+        "startLine": 215,
+        "startChar": 26,
+        "endLine": 215,
+        "endChar": 30
+      },
+      "revId": "b91192653639a91c620a9b3757ab4e92c7ae2acd",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
