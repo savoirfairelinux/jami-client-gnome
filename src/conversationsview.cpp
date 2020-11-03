@@ -659,6 +659,7 @@ build_conversations_view(ConversationsView *self)
     auto model = create_and_fill_model(self);
     gtk_tree_view_set_model(GTK_TREE_VIEW(self),
                             GTK_TREE_MODEL(model));
+    g_object_unref(model);
 
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(self), false);
 
@@ -713,6 +714,7 @@ build_conversations_view(ConversationsView *self)
 
         gtk_tree_view_set_model(GTK_TREE_VIEW(self),
                                 GTK_TREE_MODEL(model));
+        g_object_unref(model);
     });
 
 
@@ -724,6 +726,7 @@ build_conversations_view(ConversationsView *self)
 
         gtk_tree_view_set_model(GTK_TREE_VIEW(self),
                                 GTK_TREE_MODEL(model));
+        g_object_unref(model);
     });
     priv->searchStatusChangedConnection_ = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel,
@@ -783,6 +786,7 @@ build_conversations_view(ConversationsView *self)
 
         gtk_tree_view_set_model(GTK_TREE_VIEW(self),
                                 GTK_TREE_MODEL(model));
+        g_object_unref(model);
     });
 
     priv->callChangedConnection_ = QObject::connect(
@@ -801,6 +805,7 @@ build_conversations_view(ConversationsView *self)
         // create updated model
         auto new_model = create_and_fill_model(self);
         gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(new_model));
+        g_object_unref(new_model);
 
         // make sure conversation remains selected
         conversations_view_select_conversation(self, conversationUid);
