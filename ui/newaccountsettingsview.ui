@@ -1261,7 +1261,7 @@
                                           <property name="margin_right">12</property>
                                           <property name="visible">True</property>
                                           <property name="can_focus">False</property>
-                                          <property name="label" translatable="yes">(Experimental) Rendez-vous: turn your account into a conference room</property>
+                                          <property name="label" translatable="yes">Convert your account into a rendezvous point</property>
                                         </object>
                                       </child>
                                       <child>
