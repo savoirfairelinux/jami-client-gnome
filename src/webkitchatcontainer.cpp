@@ -359,7 +359,7 @@ init_js_i18n(WebKitChatContainer *view)
 {
     gchar *function_call;
 
-    auto translated = lrc::api::chatview::getTranslatedStrings();
+    auto translated = lrc::api::chatview::getTranslatedStrings(false);
     QJsonObject trjson;
     for (auto i = translated.begin(); i != translated.end(); ++i) {
         QString value = i.value().toString();
