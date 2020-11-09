@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-02 03:09-0500\n"
-"PO-Revision-Date: 2020-10-26 07:09+0000\n"
+"POT-Creation-Date: 2020-11-09 03:09-0500\n"
+"PO-Revision-Date: 2020-11-09 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/savoirfairelinux/jami/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -271,8 +271,8 @@ msgid "Custom ringtone"
 msgstr "Oma soittoääni"
 
 #: ui/newaccountsettingsview.ui:1264
-msgid "(Experimental) Rendez-vous: turn your account into a conference room"
-msgstr "(Kokeellinen) Rendez-vous: muuta tilisi kokoushuoneeksi"
+msgid "Convert your account into a rendezvous point"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -1336,11 +1336,11 @@ msgstr "Poistu asetussivulta"
 
 #: src/mainwindow.cpp:2310
 msgid "Missed call from "
-msgstr ""
+msgstr "Vastaamaton puhelu kohteesta"
 
 #: src/mainwindow.cpp:2314
 msgid "Missed call"
-msgstr ""
+msgstr "Vastaamaton puhelu"
 
 #: src/mainwindow.cpp:2331
 msgid "There are active calls"

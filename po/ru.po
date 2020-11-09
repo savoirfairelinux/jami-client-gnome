@@ -15,6 +15,7 @@
 # Konstantin, 2016
 # Marat Gubaidullin <marat.gubaidullin@savoirfairelinux.com>, 2015
 # Natalia <sonaux@gmail.com>, 2015
+# Nikita Epifanov, 2020
 # a2dfa1b0a2c50d1f7310301b498d8835_a2e43ad, 2015
 # Viktor Filinkov <bruteforce@sigil.tk>, 2015
 # Viktoria Phibo <queegam@gmail.com>, 2019
@@ -32,9 +33,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-02 03:09-0500\n"
-"PO-Revision-Date: 2020-10-26 07:09+0000\n"
-"Last-Translator: Чураков Александр\n"
+"POT-Creation-Date: 2020-11-09 03:09-0500\n"
+"PO-Revision-Date: 2020-11-09 08:09+0000\n"
+"Last-Translator: W. Studinsky\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -290,8 +291,8 @@ msgid "Custom ringtone"
 msgstr "Мелодия звонка"
 
 #: ui/newaccountsettingsview.ui:1264
-msgid "(Experimental) Rendez-vous: turn your account into a conference room"
-msgstr "(Экспериментально) Встреча: превратите свою учетную запись в конференц-зал"
+msgid "Convert your account into a rendezvous point"
+msgstr "Преобразовать вашу учетную запись в точку встречи"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -1355,7 +1356,7 @@ msgstr "Выйти из настроек"
 
 #: src/mainwindow.cpp:2310
 msgid "Missed call from "
-msgstr ""
+msgstr "Пропущенный звонок от "
 
 #: src/mainwindow.cpp:2314
 msgid "Missed call"

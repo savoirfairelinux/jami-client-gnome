@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-02 03:09-0500\n"
-"PO-Revision-Date: 2020-10-26 16:11+0000\n"
-"Last-Translator: Åke Engelbrektson\n"
+"POT-Creation-Date: 2020-11-09 03:09-0500\n"
+"PO-Revision-Date: 2020-11-09 08:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/jami/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -266,8 +266,8 @@ msgid "Custom ringtone"
 msgstr "Anpassad ringsignal"
 
 #: ui/newaccountsettingsview.ui:1264
-msgid "(Experimental) Rendez-vous: turn your account into a conference room"
-msgstr "(Experimentellt) Rendez-vous: Förvandla ditt konto till ett konferensrum"
+msgid "Convert your account into a rendezvous point"
+msgstr "Konvertera ditt konto till en rendevouz-punkt."
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-02 03:09-0500\n"
+"POT-Creation-Date: 2020-11-09 03:09-0500\n"
 "PO-Revision-Date: 2020-10-26 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/savoirfairelinux/jami/language/fr_CA/)\n"
@@ -271,8 +271,8 @@ msgid "Custom ringtone"
 msgstr "Sonnerie personnalisée"
 
 #: ui/newaccountsettingsview.ui:1264
-msgid "(Experimental) Rendez-vous: turn your account into a conference room"
-msgstr "Transformer votre compte en un point de Rendez-vous"
+msgid "Convert your account into a rendezvous point"
+msgstr ""
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"

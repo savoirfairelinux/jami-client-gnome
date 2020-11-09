@@ -41,9 +41,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-02 03:09-0500\n"
-"PO-Revision-Date: 2020-10-26 07:09+0000\n"
-"Last-Translator: d443967abde8afca61f24fde46cf8ab5_e6f48f8 <aab505380e829fa933da96cb0ef0cc70_97743>\n"
+"POT-Creation-Date: 2020-11-09 03:09-0500\n"
+"PO-Revision-Date: 2020-11-09 08:09+0000\n"
+"Last-Translator: Jorge Casas <jorgecasas@iternova.net>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/jami/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -106,7 +106,7 @@ msgstr "Dispositivo de entrada"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
-msgstr ""
+msgstr "Medidor del volumen de entrada"
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
@@ -299,8 +299,8 @@ msgid "Custom ringtone"
 msgstr "Tono de llamada personalizado"
 
 #: ui/newaccountsettingsview.ui:1264
-msgid "(Experimental) Rendez-vous: turn your account into a conference room"
-msgstr ""
+msgid "Convert your account into a rendezvous point"
+msgstr "Convierte tu cuenta en un punto de encuentro"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -663,7 +663,7 @@ msgstr "Crear un punto de encuentro"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
-msgstr ""
+msgstr "Crear un punto Rendezvous"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Link this device to an existing account"
@@ -675,7 +675,7 @@ msgstr "Importar una cuenta con el PIN generado en otro dispositivo"
 
 #: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:694
 msgid "Restore an account from backup"
-msgstr ""
+msgstr "Recupera una cuenta desde una copia de seguridad"
 
 #: ui/accountcreationwizard.ui:101
 msgid "Import an account via your archive"
@@ -709,7 +709,7 @@ msgstr "Información"
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Puedes obtener un archivo haciendo click en \"Exportar cuenta\" dentro de configuración de la cuenta. Esto creará un archivo .gz en tu dispositivo."
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
@@ -745,13 +745,13 @@ msgstr "Cifrar cuenta con contraseña"
 msgid ""
 "Choose a password to encrypt your account on this device.  Note that the "
 "password cannot be recovered."
-msgstr ""
+msgstr "Elige una contraseña para encriptar tu cuenta en este dispositivo. Ten en cuenta que la contraseña no podrá ser recuperada."
 
 #: ui/accountcreationwizard.ui:658
 msgid ""
 "Choose a password to encrypt your account on this device.\n"
 "Note that the password cannot be recovered."
-msgstr ""
+msgstr "Elige una contraseña para encriptar tu cuenta en este dispositivo.\nTen en cuenta que la contraseña no podrá ser recuperada."
 
 #: ui/accountcreationwizard.ui:686
 msgid ""
@@ -800,15 +800,15 @@ msgstr "Recuperando tu cuenta de Jami..."
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr ""
+msgstr "Ingresa la URL del JAMS (Jami Account Management Server)"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
-msgstr ""
+msgstr "JAMS URL"
 
 #: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
-msgstr ""
+msgstr "Ingresa las credenciales de tu JAMS"
 
 #: ui/accountcreationwizard.ui:1167
 msgid "Connect"
@@ -1072,7 +1072,7 @@ msgstr "No se pudo volver a conectar con el demonio Jami (dring).\nJami ahora se
 
 #: src/currentcallview.cpp:1069
 msgid "No name!"
-msgstr ""
+msgstr "¡Falta un nombre!"
 
 #: src/currentcallview.cpp:1178
 msgid "Current conference (all accounts)"
@@ -1303,7 +1303,7 @@ msgstr "Cortar"
 
 #: src/video/video_widget.cpp:429
 msgid "Maximize"
-msgstr ""
+msgstr "Maximizar"
 
 #: src/video/video_widget.cpp:444
 msgid "Minimize"
@@ -1311,7 +1311,7 @@ msgstr "Minimizar"
 
 #: src/video/video_widget.cpp:497
 msgid "More options"
-msgstr ""
+msgstr "Más opciones"
 
 #: src/video/video_widget.cpp:868
 msgid "Share _screen area"
@@ -1364,7 +1364,7 @@ msgstr "Abandonar la página de configuración"
 
 #: src/mainwindow.cpp:2310
 msgid "Missed call from "
-msgstr ""
+msgstr "Llamada perdida de"
 
 #: src/mainwindow.cpp:2314
 msgid "Missed call"
@@ -1438,7 +1438,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"%s\"\nCompilado el %.25s"
 
 #: src/dialogs.c:151
 msgid ""
@@ -1502,7 +1502,7 @@ msgstr "Rechazar"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "¡Advertencia! ¡Esta acción desinstalará el complemento!\nNota: esta acción no se puede deshacer."
 
 #: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
 msgid "Uninstall Plugin"
@@ -1628,11 +1628,11 @@ msgstr "Se produjo un error durante la creación de su cuenta."
 
 #: src/accountcreationwizard.cpp:329
 msgid "An error occured during the rendez-vous creation."
-msgstr ""
+msgstr "Se produjo un error durante la creación del rendez-vous."
 
 #: src/accountcreationwizard.cpp:333
 msgid "An error occured during the SIP account creation."
-msgstr ""
+msgstr "Se produjo un error durante la creación de la cuenta SIP."
 
 #: src/accountcreationwizard.cpp:337
 msgid "Cannot retrieve any account, please verify your PIN and your password."
@@ -1650,7 +1650,7 @@ msgstr "No se pudo conectar al administrador de cuenta proporcionado. Por favor 
 
 #: src/accountcreationwizard.cpp:534
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "Generando tu rendez-vous..."
 
 #: src/accountcreationwizard.cpp:536
 msgid "Generating your Jami account…"
@@ -1662,7 +1662,7 @@ msgstr "Las contraseñas no coinciden"
 
 #: src/accountcreationwizard.cpp:673
 msgid "Enter Jami account password"
-msgstr ""
+msgstr "Ingresa la contraseña de tu cuenta Jami"
 
 #: src/accountcreationwizard.cpp:674
 msgid "Link device"
