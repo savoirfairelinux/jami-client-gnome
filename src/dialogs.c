@@ -74,7 +74,8 @@ about_dialog(GtkWidget *parent)
 
     /* get logo */
     GError *error = NULL;
-    GdkPixbuf* logo = gdk_pixbuf_new_from_resource("/net/jami/JamiGnome/jami-logo-blue", &error);
+    GdkPixbuf* logo = gdk_pixbuf_new_from_resource_at_scale(
+        "/net/jami/JamiGnome/jami-logo-blue", 350, -1, TRUE, &error);
     if (logo == NULL) {
         g_debug("Could not load logo: %s", error->message);
         g_clear_error(&error);
