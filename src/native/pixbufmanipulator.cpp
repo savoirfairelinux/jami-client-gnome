@@ -213,7 +213,16 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
             } else if (!contactPhoto.isEmpty()) {
                 QByteArray byteArray = contactPhoto.toUtf8();
                 QVariant photo = personPhoto(byteArray);
-                return QVariant::fromValue(scaleAndFrame(photo.value<std::shared_ptr<GdkPixbuf>>().get(), size, displayInformation, status, unreadMessages));
+                if (GDK_IS_PIXBUF(photo.value<std::shared_ptr<GdkPixbuf>>().get())) {
+                    return QVariant::fromValue(scaleAndFrame(
+                        photo.value<std::shared_ptr<GdkPixbuf>>().get(), size,
+                        displayInformation, status, unreadMessages));
+                } else {
+                    return QVariant::fromValue(scaleAndFrame(
+                        generateAvatar(bestName.toStdString(),
+                            "ring:" + contactInfo.profileInfo.uri.toStdString()).get(),
+                        size, displayInformation, status, unreadMessages));
+                }
             } else {
                 return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName.toStdString(),
                      "ring:" + contactInfo.profileInfo.uri.toStdString()).get(), size, displayInformation, status, unreadMessages));
