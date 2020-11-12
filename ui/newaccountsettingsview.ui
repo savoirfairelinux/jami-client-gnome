@@ -2079,6 +2079,41 @@
                               <property name="halign">fill</property>
                               <property name="selection_mode">none</property>
                               <child>
+                                <!-- Auto Registration After Expired -->
+                                <object class="GtkListBoxRow">
+                                  <property name="visible">True</property>
+                                  <property name="can_focus">True</property>
+                                  <property name="halign">fill</property>
+                                  <child>
+                                    <object class="GtkBox" id="sip_auto_registration_box">
+                                      <property name="visible">True</property>
+                                      <property name="halign">fill</property>
+                                      <property name="orientation">horizontal</property>
+                                      <property name="margin_left">12</property>
+                                      <property name="margin_right">12</property>
+                                      <property name="margin_top">12</property>
+                                      <property name="margin_bottom">12</property>
+                                      <child>
+                                        <object class="GtkLabel" id="label_sip_auto_registration">
+                                          <property name="visible">True</property>
+                                          <property name="can_focus">False</property>
+                                          <property name="label" translatable="yes">Auto Registration After Expired</property>
+                                        </object>
+                                      </child>
+                                      <child>
+                                        <object class="GtkSwitch" id="sip_auto_registration_button">
+                                          <property name="visible">True</property>
+                                          <property name="can_focus">True</property>
+                                        </object>
+                                        <packing>
+                                          <property name="pack_type">end</property>
+                                        </packing>
+                                      </child>
+                                    </object>
+                                  </child>
+                                </object>
+                              </child>
+                              <child>
                                 <!-- Registration expire -->
                                 <object class="GtkListBoxRow" id="sip_registration_expire_row">
                                   <property name="visible">True</property>
