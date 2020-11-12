@@ -153,6 +153,7 @@ struct _NewAccountSettingsViewPrivate
     GtkWidget* sip_network_interface_row;
         GtkWidget* spinbutton_network_interface;
     GtkWidget* upnp_button;
+    GtkWidget* sip_auto_registration_button;
     GtkWidget* switch_use_turn;
     GtkWidget* entry_turnserver;
     GtkWidget* entry_turnusername;
@@ -331,6 +332,7 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, sip_network_interface_row);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, spinbutton_network_interface);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, upnp_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, sip_auto_registration_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, switch_use_turn);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, entry_turnserver);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, entry_turnusername);
@@ -1345,6 +1347,18 @@ enable_upnp(GObject*, GParamSpec*, NewAccountSettingsView *view)
 }
 
 static void
+enable_auto_registration(GObject*, GParamSpec*, NewAccountSettingsView *view)
+{
+    if (!is_config_ok(view)) return;
+    auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
+    auto newState =  gtk_switch_get_active(GTK_SWITCH(priv->sip_auto_registration_button));
+    if (newState != priv->currentProp_->keepAliveEnabled) {
+        priv->currentProp_->keepAliveEnabled = newState;
+        new_account_settings_view_save_account(view);
+    }
+}
+
+static void
 enable_custom_address(GObject*, GParamSpec*, NewAccountSettingsView *view)
 {
     if (!is_config_ok(view)) return;
@@ -1951,6 +1965,7 @@ build_settings_view(NewAccountSettingsView* view)
     g_signal_connect(priv->spinbutton_network_interface, "value-changed", G_CALLBACK(update_network_interface), view);
     g_signal_connect(priv->entry_tls_server_name, "focus-out-event", G_CALLBACK(update_tls_server_name), view);
     g_signal_connect(priv->upnp_button, "notify::active", G_CALLBACK(enable_upnp), view);
+    g_signal_connect(priv->sip_auto_registration_button, "notify::active", G_CALLBACK(enable_auto_registration), view);
     g_signal_connect(priv->switch_use_turn, "notify::active", G_CALLBACK(enable_turn), view);
     g_signal_connect(priv->entry_turnserver, "focus-out-event", G_CALLBACK(update_turnserver), view);
     g_signal_connect(priv->entry_turnusername, "focus-out-event", G_CALLBACK(update_turnusername), view);
@@ -2218,6 +2233,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
     if (!priv->currentProp_->TLS.password.isEmpty())
         gtk_entry_set_text(GTK_ENTRY(priv->entry_password), qUtf8Printable(priv->currentProp_->TLS.password));
     gtk_switch_set_active(GTK_SWITCH(priv->upnp_button), priv->currentProp_->upnpEnabled);
+    gtk_switch_set_active(GTK_SWITCH(priv->sip_auto_registration_button), priv->currentProp_->keepAliveEnabled);
     gtk_switch_set_active(GTK_SWITCH(priv->switch_use_turn), priv->currentProp_->TURN.enable);
     gtk_widget_set_sensitive(GTK_WIDGET(priv->entry_turnserver), priv->currentProp_->TURN.enable);
     gtk_widget_set_sensitive(GTK_WIDGET(priv->entry_turnusername), priv->currentProp_->TURN.enable);
