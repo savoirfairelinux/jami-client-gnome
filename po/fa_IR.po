@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-09 03:09-0500\n"
+"POT-Creation-Date: 2020-11-16 03:09-0500\n"
 "PO-Revision-Date: 2020-11-09 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/jami/language/fa_IR/)\n"
@@ -1046,28 +1046,28 @@ msgid ""
 "Jami will now quit."
 msgstr "عدم توانایی در اتصال مجدد به دیمن Jami (dring).\nJami اکنون بسته خواهد شد."
 
-#: src/currentcallview.cpp:1069
+#: src/currentcallview.cpp:1070
 msgid "No name!"
 msgstr "بدون نام!"
 
-#: src/currentcallview.cpp:1178
+#: src/currentcallview.cpp:1185
 msgid "Current conference (all accounts)"
 msgstr "کنفرانس فعلی (تمام حساب های کاربری)"
 
-#: src/currentcallview.cpp:1213
+#: src/currentcallview.cpp:1220
 msgid "Current calls (all accounts)"
 msgstr "تماس های فعلی (تمام حساب های کاربری)"
 
-#: src/currentcallview.cpp:1230
+#: src/currentcallview.cpp:1237
 msgid "Online contacts"
 msgstr "مخاطبان آنلاین"
 
-#: src/currentcallview.cpp:1673
+#: src/currentcallview.cpp:1680
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "خودکار"
 
-#: src/currentcallview.cpp:1748
+#: src/currentcallview.cpp:1755
 msgid "me"
 msgstr ""
 
@@ -1092,13 +1092,13 @@ msgstr "ذخیره فایل"
 msgid "_Cancel"
 msgstr "_لغو"
 
-#: src/chatview.cpp:286 src/avatarmanipulation.cpp:416
+#: src/chatview.cpp:286 src/pluginsettingsview.cpp:129
+#: src/avatarmanipulation.cpp:416
 msgid "_Open"
 msgstr "_گشودن"
 
 #: src/chatview.cpp:286 src/generalsettingsview.cpp:236
-#: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:129
-#: src/accountcreationwizard.cpp:873
+#: src/newaccountsettingsview.cpp:911 src/accountcreationwizard.cpp:873
 msgid "_Save"
 msgstr "_ذخیره"
 
@@ -1110,7 +1110,7 @@ msgstr "تلاش دوباره"
 msgid "Stop"
 msgstr "پایان"
 
-#: src/chatview.cpp:1016
+#: src/chatview.cpp:996
 msgid "Send"
 msgstr "ارسال"
 
@@ -1408,7 +1408,7 @@ msgstr "آیا از مسدود سازی این مخاطب مطمئن هستید�
 msgid "Working…"
 msgstr "در حال کار..."
 
-#: src/dialogs.c:84
+#: src/dialogs.c:85
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
@@ -1416,7 +1416,7 @@ msgid ""
 "built on %.25s"
 msgstr ""
 
-#: src/dialogs.c:151
+#: src/dialogs.c:152
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."

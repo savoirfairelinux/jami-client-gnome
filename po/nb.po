@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Allan Nordhøy <epost@anotheragency.no>, 2017-2018
+# Jan Sherdahl <jan@sherdahl.com>, 2020
 # pere <pere-transifex@hungry.com>, 2016-2017,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-09 03:09-0500\n"
-"PO-Revision-Date: 2020-11-09 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-11-16 03:09-0500\n"
+"PO-Revision-Date: 2020-11-16 06:44+0000\n"
+"Last-Translator: Jan Sherdahl <jan@sherdahl.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/savoirfairelinux/jami/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +34,7 @@ msgstr "Media"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
-msgstr ""
+msgstr "Programvareutvidelse"
 
 #: ui/mainwindow.ui:136 ui/newaccountsettingsview.ui:387
 #: ui/accountcreationwizard.ui:530
@@ -58,15 +59,15 @@ msgstr "Lyd"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
-msgstr ""
+msgstr "Lydbehandler"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
-msgstr ""
+msgstr "Ringetoneenhet"
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr ""
+msgstr "Utgangsenhet"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
@@ -82,7 +83,7 @@ msgstr "Video"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
-msgstr ""
+msgstr "Kamera ikke oppdaget"
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
@@ -90,7 +91,7 @@ msgstr "Enhet"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
-msgstr ""
+msgstr "Kanal"
 
 #: ui/mediasettingsview.ui:411
 msgid "Resolution"
@@ -98,7 +99,7 @@ msgstr "Oppløsning"
 
 #: ui/mediasettingsview.ui:447
 msgid "Framerate"
-msgstr ""
+msgstr "Bilderate"
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
@@ -132,7 +133,7 @@ msgstr "Passord"
 
 #: ui/accountmigrationview.ui:205
 msgid "Account manager"
-msgstr ""
+msgstr "Konto ansvarlig"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
@@ -256,7 +257,7 @@ msgstr "Samtaleoppsett"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "Tillat anrop fra ukjente kontakter"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
@@ -268,7 +269,7 @@ msgstr "Tilpasset ringetone"
 
 #: ui/newaccountsettingsview.ui:1264
 msgid "Convert your account into a rendezvous point"
-msgstr ""
+msgstr "Konverter din konto til en møteplass"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -611,7 +612,7 @@ msgstr ""
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "QR kode"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -627,11 +628,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
-msgstr ""
+msgstr "Opprett møteplass"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
-msgstr ""
+msgstr "Opprett møteplass"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Link this device to an existing account"
@@ -643,7 +644,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:694
 msgid "Restore an account from backup"
-msgstr ""
+msgstr "Gjenopprett en konto fra sikkerhetskopi"
 
 #: ui/accountcreationwizard.ui:101
 msgid "Import an account via your archive"
@@ -651,11 +652,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:108
 msgid "Advanced features"
-msgstr ""
+msgstr "Avanserte funksjoner"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Connect to a JAMS server"
-msgstr ""
+msgstr "Koble til en JAMS tjener"
 
 #: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
@@ -663,7 +664,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:127
 msgid "Add a SIP account"
-msgstr ""
+msgstr "Legg til SIP konto"
 
 #: ui/accountcreationwizard.ui:199
 msgid "Archive"
@@ -707,19 +708,19 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:630
 msgid "Encrypt account with password"
-msgstr ""
+msgstr "Krypter konto med passord"
 
 #: ui/accountcreationwizard.ui:631
 msgid ""
 "Choose a password to encrypt your account on this device.  Note that the "
 "password cannot be recovered."
-msgstr ""
+msgstr "Velg et passord for å kryptere din konto på denne enheten. Merk at passordet ikke kan gjenopprettes."
 
 #: ui/accountcreationwizard.ui:658
 msgid ""
 "Choose a password to encrypt your account on this device.\n"
 "Note that the password cannot be recovered."
-msgstr ""
+msgstr "Velg et passord for å kryptere din konto på denne enheten.\nMerk at passordet ikke kan gjenopprettes."
 
 #: ui/accountcreationwizard.ui:686
 msgid ""
@@ -737,7 +738,7 @@ msgstr "Neste"
 
 #: ui/accountcreationwizard.ui:826
 msgid "Backup your account!"
-msgstr ""
+msgstr "Sikkerhetskopier din konto!"
 
 #: ui/accountcreationwizard.ui:842
 msgid ""
@@ -780,19 +781,19 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:1167
 msgid "Connect"
-msgstr ""
+msgstr "Koble til"
 
 #: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
-msgstr ""
+msgstr "Konfigurer en eksisterende SIP konto"
 
 #: ui/accountcreationwizard.ui:1240
 msgid "Server"
-msgstr ""
+msgstr "Tjener"
 
 #: ui/accountcreationwizard.ui:1385
 msgid "Create SIP account"
-msgstr ""
+msgstr "Opprett SIP konto"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
@@ -864,15 +865,15 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:676
 msgid "Record local video"
-msgstr ""
+msgstr "Ta opp lokal video"
 
 #: ui/generalsettingsview.ui:712
 msgid "Always record calls"
-msgstr ""
+msgstr "Alltid ta opp samtaler"
 
 #: ui/generalsettingsview.ui:749
 msgid "Record folder"
-msgstr ""
+msgstr "Opptaksmappe"
 
 #: ui/generalsettingsview.ui:786
 msgid "Bitrate for call recordings (kb/s)"
@@ -977,7 +978,7 @@ msgstr "Koble ut lyden"
 
 #: ui/currentcallview.ui:563
 msgid "Activate Plugin"
-msgstr ""
+msgstr "Aktiver programvareutvidelse"
 
 #: ui/currentcallview.ui:572
 msgid "Transfer"
@@ -989,15 +990,15 @@ msgstr "Overfør til"
 
 #: ui/currentcallview.ui:686
 msgid "Add"
-msgstr ""
+msgstr "Legg til"
 
 #: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
-msgstr ""
+msgstr "Velg programvareutvidelse"
 
 #: ui/pluginsettingsview.ui:44
 msgid "Plugins"
-msgstr ""
+msgstr "Programvareutvidelse"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
@@ -1005,11 +1006,11 @@ msgstr ""
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
-msgstr ""
+msgstr "Tillegg installert"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr ""
+msgstr "Installer tillegg"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
@@ -1038,30 +1039,30 @@ msgid ""
 "Jami will now quit."
 msgstr "Klarte ikke koble opp forbindelsen igjen til Jami-bakgrunnsprosessen (dring).\nJami avslutter nå."
 
-#: src/currentcallview.cpp:1069
+#: src/currentcallview.cpp:1070
 msgid "No name!"
 msgstr ""
 
-#: src/currentcallview.cpp:1178
+#: src/currentcallview.cpp:1185
 msgid "Current conference (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:1213
+#: src/currentcallview.cpp:1220
 msgid "Current calls (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:1230
+#: src/currentcallview.cpp:1237
 msgid "Online contacts"
-msgstr ""
+msgstr "Kontaker på nett"
 
-#: src/currentcallview.cpp:1673
+#: src/currentcallview.cpp:1680
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/currentcallview.cpp:1748
+#: src/currentcallview.cpp:1755
 msgid "me"
-msgstr ""
+msgstr "meg"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:972
 msgid ""
@@ -1084,13 +1085,13 @@ msgstr "Lagre fil"
 msgid "_Cancel"
 msgstr "_Avbryt"
 
-#: src/chatview.cpp:286 src/avatarmanipulation.cpp:416
+#: src/chatview.cpp:286 src/pluginsettingsview.cpp:129
+#: src/avatarmanipulation.cpp:416
 msgid "_Open"
 msgstr "_Åpne"
 
 #: src/chatview.cpp:286 src/generalsettingsview.cpp:236
-#: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:129
-#: src/accountcreationwizard.cpp:873
+#: src/newaccountsettingsview.cpp:911 src/accountcreationwizard.cpp:873
 msgid "_Save"
 msgstr "_Lagre"
 
@@ -1102,7 +1103,7 @@ msgstr "Forsøk igjen"
 msgid "Stop"
 msgstr "Stopp"
 
-#: src/chatview.cpp:1016
+#: src/chatview.cpp:996
 msgid "Send"
 msgstr "Send"
 
@@ -1185,7 +1186,7 @@ msgstr "Feil ved eksport av konto."
 
 #: src/newaccountsettingsview.cpp:1725
 msgid "Exporting account…"
-msgstr ""
+msgstr "Eksporterer konto..."
 
 #: src/newaccountsettingsview.cpp:1750
 msgid "Bad password"
@@ -1241,7 +1242,7 @@ msgstr "intet passord satt"
 
 #: src/newaccountsettingsview.cpp:2117
 msgid "Remove account"
-msgstr ""
+msgstr "Slett konto"
 
 #: src/client.cpp:115
 #, c-format
@@ -1271,7 +1272,7 @@ msgstr "Legg på"
 
 #: src/video/video_widget.cpp:429
 msgid "Maximize"
-msgstr ""
+msgstr "Maksimer"
 
 #: src/video/video_widget.cpp:444
 msgid "Minimize"
@@ -1279,7 +1280,7 @@ msgstr "Minimer"
 
 #: src/video/video_widget.cpp:497
 msgid "More options"
-msgstr ""
+msgstr "Flere alternativer"
 
 #: src/video/video_widget.cpp:868
 msgid "Share _screen area"
@@ -1332,11 +1333,11 @@ msgstr "Forlag oppsettside"
 
 #: src/mainwindow.cpp:2310
 msgid "Missed call from "
-msgstr ""
+msgstr "Tapt anrop fra"
 
 #: src/mainwindow.cpp:2314
 msgid "Missed call"
-msgstr ""
+msgstr "Tapt anrop"
 
 #: src/mainwindow.cpp:2331
 msgid "There are active calls"
@@ -1400,7 +1401,7 @@ msgstr "Ønsker du virkelig å blokkere denne kontakten?"
 msgid "Working…"
 msgstr "Jobber..."
 
-#: src/dialogs.c:84
+#: src/dialogs.c:85
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
@@ -1408,7 +1409,7 @@ msgid ""
 "built on %.25s"
 msgstr ""
 
-#: src/dialogs.c:151
+#: src/dialogs.c:152
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1474,7 +1475,7 @@ msgstr ""
 
 #: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
 msgid "Uninstall Plugin"
-msgstr ""
+msgstr "Avinstaller tillegg"
 
 #: src/pluginsettingsview.cpp:268
 msgid "Load/Unload Plugin"
@@ -1618,7 +1619,7 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:534
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "Oppretter din møteplass..."
 
 #: src/accountcreationwizard.cpp:536
 msgid "Generating your Jami account…"
@@ -1630,7 +1631,7 @@ msgstr "Passordene er ikke like"
 
 #: src/accountcreationwizard.cpp:673
 msgid "Enter Jami account password"
-msgstr ""
+msgstr "Tast inn Jami konto passord"
 
 #: src/accountcreationwizard.cpp:674
 msgid "Link device"
@@ -1638,7 +1639,7 @@ msgstr "Lenk enhet"
 
 #: src/accountcreationwizard.cpp:693
 msgid "Import from backup"
-msgstr ""
+msgstr "Importer fra sikkerhetskopi"
 
 #: src/accountcreationwizard.cpp:1083
 msgid "Register name"

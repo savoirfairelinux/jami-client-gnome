@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Arnold Marko <arnold.marko@gmail.com>, 2020
 # Goran Kavrecic <goran.kavrecic@indea.si>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-09 03:09-0500\n"
-"PO-Revision-Date: 2020-11-09 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-11-16 03:09-0500\n"
+"PO-Revision-Date: 2020-11-13 16:08+0000\n"
+"Last-Translator: Arnold Marko <arnold.marko@gmail.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/savoirfairelinux/jami/language/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +33,7 @@ msgstr "Mediji"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
-msgstr ""
+msgstr "Vtičnik"
 
 #: ui/mainwindow.ui:136 ui/newaccountsettingsview.ui:387
 #: ui/accountcreationwizard.ui:530
@@ -49,31 +50,31 @@ msgstr "Pogovori"
 
 #: ui/mainwindow.ui:327 ui/mainwindow.ui:334
 msgid "Contact requests"
-msgstr "Zahteve za povezavo"
+msgstr "Zahtevki za stik"
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
-msgstr "Avdio"
+msgstr "Zvok"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
-msgstr ""
+msgstr "Upravljanik zvoka"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
-msgstr ""
+msgstr "Naprava za zvonjenje"
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr ""
+msgstr "Izhodna naprava"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
-msgstr ""
+msgstr "Vhodna naprava"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
-msgstr ""
+msgstr "Merilnik glasnosti vhoda"
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
@@ -81,7 +82,7 @@ msgstr "Video"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
-msgstr ""
+msgstr "Ni zaznane kamere"
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
@@ -89,27 +90,27 @@ msgstr "Naprava"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
-msgstr ""
+msgstr "Kanal"
 
 #: ui/mediasettingsview.ui:411
 msgid "Resolution"
-msgstr "Resolucija"
+msgstr "Ločljivost"
 
 #: ui/mediasettingsview.ui:447
 msgid "Framerate"
-msgstr ""
+msgstr "Hitrost slik na sekundo:"
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
-msgstr ""
+msgstr "Vklopi strojno pospeševanje"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
-msgstr "Potrebna je migracija računa"
+msgstr "Potrebna je selitev računa"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "Ta račun je napačno oblikovan. Vnesite geslo"
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
@@ -131,25 +132,25 @@ msgstr "Geslo"
 
 #: ui/accountmigrationview.ui:205
 msgid "Account manager"
-msgstr ""
+msgstr "Upravljalnik računa"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
 #: src/newaccountsettingsview.cpp:973 src/newaccountsettingsview.cpp:2117
 msgid "Delete account"
-msgstr "Pobriši račun"
+msgstr "Izbriši račun"
 
 #: ui/accountmigrationview.ui:251
 msgid "Migrate account"
-msgstr "Migriraj račun"
+msgstr "Preseli račun"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "Selitev Jami računa..."
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
-msgstr ""
+msgstr "Selitev ni uspela - napačno geslo?"
 
 #: ui/newaccountsettingsview.ui:15 ui/pluginsettingsview.ui:15
 msgid "Add device"
@@ -164,15 +165,15 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "Da bi dodali novo napravo vašemu Jami računu, morate izvoziti vaš račun iz Jamija. To bo generiralo pin, ki ga morate vesti v novo napravo v roku petih minut."
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
-msgstr "Geslo (zahtevano)"
+msgstr "Geslo (zahtevano):"
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
-msgstr "Vnesi arhivsko geslo"
+msgstr "Vnesi geslo arhiva"
 
 #: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:866
 msgid "Cancel"
@@ -180,15 +181,15 @@ msgstr "Prekliči"
 
 #: ui/newaccountsettingsview.ui:211
 msgid "Export on the network"
-msgstr ""
+msgstr "Izvozi v omrežju"
 
 #: ui/newaccountsettingsview.ui:231
 msgid "Your generated pin:"
-msgstr "Tvoj ustvarjen PIN:"
+msgstr "Vaš generirani PIN:"
 
 #: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:973
 msgid "OK"
-msgstr "OK"
+msgstr "V redu"
 
 #: ui/newaccountsettingsview.ui:307 ui/profile.ui:7
 #: ui/accountcreationwizard.ui:449
@@ -201,20 +202,20 @@ msgstr "ID"
 
 #: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
-msgstr ""
+msgstr "Klikni za spremembo gesla"
 
 #: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
 #: src/newaccountsettingsview.cpp:2050 src/accountcreationwizard.cpp:440
 msgid "Export account"
-msgstr ""
+msgstr "Izvozi račun"
 
 #: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
-msgstr ""
+msgstr "Vklopi račun"
 
 #: ui/newaccountsettingsview.ui:670
 msgid "SIP server"
-msgstr ""
+msgstr "SIP strežnik"
 
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
@@ -223,23 +224,23 @@ msgstr "geslo"
 #: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
 #: ui/accountcreationwizard.ui:1276
 msgid "Proxy"
-msgstr "Proxy"
+msgstr "Posredniški strežnik"
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
-msgstr ""
+msgstr "Glasovna pošta"
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "Poznane naprave, povezane s tem Jami računom"
 
 #: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
-msgstr ""
+msgstr "Poveži še eno napravo"
 
 #: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
-msgstr ""
+msgstr "Zavrnjeni stiki"
 
 #: ui/newaccountsettingsview.ui:1054
 msgid "Advanced settings"
@@ -247,7 +248,7 @@ msgstr "Napredne nastavitve"
 
 #: ui/newaccountsettingsview.ui:1090
 msgid "General settings"
-msgstr ""
+msgstr "Splošne nastavitve"
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
@@ -255,11 +256,11 @@ msgstr "Nastavitve Klicev"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "Dovoli klice neznanih stikov"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
-msgstr "Samodejno odgovori klice"
+msgstr "Samodejno odgovori na klice"
 
 #: ui/newaccountsettingsview.ui:1217
 msgid "Custom ringtone"
@@ -267,11 +268,11 @@ msgstr "Zvonjenje po meri"
 
 #: ui/newaccountsettingsview.ui:1264
 msgid "Convert your account into a rendezvous point"
-msgstr ""
+msgstr "Pretvori račun v točko srečevanja"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
-msgstr ""
+msgstr "Ime strežnika"
 
 #: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2525
 msgid "Address"
@@ -279,31 +280,31 @@ msgstr "Naslov"
 
 #: ui/newaccountsettingsview.ui:1370
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "OpenDTH nastavitve"
 
 #: ui/newaccountsettingsview.ui:1454
 msgid "Auto connect on local network"
-msgstr ""
+msgstr "Samodejno povezovanje v lokalnem omrežju"
 
 #: ui/newaccountsettingsview.ui:1490
 msgid "Bootstrap"
-msgstr ""
+msgstr "Začetni nalagalnik"
 
 #: ui/newaccountsettingsview.ui:1550
 msgid "Encrypt media streams (SRTP)"
-msgstr ""
+msgstr "Šifriranje pretoka podatkov (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1585
 msgid "Enable SDES for key exchange protocol"
-msgstr ""
+msgstr "Vklopi SDES kot protokol za izmenjavo ključa"
 
 #: ui/newaccountsettingsview.ui:1621
 msgid "Fallback on RTP on encryption failure"
-msgstr ""
+msgstr "Uporabi pomožni RTP v primeru napake šifriranja"
 
 #: ui/newaccountsettingsview.ui:1656
 msgid "Encrypt negotiation (TLS)"
-msgstr ""
+msgstr "Šifriranje usklajevanja (TLS)"
 
 #: ui/newaccountsettingsview.ui:1691
 msgid "CA certificate"
@@ -311,7 +312,7 @@ msgstr "CA Certifikat"
 
 #: ui/newaccountsettingsview.ui:1727
 msgid "User certificate"
-msgstr "Osebni certifikat"
+msgstr "Uporabniški certifikat"
 
 #: ui/newaccountsettingsview.ui:1763
 msgid "Private key"
@@ -331,15 +332,15 @@ msgstr "Odhodno ime TLS strežnika"
 
 #: ui/newaccountsettingsview.ui:1908
 msgid "Negotiation timeout (seconds)"
-msgstr "Čas usklajevanja (sek)"
+msgstr "Čas usklajevanja (v sekundah)"
 
 #: ui/newaccountsettingsview.ui:1944
 msgid "Verify incoming certificates (server side)"
-msgstr ""
+msgstr "Preveri dohodne certifikate (strežnika)"
 
 #: ui/newaccountsettingsview.ui:1979
 msgid "Verify answer certificates (client side)"
-msgstr ""
+msgstr "Preveri odhodne certifikate (odjemalec)"
 
 #: ui/newaccountsettingsview.ui:2014
 msgid "Require a certificate for incoming TLS connections"
@@ -355,11 +356,11 @@ msgstr "Povezljivost"
 
 #: ui/newaccountsettingsview.ui:2101
 msgid "Registration expire timeout (seconds)"
-msgstr "Časovna omejitev prijave (sek)"
+msgstr "Časovna omejitev registracije (v sekundah)"
 
 #: ui/newaccountsettingsview.ui:2138
 msgid "Network interface"
-msgstr "Mrežni vmesnik"
+msgstr "Omrežni vmesnik"
 
 #: ui/newaccountsettingsview.ui:2174
 msgid "UPnP"
@@ -371,19 +372,19 @@ msgstr "Uporabi TURN"
 
 #: ui/newaccountsettingsview.ui:2244
 msgid "(TURN) address"
-msgstr ""
+msgstr "(TURN) naslov"
 
 #: ui/newaccountsettingsview.ui:2279
 msgid "(TURN) username"
-msgstr ""
+msgstr "(TURN) uporabniško ime"
 
 #: ui/newaccountsettingsview.ui:2313
 msgid "(TURN) password"
-msgstr ""
+msgstr "(TURN) geslo"
 
 #: ui/newaccountsettingsview.ui:2350
 msgid "(TURN) realm"
-msgstr ""
+msgstr "(TURN) področje"
 
 #: ui/newaccountsettingsview.ui:2384
 msgid "Use STUN"
@@ -391,15 +392,15 @@ msgstr "Uporabi STUN"
 
 #: ui/newaccountsettingsview.ui:2419
 msgid "(STUN) address"
-msgstr ""
+msgstr "(STUN) naslov"
 
 #: ui/newaccountsettingsview.ui:2452
 msgid "Published address"
-msgstr "Objavi naslov"
+msgstr "Objavljeni naslov"
 
 #: ui/newaccountsettingsview.ui:2489
 msgid "Use custom address and port"
-msgstr "Uporabi naslov in vrata po meri"
+msgstr "Uporabi lasten naslov in vrata"
 
 #: ui/newaccountsettingsview.ui:2560
 msgid "Port"
@@ -411,35 +412,35 @@ msgstr "Video kodeki"
 
 #: ui/newaccountsettingsview.ui:2659
 msgid "Enable video"
-msgstr ""
+msgstr "Vklopi video"
 
 #: ui/newaccountsettingsview.ui:2686
 msgid "Audio codecs"
-msgstr "Avdio kodeki"
+msgstr "Zvočni kodeki"
 
 #: ui/newaccountsettingsview.ui:2756
 msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr "Dogovarjanje seje SDP (ICE Fallback)"
+msgstr "Usklajevanje SDP seje (ICE Fallback)"
 
 #: ui/newaccountsettingsview.ui:2768
 msgid "Only used during SDP negotiation in case ICE is not supported."
-msgstr ""
+msgstr "Se uporablja le med usklajevanjem SDP, v primeru ICE pa ni podprt."
 
 #: ui/newaccountsettingsview.ui:2802
 msgid "Audio RTP Min port"
-msgstr ""
+msgstr "Najnižja vrata za zvočni RTP"
 
 #: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Max port"
-msgstr ""
+msgstr "Najvišja vrata za zvočni RTP"
 
 #: ui/newaccountsettingsview.ui:2872
 msgid "Video RTP Min port"
-msgstr ""
+msgstr "Najnižja vrata za video RTP"
 
 #: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Max port"
-msgstr ""
+msgstr "Najvišja vrata za video RTP"
 
 #: ui/messagingwidget.ui:29 ui/currentcallview.ui:424
 #: ui/currentcallview.ui:599 src/chatview.cpp:348
@@ -448,11 +449,11 @@ msgstr "Snemaj"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
-msgstr ""
+msgstr "Snemanje zvočnega sporočila"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "Končaj brez sporočila"
 
 #: ui/chatview.ui:39
 msgid "Send Invitation"
@@ -466,32 +467,32 @@ msgstr "Splošno"
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
 msgid "Open application menu"
-msgstr ""
+msgstr "Odpri meni aplikacije"
 
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr ""
+msgstr "Odpri seznam računov"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Select search bar"
-msgstr ""
+msgstr "Izberi iskalno vrstico"
 
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Focus the list of conversations"
-msgstr ""
+msgstr "Fokusiraj seznam pogovorov"
 
 #: ui/help-overlay.ui:46
 msgctxt "shortcut window"
 msgid "Focus the list pending requests"
-msgstr ""
+msgstr "Fokusiraj seznam čakajočih zahtevkov"
 
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Preklopi celozaslonski način"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -501,7 +502,7 @@ msgstr "Pogovori"
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
 msgid "Start a video call"
-msgstr "Začdni video klic"
+msgstr "Začni video klic"
 
 #: ui/help-overlay.ui:75
 msgctxt "shortcut window"
@@ -516,27 +517,27 @@ msgstr "Pobriši zgodovino"
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr ""
+msgstr "Dodaj pogovor"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
-msgstr ""
+msgstr "Odstrani pogovor"
 
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
-msgstr ""
+msgstr "Blokiraj stik"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Unblock contact"
-msgstr ""
+msgstr "Odblokiraj stik"
 
 #: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
-msgstr ""
+msgstr "Kopiraj ime stika"
 
 #: ui/help-overlay.ui:127
 msgctxt "shortcut window"
@@ -546,12 +547,12 @@ msgstr "Kliči"
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
-msgstr ""
+msgstr "Sprejmi klic"
 
 #: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
-msgstr ""
+msgstr "Zavrni klic"
 
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
@@ -561,36 +562,36 @@ msgstr "Nastavitve"
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
-msgstr ""
+msgstr "Odpri/Zapri nastavitveno stran"
 
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
-msgstr ""
+msgstr "Odpri splošne nastavitve"
 
 #: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
-msgstr ""
+msgstr "Odpri nastavitve medijev"
 
 #: ui/help-overlay.ui:174
 msgctxt "shortcut window"
 msgid "Open account settings"
-msgstr ""
+msgstr "Odpri nastavitve računa"
 
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
-msgstr ""
+msgstr "Prikaz klepeta"
 
 #: ui/help-overlay.ui:189
 msgctxt "shortcut window"
 msgid "Write on a new line"
-msgstr ""
+msgstr "Piši v novo vrstico"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr "Naredi sliko"
+msgstr "Slikaj"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
@@ -602,15 +603,15 @@ msgstr "Nazaj"
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
-msgstr "Določi izbrano za sliko"
+msgstr "Določite izbor kot sliko"
 
 #: ui/profile.ui:58
 msgid "Informations"
-msgstr ""
+msgstr "Informacije"
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "QR koda"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -618,19 +619,19 @@ msgstr "Dobrodošli v"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create a Jami account"
-msgstr ""
+msgstr "Ustvari Jami račun"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Ustvarite nov Jami račun na tej napravi (za nove uporabnike)"
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
-msgstr ""
+msgstr "Ustvari točko srečevanja"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
-msgstr ""
+msgstr "Ustvari točko srečevanja"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Link this device to an existing account"
@@ -638,45 +639,45 @@ msgstr "Poveži to napravo k obstoječemu računu"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "Uvozite račun s PIN kodo, ki je bila generirana na drugi napravi"
 
 #: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:694
 msgid "Restore an account from backup"
-msgstr ""
+msgstr "Obnovi račun iz varnostne kopije"
 
 #: ui/accountcreationwizard.ui:101
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "Uvozi račun preko arhiva"
 
 #: ui/accountcreationwizard.ui:108
 msgid "Advanced features"
-msgstr ""
+msgstr "Napredno"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Connect to a JAMS server"
-msgstr ""
+msgstr "Poveži se z JAMS strežnikom"
 
 #: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
-msgstr ""
+msgstr "Pridobite svoj račun preko svojih podatkov."
 
 #: ui/accountcreationwizard.ui:127
 msgid "Add a SIP account"
-msgstr ""
+msgstr "Dodaj SIP račun"
 
 #: ui/accountcreationwizard.ui:199
 msgid "Archive"
-msgstr ""
+msgstr "Arhiv"
 
 #: ui/accountcreationwizard.ui:205 ui/accountcreationwizard.ui:334
 msgid "Informations."
-msgstr ""
+msgstr "Informacije."
 
 #: ui/accountcreationwizard.ui:258
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Lahko ustvarite arhiv s klikom na \"Varnostno kopiranje\" na nastavitvah računa. To bo na vaši napravi ustvarilo .gz datoteko."
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
@@ -686,7 +687,7 @@ msgstr "PIN"
 msgid ""
 "Enter the PIN from another configured Jami account. Use the \"Link Another "
 "Device\" feature to obtain a PIN."
-msgstr ""
+msgstr "Vnesite PIN z drugega nastavljenega Jami računa. Uporabite funkcijo \"Poveži drugo napravo\", da pridobite PIN."
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
@@ -695,40 +696,40 @@ msgstr "Nazaj"
 
 #: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1052
 msgid "Register username"
-msgstr ""
+msgstr "Registriraj uporabniško ime"
 
 #: ui/accountcreationwizard.ui:568
 msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "S to oznako boste registrirali unikatno uporabniško ime v Jami omrežju. Ljudje ga lahko uporabijo za kontaktiranje, namesto 40 znakov dolgega IDja."
 
 #: ui/accountcreationwizard.ui:630
 msgid "Encrypt account with password"
-msgstr ""
+msgstr "Šifriraj račun z geslom"
 
 #: ui/accountcreationwizard.ui:631
 msgid ""
 "Choose a password to encrypt your account on this device.  Note that the "
 "password cannot be recovered."
-msgstr ""
+msgstr "Izberite geslo za šifriranje vašega računa na tej napravi.\nUpoštevajte, da gesla ni mogoče obnoviti."
 
 #: ui/accountcreationwizard.ui:658
 msgid ""
 "Choose a password to encrypt your account on this device.\n"
 "Note that the password cannot be recovered."
-msgstr ""
+msgstr "Izberite geslo za šifriranje vašega računa na tej napravi.\nUpoštevajte, da gesla ni mogoče obnoviti."
 
 #: ui/accountcreationwizard.ui:686
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "To geslo bo uporabljeno za šifriranje podatkov računa in povezovanje novih naprav z vašim računom."
 
 #: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:856
 msgid "Confirm password"
-msgstr "Potrdi geslo"
+msgstr "Potrditev gesla"
 
 #: ui/accountcreationwizard.ui:772
 msgid "Next"
@@ -736,26 +737,26 @@ msgstr "Naprej"
 
 #: ui/accountcreationwizard.ui:826
 msgid "Backup your account!"
-msgstr ""
+msgstr "Ustvarite varnostno kopijo svojega računa!"
 
 #: ui/accountcreationwizard.ui:842
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "Ta račun obstaja le na tej napravi. Če ste jo izgubili ali odstranili aplikacijo, bo vaš račun izbrisan. Račun lahko varnostno kopirate sedaj ali kasneje."
 
 #: ui/accountcreationwizard.ui:849
 msgid "Never show me this again"
-msgstr ""
+msgstr "Tega več ne prikaži"
 
 #: ui/accountcreationwizard.ui:873
 msgid "Skip"
-msgstr ""
+msgstr "Preskoči"
 
 #: ui/accountcreationwizard.ui:899
 msgid "Registering username…"
-msgstr ""
+msgstr "Registracija uporabniškega imena..."
 
 #: ui/accountcreationwizard.ui:906
 msgid "This may take a few minutes."
@@ -763,35 +764,35 @@ msgstr "To lahko traja nekaj minut."
 
 #: ui/accountcreationwizard.ui:932
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "Pridobivam podatke Jami računa..."
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr ""
+msgstr "Vnesite URl naslov za Jami Account Management Server (JAMS) URL"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
-msgstr ""
+msgstr "JAMS URL"
 
 #: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
-msgstr ""
+msgstr "Vnesite svoje podatke za JAMS"
 
 #: ui/accountcreationwizard.ui:1167
 msgid "Connect"
-msgstr ""
+msgstr "Poveži"
 
 #: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
-msgstr ""
+msgstr "Nastavi obstoječi SIP račun"
 
 #: ui/accountcreationwizard.ui:1240
 msgid "Server"
-msgstr ""
+msgstr "Strežnik"
 
 #: ui/accountcreationwizard.ui:1385
 msgid "Create SIP account"
-msgstr ""
+msgstr "Ustvari SIP račun"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
@@ -799,51 +800,51 @@ msgstr "Sistem"
 
 #: ui/generalsettingsview.ui:96
 msgid "Start application on login"
-msgstr ""
+msgstr "Zaženi aplikacijo ob prijavi"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr ""
+msgstr "Ohrani Jami aktiven, kadar je okno zaprto."
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
+msgstr "Ob dohodnem klicu postavi Jami v ospredje"
 
 #: ui/generalsettingsview.ui:204
 msgid "Notifications"
-msgstr ""
+msgstr "Obveščanje"
 
 #: ui/generalsettingsview.ui:243
 msgid "Enable notifications for incoming calls"
-msgstr ""
+msgstr "Vklopi obveščanje o dohodnih klicih"
 
 #: ui/generalsettingsview.ui:279
 msgid "Enable notifications for pending requests"
-msgstr ""
+msgstr "Vklopi obveščanje za čakajoče zahtevke"
 
 #: ui/generalsettingsview.ui:315
 msgid "Enable notifications for new chat messages"
-msgstr ""
+msgstr "Vklopi obveščanje za nova sporočila klepeta"
 
 #: ui/generalsettingsview.ui:351
 msgid "Chatview"
-msgstr ""
+msgstr "Prikaz klepeta"
 
 #: ui/generalsettingsview.ui:390
 msgid "Show typing indications"
-msgstr ""
+msgstr "Prikaži indikatorje pisanje"
 
 #: ui/generalsettingsview.ui:426
 msgid "Display images and videos into the chatview"
-msgstr ""
+msgstr "Prikaži slike in videe v prikazu klepeta"
 
 #: ui/generalsettingsview.ui:463
 msgid "Show chatview on the right (on the bottom if off)"
-msgstr ""
+msgstr "Prikaži klepet na desni (spodaj, če je izklopljeno)"
 
 #: ui/generalsettingsview.ui:500
 msgid "Download folder"
-msgstr ""
+msgstr "Mapa za prenos"
 
 #: ui/generalsettingsview.ui:537
 msgid "History"
@@ -851,7 +852,7 @@ msgstr "Zgodovina"
 
 #: ui/generalsettingsview.ui:576
 msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
+msgstr "Ohrani zgodovino v dneh (0 = neomejeno)"
 
 #: ui/generalsettingsview.ui:606
 msgid "Clear all history"
@@ -859,47 +860,47 @@ msgstr "Počisti vso zgodovino"
 
 #: ui/generalsettingsview.ui:638
 msgid "Call Recording"
-msgstr ""
+msgstr "Snemanje klica"
 
 #: ui/generalsettingsview.ui:676
 msgid "Record local video"
-msgstr ""
+msgstr "Snemaj lokalni vido"
 
 #: ui/generalsettingsview.ui:712
 msgid "Always record calls"
-msgstr ""
+msgstr "Vedno snemaj klice"
 
 #: ui/generalsettingsview.ui:749
 msgid "Record folder"
-msgstr ""
+msgstr "Snemalna mapa"
 
 #: ui/generalsettingsview.ui:786
 msgid "Bitrate for call recordings (kb/s)"
-msgstr ""
+msgstr "Bitna hitrost za zvočne klice (kb/s)"
 
 #: ui/generalsettingsview.ui:824
 msgid "File transfer"
-msgstr ""
+msgstr "Prenos datotek"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
-msgstr ""
+msgstr "Dovoli dodhodne datoteke neznanih stikov"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
-msgstr ""
+msgstr "Samodejno sprejmi dohodne datoteke"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr ""
+msgstr "Sprjemi prenose pod Mb (0 = neomejeno)"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
-msgstr ""
+msgstr "registracija uporabniškega imena"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
-msgstr ""
+msgstr "Dohodni..."
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
@@ -919,40 +920,40 @@ msgstr "Zaključi klic"
 
 #: ui/currentcallview.ui:308 ui/currentcallview.ui:554
 msgid "Add participant"
-msgstr ""
+msgstr "Dodaj sodelujočega"
 
 #: ui/currentcallview.ui:327
 msgid "Toggle transfer"
-msgstr ""
+msgstr "Preklopi prevezavo"
 
 #: ui/currentcallview.ui:346
 msgid "Toggle hold"
-msgstr "Preklopi čakanje"
+msgstr "Preklopi zadrževanje"
 
 #: ui/currentcallview.ui:350 ui/currentcallview.ui:375
 #: ui/currentcallview.ui:545
 msgid "Hold"
-msgstr "Čakanje"
+msgstr "Zadrži"
 
 #: ui/currentcallview.ui:371
 msgid "Toggle mute audio"
-msgstr ""
+msgstr "Preklopi utišanje zvoka"
 
 #: ui/currentcallview.ui:396
 msgid "Toggle mute video"
-msgstr ""
+msgstr "Preklopi zatemnitev videa"
 
 #: ui/currentcallview.ui:400 ui/currentcallview.ui:536
 msgid "Mute video"
-msgstr "Utišaj video"
+msgstr "Zatemnitev videa"
 
 #: ui/currentcallview.ui:421
 msgid "Toggle recording"
-msgstr ""
+msgstr "Preklopi snemanje"
 
 #: ui/currentcallview.ui:464
 msgid "Adjust outgoing video quality"
-msgstr ""
+msgstr "Prilagoditev izhodne kakovosti videa"
 
 #: ui/currentcallview.ui:469 ui/currentcallview.ui:590
 msgid "Video quality"
@@ -960,23 +961,23 @@ msgstr "Video kvaliteta"
 
 #: ui/currentcallview.ui:488
 msgid "Toggle show chat"
-msgstr ""
+msgstr "Preklopi prikazovanje klepeta"
 
 #: ui/currentcallview.ui:492 ui/currentcallview.ui:509
 msgid "Chat"
-msgstr "Pogovor"
+msgstr "Klepet"
 
 #: ui/currentcallview.ui:518
 msgid "View"
-msgstr ""
+msgstr "Prikaz"
 
 #: ui/currentcallview.ui:527
 msgid "Mute audio"
-msgstr "Ugasni avdio"
+msgstr "Utišaj zvok"
 
 #: ui/currentcallview.ui:563
 msgid "Activate Plugin"
-msgstr ""
+msgstr "Aktiviraj vtičnik"
 
 #: ui/currentcallview.ui:572
 msgid "Transfer"
@@ -984,35 +985,35 @@ msgstr "Prevezava"
 
 #: ui/currentcallview.ui:622
 msgid "Transfer to"
-msgstr ""
+msgstr "Prenesi do"
 
 #: ui/currentcallview.ui:686
 msgid "Add"
-msgstr ""
+msgstr "Dodaj"
 
 #: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
-msgstr ""
+msgstr "Izberi vtičnik"
 
 #: ui/pluginsettingsview.ui:44
 msgid "Plugins"
-msgstr ""
+msgstr "Vtičniki"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
-msgstr ""
+msgstr "Vklopi vtičnike"
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
-msgstr ""
+msgstr "Nameščeni vtičniki"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr ""
+msgstr "Namesti vtičnik"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
-msgstr ""
+msgstr "Bljižnice na _tipkovnici"
 
 #: ui/gearsmenu.ui:11
 msgid "_About"
@@ -1025,52 +1026,52 @@ msgstr "_Izhod"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami napaka"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr ""
+msgstr "Poskus ponovnega povezovanja z Jami pritajenim demonom (dring)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "Nisem se mogel znova povezati z Jami pritajenim demonom (dring).\nJami se bo sedaj zaprl."
 
-#: src/currentcallview.cpp:1069
+#: src/currentcallview.cpp:1070
 msgid "No name!"
-msgstr ""
+msgstr "Ni imena!"
 
-#: src/currentcallview.cpp:1178
+#: src/currentcallview.cpp:1185
 msgid "Current conference (all accounts)"
-msgstr ""
+msgstr "Trenutna konferenca (vsi računi)"
 
-#: src/currentcallview.cpp:1213
+#: src/currentcallview.cpp:1220
 msgid "Current calls (all accounts)"
-msgstr ""
+msgstr "Trenutni klici (vsi računi)"
 
-#: src/currentcallview.cpp:1230
+#: src/currentcallview.cpp:1237
 msgid "Online contacts"
-msgstr ""
+msgstr "Kontaki na voljo"
 
-#: src/currentcallview.cpp:1673
+#: src/currentcallview.cpp:1680
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Samodejno"
 
-#: src/currentcallview.cpp:1748
+#: src/currentcallview.cpp:1755
 msgid "me"
-msgstr ""
+msgstr "jaz"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:972
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
+msgstr "Opozorilo! To dejanje bo odstranilo račun s te naprave!\nOpomba: Tega dejanja ni mogoče razveljaviti, vaše registrirano ime pa se lahko izgubi!"
 
 #: src/chatview.cpp:281
 msgid "Send File"
-msgstr ""
+msgstr "Pošlji datoteko"
 
 #: src/chatview.cpp:281 src/newaccountsettingsview.cpp:906
 #: src/accountcreationwizard.cpp:868
@@ -1083,25 +1084,25 @@ msgstr "Shrani datoteko"
 msgid "_Cancel"
 msgstr "_Prekliči"
 
-#: src/chatview.cpp:286 src/avatarmanipulation.cpp:416
+#: src/chatview.cpp:286 src/pluginsettingsview.cpp:129
+#: src/avatarmanipulation.cpp:416
 msgid "_Open"
 msgstr "_Odpri"
 
 #: src/chatview.cpp:286 src/generalsettingsview.cpp:236
-#: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:129
-#: src/accountcreationwizard.cpp:873
+#: src/newaccountsettingsview.cpp:911 src/accountcreationwizard.cpp:873
 msgid "_Save"
-msgstr ""
+msgstr "_Shrani"
 
 #: src/chatview.cpp:338
 msgid "Retry"
-msgstr ""
+msgstr "Poskusi znova"
 
 #: src/chatview.cpp:501
 msgid "Stop"
-msgstr ""
+msgstr "Zaustavi"
 
-#: src/chatview.cpp:1016
+#: src/chatview.cpp:996
 msgid "Send"
 msgstr "Pošlji"
 
@@ -1109,58 +1110,58 @@ msgstr "Pošlji"
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr ""
+msgstr "To je nepreklicno dejanje. Ali ste prepričani, da želite izbrisati vso zgodovino klepetov in klicev?"
 
 #: src/generalsettingsview.cpp:231
 msgid "Choose download folder"
-msgstr ""
+msgstr "Izberite mapo za prenos"
 
 #: src/newaccountsettingsview.cpp:603
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Opozorilo! To dejanje bo odstranilo napravo!\nOpomba: Tega dejanja ni mogoče razveljaviti."
 
 #: src/newaccountsettingsview.cpp:604
 msgid "Enter password to revoke device"
-msgstr ""
+msgstr "Za odstranitev naprave vnesite geslo"
 
 #: src/newaccountsettingsview.cpp:662
 msgid "Edit name"
-msgstr ""
+msgstr "Uredi ime"
 
 #: src/newaccountsettingsview.cpp:662
 msgid "Revoke device"
-msgstr "Odpokliči napravo"
+msgstr "Odstrani napravo"
 
 #: src/newaccountsettingsview.cpp:684
 msgid "Error when revoking device"
-msgstr ""
+msgstr "Napaka pri odstranjevanju naprave"
 
 #: src/newaccountsettingsview.cpp:757
 msgid "Unban"
-msgstr ""
+msgstr "Odblokiraj"
 
 #: src/newaccountsettingsview.cpp:780 src/newaccountsettingsview.cpp:803
 #: src/newaccountsettingsview.cpp:827 src/newaccountsettingsview.cpp:863
 msgid "Change password"
-msgstr ""
+msgstr "Sprememba gesla"
 
 #: src/newaccountsettingsview.cpp:793
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "Gesli se razlikujeta!"
 
 #: src/newaccountsettingsview.cpp:804
 msgid "Incorrect password!"
-msgstr ""
+msgstr "Nepravilno geslo!"
 
 #: src/newaccountsettingsview.cpp:841
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "Opomba: geslo bo spremenjeno le na tej napravi."
 
 #: src/newaccountsettingsview.cpp:844
 msgid "Current password"
-msgstr ""
+msgstr "Trenutno geslo"
 
 #: src/newaccountsettingsview.cpp:850
 msgid "New password"
@@ -1168,23 +1169,23 @@ msgstr "Novo geslo"
 
 #: src/newaccountsettingsview.cpp:933 src/accountcreationwizard.cpp:897
 msgid "You need to enter your password to export the full archive."
-msgstr ""
+msgstr "Za izvoz celotnega arhiva je potreben vnos gesla."
 
 #: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:898
 msgid "Enter password to export archive"
-msgstr ""
+msgstr "Vnesite geslo za izvoz arhiva"
 
 #: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
 msgid "Account exported!"
-msgstr ""
+msgstr "Račun je bil izvožen"
 
 #: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
 msgid "Export account failure."
-msgstr ""
+msgstr "Izvažanje računa ni uspelo."
 
 #: src/newaccountsettingsview.cpp:1725
 msgid "Exporting account…"
-msgstr ""
+msgstr "Izvažanje računa..."
 
 #: src/newaccountsettingsview.cpp:1750
 msgid "Bad password"
@@ -1192,35 +1193,35 @@ msgstr "Neveljavno geslo"
 
 #: src/newaccountsettingsview.cpp:1758
 msgid "Network error, try again"
-msgstr "Napaka mreže. Prosim poskusi ponovno."
+msgstr "Napaka na omrežju. Poskusite znova."
 
 #: src/newaccountsettingsview.cpp:1766
 msgid "Unknown error"
-msgstr ""
+msgstr "Neznana napaka"
 
 #: src/newaccountsettingsview.cpp:1779
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "Nisem moge začeti z izvažanjem v Jami. poskusite znova"
 
 #: src/newaccountsettingsview.cpp:1838
 msgid "Error: wrong password!"
-msgstr ""
+msgstr "Napaka: napačno geslo!"
 
 #: src/newaccountsettingsview.cpp:1841
 msgid "Error: unknown device!"
-msgstr ""
+msgstr "Napaka: neznana naprava!"
 
 #: src/newaccountsettingsview.cpp:2015
 msgid "Initializing…"
-msgstr ""
+msgstr "Vzpostavljanje..."
 
 #: src/newaccountsettingsview.cpp:2018
 msgid "Offline"
-msgstr "Odjavljen"
+msgstr "Brez povezave"
 
 #: src/newaccountsettingsview.cpp:2021
 msgid "Connecting…"
-msgstr ""
+msgstr "Povezovanje..."
 
 #: src/newaccountsettingsview.cpp:2024
 msgid "Online"
@@ -1228,19 +1229,19 @@ msgstr "Povezan"
 
 #: src/newaccountsettingsview.cpp:2028
 msgid "Unknown status"
-msgstr ""
+msgstr "nezna status"
 
 #: src/newaccountsettingsview.cpp:2061
 msgid "••••••••"
-msgstr ""
+msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2061
 msgid "no password set"
-msgstr ""
+msgstr "geslo ni določeno"
 
 #: src/newaccountsettingsview.cpp:2117
 msgid "Remove account"
-msgstr ""
+msgstr "Odstrani račun"
 
 #: src/client.cpp:115
 #, c-format
@@ -1248,49 +1249,49 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Neuspela vzpostavitev.\nPreverite, da je pritajeni Jami demon (dring) zagnan.\nNapaka: %s"
 
 #: src/client.cpp:118
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami napaka"
 
 #: src/client.cpp:395
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "Prikaži Jami"
 
 #: src/client.cpp:399
 msgid "Quit"
-msgstr ""
+msgstr "Izhod"
 
 #: src/video/video_widget.cpp:414
 msgid "Hangup"
-msgstr "Prekini"
+msgstr "Odloži"
 
 #: src/video/video_widget.cpp:429
 msgid "Maximize"
-msgstr ""
+msgstr "Povečaj"
 
 #: src/video/video_widget.cpp:444
 msgid "Minimize"
-msgstr ""
+msgstr "Minimaliziraj"
 
 #: src/video/video_widget.cpp:497
 msgid "More options"
-msgstr ""
+msgstr "Več možnosti"
 
 #: src/video/video_widget.cpp:868
 msgid "Share _screen area"
-msgstr ""
+msgstr "_Deli področje zaslona"
 
 #: src/video/video_widget.cpp:876
 msgid "Share _monitor"
-msgstr ""
+msgstr "Deli _zaslon"
 
 #: src/video/video_widget.cpp:883
 msgid "Stream _file"
-msgstr ""
+msgstr "Pre_toči datoteko"
 
 #: src/video/video_widget.cpp:893
 msgid "Show advanced information"
@@ -1298,7 +1299,7 @@ msgstr "Prikaži napredne informacije"
 
 #: src/mainwindow.cpp:198
 msgid "Add account…"
-msgstr ""
+msgstr "Dodajanje računa..."
 
 #: src/mainwindow.cpp:899
 msgctxt "button next to search entry will place a new call"
@@ -1312,38 +1313,38 @@ msgstr "odpri pogovor"
 
 #: src/mainwindow.cpp:1135
 msgid "Jami - Migration needed"
-msgstr ""
+msgstr "Jami - potrebna je selitev"
 
 #: src/mainwindow.cpp:1148
 msgid "Migration in progress... please do not close this window."
-msgstr ""
+msgstr "Selitev se izvaja... ne zaprite tega okna."
 
 #: src/mainwindow.cpp:1428
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr ""
+msgstr "najdi ali začni pogovor"
 
 #: src/mainwindow.cpp:1887
 msgid "Leave settings page"
-msgstr ""
+msgstr "Zapusti nastavitveno stran"
 
 #: src/mainwindow.cpp:2310
 msgid "Missed call from "
-msgstr ""
+msgstr "Zgrešen klic od"
 
 #: src/mainwindow.cpp:2314
 msgid "Missed call"
-msgstr ""
+msgstr "Zgrešen klic"
 
 #: src/mainwindow.cpp:2331
 msgid "There are active calls"
-msgstr ""
+msgstr "Obstajajo aktivni klici"
 
 #: src/mainwindow.cpp:2387
 msgid " is calling you!"
-msgstr ""
+msgstr "kliče!"
 
 #: src/mainwindow.cpp:2390
 msgid "Incoming call"
@@ -1351,104 +1352,104 @@ msgstr "Dohodni klic"
 
 #: src/mainwindow.cpp:2547
 msgid "New request from "
-msgstr ""
+msgstr "Nov zahtevek od"
 
 #: src/mainwindow.cpp:2550
 msgid "Trust request"
-msgstr ""
+msgstr "Zaupaj zahtevku"
 
 #: src/mainwindow.cpp:2612
 msgid "New message"
-msgstr ""
+msgstr "Novo sporočilo"
 
 #: src/mainwindow.cpp:2664
 msgid "Stop current call?"
-msgstr ""
+msgstr "Končam trenutni klic?"
 
 #: src/mainwindow.cpp:2665
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
-msgstr ""
+msgstr "Trenutno je aktiven klic. Ali želite zapreti to okno in končati vse trenutne klice?"
 
 #: src/mainwindow.cpp:2732
 msgid "Clear history"
-msgstr "Pobriši zgodovino"
+msgstr "Počisti zgodovino"
 
 #: src/mainwindow.cpp:2733
 msgid "Do you really want to clear the history of this conversation?"
-msgstr ""
+msgstr "Ali res želite odstraniti zgodovino tega pogovora?"
 
 #: src/mainwindow.cpp:2748
 msgid "Remove conversation"
-msgstr ""
+msgstr "Odstrani pogovor"
 
 #: src/mainwindow.cpp:2749
 msgid "Do you really want to remove this conversation?"
-msgstr ""
+msgstr "Ali res želite odstraniti ta pogovor?"
 
 #: src/mainwindow.cpp:2764
 msgid "Block contact"
-msgstr ""
+msgstr "Blokiraj stik"
 
 #: src/mainwindow.cpp:2765
 msgid "Do you really want to block this contact?"
-msgstr ""
+msgstr "Ali res želite blokirati ta stik?"
 
 #: src/dialogs.c:53
 msgid "Working…"
-msgstr ""
+msgstr "Delam..."
 
-#: src/dialogs.c:84
+#: src/dialogs.c:85
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"%s\"\nzgrajeno %.25s"
 
-#: src/dialogs.c:151
+#: src/dialogs.c:152
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "GNOME odjemalec za Jami.\nJami je brezplačen program za univerzalno komunikacijo, ki spoštuje svobodo in zasebnost svojih uporabnikov."
 
 #: src/welcomeview.cpp:92
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "To je vaše Jami uporabniško ime.\nKopirajte ga in delite s prijatelji!"
 
 #: src/welcomeview.cpp:100
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "To je vaš ID.\nKopirajte ga in delite s prijatelji!"
 
 #: src/welcomeview.cpp:195
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "Jami je brezplačen program za univerzalno komunikacijo, ki spoštuje svobodo in zasebnost svojih uporabnikov."
 
 #: src/client_options.c:66
 msgid "Enable debug"
-msgstr "Omogoči razhroščevanje"
+msgstr "Vklopi razhroščevanje"
 
 #: src/client_options.c:68
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr ""
+msgstr "Obnovi skrito stanje glavnega okna (uporabno le na primarni instanci)"
 
 #: src/client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr ""
+msgstr "- GNOME odjemalec za Jami"
 
 #: src/notifier.cpp:349
 msgctxt ""
 msgid "Open conversation"
-msgstr ""
+msgstr "Odpri pogovor"
 
 #: src/notifier.cpp:357 src/notifier.cpp:373
 msgctxt ""
@@ -1469,23 +1470,23 @@ msgstr "Zavrni"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Opozorilo! To dejanje bo odstranilo vtičnik!\nOpomba: Tega dejanja ni mogoče razveljaviti."
 
 #: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
 msgid "Uninstall Plugin"
-msgstr ""
+msgstr "Odstrani vtičnik"
 
 #: src/pluginsettingsview.cpp:268
 msgid "Load/Unload Plugin"
-msgstr ""
+msgstr "Naloži/odstrani vtičnik"
 
 #: src/profileview.cpp:130
 msgid "(None)"
-msgstr ""
+msgstr "(brez)"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
-msgstr ""
+msgstr "Registriraj to uporabniško ime na imenskem strežniku"
 
 #: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
@@ -1497,93 +1498,93 @@ msgstr "Neveljavno uporabniško ime"
 
 #: src/usernameregistrationbox.cpp:193
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "Pregled ni na voljo. Preverite povezavo"
 
 #: src/usernameregistrationbox.cpp:273
 msgid "Performing lookup…"
-msgstr ""
+msgstr "Izvajam pregled..."
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
-msgstr ""
+msgstr "Vnesite geslo vašega Jami računa"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
-msgstr ""
+msgstr "Registracija poteka..."
 
 #: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
-msgstr ""
+msgstr "Napaka ob registraciji imena"
 
 #: src/usernameregistrationbox.cpp:434
 msgid ""
 "Unable to register name (Invalid name). Your username should contains "
 "between 3 and 32 alphanumerics characters (or underscore)."
-msgstr ""
+msgstr "Ne morem registrirati imena (nepravilno ime). Uporabniško ime mora imeti med 3 in 32 alfanumeričnimi znaki (ali podčrtaji)"
 
 #: src/usernameregistrationbox.cpp:438
 msgid "Unable to register name (Wrong password)."
-msgstr ""
+msgstr "Ne morem registrirati imena (napačno geslo)"
 
 #: src/usernameregistrationbox.cpp:442
 msgid "Unable to register name (Username already taken)."
-msgstr ""
+msgstr "Ne morem registrirati imena (uporabniško ime je že oddano)"
 
 #: src/usernameregistrationbox.cpp:446
 msgid "Unable to register name (Network error) - check your connection."
-msgstr ""
+msgstr "Ne morem registrirati imena (napaka omrežja) - preverite povezavo."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
-msgstr ""
+msgstr "Stik je videti zaseden. Pustim sporočilo?"
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "Zaustavi snemanje"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
-msgstr ""
+msgstr "Pošlji posneto sporočilo"
 
 #: src/conversationpopupmenu.cpp:230
 msgid "Place _video call"
-msgstr ""
+msgstr "Ustvari _video klic"
 
 #: src/conversationpopupmenu.cpp:233
 msgid "Place _audio call"
-msgstr ""
+msgstr "Ustv_ari zvočni klic"
 
 #: src/conversationpopupmenu.cpp:241
 msgid "_Add to conversations"
-msgstr ""
+msgstr "Dod_aj k pogovoru"
 
 #: src/conversationpopupmenu.cpp:245
 msgid "_Discard invitation"
-msgstr ""
+msgstr "O_dstrani povabilo"
 
 #: src/conversationpopupmenu.cpp:248
 msgid "_Block invitations"
-msgstr ""
+msgstr "_Blokiraj povabila"
 
 #: src/conversationpopupmenu.cpp:253
 msgid "C_lear history"
-msgstr ""
+msgstr "Po_čisti zgodovino"
 
 #: src/conversationpopupmenu.cpp:256
 msgid "_Remove conversation"
-msgstr ""
+msgstr "Odst_rani pogovor"
 
 #: src/conversationpopupmenu.cpp:262
 msgid "_Block contact"
-msgstr ""
+msgstr "_Blokiraj stik"
 
 #: src/conversationpopupmenu.cpp:266
 msgid "_Unblock contact"
-msgstr ""
+msgstr "_Odblokiraj stik"
 
 #: src/conversationpopupmenu.cpp:273
 msgid "_Profile"
-msgstr ""
+msgstr "_Profil"
 
 #: src/avatarmanipulation.cpp:411
 msgid "Open Avatar Image"
@@ -1591,53 +1592,53 @@ msgstr "Odpri avatar sliko"
 
 #: src/accountcreationwizard.cpp:325
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "Med ustvarjanjem računa je prišlo do napake."
 
 #: src/accountcreationwizard.cpp:329
 msgid "An error occured during the rendez-vous creation."
-msgstr ""
+msgstr "Pri ustvarjanju točke srečevanja je prišlo do napake."
 
 #: src/accountcreationwizard.cpp:333
 msgid "An error occured during the SIP account creation."
-msgstr ""
+msgstr "Ob ustvarjanju SIP računa je prišlo do napake."
 
 #: src/accountcreationwizard.cpp:337
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "Na morem pridobiti kateregakoli računa. Preverite PIN in geslo."
 
 #: src/accountcreationwizard.cpp:341
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Na morem pridobiti kateregakoli računa. Preverite arhiv in geslo."
 
 #: src/accountcreationwizard.cpp:345
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "Ne morem se pvoezati s podanim upravljalnikom raučna. Preverite podatke."
 
 #: src/accountcreationwizard.cpp:534
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "Ustvarjanje vaših točk srečevanja"
 
 #: src/accountcreationwizard.cpp:536
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "Ustvarjanje Jami računa..."
 
 #: src/accountcreationwizard.cpp:552
 msgid "Passwords don't match"
-msgstr "Gesli nista enaki"
+msgstr "Gesli se ne ujemata"
 
 #: src/accountcreationwizard.cpp:673
 msgid "Enter Jami account password"
-msgstr ""
+msgstr "Vnesite geslo Jami računa"
 
 #: src/accountcreationwizard.cpp:674
 msgid "Link device"
-msgstr ""
+msgstr "Poveži napravo"
 
 #: src/accountcreationwizard.cpp:693
 msgid "Import from backup"
-msgstr ""
+msgstr "Uvozi iz varnostne kopije"
 
 #: src/accountcreationwizard.cpp:1083
 msgid "Register name"
