@@ -49,6 +49,7 @@ struct _WelcomeViewPrivate
     GtkWidget *label_explanation;
     GtkWidget *hbox_idlayout;
     GtkWidget *label_ringid;
+    GtkWidget *image_logo;
     GtkWidget *button_qrcode;
     GtkWidget *revealer_qrcode;
 
@@ -118,6 +119,19 @@ welcome_update_view(WelcomeView* self) {
 
 
     GError *error = NULL;
+
+    GdkPixbuf* logo = gdk_pixbuf_new_from_resource_at_scale(
+        priv->useDarkTheme
+            ? "/net/jami/JamiGnome/jami-logo-white"
+            : "/net/jami/JamiGnome/jami-logo-blue",
+        350, -1, TRUE, &error);
+    if (!logo) {
+        g_debug("Could not load logo: %s", error->message);
+        g_clear_error(&error);
+    } else {
+        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_logo), logo);
+    }
+
     GdkPixbuf *image_qr = gdk_pixbuf_new_from_resource_at_scale(priv->useDarkTheme? "/net/jami/JamiGnome/qrcode-white" : "/net/jami/JamiGnome/qrcode",
                                                                   -1, 16, TRUE, &error);
     if (!image_qr) {
@@ -179,16 +193,20 @@ welcome_view_init(WelcomeView *self)
     gtk_container_add(GTK_CONTAINER(overlay_qrcode), priv->box_overlay);
 
     /* get logo */
+    priv->image_logo = gtk_image_new();
     GError *error = NULL;
-    GdkPixbuf* logo = gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/jami-logo-blue",
-                                                            350, -1, TRUE, &error);
-    if (logo == NULL) {
+    GdkPixbuf* logo = gdk_pixbuf_new_from_resource_at_scale(
+        priv->useDarkTheme
+            ? "/net/jami/JamiGnome/jami-logo-white"
+            : "/net/jami/JamiGnome/jami-logo-blue",
+        350, -1, TRUE, &error);
+    if (!logo) {
         g_debug("Could not load logo: %s", error->message);
         g_clear_error(&error);
     } else {
-        auto image_ring_logo = gtk_image_new_from_pixbuf(logo);
-        gtk_box_pack_start(GTK_BOX(priv->box_overlay), image_ring_logo, FALSE, TRUE, 0);
-        gtk_widget_set_visible(GTK_WIDGET(image_ring_logo), TRUE);
+        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_logo), logo);
+        gtk_box_pack_start(GTK_BOX(priv->box_overlay), GTK_WIDGET(priv->image_logo), FALSE, TRUE, 0);
+        gtk_widget_set_visible(GTK_WIDGET(priv->image_logo), TRUE);
     }
 
     /* welcome text */
