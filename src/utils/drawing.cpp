@@ -401,3 +401,9 @@ get_ambient_color(GtkWidget* widget)
     cairo_surface_destroy(surface);
     return GdkRGBA{1.0f, 1.0f, 1.0f, 1.0f};
 }
+
+gboolean
+use_dark_theme(GdkRGBA color)
+{
+    return (color.red + color.green + color.blue) / 3 < .5;
+}

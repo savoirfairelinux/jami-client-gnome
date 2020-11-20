@@ -46,4 +46,6 @@ GdkPixbuf *draw_status(const GdkPixbuf *avatar, IconStatus status);
 
 GdkRGBA get_ambient_color(GtkWidget* widget);
 
+gboolean use_dark_theme(GdkRGBA color);
+
 #endif /* _DRAWING */
