@@ -24,7 +24,6 @@
 
 G_BEGIN_DECLS
 
-GtkWidget *dialog_working(GtkWidget *parent, const gchar *msg);
 void about_dialog(GtkWidget *parent);
 
 G_END_DECLS
