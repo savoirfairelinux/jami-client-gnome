@@ -66,7 +66,7 @@ dialog_working(GtkWidget *parent, const gchar *msg)
 }
 
 void
-about_dialog(GtkWidget *parent)
+about_dialog(GtkWidget *parent, gboolean use_dark_theme)
 {
     /* get parent window */
     if (parent && GTK_IS_WIDGET(parent))
@@ -75,7 +75,10 @@ about_dialog(GtkWidget *parent)
     /* get logo */
     GError *error = NULL;
     GdkPixbuf* logo = gdk_pixbuf_new_from_resource_at_scale(
-        "/net/jami/JamiGnome/jami-logo-blue", 350, -1, TRUE, &error);
+        use_dark_theme
+            ? "/net/jami/JamiGnome/jami-logo-white"
+            : "/net/jami/JamiGnome/jami-logo-blue",
+        350, -1, TRUE, &error);
     if (logo == NULL) {
         g_debug("Could not load logo: %s", error->message);
         g_clear_error(&error);

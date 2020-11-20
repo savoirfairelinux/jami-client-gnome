@@ -49,6 +49,7 @@
 #include "notifier.h"
 #include "config.h"
 #include "utils/files.h"
+#include "utils/drawing.h"
 #include "revision.h"
 
 #if HAVE_AYATANAAPPINDICATOR
@@ -208,7 +209,8 @@ action_about(G_GNUC_UNUSED GSimpleAction *simple,
     g_return_if_fail(G_IS_APPLICATION(user_data));
     ClientPrivate *priv = CLIENT_GET_PRIVATE(user_data);
 
-    about_dialog(priv->win);
+    about_dialog(priv->win,
+                 use_dark_theme(get_ambient_color(priv->win)));
 }
 
 static void
