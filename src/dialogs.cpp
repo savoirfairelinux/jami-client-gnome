@@ -22,47 +22,30 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <glib/gprintf.h>
-#include "config.h"
 #include "revision.h"
+#include "utils/drawing.h"
 
-GtkWidget *
-dialog_working(GtkWidget *parent, const gchar *msg)
+void
+about_dialog_set_theme(GtkAboutDialog *dialog, gboolean use_dark_theme)
 {
-    GtkWidget *dialog = gtk_dialog_new();
-    gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
-    gtk_window_set_resizable(GTK_WINDOW(dialog), FALSE);
-
-    if (parent && GTK_IS_WIDGET(parent)) {
-        /* get parent window so we can center on it */
-        parent = gtk_widget_get_toplevel(GTK_WIDGET(parent));
-        if (gtk_widget_is_toplevel(parent)) {
-            gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(parent));
-            gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
-        }
+    GError *error = NULL;
+    GdkPixbuf* logo = gdk_pixbuf_new_from_resource_at_scale(
+        use_dark_theme
+            ? "/net/jami/JamiGnome/jami-logo-white"
+            : "/net/jami/JamiGnome/jami-logo-blue",
+        350, -1, TRUE, &error);
+    if (!logo) {
+        g_debug("Could not load logo: %s", error->message);
+        g_clear_error(&error);
     }
+    gtk_about_dialog_set_logo(dialog, logo);
+}
 
-    GtkWidget *content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
-    gtk_box_set_spacing(GTK_BOX(content_area), 10);
-    gtk_widget_set_size_request(content_area, 250, -1);
-    gtk_widget_set_margin_top(content_area, 25);
-
-    GtkWidget *message = NULL;
-    if (msg) {
-        message = gtk_label_new(msg);
-    } else {
-        message = gtk_label_new(_("Working…"));
-    }
-
-    gtk_box_pack_start(GTK_BOX(content_area), message, FALSE, TRUE, 0);
-
-    GtkWidget *spinner = gtk_spinner_new();
-    gtk_spinner_start(GTK_SPINNER(spinner));
-
-    gtk_box_pack_start(GTK_BOX(content_area), spinner, FALSE, TRUE, 0);
-
-    gtk_widget_show_all(content_area);
-
-    return dialog;
+void
+about_dialog_on_redraw(GtkWidget *dialog)
+{
+  about_dialog_set_theme(GTK_ABOUT_DIALOG(dialog),
+                         use_dark_theme(get_ambient_color(dialog)));
 }
 
 void
@@ -71,15 +54,6 @@ about_dialog(GtkWidget *parent)
     /* get parent window */
     if (parent && GTK_IS_WIDGET(parent))
         parent = gtk_widget_get_toplevel(GTK_WIDGET(parent));
-
-    /* get logo */
-    GError *error = NULL;
-    GdkPixbuf* logo = gdk_pixbuf_new_from_resource_at_scale(
-        "/net/jami/JamiGnome/jami-logo-blue", 350, -1, TRUE, &error);
-    if (logo == NULL) {
-        g_debug("Could not load logo: %s", error->message);
-        g_clear_error(&error);
-    }
 
     gchar *version = g_strdup_printf(C_("Do not translate the release name nor the status (beta, final, ...)",
                                         "\"%s\"\nbuilt on %.25s"),
@@ -94,6 +68,7 @@ about_dialog(GtkWidget *parent)
         "Alexandre Viau",
         "Aline Bonnet",
         "Aline Gondim Santos",
+        "Amin Bandali",
         "AmirHossein Naghshzan",
         "Andreas Traczyk",
         "Anthony Léonard",
@@ -142,20 +117,38 @@ about_dialog(GtkWidget *parent)
         NULL,
     };
 
-    gtk_show_about_dialog(
-        GTK_WINDOW(parent),
-        "program-name", "",
-        "copyright", "© 2020 Savoir-faire Linux",
-        "license-type", GTK_LICENSE_GPL_3_0,
-        "logo", logo,
-        "version", version,
-        "comments", _("The GNOME client for Jami.\nJami is free software for universal communication which respects the freedoms and privacy of its users."),
-        "authors", authors,
-        "website", "https://jami.net/",
-        "website-label", "jami.net",
-        "translator-credits", "https://www.transifex.com/savoirfairelinux/jami",
-        NULL
-    );
+    GtkWidget *about = (GtkWidget*) g_object_get_data(G_OBJECT(GTK_WINDOW(parent)),
+                                                      "gtk-about-dialog");
+    if (!about) {
+        about = gtk_about_dialog_new();
+        g_object_ref_sink(about);
+        gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(about), "");
+        gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(about), "© 2020 Savoir-faire Linux");
+        gtk_about_dialog_set_license_type(GTK_ABOUT_DIALOG(about), GTK_LICENSE_GPL_3_0);
+        about_dialog_set_theme(GTK_ABOUT_DIALOG(about), use_dark_theme(get_ambient_color(parent)));
+        gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(about), version);
+        gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(about), _("The GNOME client for Jami.\nJami is free software for universal communication which respects the freedoms and privacy of its users."));
+        gtk_about_dialog_set_authors(GTK_ABOUT_DIALOG(about), authors);
+        gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(about), "https://jami.net/");
+        gtk_about_dialog_set_website_label(GTK_ABOUT_DIALOG(about), "jami.net");
+        gtk_about_dialog_set_translator_credits(GTK_ABOUT_DIALOG(about), "https://www.transifex.com/savoirfairelinux/jami");
+        g_free(version);
 
-    g_free(version);
+        g_signal_connect(about, "delete-event",
+                         G_CALLBACK(gtk_widget_hide_on_delete), NULL);
+        g_signal_connect(about, "response",
+                         G_CALLBACK(gtk_widget_hide), NULL);
+        g_signal_connect(about, "draw",
+                         G_CALLBACK(about_dialog_on_redraw), NULL);
+        gtk_window_set_modal(GTK_WINDOW(about), TRUE);
+        gtk_window_set_transient_for(GTK_WINDOW(about), GTK_WINDOW(parent));
+        gtk_window_set_destroy_with_parent(GTK_WINDOW(about), TRUE);
+        g_object_set_data_full(G_OBJECT(parent),
+                               g_intern_static_string("gtk-about-dialog"),
+                               about, g_object_unref);
+    }
+
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    gtk_window_present(GTK_WINDOW(about));
+    G_GNUC_END_IGNORE_DEPRECATIONS
 }

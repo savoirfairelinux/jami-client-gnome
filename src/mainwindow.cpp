@@ -536,7 +536,7 @@ on_redraw(GtkWidget*, cairo_t*, MainWindow* self)
     auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     auto color = get_ambient_color(GTK_WIDGET(self));
-    bool current_theme = (color.red + color.green + color.blue) / 3 < .5;
+    bool current_theme = use_dark_theme(color);
     conversations_view_set_theme(CONVERSATIONS_VIEW(priv->treeview_conversations), current_theme);
     if (priv->useDarkTheme != current_theme) {
         welcome_set_theme(WELCOME_VIEW(priv->welcome_view), current_theme);
@@ -1137,8 +1137,11 @@ CppImpl::CppImpl(MainWindow& widget)
         auto* content_area = gtk_dialog_get_content_area(GTK_DIALOG(widgets->migratingDialog_));
         GError *error = nullptr;
 
-        GdkPixbuf* logo_jami = gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/jami-logo-blue",
-                                                                    -1, 128, TRUE, &error);
+        GdkPixbuf* logo_jami = gdk_pixbuf_new_from_resource_at_scale(
+            widgets->useDarkTheme
+                ? "/net/jami/JamiGnome/jami-logo-white"
+                : "/net/jami/JamiGnome/jami-logo-blue",
+            -1, 128, TRUE, &error);
         if (!logo_jami) {
             g_debug("Could not load logo: %s", error->message);
             g_clear_error(&error);
@@ -1803,7 +1806,10 @@ void
 CppImpl::enterAccountCreationWizard(bool showControls)
 {
     if (!widgets->account_creation_wizard) {
-        widgets->account_creation_wizard = account_creation_wizard_new(lrc_->getAVModel(), lrc_->getAccountModel());
+        widgets->account_creation_wizard =
+            account_creation_wizard_new(lrc_->getAVModel(),
+                                        lrc_->getAccountModel(),
+                                        widgets->useDarkTheme);
         g_object_add_weak_pointer(G_OBJECT(widgets->account_creation_wizard),
                                   reinterpret_cast<gpointer*>(&widgets->account_creation_wizard));
         g_signal_connect_swapped(widgets->account_creation_wizard, "account-creation-lock",
