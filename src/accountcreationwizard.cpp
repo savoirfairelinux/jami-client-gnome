@@ -150,6 +150,8 @@ struct _AccountCreationWizardPrivate
     lrc::api::AVModel* avModel_;
     lrc::api::NewAccountModel* accountModel_;
 
+    bool useDarkTheme {false};
+
     Mode mode;
 
     GSettings *settings;
@@ -935,8 +937,11 @@ build_creation_wizard_view(AccountCreationWizard *view)
 
     /* set ring logo */
     GError *error = NULL;
-    GdkPixbuf* logo_ring = gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/jami-logo-blue",
-                                                                  -1, 50, TRUE, &error);
+    GdkPixbuf* logo_ring = gdk_pixbuf_new_from_resource_at_scale(
+        priv->useDarkTheme
+            ? "/net/jami/JamiGnome/jami-logo-white"
+            : "/net/jami/JamiGnome/jami-logo-blue",
+        -1, 50, TRUE, &error);
     if (logo_ring == NULL) {
         g_debug("Could not load logo: %s", error->message);
         g_clear_error(&error);
@@ -1031,13 +1036,14 @@ build_creation_wizard_view(AccountCreationWizard *view)
 }
 
 GtkWidget *
-account_creation_wizard_new(lrc::api::AVModel& avModel, lrc::api::NewAccountModel& accountModel)
+account_creation_wizard_new(lrc::api::AVModel& avModel, lrc::api::NewAccountModel& accountModel, bool useDarkTheme)
 {
     gpointer view = g_object_new(ACCOUNT_CREATION_WIZARD_TYPE, NULL);
 
     auto* priv = ACCOUNT_CREATION_WIZARD_GET_PRIVATE(view);
     priv->avModel_ = &avModel;
     priv->accountModel_ = &accountModel;
+    priv->useDarkTheme = useDarkTheme;
 
     build_creation_wizard_view(ACCOUNT_CREATION_WIZARD(view));
     return (GtkWidget *)view;

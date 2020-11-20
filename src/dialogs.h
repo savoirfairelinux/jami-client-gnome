@@ -25,7 +25,7 @@
 G_BEGIN_DECLS
 
 GtkWidget *dialog_working(GtkWidget *parent, const gchar *msg);
-void about_dialog(GtkWidget *parent);
+void about_dialog(GtkWidget *parent, gboolean use_dark_theme);
 
 G_END_DECLS
 
