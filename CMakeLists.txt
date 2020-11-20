@@ -278,7 +278,7 @@ SET( SRC_FILES
    src/video/xrectsel.h
    src/video/xrectsel.c
    src/dialogs.h
-   src/dialogs.c
+   src/dialogs.cpp
    src/mediasettingsview.h
    src/mediasettingsview.cpp
    src/pluginsettingsview.h

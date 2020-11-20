@@ -48,7 +48,7 @@ typedef struct _AccountCreationWizard      AccountCreationWizard;
 typedef struct _AccountCreationWizardClass AccountCreationWizardClass;
 
 GType      account_creation_wizard_get_type      (void) G_GNUC_CONST;
-GtkWidget *account_creation_wizard_new           (lrc::api::AVModel& avModel, lrc::api::NewAccountModel& accountModel);
+GtkWidget *account_creation_wizard_new           (lrc::api::AVModel& avModel, lrc::api::NewAccountModel& accountModel, bool useDarkTheme);
 
 void       account_creation_wizard_show_preview  (AccountCreationWizard *win, gboolean show_preview = TRUE);
 void       show_rendezvous_creation_wizard       (AccountCreationWizard *win);

@@ -3,6 +3,7 @@
   <gresource prefix="/net/jami/JamiGnome">
     <file alias="jami-symbol-blue">jami.svg</file>
     <file alias="jami-logo-blue">LOGO_JAMI_201106.svg</file>
+    <file alias="jami-logo-white">LOGO_JAMI_201106_white.svg</file>
     <file alias="addressbook_small">addressbook.svg</file>
     <file alias="history_small">history.svg</file>
     <file alias="clear_history">ic_delete_forever_black_24px.svg</file>

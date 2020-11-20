@@ -143,6 +143,7 @@ struct MainWindowPrivate
     GCancellable *cancellable;
 
     GtkWidget* migratingDialog_;
+    GtkWidget* migratingDialogLogo_;
 #if USE_LIBNM
     /* NetworkManager */
     NMClient *nm_client;
@@ -536,7 +537,7 @@ on_redraw(GtkWidget*, cairo_t*, MainWindow* self)
     auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
     auto color = get_ambient_color(GTK_WIDGET(self));
-    bool current_theme = (color.red + color.green + color.blue) / 3 < .5;
+    bool current_theme = use_dark_theme(color);
     conversations_view_set_theme(CONVERSATIONS_VIEW(priv->treeview_conversations), current_theme);
     if (priv->useDarkTheme != current_theme) {
         welcome_set_theme(WELCOME_VIEW(priv->welcome_view), current_theme);
@@ -567,6 +568,28 @@ on_redraw(GtkWidget*, cairo_t*, MainWindow* self)
         gtk_style_context_add_provider_for_screen(gdk_display_get_default_screen(gdk_display_get_default()),
                                                   GTK_STYLE_PROVIDER(provider),
                                                   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    }
+    return false;
+}
+
+gboolean
+on_migrating_dialog_redraw(GtkWidget* migrating_dialog, cairo_t*, MainWindow* win)
+{
+    g_return_val_if_fail(IS_MAIN_WINDOW(win), G_SOURCE_REMOVE);
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
+
+    GError *error = nullptr;
+    GdkPixbuf* logo = gdk_pixbuf_new_from_resource_at_scale(
+        use_dark_theme(get_ambient_color(migrating_dialog))
+        ? "/net/jami/JamiGnome/jami-logo-white"
+        : "/net/jami/JamiGnome/jami-logo-blue",
+        350, -1, TRUE, &error);
+    if (!logo) {
+        g_debug("Could not load logo: %s", error->message);
+        g_clear_error(&error);
+    } else {
+        gtk_image_set_from_pixbuf(
+            GTK_IMAGE(priv->migratingDialogLogo_), logo);
     }
     return false;
 }
@@ -1137,19 +1160,26 @@ CppImpl::CppImpl(MainWindow& widget)
         auto* content_area = gtk_dialog_get_content_area(GTK_DIALOG(widgets->migratingDialog_));
         GError *error = nullptr;
 
-        GdkPixbuf* logo_jami = gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/jami-logo-blue",
-                                                                    -1, 128, TRUE, &error);
+        GdkPixbuf* logo_jami = gdk_pixbuf_new_from_resource_at_scale(
+            use_dark_theme(get_ambient_color(widgets->migratingDialog_))
+                ? "/net/jami/JamiGnome/jami-logo-white"
+                : "/net/jami/JamiGnome/jami-logo-blue",
+            -1, 128, TRUE, &error);
         if (!logo_jami) {
             g_debug("Could not load logo: %s", error->message);
             g_clear_error(&error);
             return;
         }
-        auto* image = gtk_image_new_from_pixbuf(logo_jami);
+        widgets->migratingDialogLogo_ = gtk_image_new_from_pixbuf(logo_jami);
         auto* label = gtk_label_new(_("Migration in progress... please do not close this window."));
-        gtk_container_add(GTK_CONTAINER(content_area), image);
+        gtk_container_add(GTK_CONTAINER(content_area), widgets->migratingDialogLogo_);
         gtk_container_add(GTK_CONTAINER(content_area), label);
         gtk_widget_set_margin_left(content_area, 32);
         gtk_widget_set_margin_right(content_area, 32);
+        g_signal_connect(widgets->migratingDialog_,
+                         "draw",
+                         G_CALLBACK(on_migrating_dialog_redraw),
+                         MAIN_WINDOW(&widget));
 
         gtk_widget_show_all(widgets->migratingDialog_);
 
@@ -1803,7 +1833,10 @@ void
 CppImpl::enterAccountCreationWizard(bool showControls)
 {
     if (!widgets->account_creation_wizard) {
-        widgets->account_creation_wizard = account_creation_wizard_new(lrc_->getAVModel(), lrc_->getAccountModel());
+        widgets->account_creation_wizard =
+            account_creation_wizard_new(lrc_->getAVModel(),
+                                        lrc_->getAccountModel(),
+                                        widgets->useDarkTheme);
         g_object_add_weak_pointer(G_OBJECT(widgets->account_creation_wizard),
                                   reinterpret_cast<gpointer*>(&widgets->account_creation_wizard));
         g_signal_connect_swapped(widgets->account_creation_wizard, "account-creation-lock",
