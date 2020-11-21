@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ae7eb46_3f7fb3cf",
+        "filename": "src/dialogs.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-11-21T18:34:35Z",
+      "side": 1,
+      "message": "you need to add a function like welcome_set_theme() for this and the mainwindow to change the theme when the user set a new theme while the app is opened",
+      "range": {
+        "startLine": 27,
+        "startChar": 63,
+        "endLine": 28,
+        "endChar": 62
+      },
+      "revId": "0f65d657242d95f72e7abd45b958e782165152d6",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "068e12be_f1df5dd3",
+        "filename": "src/welcomeview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-11-21T18:34:35Z",
+      "side": 1,
+      "message": "!logo",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 20
+      },
+      "revId": "0f65d657242d95f72e7abd45b958e782165152d6",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
