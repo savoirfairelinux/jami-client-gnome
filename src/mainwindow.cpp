@@ -429,7 +429,7 @@ render_rendezvous_mode(GtkCellLayout*,
                       MainWindowPrivate* priv)
 {
     g_return_if_fail(priv->cpp->accountInfo_);
-    
+
     gchar *id;
     gchar* avatar;
     gchar* status;
@@ -2492,9 +2492,9 @@ void
 CppImpl::slotShowLeaveMessageView(lrc::api::conversation::Info conv)
 {
     auto* current_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
-    if (IS_INCOMING_CALL_VIEW(current_view)) {
+    if (IS_INCOMING_CALL_VIEW(current_view)
+        && accountInfo_->profileInfo.type != lrc::api::profile::Type::SIP)
         incoming_call_view_let_a_message(INCOMING_CALL_VIEW(current_view), conv);
-    }
 }
 
 void
