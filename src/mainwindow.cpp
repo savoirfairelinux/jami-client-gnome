@@ -136,7 +136,6 @@ struct MainWindowPrivate
     gulong notif_refuse_pending;
     gulong notif_accept_call;
     gulong notif_decline_call;
-    gboolean set_top_account_flag = true;
     gboolean is_fullscreen_main_win = false;
     gboolean key_pressed = false;
 
@@ -634,10 +633,6 @@ on_account_changed(MainWindow* self)
 {
     g_return_if_fail(IS_MAIN_WINDOW(self));
     auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
-    auto changeTopAccount = priv->set_top_account_flag;
-    if (!priv->set_top_account_flag) {
-        priv->set_top_account_flag = true;
-    }
 
     auto accountComboBox = GTK_COMBO_BOX(priv->combobox_account_selector);
     auto model = gtk_combo_box_get_model(accountComboBox);
@@ -650,9 +645,8 @@ on_account_changed(MainWindow* self)
             priv->cpp->enterAccountCreationWizard(true);
         } else {
             if (!priv->cpp->isCreatingAccount) priv->cpp->leaveAccountCreationWizard();
-            if (priv->cpp->accountInfo_ && changeTopAccount) {
+            if (priv->cpp->accountInfo_)
                 priv->cpp->accountInfo_->accountModel->setTopAccount(accountId);
-            }
             priv->cpp->onAccountSelectionChange(accountId);
             gtk_notebook_set_show_tabs(GTK_NOTEBOOK(priv->notebook_contacts),
                 priv->cpp->accountInfo_->contactModel->hasPendingRequests());
@@ -1793,7 +1787,6 @@ CppImpl::refreshAccountSelectorWidget(int selection_row, const std::string& sele
         GTK_COMBO_BOX(widgets->combobox_account_selector),
         GTK_TREE_MODEL(store)
     );
-    widgets->set_top_account_flag = false;
     gtk_combo_box_set_active(GTK_COMBO_BOX(widgets->combobox_account_selector), selection_row);
 
     return enabled_accounts;
