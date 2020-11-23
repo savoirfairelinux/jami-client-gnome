@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Allan Nordhøy <epost@anotheragency.no>, 2017-2018
-# Jan Sherdahl <jan@sherdahl.com>, 2020
+# Jan Sherdahl, 2020
 # pere <pere-transifex@hungry.com>, 2016-2017,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 03:09-0500\n"
-"PO-Revision-Date: 2020-11-16 06:44+0000\n"
-"Last-Translator: Jan Sherdahl <jan@sherdahl.com>\n"
+"POT-Creation-Date: 2020-11-23 03:09-0500\n"
+"PO-Revision-Date: 2020-11-23 08:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/savoirfairelinux/jami/language/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,11 +71,11 @@ msgstr "Utgangsenhet"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
-msgstr ""
+msgstr "Inngangsenhet"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
-msgstr ""
+msgstr "Volum inngangsenhet"
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
@@ -137,7 +137,7 @@ msgstr "Konto ansvarlig"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:973 src/newaccountsettingsview.cpp:2117
+#: src/newaccountsettingsview.cpp:975 src/newaccountsettingsview.cpp:2132
 msgid "Delete account"
 msgstr "Slett konto"
 
@@ -147,7 +147,7 @@ msgstr "Overfør konto"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "Overfører din Jami konto..."
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
@@ -176,7 +176,7 @@ msgstr "Passord (påkrevd):"
 msgid "Enter archive password"
 msgstr "Skriv inn arkivpassord"
 
-#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:866
+#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:868
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -206,7 +206,7 @@ msgid "Click to change password"
 msgstr "Klikk for å endre passord"
 
 #: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
-#: src/newaccountsettingsview.cpp:2050 src/accountcreationwizard.cpp:440
+#: src/newaccountsettingsview.cpp:2065 src/accountcreationwizard.cpp:440
 msgid "Export account"
 msgstr "Eksporter konto"
 
@@ -275,7 +275,7 @@ msgstr "Konverter din konto til en møteplass"
 msgid "Name server"
 msgstr "Navnetjener"
 
-#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2525
+#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2560
 msgid "Address"
 msgstr "Adresse"
 
@@ -355,91 +355,95 @@ msgstr "Sikkerhet"
 msgid "Connectivity"
 msgstr "Forbindelsesstatus"
 
-#: ui/newaccountsettingsview.ui:2101
+#: ui/newaccountsettingsview.ui:2100
+msgid "Auto Registration After Expired"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:2136
 msgid "Registration expire timeout (seconds)"
 msgstr "Utløpstid for registrering (sekunder)"
 
-#: ui/newaccountsettingsview.ui:2138
+#: ui/newaccountsettingsview.ui:2173
 msgid "Network interface"
 msgstr "Nettverksgrensesnitt"
 
-#: ui/newaccountsettingsview.ui:2174
+#: ui/newaccountsettingsview.ui:2209
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2209
+#: ui/newaccountsettingsview.ui:2244
 msgid "Use TURN"
 msgstr "Bruk TURN"
 
-#: ui/newaccountsettingsview.ui:2244
+#: ui/newaccountsettingsview.ui:2279
 msgid "(TURN) address"
 msgstr "(TURN) adresse"
 
-#: ui/newaccountsettingsview.ui:2279
+#: ui/newaccountsettingsview.ui:2314
 msgid "(TURN) username"
 msgstr "(TURN) brukernavn"
 
-#: ui/newaccountsettingsview.ui:2313
+#: ui/newaccountsettingsview.ui:2348
 msgid "(TURN) password"
 msgstr "(TURN) passord"
 
-#: ui/newaccountsettingsview.ui:2350
+#: ui/newaccountsettingsview.ui:2385
 msgid "(TURN) realm"
 msgstr "(TURN) realm"
 
-#: ui/newaccountsettingsview.ui:2384
+#: ui/newaccountsettingsview.ui:2419
 msgid "Use STUN"
 msgstr "Bruk STUN"
 
-#: ui/newaccountsettingsview.ui:2419
+#: ui/newaccountsettingsview.ui:2454
 msgid "(STUN) address"
 msgstr "(STUN) adresse"
 
-#: ui/newaccountsettingsview.ui:2452
+#: ui/newaccountsettingsview.ui:2487
 msgid "Published address"
 msgstr "Publisert adresse"
 
-#: ui/newaccountsettingsview.ui:2489
+#: ui/newaccountsettingsview.ui:2524
 msgid "Use custom address and port"
 msgstr "Bruk tilpasset adresse og port"
 
-#: ui/newaccountsettingsview.ui:2560
+#: ui/newaccountsettingsview.ui:2595
 msgid "Port"
 msgstr "Port"
 
-#: ui/newaccountsettingsview.ui:2596
+#: ui/newaccountsettingsview.ui:2631
 msgid "Video codecs"
 msgstr "Videokodek"
 
-#: ui/newaccountsettingsview.ui:2659
+#: ui/newaccountsettingsview.ui:2694
 msgid "Enable video"
 msgstr "Aktiver video"
 
-#: ui/newaccountsettingsview.ui:2686
+#: ui/newaccountsettingsview.ui:2721
 msgid "Audio codecs"
 msgstr "Lydkodek"
 
-#: ui/newaccountsettingsview.ui:2756
+#: ui/newaccountsettingsview.ui:2791
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP-øktforhandling (ICE-reserve)"
 
-#: ui/newaccountsettingsview.ui:2768
+#: ui/newaccountsettingsview.ui:2803
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Brukes kun ved SDP-forhandling i tilfelle ICE ikke er støttet."
 
-#: ui/newaccountsettingsview.ui:2802
+#: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Min port"
 msgstr "Lyd-RTP min. port"
 
-#: ui/newaccountsettingsview.ui:2837
+#: ui/newaccountsettingsview.ui:2872
 msgid "Audio RTP Max port"
 msgstr "Lyd-RTP maks port"
 
-#: ui/newaccountsettingsview.ui:2872
+#: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Min port"
 msgstr "Video-RTP min. port"
 
-#: ui/newaccountsettingsview.ui:2907
+#: ui/newaccountsettingsview.ui:2942
 msgid "Video RTP Max port"
 msgstr "Video RTP maks port"
 
@@ -608,7 +612,7 @@ msgstr "Bruk utvalg som bilde"
 
 #: ui/profile.ui:58
 msgid "Informations"
-msgstr ""
+msgstr "Informasjon"
 
 #: ui/profile.ui:153
 msgid "QR Code"
@@ -624,7 +628,7 @@ msgstr "Opprett en Jami-konto"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "Opprett en ny Jami-konto på denne enheten (for nye brukere)"
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
@@ -640,7 +644,7 @@ msgstr "Lenk denne enheten til en eksisterende konto"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "Importer en konto med PIN-koden din generert på en annen enhet"
 
 #: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:694
 msgid "Restore an account from backup"
@@ -648,7 +652,7 @@ msgstr "Gjenopprett en konto fra sikkerhetskopi"
 
 #: ui/accountcreationwizard.ui:101
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "Importer en konto via ditt arkiv"
 
 #: ui/accountcreationwizard.ui:108
 msgid "Advanced features"
@@ -660,7 +664,7 @@ msgstr "Koble til en JAMS tjener"
 
 #: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
-msgstr ""
+msgstr "Hent din konto via dine opplysninger"
 
 #: ui/accountcreationwizard.ui:127
 msgid "Add a SIP account"
@@ -668,17 +672,17 @@ msgstr "Legg til SIP konto"
 
 #: ui/accountcreationwizard.ui:199
 msgid "Archive"
-msgstr ""
+msgstr "Arkiv"
 
 #: ui/accountcreationwizard.ui:205 ui/accountcreationwizard.ui:334
 msgid "Informations."
-msgstr ""
+msgstr "Informasjon."
 
 #: ui/accountcreationwizard.ui:258
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Du kan skaffe et arkiv ved å klikke på \"Sikkerhetskopier konto\" i kontoinnstillingene. Dette vil opprette en .gz-fil på enheten din."
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
@@ -688,7 +692,7 @@ msgstr "PIN"
 msgid ""
 "Enter the PIN from another configured Jami account. Use the \"Link Another "
 "Device\" feature to obtain a PIN."
-msgstr ""
+msgstr "Skriv inn PIN-koden fra en annen konfigurert Jami-konto. Bruk funksjonen \"Tilknytt en annen enhet\" for å få en PIN-kode."
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
@@ -704,7 +708,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "Ved å huke av for dette vil du registrere et unikt brukernavn i Jami-nettverket. Folk kan bruke det til å kontakte deg i stedet for å bruke ID-en din, som er 40 tegn lang."
 
 #: ui/accountcreationwizard.ui:630
 msgid "Encrypt account with password"
@@ -728,7 +732,7 @@ msgid ""
 "devices to your account."
 msgstr "Dette passordet vil brukes til å kryptere din kontodata og lenke nye enheter til din konto."
 
-#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:856
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:858
 msgid "Confirm password"
 msgstr "Bekreft passord"
 
@@ -769,15 +773,15 @@ msgstr "Henter Jami-kontoen din"
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr ""
+msgstr "Tast inn URL til Jami kontoadministrasjonstjeneren (JAMS)"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
-msgstr ""
+msgstr "JAMS URL"
 
 #: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
-msgstr ""
+msgstr "Tast inn dine JAMS opplysninger"
 
 #: ui/accountcreationwizard.ui:1167
 msgid "Connect"
@@ -805,7 +809,7 @@ msgstr "Start programmet ved innlogging"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr ""
+msgstr "Hold Jami aktiv når vinduet er lukket."
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
@@ -833,7 +837,7 @@ msgstr "Meldingsvisning"
 
 #: ui/generalsettingsview.ui:390
 msgid "Show typing indications"
-msgstr ""
+msgstr "Vis skriveindikasjoner"
 
 #: ui/generalsettingsview.ui:426
 msgid "Display images and videos into the chatview"
@@ -861,7 +865,7 @@ msgstr "Nullstill all historikk"
 
 #: ui/generalsettingsview.ui:638
 msgid "Call Recording"
-msgstr ""
+msgstr "Samtaleopptak"
 
 #: ui/generalsettingsview.ui:676
 msgid "Record local video"
@@ -877,7 +881,7 @@ msgstr "Opptaksmappe"
 
 #: ui/generalsettingsview.ui:786
 msgid "Bitrate for call recordings (kb/s)"
-msgstr ""
+msgstr "Bitrate for samtaleopptak (kb/s)"
 
 #: ui/generalsettingsview.ui:824
 msgid "File transfer"
@@ -885,15 +889,15 @@ msgstr "Filoverføring"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
-msgstr ""
+msgstr "Tillat innkommende filer fra ukjente kontakter"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
-msgstr ""
+msgstr "Godta automatisk innkommende filer"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr ""
+msgstr "Godta overføring nedenfor (i Mb, 0 = ubegrenset)"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
@@ -1002,7 +1006,7 @@ msgstr "Programvareutvidelse"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
-msgstr ""
+msgstr "Aktiver tillegg"
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
@@ -1041,15 +1045,15 @@ msgstr "Klarte ikke koble opp forbindelsen igjen til Jami-bakgrunnsprosessen (dr
 
 #: src/currentcallview.cpp:1070
 msgid "No name!"
-msgstr ""
+msgstr "Ingen navn!"
 
 #: src/currentcallview.cpp:1185
 msgid "Current conference (all accounts)"
-msgstr ""
+msgstr "Gjeldende konferanse (alle kontoer)"
 
 #: src/currentcallview.cpp:1220
 msgid "Current calls (all accounts)"
-msgstr ""
+msgstr "Gjeldende samtaler (alle kontoer)"
 
 #: src/currentcallview.cpp:1237
 msgid "Online contacts"
@@ -1064,7 +1068,7 @@ msgstr "Auto"
 msgid "me"
 msgstr "meg"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:972
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:974
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1074,13 +1078,13 @@ msgstr "Advarsel!  Denne handlingen vil fjerne denne kontoen fra denne enheten!\
 msgid "Send File"
 msgstr "Send fil"
 
-#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:906
+#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:908
 #: src/accountcreationwizard.cpp:868
 msgid "Save File"
 msgstr "Lagre fil"
 
 #: src/chatview.cpp:284 src/generalsettingsview.cpp:234
-#: src/newaccountsettingsview.cpp:909 src/pluginsettingsview.cpp:127
+#: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:127
 #: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:871
 msgid "_Cancel"
 msgstr "_Avbryt"
@@ -1091,7 +1095,7 @@ msgid "_Open"
 msgstr "_Åpne"
 
 #: src/chatview.cpp:286 src/generalsettingsview.cpp:236
-#: src/newaccountsettingsview.cpp:911 src/accountcreationwizard.cpp:873
+#: src/newaccountsettingsview.cpp:913 src/accountcreationwizard.cpp:873
 msgid "_Save"
 msgstr "_Lagre"
 
@@ -1117,130 +1121,130 @@ msgstr "Dette er en ødeleggende operasjon. Er du sikker på at du vil slette al
 msgid "Choose download folder"
 msgstr "Velg nedlastingsmappe"
 
-#: src/newaccountsettingsview.cpp:603
+#: src/newaccountsettingsview.cpp:605
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Advarsel! Denne handlingen vil trekke tilbake denne enheten!\nMerk: Denne handlingen kan ikke gjøres om."
 
-#: src/newaccountsettingsview.cpp:604
+#: src/newaccountsettingsview.cpp:606
 msgid "Enter password to revoke device"
 msgstr "Skriv inn passord for å trekke tilbake enhet"
 
-#: src/newaccountsettingsview.cpp:662
+#: src/newaccountsettingsview.cpp:664
 msgid "Edit name"
 msgstr "Endre navn"
 
-#: src/newaccountsettingsview.cpp:662
+#: src/newaccountsettingsview.cpp:664
 msgid "Revoke device"
 msgstr "Tilbakekall enhet"
 
-#: src/newaccountsettingsview.cpp:684
+#: src/newaccountsettingsview.cpp:686
 msgid "Error when revoking device"
 msgstr "Feil under tilbaketrekking av enhet"
 
-#: src/newaccountsettingsview.cpp:757
+#: src/newaccountsettingsview.cpp:759
 msgid "Unban"
 msgstr "Fjern bannlysning"
 
-#: src/newaccountsettingsview.cpp:780 src/newaccountsettingsview.cpp:803
-#: src/newaccountsettingsview.cpp:827 src/newaccountsettingsview.cpp:863
+#: src/newaccountsettingsview.cpp:782 src/newaccountsettingsview.cpp:805
+#: src/newaccountsettingsview.cpp:829 src/newaccountsettingsview.cpp:865
 msgid "Change password"
 msgstr "Endre passord"
 
-#: src/newaccountsettingsview.cpp:793
+#: src/newaccountsettingsview.cpp:795
 msgid "New password and its confirmation are different!"
 msgstr "Nytt passord er forskjellig fra dets bekreftelse!"
 
-#: src/newaccountsettingsview.cpp:804
+#: src/newaccountsettingsview.cpp:806
 msgid "Incorrect password!"
 msgstr "Feil passord!"
 
-#: src/newaccountsettingsview.cpp:841
+#: src/newaccountsettingsview.cpp:843
 msgid "Note: this will change the password only on this device."
 msgstr "Merk: Dette vil endre passordet kun på denne enheten."
 
-#: src/newaccountsettingsview.cpp:844
+#: src/newaccountsettingsview.cpp:846
 msgid "Current password"
 msgstr "Nåværende passord"
 
-#: src/newaccountsettingsview.cpp:850
+#: src/newaccountsettingsview.cpp:852
 msgid "New password"
 msgstr "Nytt passord"
 
-#: src/newaccountsettingsview.cpp:933 src/accountcreationwizard.cpp:897
+#: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:897
 msgid "You need to enter your password to export the full archive."
 msgstr "Du må skrive inn passordet ditt for å eksportere hele arkivet."
 
-#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:898
+#: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:898
 msgid "Enter password to export archive"
 msgstr "Skriv inn passord for å eksportere arkiv"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
+#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:921
 msgid "Account exported!"
 msgstr "Konto eksportert!"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
+#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:921
 msgid "Export account failure."
 msgstr "Feil ved eksport av konto."
 
-#: src/newaccountsettingsview.cpp:1725
+#: src/newaccountsettingsview.cpp:1739
 msgid "Exporting account…"
 msgstr "Eksporterer konto..."
 
-#: src/newaccountsettingsview.cpp:1750
+#: src/newaccountsettingsview.cpp:1764
 msgid "Bad password"
 msgstr "Dårlig passord"
 
-#: src/newaccountsettingsview.cpp:1758
+#: src/newaccountsettingsview.cpp:1772
 msgid "Network error, try again"
 msgstr "Nettverksfeil, prøv på nytt"
 
-#: src/newaccountsettingsview.cpp:1766
+#: src/newaccountsettingsview.cpp:1780
 msgid "Unknown error"
 msgstr "Ukjent feil"
 
-#: src/newaccountsettingsview.cpp:1779
+#: src/newaccountsettingsview.cpp:1793
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Klarte ikke klargjøre eksport til Jami-en. Forsøk igjen"
 
-#: src/newaccountsettingsview.cpp:1838
+#: src/newaccountsettingsview.cpp:1852
 msgid "Error: wrong password!"
 msgstr "Feil: galt passord!"
 
-#: src/newaccountsettingsview.cpp:1841
+#: src/newaccountsettingsview.cpp:1855
 msgid "Error: unknown device!"
 msgstr "Feil: ukjent enhet!"
 
-#: src/newaccountsettingsview.cpp:2015
+#: src/newaccountsettingsview.cpp:2030
 msgid "Initializing…"
 msgstr "Starter…"
 
-#: src/newaccountsettingsview.cpp:2018
+#: src/newaccountsettingsview.cpp:2033
 msgid "Offline"
 msgstr "Frakoblet"
 
-#: src/newaccountsettingsview.cpp:2021
+#: src/newaccountsettingsview.cpp:2036
 msgid "Connecting…"
 msgstr "Kobler opp..."
 
-#: src/newaccountsettingsview.cpp:2024
+#: src/newaccountsettingsview.cpp:2039
 msgid "Online"
 msgstr "Tilkoblet"
 
-#: src/newaccountsettingsview.cpp:2028
+#: src/newaccountsettingsview.cpp:2043
 msgid "Unknown status"
 msgstr "Ukjent status"
 
-#: src/newaccountsettingsview.cpp:2061
+#: src/newaccountsettingsview.cpp:2076
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2061
+#: src/newaccountsettingsview.cpp:2076
 msgid "no password set"
 msgstr "intet passord satt"
 
-#: src/newaccountsettingsview.cpp:2117
+#: src/newaccountsettingsview.cpp:2132
 msgid "Remove account"
 msgstr "Slett konto"
 
@@ -1314,18 +1318,18 @@ msgstr "åpne sludring"
 
 #: src/mainwindow.cpp:1135
 msgid "Jami - Migration needed"
-msgstr ""
+msgstr "Jami - Overføring nødvendig"
 
 #: src/mainwindow.cpp:1148
 msgid "Migration in progress... please do not close this window."
-msgstr ""
+msgstr "Overføring pågår ... ikke lukk dette vinduet."
 
 #: src/mainwindow.cpp:1428
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr ""
+msgstr "Finn eller start en samtale"
 
 #: src/mainwindow.cpp:1887
 msgid "Leave settings page"
@@ -1407,7 +1411,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"%s\"\nbygget på %.25s"
 
 #: src/dialogs.c:152
 msgid ""
@@ -1471,7 +1475,7 @@ msgstr "Avslå"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Advarsel! Denne handlingen vil avinstallere tillegget!\nMerk: Denne handlingen kan ikke angres."
 
 #: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
 msgid "Uninstall Plugin"
@@ -1479,11 +1483,11 @@ msgstr "Avinstaller tillegg"
 
 #: src/pluginsettingsview.cpp:268
 msgid "Load/Unload Plugin"
-msgstr ""
+msgstr "Start/stopp tillegg"
 
 #: src/profileview.cpp:130
 msgid "(None)"
-msgstr ""
+msgstr "(Ingen)"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
@@ -1585,7 +1589,7 @@ msgstr "_Fjern kontaktblokkering"
 
 #: src/conversationpopupmenu.cpp:273
 msgid "_Profile"
-msgstr ""
+msgstr "_Profil"
 
 #: src/avatarmanipulation.cpp:411
 msgid "Open Avatar Image"
@@ -1593,29 +1597,29 @@ msgstr "Åpne avatarbilde"
 
 #: src/accountcreationwizard.cpp:325
 msgid "An error occured during the account creation."
-msgstr ""
+msgstr "En feil oppstod ved oppretting av kontoen."
 
 #: src/accountcreationwizard.cpp:329
 msgid "An error occured during the rendez-vous creation."
-msgstr ""
+msgstr "En feil oppstod ved oppretting av møteplass."
 
 #: src/accountcreationwizard.cpp:333
 msgid "An error occured during the SIP account creation."
-msgstr ""
+msgstr "En feil oppstod under opprettelse av SIP kontoen."
 
 #: src/accountcreationwizard.cpp:337
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "Kan ikke gjenfinne konto. Vennligst kontroller PIN-koden og passordet ditt."
 
 #: src/accountcreationwizard.cpp:341
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Kan ikke gjenfinne konto. Vennligst kontroller arkivet og passordet ditt."
 
 #: src/accountcreationwizard.cpp:345
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "Kan ikke koble til den angitte kontoadministratoren. Vennligst kontroller dine opplysninger."
 
 #: src/accountcreationwizard.cpp:534
 msgid "Generating your rendez-vous…"

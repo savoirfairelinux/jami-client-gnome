@@ -7,7 +7,7 @@
 # Abdussamet Koçak <sssmmt@gmail.com>, 2019
 # Altay dal <yestajoknu@enayu.com>, 2020
 # Caner Başaran <basaran.caner@gmail.com>, 2016
-# Emin Tufan <etcetin@gmail.com>, 2016-2017
+# Emin Tufan Çetin <etcetin@gmail.com>, 2016-2017
 # Hüseyin Güç <huseyinguc@outlook.com>, 2020
 # koray arberk <korayarberk@yahoo.com>, 2016
 # mahmut özcan <mahmutozcan@protonmail.com>, 2016,2019
@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 03:09-0500\n"
-"PO-Revision-Date: 2020-11-09 08:09+0000\n"
+"POT-Creation-Date: 2020-11-23 03:09-0500\n"
+"PO-Revision-Date: 2020-11-23 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/jami/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -143,7 +143,7 @@ msgstr "Hesap yöneticisi"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:973 src/newaccountsettingsview.cpp:2117
+#: src/newaccountsettingsview.cpp:975 src/newaccountsettingsview.cpp:2132
 msgid "Delete account"
 msgstr "Hesabı sil"
 
@@ -182,7 +182,7 @@ msgstr "Parola (gerekli):"
 msgid "Enter archive password"
 msgstr "Arşiv parolası girin"
 
-#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:866
+#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:868
 msgid "Cancel"
 msgstr "İptal"
 
@@ -212,7 +212,7 @@ msgid "Click to change password"
 msgstr "Parola değiştirmek için tıkla"
 
 #: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
-#: src/newaccountsettingsview.cpp:2050 src/accountcreationwizard.cpp:440
+#: src/newaccountsettingsview.cpp:2065 src/accountcreationwizard.cpp:440
 msgid "Export account"
 msgstr "Hesapları dışa aktar"
 
@@ -281,7 +281,7 @@ msgstr ""
 msgid "Name server"
 msgstr "Ad Sunucusu"
 
-#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2525
+#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2560
 msgid "Address"
 msgstr "Yer"
 
@@ -361,91 +361,95 @@ msgstr "Güvenlik"
 msgid "Connectivity"
 msgstr "Bağlanabilirlik"
 
-#: ui/newaccountsettingsview.ui:2101
+#: ui/newaccountsettingsview.ui:2100
+msgid "Auto Registration After Expired"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:2136
 msgid "Registration expire timeout (seconds)"
 msgstr "Kayıt işlemi zaman aşımına uğradı (saniye):"
 
-#: ui/newaccountsettingsview.ui:2138
+#: ui/newaccountsettingsview.ui:2173
 msgid "Network interface"
 msgstr "Ağ arayüzü"
 
-#: ui/newaccountsettingsview.ui:2174
+#: ui/newaccountsettingsview.ui:2209
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2209
+#: ui/newaccountsettingsview.ui:2244
 msgid "Use TURN"
 msgstr "TURN kullan"
 
-#: ui/newaccountsettingsview.ui:2244
+#: ui/newaccountsettingsview.ui:2279
 msgid "(TURN) address"
 msgstr "(TURN) adres"
 
-#: ui/newaccountsettingsview.ui:2279
+#: ui/newaccountsettingsview.ui:2314
 msgid "(TURN) username"
 msgstr "(TURN) kullanıcı adı"
 
-#: ui/newaccountsettingsview.ui:2313
+#: ui/newaccountsettingsview.ui:2348
 msgid "(TURN) password"
 msgstr "(TURN) parola"
 
-#: ui/newaccountsettingsview.ui:2350
+#: ui/newaccountsettingsview.ui:2385
 msgid "(TURN) realm"
 msgstr "(TURN) yetki alanı"
 
-#: ui/newaccountsettingsview.ui:2384
+#: ui/newaccountsettingsview.ui:2419
 msgid "Use STUN"
 msgstr "STUN kullan"
 
-#: ui/newaccountsettingsview.ui:2419
+#: ui/newaccountsettingsview.ui:2454
 msgid "(STUN) address"
 msgstr "(STUN) adres"
 
-#: ui/newaccountsettingsview.ui:2452
+#: ui/newaccountsettingsview.ui:2487
 msgid "Published address"
 msgstr "Yayınlanan Adres"
 
-#: ui/newaccountsettingsview.ui:2489
+#: ui/newaccountsettingsview.ui:2524
 msgid "Use custom address and port"
 msgstr "Özel adres ve bağlanma noktası kullan"
 
-#: ui/newaccountsettingsview.ui:2560
+#: ui/newaccountsettingsview.ui:2595
 msgid "Port"
 msgstr "Bağlanma noktası"
 
-#: ui/newaccountsettingsview.ui:2596
+#: ui/newaccountsettingsview.ui:2631
 msgid "Video codecs"
 msgstr "Görüntü çözücüler"
 
-#: ui/newaccountsettingsview.ui:2659
+#: ui/newaccountsettingsview.ui:2694
 msgid "Enable video"
 msgstr "Görüntüyü Etkinleştir"
 
-#: ui/newaccountsettingsview.ui:2686
+#: ui/newaccountsettingsview.ui:2721
 msgid "Audio codecs"
 msgstr "Ses çözücüleri"
 
-#: ui/newaccountsettingsview.ui:2756
+#: ui/newaccountsettingsview.ui:2791
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "SDP Görüşme Oturumu (ICE Geri çekilme)"
 
-#: ui/newaccountsettingsview.ui:2768
+#: ui/newaccountsettingsview.ui:2803
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Yalnızca ICE'nin desteklenmemesi durumunda, SDP görüşmesi sırasında kullanılır."
 
-#: ui/newaccountsettingsview.ui:2802
+#: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Min port"
 msgstr "Ses RTP Min bağlantı noktası"
 
-#: ui/newaccountsettingsview.ui:2837
+#: ui/newaccountsettingsview.ui:2872
 msgid "Audio RTP Max port"
 msgstr "Ses RTP Maks bağlantı noktası"
 
-#: ui/newaccountsettingsview.ui:2872
+#: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Min port"
 msgstr "Video RTP Min bağlantı noktası"
 
-#: ui/newaccountsettingsview.ui:2907
+#: ui/newaccountsettingsview.ui:2942
 msgid "Video RTP Max port"
 msgstr "Video RTP Max bağlantı noktası"
 
@@ -734,7 +738,7 @@ msgid ""
 "devices to your account."
 msgstr "Bu parola hesap bilgilerinizi şifrelemek ve hesabınızı yeni aygıtlara bağlamak için kullanılacaktır"
 
-#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:856
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:858
 msgid "Confirm password"
 msgstr "Parolayı onayla"
 
@@ -1070,7 +1074,7 @@ msgstr "Kendiliğinden"
 msgid "me"
 msgstr ""
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:972
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:974
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1080,13 +1084,13 @@ msgstr "Uyarı! Bu eylem bu hesabı cihazdan kaldıracaktır!\nNot: Bu eylem ger
 msgid "Send File"
 msgstr "Dosya gönder"
 
-#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:906
+#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:908
 #: src/accountcreationwizard.cpp:868
 msgid "Save File"
 msgstr "Dosyayı Kaydet"
 
 #: src/chatview.cpp:284 src/generalsettingsview.cpp:234
-#: src/newaccountsettingsview.cpp:909 src/pluginsettingsview.cpp:127
+#: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:127
 #: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:871
 msgid "_Cancel"
 msgstr "_İptal"
@@ -1097,7 +1101,7 @@ msgid "_Open"
 msgstr "_Aç"
 
 #: src/chatview.cpp:286 src/generalsettingsview.cpp:236
-#: src/newaccountsettingsview.cpp:911 src/accountcreationwizard.cpp:873
+#: src/newaccountsettingsview.cpp:913 src/accountcreationwizard.cpp:873
 msgid "_Save"
 msgstr "_Kaydet"
 
@@ -1123,130 +1127,130 @@ msgstr "Bu yok edici bir eylemdir. Tüm konuşma ve çağrı geçmişini silmek 
 msgid "Choose download folder"
 msgstr "İndirme klasörünü seçin"
 
-#: src/newaccountsettingsview.cpp:603
+#: src/newaccountsettingsview.cpp:605
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Uyarı! Bu işlem cihazı iptal edecektir!\nNot: bu işlem geri alınamaz."
 
-#: src/newaccountsettingsview.cpp:604
+#: src/newaccountsettingsview.cpp:606
 msgid "Enter password to revoke device"
 msgstr "Cihazı iptal etmek için şifre girin"
 
-#: src/newaccountsettingsview.cpp:662
+#: src/newaccountsettingsview.cpp:664
 msgid "Edit name"
 msgstr "Adı düzenle"
 
-#: src/newaccountsettingsview.cpp:662
+#: src/newaccountsettingsview.cpp:664
 msgid "Revoke device"
 msgstr "Aygıtı feshet "
 
-#: src/newaccountsettingsview.cpp:684
+#: src/newaccountsettingsview.cpp:686
 msgid "Error when revoking device"
 msgstr "Cihaz iptal edilirken hata oluştu"
 
-#: src/newaccountsettingsview.cpp:757
+#: src/newaccountsettingsview.cpp:759
 msgid "Unban"
 msgstr "Yasağı kaldır"
 
-#: src/newaccountsettingsview.cpp:780 src/newaccountsettingsview.cpp:803
-#: src/newaccountsettingsview.cpp:827 src/newaccountsettingsview.cpp:863
+#: src/newaccountsettingsview.cpp:782 src/newaccountsettingsview.cpp:805
+#: src/newaccountsettingsview.cpp:829 src/newaccountsettingsview.cpp:865
 msgid "Change password"
 msgstr "Parolayı değiştir"
 
-#: src/newaccountsettingsview.cpp:793
+#: src/newaccountsettingsview.cpp:795
 msgid "New password and its confirmation are different!"
 msgstr "Girdiğiniz şifreler uyuşmuyor!"
 
-#: src/newaccountsettingsview.cpp:804
+#: src/newaccountsettingsview.cpp:806
 msgid "Incorrect password!"
 msgstr "Yanlış parola!"
 
-#: src/newaccountsettingsview.cpp:841
+#: src/newaccountsettingsview.cpp:843
 msgid "Note: this will change the password only on this device."
 msgstr "Not: bu işlem yalnızca bu cihazda şifreyi değiştirir."
 
-#: src/newaccountsettingsview.cpp:844
+#: src/newaccountsettingsview.cpp:846
 msgid "Current password"
 msgstr "Şimdiki parola"
 
-#: src/newaccountsettingsview.cpp:850
+#: src/newaccountsettingsview.cpp:852
 msgid "New password"
 msgstr "Yeni parola"
 
-#: src/newaccountsettingsview.cpp:933 src/accountcreationwizard.cpp:897
+#: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:897
 msgid "You need to enter your password to export the full archive."
 msgstr "Arşivin tamamını dışa aktarmak için parolanızı girmeniz gerekiyor."
 
-#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:898
+#: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:898
 msgid "Enter password to export archive"
 msgstr "Arşivi dışa aktarmak için parola girin"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
+#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:921
 msgid "Account exported!"
 msgstr "Hesap dışa aktarıldı!"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
+#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:921
 msgid "Export account failure."
 msgstr "Hesap dışa aktarımı başarısız."
 
-#: src/newaccountsettingsview.cpp:1725
+#: src/newaccountsettingsview.cpp:1739
 msgid "Exporting account…"
 msgstr "Hesap dışa aktarılıyor..."
 
-#: src/newaccountsettingsview.cpp:1750
+#: src/newaccountsettingsview.cpp:1764
 msgid "Bad password"
 msgstr "Geçersiz parola"
 
-#: src/newaccountsettingsview.cpp:1758
+#: src/newaccountsettingsview.cpp:1772
 msgid "Network error, try again"
 msgstr "Ağ hatası, yeniden deneyin"
 
-#: src/newaccountsettingsview.cpp:1766
+#: src/newaccountsettingsview.cpp:1780
 msgid "Unknown error"
 msgstr "Bilinmeyen hata."
 
-#: src/newaccountsettingsview.cpp:1779
+#: src/newaccountsettingsview.cpp:1793
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Jami'nin dışa aktarımı başlatılamadı, yeniden deneyin"
 
-#: src/newaccountsettingsview.cpp:1838
+#: src/newaccountsettingsview.cpp:1852
 msgid "Error: wrong password!"
 msgstr "Hata: yanlış parola!"
 
-#: src/newaccountsettingsview.cpp:1841
+#: src/newaccountsettingsview.cpp:1855
 msgid "Error: unknown device!"
 msgstr "Hata: bilinmeyen aygıt!"
 
-#: src/newaccountsettingsview.cpp:2015
+#: src/newaccountsettingsview.cpp:2030
 msgid "Initializing…"
 msgstr "Başlatılıyor..."
 
-#: src/newaccountsettingsview.cpp:2018
+#: src/newaccountsettingsview.cpp:2033
 msgid "Offline"
 msgstr "Çevrimdışı"
 
-#: src/newaccountsettingsview.cpp:2021
+#: src/newaccountsettingsview.cpp:2036
 msgid "Connecting…"
 msgstr "Bağlanıyor..."
 
-#: src/newaccountsettingsview.cpp:2024
+#: src/newaccountsettingsview.cpp:2039
 msgid "Online"
 msgstr "Çevrimiçi"
 
-#: src/newaccountsettingsview.cpp:2028
+#: src/newaccountsettingsview.cpp:2043
 msgid "Unknown status"
 msgstr "Bilinmeyen durum"
 
-#: src/newaccountsettingsview.cpp:2061
+#: src/newaccountsettingsview.cpp:2076
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2061
+#: src/newaccountsettingsview.cpp:2076
 msgid "no password set"
 msgstr "Parola konulmadı"
 
-#: src/newaccountsettingsview.cpp:2117
+#: src/newaccountsettingsview.cpp:2132
 msgid "Remove account"
 msgstr "Hesabı Kaldır"
 

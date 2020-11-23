@@ -5,12 +5,13 @@
 # Translators:
 # Fefu Fefu, 2020
 # Gonzalo Maunas <gonzamaunas@gmail.com>, 2018
+# Juan Manuel <jumase.25@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 03:09-0500\n"
-"PO-Revision-Date: 2020-11-09 08:09+0000\n"
+"POT-Creation-Date: 2020-11-23 03:09-0500\n"
+"PO-Revision-Date: 2020-11-23 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Spanish (Argentina) (http://www.transifex.com/savoirfairelinux/jami/language/es_AR/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +34,7 @@ msgstr "Medios"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
-msgstr ""
+msgstr "Complemento"
 
 #: ui/mainwindow.ui:136 ui/newaccountsettingsview.ui:387
 #: ui/accountcreationwizard.ui:530
@@ -58,23 +59,23 @@ msgstr "Audio"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
-msgstr ""
+msgstr "Gestor de sonido"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
-msgstr ""
+msgstr "Dispositivo de tono de llamada"
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr ""
+msgstr "Dispositivo de salida"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
-msgstr ""
+msgstr "Dispositivo de entrada"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
-msgstr ""
+msgstr "Medidor del volumen de entrada"
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
@@ -82,7 +83,7 @@ msgstr "Video"
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
-msgstr ""
+msgstr "No se ha detectado cámara"
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
@@ -90,7 +91,7 @@ msgstr "Dispositivo"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
-msgstr ""
+msgstr "Canal"
 
 #: ui/mediasettingsview.ui:411
 msgid "Resolution"
@@ -98,7 +99,7 @@ msgstr "Resolución"
 
 #: ui/mediasettingsview.ui:447
 msgid "Framerate"
-msgstr ""
+msgstr "Cuadros por segundo"
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
@@ -136,7 +137,7 @@ msgstr "Administrador de cuentas"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:973 src/newaccountsettingsview.cpp:2117
+#: src/newaccountsettingsview.cpp:975 src/newaccountsettingsview.cpp:2132
 msgid "Delete account"
 msgstr "Eliminar cuenta"
 
@@ -175,7 +176,7 @@ msgstr "Contraseña (requerida):"
 msgid "Enter archive password"
 msgstr "Ingrese la contraseña del archivo"
 
-#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:866
+#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:868
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -205,7 +206,7 @@ msgid "Click to change password"
 msgstr "Haga click para cambiar contraseña"
 
 #: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
-#: src/newaccountsettingsview.cpp:2050 src/accountcreationwizard.cpp:440
+#: src/newaccountsettingsview.cpp:2065 src/accountcreationwizard.cpp:440
 msgid "Export account"
 msgstr "Exportar cuenta"
 
@@ -268,13 +269,13 @@ msgstr "Tono de llamada personalizado"
 
 #: ui/newaccountsettingsview.ui:1264
 msgid "Convert your account into a rendezvous point"
-msgstr ""
+msgstr "Convierte tu cuenta en un punto de encuentro"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
 msgstr "Servidor de nombres"
 
-#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2525
+#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2560
 msgid "Address"
 msgstr "Dirección"
 
@@ -354,91 +355,95 @@ msgstr "Seguridad"
 msgid "Connectivity"
 msgstr "Conectividad"
 
-#: ui/newaccountsettingsview.ui:2101
+#: ui/newaccountsettingsview.ui:2100
+msgid "Auto Registration After Expired"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:2136
 msgid "Registration expire timeout (seconds)"
 msgstr "Tiempo de espera para expiración de registración (segundos)"
 
-#: ui/newaccountsettingsview.ui:2138
+#: ui/newaccountsettingsview.ui:2173
 msgid "Network interface"
 msgstr "Interfaz de red"
 
-#: ui/newaccountsettingsview.ui:2174
+#: ui/newaccountsettingsview.ui:2209
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2209
+#: ui/newaccountsettingsview.ui:2244
 msgid "Use TURN"
 msgstr "Usar TURN"
 
-#: ui/newaccountsettingsview.ui:2244
+#: ui/newaccountsettingsview.ui:2279
 msgid "(TURN) address"
 msgstr "Dirección (TURN)"
 
-#: ui/newaccountsettingsview.ui:2279
+#: ui/newaccountsettingsview.ui:2314
 msgid "(TURN) username"
 msgstr "Usuario (TURN)"
 
-#: ui/newaccountsettingsview.ui:2313
+#: ui/newaccountsettingsview.ui:2348
 msgid "(TURN) password"
 msgstr "Contraseña (TURN)"
 
-#: ui/newaccountsettingsview.ui:2350
+#: ui/newaccountsettingsview.ui:2385
 msgid "(TURN) realm"
 msgstr "Reino (TURN)"
 
-#: ui/newaccountsettingsview.ui:2384
+#: ui/newaccountsettingsview.ui:2419
 msgid "Use STUN"
 msgstr "Usar STUN"
 
-#: ui/newaccountsettingsview.ui:2419
+#: ui/newaccountsettingsview.ui:2454
 msgid "(STUN) address"
 msgstr "Dirección (STUN)"
 
-#: ui/newaccountsettingsview.ui:2452
+#: ui/newaccountsettingsview.ui:2487
 msgid "Published address"
 msgstr "Dirección publicada"
 
-#: ui/newaccountsettingsview.ui:2489
+#: ui/newaccountsettingsview.ui:2524
 msgid "Use custom address and port"
 msgstr "Usar dirección y puerto personalizados"
 
-#: ui/newaccountsettingsview.ui:2560
+#: ui/newaccountsettingsview.ui:2595
 msgid "Port"
 msgstr "Puerto"
 
-#: ui/newaccountsettingsview.ui:2596
+#: ui/newaccountsettingsview.ui:2631
 msgid "Video codecs"
 msgstr "Códecs de Video"
 
-#: ui/newaccountsettingsview.ui:2659
+#: ui/newaccountsettingsview.ui:2694
 msgid "Enable video"
 msgstr "Habilitar video"
 
-#: ui/newaccountsettingsview.ui:2686
+#: ui/newaccountsettingsview.ui:2721
 msgid "Audio codecs"
 msgstr "Códecs de Audio"
 
-#: ui/newaccountsettingsview.ui:2756
+#: ui/newaccountsettingsview.ui:2791
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "Negociación de sesión SDP (repliegue a ICE)"
 
-#: ui/newaccountsettingsview.ui:2768
+#: ui/newaccountsettingsview.ui:2803
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Sólo usado durante la negociación de SDP en caso de que ICE no sea soportado."
 
-#: ui/newaccountsettingsview.ui:2802
+#: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Min port"
 msgstr "Puerto mínimo de audio RTP"
 
-#: ui/newaccountsettingsview.ui:2837
+#: ui/newaccountsettingsview.ui:2872
 msgid "Audio RTP Max port"
 msgstr "Puerto máximo de audio RTP"
 
-#: ui/newaccountsettingsview.ui:2872
+#: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Min port"
 msgstr "Puerto mínimo de video RTP"
 
-#: ui/newaccountsettingsview.ui:2907
+#: ui/newaccountsettingsview.ui:2942
 msgid "Video RTP Max port"
 msgstr "Puerto máximo de audio RTP"
 
@@ -627,11 +632,11 @@ msgstr "Crear una nueva cuenta Jami en este dispositivo (para nuevos usuarios)"
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
-msgstr ""
+msgstr "Crear un punto de encuentro"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
-msgstr ""
+msgstr "Crear un punto de encuentro"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Link this device to an existing account"
@@ -643,7 +648,7 @@ msgstr "Importar una cuenta con su PIN generado en otro dispositivo"
 
 #: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:694
 msgid "Restore an account from backup"
-msgstr ""
+msgstr "Recuperá una cuenta desde una copia de respaldo"
 
 #: ui/accountcreationwizard.ui:101
 msgid "Import an account via your archive"
@@ -651,11 +656,11 @@ msgstr "Importar una cuenta a través de su archivo"
 
 #: ui/accountcreationwizard.ui:108
 msgid "Advanced features"
-msgstr ""
+msgstr "Características avanzadas"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Connect to a JAMS server"
-msgstr ""
+msgstr "Conectar a un servidor JAMS"
 
 #: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
@@ -677,7 +682,7 @@ msgstr "Informaciones."
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "Podés obtener un archivo de respaldo haciendo click en \"Exportar cuenta\" dentro de configuración de la cuenta. Esto creará un archivo .gz en tu dispositivo."
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
@@ -687,7 +692,7 @@ msgstr "PIN"
 msgid ""
 "Enter the PIN from another configured Jami account. Use the \"Link Another "
 "Device\" feature to obtain a PIN."
-msgstr ""
+msgstr "Introducí el PIN de otra cuenta Jami configurada. Usá la opción de \"Vincular a otro dispositivo\" para obtener el PIN."
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
@@ -713,13 +718,13 @@ msgstr "Cifrar cuenta con contraseña"
 msgid ""
 "Choose a password to encrypt your account on this device.  Note that the "
 "password cannot be recovered."
-msgstr ""
+msgstr "Elegí una contraseña para encriptar tu cuenta en este dispositivo. Tené en cuenta que la contraseña no podrá ser recuperada."
 
 #: ui/accountcreationwizard.ui:658
 msgid ""
 "Choose a password to encrypt your account on this device.\n"
 "Note that the password cannot be recovered."
-msgstr ""
+msgstr "Elegí una contraseña para encriptar tu cuenta en este dispositivo.\nTené en cuenta que la contraseña no podrá ser recuperada."
 
 #: ui/accountcreationwizard.ui:686
 msgid ""
@@ -727,7 +732,7 @@ msgid ""
 "devices to your account."
 msgstr "Esta contraseña se usará para cifrar los datos de su cuenta y para vincular nuevos dispositivos a su cuenta."
 
-#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:856
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:858
 msgid "Confirm password"
 msgstr "Confirmar contraseña"
 
@@ -768,15 +773,15 @@ msgstr "Recuperando su cuenta Jami..."
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr ""
+msgstr "Ingresa la URL del JAMS (Jami Account Management Server)"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
-msgstr ""
+msgstr "URL de JAMS"
 
 #: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
-msgstr ""
+msgstr "Ingresa tus credenciales de JAMS"
 
 #: ui/accountcreationwizard.ui:1167
 msgid "Connect"
@@ -784,7 +789,7 @@ msgstr "Conectarse"
 
 #: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
-msgstr ""
+msgstr "Configurar una cuenta SIP existente"
 
 #: ui/accountcreationwizard.ui:1240
 msgid "Server"
@@ -792,7 +797,7 @@ msgstr "Servidor"
 
 #: ui/accountcreationwizard.ui:1385
 msgid "Create SIP account"
-msgstr ""
+msgstr "Crear una cuenta SIP"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
@@ -977,7 +982,7 @@ msgstr "Silenciar audio"
 
 #: ui/currentcallview.ui:563
 msgid "Activate Plugin"
-msgstr ""
+msgstr "Activar complemento"
 
 #: ui/currentcallview.ui:572
 msgid "Transfer"
@@ -993,23 +998,23 @@ msgstr "Añadir"
 
 #: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:124
 msgid "Choose plugin"
-msgstr ""
+msgstr "Elegir complemento"
 
 #: ui/pluginsettingsview.ui:44
 msgid "Plugins"
-msgstr ""
+msgstr "Complementos"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
-msgstr ""
+msgstr "Habilitar complementos"
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
-msgstr ""
+msgstr "Complementos instalados"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr ""
+msgstr "Instalar complemento"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
@@ -1040,7 +1045,7 @@ msgstr "No se pudo volver a conectar con el demonio Jami (dring).\nAhora Jami se
 
 #: src/currentcallview.cpp:1070
 msgid "No name!"
-msgstr ""
+msgstr "¡Falta un nombre!"
 
 #: src/currentcallview.cpp:1185
 msgid "Current conference (all accounts)"
@@ -1061,9 +1066,9 @@ msgstr "Atomático"
 
 #: src/currentcallview.cpp:1755
 msgid "me"
-msgstr ""
+msgstr "yo"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:972
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:974
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1073,13 +1078,13 @@ msgstr "¡Advertencia! ¡Esta acción eliminarás esta cuenta en este dispositiv
 msgid "Send File"
 msgstr "Enviar archivo"
 
-#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:906
+#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:908
 #: src/accountcreationwizard.cpp:868
 msgid "Save File"
 msgstr "Guardar archivo"
 
 #: src/chatview.cpp:284 src/generalsettingsview.cpp:234
-#: src/newaccountsettingsview.cpp:909 src/pluginsettingsview.cpp:127
+#: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:127
 #: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:871
 msgid "_Cancel"
 msgstr "_Cancelar"
@@ -1090,7 +1095,7 @@ msgid "_Open"
 msgstr "_Abrir"
 
 #: src/chatview.cpp:286 src/generalsettingsview.cpp:236
-#: src/newaccountsettingsview.cpp:911 src/accountcreationwizard.cpp:873
+#: src/newaccountsettingsview.cpp:913 src/accountcreationwizard.cpp:873
 msgid "_Save"
 msgstr "_Guardar"
 
@@ -1116,130 +1121,130 @@ msgstr "Esta es una operación destructiva. ¿Estás seguro de que deseas elimin
 msgid "Choose download folder"
 msgstr "Elija carpeta de descargas"
 
-#: src/newaccountsettingsview.cpp:603
+#: src/newaccountsettingsview.cpp:605
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "¡Advertencia! ¡Esta acción revocará el dispositivo!\n Nota: esta acción es irreversible."
 
-#: src/newaccountsettingsview.cpp:604
+#: src/newaccountsettingsview.cpp:606
 msgid "Enter password to revoke device"
 msgstr "Ingrese la contraseña para revocar el dispositivo"
 
-#: src/newaccountsettingsview.cpp:662
+#: src/newaccountsettingsview.cpp:664
 msgid "Edit name"
 msgstr "Editar nombre"
 
-#: src/newaccountsettingsview.cpp:662
+#: src/newaccountsettingsview.cpp:664
 msgid "Revoke device"
 msgstr "Revocar dispositivo"
 
-#: src/newaccountsettingsview.cpp:684
+#: src/newaccountsettingsview.cpp:686
 msgid "Error when revoking device"
 msgstr "Error al revocar dispositivo"
 
-#: src/newaccountsettingsview.cpp:757
+#: src/newaccountsettingsview.cpp:759
 msgid "Unban"
 msgstr "Levantar la prohibición"
 
-#: src/newaccountsettingsview.cpp:780 src/newaccountsettingsview.cpp:803
-#: src/newaccountsettingsview.cpp:827 src/newaccountsettingsview.cpp:863
+#: src/newaccountsettingsview.cpp:782 src/newaccountsettingsview.cpp:805
+#: src/newaccountsettingsview.cpp:829 src/newaccountsettingsview.cpp:865
 msgid "Change password"
 msgstr "Cambiar contraseña"
 
-#: src/newaccountsettingsview.cpp:793
+#: src/newaccountsettingsview.cpp:795
 msgid "New password and its confirmation are different!"
 msgstr "¡La nueva contraseña y su confirmación son diferentes!"
 
-#: src/newaccountsettingsview.cpp:804
+#: src/newaccountsettingsview.cpp:806
 msgid "Incorrect password!"
 msgstr "¡Contraseña incorrecta!"
 
-#: src/newaccountsettingsview.cpp:841
+#: src/newaccountsettingsview.cpp:843
 msgid "Note: this will change the password only on this device."
 msgstr "Nota: esto cambiará la contraseña solo en este dispositivo."
 
-#: src/newaccountsettingsview.cpp:844
+#: src/newaccountsettingsview.cpp:846
 msgid "Current password"
 msgstr "Contraseña actual"
 
-#: src/newaccountsettingsview.cpp:850
+#: src/newaccountsettingsview.cpp:852
 msgid "New password"
 msgstr "Nueva contraseña"
 
-#: src/newaccountsettingsview.cpp:933 src/accountcreationwizard.cpp:897
+#: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:897
 msgid "You need to enter your password to export the full archive."
 msgstr "Debe ingresar su contraseña para exportar el archivo completo."
 
-#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:898
+#: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:898
 msgid "Enter password to export archive"
 msgstr "Ingrese la contraseña para exportar el archivo"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
+#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:921
 msgid "Account exported!"
 msgstr "¡Cuenta exportada!"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
+#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:921
 msgid "Export account failure."
 msgstr "Error de exportación de cuenta."
 
-#: src/newaccountsettingsview.cpp:1725
+#: src/newaccountsettingsview.cpp:1739
 msgid "Exporting account…"
 msgstr "Exportando cuenta..."
 
-#: src/newaccountsettingsview.cpp:1750
+#: src/newaccountsettingsview.cpp:1764
 msgid "Bad password"
 msgstr "Contraseña incorrecta"
 
-#: src/newaccountsettingsview.cpp:1758
+#: src/newaccountsettingsview.cpp:1772
 msgid "Network error, try again"
 msgstr "Error de red, intente nuevamente"
 
-#: src/newaccountsettingsview.cpp:1766
+#: src/newaccountsettingsview.cpp:1780
 msgid "Unknown error"
 msgstr "Error desconocido"
 
-#: src/newaccountsettingsview.cpp:1779
+#: src/newaccountsettingsview.cpp:1793
 msgid "Could not initiate export to the Jami, try again"
 msgstr "No se pudo iniciar la exportación a Jami, intente nuevamente"
 
-#: src/newaccountsettingsview.cpp:1838
+#: src/newaccountsettingsview.cpp:1852
 msgid "Error: wrong password!"
 msgstr "¡Error: contraseña incorrecta!"
 
-#: src/newaccountsettingsview.cpp:1841
+#: src/newaccountsettingsview.cpp:1855
 msgid "Error: unknown device!"
 msgstr "¡Error: dispositivo desconocido!"
 
-#: src/newaccountsettingsview.cpp:2015
+#: src/newaccountsettingsview.cpp:2030
 msgid "Initializing…"
 msgstr "Inicializando..."
 
-#: src/newaccountsettingsview.cpp:2018
+#: src/newaccountsettingsview.cpp:2033
 msgid "Offline"
 msgstr "Desconectado"
 
-#: src/newaccountsettingsview.cpp:2021
+#: src/newaccountsettingsview.cpp:2036
 msgid "Connecting…"
 msgstr "Conectando..."
 
-#: src/newaccountsettingsview.cpp:2024
+#: src/newaccountsettingsview.cpp:2039
 msgid "Online"
 msgstr "En línea"
 
-#: src/newaccountsettingsview.cpp:2028
+#: src/newaccountsettingsview.cpp:2043
 msgid "Unknown status"
 msgstr "Estado desconocido"
 
-#: src/newaccountsettingsview.cpp:2061
+#: src/newaccountsettingsview.cpp:2076
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2061
+#: src/newaccountsettingsview.cpp:2076
 msgid "no password set"
 msgstr "contraseña no establecida"
 
-#: src/newaccountsettingsview.cpp:2117
+#: src/newaccountsettingsview.cpp:2132
 msgid "Remove account"
 msgstr "Eliminar cuenta"
 
@@ -1271,7 +1276,7 @@ msgstr "Colgar"
 
 #: src/video/video_widget.cpp:429
 msgid "Maximize"
-msgstr ""
+msgstr "Maximizar"
 
 #: src/video/video_widget.cpp:444
 msgid "Minimize"
@@ -1279,7 +1284,7 @@ msgstr "Minimizar"
 
 #: src/video/video_widget.cpp:497
 msgid "More options"
-msgstr ""
+msgstr "Más opciones"
 
 #: src/video/video_widget.cpp:868
 msgid "Share _screen area"
@@ -1332,11 +1337,11 @@ msgstr "Salir de la página de configuración"
 
 #: src/mainwindow.cpp:2310
 msgid "Missed call from "
-msgstr ""
+msgstr "Llamada perdida de"
 
 #: src/mainwindow.cpp:2314
 msgid "Missed call"
-msgstr ""
+msgstr "Llamada perdida"
 
 #: src/mainwindow.cpp:2331
 msgid "There are active calls"
@@ -1406,7 +1411,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"%s\"\nCompilado el %.25s"
 
 #: src/dialogs.c:152
 msgid ""
@@ -1470,15 +1475,15 @@ msgstr "Rechazar"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "¡Advertencia! ¡Esta acción desinstalará el complemento!\nNota: esta acción no se puede deshacer."
 
 #: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
 msgid "Uninstall Plugin"
-msgstr ""
+msgstr "Desinstalar complemento"
 
 #: src/pluginsettingsview.cpp:268
 msgid "Load/Unload Plugin"
-msgstr ""
+msgstr "Cargar/Descargar complemento"
 
 #: src/profileview.cpp:130
 msgid "(None)"
@@ -1596,11 +1601,11 @@ msgstr "Ocurrió un error durante la creación de la cuenta."
 
 #: src/accountcreationwizard.cpp:329
 msgid "An error occured during the rendez-vous creation."
-msgstr ""
+msgstr "Se produjo un error durante la creación del Rendez-vous."
 
 #: src/accountcreationwizard.cpp:333
 msgid "An error occured during the SIP account creation."
-msgstr ""
+msgstr "Se produjo un error durante la creación de la cuenta SIP."
 
 #: src/accountcreationwizard.cpp:337
 msgid "Cannot retrieve any account, please verify your PIN and your password."
@@ -1618,7 +1623,7 @@ msgstr "No se puede conectar con el administrador de cuenta proporcionado. Por f
 
 #: src/accountcreationwizard.cpp:534
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "Generando tu punto de encuentro..."
 
 #: src/accountcreationwizard.cpp:536
 msgid "Generating your Jami account…"
@@ -1630,7 +1635,7 @@ msgstr "Las contraseñas no coinciden"
 
 #: src/accountcreationwizard.cpp:673
 msgid "Enter Jami account password"
-msgstr ""
+msgstr "Ingresa la contraseña de tu cuenta Jami"
 
 #: src/accountcreationwizard.cpp:674
 msgid "Link device"

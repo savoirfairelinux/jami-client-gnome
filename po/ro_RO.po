@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-16 03:09-0500\n"
-"PO-Revision-Date: 2020-11-15 16:14+0000\n"
-"Last-Translator: liberi liberi <postav@pm.me>\n"
+"POT-Creation-Date: 2020-11-23 03:09-0500\n"
+"PO-Revision-Date: 2020-11-23 08:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -135,7 +135,7 @@ msgstr "Administrare cont"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:973 src/newaccountsettingsview.cpp:2117
+#: src/newaccountsettingsview.cpp:975 src/newaccountsettingsview.cpp:2132
 msgid "Delete account"
 msgstr "Șterge contul"
 
@@ -174,7 +174,7 @@ msgstr "Parola (obligatoriu):"
 msgid "Enter archive password"
 msgstr "Introdu parola arhivei"
 
-#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:866
+#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:868
 msgid "Cancel"
 msgstr "Renunță"
 
@@ -204,7 +204,7 @@ msgid "Click to change password"
 msgstr "Clic pentru a schimba parola"
 
 #: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
-#: src/newaccountsettingsview.cpp:2050 src/accountcreationwizard.cpp:440
+#: src/newaccountsettingsview.cpp:2065 src/accountcreationwizard.cpp:440
 msgid "Export account"
 msgstr "Exportă contul"
 
@@ -273,7 +273,7 @@ msgstr "Transformă-ți contul într-un loc de întîlnire"
 msgid "Name server"
 msgstr "Server de nume"
 
-#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2525
+#: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2560
 msgid "Address"
 msgstr "Adresă"
 
@@ -353,91 +353,95 @@ msgstr "Protecție"
 msgid "Connectivity"
 msgstr "Conectare"
 
-#: ui/newaccountsettingsview.ui:2101
+#: ui/newaccountsettingsview.ui:2100
+msgid "Auto Registration After Expired"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:2136
 msgid "Registration expire timeout (seconds)"
 msgstr "Întîrziere maximă de înscriere (secunde)"
 
-#: ui/newaccountsettingsview.ui:2138
+#: ui/newaccountsettingsview.ui:2173
 msgid "Network interface"
 msgstr "Interfață de rețea"
 
-#: ui/newaccountsettingsview.ui:2174
+#: ui/newaccountsettingsview.ui:2209
 msgid "UPnP"
 msgstr "UPnP"
 
-#: ui/newaccountsettingsview.ui:2209
+#: ui/newaccountsettingsview.ui:2244
 msgid "Use TURN"
 msgstr "Folosește TURN"
 
-#: ui/newaccountsettingsview.ui:2244
+#: ui/newaccountsettingsview.ui:2279
 msgid "(TURN) address"
 msgstr "Adresă (TURN)"
 
-#: ui/newaccountsettingsview.ui:2279
+#: ui/newaccountsettingsview.ui:2314
 msgid "(TURN) username"
 msgstr "Nume de utilizator (TURN)"
 
-#: ui/newaccountsettingsview.ui:2313
+#: ui/newaccountsettingsview.ui:2348
 msgid "(TURN) password"
 msgstr "Parola (TURN)"
 
-#: ui/newaccountsettingsview.ui:2350
+#: ui/newaccountsettingsview.ui:2385
 msgid "(TURN) realm"
 msgstr "Domeniul (TURN)"
 
-#: ui/newaccountsettingsview.ui:2384
+#: ui/newaccountsettingsview.ui:2419
 msgid "Use STUN"
 msgstr "Folosește STUN"
 
-#: ui/newaccountsettingsview.ui:2419
+#: ui/newaccountsettingsview.ui:2454
 msgid "(STUN) address"
 msgstr "Adresă (STUN)"
 
-#: ui/newaccountsettingsview.ui:2452
+#: ui/newaccountsettingsview.ui:2487
 msgid "Published address"
 msgstr "Adresa publică"
 
-#: ui/newaccountsettingsview.ui:2489
+#: ui/newaccountsettingsview.ui:2524
 msgid "Use custom address and port"
 msgstr "Folosește adresă și Port personalizate"
 
-#: ui/newaccountsettingsview.ui:2560
+#: ui/newaccountsettingsview.ui:2595
 msgid "Port"
 msgstr "Port"
 
-#: ui/newaccountsettingsview.ui:2596
+#: ui/newaccountsettingsview.ui:2631
 msgid "Video codecs"
 msgstr "Codec video"
 
-#: ui/newaccountsettingsview.ui:2659
+#: ui/newaccountsettingsview.ui:2694
 msgid "Enable video"
 msgstr "Activează video"
 
-#: ui/newaccountsettingsview.ui:2686
+#: ui/newaccountsettingsview.ui:2721
 msgid "Audio codecs"
 msgstr "Codec audio"
 
-#: ui/newaccountsettingsview.ui:2756
+#: ui/newaccountsettingsview.ui:2791
 msgid "SDP Session Negotiation (ICE Fallback)"
 msgstr "Negociere Sesiune SDP (folosește ICE în caz de eșec)"
 
-#: ui/newaccountsettingsview.ui:2768
+#: ui/newaccountsettingsview.ui:2803
 msgid "Only used during SDP negotiation in case ICE is not supported."
 msgstr "Folosit numai în timpul negocierii SDP în caz că ICE nu este acceptat"
 
-#: ui/newaccountsettingsview.ui:2802
+#: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Min port"
 msgstr "Port Min RTP Audio"
 
-#: ui/newaccountsettingsview.ui:2837
+#: ui/newaccountsettingsview.ui:2872
 msgid "Audio RTP Max port"
 msgstr "Port Max RTP Audio"
 
-#: ui/newaccountsettingsview.ui:2872
+#: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Min port"
 msgstr "Port Min RTP Video"
 
-#: ui/newaccountsettingsview.ui:2907
+#: ui/newaccountsettingsview.ui:2942
 msgid "Video RTP Max port"
 msgstr "Port Max RTP Video"
 
@@ -726,7 +730,7 @@ msgid ""
 "devices to your account."
 msgstr "Această parolă va fi folosită pentru cifrarea datelor contului tău și pentru a asocia aparate noi contului tău."
 
-#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:856
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:858
 msgid "Confirm password"
 msgstr "Confirmă parola"
 
@@ -1062,7 +1066,7 @@ msgstr "Auto"
 msgid "me"
 msgstr "eu"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:972
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:974
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1072,13 +1076,13 @@ msgstr "Atenție! Această acțiune va elimina acest cont din acest aparat!\nNot
 msgid "Send File"
 msgstr "Trimite Fișierul"
 
-#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:906
+#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:908
 #: src/accountcreationwizard.cpp:868
 msgid "Save File"
 msgstr "Salvează Fișierul"
 
 #: src/chatview.cpp:284 src/generalsettingsview.cpp:234
-#: src/newaccountsettingsview.cpp:909 src/pluginsettingsview.cpp:127
+#: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:127
 #: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:871
 msgid "_Cancel"
 msgstr "_Anulează"
@@ -1089,7 +1093,7 @@ msgid "_Open"
 msgstr "_Deschide"
 
 #: src/chatview.cpp:286 src/generalsettingsview.cpp:236
-#: src/newaccountsettingsview.cpp:911 src/accountcreationwizard.cpp:873
+#: src/newaccountsettingsview.cpp:913 src/accountcreationwizard.cpp:873
 msgid "_Save"
 msgstr "_Salvează"
 
@@ -1115,130 +1119,130 @@ msgstr "Această operație e ireversibilă. Sigur vrei să ștergi toate discuț
 msgid "Choose download folder"
 msgstr "Alege dosarul descărcării"
 
-#: src/newaccountsettingsview.cpp:603
+#: src/newaccountsettingsview.cpp:605
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "Atenție! Această acțiune va elimina aparatul!\nNotă: această acțiune este ireversibilă."
 
-#: src/newaccountsettingsview.cpp:604
+#: src/newaccountsettingsview.cpp:606
 msgid "Enter password to revoke device"
 msgstr "Introdu parola pentru a elimina aparatul"
 
-#: src/newaccountsettingsview.cpp:662
+#: src/newaccountsettingsview.cpp:664
 msgid "Edit name"
 msgstr "Modifică numele"
 
-#: src/newaccountsettingsview.cpp:662
+#: src/newaccountsettingsview.cpp:664
 msgid "Revoke device"
 msgstr "Elimină aparatul"
 
-#: src/newaccountsettingsview.cpp:684
+#: src/newaccountsettingsview.cpp:686
 msgid "Error when revoking device"
 msgstr "Eroare la eliminarea aparatului"
 
-#: src/newaccountsettingsview.cpp:757
+#: src/newaccountsettingsview.cpp:759
 msgid "Unban"
 msgstr "Deblochează"
 
-#: src/newaccountsettingsview.cpp:780 src/newaccountsettingsview.cpp:803
-#: src/newaccountsettingsview.cpp:827 src/newaccountsettingsview.cpp:863
+#: src/newaccountsettingsview.cpp:782 src/newaccountsettingsview.cpp:805
+#: src/newaccountsettingsview.cpp:829 src/newaccountsettingsview.cpp:865
 msgid "Change password"
 msgstr "Schimbă parola"
 
-#: src/newaccountsettingsview.cpp:793
+#: src/newaccountsettingsview.cpp:795
 msgid "New password and its confirmation are different!"
 msgstr "Noua parolă și confirmarea nu sînt la fel!"
 
-#: src/newaccountsettingsview.cpp:804
+#: src/newaccountsettingsview.cpp:806
 msgid "Incorrect password!"
 msgstr "Parolă greșită!"
 
-#: src/newaccountsettingsview.cpp:841
+#: src/newaccountsettingsview.cpp:843
 msgid "Note: this will change the password only on this device."
 msgstr "Notă: asta va schimba parola numai în acest aparat."
 
-#: src/newaccountsettingsview.cpp:844
+#: src/newaccountsettingsview.cpp:846
 msgid "Current password"
 msgstr "Parola actuală"
 
-#: src/newaccountsettingsview.cpp:850
+#: src/newaccountsettingsview.cpp:852
 msgid "New password"
 msgstr "Parolă nouă"
 
-#: src/newaccountsettingsview.cpp:933 src/accountcreationwizard.cpp:897
+#: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:897
 msgid "You need to enter your password to export the full archive."
 msgstr "Trebuie să introduci parola pentru a exporta toată arhiva."
 
-#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:898
+#: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:898
 msgid "Enter password to export archive"
 msgstr "Introdu parola pentru exportarea arhivei"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
+#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:921
 msgid "Account exported!"
 msgstr "Cont exportat!"
 
-#: src/newaccountsettingsview.cpp:957 src/accountcreationwizard.cpp:921
+#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:921
 msgid "Export account failure."
 msgstr "Contul nu a putut fi exportat."
 
-#: src/newaccountsettingsview.cpp:1725
+#: src/newaccountsettingsview.cpp:1739
 msgid "Exporting account…"
 msgstr "Se exportă contul..."
 
-#: src/newaccountsettingsview.cpp:1750
+#: src/newaccountsettingsview.cpp:1764
 msgid "Bad password"
 msgstr "Parolă incorectă"
 
-#: src/newaccountsettingsview.cpp:1758
+#: src/newaccountsettingsview.cpp:1772
 msgid "Network error, try again"
 msgstr "Eroare de rețea, încearcă din nou"
 
-#: src/newaccountsettingsview.cpp:1766
+#: src/newaccountsettingsview.cpp:1780
 msgid "Unknown error"
 msgstr "Eroare necunoscută"
 
-#: src/newaccountsettingsview.cpp:1779
+#: src/newaccountsettingsview.cpp:1793
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Nu pot începe exportul către Jami, încearcă din nou"
 
-#: src/newaccountsettingsview.cpp:1838
+#: src/newaccountsettingsview.cpp:1852
 msgid "Error: wrong password!"
 msgstr "Eroare: parolă greșită!"
 
-#: src/newaccountsettingsview.cpp:1841
+#: src/newaccountsettingsview.cpp:1855
 msgid "Error: unknown device!"
 msgstr "Eroare: aparat necunoscut!"
 
-#: src/newaccountsettingsview.cpp:2015
+#: src/newaccountsettingsview.cpp:2030
 msgid "Initializing…"
 msgstr "Inițializare..."
 
-#: src/newaccountsettingsview.cpp:2018
+#: src/newaccountsettingsview.cpp:2033
 msgid "Offline"
 msgstr "Deconectat"
 
-#: src/newaccountsettingsview.cpp:2021
+#: src/newaccountsettingsview.cpp:2036
 msgid "Connecting…"
 msgstr "Se conectează..."
 
-#: src/newaccountsettingsview.cpp:2024
+#: src/newaccountsettingsview.cpp:2039
 msgid "Online"
 msgstr "Conectat"
 
-#: src/newaccountsettingsview.cpp:2028
+#: src/newaccountsettingsview.cpp:2043
 msgid "Unknown status"
 msgstr "Stare necunoscută"
 
-#: src/newaccountsettingsview.cpp:2061
+#: src/newaccountsettingsview.cpp:2076
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2061
+#: src/newaccountsettingsview.cpp:2076
 msgid "no password set"
 msgstr "nicio parolă aleasă"
 
-#: src/newaccountsettingsview.cpp:2117
+#: src/newaccountsettingsview.cpp:2132
 msgid "Remove account"
 msgstr "Elimină contul"
 
