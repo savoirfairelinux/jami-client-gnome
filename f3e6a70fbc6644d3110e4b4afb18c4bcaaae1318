@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "793f7549_fecd88f5",
+        "filename": "src/mainwindow.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1143,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-11-23T22:12:24Z",
+      "side": 1,
+      "message": "never true, widgets-\u003euseDarkTheme is set during on_redraw so this window will just get the blue logo.",
+      "range": {
+        "startLine": 1140,
+        "startChar": 59,
+        "endLine": 1143,
+        "endChar": 55
+      },
+      "revId": "f3e6a70fbc6644d3110e4b4afb18c4bcaaae1318",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
