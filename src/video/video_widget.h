@@ -56,6 +56,7 @@ typedef enum {
 GType           video_widget_get_type          (void) G_GNUC_CONST;
 GtkWidget*      video_widget_new               (void);
 void            video_widget_add_new_renderer (VideoWidget*, lrc::api::AVModel* avModel, const lrc::api::video::Renderer*, VideoRendererType);
+const lrc::api::video::Renderer* video_widget_get_renderer (VideoWidget*, VideoRendererType);
 void            video_widget_on_drag_data_received (GtkWidget *self,
                                                     GdkDragContext *context,
                                                     gint x,

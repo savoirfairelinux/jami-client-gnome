@@ -400,8 +400,9 @@ CppImpl::drawVideoDevices()
         gtk_widget_show(widgets->video_channel_row);
         gtk_widget_show(widgets->video_resolution_row);
         gtk_widget_show(widgets->video_framerate_row);
-        if (widgets->video_widget)
+        if (widgets->video_widget) {
             avModel_->startPreview();
+        }
     }
 
     active = 0;
@@ -833,10 +834,8 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
         gtk_widget_set_size_request(priv->video_widget, 400, -1);
 
         try {
-            const lrc::api::video::Renderer* previewRenderer =
-                &priv->cpp->avModel_->getRenderer(
-                lrc::api::video::PREVIEW_RENDERER_ID);
-            priv->video_started_by_settings = previewRenderer->isRendering();
+            const lrc::api::video::Renderer* previewRenderer = video_widget_get_renderer(VIDEO_WIDGET(priv->video_widget), VIDEO_RENDERER_REMOTE);
+            priv->video_started_by_settings = previewRenderer && previewRenderer->isRendering();
             if (priv->video_started_by_settings) {
                 video_widget_add_new_renderer(VIDEO_WIDGET(priv->video_widget),
                     priv->cpp->avModel_, previewRenderer, VIDEO_RENDERER_REMOTE);
@@ -855,16 +854,33 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
                     [=](const QString& id) {
                         if (id != lrc::api::video::PREVIEW_RENDERER_ID)
                             return;
+                        auto prenderer = &priv->cpp->avModel_->getRenderer(id);
                         video_widget_add_new_renderer(
                             VIDEO_WIDGET(priv->video_widget),
                             priv->cpp->avModel_,
-                            previewRenderer, VIDEO_RENDERER_REMOTE);
+                            prenderer, VIDEO_RENDERER_REMOTE);
                     });
-                priv->cpp->avModel_->startPreview();
             }
         } catch (const std::out_of_range& e) {
             g_warning("Cannot start preview");
         }
+
+        // check if the local render has already activated by others
+        const lrc::api::video::Renderer* prenderer = nullptr;
+        try {
+            prenderer = &priv->cpp->avModel_->getRenderer(
+                lrc::api::video::PREVIEW_RENDERER_ID);
+        } catch (const std::out_of_range& e) {
+        }
+        if (prenderer){
+            video_widget_add_new_renderer(
+                VIDEO_WIDGET(priv->video_widget),
+                priv->cpp->avModel_,
+                prenderer, VIDEO_RENDERER_REMOTE);
+        }
+        else
+            priv->cpp->avModel_->startPreview();
+
         priv->cpp->avModel_->startAudioDevice();
         priv->cpp->avModel_->setAudioMeterState(true);
     } else {
