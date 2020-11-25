@@ -1088,6 +1088,7 @@ renderer_stop(VideoWidgetRenderer *renderer)
         /* must do this under lock, in case the rendering is taking place when
          * this signal is received */
         std::lock_guard<std::mutex> lock(renderer->run_mutex);
+        renderer->v_renderer = nullptr;
         renderer->running = false;
     }
     /* ask to show a black frame */
@@ -1210,11 +1211,13 @@ video_widget_add_new_renderer(VideoWidget* self, lrc::api::AVModel* avModel,
     if (renderer->isRendering())
         renderer_start(new_video_renderer);
 
+    auto currentId = renderer->getId();
+
     new_video_renderer->render_stop = QObject::connect(
         &*avModel,
         &lrc::api::AVModel::rendererStopped,
         [=](const QString& id) {
-            if (renderer->getId() == id)
+            if (currentId == id)
                 renderer_stop(new_video_renderer);
         });
 
@@ -1222,11 +1225,22 @@ video_widget_add_new_renderer(VideoWidget* self, lrc::api::AVModel* avModel,
         &*avModel,
         &lrc::api::AVModel::rendererStarted,
         [=](const QString& id) {
-            if (renderer->getId() == id)
+            if (currentId == id)
                 renderer_start(new_video_renderer);
         });
 
     g_async_queue_push(priv->new_renderer_queue, new_video_renderer);
+}
+
+const lrc::api::video::Renderer*
+video_widget_get_renderer(VideoWidget* self, VideoRendererType type)
+{
+    g_return_val_if_fail(IS_VIDEO_WIDGET(self), nullptr);
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+
+    if (type == VIDEO_RENDERER_REMOTE)
+        return priv->remote->v_renderer;
+    return priv->local->v_renderer;
 }
 
 void
