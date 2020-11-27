@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2602f71f_8bf3ba37",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-11-27T21:28:20Z",
+      "side": 1,
+      "message": "Not protected, cause crashes",
+      "range": {
+        "startLine": 194,
+        "startChar": 9,
+        "endLine": 194,
+        "endChar": 25
+      },
+      "revId": "e34a4c5a8c4141f66aa7c6feb1cc14c5ac5f8e13",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c6cc6d2_947cf64d",
         "filename": "src/conversationsview.cpp",
         "patchSetId": 10
