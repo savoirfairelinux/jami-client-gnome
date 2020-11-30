@@ -34,7 +34,6 @@ src/incomingcallview.cpp
 src/video/xrectsel.c
 src/video/video_widget.cpp
 src/mainwindow.cpp
-src/dialogs.c
 src/welcomeview.cpp
 src/client_options.c
 src/notifier.cpp
@@ -45,6 +44,7 @@ src/models/gtkqtreemodel.cpp
 src/profileview.cpp
 src/usernameregistrationbox.cpp
 src/messagingwidget.cpp
+src/dialogs.cpp
 src/conversationpopupmenu.cpp
 src/avatarmanipulation.cpp
 src/accountcreationwizard.cpp

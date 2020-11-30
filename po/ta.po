@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-23 03:09-0500\n"
-"PO-Revision-Date: 2020-11-23 08:09+0000\n"
+"POT-Creation-Date: 2020-11-30 03:09-0500\n"
+"PO-Revision-Date: 2020-11-30 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Tamil (http://www.transifex.com/savoirfairelinux/jami/language/ta/)\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1915
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1941
 msgid "Settings"
 msgstr ""
 
@@ -117,7 +117,7 @@ msgstr ""
 #: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
 #: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
 #: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
-#: src/accountcreationwizard.cpp:1053
+#: src/accountcreationwizard.cpp:1059
 msgid "Username"
 msgstr ""
 
@@ -203,7 +203,7 @@ msgid "Click to change password"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
-#: src/newaccountsettingsview.cpp:2065 src/accountcreationwizard.cpp:440
+#: src/newaccountsettingsview.cpp:2065 src/accountcreationwizard.cpp:442
 msgid "Export account"
 msgstr ""
 
@@ -643,7 +643,7 @@ msgstr ""
 msgid "Import an account with your PIN generated on another device"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:694
+#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:696
 msgid "Restore an account from backup"
 msgstr ""
 
@@ -696,7 +696,7 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1052
+#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1058
 msgid "Register username"
 msgstr ""
 
@@ -1076,13 +1076,13 @@ msgid "Send File"
 msgstr ""
 
 #: src/chatview.cpp:281 src/newaccountsettingsview.cpp:908
-#: src/accountcreationwizard.cpp:868
+#: src/accountcreationwizard.cpp:870
 msgid "Save File"
 msgstr ""
 
 #: src/chatview.cpp:284 src/generalsettingsview.cpp:234
 #: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:127
-#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:871
+#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:873
 msgid "_Cancel"
 msgstr ""
 
@@ -1092,7 +1092,7 @@ msgid "_Open"
 msgstr ""
 
 #: src/chatview.cpp:286 src/generalsettingsview.cpp:236
-#: src/newaccountsettingsview.cpp:913 src/accountcreationwizard.cpp:873
+#: src/newaccountsettingsview.cpp:913 src/accountcreationwizard.cpp:875
 msgid "_Save"
 msgstr ""
 
@@ -1169,19 +1169,19 @@ msgstr ""
 msgid "New password"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:897
+#: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:899
 msgid "You need to enter your password to export the full archive."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:898
+#: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:900
 msgid "Enter password to export archive"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:921
+#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
 msgid "Account exported!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:921
+#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
 msgid "Export account failure."
 msgstr ""
 
@@ -1303,132 +1303,114 @@ msgstr ""
 msgid "Add account…"
 msgstr ""
 
-#: src/mainwindow.cpp:899
+#: src/mainwindow.cpp:916
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr ""
 
-#: src/mainwindow.cpp:902
+#: src/mainwindow.cpp:919
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr ""
 
-#: src/mainwindow.cpp:1135
+#: src/mainwindow.cpp:1152
 msgid "Jami - Migration needed"
 msgstr ""
 
-#: src/mainwindow.cpp:1148
+#: src/mainwindow.cpp:1168
 msgid "Migration in progress... please do not close this window."
 msgstr ""
 
-#: src/mainwindow.cpp:1428
+#: src/mainwindow.cpp:1452
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:1887
+#: src/mainwindow.cpp:1913
 msgid "Leave settings page"
 msgstr ""
 
-#: src/mainwindow.cpp:2310
+#: src/mainwindow.cpp:2336
 msgid "Missed call from "
 msgstr ""
 
-#: src/mainwindow.cpp:2314
+#: src/mainwindow.cpp:2340
 msgid "Missed call"
 msgstr ""
 
-#: src/mainwindow.cpp:2331
+#: src/mainwindow.cpp:2357
 msgid "There are active calls"
 msgstr ""
 
-#: src/mainwindow.cpp:2387
+#: src/mainwindow.cpp:2413
 msgid " is calling you!"
 msgstr ""
 
-#: src/mainwindow.cpp:2390
+#: src/mainwindow.cpp:2416
 msgid "Incoming call"
 msgstr ""
 
-#: src/mainwindow.cpp:2547
+#: src/mainwindow.cpp:2573
 msgid "New request from "
 msgstr ""
 
-#: src/mainwindow.cpp:2550
+#: src/mainwindow.cpp:2576
 msgid "Trust request"
 msgstr ""
 
-#: src/mainwindow.cpp:2612
+#: src/mainwindow.cpp:2638
 msgid "New message"
 msgstr ""
 
-#: src/mainwindow.cpp:2664
+#: src/mainwindow.cpp:2690
 msgid "Stop current call?"
 msgstr ""
 
-#: src/mainwindow.cpp:2665
+#: src/mainwindow.cpp:2691
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr ""
 
-#: src/mainwindow.cpp:2732
+#: src/mainwindow.cpp:2758
 msgid "Clear history"
 msgstr ""
 
-#: src/mainwindow.cpp:2733
+#: src/mainwindow.cpp:2759
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2748
+#: src/mainwindow.cpp:2774
 msgid "Remove conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:2749
+#: src/mainwindow.cpp:2775
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2764
+#: src/mainwindow.cpp:2790
 msgid "Block contact"
 msgstr ""
 
-#: src/mainwindow.cpp:2765
+#: src/mainwindow.cpp:2791
 msgid "Do you really want to block this contact?"
 msgstr ""
 
-#: src/dialogs.c:53
-msgid "Working…"
-msgstr ""
-
-#: src/dialogs.c:85
-#, c-format
-msgctxt "Do not translate the release name nor the status (beta, final, ...)"
-msgid ""
-"\"%s\"\n"
-"built on %.25s"
-msgstr ""
-
-#: src/dialogs.c:152
-msgid ""
-"The GNOME client for Jami.\n"
-"Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
-
-#: src/welcomeview.cpp:92
+#: src/welcomeview.cpp:93
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
 msgstr ""
 
-#: src/welcomeview.cpp:100
+#: src/welcomeview.cpp:101
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
 msgstr ""
 
-#: src/welcomeview.cpp:195
+#: src/welcomeview.cpp:213
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
@@ -1548,6 +1530,20 @@ msgstr ""
 msgid "Send recorded message"
 msgstr ""
 
+#: src/dialogs.cpp:59
+#, c-format
+msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+msgid ""
+"\"%s\"\n"
+"built on %.25s"
+msgstr ""
+
+#: src/dialogs.cpp:130
+msgid ""
+"The GNOME client for Jami.\n"
+"Jami is free software for universal communication which respects the freedoms and privacy of its users."
+msgstr ""
+
 #: src/conversationpopupmenu.cpp:230
 msgid "Place _video call"
 msgstr ""
@@ -1592,60 +1588,60 @@ msgstr ""
 msgid "Open Avatar Image"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:325
+#: src/accountcreationwizard.cpp:327
 msgid "An error occured during the account creation."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:329
+#: src/accountcreationwizard.cpp:331
 msgid "An error occured during the rendez-vous creation."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:333
+#: src/accountcreationwizard.cpp:335
 msgid "An error occured during the SIP account creation."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:337
+#: src/accountcreationwizard.cpp:339
 msgid "Cannot retrieve any account, please verify your PIN and your password."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:341
+#: src/accountcreationwizard.cpp:343
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:345
+#: src/accountcreationwizard.cpp:347
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
 msgstr ""
 
-#: src/accountcreationwizard.cpp:534
+#: src/accountcreationwizard.cpp:536
 msgid "Generating your rendez-vous…"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:536
+#: src/accountcreationwizard.cpp:538
 msgid "Generating your Jami account…"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:552
+#: src/accountcreationwizard.cpp:554
 msgid "Passwords don't match"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:673
+#: src/accountcreationwizard.cpp:675
 msgid "Enter Jami account password"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:674
+#: src/accountcreationwizard.cpp:676
 msgid "Link device"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:693
+#: src/accountcreationwizard.cpp:695
 msgid "Import from backup"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:1083
+#: src/accountcreationwizard.cpp:1089
 msgid "Register name"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:1084
+#: src/accountcreationwizard.cpp:1090
 msgid "Name"
 msgstr "பெயர்"
