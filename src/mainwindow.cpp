@@ -1619,7 +1619,7 @@ CppImpl::displayIncomingView(lrc::api::conversation::Info& conversation, bool re
     chatViewConversation_ = conversation;
     GtkWidget* incoming_call_view =
         incoming_call_view_new(webkitChatContainer(redraw_webview),
-                               lrc_->getAVModel(), accountInfo_,
+                               lrc_->getAVModel(), lrc_->getPluginModel(), accountInfo_,
                                *chatViewConversation_);
     g_signal_connect(incoming_call_view, "call-hungup",
                      G_CALLBACK(on_incoming_call_view_decline_call), self);
@@ -1653,7 +1653,7 @@ GtkWidget*
 CppImpl::displayChatView(lrc::api::conversation::Info& conversation, bool redraw_webview)
 {
     chatViewConversation_ = conversation;
-    auto* new_view = chat_view_new(webkitChatContainer(redraw_webview), accountInfo_, *chatViewConversation_, lrc_->getAVModel());
+    auto* new_view = chat_view_new(webkitChatContainer(redraw_webview), accountInfo_, *chatViewConversation_, lrc_->getAVModel(), lrc_->getPluginModel());
     g_signal_connect_swapped(new_view, "hide-view-clicked", G_CALLBACK(on_hide_view_clicked), self);
     g_signal_connect(new_view, "add-conversation-clicked", G_CALLBACK(on_add_conversation_clicked), self);
     g_signal_connect(new_view, "place-audio-call-clicked", G_CALLBACK(on_place_audio_call_clicked), self);
