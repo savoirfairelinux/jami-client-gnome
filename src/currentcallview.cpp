@@ -245,7 +245,7 @@ public:
     void add_title(const QString& title);
     void add_present_contact(const QString& uri, const QString& custom_data, RowType custom_type, const QString& accountId);
     void add_conference(const VectorString& uris, const QString& custom_data, const QString& accountId);
-    void add_media_handler(lrc::api::plugin::MediaHandlerDetails mediaHandlerDetails);
+    void add_media_handler(lrc::api::plugin::PluginHandlerDetails mediaHandlerDetails);
 
     void insertControls();
     void checkControlsFading();
@@ -761,16 +761,16 @@ activate_media_handler(GtkToggleButton* switchBtn, GParamSpec*, CurrentCallView*
                 callToToggle = priv->cpp->conversation->confId;
 
             priv->cpp->lrc_.getPluginModel().toggleCallMediaHandler(mediaHandlerID, callToToggle, toggled);
-            auto mediaHandlerStatus = priv->cpp->lrc_.getPluginModel().getCallMediaHandlerStatus(callToToggle)[callToToggle];
+            auto mediaHandlerStatus = priv->cpp->lrc_.getPluginModel().getCallMediaHandlerStatus(callToToggle);
         }
         ++rowIdx;
     }
 
-#if GTK_CHECK_VERSION(3,22,0)
-    gtk_popover_popdown(GTK_POPOVER(priv->activate_plugin_popover));
-#else
-    gtk_widget_hide(GTK_WIDGET(priv->activate_plugin_popover));
-#endif
+// #if GTK_CHECK_VERSION(3,22,0)
+//     gtk_popover_popdown(GTK_POPOVER(priv->activate_plugin_popover));
+// #else
+//     gtk_widget_hide(GTK_WIDGET(priv->activate_plugin_popover));
+// #endif
 }
 
 static void
@@ -1065,12 +1065,12 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
 }
 
 void
-CppImpl::add_media_handler(lrc::api::plugin::MediaHandlerDetails mediaHandlerDetails)
+CppImpl::add_media_handler(lrc::api::plugin::PluginHandlerDetails mediaHandlerDetails)
 {
     QString bestName = _("No name!");
     auto* mediaHandlerImage = gtk_image_new_from_icon_name("application-x-addon-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
 
-    auto mediaHandlerStatus = lrc_.getPluginModel().getCallMediaHandlerStatus(conversation->callId)[conversation->callId];
+    auto mediaHandlerStatus = lrc_.getPluginModel().getCallMediaHandlerStatus(conversation->callId);
     bool isActive = false;
     if (!mediaHandlerDetails.name.isEmpty()) {
         bestName = mediaHandlerDetails.name;
@@ -1129,13 +1129,10 @@ CppImpl::updatePluginList()
 
     auto callMediaHandlers = lrc_.getPluginModel().listCallMediaHandlers();
 
-    if (lrc_.getPluginModel().listCallMediaHandlers().size() > 0)
+    for(const auto& callMediaHandler : callMediaHandlers)
     {
-        for(const auto& callMediaHandler : callMediaHandlers)
-        {
-            lrc::api::plugin::MediaHandlerDetails mediaHandlerDetails = lrc_.getPluginModel().getCallMediaHandlerDetails(callMediaHandler);
-            add_media_handler(mediaHandlerDetails);
-        }
+        lrc::api::plugin::PluginHandlerDetails mediaHandlerDetails = lrc_.getPluginModel().getCallMediaHandlerDetails(callMediaHandler);
+        add_media_handler(mediaHandlerDetails);
     }
 }
 
@@ -1570,11 +1567,12 @@ CppImpl::setCallInfo()
 
     // init chat view
     widgets->chat_view = chat_view_new(WEBKIT_CHAT_CONTAINER(widgets->webkit_chat_container),
-                                       *accountInfo, conversation, *avModel_);
+                                       *accountInfo, conversation, *avModel_, lrc_.getPluginModel());
     gtk_container_add(GTK_CONTAINER(widgets->frame_chat), widgets->chat_view);
 
     chat_view_set_header_visible(CHAT_VIEW(widgets->chat_view), FALSE);
     chat_view_set_record_visible(CHAT_VIEW(widgets->chat_view), FALSE);
+    chat_view_set_plugin_visible(CHAT_VIEW(widgets->chat_view), FALSE);
 }
 
 void
@@ -1966,7 +1964,7 @@ void
 CppImpl::update_view()
 {
     // only shows the plugin button if plugins are enabled AND there is any plugin loaded
-    if (lrc_.getPluginModel().getPluginsEnabled() && lrc_.getPluginModel().listLoadedPlugins().size() > 0)
+    if (lrc_.getPluginModel().getPluginsEnabled() && lrc_.getPluginModel().listCallMediaHandlers().size() > 0)
     {
         gtk_widget_show_all(widgets->togglebutton_activate_plugin);
     }

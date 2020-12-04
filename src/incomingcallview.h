@@ -34,6 +34,7 @@ namespace lrc
 namespace api
 {
     class AVModel;
+    class PluginModel;
 namespace conversation
 {
     struct Info;
@@ -56,6 +57,7 @@ typedef struct _IncomingCallViewClass IncomingCallViewClass;
 GType      incoming_call_view_get_type (void) G_GNUC_CONST;
 GtkWidget *incoming_call_view_new (WebKitChatContainer* view,
                                    lrc::api::AVModel& avModel,
+                                   lrc::api::PluginModel& pluginModel,
                                    AccountInfoPointer const & accountInfo,
                                    lrc::api::conversation::Info* conversation);
 void incoming_call_view_let_a_message(IncomingCallView* view, lrc::api::conversation::Info conv);
