@@ -43,6 +43,7 @@
 #include <api/lrc.h>
 #include <api/newcallmodel.h>
 #include <api/avmodel.h>
+#include <api/pluginmodel.h>
 
 // Client
 #include "marshals.h"
@@ -68,6 +69,7 @@ struct CppImpl {
     };
     std::vector<Interaction> interactionsBuffer_;
     lrc::api::AVModel* avModel_;
+    lrc::api::PluginModel* pluginModel_;
     RecordAction current_action_ {RecordAction::RECORD};
 
     // store current recording location
@@ -100,6 +102,7 @@ struct _ChatViewPrivate
     QMetaObject::Connection composing_changed_connection;
     QMetaObject::Connection interaction_removed;
     QMetaObject::Connection update_interaction_connection;
+    QMetaObject::Connection update_plugin_status;
     QMetaObject::Connection update_add_to_conversations;
     QMetaObject::Connection local_renderer_connection;
 
@@ -117,6 +120,7 @@ struct _ChatViewPrivate
     bool video_started_by_settings;
     GtkWidget* video_widget;
     GtkWidget* record_popover;
+    GtkWidget* plugin_handlers_popover;
     GtkWidget* button_retry;
     GtkWidget* button_main_action;
     GtkWidget* label_time;
@@ -158,6 +162,7 @@ chat_view_dispose(GObject *object)
     QObject::disconnect(priv->new_interaction_connection);
     QObject::disconnect(priv->composing_changed_connection);
     QObject::disconnect(priv->update_interaction_connection);
+    QObject::disconnect(priv->update_plugin_status);
     QObject::disconnect(priv->interaction_removed);
     QObject::disconnect(priv->update_add_to_conversations);
     QObject::disconnect(priv->local_renderer_connection);
@@ -447,6 +452,49 @@ chat_view_show_recorder(ChatView *self, int pt_x, int pt_y, bool is_video_record
     gtk_widget_hide(priv->button_retry);
 }
 
+void
+chat_view_show_handlers_list(ChatView *self, int pt_x, int pt_y) //HERE!!!
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+
+#if GTK_CHECK_VERSION(3,22,0)
+    GdkRectangle workarea = {};
+    gdk_monitor_get_workarea(
+        gdk_display_get_primary_monitor(gdk_display_get_default()),
+        &workarea);
+    auto widget_size = std::max(300, workarea.width / 6);
+#else
+    auto widget_size = std::max(300, gdk_screen_width() / 6);
+#endif
+
+    priv->plugin_handlers_popover = gtk_popover_new(GTK_WIDGET(priv->box_webkit_chat_container));
+    // g_signal_connect(priv->plugin_handlers_popover, "closed", G_CALLBACK(on_record_closed), self);
+    gtk_popover_set_relative_to(GTK_POPOVER(priv->plugin_handlers_popover), GTK_WIDGET(priv->box_webkit_chat_container));
+
+    {
+        auto* box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+        auto* label =  gtk_label_new("hello plugins!");
+        auto* attributes = pango_attr_list_new();
+        auto* font_desc = pango_attr_font_desc_new(pango_font_description_from_string("24"));
+        pango_attr_list_insert(attributes, font_desc);
+        gtk_label_set_attributes(GTK_LABEL(label), attributes);
+        pango_attr_list_unref(attributes);
+    }
+
+    GdkRectangle rect;
+    rect.width = 1;
+    rect.height = 1;
+    rect.x = pt_x;
+    rect.y = pt_y;
+    gtk_popover_set_pointing_to(GTK_POPOVER(priv->plugin_handlers_popover), &rect);
+    gtk_widget_set_size_request(GTK_WIDGET(priv->plugin_handlers_popover), widget_size, widget_size/2);
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_popover_popdown(GTK_POPOVER(priv->plugin_handlers_popover));
+#endif
+    gtk_widget_show_all(priv->plugin_handlers_popover);
+}
+
 static gboolean
 on_timer_duration_timeout(ChatView* view)
 {
@@ -648,6 +696,18 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         if (!priv->conversation_) return;
         if (g_settings_get_boolean(priv->settings, "enable-typing-indication")) {
             (*priv->accountInfo_)->conversationModel->setIsComposing(priv->conversation_->uid, composing);
+        }
+    } else if (order.find("LIST_PLUGIN_HANDLERS:") == 0) {
+        auto pos_str {order.substr(std::string("LIST_PLUGIN_HANDLERS:").size())};
+        auto sep_idx = pos_str.find("x");
+        if (sep_idx == std::string::npos)
+            return;
+        try {
+            int pt_x = stoi(pos_str.substr(0, sep_idx));
+            int pt_y = stoi(pos_str.substr(sep_idx + 1));
+            chat_view_show_handlers_list(self, pt_x, pt_y);
+        } catch (...) {
+            // ignore
         }
     }
 }
@@ -956,6 +1016,7 @@ update_chatview_frame(ChatView* self)
         }
     } catch (const std::out_of_range&) {}
     chat_view_set_record_visible(self, lrc::api::Lrc::activeCalls().size() == 0);
+    chat_view_set_plugin_visible(self, lrc::api::PluginModel().getPluginsEnabled() && lrc::api::PluginModel().listChatHandlers().size() > 0);
 }
 
 static void
@@ -1142,7 +1203,8 @@ GtkWidget *
 chat_view_new (WebKitChatContainer* webkit_chat_container,
                AccountInfoPointer const & accountInfo,
                lrc::api::conversation::Info* conversation,
-               lrc::api::AVModel& avModel)
+               lrc::api::AVModel& avModel,
+               lrc::api::PluginModel& pluginModel)
 {
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
@@ -1153,7 +1215,16 @@ chat_view_new (WebKitChatContainer* webkit_chat_container,
 
     build_chat_view(self);
     priv->cpp->avModel_ = &avModel;
+    priv->cpp->pluginModel_ = &pluginModel;
     priv->readyToRecord_ = true;
+
+    priv->update_plugin_status = QObject::connect(
+    &*priv->cpp->pluginModel_, &lrc::api::PluginModel::chatHandlerStatusUpdated,
+    [self, priv](bool isVisible) {
+        if (!priv) return;
+        chat_view_set_plugin_visible(self, isVisible);
+    });
+
     return (GtkWidget *)self;
 }
 
@@ -1184,4 +1255,11 @@ chat_view_set_record_visible(ChatView *self, gboolean visible)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     webkit_chat_set_record_visible(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), visible);
+}
+
+void
+chat_view_set_plugin_visible(ChatView *self, gboolean visible)
+{
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    webkit_chat_set_plugin_visible(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), visible);
 }
