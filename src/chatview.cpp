@@ -43,6 +43,7 @@
 #include <api/lrc.h>
 #include <api/newcallmodel.h>
 #include <api/avmodel.h>
+#include <api/pluginmodel.h>
 
 // Client
 #include "marshals.h"
@@ -53,26 +54,9 @@
 /* size of avatar */
 static constexpr int AVATAR_WIDTH  = 150; /* px */
 static constexpr int AVATAR_HEIGHT = 150; /* px */
+#define PLUGIN_ICON_SIZE 25
 
-enum class RecordAction {
-    RECORD,
-    STOP,
-    SEND
-};
-
-struct CppImpl {
-    struct Interaction {
-        std::string conv;
-        uint64_t id;
-        lrc::api::interaction::Info info;
-    };
-    std::vector<Interaction> interactionsBuffer_;
-    lrc::api::AVModel* avModel_;
-    RecordAction current_action_ {RecordAction::RECORD};
-
-    // store current recording location
-    std::string saveFileName_;
-};
+class CppImpl;
 
 struct _ChatView
 {
@@ -100,6 +84,7 @@ struct _ChatViewPrivate
     QMetaObject::Connection composing_changed_connection;
     QMetaObject::Connection interaction_removed;
     QMetaObject::Connection update_interaction_connection;
+    QMetaObject::Connection update_plugin_status;
     QMetaObject::Connection update_add_to_conversations;
     QMetaObject::Connection local_renderer_connection;
 
@@ -117,6 +102,9 @@ struct _ChatViewPrivate
     bool video_started_by_settings;
     GtkWidget* video_widget;
     GtkWidget* record_popover;
+    GtkWidget* plugin_handlers_popover;
+    GtkWidget* plugin_box;
+    GtkWidget* list_chat_handlers_available;
     GtkWidget* button_retry;
     GtkWidget* button_main_action;
     GtkWidget* label_time;
@@ -129,6 +117,117 @@ struct _ChatViewPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(ChatView, chat_view, GTK_TYPE_BOX);
 
 #define CHAT_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CHAT_VIEW_TYPE, ChatViewPrivate))
+
+enum class RecordAction {
+    RECORD,
+    STOP,
+    SEND
+};
+
+class CppImpl {
+public:
+    explicit CppImpl(ChatView& widget);
+    struct Interaction {
+        std::string conv;
+        uint64_t id;
+        lrc::api::interaction::Info info;
+    };
+    std::vector<Interaction> interactionsBuffer_;
+    lrc::api::AVModel* avModel_;
+    lrc::api::PluginModel* pluginModel_;
+    RecordAction current_action_ {RecordAction::RECORD};
+
+    // store current recording location
+    std::string saveFileName_;
+
+    ChatView* self = nullptr;
+    ChatViewPrivate* widgets = nullptr;
+
+    void updatePluginList();
+    void add_chat_handler(lrc::api::plugin::PluginHandlerDetails);
+};
+
+CppImpl::CppImpl(ChatView& widget)
+    : self{&widget}
+    , widgets{CHAT_VIEW_GET_PRIVATE(&widget)}
+{}
+
+static void
+activate_chat_handler(GtkToggleButton* switchBtn, GParamSpec*, ChatView* view);
+
+void
+CppImpl::add_chat_handler(lrc::api::plugin::PluginHandlerDetails chatHandlerDetails)
+{
+    QString bestName = _("Unnamed Handler!");
+    auto* chatHandlerImage = gtk_image_new_from_icon_name("application-x-addon-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
+    auto accountId = widgets->conversation_->accountId;
+    auto peerId = widgets->conversation_->participants.front();
+    auto chatHandlerStatus = pluginModel_->getChatHandlerStatus(accountId, peerId);
+    bool isActive = false;
+    if (!chatHandlerDetails.name.isEmpty()) {
+        bestName = chatHandlerDetails.name;
+        if (!chatHandlerStatus.isEmpty()) {
+            for (const auto& toggledChatHandler : chatHandlerStatus)
+                if (toggledChatHandler == chatHandlerDetails.id) {
+                    isActive = true;
+                    break;
+                }
+        }
+    }
+
+    std::string chatHandlerID = chatHandlerDetails.id.toStdString();
+
+    if (!chatHandlerDetails.iconPath.isEmpty()) {
+        GdkPixbuf* chatHandlerIcon = gdk_pixbuf_new_from_file_at_size((chatHandlerDetails.iconPath).toStdString().c_str(), PLUGIN_ICON_SIZE, PLUGIN_ICON_SIZE, NULL);
+        chatHandlerImage = gtk_image_new_from_pixbuf(chatHandlerIcon);
+    }
+
+    gchar* text = nullptr;
+    text = g_markup_printf_escaped(
+        "<span font=\"10\">%s</span>",
+        qUtf8Printable(bestName)
+    );
+
+    auto* box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 12);
+    GtkStyleContext* context_box;
+    context_box = gtk_widget_get_style_context(GTK_WIDGET(box_item));
+    gtk_style_context_add_class(context_box, "boxitem");
+    gtk_widget_set_name(box_item, chatHandlerID.c_str());
+
+    auto* activate_chathandler_button = gtk_check_button_new();
+    gtk_widget_set_can_focus(activate_chathandler_button, false);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(activate_chathandler_button), isActive);
+    g_signal_connect(activate_chathandler_button, "notify::active", G_CALLBACK(activate_chat_handler), self);
+
+    auto* info = gtk_label_new(nullptr);
+    gtk_label_set_markup(GTK_LABEL(info), text);
+    g_object_set(G_OBJECT(info), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+    g_object_set_data(G_OBJECT(info), "chatHandlerID", (void*)g_strdup(qUtf8Printable(chatHandlerDetails.id)));
+
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(chatHandlerImage));
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(info));
+    gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(activate_chathandler_button));
+
+    gtk_list_box_insert(GTK_LIST_BOX(widgets->list_chat_handlers_available), GTK_WIDGET(box_item), -1);
+    g_free(text);
+}
+
+void
+CppImpl::updatePluginList()
+{
+    auto row = 0;
+    while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(widgets->list_chat_handlers_available), row))) {
+        gtk_container_remove(GTK_CONTAINER(widgets->list_chat_handlers_available), children);
+    }
+
+    auto chatHandlers = pluginModel_->getChatHandlers();
+
+    for(const auto& chatHandler : chatHandlers)
+    {
+        lrc::api::plugin::PluginHandlerDetails chatHandlerDetails = pluginModel_->getChatHandlerDetails(chatHandler);
+        add_chat_handler(chatHandlerDetails);
+    }
+}
 
 enum {
     NEW_MESSAGES_DISPLAYED,
@@ -158,6 +257,7 @@ chat_view_dispose(GObject *object)
     QObject::disconnect(priv->new_interaction_connection);
     QObject::disconnect(priv->composing_changed_connection);
     QObject::disconnect(priv->update_interaction_connection);
+    QObject::disconnect(priv->update_plugin_status);
     QObject::disconnect(priv->interaction_removed);
     QObject::disconnect(priv->update_add_to_conversations);
     QObject::disconnect(priv->local_renderer_connection);
@@ -460,6 +560,88 @@ chat_view_show_recorder(ChatView *self, int pt_x, int pt_y, bool is_video_record
     gtk_widget_hide(priv->button_retry);
 }
 
+static GtkToggleButton*
+get_chathandler_btn(GtkListBoxRow* row)
+{
+    auto* row_children = gtk_container_get_children(GTK_CONTAINER(row));
+    auto* box_infos = g_list_first(row_children)->data;
+    auto* children = gtk_container_get_children(GTK_CONTAINER(box_infos));
+    auto* button = g_list_last(children);
+    return GTK_TOGGLE_BUTTON(button->data);
+}
+
+static GtkLabel*
+get_chathandler_label(GtkListBoxRow* row)
+{
+    auto* row_children = gtk_container_get_children(GTK_CONTAINER(row));
+    auto* box_infos = g_list_first(row_children)->data;
+    auto* children = gtk_container_get_children(GTK_CONTAINER(box_infos));
+    auto* button = g_list_last(children);
+    return GTK_LABEL(g_list_previous(button)->data);
+}
+
+static void
+activate_chat_handler(GtkToggleButton* switchBtn, GParamSpec*, ChatView* view)
+{
+    g_return_if_fail(IS_CHAT_VIEW(view));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(view);
+
+    auto rowIdx = 0;
+    while (auto* children = gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_chat_handlers_available), rowIdx)) {
+        auto* label = get_chathandler_label(GTK_LIST_BOX_ROW(children));
+        auto* btn = get_chathandler_btn(GTK_LIST_BOX_ROW(children));
+        if (switchBtn == btn) {
+            auto toggled = gtk_toggle_button_get_active(btn);
+            QString chatHandlerID = QString::fromStdString((gchar*)g_object_get_data(G_OBJECT(label), "chatHandlerID"));
+            auto accountId = priv->conversation_->accountId;
+            auto peerId = priv->conversation_->participants.front();
+
+            priv->cpp->pluginModel_->toggleChatHandler(chatHandlerID, accountId, peerId, toggled);
+        }
+        ++rowIdx;
+    }
+}
+
+static void
+chat_handler_list(ChatView *self)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    auto row = 0;
+    while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_chat_handlers_available), row))) {
+        auto* chatHandlerName = get_chathandler_label(GTK_LIST_BOX_ROW(children));
+
+        std::string chatHandlerNameStr = gtk_label_get_text(GTK_LABEL(chatHandlerName));
+        gtk_widget_show_all(children);
+
+        ++row;
+    }
+}
+
+void
+chat_view_show_handlers_list(ChatView *self, int pt_x, int pt_y)
+{
+    g_return_if_fail(IS_CHAT_VIEW(self));
+    auto* priv = CHAT_VIEW_GET_PRIVATE(self);
+
+    gtk_popover_set_relative_to(GTK_POPOVER(priv->plugin_handlers_popover), GTK_WIDGET(priv->box_webkit_chat_container));
+
+    GdkRectangle rect;
+    rect.width = 1;
+    rect.height = 1;
+    rect.x = pt_x;
+    rect.y = pt_y;
+    gtk_popover_set_pointing_to(GTK_POPOVER(priv->plugin_handlers_popover), &rect);
+
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_popover_popdown(GTK_POPOVER(priv->plugin_handlers_popover));
+#endif
+    gtk_widget_show_all(priv->plugin_handlers_popover);
+    chat_handler_list(self);
+    gtk_list_box_set_selection_mode(GTK_LIST_BOX(priv->list_chat_handlers_available), GTK_SELECTION_NONE);
+}
+
 static gboolean
 on_timer_duration_timeout(ChatView* view)
 {
@@ -662,6 +844,18 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         if (g_settings_get_boolean(priv->settings, "enable-typing-indication")) {
             (*priv->accountInfo_)->conversationModel->setIsComposing(priv->conversation_->uid, composing);
         }
+    } else if (order.find("LIST_PLUGIN_HANDLERS:") == 0) {
+        auto pos_str {order.substr(std::string("LIST_PLUGIN_HANDLERS:").size())};
+        auto sep_idx = pos_str.find("x");
+        if (sep_idx == std::string::npos)
+            return;
+        try {
+            int pt_x = stoi(pos_str.substr(0, sep_idx));
+            int pt_y = stoi(pos_str.substr(sep_idx + 1));
+            chat_view_show_handlers_list(self, pt_x, pt_y);
+        } catch (...) {
+            // ignore
+        }
     }
 }
 
@@ -683,6 +877,8 @@ chat_view_class_init(ChatViewClass *klass)
                                                 "/net/jami/JamiGnome/chatview.ui");
 
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, box_webkit_chat_container);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, plugin_handlers_popover);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), ChatView, list_chat_handlers_available);
 
     chat_view_signals[NEW_MESSAGES_DISPLAYED] = g_signal_new (
         "new-interactions-displayed",
@@ -969,6 +1165,7 @@ update_chatview_frame(ChatView* self)
         }
     } catch (const std::out_of_range&) {}
     chat_view_set_record_visible(self, lrc::api::Lrc::activeCalls().size() == 0);
+    chat_view_set_plugin_visible(self, lrc::api::PluginModel().getPluginsEnabled() && lrc::api::PluginModel().getChatHandlers().size() > 0);
 }
 
 static void
@@ -1154,7 +1351,7 @@ build_chat_view(ChatView* self)
         }
     });
 
-    priv->cpp = new CppImpl();
+    priv->cpp = new CppImpl(*self);
 
     if (webkit_chat_container_is_ready(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)))
         webkit_chat_container_ready(self);
@@ -1164,7 +1361,8 @@ GtkWidget *
 chat_view_new (WebKitChatContainer* webkit_chat_container,
                AccountInfoPointer const & accountInfo,
                lrc::api::conversation::Info& conversation,
-               lrc::api::AVModel& avModel)
+               lrc::api::AVModel& avModel,
+               lrc::api::PluginModel& pluginModel)
 {
     ChatView *self = CHAT_VIEW(g_object_new(CHAT_VIEW_TYPE, NULL));
 
@@ -1175,7 +1373,18 @@ chat_view_new (WebKitChatContainer* webkit_chat_container,
 
     build_chat_view(self);
     priv->cpp->avModel_ = &avModel;
+    priv->cpp->pluginModel_ = &pluginModel;
     priv->readyToRecord_ = true;
+
+    priv->update_plugin_status = QObject::connect(
+    &*priv->cpp->pluginModel_, &lrc::api::PluginModel::chatHandlerStatusUpdated,
+    [self, priv](bool isVisible) {
+        if (!priv) return;
+        chat_view_set_plugin_visible(self, isVisible);
+        priv->cpp->updatePluginList();
+    });
+    priv->cpp->updatePluginList();
+
     return (GtkWidget *)self;
 }
 
@@ -1205,4 +1414,11 @@ chat_view_set_record_visible(ChatView *self, gboolean visible)
 {
     auto priv = CHAT_VIEW_GET_PRIVATE(self);
     webkit_chat_set_record_visible(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), visible);
+}
+
+void
+chat_view_set_plugin_visible(ChatView *self, gboolean visible)
+{
+    auto priv = CHAT_VIEW_GET_PRIVATE(self);
+    webkit_chat_set_plugin_visible(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), visible);
 }

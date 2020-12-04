@@ -300,7 +300,7 @@ refreshPluginsList(PluginSettingsView *self)
     // Build devices list
     while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_installed_plugins), 0)))
         gtk_container_remove(GTK_CONTAINER(priv->list_installed_plugins), children);
-    auto plugins = priv->cpp->pluginModel_->listAvailablePlugins();
+    auto plugins = priv->cpp->pluginModel_->getInstalledPlugins();
     for (const auto& plugin : plugins)
         add_plugin(self, plugin);
     gtk_widget_set_halign(GTK_WIDGET(priv->list_installed_plugins), GTK_ALIGN_FILL);
