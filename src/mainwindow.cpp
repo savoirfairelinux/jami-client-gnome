@@ -1619,7 +1619,7 @@ CppImpl::displayIncomingView(lrc::api::conversation::Info& conversation, bool re
     chatViewConversation_ = conversation;
     GtkWidget* incoming_call_view =
         incoming_call_view_new(webkitChatContainer(redraw_webview),
-                               lrc_->getAVModel(), accountInfo_,
+                               lrc_->getAVModel(), lrc_->getPluginModel(), accountInfo_,
                                *chatViewConversation_);
     g_signal_connect(incoming_call_view, "call-hungup",
                      G_CALLBACK(on_incoming_call_view_decline_call), self);
