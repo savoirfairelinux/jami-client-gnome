@@ -765,6 +765,14 @@ webkit_chat_set_record_visible(WebKitChatContainer *view, bool isVisible)
 }
 
 void
+webkit_chat_set_plugin_visible(WebKitChatContainer *view, bool isVisible)
+{
+    gchar* function_call = g_strdup_printf("displayPluginControl(%s)", isVisible ? "true" : "false");
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
+}
+
+void
 webkit_chat_set_dark_mode(WebKitChatContainer *view, bool darkMode, const std::string& background)
 {
     std::string theme = "";
