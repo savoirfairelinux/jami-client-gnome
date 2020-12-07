@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 03:09-0500\n"
-"PO-Revision-Date: 2020-11-30 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-12-07 03:09-0500\n"
+"PO-Revision-Date: 2020-12-03 19:20+0000\n"
+"Last-Translator: Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/jami/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -373,7 +373,7 @@ msgstr "Conectividade"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Auto Registration After Expired"
-msgstr ""
+msgstr "Registro automático após expirado"
 
 #: ui/newaccountsettingsview.ui:2136
 msgid "Registration expire timeout (seconds)"
