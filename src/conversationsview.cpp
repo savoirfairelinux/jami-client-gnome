@@ -43,8 +43,10 @@
 #include "conversationpopupmenu.h"
 #include "utils/files.h"
 
+static constexpr const char* CALL_TARGET    = "CALL_TARGET";
+static constexpr int         CALL_TARGET_ID = 0;
 static constexpr const char* TEXT_URI_LIST_TARGET    = "text/uri-list";
-static constexpr int         TEXT_URI_LIST_TARGET_ID = 0;
+static constexpr int         TEXT_URI_LIST_TARGET_ID = 1;
 
 struct _ConversationsView
 {
@@ -505,6 +507,58 @@ show_popup_menu(ConversationsView *self, GdkEventButton *event)
         conversation_popup_menu_show(CONVERSATION_POPUP_MENU(priv->popupMenu_), event);
 }
 
+static void
+on_drag_data_get(GtkWidget *treeview,
+                 G_GNUC_UNUSED GdkDragContext *context,
+                 GtkSelectionData *data,
+                 G_GNUC_UNUSED guint info,
+                 G_GNUC_UNUSED guint time,
+                 G_GNUC_UNUSED gpointer user_data)
+{
+    g_return_if_fail(IS_CONVERSATIONS_VIEW(treeview));
+
+    /* we always drag the selected row */
+    auto selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview));
+    GtkTreeModel *model = nullptr;
+    GtkTreeIter iter;
+    if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+        auto path = gtk_tree_model_get_string_from_iter(model, &iter);
+        gtk_selection_data_set(
+            data,
+            gdk_atom_intern_static_string(CALL_TARGET),
+            8, /* bytes */
+            (guchar *)path,
+            strlen(path) + 1);
+        g_free(path);
+    } else {
+        g_warning("drag selection not valid");
+    }
+}
+
+static gboolean
+on_drag_drop(GtkWidget      *treeview,
+             GdkDragContext *context,
+             gint            x,
+             gint            y,
+             guint           time,
+             G_GNUC_UNUSED gpointer user_data)
+{
+    g_return_val_if_fail(IS_CONVERSATIONS_VIEW(treeview), FALSE);
+
+    GtkTreePath *path = nullptr;
+    GtkTreeViewDropPosition drop_pos;
+    if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(treeview),
+                                          x, y, &path, &drop_pos)) {
+        GdkAtom target_type = gtk_drag_dest_find_target(treeview, context, NULL);
+        if (target_type != GDK_NONE) { /* can drop */
+            gtk_drag_get_data(treeview, context, target_type, time);
+            return TRUE;
+        }
+        gtk_tree_path_free(path);
+    }
+    return FALSE;
+}
+
 static gboolean
 on_drag_motion(GtkWidget      *treeview,
                GdkDragContext *context,
@@ -563,6 +617,23 @@ on_drag_data_received(GtkWidget        *treeview,
             auto model = gtk_tree_view_get_model(GTK_TREE_VIEW(treeview));
 
             switch (target_type) {
+                case CALL_TARGET_ID: {
+                    GtkTreeIter src, dest;
+                    gtk_tree_model_get_iter_from_string(model, &src, path_str_source);
+                    gtk_tree_model_get_iter(model, &dest, dest_path);
+                    gchar *conversationUidSrc = nullptr;
+                    gchar *conversationUidDest = nullptr;
+                    gtk_tree_model_get(model, &src, 0, &conversationUidSrc, -1);
+                    gtk_tree_model_get(model, &dest, 0, &conversationUidDest, -1);
+                    (*priv->accountInfo_)->conversationModel->joinConversations(
+                        conversationUidSrc,
+                        conversationUidDest);
+                    gtk_tree_path_free(dest_path);
+                    g_free(conversationUidSrc);
+                    g_free(conversationUidDest);
+                    success = TRUE;
+                    break;
+                }
                 case TEXT_URI_LIST_TARGET_ID: {
                     GtkTreeIter dest;
                     gtk_tree_model_get_iter(model, &dest, dest_path);
@@ -766,13 +837,22 @@ build_conversations_view(ConversationsView *self)
 
     /* drag and drop */
     static GtkTargetEntry target_entries[] = {
+        { (gchar *)CALL_TARGET, GTK_TARGET_SAME_WIDGET, CALL_TARGET_ID },
         { (gchar *)TEXT_URI_LIST_TARGET, GTK_TARGET_OTHER_APP, TEXT_URI_LIST_TARGET_ID },
     };
 
-    gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(self),
-        target_entries, 1,
+    gtk_tree_view_enable_model_drag_source(
+        GTK_TREE_VIEW(self), GDK_BUTTON1_MASK,
+        target_entries, 2,
+        (GdkDragAction)(GDK_ACTION_DEFAULT | GDK_ACTION_MOVE));
+
+    gtk_tree_view_enable_model_drag_dest(
+        GTK_TREE_VIEW(self),
+        target_entries, 2,
         (GdkDragAction)(GDK_ACTION_DEFAULT | GDK_ACTION_COPY));
 
+    g_signal_connect(self, "drag-data-get", G_CALLBACK(on_drag_data_get), nullptr);
+    g_signal_connect(self, "drag-drop", G_CALLBACK(on_drag_drop), nullptr);
     g_signal_connect(self, "drag-motion", G_CALLBACK(on_drag_motion), nullptr);
     g_signal_connect(self, "drag-data-received", G_CALLBACK(on_drag_data_received), nullptr);
 
