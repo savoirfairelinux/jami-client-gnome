@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8c8783e_2d175c60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2020-12-07T20:41:50Z",
+      "side": 1,
+      "message": "It\u0027s possible with the normal call button (if a call is ongoing with the selected contact, calls are merged).\nok with this patch however this sentence is not relevant for the commit message.",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "90616893ecf152ac86daf9046d3a64f5b72b0ae8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
