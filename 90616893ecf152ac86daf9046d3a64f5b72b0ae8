@@ -22,6 +22,30 @@
       "revId": "90616893ecf152ac86daf9046d3a64f5b72b0ae8",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b15893b_50b2e02a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2020-12-07T20:50:15Z",
+      "side": 1,
+      "message": "I must be doing something different/wrong then, since for me accepting a new incoming call when there is already one ongoing call puts the first call on hold and switches to the second call, rather than merging them.",
+      "parentUuid": "a8c8783e_2d175c60",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "90616893ecf152ac86daf9046d3a64f5b72b0ae8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
     }
   ]
 }
