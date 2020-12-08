@@ -22,6 +22,30 @@
       "revId": "6b6ada2b1f9a4b6f3765e9230b6fd93b17bd050c",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed18dc34_18d2f8b2",
+        "filename": "src/mediasettingsview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 633
+      },
+      "writtenOn": "2020-12-08T19:41:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b5748bc3_dd9706d3",
+      "range": {
+        "startLine": 857,
+        "startChar": 29,
+        "endLine": 857,
+        "endChar": 55
+      },
+      "revId": "6b6ada2b1f9a4b6f3765e9230b6fd93b17bd050c",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
