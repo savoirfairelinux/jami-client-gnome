@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5748bc3_dd9706d3",
+        "filename": "src/mediasettingsview.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-12-08T18:52:12Z",
+      "side": 1,
+      "message": "auto",
+      "range": {
+        "startLine": 857,
+        "startChar": 29,
+        "endLine": 857,
+        "endChar": 55
+      },
+      "revId": "6b6ada2b1f9a4b6f3765e9230b6fd93b17bd050c",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
