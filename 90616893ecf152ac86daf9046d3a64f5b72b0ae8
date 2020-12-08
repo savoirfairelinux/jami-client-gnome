@@ -46,6 +46,29 @@
       "revId": "90616893ecf152ac86daf9046d3a64f5b72b0ae8",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed1c5440_7b87609c",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2020-12-08T18:33:15Z",
+      "side": 1,
+      "message": "auto*",
+      "range": {
+        "startLine": 521,
+        "startChar": 4,
+        "endLine": 521,
+        "endChar": 8
+      },
+      "revId": "90616893ecf152ac86daf9046d3a64f5b72b0ae8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
     }
   ]
 }
