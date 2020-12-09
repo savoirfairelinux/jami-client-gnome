@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a65def76_b97e0d3c",
+        "filename": "src/conversationpopupmenu.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 889
+      },
+      "writtenOn": "2020-12-09T21:24:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57110487_1973cc6a",
+      "range": {
+        "startLine": 166,
+        "startChar": 10,
+        "endLine": 166,
+        "endChar": 102
+      },
+      "revId": "e106ff84eb2e0ca37147a1f3eb1af5d1315bb3ae",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7e58f99_24e28a22",
         "filename": "src/conversationsview.cpp",
         "patchSetId": 15
@@ -36,6 +60,30 @@
       "writtenOn": "2020-12-09T20:38:34Z",
       "side": 1,
       "message": "const auto\u0026",
+      "range": {
+        "startLine": 395,
+        "startChar": 13,
+        "endLine": 395,
+        "endChar": 48
+      },
+      "revId": "e106ff84eb2e0ca37147a1f3eb1af5d1315bb3ae",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1351013d_464b29e4",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 889
+      },
+      "writtenOn": "2020-12-09T21:24:40Z",
+      "side": 1,
+      "message": "By specifying a type, we take advantage of explicit type conversion from std::reference_wrapper\u003clrc::api::conversation::Info\u003e to lrc::api::conversation::Info\u0026.\nThis saves us one line where we would then access the reference if it were passed through auto. Changing it to auto does have its advantages however. Just wanted to confirm this is what we want to go forward with.",
+      "parentUuid": "a7e58f99_24e28a22",
       "range": {
         "startLine": 395,
         "startChar": 13,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "124a25ea_36f1ad75",
+        "filename": "src/mainwindow.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 889
+      },
+      "writtenOn": "2020-12-09T21:24:40Z",
+      "side": 1,
+      "message": "^",
+      "parentUuid": "b4146130_a394c3f8",
+      "range": {
+        "startLine": 1007,
+        "startChar": 23,
+        "endLine": 1007,
+        "endChar": 51
+      },
+      "revId": "e106ff84eb2e0ca37147a1f3eb1af5d1315bb3ae",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4eaa0d01_f65d0536",
         "filename": "src/mainwindow.cpp",
         "patchSetId": 15
@@ -82,6 +154,30 @@
       "writtenOn": "2020-12-09T20:38:34Z",
       "side": 1,
       "message": "auto",
+      "range": {
+        "startLine": 1021,
+        "startChar": 23,
+        "endLine": 1021,
+        "endChar": 51
+      },
+      "revId": "e106ff84eb2e0ca37147a1f3eb1af5d1315bb3ae",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94fc6ffb_dc1a7391",
+        "filename": "src/mainwindow.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1021,
+      "author": {
+        "id": 889
+      },
+      "writtenOn": "2020-12-09T21:24:40Z",
+      "side": 1,
+      "message": "^",
+      "parentUuid": "4eaa0d01_f65d0536",
       "range": {
         "startLine": 1021,
         "startChar": 23,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "83367b40_7227cb21",
+        "filename": "src/mainwindow.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1585,
+      "author": {
+        "id": 889
+      },
+      "writtenOn": "2020-12-09T21:24:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bf92439_5a0ea377",
+      "range": {
+        "startLine": 1585,
+        "startChar": 20,
+        "endLine": 1585,
+        "endChar": 27
+      },
+      "revId": "e106ff84eb2e0ca37147a1f3eb1af5d1315bb3ae",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c6849ff_a73c6a73",
         "filename": "src/video/video_widget.cpp",
         "patchSetId": 15
@@ -128,6 +248,30 @@
       "writtenOn": "2020-12-09T20:38:34Z",
       "side": 1,
       "message": "auto",
+      "range": {
+        "startLine": 334,
+        "startChar": 19,
+        "endLine": 334,
+        "endChar": 48
+      },
+      "revId": "e106ff84eb2e0ca37147a1f3eb1af5d1315bb3ae",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1192b94f_6862805b",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 889
+      },
+      "writtenOn": "2020-12-09T21:24:40Z",
+      "side": 1,
+      "message": "^^",
+      "parentUuid": "9c6849ff_a73c6a73",
       "range": {
         "startLine": 334,
         "startChar": 19,
