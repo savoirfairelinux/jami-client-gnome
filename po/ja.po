@@ -7,13 +7,14 @@
 # futr <ilce.ma@gmail.com>, 2017
 # Masahiko Imanaka <chimantaea_mirabilis@yahoo.co.jp>, 2016
 # Toshiya Saito, 2020
+# YOSHIDUMI, Rentaro, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 03:09-0500\n"
-"PO-Revision-Date: 2020-11-23 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-12-14 03:09-0500\n"
+"PO-Revision-Date: 2020-12-09 11:58+0000\n"
+"Last-Translator: YOSHIDUMI, Rentaro\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/jami/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -187,7 +188,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:231
 msgid "Your generated pin:"
-msgstr ""
+msgstr "生成したpin:"
 
 #: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:973
 msgid "OK"
@@ -601,7 +602,7 @@ msgstr "撮影"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr ""
+msgstr "ファイルから画像を選択"
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
@@ -609,7 +610,7 @@ msgstr "戻る"
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
-msgstr ""
+msgstr "画像として選択"
 
 #: ui/profile.ui:58
 msgid "Informations"

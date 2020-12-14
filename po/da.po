@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Aputsiak Niels Janussen <aj@isit.gl>, 2016
+# Daniel N <danieln8600@gmail.com>, 2020
 # ricorselt ricorselt, 2017
 # scootergrisen, 2017
 # scootergrisen, 2018
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 03:09-0500\n"
-"PO-Revision-Date: 2020-11-30 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-12-14 03:09-0500\n"
+"PO-Revision-Date: 2020-12-01 11:13+0000\n"
+"Last-Translator: Daniel N <danieln8600@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/savoirfairelinux/jami/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -168,7 +169,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "For at tilføje nye enheder, skal du eksporterer din konto til Jami. Det vil generer en PIN-kode, som skal bruges på din nye enhed indenfor 5 minutter efter du har fået den."
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -184,7 +185,7 @@ msgstr "Annuller"
 
 #: ui/newaccountsettingsview.ui:211
 msgid "Export on the network"
-msgstr ""
+msgstr "Eksporter til netværket"
 
 #: ui/newaccountsettingsview.ui:231
 msgid "Your generated pin:"
@@ -235,7 +236,7 @@ msgstr "Telefonsvarer"
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
-msgstr ""
+msgstr "Kendte enheder forbundet til denne Jami-konto"
 
 #: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
@@ -259,7 +260,7 @@ msgstr "Opkaldsindstillinger"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "Tillad indkomne opkald fra ukendte kontakter"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
@@ -618,7 +619,7 @@ msgstr ""
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "QR-kode"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -626,7 +627,7 @@ msgstr "Velkommen til "
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create a Jami account"
-msgstr ""
+msgstr "Opret en Jami-konto"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
@@ -714,7 +715,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:630
 msgid "Encrypt account with password"
-msgstr ""
+msgstr "Krypter konto med kodeord"
 
 #: ui/accountcreationwizard.ui:631
 msgid ""
@@ -771,7 +772,7 @@ msgstr "Dette kan tage nogle minutter."
 
 #: ui/accountcreationwizard.ui:932
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "Henter din Jami-konto..."
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
@@ -807,7 +808,7 @@ msgstr "System"
 
 #: ui/generalsettingsview.ui:96
 msgid "Start application on login"
-msgstr ""
+msgstr "Start applikationen ved log-ind"
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
@@ -815,27 +816,27 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
+msgstr "Flyt Jami til forgrunden ved indkomne opkald"
 
 #: ui/generalsettingsview.ui:204
 msgid "Notifications"
-msgstr ""
+msgstr "Notifikationer"
 
 #: ui/generalsettingsview.ui:243
 msgid "Enable notifications for incoming calls"
-msgstr ""
+msgstr "Tillad notifikationer for indkomne opkald"
 
 #: ui/generalsettingsview.ui:279
 msgid "Enable notifications for pending requests"
-msgstr ""
+msgstr "Tillad notifikationer for afventende anmodninger"
 
 #: ui/generalsettingsview.ui:315
 msgid "Enable notifications for new chat messages"
-msgstr ""
+msgstr "Tillad notifikationer for nye chat beskeder"
 
 #: ui/generalsettingsview.ui:351
 msgid "Chatview"
-msgstr ""
+msgstr "Chatvisning"
 
 #: ui/generalsettingsview.ui:390
 msgid "Show typing indications"
@@ -843,15 +844,15 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:426
 msgid "Display images and videos into the chatview"
-msgstr ""
+msgstr "Vis billeder og videoer i chatvisningen"
 
 #: ui/generalsettingsview.ui:463
 msgid "Show chatview on the right (on the bottom if off)"
-msgstr ""
+msgstr "Vis chatvisningen til højre (på bunden hvis ved siden af)"
 
 #: ui/generalsettingsview.ui:500
 msgid "Download folder"
-msgstr ""
+msgstr "Download mappe"
 
 #: ui/generalsettingsview.ui:537
 msgid "History"
@@ -859,7 +860,7 @@ msgstr "Historik"
 
 #: ui/generalsettingsview.ui:576
 msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
+msgstr "Gem historien i (dage, 0=uendeligt)"
 
 #: ui/generalsettingsview.ui:606
 msgid "Clear all history"
@@ -1033,17 +1034,17 @@ msgstr "_Afslut"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami fejl"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr ""
+msgstr "Forsøger at genoprette forbindelse til Jami-servicen (dring)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "Kunne ikke genoprette forbindelsen til Jami-servicen (dring). Jami lukker nu."
 
 #: src/currentcallview.cpp:1070
 msgid "No name!"
@@ -1176,11 +1177,11 @@ msgstr "Ny adgangskode"
 
 #: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:899
 msgid "You need to enter your password to export the full archive."
-msgstr ""
+msgstr "Du skal skrive din adgangskode for at eksportere hele arkivet."
 
 #: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:900
 msgid "Enter password to export archive"
-msgstr ""
+msgstr "Skriv adgangskode for at eksportere arkivet"
 
 #: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
 msgid "Account exported!"
@@ -1208,7 +1209,7 @@ msgstr "Ukendt fejl"
 
 #: src/newaccountsettingsview.cpp:1793
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "Kunne ikke starte eksporten til Jami, prøv igen."
 
 #: src/newaccountsettingsview.cpp:1852
 msgid "Error: wrong password!"
@@ -1256,17 +1257,17 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Kan ikke starte.\nSørg for at Jami-servicen (dring) kører.\nFejl: %s"
 
 #: src/client.cpp:118
 msgid "Jami Error"
-msgstr ""
+msgstr "Jami fejl"
 
 #: src/client.cpp:395
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
-msgstr ""
+msgstr "Vis Jami"
 
 #: src/client.cpp:399
 msgid "Quit"
@@ -1407,7 +1408,7 @@ msgstr ""
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Dette er dit Jami brugernanv.\nKopier og del det med dine venner!"
 
 #: src/welcomeview.cpp:101
 msgid ""
@@ -1433,7 +1434,7 @@ msgstr "Gendanner den skjulte tilstand fort hovedvinduer (kun gyldig for den pri
 
 #: src/client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr ""
+msgstr "- GNOME klient til Jami"
 
 #: src/notifier.cpp:349
 msgctxt ""
@@ -1495,7 +1496,7 @@ msgstr "Udfører opslag…"
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
-msgstr ""
+msgstr "Skriv adgangskoden til din Jami-konto"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
@@ -1547,7 +1548,7 @@ msgstr ""
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "GNOME klienten til Jami.\nJami er fri software for general kommunikation, der respekterer brugernes frihed og privatliv."
 
 #: src/conversationpopupmenu.cpp:230
 msgid "Place _video call"
@@ -1625,7 +1626,7 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:538
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "Opretter din Jami-konto..."
 
 #: src/accountcreationwizard.cpp:554
 msgid "Passwords don't match"

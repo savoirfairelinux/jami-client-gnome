@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 03:09-0500\n"
-"PO-Revision-Date: 2020-11-30 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-12-14 03:09-0500\n"
+"PO-Revision-Date: 2020-12-07 15:33+0000\n"
+"Last-Translator: anthony pereira <pereiraanthony62130@gmail.com>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/savoirfairelinux/jami/language/fr_BE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr "Général"
 
 #: ui/mainwindow.ui:102
 msgid "Media"
-msgstr ""
+msgstr "Media"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
@@ -41,7 +41,7 @@ msgstr "Compte"
 
 #: ui/mainwindow.ui:173 src/mainwindow.cpp:1941
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: ui/mainwindow.ui:294 ui/mainwindow.ui:301
 msgid "Conversations"
@@ -113,21 +113,21 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
 #: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
 #: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
 #: src/accountcreationwizard.cpp:1059
 msgid "Username"
-msgstr ""
+msgstr "Nom d'utilisateur"
 
 #: ui/accountmigrationview.ui:165 ui/newaccountsettingsview.ui:502
 #: ui/newaccountsettingsview.ui:742 ui/accountcreationwizard.ui:286
 #: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
 #: ui/accountcreationwizard.ui:1347
 msgid "Password"
-msgstr ""
+msgstr "Mot de passe"
 
 #: ui/accountmigrationview.ui:205
 msgid "Account manager"
@@ -223,7 +223,7 @@ msgstr ""
 #: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
 #: ui/accountcreationwizard.ui:1276
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
@@ -243,7 +243,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1054
 msgid "Advanced settings"
-msgstr ""
+msgstr "Paramètres avancés"
 
 #: ui/newaccountsettingsview.ui:1090
 msgid "General settings"
@@ -560,7 +560,7 @@ msgstr ""
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
@@ -883,7 +883,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:824
 msgid "File transfer"
-msgstr ""
+msgstr "Transfert de fichier"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
@@ -1449,7 +1449,7 @@ msgstr "Refuser"
 #: src/notifier.cpp:380
 msgctxt ""
 msgid "Decline"
-msgstr ""
+msgstr "Décliner"
 
 #: src/pluginsettingsview.cpp:185
 msgid ""

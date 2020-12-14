@@ -5,12 +5,12 @@
 # Translators:
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014
 # GenghisKhan <genghiskhan@gmx.ca>, 2015-2017
-# Omeritzics Games <omeritzicschwartz@gmail.com>, 2020
+# Omer I.S. <omeritzicschwartz@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 03:09-0500\n"
+"POT-Creation-Date: 2020-12-14 03:09-0500\n"
 "PO-Revision-Date: 2020-11-30 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Hebrew (http://www.transifex.com/savoirfairelinux/jami/language/he/)\n"

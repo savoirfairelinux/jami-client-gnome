@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 03:09-0500\n"
-"PO-Revision-Date: 2020-11-30 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-12-14 03:09-0500\n"
+"PO-Revision-Date: 2020-12-07 16:04+0000\n"
+"Last-Translator: Benoît Brebion\n"
 "Language-Team: French (France) (http://www.transifex.com/savoirfairelinux/jami/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr "Général"
 
 #: ui/mainwindow.ui:102
 msgid "Media"
-msgstr ""
+msgstr "Média"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
@@ -223,7 +223,7 @@ msgstr "mot de passe"
 #: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
 #: ui/accountcreationwizard.ui:1276
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
@@ -594,7 +594,7 @@ msgstr ""
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
-msgstr ""
+msgstr "Prendre une photo"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
@@ -614,7 +614,7 @@ msgstr ""
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "Code QR"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -1135,7 +1135,7 @@ msgstr "Modifier le nom"
 
 #: src/newaccountsettingsview.cpp:664
 msgid "Revoke device"
-msgstr ""
+msgstr "Révoquer l'appareil ?"
 
 #: src/newaccountsettingsview.cpp:686
 msgid "Error when revoking device"

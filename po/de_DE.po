@@ -11,14 +11,15 @@
 # Ludwig Behm <ludwig.behm@gmail.com>, 2020
 # Ralf, 2019
 # Reverend Elvis, 2020
+# Stefan Schroeder <ondekoza@gmail.com>, 2020
 # 89fad4243b4ee9886d33f7f164422ac4_1810ae6 <9e0748c82be297907dc98c0b52462aa6_765157>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 03:09-0500\n"
-"PO-Revision-Date: 2020-11-30 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-12-14 03:09-0500\n"
+"PO-Revision-Date: 2020-12-13 16:02+0000\n"
+"Last-Translator: Stefan Schroeder <ondekoza@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/savoirfairelinux/jami/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -343,11 +344,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1944
 msgid "Verify incoming certificates (server side)"
-msgstr ""
+msgstr "Bestätigen Sie die eingehenden Zertifikate (Serverseitig)"
 
 #: ui/newaccountsettingsview.ui:1979
 msgid "Verify answer certificates (client side)"
-msgstr ""
+msgstr "Bestätigen Sie die Antwort-Zertifikate (Clientseitig)"
 
 #: ui/newaccountsettingsview.ui:2014
 msgid "Require a certificate for incoming TLS connections"
@@ -614,7 +615,7 @@ msgstr ""
 
 #: ui/avatarmanipulation.ui:158
 msgid "Set selection as image"
-msgstr ""
+msgstr "Auswahl als Bild benutzen"
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -948,11 +949,11 @@ msgstr "In die Warteschleife schalten"
 
 #: ui/currentcallview.ui:371
 msgid "Toggle mute audio"
-msgstr ""
+msgstr "Audio Ein/Aus umschalten"
 
 #: ui/currentcallview.ui:396
 msgid "Toggle mute video"
-msgstr ""
+msgstr "Video Ein/Aus umschalten"
 
 #: ui/currentcallview.ui:400 ui/currentcallview.ui:536
 msgid "Mute video"
@@ -1427,7 +1428,7 @@ msgstr "Jami ist Freie Software für universelle Kommunikation, die die Freiheit
 
 #: src/client_options.c:66
 msgid "Enable debug"
-msgstr ""
+msgstr "Debug-Modus einschalten"
 
 #: src/client_options.c:68
 msgid ""
