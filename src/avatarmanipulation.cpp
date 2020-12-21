@@ -90,6 +90,8 @@ struct _AvatarManipulationPrivate
      */
     gboolean video_started_by_avatar_manipulation;
 
+    QMetaObject::Connection local_renderer_connection;
+
     GtkWidget *crop_area;
 
     lrc::api::AVModel* avModel_;
@@ -122,6 +124,8 @@ avatar_manipulation_dispose(GObject *object)
         gtk_container_remove(GTK_CONTAINER(priv->frame_video), priv->video_widget);
         priv->video_widget = NULL;
     }
+
+    QObject::disconnect(priv->local_renderer_connection);
 
     G_OBJECT_CLASS(avatar_manipulation_parent_class)->dispose(object);
 }
@@ -257,8 +261,10 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
             gtk_widget_set_visible(priv->button_box_edit,    false);
 
             /* make sure video widget and camera is not running */
-            if (priv->video_started_by_avatar_manipulation)
+            if (priv->video_started_by_avatar_manipulation) {
                 priv->avModel_->stopPreview();
+                QObject::disconnect(priv->local_renderer_connection);
+            }
             if (priv->video_widget) {
                 gtk_container_remove(GTK_CONTAINER(priv->frame_video), priv->video_widget);
                 priv->video_widget = NULL;
@@ -278,22 +284,41 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
 
 
             // local renderer, but set as "remote" so that it takes up the whole screen
+            const lrc::api::video::Renderer* prenderer = nullptr;
             try {
-                const lrc::api::video::Renderer* previewRenderer =
-                    &priv->avModel_->getRenderer(
+                prenderer = &priv->avModel_->getRenderer(
                     lrc::api::video::PREVIEW_RENDERER_ID);
-                video_widget_add_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                    priv->avModel_,
-                    previewRenderer, VIDEO_RENDERER_REMOTE);
-
-                if (!previewRenderer->isRendering()) {
-                    priv->video_started_by_avatar_manipulation = TRUE;
-                    priv->avModel_->startPreview();
-                } else {
-                    priv->video_started_by_avatar_manipulation = FALSE;
-                }
             } catch (const std::out_of_range& e) {
                 g_warning("Cannot start preview");
+            }
+
+            priv->video_started_by_avatar_manipulation =
+                prenderer && prenderer->isRendering();
+            if (priv->video_started_by_avatar_manipulation) {
+                video_widget_add_new_renderer(
+                    VIDEO_WIDGET(priv->video_widget),
+                    priv->avModel_, prenderer,
+                    VIDEO_RENDERER_REMOTE);
+            } else {
+                priv->video_started_by_avatar_manipulation = true;
+                priv->local_renderer_connection = QObject::connect(
+                    &*priv->avModel_,
+                    &lrc::api::AVModel::rendererStarted,
+                    [=](const QString& id) {
+                        if (id != lrc::api::video::PREVIEW_RENDERER_ID)
+                            return;
+                        try {
+                            const auto* prenderer =
+                                &priv->avModel_->getRenderer(id);
+                            video_widget_add_new_renderer(
+                                VIDEO_WIDGET(priv->video_widget),
+                                priv->avModel_, prenderer,
+                                VIDEO_RENDERER_REMOTE);
+                        }  catch (const std::out_of_range& e) {
+                            g_warning("Cannot start preview");
+                        }
+                    });
+                priv->avModel_->startPreview();
             }
 
             /* available actions: take snapshot, return*/
