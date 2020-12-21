@@ -5,13 +5,14 @@
 # Translators:
 # Caspar Cedro <casparcedro96@gmail.com>, 2016
 # Michał Majek <michal.majek@wp.pl>, 2020
+# Tom Bosxter <wawoha7980@boersy.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-14 03:09-0500\n"
-"PO-Revision-Date: 2020-11-30 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2020-12-21 03:09-0500\n"
+"PO-Revision-Date: 2020-12-20 19:36+0000\n"
+"Last-Translator: Tom Bosxter <wawoha7980@boersy.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/savoirfairelinux/jami/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +26,7 @@ msgstr "Menu"
 
 #: ui/mainwindow.ui:86
 msgid "General"
-msgstr "Generalne"
+msgstr "Podstawowe"
 
 #: ui/mainwindow.ui:102
 msgid "Media"
@@ -256,7 +257,7 @@ msgstr "Ustawienia rozmowy"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "Umożliwiaj rozmowy od nieznajomych"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
@@ -808,7 +809,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:132
 msgid "Keep Jami active when window is closed."
-msgstr ""
+msgstr "Pozostaw Jami włączone, gdy okno jest zamknięte"
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
@@ -836,7 +837,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:390
 msgid "Show typing indications"
-msgstr ""
+msgstr "Pokaż animację podczas pisania"
 
 #: ui/generalsettingsview.ui:426
 msgid "Display images and videos into the chatview"
@@ -864,23 +865,23 @@ msgstr "Usuń całą historię"
 
 #: ui/generalsettingsview.ui:638
 msgid "Call Recording"
-msgstr ""
+msgstr "Nagrywanie rozmowy"
 
 #: ui/generalsettingsview.ui:676
 msgid "Record local video"
-msgstr ""
+msgstr "Lokalne nagrywanie wideo"
 
 #: ui/generalsettingsview.ui:712
 msgid "Always record calls"
-msgstr ""
+msgstr "Zawsze nagrywaj rozmowy"
 
 #: ui/generalsettingsview.ui:749
 msgid "Record folder"
-msgstr ""
+msgstr "Folder nagrań"
 
 #: ui/generalsettingsview.ui:786
 msgid "Bitrate for call recordings (kb/s)"
-msgstr ""
+msgstr "Jakość nagrań (w kb/s)"
 
 #: ui/generalsettingsview.ui:824
 msgid "File transfer"
@@ -888,7 +889,7 @@ msgstr "Transfer pliku"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
-msgstr ""
+msgstr "Umożliwiaj rozmowy od nieznajomych"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
@@ -1001,7 +1002,7 @@ msgstr ""
 
 #: ui/pluginsettingsview.ui:44
 msgid "Plugins"
-msgstr ""
+msgstr "Dodatki"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
@@ -1021,7 +1022,7 @@ msgstr ""
 
 #: ui/gearsmenu.ui:11
 msgid "_About"
-msgstr "_O"
+msgstr "_O Jami"
 
 #: ui/gearsmenu.ui:17
 msgid "_Quit"
@@ -1328,7 +1329,7 @@ msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr ""
+msgstr "Znajdź lub rozpocznij rozmowę"
 
 #: src/mainwindow.cpp:1913
 msgid "Leave settings page"
