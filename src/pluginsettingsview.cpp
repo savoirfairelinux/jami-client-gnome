@@ -239,7 +239,7 @@ add_plugin(PluginSettingsView *view, const QString plugin)
     GtkStyleContext* context_box;
     context_box = gtk_widget_get_style_context(GTK_WIDGET(plugin_box));
     gtk_style_context_add_class(context_box, "boxitem");
-    // Fill with plugin informations
+    // Fill with plugin information
     auto* plugin_info_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_widget_set_can_focus(plugin_info_box, false);
     auto* label_name = gtk_label_new(qUtf8Printable(details.name));

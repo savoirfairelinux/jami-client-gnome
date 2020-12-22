@@ -832,7 +832,7 @@ invite_to_conversation(GtkListBox*, GtkListBoxRow* row, CurrentCallView* self)
                     const auto& call = (*priv->cpp->accountInfo)->callModel->getCall(callToRender);
                     (*priv->cpp->accountInfo)->callModel->callAndAddParticipant(custom_data, callToRender, call.isAudioOnly);
                 } catch (...) {
-                    g_warning("Can't add participant to inexistant call");
+                    g_warning("Can't add participant to inexistent call");
                 }
             } else if (GPOINTER_TO_INT(custom_type)  == (int)RowType::CALL
                     || GPOINTER_TO_INT(custom_type)  == (int)RowType::CONFERENCE) {
@@ -1443,7 +1443,7 @@ CppImpl::setCallInfo()
                         && call.type != lrc::api::call::Type::CONFERENCE
                         && call.participantsInfos.empty());
         } catch (...) {
-            g_warning("Can't change preview visibility for non existant call");
+            g_warning("Can't change preview visibility for non existent call");
         }
 
         const lrc::api::video::Renderer* vRenderer =
@@ -1524,7 +1524,7 @@ CppImpl::setCallInfo()
                         && call.type != lrc::api::call::Type::CONFERENCE
                         && call.participantsInfos.empty());
                 } catch (...) {
-                    g_warning("Can't set preview visible for inexistant call");
+                    g_warning("Can't set preview visible for inexistent call");
                 }
                 updateNameAndPhoto();
                 updateState();
@@ -1779,7 +1779,7 @@ CppImpl::update_participants_hovers(const QString& callId)
                         && call.type != lrc::api::call::Type::CONFERENCE
                         && call.participantsInfos.empty());
         } catch (...) {
-            g_warning("Can't set preview visible for inexistant call");
+            g_warning("Can't set preview visible for inexistent call");
         }
     }
 }

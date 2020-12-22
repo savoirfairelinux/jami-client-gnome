@@ -324,15 +324,15 @@ account_creation_show_error_view(AccountCreationWizard *view, const std::string&
         switch (priv->mode) {
             case Mode::ADD_LOCAL:
                 gtk_label_set_text(GTK_LABEL(priv->label_error_view),
-                    _("An error occured during the account creation."));
+                    _("An error occurred during the account creation."));
                 break;
             case Mode::ADD_RENDEZVOUS:
                 gtk_label_set_text(GTK_LABEL(priv->label_error_view),
-                    _("An error occured during the rendez-vous creation."));
+                    _("An error occurred during the rendez-vous creation."));
                 break;
             case Mode::ADD_SIP:
                 gtk_label_set_text(GTK_LABEL(priv->label_error_view),
-                    _("An error occured during the SIP account creation."));
+                    _("An error occurred during the SIP account creation."));
                 break;
             case Mode::IMPORT_FROM_DEVICE:
                 gtk_label_set_text(GTK_LABEL(priv->label_error_view),

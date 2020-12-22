@@ -21,7 +21,7 @@ improvement ideas, the bug tracker is the perfect place to submit them.
 ## Documentation
 
 The documentation should be as up-to-date as possible to help users, devs and
-anyone who wants to get informations. This wiki is currently located [here](https://git.jami.net/savoirfairelinux/ring-project/wikis/home).
+anyone who wants to get information. This wiki is currently located [here](https://git.jami.net/savoirfairelinux/ring-project/wikis/home).
 
 ## Testing
 
