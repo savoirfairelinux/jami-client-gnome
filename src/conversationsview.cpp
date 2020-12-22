@@ -336,7 +336,7 @@ update_conversation(ConversationsView *self, const std::string& uid) {
                             0 /* col# */, &uidModel /* data */,
                             -1);
         if(std::string(uid) == uidModel) {
-            // Get informations
+            // Get information
             auto conversation = (*priv->accountInfo_)->conversationModel->getConversationForUID(uidModel);
             if (conversation.participants.empty()) {
                 g_free(uidModel);

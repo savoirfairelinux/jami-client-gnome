@@ -511,7 +511,7 @@ get_devicename_from_row(GtkWidget* row)
 static void
 replace_name_from_row(GtkWidget* row, const QString& name, const QString& id)
 {
-    // Remove previous informations
+    // Remove previous information
     auto* list_iterator = get_row_iterator(row);
     auto* box_info = g_list_next(g_list_first(list_iterator));  // box infos
     auto* action_button = g_list_last(list_iterator);
@@ -645,7 +645,7 @@ add_device(NewAccountSettingsView *view, const lrc::api::Device& device)
     GtkStyleContext* context_box;
     context_box = gtk_widget_get_style_context(GTK_WIDGET(device_box));
     gtk_style_context_add_class(context_box, "boxitem");
-    // Fill with devices informations
+    // Fill with devices information
     auto* device_info_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     auto* label_name = gtk_label_new(qUtf8Printable(device.name));
     gtk_box_pack_start(GTK_BOX(device_info_box), label_name, false, false, 0);
@@ -741,7 +741,7 @@ add_banned(NewAccountSettingsView *view, const std::string& contactUri)
     context_box = gtk_widget_get_style_context(GTK_WIDGET(banned_box));
     gtk_style_context_add_class(context_box, "boxitem");
 
-    // Fill with devices informations
+    // Fill with devices information
     auto* contact_info_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     if (!contact.registeredName.isEmpty()) {
         auto* label_name = gtk_label_new(qUtf8Printable(contact.registeredName));
@@ -840,8 +840,8 @@ show_change_password_dialog(GtkListBox*, GtkListBoxRow *row, NewAccountSettingsV
 
     priv->vbox_change_password = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_box_set_spacing(GTK_BOX(priv->vbox_change_password), 10);
-    auto* label_informations = gtk_label_new(_("Note: this will change the password only on this device."));
-    gtk_container_add(GTK_CONTAINER(priv->vbox_change_password), label_informations);
+    auto* label_information = gtk_label_new(_("Note: this will change the password only on this device."));
+    gtk_container_add(GTK_CONTAINER(priv->vbox_change_password), label_information);
     priv->entry_current_password = gtk_entry_new();
     gtk_entry_set_placeholder_text(GTK_ENTRY(priv->entry_current_password), _("Current password"));
     gtk_entry_set_input_purpose(GTK_ENTRY(priv->entry_current_password), GTK_INPUT_PURPOSE_PASSWORD);
@@ -2013,7 +2013,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         priv->currentProp_ = new lrc::api::account::ConfProperties_t();
         *priv->currentProp_ = (*priv->accountInfo_)->accountModel->getAccountConfig(accountId);
     } catch (std::out_of_range& e) {
-        g_debug("Can't get acount config for current account");
+        g_debug("Can't get account config for current account");
         return;
     }
 

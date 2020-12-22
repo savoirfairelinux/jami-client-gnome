@@ -135,7 +135,7 @@
                 <property name="use_markup">True</property>
               </object>
             </child>
-            <!-- Explaination row -->
+            <!-- Explanation row -->
             <child>
               <object class="GtkLabel" id="label_explaination">
                 <property name="visible">True</property>
@@ -147,7 +147,7 @@
                 <property name="wrap">True</property>
               </object>
             </child>
-            <!-- End of Explaination row -->
+            <!-- End of Explanation row -->
             <!-- Password entry -->
             <child>
               <object class="GtkLabel" id="entry_password_export_label">
