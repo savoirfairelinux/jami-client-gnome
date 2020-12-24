@@ -137,9 +137,9 @@
                     <property name="border_width">20</property>
                     <property name="valign">center</property>
                     <property name="halign">center</property>
-                    <!-- accept button -->
+                    <!-- accept audio/vido button -->
                     <child>
-                      <object class="GtkButton" id="button_accept_incoming">
+                      <object class="GtkButton" id="button_accept_incoming_video_call">
                         <style>
                           <class name="green-button"/>
                           <class name="flat-button"/>
@@ -149,15 +149,36 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="has_tooltip">True</property>
-                        <property name="tooltip-text" translatable="yes">Accept</property>
-                        <property name="image">image_accept</property>
+                        <property name="tooltip-text" translatable="yes">Accept audio/video</property>
+                        <property name="image">image_accept_video</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
                         <property name="fill">True</property>
                       </packing>
                     </child>
-                    <!-- end accept button -->
+                    <!-- end accept audio/video button -->
+                    <!-- accept audio only button -->
+                    <child>
+                      <object class="GtkButton" id="button_accept_incoming_audio_call">
+                        <style>
+                          <class name="green-button"/>
+                          <class name="flat-button"/>
+                        </style>
+                        <property name="width-request">48</property>
+                        <property name="height-request">48</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="has_tooltip">True</property>
+                        <property name="tooltip-text" translatable="yes">Accept audio only</property>
+                        <property name="image">image_accept_audio</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                      </packing>
+                    </child>
+                    <!-- end accept audio onlyt button -->
                     <!-- reject button -->
                     <child>
                       <object class="GtkButton" id="button_reject_incoming">
@@ -220,9 +241,13 @@
     </child>
     <!-- end of Paned container -->
   </template>
-  <object class="GtkImage" id="image_accept">
+  <object class="GtkImage" id="image_accept_video">
     <property name="visible">True</property>
-    <property name="resource">/net/jami/JamiGnome/accept</property>
+    <property name="resource">/net/jami/JamiGnome/video_on</property>
+  </object>
+  <object class="GtkImage" id="image_accept_audio">
+    <property name="visible">True</property>
+    <property name="resource">/net/jami/JamiGnome/video_off</property>
   </object>
   <object class="GtkImage" id="image_reject">
     <property name="visible">True</property>
