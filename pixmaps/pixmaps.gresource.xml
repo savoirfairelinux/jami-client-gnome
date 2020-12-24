@@ -22,6 +22,8 @@
     <file alias="mute_audio">ic_mic_white_24px.svg</file>
     <file alias="unmute_video">ic_videocam_off_white_24px.svg</file>
     <file alias="mute_video">ic_videocam_white_24px.svg</file>
+    <file alias="video_off">ic_videocam_off_white_24px.svg</file>
+    <file alias="video_on">ic_videocam_white_24px.svg</file>
     <file alias="pause">ic_pause_white_24px.svg</file>
     <file alias="stop">baseline-stop-24px.svg</file>
     <file alias="stop-white">stop-white.svg</file>
