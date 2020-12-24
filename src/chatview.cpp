@@ -1009,6 +1009,7 @@ on_main_action_clicked(ChatView *self)
             gtk_widget_destroy(priv->record_popover);
             priv->cpp->current_action_ = RecordAction::RECORD;
             priv->cpp->avModel_->stopPreview();
+            QObject::disconnect(priv->local_renderer_connection);
             break;
         }
     }
@@ -1022,35 +1023,43 @@ init_video_widget(ChatView* self)
     priv->startRecorderWhenReady = false;
     priv->video_widget = video_widget_new();
 
+    const lrc::api::video::Renderer* prenderer = nullptr;
     try {
-        const lrc::api::video::Renderer* previewRenderer =
-            &priv->cpp->avModel_->getRenderer(
+        prenderer = &priv->cpp->avModel_->getRenderer(
             lrc::api::video::PREVIEW_RENDERER_ID);
-        priv->video_started_by_settings = previewRenderer->isRendering();
-        if (priv->video_started_by_settings) {
-            video_widget_add_new_renderer(VIDEO_WIDGET(priv->video_widget),
-                priv->cpp->avModel_, previewRenderer, VIDEO_RENDERER_REMOTE);
-        } else {
-            priv->video_started_by_settings = true;
-            QObject::disconnect(priv->local_renderer_connection);
-            priv->local_renderer_connection = QObject::connect(
-                &*priv->cpp->avModel_,
-                &lrc::api::AVModel::rendererStarted,
-                [=](const QString& id) {
-                    if (id != lrc::api::video::PREVIEW_RENDERER_ID
-                        || !priv->readyToRecord_)
-                        return;
+    } catch (const std::out_of_range& e) {}
+
+    priv->video_started_by_settings =
+        prenderer && prenderer->isRendering();
+    if (priv->video_started_by_settings) {
+        video_widget_add_new_renderer(
+            VIDEO_WIDGET(priv->video_widget),
+            priv->cpp->avModel_, prenderer,
+            VIDEO_RENDERER_REMOTE);
+    } else {
+        priv->video_started_by_settings = true;
+        QObject::disconnect(priv->local_renderer_connection);
+        priv->local_renderer_connection = QObject::connect(
+            &*priv->cpp->avModel_,
+            &lrc::api::AVModel::rendererStarted,
+            [=](const QString& id) {
+                if (id != lrc::api::video::PREVIEW_RENDERER_ID
+                    || !priv->readyToRecord_)
+                    return;
+                try {
+                    const auto* prenderer =
+                        &priv->cpp->avModel_->getRenderer(id);
                     video_widget_add_new_renderer(
                         VIDEO_WIDGET(priv->video_widget),
-                        priv->cpp->avModel_,
-                        previewRenderer, VIDEO_RENDERER_REMOTE);
-                    // Start recorder
-                    if (priv->startRecorderWhenReady)
-                        reset_recorder(self);
-                });
-        }
-    } catch (const std::out_of_range& e) {
-        g_warning("Cannot start preview");
+                        priv->cpp->avModel_, prenderer,
+                        VIDEO_RENDERER_REMOTE);
+                } catch (const std::out_of_range& e) {
+                    g_warning("Cannot start preview");
+                }
+            });
+        // Start recorder
+        if (priv->startRecorderWhenReady)
+            reset_recorder(self);
     }
 
     auto stage = gtk_clutter_embed_get_stage(GTK_CLUTTER_EMBED(priv->video_widget));
