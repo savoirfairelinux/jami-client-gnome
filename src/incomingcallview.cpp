@@ -69,7 +69,8 @@ struct _IncomingCallViewPrivate
     GtkWidget *label_bestId;
     GtkWidget *spinner_status;
     GtkWidget *label_status;
-    GtkWidget *button_accept_incoming;
+    GtkWidget *button_accept_incoming_video_call;
+    GtkWidget *button_accept_incoming_audio_call;
     GtkWidget *button_reject_incoming;
     GtkWidget *frame_chat;
     GtkWidget *box_messaging_widget;
@@ -208,7 +209,8 @@ incoming_call_view_init(IncomingCallView *view)
                                  nullptr, nullptr, nullptr);
 
     g_signal_connect_swapped(priv->button_reject_incoming, "clicked", G_CALLBACK(reject_incoming_call), view);
-    g_signal_connect_swapped(priv->button_accept_incoming, "clicked", G_CALLBACK(accept_incoming_call), view);
+    g_signal_connect_swapped(priv->button_accept_incoming_video_call, "clicked", G_CALLBACK(accept_incoming_call), view);
+    g_signal_connect_swapped(priv->button_accept_incoming_audio_call, "clicked", G_CALLBACK(accept_incoming_call), view);
 }
 
 static void
@@ -226,7 +228,8 @@ incoming_call_view_class_init(IncomingCallViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, spinner_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, label_status);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_reject_incoming);
-    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming_video_call);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, button_accept_incoming_audio_call);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, frame_chat);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), IncomingCallView, box_messaging_widget);
 
@@ -252,10 +255,14 @@ update_state(IncomingCallView *view)
 
     gtk_label_set_text(GTK_LABEL(priv->label_status), qUtf8Printable(lrc::api::call::to_string(call.status)));
 
-    if (call.status == lrc::api::call::Status::INCOMING_RINGING)
-        gtk_widget_show(priv->button_accept_incoming);
-    else
-        gtk_widget_hide(priv->button_accept_incoming);
+    if (call.status == lrc::api::call::Status::INCOMING_RINGING) {
+        gtk_widget_show(priv->button_accept_incoming_video_call);
+        gtk_widget_show(priv->button_accept_incoming_audio_call);
+    }
+    else {
+        gtk_widget_hide(priv->button_accept_incoming_video_call);
+        gtk_widget_hide(priv->button_accept_incoming_audio_call);
+    }
 
     if (call.status != lrc::api::call::Status::PEER_BUSY &&
              call.status != lrc::api::call::Status::ENDED) {
@@ -367,7 +374,8 @@ incoming_call_view_let_a_message(IncomingCallView* view, const lrc::api::convers
 
     gtk_widget_hide(priv->label_status);
     gtk_widget_hide(priv->spinner_status);
-    gtk_widget_hide(priv->button_accept_incoming);
+    gtk_widget_hide(priv->button_accept_incoming_video_call);
+    gtk_widget_hide(priv->button_accept_incoming_audio_call);
     gtk_widget_hide(priv->button_reject_incoming);
 
     priv->showMessaging = true;

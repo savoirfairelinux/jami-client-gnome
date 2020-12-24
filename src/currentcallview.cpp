@@ -1811,8 +1811,14 @@ CppImpl::updateState()
         if (call.audioMuted)
             imageMuteAudio = gtk_image_new_from_resource ("/net/jami/JamiGnome/unmute_audio");
         gtk_button_set_image(GTK_BUTTON(audioButton), imageMuteAudio);
-
+#if 1
+        // TODO_MC. May use "Enable video" from Advanced settings.
+        if (true) {
+            // TODO_MC. Should already be set.
+            call.videoMuted |= call.isAudioOnly;
+#else
         if (!call.isAudioOnly) {
+#endif
             auto videoButton = GTK_TOGGLE_BUTTON(widgets->togglebutton_mutevideo);
             gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widgets->togglebutton_mutevideo), call.videoMuted);
             auto imageMuteVideo = gtk_image_new_from_resource ("/net/jami/JamiGnome/mute_video");
