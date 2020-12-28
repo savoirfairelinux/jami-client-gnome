@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-21 03:09-0500\n"
+"POT-Creation-Date: 2020-12-28 03:09-0500\n"
 "PO-Revision-Date: 2020-11-30 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/savoirfairelinux/jami/language/sl/)\n"
@@ -1084,12 +1084,12 @@ msgstr "Shrani datoteko"
 
 #: src/chatview.cpp:284 src/generalsettingsview.cpp:234
 #: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:127
-#: src/avatarmanipulation.cpp:414 src/accountcreationwizard.cpp:873
+#: src/avatarmanipulation.cpp:437 src/accountcreationwizard.cpp:873
 msgid "_Cancel"
 msgstr "_Prekliči"
 
 #: src/chatview.cpp:286 src/pluginsettingsview.cpp:129
-#: src/avatarmanipulation.cpp:416
+#: src/avatarmanipulation.cpp:439
 msgid "_Open"
 msgstr "_Odpri"
 
@@ -1586,21 +1586,21 @@ msgstr "_Odblokiraj stik"
 msgid "_Profile"
 msgstr "_Profil"
 
-#: src/avatarmanipulation.cpp:411
+#: src/avatarmanipulation.cpp:434
 msgid "Open Avatar Image"
 msgstr "Odpri avatar sliko"
 
 #: src/accountcreationwizard.cpp:327
-msgid "An error occured during the account creation."
-msgstr "Med ustvarjanjem računa je prišlo do napake."
+msgid "An error occurred during the account creation."
+msgstr ""
 
 #: src/accountcreationwizard.cpp:331
-msgid "An error occured during the rendez-vous creation."
-msgstr "Pri ustvarjanju točke srečevanja je prišlo do napake."
+msgid "An error occurred during the rendez-vous creation."
+msgstr ""
 
 #: src/accountcreationwizard.cpp:335
-msgid "An error occured during the SIP account creation."
-msgstr "Ob ustvarjanju SIP računa je prišlo do napake."
+msgid "An error occurred during the SIP account creation."
+msgstr ""
 
 #: src/accountcreationwizard.cpp:339
 msgid "Cannot retrieve any account, please verify your PIN and your password."
