@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-04 03:09-0500\n"
+"POT-Creation-Date: 2021-01-11 03:09-0500\n"
 "PO-Revision-Date: 2020-12-28 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/jami/language/sv/)\n"
@@ -17,136 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ui/help-overlay.ui:13
-msgctxt "shortcut window"
-msgid "General"
-msgstr "Allmänt"
-
-#: ui/help-overlay.ui:18
-msgctxt "shortcut window"
-msgid "Open application menu"
-msgstr "Öppna programmenyn"
-
-#: ui/help-overlay.ui:25
-msgctxt "shortcut window"
-msgid "Open account list"
-msgstr "Öppna kontolistan"
-
-#: ui/help-overlay.ui:32
-msgctxt "shortcut window"
-msgid "Select search bar"
-msgstr "Välj sökfält"
-
-#: ui/help-overlay.ui:39
-msgctxt "shortcut window"
-msgid "Focus the list of conversations"
-msgstr "Fokusera konversationslistan"
-
-#: ui/help-overlay.ui:46
-msgctxt "shortcut window"
-msgid "Focus the list pending requests"
-msgstr "Fokusera listan över väntande förfrågningar"
-
-#: ui/help-overlay.ui:53
-msgctxt "shortcut window"
-msgid "Toggle fullscreen"
-msgstr "Helskärm av/på"
-
-#: ui/help-overlay.ui:63
-msgctxt "shortcut window"
-msgid "Conversations"
-msgstr "Konversationer"
-
-#: ui/help-overlay.ui:68
-msgctxt "shortcut window"
-msgid "Start a video call"
-msgstr "Starta ett videosamtal"
-
-#: ui/help-overlay.ui:75
-msgctxt "shortcut window"
-msgid "Start an audio call"
-msgstr "Starta ett röstsamtal"
-
-#: ui/help-overlay.ui:82
-msgctxt "shortcut window"
-msgid "Clear history"
-msgstr "Rensa historik"
-
-#: ui/help-overlay.ui:89
-msgctxt "shortcut window"
-msgid "Add conversation"
-msgstr "Lägg till konversation"
-
-#: ui/help-overlay.ui:96
-msgctxt "shortcut window"
-msgid "Remove conversation"
-msgstr "Ta bort konversation"
-
-#: ui/help-overlay.ui:103
-msgctxt "shortcut window"
-msgid "Block contact"
-msgstr "Blockera kontakt"
-
-#: ui/help-overlay.ui:110
-msgctxt "shortcut window"
-msgid "Unblock contact"
-msgstr "Avblockera kontakt"
-
-#: ui/help-overlay.ui:117
-msgctxt "shortcut window"
-msgid "Copy contact name"
-msgstr "Kopiera kontaktnamn"
-
-#: ui/help-overlay.ui:127
-msgctxt "shortcut window"
-msgid "Call"
-msgstr "Samtal"
-
-#: ui/help-overlay.ui:132
-msgctxt "shortcut window"
-msgid "Accept call"
-msgstr "Acceptera samtal"
-
-#: ui/help-overlay.ui:139
-msgctxt "shortcut window"
-msgid "Decline call"
-msgstr "Neka samtal"
-
-#: ui/help-overlay.ui:148
-msgctxt "shortcut window"
-msgid "Settings"
-msgstr "Inställningar"
-
-#: ui/help-overlay.ui:153
-msgctxt "shortcut window"
-msgid "Open/Close settings page"
-msgstr "Öppna/Stäng inställningssidan"
-
-#: ui/help-overlay.ui:160
-msgctxt "shortcut window"
-msgid "Open general settings"
-msgstr "Öppna de allmänna inställningarna"
-
-#: ui/help-overlay.ui:167
-msgctxt "shortcut window"
-msgid "Open media settings"
-msgstr "Öppna mediainställningarna"
-
-#: ui/help-overlay.ui:174
-msgctxt "shortcut window"
-msgid "Open account settings"
-msgstr "Öppna kontoinställningarna"
-
-#: ui/help-overlay.ui:184
-msgctxt "shortcut window"
-msgid "Chat view"
-msgstr "Chattvy"
-
-#: ui/help-overlay.ui:189
-msgctxt "shortcut window"
-msgid "Write on a new line"
-msgstr "Skriv på en ny rad"
 
 #: ui/mainwindow.ui:63
 msgid "Menu"
@@ -164,12 +34,12 @@ msgstr "Media"
 msgid "Plugin"
 msgstr "Insticksmodul"
 
-#: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:530
-#: ui/newaccountsettingsview.ui:387
+#: ui/mainwindow.ui:136 ui/newaccountsettingsview.ui:387
+#: ui/accountcreationwizard.ui:530
 msgid "Account"
 msgstr "Konto"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1941
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1949
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -180,468 +50,6 @@ msgstr "Konversationer"
 #: ui/mainwindow.ui:327 ui/mainwindow.ui:334
 msgid "Contact requests"
 msgstr "Kontaktförfrågningar"
-
-#: ui/accountmigrationview.ui:20
-msgid "Account migration required"
-msgstr "Kontomigrering krävs"
-
-#: ui/accountmigrationview.ui:31
-msgid "This account is malformed, please enter your password"
-msgstr "Detta konto är felaktigt, ange ditt lösenord"
-
-#: ui/accountmigrationview.ui:90
-msgid "Alias"
-msgstr "Alias"
-
-#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:1093
-#: ui/accountcreationwizard.ui:1311 ui/profile.ui:73
-#: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
-#: src/accountcreationwizard.cpp:1059
-msgid "Username"
-msgstr "Användarnamn"
-
-#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:286
-#: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
-#: ui/accountcreationwizard.ui:1347 ui/newaccountsettingsview.ui:502
-#: ui/newaccountsettingsview.ui:742
-msgid "Password"
-msgstr "Lösenord"
-
-#: ui/accountmigrationview.ui:205
-msgid "Account manager"
-msgstr "Kontohanterare"
-
-#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
-#: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:975 src/newaccountsettingsview.cpp:2132
-msgid "Delete account"
-msgstr "Ta bort konto"
-
-#: ui/accountmigrationview.ui:251
-msgid "Migrate account"
-msgstr "Migrera konto"
-
-#: ui/accountmigrationview.ui:283
-msgid "Migrating your Jami account…"
-msgstr "Migrerar ditt Jami-konto..."
-
-#: ui/accountmigrationview.ui:295
-msgid "Migration failed, wrong password?"
-msgstr "Migreringen misslyckades, fel lösenord?"
-
-#: ui/currentcallview.ui:284
-msgid "End this call"
-msgstr "Avsluta samtalet"
-
-#: ui/currentcallview.ui:288 ui/currentcallview.ui:581
-msgid "End call"
-msgstr "Avsluta samtal"
-
-#: ui/currentcallview.ui:308 ui/currentcallview.ui:554
-msgid "Add participant"
-msgstr "Lägg till deltagare"
-
-#: ui/currentcallview.ui:327
-msgid "Toggle transfer"
-msgstr "Överföring av/på"
-
-#: ui/currentcallview.ui:346
-msgid "Toggle hold"
-msgstr "Växla parkeringsstatus"
-
-#: ui/currentcallview.ui:350 ui/currentcallview.ui:375
-#: ui/currentcallview.ui:545
-msgid "Hold"
-msgstr "Parkera"
-
-#: ui/currentcallview.ui:371
-msgid "Toggle mute audio"
-msgstr "Växla ljudstatus"
-
-#: ui/currentcallview.ui:396
-msgid "Toggle mute video"
-msgstr "Växla videostatus"
-
-#: ui/currentcallview.ui:400 ui/currentcallview.ui:536
-msgid "Mute video"
-msgstr "Pausa video"
-
-#: ui/currentcallview.ui:421
-msgid "Toggle recording"
-msgstr "Inspelning av/på"
-
-#: ui/currentcallview.ui:424 ui/currentcallview.ui:599
-#: ui/messagingwidget.ui:29 src/chatview.cpp:348
-msgid "Record"
-msgstr "Spela in"
-
-#: ui/currentcallview.ui:464
-msgid "Adjust outgoing video quality"
-msgstr "Justera utgående videokvalitet"
-
-#: ui/currentcallview.ui:469 ui/currentcallview.ui:590
-msgid "Video quality"
-msgstr "Videokvalitet"
-
-#: ui/currentcallview.ui:488
-msgid "Toggle show chat"
-msgstr "Visa/Dölj chatt"
-
-#: ui/currentcallview.ui:492 ui/currentcallview.ui:509
-msgid "Chat"
-msgstr "Chatt"
-
-#: ui/currentcallview.ui:518
-msgid "View"
-msgstr "Visa"
-
-#: ui/currentcallview.ui:527
-msgid "Mute audio"
-msgstr "Pausa ljud"
-
-#: ui/currentcallview.ui:563
-msgid "Activate Plugin"
-msgstr "Aktivera insticksmodul"
-
-#: ui/currentcallview.ui:572
-msgid "Transfer"
-msgstr "Överför"
-
-#: ui/currentcallview.ui:622
-msgid "Transfer to"
-msgstr "Överför till"
-
-#: ui/currentcallview.ui:686
-msgid "Add"
-msgstr "Lägg till"
-
-#: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:124
-msgid "Choose plugin"
-msgstr "Välj insticksmodul"
-
-#: ui/accountcreationwizard.ui:42
-msgid "Welcome to"
-msgstr "Välkommen till"
-
-#: ui/accountcreationwizard.ui:76
-msgid "Create a Jami account"
-msgstr "Skapa ett Jami-konto"
-
-#: ui/accountcreationwizard.ui:77
-msgid "Create a new Jami account on this device (for new users)"
-msgstr "Skapa ett nytt Jami-konto på denna enhet (för nya användare)"
-
-#: ui/accountcreationwizard.ui:84
-msgid "Create a rendezvous point"
-msgstr "Skapa en mötesplats"
-
-#: ui/accountcreationwizard.ui:85
-msgid "Create a Rendezvous point"
-msgstr "Skapa en mötesplats"
-
-#: ui/accountcreationwizard.ui:92
-msgid "Link this device to an existing account"
-msgstr "Koppla den här enheten till ett befintligt konto"
-
-#: ui/accountcreationwizard.ui:93
-msgid "Import an account with your PIN generated on another device"
-msgstr "Importera ett konto med din PIN-kod, som skapats på en annan enhet."
-
-#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:696
-msgid "Restore an account from backup"
-msgstr "Återställ ett konto från en säkerhetskopia"
-
-#: ui/accountcreationwizard.ui:101
-msgid "Import an account via your archive"
-msgstr "Importera ett konto via ditt kontoarkiv"
-
-#: ui/accountcreationwizard.ui:108
-msgid "Advanced features"
-msgstr "Avancerade funktioner"
-
-#: ui/accountcreationwizard.ui:119
-msgid "Connect to a JAMS server"
-msgstr "Anslut till en JAMS-server"
-
-#: ui/accountcreationwizard.ui:120
-msgid "Get your account via your credentials."
-msgstr "Hämta ditt konto via dina inloggningsuppgifter."
-
-#: ui/accountcreationwizard.ui:127
-msgid "Add a SIP account"
-msgstr "Lägg till ett SIP-konto"
-
-#: ui/accountcreationwizard.ui:199
-msgid "Archive"
-msgstr "Arkiv"
-
-#: ui/accountcreationwizard.ui:205 ui/accountcreationwizard.ui:334
-msgid "Informations."
-msgstr "Information."
-
-#: ui/accountcreationwizard.ui:258
-msgid ""
-"You can obtain an archive by clicking on \"Backup account\" in the account "
-"settings. This will create a .gz file on your device."
-msgstr "Du kan få ett arkiv genom att klicka på \"Säkerhetskopiera konto\" i kontoinställningarna. Det kommer att skapa en .gz-fil på din enhet."
-
-#: ui/accountcreationwizard.ui:328
-msgid "PIN"
-msgstr "PIN-kod"
-
-#: ui/accountcreationwizard.ui:390
-msgid ""
-"Enter the PIN from another configured Jami account. Use the \"Link Another "
-"Device\" feature to obtain a PIN."
-msgstr "Ange PIN-koden från ett annat konfigurerat Jami-konto. Använd \"Koppla en annan enhet\", för att få din PIN-kod."
-
-#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
-#: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
-msgid "Back"
-msgstr "Tillbaka"
-
-#: ui/accountcreationwizard.ui:449 ui/profile.ui:7
-#: ui/newaccountsettingsview.ui:307
-msgid "Profile"
-msgstr "Profil"
-
-#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1058
-msgid "Register username"
-msgstr "Registrera användarnamn"
-
-#: ui/accountcreationwizard.ui:568
-msgid ""
-"By checking this, you will register a unique username on the Jami network. "
-"People can use it to contact you instead of using your ID, which is 40 "
-"characters long."
-msgstr "Genom att aktivera detta, registrerar du ett unikt användarnamn på Jami-nätverket. Människor kan använda det för att kontakta dig, istället för att använda ditt ID, som är 40 tecken långt."
-
-#: ui/accountcreationwizard.ui:630
-msgid "Encrypt account with password"
-msgstr "Kryptera kontot med lösenord"
-
-#: ui/accountcreationwizard.ui:631
-msgid ""
-"Choose a password to encrypt your account on this device.  Note that the "
-"password cannot be recovered."
-msgstr "Välj ett lösenord för att kryptera ditt konto på enheten. Notera att lösenordet inte kan återställas."
-
-#: ui/accountcreationwizard.ui:658
-msgid ""
-"Choose a password to encrypt your account on this device.\n"
-"Note that the password cannot be recovered."
-msgstr "Välj ett lösenord för att kryptera ditt konto på enheten.\nNotera att lösenordet inte kan återställas."
-
-#: ui/accountcreationwizard.ui:686
-msgid ""
-"This password will be used to encrypt your account data and to link new "
-"devices to your account."
-msgstr "Detta lösenord kommer att användas för att kryptera din kontodata och för att länka nya enheter till ditt konto."
-
-#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:858
-msgid "Confirm password"
-msgstr "Bekräfta lösenord"
-
-#: ui/accountcreationwizard.ui:772
-msgid "Next"
-msgstr "Nästa"
-
-#: ui/accountcreationwizard.ui:826
-msgid "Backup your account!"
-msgstr "Säkerhetskopiera ditt konto!"
-
-#: ui/accountcreationwizard.ui:842
-msgid ""
-"This account only exists on this device. If you lost your device or "
-"uninstall the application, your account will be deleted. You can backup your"
-" account now or later."
-msgstr "Detta konto finns bara på denna enhet. Om du förlorar din enhet eller avinstallerar programmet, kommer ditt konto att raderas. Du kan säkerhetskopiera ditt konto nu eller senare."
-
-#: ui/accountcreationwizard.ui:849
-msgid "Never show me this again"
-msgstr "Visa inte detta igen"
-
-#: ui/accountcreationwizard.ui:863 ui/newaccountsettingsview.ui:539
-#: src/accountcreationwizard.cpp:442 src/newaccountsettingsview.cpp:2065
-msgid "Export account"
-msgstr "Exportera konto"
-
-#: ui/accountcreationwizard.ui:873
-msgid "Skip"
-msgstr "Hopa över"
-
-#: ui/accountcreationwizard.ui:899
-msgid "Registering username…"
-msgstr "Registrerar användarnamn..."
-
-#: ui/accountcreationwizard.ui:906
-msgid "This may take a few minutes."
-msgstr "Detta kan ta några få minuter."
-
-#: ui/accountcreationwizard.ui:932
-msgid "Retrieving your Jami account…"
-msgstr "Hämtar ditt Jami-konto..."
-
-#: ui/accountcreationwizard.ui:973 ui/newaccountsettingsview.ui:262
-msgid "OK"
-msgstr "OK"
-
-#: ui/accountcreationwizard.ui:998
-msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr "Ange URL till Jami Account Management Server (JAMS)"
-
-#: ui/accountcreationwizard.ui:1043
-msgid "JAMS URL"
-msgstr "JAMS URL"
-
-#: ui/accountcreationwizard.ui:1068
-msgid "Enter your JAMS credentials"
-msgstr "Ange dina Jams-inloggningsdata"
-
-#: ui/accountcreationwizard.ui:1167
-msgid "Connect"
-msgstr "Anslut"
-
-#: ui/accountcreationwizard.ui:1195
-msgid "Configure an existing SIP account"
-msgstr "Konfigurera ett befintligt SIP-konto"
-
-#: ui/accountcreationwizard.ui:1240
-msgid "Server"
-msgstr "Server"
-
-#: ui/accountcreationwizard.ui:1276 ui/newaccountsettingsview.ui:783
-#: ui/newaccountsettingsview.ui:1409
-msgid "Proxy"
-msgstr "Proxy"
-
-#: ui/accountcreationwizard.ui:1385
-msgid "Create SIP account"
-msgstr "Skapa SIP-konto"
-
-#: ui/gearsmenu.ui:7
-msgid "Keyboard _Shortcuts"
-msgstr "Tangentbords_genvägar"
-
-#: ui/gearsmenu.ui:11
-msgid "_About"
-msgstr "­_Om"
-
-#: ui/gearsmenu.ui:17
-msgid "_Quit"
-msgstr "_Avsluta"
-
-#: ui/generalsettingsview.ui:58
-msgid "System"
-msgstr "System"
-
-#: ui/generalsettingsview.ui:96
-msgid "Start application on login"
-msgstr "Starta programmet vid inloggning"
-
-#: ui/generalsettingsview.ui:132
-msgid "Keep Jami active when window is closed."
-msgstr "Håll Jami igång när fönstret stängs."
-
-#: ui/generalsettingsview.ui:168
-msgid "Bring Jami to the foreground on incoming calls"
-msgstr "Ta fram Jami till förgrunden vid inkommande samtal"
-
-#: ui/generalsettingsview.ui:204
-msgid "Notifications"
-msgstr "Aviseringar"
-
-#: ui/generalsettingsview.ui:243
-msgid "Enable notifications for incoming calls"
-msgstr "Aktivera avisering för inkommande samtal"
-
-#: ui/generalsettingsview.ui:279
-msgid "Enable notifications for pending requests"
-msgstr "Aktivera avisering för väntande förfrågningar"
-
-#: ui/generalsettingsview.ui:315
-msgid "Enable notifications for new chat messages"
-msgstr "Aktivera avisering för nya chattmeddelanden"
-
-#: ui/generalsettingsview.ui:351
-msgid "Chatview"
-msgstr "Chattvy"
-
-#: ui/generalsettingsview.ui:390
-msgid "Show typing indications"
-msgstr "Visa skrivindikering"
-
-#: ui/generalsettingsview.ui:426
-msgid "Display images and videos into the chatview"
-msgstr "Visa bilder och filmer i chattfönstret"
-
-#: ui/generalsettingsview.ui:463
-msgid "Show chatview on the right (on the bottom if off)"
-msgstr "Visa chatten till höger (i underkant om av)"
-
-#: ui/generalsettingsview.ui:500
-msgid "Download folder"
-msgstr "Nerladdningsmapp"
-
-#: ui/generalsettingsview.ui:537
-msgid "History"
-msgstr "Historik"
-
-#: ui/generalsettingsview.ui:576
-msgid "Keep history for (days, 0 = unlimited)"
-msgstr "Spara historiken i (dagar, 0 = obegränsat)"
-
-#: ui/generalsettingsview.ui:606
-msgid "Clear all history"
-msgstr "Rensa all historik"
-
-#: ui/generalsettingsview.ui:638
-msgid "Call Recording"
-msgstr "Samtalsinspelning"
-
-#: ui/generalsettingsview.ui:676
-msgid "Record local video"
-msgstr "Spela in lokal video"
-
-#: ui/generalsettingsview.ui:712
-msgid "Always record calls"
-msgstr "Spela alltid in samtal"
-
-#: ui/generalsettingsview.ui:749
-msgid "Record folder"
-msgstr "Inspelningsmapp"
-
-#: ui/generalsettingsview.ui:786
-msgid "Bitrate for call recordings (kb/s)"
-msgstr "Bithastighet för inspelningar (kb/s)"
-
-#: ui/generalsettingsview.ui:824
-msgid "File transfer"
-msgstr "Filöverföring"
-
-#: ui/generalsettingsview.ui:862
-msgid "Allow incoming files from unknown contacts"
-msgstr "Tillåt inkommande filer från okända kontakter"
-
-#: ui/generalsettingsview.ui:899
-msgid "Automatically accept incoming files"
-msgstr "Acceptera inkommande filer automatiskt"
-
-#: ui/generalsettingsview.ui:937
-msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr "Acceptera överföring mindre än (i Mb, 0 = obegränsat)"
-
-#: ui/profile.ui:58
-msgid "Informations"
-msgstr "Information"
-
-#: ui/profile.ui:88 ui/newaccountsettingsview.ui:433
-msgid "ID"
-msgstr "ID"
-
-#: ui/profile.ui:153
-msgid "QR Code"
-msgstr "QR-kod"
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
@@ -695,6 +103,54 @@ msgstr "Bildfrekvens"
 msgid "Enable hardware acceleration"
 msgstr "Aktivera hårdvaruacceleration"
 
+#: ui/accountmigrationview.ui:20
+msgid "Account migration required"
+msgstr "Kontomigrering krävs"
+
+#: ui/accountmigrationview.ui:31
+msgid "This account is malformed, please enter your password"
+msgstr "Detta konto är felaktigt, ange ditt lösenord"
+
+#: ui/accountmigrationview.ui:90
+msgid "Alias"
+msgstr "Alias"
+
+#: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
+#: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
+#: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
+#: src/accountcreationwizard.cpp:1059
+msgid "Username"
+msgstr "Användarnamn"
+
+#: ui/accountmigrationview.ui:165 ui/newaccountsettingsview.ui:502
+#: ui/newaccountsettingsview.ui:742 ui/accountcreationwizard.ui:286
+#: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
+#: ui/accountcreationwizard.ui:1347
+msgid "Password"
+msgstr "Lösenord"
+
+#: ui/accountmigrationview.ui:205
+msgid "Account manager"
+msgstr "Kontohanterare"
+
+#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
+#: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
+#: src/newaccountsettingsview.cpp:975 src/newaccountsettingsview.cpp:2132
+msgid "Delete account"
+msgstr "Ta bort konto"
+
+#: ui/accountmigrationview.ui:251
+msgid "Migrate account"
+msgstr "Migrera konto"
+
+#: ui/accountmigrationview.ui:283
+msgid "Migrating your Jami account…"
+msgstr "Migrerar ditt Jami-konto..."
+
+#: ui/accountmigrationview.ui:295
+msgid "Migration failed, wrong password?"
+msgstr "Migreringen misslyckades, fel lösenord?"
+
 #: ui/newaccountsettingsview.ui:15 ui/pluginsettingsview.ui:15
 msgid "Add device"
 msgstr "Lägg till enhet"
@@ -730,9 +186,27 @@ msgstr "Exportera på nätverket"
 msgid "Your generated pin:"
 msgstr "Din PIN-kod:"
 
+#: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:973
+msgid "OK"
+msgstr "OK"
+
+#: ui/newaccountsettingsview.ui:307 ui/profile.ui:7
+#: ui/accountcreationwizard.ui:449
+msgid "Profile"
+msgstr "Profil"
+
+#: ui/newaccountsettingsview.ui:433 ui/profile.ui:88
+msgid "ID"
+msgstr "ID"
+
 #: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
 msgstr "Klicka för att byta lösenord"
+
+#: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
+#: src/newaccountsettingsview.cpp:2065 src/accountcreationwizard.cpp:442
+msgid "Export account"
+msgstr "Exportera konto"
 
 #: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
@@ -745,6 +219,11 @@ msgstr "SIP-server"
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
 msgstr "Lösenord"
+
+#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
+#: ui/accountcreationwizard.ui:1276
+msgid "Proxy"
+msgstr "Proxy"
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
@@ -966,29 +445,10 @@ msgstr "Video RTP min. port"
 msgid "Video RTP Max port"
 msgstr "Video RTP max. port"
 
-#: ui/usernameregistrationbox.ui:28
-msgid "register username"
-msgstr "Registrera användarnamn"
-
-#: ui/pluginsettingsview.ui:44
-msgid "Plugins"
-msgstr "Insticksmoduler"
-
-#: ui/pluginsettingsview.ui:85
-msgid "Enable plugins"
-msgstr "Aktivera insticksmoduler"
-
-#: ui/pluginsettingsview.ui:128
-msgid "Installed Plugins"
-msgstr "Installerade instcksmoduler"
-
-#: ui/pluginsettingsview.ui:136
-msgid "Install Plugin"
-msgstr "Installera insticksmodul"
-
-#: ui/chatview.ui:39
-msgid "Send Invitation"
-msgstr "Skicka inbjudan"
+#: ui/messagingwidget.ui:29 ui/currentcallview.ui:424
+#: ui/currentcallview.ui:599 src/chatview.cpp:348
+msgid "Record"
+msgstr "Spela in"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
@@ -998,17 +458,139 @@ msgstr "Spela in ljudmeddelande"
 msgid "End without message"
 msgstr "Avsluta utan meddelande"
 
-#: ui/incomingcallview.ui:99
-msgid "Incoming…"
-msgstr "Inkommande..."
+#: ui/chatview.ui:39
+msgid "Send Invitation"
+msgstr "Skicka inbjudan"
 
-#: ui/incomingcallview.ui:152
-msgid "Accept"
-msgstr "Acceptera"
+#: ui/help-overlay.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Allmänt"
 
-#: ui/incomingcallview.ui:172
-msgid "Reject"
-msgstr "Avslå"
+#: ui/help-overlay.ui:18
+msgctxt "shortcut window"
+msgid "Open application menu"
+msgstr "Öppna programmenyn"
+
+#: ui/help-overlay.ui:25
+msgctxt "shortcut window"
+msgid "Open account list"
+msgstr "Öppna kontolistan"
+
+#: ui/help-overlay.ui:32
+msgctxt "shortcut window"
+msgid "Select search bar"
+msgstr "Välj sökfält"
+
+#: ui/help-overlay.ui:39
+msgctxt "shortcut window"
+msgid "Focus the list of conversations"
+msgstr "Fokusera konversationslistan"
+
+#: ui/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Focus the list pending requests"
+msgstr "Fokusera listan över väntande förfrågningar"
+
+#: ui/help-overlay.ui:53
+msgctxt "shortcut window"
+msgid "Toggle fullscreen"
+msgstr "Helskärm av/på"
+
+#: ui/help-overlay.ui:63
+msgctxt "shortcut window"
+msgid "Conversations"
+msgstr "Konversationer"
+
+#: ui/help-overlay.ui:68
+msgctxt "shortcut window"
+msgid "Start a video call"
+msgstr "Starta ett videosamtal"
+
+#: ui/help-overlay.ui:75
+msgctxt "shortcut window"
+msgid "Start an audio call"
+msgstr "Starta ett röstsamtal"
+
+#: ui/help-overlay.ui:82
+msgctxt "shortcut window"
+msgid "Clear history"
+msgstr "Rensa historik"
+
+#: ui/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Add conversation"
+msgstr "Lägg till konversation"
+
+#: ui/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Remove conversation"
+msgstr "Ta bort konversation"
+
+#: ui/help-overlay.ui:103
+msgctxt "shortcut window"
+msgid "Block contact"
+msgstr "Blockera kontakt"
+
+#: ui/help-overlay.ui:110
+msgctxt "shortcut window"
+msgid "Unblock contact"
+msgstr "Avblockera kontakt"
+
+#: ui/help-overlay.ui:117
+msgctxt "shortcut window"
+msgid "Copy contact name"
+msgstr "Kopiera kontaktnamn"
+
+#: ui/help-overlay.ui:127
+msgctxt "shortcut window"
+msgid "Call"
+msgstr "Samtal"
+
+#: ui/help-overlay.ui:132
+msgctxt "shortcut window"
+msgid "Accept call"
+msgstr "Acceptera samtal"
+
+#: ui/help-overlay.ui:139
+msgctxt "shortcut window"
+msgid "Decline call"
+msgstr "Neka samtal"
+
+#: ui/help-overlay.ui:148
+msgctxt "shortcut window"
+msgid "Settings"
+msgstr "Inställningar"
+
+#: ui/help-overlay.ui:153
+msgctxt "shortcut window"
+msgid "Open/Close settings page"
+msgstr "Öppna/Stäng inställningssidan"
+
+#: ui/help-overlay.ui:160
+msgctxt "shortcut window"
+msgid "Open general settings"
+msgstr "Öppna de allmänna inställningarna"
+
+#: ui/help-overlay.ui:167
+msgctxt "shortcut window"
+msgid "Open media settings"
+msgstr "Öppna mediainställningarna"
+
+#: ui/help-overlay.ui:174
+msgctxt "shortcut window"
+msgid "Open account settings"
+msgstr "Öppna kontoinställningarna"
+
+#: ui/help-overlay.ui:184
+msgctxt "shortcut window"
+msgid "Chat view"
+msgstr "Chattvy"
+
+#: ui/help-overlay.ui:189
+msgctxt "shortcut window"
+msgid "Write on a new line"
+msgstr "Skriv på en ny rad"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
@@ -1026,195 +608,423 @@ msgstr "Återvänd"
 msgid "Set selection as image"
 msgstr "Ange markerat som bild"
 
-#: src/pluginsettingsview.cpp:127 src/generalsettingsview.cpp:234
-#: src/avatarmanipulation.cpp:437 src/accountcreationwizard.cpp:873
-#: src/chatview.cpp:284 src/newaccountsettingsview.cpp:911
-msgid "_Cancel"
-msgstr "_Avbryt"
+#: ui/profile.ui:58
+msgid "Informations"
+msgstr "Information"
 
-#: src/pluginsettingsview.cpp:129 src/avatarmanipulation.cpp:439
-#: src/chatview.cpp:286
-msgid "_Open"
-msgstr "_Öppna"
+#: ui/profile.ui:153
+msgid "QR Code"
+msgstr "QR-kod"
 
-#: src/pluginsettingsview.cpp:185
+#: ui/accountcreationwizard.ui:42
+msgid "Welcome to"
+msgstr "Välkommen till"
+
+#: ui/accountcreationwizard.ui:76
+msgid "Create a Jami account"
+msgstr "Skapa ett Jami-konto"
+
+#: ui/accountcreationwizard.ui:77
+msgid "Create a new Jami account on this device (for new users)"
+msgstr "Skapa ett nytt Jami-konto på denna enhet (för nya användare)"
+
+#: ui/accountcreationwizard.ui:84
+msgid "Create a rendezvous point"
+msgstr "Skapa en mötesplats"
+
+#: ui/accountcreationwizard.ui:85
+msgid "Create a Rendezvous point"
+msgstr "Skapa en mötesplats"
+
+#: ui/accountcreationwizard.ui:92
+msgid "Link this device to an existing account"
+msgstr "Koppla den här enheten till ett befintligt konto"
+
+#: ui/accountcreationwizard.ui:93
+msgid "Import an account with your PIN generated on another device"
+msgstr "Importera ett konto med din PIN-kod, som skapats på en annan enhet."
+
+#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:696
+msgid "Restore an account from backup"
+msgstr "Återställ ett konto från en säkerhetskopia"
+
+#: ui/accountcreationwizard.ui:101
+msgid "Import an account via your archive"
+msgstr "Importera ett konto via ditt kontoarkiv"
+
+#: ui/accountcreationwizard.ui:108
+msgid "Advanced features"
+msgstr "Avancerade funktioner"
+
+#: ui/accountcreationwizard.ui:119
+msgid "Connect to a JAMS server"
+msgstr "Anslut till en JAMS-server"
+
+#: ui/accountcreationwizard.ui:120
+msgid "Get your account via your credentials."
+msgstr "Hämta ditt konto via dina inloggningsuppgifter."
+
+#: ui/accountcreationwizard.ui:127
+msgid "Add a SIP account"
+msgstr "Lägg till ett SIP-konto"
+
+#: ui/accountcreationwizard.ui:199
+msgid "Archive"
+msgstr "Arkiv"
+
+#: ui/accountcreationwizard.ui:205 ui/accountcreationwizard.ui:334
+msgid "Informations."
+msgstr "Information."
+
+#: ui/accountcreationwizard.ui:258
 msgid ""
-"Warning! This action will uninstall the plugin!\n"
-"Note: this action cannot be undone."
-msgstr "Varning! Denna åtgärd avinstallerar insticksmodulen!\nNotera att åtgärden inte kan ångras."
+"You can obtain an archive by clicking on \"Backup account\" in the account "
+"settings. This will create a .gz file on your device."
+msgstr "Du kan få ett arkiv genom att klicka på \"Säkerhetskopiera konto\" i kontoinställningarna. Det kommer att skapa en .gz-fil på din enhet."
 
-#: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
-msgid "Uninstall Plugin"
-msgstr "Avinstallera insticksmodul"
+#: ui/accountcreationwizard.ui:328
+msgid "PIN"
+msgstr "PIN-kod"
 
-#: src/pluginsettingsview.cpp:268
-msgid "Load/Unload Plugin"
-msgstr "Aktivera/Avaktivera insticksmodul"
-
-#: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
-msgid "Register this username on the name server"
-msgstr "Registrera detta namn i namnservern"
-
-#: src/usernameregistrationbox.cpp:172
-msgid "Username already taken"
-msgstr "Användarnamnet finns redan"
-
-#: src/usernameregistrationbox.cpp:179
-msgid "Invalid username"
-msgstr "Ogiltigt användarnamn"
-
-#: src/usernameregistrationbox.cpp:193
-msgid "Lookup unavailable, check your network connection"
-msgstr "Sök efter ej tillgängliga, kontrollera din nätverksanslutning"
-
-#: src/usernameregistrationbox.cpp:273
-msgid "Performing lookup…"
-msgstr "Utför uppslagning..."
-
-#: src/usernameregistrationbox.cpp:324
-msgid "Enter the password of your Jami account"
-msgstr "Ange lösenordet för ditt Jami-konto"
-
-#: src/usernameregistrationbox.cpp:356
-msgid "Registration in progress…"
-msgstr "Registrering pågår..."
-
-#: src/usernameregistrationbox.cpp:375
-msgid "Name registration Error"
-msgstr "Namnregistreringsfel"
-
-#: src/usernameregistrationbox.cpp:434
+#: ui/accountcreationwizard.ui:390
 msgid ""
-"Unable to register name (Invalid name). Your username should contains "
-"between 3 and 32 alphanumerics characters (or underscore)."
-msgstr "Kan inte registrera namnet (ogiltigt namn). Ditt användarnamn skall innehåll mellan 3 och 32 alfanumeriska tecken (eller understreck)."
+"Enter the PIN from another configured Jami account. Use the \"Link Another "
+"Device\" feature to obtain a PIN."
+msgstr "Ange PIN-koden från ett annat konfigurerat Jami-konto. Använd \"Koppla en annan enhet\", för att få din PIN-kod."
 
-#: src/usernameregistrationbox.cpp:438
-msgid "Unable to register name (Wrong password)."
-msgstr "Kan inte registrera namnet (fel lösenord)."
+#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
+#: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
+msgid "Back"
+msgstr "Tillbaka"
 
-#: src/usernameregistrationbox.cpp:442
-msgid "Unable to register name (Username already taken)."
-msgstr "Kan inte registrera namnet  (användarnamnet upptaget)."
+#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1058
+msgid "Register username"
+msgstr "Registrera användarnamn"
 
-#: src/usernameregistrationbox.cpp:446
-msgid "Unable to register name (Network error) - check your connection."
-msgstr "Kan inte registrera namnet (nätverksfel). Kontrollera din anslutning."
-
-#: src/generalsettingsview.cpp:161
+#: ui/accountcreationwizard.ui:568
 msgid ""
-"This is a destructive operation. Are you sure you want to delete all of your"
-" chat and call history?"
-msgstr "Detta är en destruktiv åtgärd. Vill du verkligen ta bort all din chatt- och samtalshistorik?"
+"By checking this, you will register a unique username on the Jami network. "
+"People can use it to contact you instead of using your ID, which is 40 "
+"characters long."
+msgstr "Genom att aktivera detta, registrerar du ett unikt användarnamn på Jami-nätverket. Människor kan använda det för att kontakta dig, istället för att använda ditt ID, som är 40 tecken långt."
 
-#: src/generalsettingsview.cpp:231
-msgid "Choose download folder"
-msgstr "Välj nerladdningsmapp"
+#: ui/accountcreationwizard.ui:630
+msgid "Encrypt account with password"
+msgstr "Kryptera kontot med lösenord"
 
-#: src/generalsettingsview.cpp:236 src/accountcreationwizard.cpp:875
-#: src/chatview.cpp:286 src/newaccountsettingsview.cpp:913
-msgid "_Save"
-msgstr "_Spara"
-
-#: src/welcomeview.cpp:93
+#: ui/accountcreationwizard.ui:631
 msgid ""
-"This is your Jami username.\n"
-"Copy and share it with your friends!"
-msgstr "Detta är ditt Jami-användarnamn.\nKopiera och dela det med dina vänner!"
+"Choose a password to encrypt your account on this device.  Note that the "
+"password cannot be recovered."
+msgstr "Välj ett lösenord för att kryptera ditt konto på enheten. Notera att lösenordet inte kan återställas."
 
-#: src/welcomeview.cpp:101
+#: ui/accountcreationwizard.ui:658
 msgid ""
-"This is your ID.\n"
-"Copy and share it with your friends!"
-msgstr "Detta är ditt ID.\nKopiera och dela det med dina vänner!"
+"Choose a password to encrypt your account on this device.\n"
+"Note that the password cannot be recovered."
+msgstr "Välj ett lösenord för att kryptera ditt konto på enheten.\nNotera att lösenordet inte kan återställas."
 
-#: src/welcomeview.cpp:213
+#: ui/accountcreationwizard.ui:686
 msgid ""
-"Jami is free software for universal communication which respects the "
-"freedoms and privacy of its users."
-msgstr "Jami är fri mjukvara för universell kommunikation, med respekt för användarens frihet och integritet."
+"This password will be used to encrypt your account data and to link new "
+"devices to your account."
+msgstr "Detta lösenord kommer att användas för att kryptera din kontodata och för att länka nya enheter till ditt konto."
 
-#: src/notifier.cpp:349
-msgctxt ""
-msgid "Open conversation"
-msgstr "Öppna konversation"
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:858
+msgid "Confirm password"
+msgstr "Bekräfta lösenord"
 
-#: src/notifier.cpp:357 src/notifier.cpp:373
-msgctxt ""
+#: ui/accountcreationwizard.ui:772
+msgid "Next"
+msgstr "Nästa"
+
+#: ui/accountcreationwizard.ui:826
+msgid "Backup your account!"
+msgstr "Säkerhetskopiera ditt konto!"
+
+#: ui/accountcreationwizard.ui:842
+msgid ""
+"This account only exists on this device. If you lost your device or "
+"uninstall the application, your account will be deleted. You can backup your"
+" account now or later."
+msgstr "Detta konto finns bara på denna enhet. Om du förlorar din enhet eller avinstallerar programmet, kommer ditt konto att raderas. Du kan säkerhetskopiera ditt konto nu eller senare."
+
+#: ui/accountcreationwizard.ui:849
+msgid "Never show me this again"
+msgstr "Visa inte detta igen"
+
+#: ui/accountcreationwizard.ui:873
+msgid "Skip"
+msgstr "Hopa över"
+
+#: ui/accountcreationwizard.ui:899
+msgid "Registering username…"
+msgstr "Registrerar användarnamn..."
+
+#: ui/accountcreationwizard.ui:906
+msgid "This may take a few minutes."
+msgstr "Detta kan ta några få minuter."
+
+#: ui/accountcreationwizard.ui:932
+msgid "Retrieving your Jami account…"
+msgstr "Hämtar ditt Jami-konto..."
+
+#: ui/accountcreationwizard.ui:998
+msgid "Enter Jami Account Management Server (JAMS) URL"
+msgstr "Ange URL till Jami Account Management Server (JAMS)"
+
+#: ui/accountcreationwizard.ui:1043
+msgid "JAMS URL"
+msgstr "JAMS URL"
+
+#: ui/accountcreationwizard.ui:1068
+msgid "Enter your JAMS credentials"
+msgstr "Ange dina Jams-inloggningsdata"
+
+#: ui/accountcreationwizard.ui:1167
+msgid "Connect"
+msgstr "Anslut"
+
+#: ui/accountcreationwizard.ui:1195
+msgid "Configure an existing SIP account"
+msgstr "Konfigurera ett befintligt SIP-konto"
+
+#: ui/accountcreationwizard.ui:1240
+msgid "Server"
+msgstr "Server"
+
+#: ui/accountcreationwizard.ui:1385
+msgid "Create SIP account"
+msgstr "Skapa SIP-konto"
+
+#: ui/generalsettingsview.ui:58
+msgid "System"
+msgstr "System"
+
+#: ui/generalsettingsview.ui:96
+msgid "Start application on login"
+msgstr "Starta programmet vid inloggning"
+
+#: ui/generalsettingsview.ui:132
+msgid "Keep Jami active when window is closed."
+msgstr "Håll Jami igång när fönstret stängs."
+
+#: ui/generalsettingsview.ui:168
+msgid "Bring Jami to the foreground on incoming calls"
+msgstr "Ta fram Jami till förgrunden vid inkommande samtal"
+
+#: ui/generalsettingsview.ui:204
+msgid "Notifications"
+msgstr "Aviseringar"
+
+#: ui/generalsettingsview.ui:243
+msgid "Enable notifications for incoming calls"
+msgstr "Aktivera avisering för inkommande samtal"
+
+#: ui/generalsettingsview.ui:279
+msgid "Enable notifications for pending requests"
+msgstr "Aktivera avisering för väntande förfrågningar"
+
+#: ui/generalsettingsview.ui:315
+msgid "Enable notifications for new chat messages"
+msgstr "Aktivera avisering för nya chattmeddelanden"
+
+#: ui/generalsettingsview.ui:351
+msgid "Chatview"
+msgstr "Chattvy"
+
+#: ui/generalsettingsview.ui:390
+msgid "Show typing indications"
+msgstr "Visa skrivindikering"
+
+#: ui/generalsettingsview.ui:426
+msgid "Display images and videos into the chatview"
+msgstr "Visa bilder och filmer i chattfönstret"
+
+#: ui/generalsettingsview.ui:463
+msgid "Show chatview on the right (on the bottom if off)"
+msgstr "Visa chatten till höger (i underkant om av)"
+
+#: ui/generalsettingsview.ui:500
+msgid "Download folder"
+msgstr "Nerladdningsmapp"
+
+#: ui/generalsettingsview.ui:537
+msgid "History"
+msgstr "Historik"
+
+#: ui/generalsettingsview.ui:576
+msgid "Keep history for (days, 0 = unlimited)"
+msgstr "Spara historiken i (dagar, 0 = obegränsat)"
+
+#: ui/generalsettingsview.ui:606
+msgid "Clear all history"
+msgstr "Rensa all historik"
+
+#: ui/generalsettingsview.ui:638
+msgid "Call Recording"
+msgstr "Samtalsinspelning"
+
+#: ui/generalsettingsview.ui:676
+msgid "Record local video"
+msgstr "Spela in lokal video"
+
+#: ui/generalsettingsview.ui:712
+msgid "Always record calls"
+msgstr "Spela alltid in samtal"
+
+#: ui/generalsettingsview.ui:749
+msgid "Record folder"
+msgstr "Inspelningsmapp"
+
+#: ui/generalsettingsview.ui:786
+msgid "Bitrate for call recordings (kb/s)"
+msgstr "Bithastighet för inspelningar (kb/s)"
+
+#: ui/generalsettingsview.ui:824
+msgid "File transfer"
+msgstr "Filöverföring"
+
+#: ui/generalsettingsview.ui:862
+msgid "Allow incoming files from unknown contacts"
+msgstr "Tillåt inkommande filer från okända kontakter"
+
+#: ui/generalsettingsview.ui:899
+msgid "Automatically accept incoming files"
+msgstr "Acceptera inkommande filer automatiskt"
+
+#: ui/generalsettingsview.ui:937
+msgid "Accept transfer below (in Mb, 0 = unlimited)"
+msgstr "Acceptera överföring mindre än (i Mb, 0 = obegränsat)"
+
+#: ui/usernameregistrationbox.ui:28
+msgid "register username"
+msgstr "Registrera användarnamn"
+
+#: ui/incomingcallview.ui:99
+msgid "Incoming…"
+msgstr "Inkommande..."
+
+#: ui/incomingcallview.ui:152
 msgid "Accept"
 msgstr "Acceptera"
 
-#: src/notifier.cpp:364
-msgctxt ""
-msgid "Refuse"
-msgstr "Neka"
-
-#: src/notifier.cpp:380
-msgctxt ""
-msgid "Decline"
+#: ui/incomingcallview.ui:172
+msgid "Reject"
 msgstr "Avslå"
 
-#: src/video/video_widget.cpp:414
-msgid "Hangup"
-msgstr "Lägg på"
+#: ui/currentcallview.ui:284
+msgid "End this call"
+msgstr "Avsluta samtalet"
 
-#: src/video/video_widget.cpp:429
-msgid "Maximize"
-msgstr "Maximera"
+#: ui/currentcallview.ui:288 ui/currentcallview.ui:581
+msgid "End call"
+msgstr "Avsluta samtal"
 
-#: src/video/video_widget.cpp:444
-msgid "Minimize"
-msgstr "Minimera"
+#: ui/currentcallview.ui:308 ui/currentcallview.ui:554
+msgid "Add participant"
+msgstr "Lägg till deltagare"
 
-#: src/video/video_widget.cpp:497
-msgid "More options"
-msgstr "Fler alternativ"
+#: ui/currentcallview.ui:327
+msgid "Toggle transfer"
+msgstr "Överföring av/på"
 
-#: src/video/video_widget.cpp:868
-msgid "Share _screen area"
-msgstr "Dela _skärmområde"
+#: ui/currentcallview.ui:346
+msgid "Toggle hold"
+msgstr "Växla parkeringsstatus"
 
-#: src/video/video_widget.cpp:876
-msgid "Share _monitor"
-msgstr "Dela _hela skärmen"
+#: ui/currentcallview.ui:350 ui/currentcallview.ui:375
+#: ui/currentcallview.ui:545
+msgid "Hold"
+msgstr "Parkera"
 
-#: src/video/video_widget.cpp:883
-msgid "Stream _file"
-msgstr "Strömma _fil"
+#: ui/currentcallview.ui:371
+msgid "Toggle mute audio"
+msgstr "Växla ljudstatus"
 
-#: src/video/video_widget.cpp:893
-msgid "Show advanced information"
-msgstr "Visa avancerad information"
+#: ui/currentcallview.ui:396
+msgid "Toggle mute video"
+msgstr "Växla videostatus"
 
-#: src/avatarmanipulation.cpp:434
-msgid "Open Avatar Image"
-msgstr "Öppna avatarbild"
+#: ui/currentcallview.ui:400 ui/currentcallview.ui:536
+msgid "Mute video"
+msgstr "Pausa video"
 
-#: src/messagingwidget.cpp:223
-msgid "Contact appears to be busy. Leave a message ?"
-msgstr "Kontakten verkar upptagen. Vill du lämna ett meddelande?"
+#: ui/currentcallview.ui:421
+msgid "Toggle recording"
+msgstr "Inspelning av/på"
 
-#: src/messagingwidget.cpp:245
-msgid "Stop recording"
-msgstr "Sluta spela in"
+#: ui/currentcallview.ui:464
+msgid "Adjust outgoing video quality"
+msgstr "Justera utgående videokvalitet"
 
-#: src/messagingwidget.cpp:259
-msgid "Send recorded message"
-msgstr "Skicka inspelat meddelande"
+#: ui/currentcallview.ui:469 ui/currentcallview.ui:590
+msgid "Video quality"
+msgstr "Videokvalitet"
 
-#: src/dialogs.cpp:59
-#, c-format
-msgctxt "Do not translate the release name nor the status (beta, final, ...)"
-msgid ""
-"\"%s\"\n"
-"built on %.25s"
-msgstr "\"%s\"\nkompilerat %.25s"
+#: ui/currentcallview.ui:488
+msgid "Toggle show chat"
+msgstr "Visa/Dölj chatt"
 
-#: src/dialogs.cpp:130
-msgid ""
-"The GNOME client for Jami.\n"
-"Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "GNOME-klient för Jami\nJami är fri mjukvara för universell kommunikation, med respekt för användarens frihet och integritet."
+#: ui/currentcallview.ui:492 ui/currentcallview.ui:509
+msgid "Chat"
+msgstr "Chatt"
+
+#: ui/currentcallview.ui:518
+msgid "View"
+msgstr "Visa"
+
+#: ui/currentcallview.ui:527
+msgid "Mute audio"
+msgstr "Pausa ljud"
+
+#: ui/currentcallview.ui:563
+msgid "Activate Plugin"
+msgstr "Aktivera insticksmodul"
+
+#: ui/currentcallview.ui:572
+msgid "Transfer"
+msgstr "Överför"
+
+#: ui/currentcallview.ui:622
+msgid "Transfer to"
+msgstr "Överför till"
+
+#: ui/currentcallview.ui:686
+msgid "Add"
+msgstr "Lägg till"
+
+#: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:124
+msgid "Choose plugin"
+msgstr "Välj insticksmodul"
+
+#: ui/pluginsettingsview.ui:44
+msgid "Plugins"
+msgstr "Insticksmoduler"
+
+#: ui/pluginsettingsview.ui:85
+msgid "Enable plugins"
+msgstr "Aktivera insticksmoduler"
+
+#: ui/pluginsettingsview.ui:128
+msgid "Installed Plugins"
+msgstr "Installerade instcksmoduler"
+
+#: ui/pluginsettingsview.ui:136
+msgid "Install Plugin"
+msgstr "Installera insticksmodul"
+
+#: ui/gearsmenu.ui:7
+msgid "Keyboard _Shortcuts"
+msgstr "Tangentbords_genvägar"
+
+#: ui/gearsmenu.ui:11
+msgid "_About"
+msgstr "­_Om"
+
+#: ui/gearsmenu.ui:17
+msgid "_Quit"
+msgstr "_Avsluta"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
@@ -1230,286 +1040,6 @@ msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
 msgstr "Kunde inte återansluta till Jami-tjänsten (dring).\nJami kommer nu att avslutas."
-
-#: src/client_options.c:66
-msgid "Enable debug"
-msgstr "Aktivera felsökning"
-
-#: src/client_options.c:68
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
-msgstr "Återställer dold status för huvudfönstret (applicerbart endast på primär instans)"
-
-#: src/client_options.c:85
-msgid "- GNOME client for Jami"
-msgstr "- GNOME-klient för Jami"
-
-#: src/conversationpopupmenu.cpp:230
-msgid "Place _video call"
-msgstr "Placera  _videosamtal"
-
-#: src/conversationpopupmenu.cpp:233
-msgid "Place _audio call"
-msgstr "Placera _röstsamtal"
-
-#: src/conversationpopupmenu.cpp:241
-msgid "_Add to conversations"
-msgstr "_Lägg till i konversationer"
-
-#: src/conversationpopupmenu.cpp:245
-msgid "_Discard invitation"
-msgstr "_Avvisa inbjudan"
-
-#: src/conversationpopupmenu.cpp:248
-msgid "_Block invitations"
-msgstr "_Blockera inbjudningar"
-
-#: src/conversationpopupmenu.cpp:253
-msgid "C_lear history"
-msgstr "_Rensa historiken"
-
-#: src/conversationpopupmenu.cpp:256
-msgid "_Remove conversation"
-msgstr "_Ta bort konversation"
-
-#: src/conversationpopupmenu.cpp:262
-msgid "_Block contact"
-msgstr "B_lockera kontakt"
-
-#: src/conversationpopupmenu.cpp:266
-msgid "_Unblock contact"
-msgstr "_Avblockera kontakt"
-
-#: src/conversationpopupmenu.cpp:273
-msgid "_Profile"
-msgstr "_Profil"
-
-#: src/profileview.cpp:130
-msgid "(None)"
-msgstr "(Ingen)"
-
-#: src/accountcreationwizard.cpp:327
-msgid "An error occurred during the account creation."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:331
-msgid "An error occurred during the rendez-vous creation."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:335
-msgid "An error occurred during the SIP account creation."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:339
-msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr "Kan inte hämta något konto, verifiera din PIN-kod och ditt lösenord."
-
-#: src/accountcreationwizard.cpp:343
-msgid ""
-"Cannot retrieve any account, please verify your archive and your password."
-msgstr "Kan inte hämta något konto, verifiera ditt arkiv och ditt lösenord."
-
-#: src/accountcreationwizard.cpp:347
-msgid ""
-"Cannot connect to provided account manager. Please check your credentials."
-msgstr "Kan inte ansluta till kontohanteraren. Kontrollera dina inloggningsuppgifter."
-
-#: src/accountcreationwizard.cpp:536
-msgid "Generating your rendez-vous…"
-msgstr "Skapar ditt möte..."
-
-#: src/accountcreationwizard.cpp:538
-msgid "Generating your Jami account…"
-msgstr "Genererar ditt Jami-konto..."
-
-#: src/accountcreationwizard.cpp:554
-msgid "Passwords don't match"
-msgstr "Lösenorden stämmer inte"
-
-#: src/accountcreationwizard.cpp:675
-msgid "Enter Jami account password"
-msgstr "Ange lösenordet för ditt Jami-konto"
-
-#: src/accountcreationwizard.cpp:676
-msgid "Link device"
-msgstr "Koppla enhet"
-
-#: src/accountcreationwizard.cpp:695
-msgid "Import from backup"
-msgstr "Importera från säkerhetskopia"
-
-#: src/accountcreationwizard.cpp:870 src/chatview.cpp:281
-#: src/newaccountsettingsview.cpp:908
-msgid "Save File"
-msgstr "Spara fil"
-
-#: src/accountcreationwizard.cpp:899 src/newaccountsettingsview.cpp:935
-msgid "You need to enter your password to export the full archive."
-msgstr "Du måste ange ditt lösenord för att exportera hela arkivet."
-
-#: src/accountcreationwizard.cpp:900 src/newaccountsettingsview.cpp:936
-msgid "Enter password to export archive"
-msgstr "Ange lösenord för att exportera arkivet"
-
-#: src/accountcreationwizard.cpp:923 src/newaccountsettingsview.cpp:959
-msgid "Account exported!"
-msgstr "Konto exporterat!"
-
-#: src/accountcreationwizard.cpp:923 src/newaccountsettingsview.cpp:959
-msgid "Export account failure."
-msgstr "Kontoexport misslyckades."
-
-#: src/accountcreationwizard.cpp:1089
-msgid "Register name"
-msgstr "Registrera namn"
-
-#: src/accountcreationwizard.cpp:1090
-msgid "Name"
-msgstr "Namn"
-
-#: src/mainwindow.cpp:198
-msgid "Add account…"
-msgstr "Lägg till konto..."
-
-#: src/mainwindow.cpp:916
-msgctxt "button next to search entry will place a new call"
-msgid "place call"
-msgstr "Placera samtal"
-
-#: src/mainwindow.cpp:919
-msgctxt "button next to search entry will open chat"
-msgid "open chat"
-msgstr "Öppna chatt"
-
-#: src/mainwindow.cpp:1152
-msgid "Jami - Migration needed"
-msgstr "Jami - Migrering behövs"
-
-#: src/mainwindow.cpp:1168
-msgid "Migration in progress... please do not close this window."
-msgstr "Migrering pågår... stäng inte detta fönster."
-
-#: src/mainwindow.cpp:1452
-msgctxt ""
-"Please try to make the translation 50 chars or less so that it fits into the"
-" layout"
-msgid "Find or start a conversation"
-msgstr "Hitta eller starta en konversation"
-
-#: src/mainwindow.cpp:1913
-msgid "Leave settings page"
-msgstr "Lämna inställningssidan"
-
-#: src/mainwindow.cpp:2336
-msgid "Missed call from "
-msgstr "Missat samtal från"
-
-#: src/mainwindow.cpp:2340
-msgid "Missed call"
-msgstr "Missat samtal"
-
-#: src/mainwindow.cpp:2357
-msgid "There are active calls"
-msgstr "Det finns aktiva samtal"
-
-#: src/mainwindow.cpp:2413
-msgid " is calling you!"
-msgstr " ringer dig!"
-
-#: src/mainwindow.cpp:2416
-msgid "Incoming call"
-msgstr "Inkommande samtal"
-
-#: src/mainwindow.cpp:2573
-msgid "New request from "
-msgstr "Ny förfrågan från"
-
-#: src/mainwindow.cpp:2576
-msgid "Trust request"
-msgstr "Lita på begäran"
-
-#: src/mainwindow.cpp:2638
-msgid "New message"
-msgstr "Nytt meddelande"
-
-#: src/mainwindow.cpp:2690
-msgid "Stop current call?"
-msgstr "Vill du stoppa aktuellt samtal?"
-
-#: src/mainwindow.cpp:2691
-msgid ""
-"A call is currently ongoing. Do you want to close the window and stop all "
-"current calls?"
-msgstr "Det finns ett pågående samtal. Vill du stänga fönstret och stoppa alla aktuella samtal?"
-
-#: src/mainwindow.cpp:2758
-msgid "Clear history"
-msgstr "Rensa historik"
-
-#: src/mainwindow.cpp:2759
-msgid "Do you really want to clear the history of this conversation?"
-msgstr "Vill du verkligen ta bort historiken för den här konversationen?"
-
-#: src/mainwindow.cpp:2774
-msgid "Remove conversation"
-msgstr "Ta bort konversationen"
-
-#: src/mainwindow.cpp:2775
-msgid "Do you really want to remove this conversation?"
-msgstr "Vill du verkligen ta bort den här konversationen?"
-
-#: src/mainwindow.cpp:2790
-msgid "Block contact"
-msgstr "Blockera kontakt"
-
-#: src/mainwindow.cpp:2791
-msgid "Do you really want to block this contact?"
-msgstr "Vill du verkligen blockera den här kontakten?"
-
-#: src/chatview.cpp:281
-msgid "Send File"
-msgstr "Skicka fil"
-
-#: src/chatview.cpp:338
-msgid "Retry"
-msgstr "Försök igen"
-
-#: src/chatview.cpp:501
-msgid "Stop"
-msgstr "Stopp"
-
-#: src/chatview.cpp:996
-msgid "Send"
-msgstr "Skicka"
-
-#: src/client.cpp:115
-#, c-format
-msgid ""
-"Unable to initialize.\n"
-"Make sure the Jami daemon (dring) is running.\n"
-"Error: %s"
-msgstr "Kan inte starta.\nTillse att Jami-tjänsten (dring) körs.\nFel: %s"
-
-#: src/client.cpp:118
-msgid "Jami Error"
-msgstr "Jami-fel"
-
-#: src/client.cpp:395
-msgctxt ""
-"In the status icon menu, toggle action to show or hide the Jami main window"
-msgid "Show Jami"
-msgstr "Visa Jami"
-
-#: src/client.cpp:399
-msgid "Quit"
-msgstr "Avsluta"
-
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:974
-msgid ""
-"Warning! This action will remove this account on this device!\n"
-"Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr "Varning! Denna åtgärd kommer att ta bort detta konto på denna enhet!\nNotera att åtgärden inte kan ångras och att ditt registrerade användarnamn kan förloras!"
 
 #: src/currentcallview.cpp:1070
 msgid "No name!"
@@ -1535,6 +1065,59 @@ msgstr "Auto"
 #: src/currentcallview.cpp:1755
 msgid "me"
 msgstr "jag"
+
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:974
+msgid ""
+"Warning! This action will remove this account on this device!\n"
+"Note: this action cannot be undone. Also, your registered name can be lost!"
+msgstr "Varning! Denna åtgärd kommer att ta bort detta konto på denna enhet!\nNotera att åtgärden inte kan ångras och att ditt registrerade användarnamn kan förloras!"
+
+#: src/chatview.cpp:281
+msgid "Send File"
+msgstr "Skicka fil"
+
+#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:908
+#: src/accountcreationwizard.cpp:870
+msgid "Save File"
+msgstr "Spara fil"
+
+#: src/chatview.cpp:284 src/generalsettingsview.cpp:234
+#: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:127
+#: src/avatarmanipulation.cpp:437 src/accountcreationwizard.cpp:873
+msgid "_Cancel"
+msgstr "_Avbryt"
+
+#: src/chatview.cpp:286 src/pluginsettingsview.cpp:129
+#: src/avatarmanipulation.cpp:439
+msgid "_Open"
+msgstr "_Öppna"
+
+#: src/chatview.cpp:286 src/generalsettingsview.cpp:236
+#: src/newaccountsettingsview.cpp:913 src/accountcreationwizard.cpp:875
+msgid "_Save"
+msgstr "_Spara"
+
+#: src/chatview.cpp:338
+msgid "Retry"
+msgstr "Försök igen"
+
+#: src/chatview.cpp:501
+msgid "Stop"
+msgstr "Stopp"
+
+#: src/chatview.cpp:996
+msgid "Send"
+msgstr "Skicka"
+
+#: src/generalsettingsview.cpp:161
+msgid ""
+"This is a destructive operation. Are you sure you want to delete all of your"
+" chat and call history?"
+msgstr "Detta är en destruktiv åtgärd. Vill du verkligen ta bort all din chatt- och samtalshistorik?"
+
+#: src/generalsettingsview.cpp:231
+msgid "Choose download folder"
+msgstr "Välj nerladdningsmapp"
 
 #: src/newaccountsettingsview.cpp:605
 msgid ""
@@ -1586,6 +1169,22 @@ msgstr "Aktuellt lösenord"
 #: src/newaccountsettingsview.cpp:852
 msgid "New password"
 msgstr "Nytt lösenord"
+
+#: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:899
+msgid "You need to enter your password to export the full archive."
+msgstr "Du måste ange ditt lösenord för att exportera hela arkivet."
+
+#: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:900
+msgid "Enter password to export archive"
+msgstr "Ange lösenord för att exportera arkivet"
+
+#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
+msgid "Account exported!"
+msgstr "Konto exporterat!"
+
+#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
+msgid "Export account failure."
+msgstr "Kontoexport misslyckades."
 
 #: src/newaccountsettingsview.cpp:1739
 msgid "Exporting account…"
@@ -1646,3 +1245,404 @@ msgstr "Lösenord saknas"
 #: src/newaccountsettingsview.cpp:2132
 msgid "Remove account"
 msgstr "Ta bort konto"
+
+#: src/client.cpp:115
+#, c-format
+msgid ""
+"Unable to initialize.\n"
+"Make sure the Jami daemon (dring) is running.\n"
+"Error: %s"
+msgstr "Kan inte starta.\nTillse att Jami-tjänsten (dring) körs.\nFel: %s"
+
+#: src/client.cpp:118
+msgid "Jami Error"
+msgstr "Jami-fel"
+
+#: src/client.cpp:395
+msgctxt ""
+"In the status icon menu, toggle action to show or hide the Jami main window"
+msgid "Show Jami"
+msgstr "Visa Jami"
+
+#: src/client.cpp:399
+msgid "Quit"
+msgstr "Avsluta"
+
+#: src/video/video_widget.cpp:414
+msgid "Hangup"
+msgstr "Lägg på"
+
+#: src/video/video_widget.cpp:429
+msgid "Maximize"
+msgstr "Maximera"
+
+#: src/video/video_widget.cpp:444
+msgid "Minimize"
+msgstr "Minimera"
+
+#: src/video/video_widget.cpp:497
+msgid "More options"
+msgstr "Fler alternativ"
+
+#: src/video/video_widget.cpp:868
+msgid "Share _screen area"
+msgstr "Dela _skärmområde"
+
+#: src/video/video_widget.cpp:876
+msgid "Share _monitor"
+msgstr "Dela _hela skärmen"
+
+#: src/video/video_widget.cpp:883
+msgid "Stream _file"
+msgstr "Strömma _fil"
+
+#: src/video/video_widget.cpp:893
+msgid "Show advanced information"
+msgstr "Visa avancerad information"
+
+#: src/mainwindow.cpp:200
+msgid "Add account…"
+msgstr "Lägg till konto..."
+
+#: src/mainwindow.cpp:916
+msgctxt "button next to search entry will place a new call"
+msgid "place call"
+msgstr "Placera samtal"
+
+#: src/mainwindow.cpp:919
+msgctxt "button next to search entry will open chat"
+msgid "open chat"
+msgstr "Öppna chatt"
+
+#: src/mainwindow.cpp:1152
+msgid "Jami - Migration needed"
+msgstr "Jami - Migrering behövs"
+
+#: src/mainwindow.cpp:1168
+msgid "Migration in progress... please do not close this window."
+msgstr "Migrering pågår... stäng inte detta fönster."
+
+#: src/mainwindow.cpp:1452
+msgctxt ""
+"Please try to make the translation 50 chars or less so that it fits into the"
+" layout"
+msgid "Find or start a conversation"
+msgstr "Hitta eller starta en konversation"
+
+#: src/mainwindow.cpp:1921
+msgid "Leave settings page"
+msgstr "Lämna inställningssidan"
+
+#: src/mainwindow.cpp:2343
+msgid "Missed call from "
+msgstr "Missat samtal från"
+
+#: src/mainwindow.cpp:2347
+msgid "Missed call"
+msgstr "Missat samtal"
+
+#: src/mainwindow.cpp:2364
+msgid "There are active calls"
+msgstr "Det finns aktiva samtal"
+
+#: src/mainwindow.cpp:2434
+msgid " is calling you!"
+msgstr " ringer dig!"
+
+#: src/mainwindow.cpp:2437
+msgid "Incoming call"
+msgstr "Inkommande samtal"
+
+#: src/mainwindow.cpp:2594
+msgid "New request from "
+msgstr "Ny förfrågan från"
+
+#: src/mainwindow.cpp:2597
+msgid "Trust request"
+msgstr "Lita på begäran"
+
+#: src/mainwindow.cpp:2659
+msgid "New message"
+msgstr "Nytt meddelande"
+
+#: src/mainwindow.cpp:2711
+msgid "Stop current call?"
+msgstr "Vill du stoppa aktuellt samtal?"
+
+#: src/mainwindow.cpp:2712
+msgid ""
+"A call is currently ongoing. Do you want to close the window and stop all "
+"current calls?"
+msgstr "Det finns ett pågående samtal. Vill du stänga fönstret och stoppa alla aktuella samtal?"
+
+#: src/mainwindow.cpp:2779
+msgid "Clear history"
+msgstr "Rensa historik"
+
+#: src/mainwindow.cpp:2780
+msgid "Do you really want to clear the history of this conversation?"
+msgstr "Vill du verkligen ta bort historiken för den här konversationen?"
+
+#: src/mainwindow.cpp:2795
+msgid "Remove conversation"
+msgstr "Ta bort konversationen"
+
+#: src/mainwindow.cpp:2796
+msgid "Do you really want to remove this conversation?"
+msgstr "Vill du verkligen ta bort den här konversationen?"
+
+#: src/mainwindow.cpp:2811
+msgid "Block contact"
+msgstr "Blockera kontakt"
+
+#: src/mainwindow.cpp:2812
+msgid "Do you really want to block this contact?"
+msgstr "Vill du verkligen blockera den här kontakten?"
+
+#: src/welcomeview.cpp:93
+msgid ""
+"This is your Jami username.\n"
+"Copy and share it with your friends!"
+msgstr "Detta är ditt Jami-användarnamn.\nKopiera och dela det med dina vänner!"
+
+#: src/welcomeview.cpp:101
+msgid ""
+"This is your ID.\n"
+"Copy and share it with your friends!"
+msgstr "Detta är ditt ID.\nKopiera och dela det med dina vänner!"
+
+#: src/welcomeview.cpp:213
+msgid ""
+"Jami is free software for universal communication which respects the "
+"freedoms and privacy of its users."
+msgstr "Jami är fri mjukvara för universell kommunikation, med respekt för användarens frihet och integritet."
+
+#: src/client_options.c:66
+msgid "Enable debug"
+msgstr "Aktivera felsökning"
+
+#: src/client_options.c:68
+msgid ""
+"Restores the hidden state of the main window (only applicable to the primary"
+" instance)"
+msgstr "Återställer dold status för huvudfönstret (applicerbart endast på primär instans)"
+
+#: src/client_options.c:85
+msgid "- GNOME client for Jami"
+msgstr "- GNOME-klient för Jami"
+
+#: src/notifier.cpp:349
+msgctxt ""
+msgid "Open conversation"
+msgstr "Öppna konversation"
+
+#: src/notifier.cpp:357 src/notifier.cpp:373
+msgctxt ""
+msgid "Accept"
+msgstr "Acceptera"
+
+#: src/notifier.cpp:364
+msgctxt ""
+msgid "Refuse"
+msgstr "Neka"
+
+#: src/notifier.cpp:380
+msgctxt ""
+msgid "Decline"
+msgstr "Avslå"
+
+#: src/pluginsettingsview.cpp:185
+msgid ""
+"Warning! This action will uninstall the plugin!\n"
+"Note: this action cannot be undone."
+msgstr "Varning! Denna åtgärd avinstallerar insticksmodulen!\nNotera att åtgärden inte kan ångras."
+
+#: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
+msgid "Uninstall Plugin"
+msgstr "Avinstallera insticksmodul"
+
+#: src/pluginsettingsview.cpp:268
+msgid "Load/Unload Plugin"
+msgstr "Aktivera/Avaktivera insticksmodul"
+
+#: src/profileview.cpp:130
+msgid "(None)"
+msgstr "(Ingen)"
+
+#: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
+msgid "Register this username on the name server"
+msgstr "Registrera detta namn i namnservern"
+
+#: src/usernameregistrationbox.cpp:172
+msgid "Username already taken"
+msgstr "Användarnamnet finns redan"
+
+#: src/usernameregistrationbox.cpp:179
+msgid "Invalid username"
+msgstr "Ogiltigt användarnamn"
+
+#: src/usernameregistrationbox.cpp:193
+msgid "Lookup unavailable, check your network connection"
+msgstr "Sök efter ej tillgängliga, kontrollera din nätverksanslutning"
+
+#: src/usernameregistrationbox.cpp:273
+msgid "Performing lookup…"
+msgstr "Utför uppslagning..."
+
+#: src/usernameregistrationbox.cpp:324
+msgid "Enter the password of your Jami account"
+msgstr "Ange lösenordet för ditt Jami-konto"
+
+#: src/usernameregistrationbox.cpp:356
+msgid "Registration in progress…"
+msgstr "Registrering pågår..."
+
+#: src/usernameregistrationbox.cpp:375
+msgid "Name registration Error"
+msgstr "Namnregistreringsfel"
+
+#: src/usernameregistrationbox.cpp:434
+msgid ""
+"Unable to register name (Invalid name). Your username should contains "
+"between 3 and 32 alphanumerics characters (or underscore)."
+msgstr "Kan inte registrera namnet (ogiltigt namn). Ditt användarnamn skall innehåll mellan 3 och 32 alfanumeriska tecken (eller understreck)."
+
+#: src/usernameregistrationbox.cpp:438
+msgid "Unable to register name (Wrong password)."
+msgstr "Kan inte registrera namnet (fel lösenord)."
+
+#: src/usernameregistrationbox.cpp:442
+msgid "Unable to register name (Username already taken)."
+msgstr "Kan inte registrera namnet  (användarnamnet upptaget)."
+
+#: src/usernameregistrationbox.cpp:446
+msgid "Unable to register name (Network error) - check your connection."
+msgstr "Kan inte registrera namnet (nätverksfel). Kontrollera din anslutning."
+
+#: src/messagingwidget.cpp:223
+msgid "Contact appears to be busy. Leave a message ?"
+msgstr "Kontakten verkar upptagen. Vill du lämna ett meddelande?"
+
+#: src/messagingwidget.cpp:245
+msgid "Stop recording"
+msgstr "Sluta spela in"
+
+#: src/messagingwidget.cpp:259
+msgid "Send recorded message"
+msgstr "Skicka inspelat meddelande"
+
+#: src/dialogs.cpp:59
+#, c-format
+msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+msgid ""
+"\"%s\"\n"
+"built on %.25s"
+msgstr "\"%s\"\nkompilerat %.25s"
+
+#: src/dialogs.cpp:130
+msgid ""
+"The GNOME client for Jami.\n"
+"Jami is free software for universal communication which respects the freedoms and privacy of its users."
+msgstr "GNOME-klient för Jami\nJami är fri mjukvara för universell kommunikation, med respekt för användarens frihet och integritet."
+
+#: src/conversationpopupmenu.cpp:225
+msgid "Place _video call"
+msgstr "Placera  _videosamtal"
+
+#: src/conversationpopupmenu.cpp:228
+msgid "Place _audio call"
+msgstr "Placera _röstsamtal"
+
+#: src/conversationpopupmenu.cpp:236
+msgid "_Add to conversations"
+msgstr "_Lägg till i konversationer"
+
+#: src/conversationpopupmenu.cpp:240
+msgid "_Discard invitation"
+msgstr "_Avvisa inbjudan"
+
+#: src/conversationpopupmenu.cpp:243
+msgid "_Block invitations"
+msgstr "_Blockera inbjudningar"
+
+#: src/conversationpopupmenu.cpp:248
+msgid "C_lear history"
+msgstr "_Rensa historiken"
+
+#: src/conversationpopupmenu.cpp:251
+msgid "_Remove conversation"
+msgstr "_Ta bort konversation"
+
+#: src/conversationpopupmenu.cpp:257
+msgid "_Block contact"
+msgstr "B_lockera kontakt"
+
+#: src/conversationpopupmenu.cpp:261
+msgid "_Unblock contact"
+msgstr "_Avblockera kontakt"
+
+#: src/conversationpopupmenu.cpp:268
+msgid "_Profile"
+msgstr "_Profil"
+
+#: src/avatarmanipulation.cpp:434
+msgid "Open Avatar Image"
+msgstr "Öppna avatarbild"
+
+#: src/accountcreationwizard.cpp:327
+msgid "An error occurred during the account creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:331
+msgid "An error occurred during the rendez-vous creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:335
+msgid "An error occurred during the SIP account creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:339
+msgid "Cannot retrieve any account, please verify your PIN and your password."
+msgstr "Kan inte hämta något konto, verifiera din PIN-kod och ditt lösenord."
+
+#: src/accountcreationwizard.cpp:343
+msgid ""
+"Cannot retrieve any account, please verify your archive and your password."
+msgstr "Kan inte hämta något konto, verifiera ditt arkiv och ditt lösenord."
+
+#: src/accountcreationwizard.cpp:347
+msgid ""
+"Cannot connect to provided account manager. Please check your credentials."
+msgstr "Kan inte ansluta till kontohanteraren. Kontrollera dina inloggningsuppgifter."
+
+#: src/accountcreationwizard.cpp:536
+msgid "Generating your rendez-vous…"
+msgstr "Skapar ditt möte..."
+
+#: src/accountcreationwizard.cpp:538
+msgid "Generating your Jami account…"
+msgstr "Genererar ditt Jami-konto..."
+
+#: src/accountcreationwizard.cpp:554
+msgid "Passwords don't match"
+msgstr "Lösenorden stämmer inte"
+
+#: src/accountcreationwizard.cpp:675
+msgid "Enter Jami account password"
+msgstr "Ange lösenordet för ditt Jami-konto"
+
+#: src/accountcreationwizard.cpp:676
+msgid "Link device"
+msgstr "Koppla enhet"
+
+#: src/accountcreationwizard.cpp:695
+msgid "Import from backup"
+msgstr "Importera från säkerhetskopia"
+
+#: src/accountcreationwizard.cpp:1089
+msgid "Register name"
+msgstr "Registrera namn"
+
+#: src/accountcreationwizard.cpp:1090
+msgid "Name"
+msgstr "Namn"
