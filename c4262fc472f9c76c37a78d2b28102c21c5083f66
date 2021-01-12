@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c86e7ef_a6617451",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-01-12T15:03:12Z",
+      "side": 1,
+      "message": "unnecessary parathesis",
+      "revId": "c4262fc472f9c76c37a78d2b28102c21c5083f66",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33ea6091_274cb803",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-01-12T15:03:12Z",
+      "side": 1,
+      "message": "must be freed.Please check asan output ;)",
+      "range": {
+        "startLine": 185,
+        "startChar": 5,
+        "endLine": 185,
+        "endChar": 15
+      },
+      "revId": "c4262fc472f9c76c37a78d2b28102c21c5083f66",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6b35bb6_890cc1ff",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-01-12T15:03:12Z",
+      "side": 1,
+      "message": "can be removed",
+      "range": {
+        "startLine": 589,
+        "startChar": 0,
+        "endLine": 594,
+        "endChar": 9
+      },
+      "revId": "c4262fc472f9c76c37a78d2b28102c21c5083f66",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5a5ad62_a517cc3a",
+        "filename": "src/currentcallview.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-01-12T15:03:12Z",
+      "side": 1,
+      "message": "can be removed if unnecessary",
+      "range": {
+        "startLine": 769,
+        "startChar": 13,
+        "endLine": 773,
+        "endChar": 9
+      },
+      "revId": "c4262fc472f9c76c37a78d2b28102c21c5083f66",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
