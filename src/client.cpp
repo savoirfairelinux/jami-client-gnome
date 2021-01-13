@@ -362,6 +362,21 @@ on_close_window(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, Client *client
     }
 }
 
+void
+on_main_window_urgency_changed(GtkWidget *, gboolean urgent, Client *client)
+{
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
+
+#if HAVE_APPINDICATOR
+    if (urgent)
+        app_indicator_set_status((AppIndicator *) priv->systray_icon,
+                                 APP_INDICATOR_STATUS_ATTENTION);
+    else
+        app_indicator_set_status((AppIndicator *) priv->systray_icon,
+                                 APP_INDICATOR_STATUS_ACTIVE);
+#endif
+}
+
 #if !HAVE_APPINDICATOR
 
 static void
@@ -408,9 +423,16 @@ init_systray(Client *client)
     auto indicator = app_indicator_new("jami", "jami", APP_INDICATOR_CATEGORY_COMMUNICATIONS);
     app_indicator_set_status(indicator, APP_INDICATOR_STATUS_ACTIVE);
     app_indicator_set_title(indicator, JAMI_CLIENT_NAME);
+    app_indicator_set_attention_icon_full(indicator, "jami-new", _("Jami needs your attention"));
     /* app indicator requires a menu */
     app_indicator_set_menu(indicator, GTK_MENU(priv->icon_menu));
     priv->systray_icon = indicator;
+    g_signal_connect(priv->win, "main-window-urgency-changed",
+                     G_CALLBACK(on_main_window_urgency_changed),
+                     client);
+    on_main_window_urgency_changed(priv->win,
+                                   main_window_get_urgency(MAIN_WINDOW(priv->win)),
+                                   client);
 #else
     GError *error = NULL;
     GdkPixbuf* icon = gdk_pixbuf_new_from_resource("/net/jami/JamiGnome/jami-symbol-blue", &error);
