@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d153a255_8cf33ffd",
+        "filename": "src/mainwindow.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2506,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2021-01-13T22:11:13Z",
+      "side": 1,
+      "message": "I understand that as of now, doing this will result in urgency being set to true for an incoming new call, but if it is missed then it will not be automatically updated when the user sees the missed incoming call message, because the missed call message is already marked as read and so an update will not be triggered.  I\u0027m told this will be fixed by swarm, but in the meantime, I\u0027m open to suggestions for other ways of handling it if they are not *too* terribly hacky.",
+      "range": {
+        "startLine": 2506,
+        "startChar": 8,
+        "endLine": 2506,
+        "endChar": 28
+      },
+      "revId": "2382fad67ad01c2db729a0c7c86bdd4e67972efe",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
