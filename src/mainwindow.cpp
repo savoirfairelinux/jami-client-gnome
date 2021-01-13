@@ -129,6 +129,7 @@ struct MainWindowPrivate
 
     GSettings *window_settings;
     bool useDarkTheme {false};
+    bool is_urgent {false};
 
     details::CppImpl* cpp; ///< Non-UI and C++ only code
 
@@ -154,6 +155,14 @@ struct MainWindowPrivate
 G_DEFINE_TYPE_WITH_PRIVATE(MainWindow, main_window, GTK_TYPE_APPLICATION_WINDOW);
 
 #define MAIN_WINDOW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), MAIN_WINDOW_TYPE, MainWindowPrivate))
+
+/* signals */
+enum {
+    URGENCY_CHANGED,
+    LAST_SIGNAL
+};
+
+static guint main_window_signals[LAST_SIGNAL] = { 0 };
 
 //==============================================================================
 
@@ -329,6 +338,7 @@ public:
     void leaveAccountCreationWizard();
     void enterSettingsView();
     void leaveSettingsView();
+    void updateUrgency();
 
     std::string getCurrentUid();
     void forCurrentConversation(const std::function<void(const lrc::api::conversation::Info&)>& func);
@@ -376,6 +386,8 @@ public:
     QMetaObject::Connection filterChangedConnection_;
     QMetaObject::Connection newConversationConnection_;
     QMetaObject::Connection conversationRemovedConnection_;
+    QMetaObject::Connection interactionStatusUpdatedConnection_;
+    QMetaObject::Connection conversationUpdatedConnection_;
     QMetaObject::Connection accountStatusChangedConnection_;
     QMetaObject::Connection profileUpdatedConnection_;
 
@@ -409,6 +421,8 @@ private:
     void slotFilterChanged();
     void slotNewConversation(const std::string& uid);
     void slotConversationRemoved(const std::string& uid);
+    void slotInteractionStatusUpdated(const std::string& convUid);
+    void slotConversationUpdated(const std::string& uid);
     void slotShowChatView(const std::string& id, const std::string& convUid);
     void slotShowLeaveMessageView(const std::string& convUid);
     void slotShowCallView(const std::string& id, const std::string& convUid);
@@ -1515,6 +1529,8 @@ CppImpl::init()
         enterAccountCreationWizard();
     }
 
+    updateUrgency();
+
     widgets->notif_chat_view = g_signal_connect(widgets->notifier, "showChatView",
                                                      G_CALLBACK(on_notification_chat_clicked), self);
     widgets->notif_accept_pending = g_signal_connect(widgets->notifier, "acceptPending",
@@ -1540,6 +1556,8 @@ CppImpl::~CppImpl()
     QObject::disconnect(filterChangedConnection_);
     QObject::disconnect(newConversationConnection_);
     QObject::disconnect(conversationRemovedConnection_);
+    QObject::disconnect(interactionStatusUpdatedConnection_);
+    QObject::disconnect(conversationUpdatedConnection_);
     QObject::disconnect(newAccountConnection_);
     QObject::disconnect(rmAccountConnection_);
     QObject::disconnect(invalidAccountConnection_);
@@ -1969,6 +1987,20 @@ CppImpl::leaveSettingsView()
     }
 }
 
+void
+CppImpl::updateUrgency()
+{
+    auto urgent = lrc_->hasNotifications();
+    auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
+    if (urgent != priv->is_urgent) {
+        g_signal_emit(G_OBJECT(self),
+                      main_window_signals[URGENCY_CHANGED], 0,
+                      urgent);
+        gtk_window_set_urgency_hint(GTK_WINDOW(self), urgent);
+        priv->is_urgent = urgent;
+    }
+}
+
 std::string
 CppImpl::getCurrentUid()
 {
@@ -2031,6 +2063,8 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     QObject::disconnect(filterChangedConnection_);
     QObject::disconnect(newConversationConnection_);
     QObject::disconnect(conversationRemovedConnection_);
+    QObject::disconnect(interactionStatusUpdatedConnection_);
+    QObject::disconnect(conversationUpdatedConnection_);
 
     if (!accountIdToFlagFreeable.empty()) {
         g_debug("Account %s flagged for removal. Mark it freeable.", accountIdToFlagFreeable.c_str());
@@ -2106,6 +2140,21 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     conversationRemovedConnection_ = QObject::connect(&*accountInfo_->conversationModel,
                                                       &lrc::api::ConversationModel::conversationRemoved,
                                                       [this] (const QString& id) { slotConversationRemoved(id.toStdString()); });
+
+    interactionStatusUpdatedConnection_ =
+        QObject::connect(&*accountInfo_->conversationModel,
+                         &lrc::api::ConversationModel::interactionStatusUpdated,
+                         [this] (const QString& convUid, uint64_t msgId,
+                                 lrc::api::interaction::Info msg) {
+                             slotInteractionStatusUpdated(convUid.toStdString());
+                         });
+
+    conversationUpdatedConnection_ =
+        QObject::connect(&*accountInfo_->conversationModel,
+                         &lrc::api::ConversationModel::conversationUpdated,
+                         [this] (const QString& uid) {
+                             slotConversationUpdated(uid.toStdString());
+                         });
 
     showChatViewConnection_ = QObject::connect(&lrc_->getBehaviorController(),
                                                &lrc::api::BehaviorController::showChatView,
@@ -2437,6 +2486,8 @@ CppImpl::slotNewIncomingCall(const std::string& accountId, const std::string& co
                             notifId, _("Incoming call"), body, NotificationType::CALL,
                             conv.uid.toStdString());
         }
+
+        updateUrgency();
     }
 
     if (not accountInfo_ or accountInfo_->id.toStdString() != accountId)
@@ -2506,6 +2557,18 @@ CppImpl::slotConversationRemoved(const std::string& uid)
 
     if (convUid.toStdString() == uid)
         changeView(WELCOME_VIEW_TYPE);
+}
+
+void
+CppImpl::slotInteractionStatusUpdated(const std::string& convUid)
+{
+    updateUrgency();
+}
+
+void
+CppImpl::slotConversationUpdated(const std::string& uid)
+{
+    updateUrgency();
 }
 
 void
@@ -2596,6 +2659,8 @@ CppImpl::slotNewTrustRequest(const std::string& id, const std::string& contactUr
                               avatar.toStdString(), uri.toStdString(), name.toStdString(),
                               notifId, _("Trust request"), body, NotificationType::REQUEST);
         }
+
+        updateUrgency();
     } catch (...) {
         g_warning("Can't get account %s", id.c_str());
     }
@@ -2607,6 +2672,7 @@ CppImpl::slotCloseTrustRequest(const std::string& id, const std::string& contact
     try {
         auto notifId = id + ":request:" + contactUri;
         hide_notification(NOTIFIER(widgets->notifier), notifId);
+        updateUrgency();
     } catch (...) {
         g_warning("Can't get account %s", id.c_str());
     }
@@ -2658,6 +2724,8 @@ CppImpl::slotNewInteraction(const std::string& accountId, const std::string& con
                                       avatar.toStdString(), uri.toStdString(), name.toStdString(),
                                       notifId, _("New message"), body.toStdString(), NotificationType::CHAT);
                 }
+
+                updateUrgency();
             }
         }
     } catch (...) {
@@ -2679,6 +2747,7 @@ CppImpl::slotCloseInteraction(const std::string& accountId, const std::string& c
     } catch (...) {
         g_warning("Can't get account %s", accountId.c_str());
     }
+    updateUrgency();
 }
 
 void
@@ -2730,6 +2799,13 @@ main_window_search(MainWindow *win)
     g_return_if_fail(IS_MAIN_WINDOW(win));
     auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
     gtk_widget_grab_focus(GTK_WIDGET(priv->search_entry));
+}
+
+bool
+main_window_get_urgency(MainWindow *win)
+{
+    g_return_val_if_fail(IS_MAIN_WINDOW(win), false);
+    return MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win))->is_urgent;
 }
 
 void
@@ -3022,6 +3098,15 @@ main_window_class_init(MainWindowClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, scrolled_window_contact_requests);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, image_contact_requests_list);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS (klass), MainWindow, image_conversations_list);
+
+    /* add signals */
+    main_window_signals[URGENCY_CHANGED] =
+        g_signal_new("main-window-urgency-changed",
+                     G_TYPE_FROM_CLASS(klass),
+                     (GSignalFlags) (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+                     0, nullptr, nullptr,
+                     g_cclosure_marshal_VOID__BOOLEAN,
+                     G_TYPE_NONE, 1, G_TYPE_BOOLEAN);
 }
 
 GtkWidget *
