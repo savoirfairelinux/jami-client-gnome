@@ -40,6 +40,7 @@ void       main_window_reset    (MainWindow *win);
 bool       main_window_can_close(MainWindow *win);
 void       main_window_display_account_list(MainWindow *win);
 void       main_window_search(MainWindow *win);
+bool       main_window_get_urgency(MainWindow *win);
 
 void main_window_conversations_list(MainWindow *win);
 void main_window_requests_list(MainWindow *win);
