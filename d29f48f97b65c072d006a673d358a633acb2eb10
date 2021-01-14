@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d270f5c1_94c9e4f7",
+        "filename": "src/client.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-01-14T17:57:30Z",
+      "side": 1,
+      "message": "!icon",
+      "range": {
+        "startLine": 382,
+        "startChar": 8,
+        "endLine": 382,
+        "endChar": 23
+      },
+      "revId": "d29f48f97b65c072d006a673d358a633acb2eb10",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96c61761_bc1330ce",
+        "filename": "src/mainwindow.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2004,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-01-14T17:57:30Z",
+      "side": 1,
+      "message": "if we think a bit about performances, for each new messages it will check all conversations in all accounts... This shouldn\u0027t be necessary\n\nWe already compute unread messages in the smartlist + pending requests, retrieving this should be immediate",
+      "range": {
+        "startLine": 1995,
+        "startChar": 22,
+        "endLine": 2004,
+        "endChar": 26
+      },
+      "revId": "d29f48f97b65c072d006a673d358a633acb2eb10",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68cefed6_c40584d1",
+        "filename": "src/mainwindow.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2007,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-01-14T17:57:30Z",
+      "side": 1,
+      "message": "Still thinking. Another way is to always be urgent when receiving a notification, then reseting the urgent status whenever client is shown. THis means the notifications will not be there if the user see that they have unread messages but re-minimize the client.",
+      "range": {
+        "startLine": 2005,
+        "startChar": 22,
+        "endLine": 2007,
+        "endChar": 9
+      },
+      "revId": "d29f48f97b65c072d006a673d358a633acb2eb10",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69be0721_e7a17b2c",
+        "filename": "src/mainwindow.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2008,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-01-14T17:57:30Z",
+      "side": 1,
+      "message": "pure logic, can be moved into lrc to have a common utils for all client, also if we change swarm this will be updated there. like Lrc::hasNotifications()",
+      "range": {
+        "startLine": 1994,
+        "startChar": 11,
+        "endLine": 2008,
+        "endChar": 7
+      },
+      "revId": "d29f48f97b65c072d006a673d358a633acb2eb10",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
