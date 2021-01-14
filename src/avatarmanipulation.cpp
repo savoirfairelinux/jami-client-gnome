@@ -424,58 +424,83 @@ static void
 choose_picture(AvatarManipulation *self)
 {
     AvatarManipulationPrivate *priv = AVATAR_MANIPULATION_GET_PRIVATE(self);
+
     GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
-    gint res;
-
-    auto preview = gtk_image_new();
-
     GtkWidget *main_window = gtk_widget_get_toplevel(GTK_WIDGET(self));
+    auto preview = gtk_image_new();
+    gint res;
+    gchar *filename = nullptr;
 
-    auto dialog = gtk_file_chooser_dialog_new (_("Open Avatar Image"),
-                                          GTK_WINDOW(main_window),
-                                          action,
-                                          _("_Cancel"),
-                                          GTK_RESPONSE_CANCEL,
-                                          _("_Open"),
-                                          GTK_RESPONSE_ACCEPT,
-                                          NULL);
+    #if GTK_CHECK_VERSION(3,20,0)
+        GtkFileChooserNative *native;
 
-    /* add an image preview inside the file choose */
-    gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER(dialog), preview);
-    g_signal_connect (GTK_FILE_CHOOSER(dialog), "update-preview", G_CALLBACK (update_preview_cb), preview);
+        native = gtk_file_chooser_native_new (_("Open Avatar Image"),
+                                            GTK_WINDOW(main_window),
+                                            action,
+                                            _("_Open"),
+                                            _("_Cancel"));
 
-    /* start the file chooser */
-    res = gtk_dialog_run (GTK_DIALOG(dialog)); /* blocks until the dialog is closed */
+        /* add an image preview inside the file choose */
+        gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER(native), preview);
+        g_signal_connect (GTK_FILE_CHOOSER(native), "update-preview", G_CALLBACK (update_preview_cb), preview);
 
-    if (res == GTK_RESPONSE_ACCEPT) {
-        if(auto filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (dialog))) {
-            GError* error =  nullptr; /* initialising to null avoid trouble... */
+        /* start the file chooser */
+        res = gtk_native_dialog_run (GTK_NATIVE_DIALOG (native)); /* blocks until the dialog is closed */
 
-            auto picture = gdk_pixbuf_new_from_file_at_size (filename, VIDEO_WIDTH, VIDEO_HEIGHT, &error);
-
-            if (!error) {
-                /* reset crop area */
-                if (priv->crop_area)
-                    gtk_container_remove(GTK_CONTAINER(priv->vbox_crop_area), priv->crop_area);
-                priv->crop_area = cc_crop_area_new();
-                gtk_widget_show(priv->crop_area);
-                gtk_box_pack_start(GTK_BOX(priv->vbox_crop_area), priv->crop_area, TRUE, TRUE, 0);
-                cc_crop_area_set_picture(CC_CROP_AREA(priv->crop_area), picture);
-                g_object_unref(picture);
-
-                set_state(self, AVATAR_MANIPULATION_STATE_EDIT);
-            } else {
-                g_warning("(choose_picture) failed to load pixbuf from file: %s", error->message);
-                g_error_free(error);
-            }
-
-            g_free(filename);
-        } else {
-            g_warning("(choose_picture) filename empty");
+        if (res == GTK_RESPONSE_ACCEPT) {
+            filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (native));
         }
-    }
+        g_object_unref (native);
+    #else
+        GtkWidget *dialog;
 
-    gtk_widget_destroy(dialog);
+        dialog = gtk_file_chooser_dialog_new (_("Open Avatar Image"),
+                                            GTK_WINDOW(main_window),
+                                            action,
+                                            _("_Cancel"),
+                                            GTK_RESPONSE_CANCEL,
+                                            _("_Open"),
+                                            GTK_RESPONSE_ACCEPT,
+                                            NULL);
+
+        /* add an image preview inside the file choose */
+        gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER(dialog), preview);
+        g_signal_connect (GTK_FILE_CHOOSER(dialog), "update-preview", G_CALLBACK (update_preview_cb), preview);
+
+        /* start the file chooser */
+        res = gtk_dialog_run (GTK_DIALOG(dialog)); /* blocks until the dialog is closed */
+
+        if (res == GTK_RESPONSE_ACCEPT) {
+            filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (native));
+        }
+        gtk_widget_destroy(dialog);
+    #endif
+
+    if(filename) {
+        GError* error =  nullptr; /* initialising to null avoid trouble... */
+
+        auto picture = gdk_pixbuf_new_from_file_at_size (filename, VIDEO_WIDTH, VIDEO_HEIGHT, &error);
+
+        if (!error) {
+            /* reset crop area */
+            if (priv->crop_area)
+                gtk_container_remove(GTK_CONTAINER(priv->vbox_crop_area), priv->crop_area);
+            priv->crop_area = cc_crop_area_new();
+            gtk_widget_show(priv->crop_area);
+            gtk_box_pack_start(GTK_BOX(priv->vbox_crop_area), priv->crop_area, TRUE, TRUE, 0);
+            cc_crop_area_set_picture(CC_CROP_AREA(priv->crop_area), picture);
+            g_object_unref(picture);
+
+            set_state(self, AVATAR_MANIPULATION_STATE_EDIT);
+        } else {
+            g_warning("(choose_picture) failed to load pixbuf from file: %s", error->message);
+            g_error_free(error);
+        }
+
+        g_free(filename);
+    } else {
+        g_warning("(choose_picture) filename empty");
+    }
 }
 
 static void

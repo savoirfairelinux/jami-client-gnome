@@ -899,11 +899,33 @@ choose_export_file(NewAccountSettingsView *view)
 {
     g_return_if_fail(IS_NEW_ACCOUNT_SETTINGS_VIEW(view));
     auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
+
     // Get preferred path
-    GtkWidget* dialog;
     GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_SAVE;
     gint res;
     gchar* filename = nullptr;
+
+    QString alias = (*priv->accountInfo_)->profileInfo.alias;
+    QString uri = alias.isEmpty() ? "export.gz" : alias + ".gz";
+
+#if GTK_CHECK_VERSION(3,20,0)
+    GtkFileChooserNative *native;
+
+    native = gtk_file_chooser_native_new(_("Save File"),
+                                         GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
+                                         action,
+                                         _("_Save"),
+                                         _("_Cancel"));
+
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(native), qUtf8Printable(uri));
+    res = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
+
+    if (res == GTK_RESPONSE_ACCEPT) {
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
+    }
+    g_object_unref (native);
+#else
+    GtkWidget* dialog;
 
     dialog = gtk_file_chooser_dialog_new(_("Save File"),
                                          GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
@@ -914,16 +936,14 @@ choose_export_file(NewAccountSettingsView *view)
                                          GTK_RESPONSE_ACCEPT,
                                          nullptr);
 
-    QString alias = (*priv->accountInfo_)->profileInfo.alias;
-    QString uri = alias.isEmpty()? "export.gz" : alias + ".gz";
     gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog), qUtf8Printable(uri));
     res = gtk_dialog_run(GTK_DIALOG(dialog));
 
     if (res == GTK_RESPONSE_ACCEPT) {
-        auto chooser = GTK_FILE_CHOOSER(dialog);
-        filename = gtk_file_chooser_get_filename(chooser);
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
     }
     gtk_widget_destroy(dialog);
+#endif
 
     if (!filename) return;
 
