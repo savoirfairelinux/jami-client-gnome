@@ -273,27 +273,23 @@ send_text_clicked(ChatView *self, const std::string& body)
 static gchar*
 file_to_manipulate(GtkWindow* top_window, bool send)
 {
-    GtkWidget* dialog;
+    GtkFileChooserNative *native;
     GtkFileChooserAction action = send? GTK_FILE_CHOOSER_ACTION_OPEN : GTK_FILE_CHOOSER_ACTION_SAVE;
     gint res;
     gchar* filename = nullptr;
 
-    dialog = gtk_file_chooser_dialog_new(send? _("Send File") : _("Save File"),
+    native = gtk_file_chooser_native_new(send? _("Send File") : _("Save File"),
                                          top_window,
                                          action,
-                                         _("_Cancel"),
-                                         GTK_RESPONSE_CANCEL,
                                          send? _("_Open"): _("_Save"),
-                                         GTK_RESPONSE_ACCEPT,
-                                         nullptr);
+                                         _("_Cancel"));
 
-    res = gtk_dialog_run (GTK_DIALOG(dialog));
+    res = gtk_native_dialog_run (GTK_NATIVE_DIALOG(native));
 
     if (res == GTK_RESPONSE_ACCEPT) {
-        auto chooser = GTK_FILE_CHOOSER(dialog);
-        filename = gtk_file_chooser_get_filename(chooser);
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
     }
-    gtk_widget_destroy (dialog);
+    g_object_unref (native);
 
     return filename;
 }

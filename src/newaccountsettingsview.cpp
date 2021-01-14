@@ -900,30 +900,26 @@ choose_export_file(NewAccountSettingsView *view)
     g_return_if_fail(IS_NEW_ACCOUNT_SETTINGS_VIEW(view));
     auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
     // Get preferred path
-    GtkWidget* dialog;
+    GtkFileChooserNative *native;
     GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_SAVE;
     gint res;
     gchar* filename = nullptr;
 
-    dialog = gtk_file_chooser_dialog_new(_("Save File"),
+    native = gtk_file_chooser_native_new(_("Save File"),
                                          GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
                                          action,
-                                         _("_Cancel"),
-                                         GTK_RESPONSE_CANCEL,
                                          _("_Save"),
-                                         GTK_RESPONSE_ACCEPT,
-                                         nullptr);
+                                         _("_Cancel"));
 
     QString alias = (*priv->accountInfo_)->profileInfo.alias;
     QString uri = alias.isEmpty()? "export.gz" : alias + ".gz";
-    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog), qUtf8Printable(uri));
-    res = gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(native), qUtf8Printable(uri));
+    res = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
 
     if (res == GTK_RESPONSE_ACCEPT) {
-        auto chooser = GTK_FILE_CHOOSER(dialog);
-        filename = gtk_file_chooser_get_filename(chooser);
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
     }
-    gtk_widget_destroy(dialog);
+    g_object_unref (native);
 
     if (!filename) return;
 
