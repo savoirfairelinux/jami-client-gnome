@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06622e91_1c9b59d5",
+        "filename": "src/accountcreationwizard.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-01-18T16:33:04Z",
+      "side": 1,
+      "message": "Hi, and thx for the patch.\n\nGtkFileChooserNative exists for GTK \u003e\u003d 3.20, so we should fallback on old code if too old with\n\n#if GTK_CHECK_VERSION(3,20,0)\n#else\n\nto avoid to break compat for a dialog\n\nJust change this and we will merge.\n\nAlso quick note, the commit-message should follow the format:\n\npart: short desc (\u003c80 chars)\n\nLong desc if necessary\n\nGitLab: #Ticket if present\nChange-Id:...",
+      "range": {
+        "startLine": 864,
+        "startChar": 25,
+        "endLine": 865,
+        "endChar": 33
+      },
+      "revId": "1ae5bef4751f557bd89102f8d18c160aacb31c56",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
