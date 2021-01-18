@@ -7,6 +7,7 @@
 # Abdussamet Koçak <sssmmt@gmail.com>, 2019
 # Altay dal <yestajoknu@enayu.com>, 2020
 # Caner Başaran <basaran.caner@gmail.com>, 2016
+# Emin Tufan Çetin <etcetin@gmail.com>, 2021
 # Emin Tufan Çetin <etcetin@gmail.com>, 2016-2017
 # Hüseyin Güç <huseyinguc@outlook.com>, 2020
 # koray arberk <korayarberk@yahoo.com>, 2016
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-11 03:09-0500\n"
-"PO-Revision-Date: 2020-12-28 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-01-18 03:09-0500\n"
+"PO-Revision-Date: 2021-01-11 18:59+0000\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/jami/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -113,7 +114,7 @@ msgstr "Donanım hızlandırmayı etkinleştir"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
-msgstr "Hesap taşıma gerekli"
+msgstr "Hesap göçü gerekli"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
@@ -172,7 +173,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr "Jami hesabınıza yeni bir aygıt eklemek için hesabınızı Jami üzerinden dışa aktarın. Bu işlem yeni eklenecek cihaza 5 dakika içerisinde girilmesi gereken bir PIN kodu yaratacaktır."
+msgstr "Jami hesabınıza yeni aygıt eklemek için Jami'deki hesabınızı dışa aktarmalısınız. Bu, oluşturulduktan sonraki 5 dakikada yeni aygıta girilmesi gereken pin oluşturacaktır."
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -180,7 +181,7 @@ msgstr "Parola (gerekli):"
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
-msgstr "Arşiv parolası girin"
+msgstr "Arşiv parolası gir"
 
 #: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:868
 msgid "Cancel"
@@ -196,7 +197,7 @@ msgstr "Oluşturulan pin'iniz:"
 
 #: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:973
 msgid "OK"
-msgstr "TAMAM"
+msgstr "Tamam"
 
 #: ui/newaccountsettingsview.ui:307 ui/profile.ui:7
 #: ui/accountcreationwizard.ui:449
@@ -347,7 +348,7 @@ msgstr "Gelen sertifikaları doğrula (sunucu tarafı)"
 
 #: ui/newaccountsettingsview.ui:1979
 msgid "Verify answer certificates (client side)"
-msgstr "Cevap sertifikalarını doğrula (istemci tarafı)"
+msgstr "Yanıt sertifikalarını doğrula (istemci tarafı)"
 
 #: ui/newaccountsettingsview.ui:2014
 msgid "Require a certificate for incoming TLS connections"
@@ -415,7 +416,7 @@ msgstr "Özel adres ve bağlanma noktası kullan"
 
 #: ui/newaccountsettingsview.ui:2595
 msgid "Port"
-msgstr "Bağlanma noktası"
+msgstr "Bağlantı noktası"
 
 #: ui/newaccountsettingsview.ui:2631
 msgid "Video codecs"
@@ -439,19 +440,19 @@ msgstr "Yalnızca ICE'nin desteklenmemesi durumunda, SDP görüşmesi sırasınd
 
 #: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Min port"
-msgstr "Ses RTP Min bağlantı noktası"
+msgstr "Ses RTP Asgari bağlantı noktası"
 
 #: ui/newaccountsettingsview.ui:2872
 msgid "Audio RTP Max port"
-msgstr "Ses RTP Maks bağlantı noktası"
+msgstr "Ses RTP Azami bağlantı noktası"
 
 #: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Min port"
-msgstr "Video RTP Min bağlantı noktası"
+msgstr "Video RTP Asgari bağlantı noktası"
 
 #: ui/newaccountsettingsview.ui:2942
 msgid "Video RTP Max port"
-msgstr "Video RTP Max bağlantı noktası"
+msgstr "Video RTP Azami bağlantı noktası"
 
 #: ui/messagingwidget.ui:29 ui/currentcallview.ui:424
 #: ui/currentcallview.ui:599 src/chatview.cpp:348
@@ -548,7 +549,7 @@ msgstr "Kişinin engelini kaldır"
 #: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
-msgstr "Kişi ismini kopyala"
+msgstr "Kişi adını kopyala"
 
 #: ui/help-overlay.ui:127
 msgctxt "shortcut window"
@@ -606,7 +607,7 @@ msgstr "Fotoğraf çek"
 
 #: ui/avatarmanipulation.ui:102
 msgid "Choose image from file"
-msgstr "Dosyadan resim seçin"
+msgstr "Dosyadan resim seç"
 
 #: ui/avatarmanipulation.ui:135 ui/avatarmanipulation.ui:168
 msgid "Return"
@@ -634,7 +635,7 @@ msgstr "Bir Jami hesabı oluştur"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr "Bu cihaz üzerinde yeni bir Jami hesabı oluşturun\n(yeni kullanıcılar için)"
+msgstr "Bu aygıtta yeni Jami hesabı oluştur (yeni kullanıcılar için)"
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
@@ -646,11 +647,11 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:92
 msgid "Link this device to an existing account"
-msgstr "Bu aygıtı var olan bir hesaba bağla"
+msgstr "Bu aygıtı var olan hesaba bağla"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account with your PIN generated on another device"
-msgstr "Başka bir cihazda PIN ile oluşturulmuş\nhesabı içeriye aktarma"
+msgstr "Başka aygıtta oluşturulan PIN ile hesabı içe aktar"
 
 #: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:696
 msgid "Restore an account from backup"
@@ -736,7 +737,7 @@ msgstr ""
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr "Bu parola hesap bilgilerinizi şifrelemek ve hesabınızı yeni aygıtlara bağlamak için kullanılacaktır"
+msgstr "Bu parola, hesap bilgilerinizi şifrelemek ve hesabınızı yeni aygıtlara bağlamada kullanılacaktır"
 
 #: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:858
 msgid "Confirm password"
@@ -755,7 +756,7 @@ msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr "Bu hesap sadece bu cihazda bulunur. Eğer cihazınızı kaybeder veya uygulamayı kaldırırsanız hesabınız silinecektir.  Hesabınızı şimdi veya daha sonra yedekleyebilirsiniz."
+msgstr "Bu hesap yalnızca bu aygıtta vardır. Eğer aygıtınızı yitirir veya uygulamayı kaldırırsanız hesabınız silinecektir.  Hesabınızı şimdi veya daha sonra yedekleyebilirsiniz."
 
 #: ui/accountcreationwizard.ui:849
 msgid "Never show me this again"
@@ -968,7 +969,7 @@ msgstr "Giden görüntü niteliğini ayarla"
 
 #: ui/currentcallview.ui:469 ui/currentcallview.ui:590
 msgid "Video quality"
-msgstr "Görüntü kalitesi"
+msgstr "Görüntü niteliği"
 
 #: ui/currentcallview.ui:488
 msgid "Toggle show chat"
@@ -1078,7 +1079,7 @@ msgstr ""
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr "Uyarı! Bu eylem bu hesabı cihazdan kaldıracaktır!\nNot: Bu eylem geri alınamaz. Ayrıca, kayıtlı adınız kaybolabilir."
+msgstr "Uyarı! Bu eylem, bu hesabı bu aygıttan kaldıracaktır!\nNot: bu eylem geri alınamaz. Ayrıca kayıtlı adınız yitebilir!"
 
 #: src/chatview.cpp:281
 msgid "Send File"
@@ -1121,7 +1122,7 @@ msgstr "Gönder"
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
-msgstr "Bu yok edici bir eylemdir. Tüm konuşma ve çağrı geçmişini silmek istediğinizden emin misiniz?"
+msgstr "Bu yok edici eylemdir. Tüm konuşma ve çağrı geçmişini silmek istediğinizden emin misiniz?"
 
 #: src/generalsettingsview.cpp:231
 msgid "Choose download folder"
@@ -1131,11 +1132,11 @@ msgstr "İndirme klasörünü seçin"
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr "Uyarı! Bu işlem cihazı iptal edecektir!\nNot: bu işlem geri alınamaz."
+msgstr "Uyarı! Bu eylem, aygıtı kaldıracaktır!\nNot: bu işlem geri alınamaz."
 
 #: src/newaccountsettingsview.cpp:606
 msgid "Enter password to revoke device"
-msgstr "Cihazı iptal etmek için şifre girin"
+msgstr "Cihazı kaldırmak için parola gir"
 
 #: src/newaccountsettingsview.cpp:664
 msgid "Edit name"
@@ -1143,7 +1144,7 @@ msgstr "Adı düzenle"
 
 #: src/newaccountsettingsview.cpp:664
 msgid "Revoke device"
-msgstr "Aygıtı feshet "
+msgstr "Aygıtı kaldır"
 
 #: src/newaccountsettingsview.cpp:686
 msgid "Error when revoking device"
@@ -1160,7 +1161,7 @@ msgstr "Parolayı değiştir"
 
 #: src/newaccountsettingsview.cpp:795
 msgid "New password and its confirmation are different!"
-msgstr "Girdiğiniz şifreler uyuşmuyor!"
+msgstr "Girdiğiniz parolalar birbirinden başka!"
 
 #: src/newaccountsettingsview.cpp:806
 msgid "Incorrect password!"
@@ -1168,7 +1169,7 @@ msgstr "Yanlış parola!"
 
 #: src/newaccountsettingsview.cpp:843
 msgid "Note: this will change the password only on this device."
-msgstr "Not: bu işlem yalnızca bu cihazda şifreyi değiştirir."
+msgstr "Not: bu işlem yalnızca bu aygıtta parolayı değiştirir."
 
 #: src/newaccountsettingsview.cpp:846
 msgid "Current password"
@@ -1180,11 +1181,11 @@ msgstr "Yeni parola"
 
 #: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:899
 msgid "You need to enter your password to export the full archive."
-msgstr "Arşivin tamamını dışa aktarmak için parolanızı girmeniz gerekiyor."
+msgstr "Arşivin tümüyle dışa aktarmak için parolanızı girmelisiniz."
 
 #: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:900
 msgid "Enter password to export archive"
-msgstr "Arşivi dışa aktarmak için parola girin"
+msgstr "Arşivi dışa aktarmak için parola gir"
 
 #: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
 msgid "Account exported!"
@@ -1315,7 +1316,7 @@ msgstr "Hesap ekle..."
 #: src/mainwindow.cpp:916
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr "ara"
+msgstr "arama yap"
 
 #: src/mainwindow.cpp:919
 msgctxt "button next to search entry will open chat"
@@ -1433,7 +1434,7 @@ msgstr "Hata ayıklayıcıyı etkinleştir"
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr "Ana pencerenin gizli durumunu eski haline döndürür (sadece birincil oluşum için geçerli)"
+msgstr "Ana pencerenin gizli durumunu eski haline döndürür (yalnızca birincil oluşum için geçerli)"
 
 #: src/client_options.c:85
 msgid "- GNOME client for Jami"
@@ -1507,7 +1508,7 @@ msgstr "Kayıt ilerliyor..."
 
 #: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
-msgstr "İsim kaydı hatası"
+msgstr "Ad kaydı hatası"
 
 #: src/usernameregistrationbox.cpp:434
 msgid ""
@@ -1517,7 +1518,7 @@ msgstr "Adınız kaydedilemedi (Geçersiz ad). Kullanıcı adınız 3 ila 32 alf
 
 #: src/usernameregistrationbox.cpp:438
 msgid "Unable to register name (Wrong password)."
-msgstr "İsim kaydedilemiyor (Yanlış şifre)."
+msgstr "Ad kaydedilemiyor (Yanlış parola)."
 
 #: src/usernameregistrationbox.cpp:442
 msgid "Unable to register name (Username already taken)."
@@ -1611,12 +1612,12 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:339
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr "Herhangi bir hesap alınamıyor, lütfen PIN'inizi ve şifrenizi doğrulayın."
+msgstr "Herhangi bir hesap alınamıyor, lütfen PIN'inizi ve parolanızı doğrulayın."
 
 #: src/accountcreationwizard.cpp:343
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr "Herhangi bir hesap alınamıyor, lütfen arşivinizi ve şifrenizi doğrulayın."
+msgstr "Herhangi bir hesap alınamıyor, lütfen arşivinizi ve parolanızı doğrulayın."
 
 #: src/accountcreationwizard.cpp:347
 msgid ""
@@ -1653,4 +1654,4 @@ msgstr "Adı kaydet"
 
 #: src/accountcreationwizard.cpp:1090
 msgid "Name"
-msgstr "isim"
+msgstr "Ad"

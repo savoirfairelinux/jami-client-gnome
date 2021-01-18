@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-11 03:09-0500\n"
-"PO-Revision-Date: 2021-01-10 10:42+0000\n"
+"POT-Creation-Date: 2021-01-18 03:09-0500\n"
+"PO-Revision-Date: 2021-01-11 12:10+0000\n"
 "Last-Translator: Beta Ba <linsui@inbox.lv>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -241,11 +241,11 @@ msgstr "语音邮箱"
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
-msgstr "连接到此账户的已知设备"
+msgstr "关联到此 Jami 账户的已知设备"
 
 #: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
-msgstr "链接另一台设备"
+msgstr "关联另一台设备"
 
 #: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
@@ -648,7 +648,7 @@ msgstr "创建集合点"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Link this device to an existing account"
-msgstr "将此设备与已有账户进行连接"
+msgstr "将此设备关联到已有账户"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account with your PIN generated on another device"
@@ -700,7 +700,7 @@ msgstr "PIN"
 msgid ""
 "Enter the PIN from another configured Jami account. Use the \"Link Another "
 "Device\" feature to obtain a PIN."
-msgstr "从其他已配置的 Jami 账户输入 PIN 码。使用“连接其他设备”功能获取 PIN 码。"
+msgstr "从其他已配置的 Jami 账户输入 PIN 码。使用“关联其他设备”功能获取 PIN 码。"
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
@@ -738,7 +738,7 @@ msgstr "创建密码来加密此设备上的账户。\n请注意密码无法被�
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr "该密码用于加密您的账户数据，以及将其他设备与您的账户进行连接。"
+msgstr "该密码用于加密您的账户数据，以及将其他设备关联到您的账户。"
 
 #: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:858
 msgid "Confirm password"
@@ -845,7 +845,7 @@ msgstr "聊天界面"
 
 #: ui/generalsettingsview.ui:390
 msgid "Show typing indications"
-msgstr "显示打字状态"
+msgstr "显示输入状态"
 
 #: ui/generalsettingsview.ui:426
 msgid "Display images and videos into the chatview"
@@ -1627,7 +1627,7 @@ msgstr "无法连接到提供的账户管理器。请检查您的凭据。"
 
 #: src/accountcreationwizard.cpp:536
 msgid "Generating your rendez-vous…"
-msgstr "正在创建你的集合点…"
+msgstr "正在创建您的集合点…"
 
 #: src/accountcreationwizard.cpp:538
 msgid "Generating your Jami account…"
@@ -1643,7 +1643,7 @@ msgstr "输入 Jami 账户密码"
 
 #: src/accountcreationwizard.cpp:676
 msgid "Link device"
-msgstr "链接设备"
+msgstr "关联设备"
 
 #: src/accountcreationwizard.cpp:695
 msgid "Import from backup"

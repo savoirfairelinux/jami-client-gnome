@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-11 03:09-0500\n"
-"PO-Revision-Date: 2020-12-28 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-01-18 03:09-0500\n"
+"PO-Revision-Date: 2021-01-14 02:37+0000\n"
+"Last-Translator: U N <Ahmedy88888444@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/savoirfairelinux/jami/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -105,7 +105,7 @@ msgstr "معدل الاطار (framerate)"
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
-msgstr ""
+msgstr "تمكين تسريع الأجهزة"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
@@ -135,13 +135,13 @@ msgstr "كلمة السر"
 
 #: ui/accountmigrationview.ui:205
 msgid "Account manager"
-msgstr ""
+msgstr "إدارة الحساب"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
 #: src/newaccountsettingsview.cpp:975 src/newaccountsettingsview.cpp:2132
 msgid "Delete account"
-msgstr ""
+msgstr "حذف الحساب"
 
 #: ui/accountmigrationview.ui:251
 msgid "Migrate account"
@@ -210,7 +210,7 @@ msgstr ""
 #: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
 #: src/newaccountsettingsview.cpp:2065 src/accountcreationwizard.cpp:442
 msgid "Export account"
-msgstr ""
+msgstr "تصدير الحساب"
 
 #: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
@@ -529,7 +529,7 @@ msgstr ""
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Remove conversation"
-msgstr ""
+msgstr "إزالة المحادثة"
 
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
@@ -618,7 +618,7 @@ msgstr ""
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "رمز الإستجابة السريعة"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -634,7 +634,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
-msgstr ""
+msgstr "إنشاء نقطة اجتماع"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
@@ -670,7 +670,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:127
 msgid "Add a SIP account"
-msgstr ""
+msgstr "إضافة حساب SIP"
 
 #: ui/accountcreationwizard.ui:199
 msgid "Archive"
@@ -751,11 +751,11 @@ msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr ""
+msgstr "هذا الحساب موجود فقط على هذا الجهاز. إذا فقدت جهازك أو قمت بإلغاء تثبيت التطبيق، فسيتم حذف حسابك. يمكنك إجراء نسخ احتياطي لحسابك الآن أو لاحقًا."
 
 #: ui/accountcreationwizard.ui:849
 msgid "Never show me this again"
-msgstr ""
+msgstr "لا تظهر لي هذا مرة أخرى"
 
 #: ui/accountcreationwizard.ui:873
 msgid "Skip"
@@ -787,7 +787,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:1167
 msgid "Connect"
-msgstr ""
+msgstr "إتصال"
 
 #: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
@@ -819,7 +819,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:204
 msgid "Notifications"
-msgstr ""
+msgstr "الإشعارات"
 
 #: ui/generalsettingsview.ui:243
 msgid "Enable notifications for incoming calls"
@@ -851,7 +851,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:500
 msgid "Download folder"
-msgstr ""
+msgstr "ملف التحميلات"
 
 #: ui/generalsettingsview.ui:537
 msgid "History"
@@ -871,15 +871,15 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:676
 msgid "Record local video"
-msgstr ""
+msgstr "تسجيل فيديو محلى"
 
 #: ui/generalsettingsview.ui:712
 msgid "Always record calls"
-msgstr ""
+msgstr "تسجيل المكالمات دائمًا"
 
 #: ui/generalsettingsview.ui:749
 msgid "Record folder"
-msgstr ""
+msgstr "مجلد التسجيلات"
 
 #: ui/generalsettingsview.ui:786
 msgid "Bitrate for call recordings (kb/s)"
@@ -1224,7 +1224,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2033
 msgid "Offline"
-msgstr ""
+msgstr "خامل"
 
 #: src/newaccountsettingsview.cpp:2036
 msgid "Connecting…"
@@ -1232,7 +1232,7 @@ msgstr "اتصال جاري..."
 
 #: src/newaccountsettingsview.cpp:2039
 msgid "Online"
-msgstr ""
+msgstr "نشط"
 
 #: src/newaccountsettingsview.cpp:2043
 msgid "Unknown status"
@@ -1248,7 +1248,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2132
 msgid "Remove account"
-msgstr ""
+msgstr "إزالة الحساب"
 
 #: src/client.cpp:115
 #, c-format
@@ -1389,7 +1389,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2795
 msgid "Remove conversation"
-msgstr ""
+msgstr "إزالة المحادثة"
 
 #: src/mainwindow.cpp:2796
 msgid "Do you really want to remove this conversation?"
@@ -1479,11 +1479,11 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
-msgstr ""
+msgstr "اسم المستخدم مستخدم بالفعل"
 
 #: src/usernameregistrationbox.cpp:179
 msgid "Invalid username"
-msgstr ""
+msgstr "اسم مستخدم غير صالح"
 
 #: src/usernameregistrationbox.cpp:193
 msgid "Lookup unavailable, check your network connection"
@@ -1529,7 +1529,7 @@ msgstr ""
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
-msgstr ""
+msgstr "إيقاف التسجيل"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
@@ -1629,7 +1629,7 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:554
 msgid "Passwords don't match"
-msgstr ""
+msgstr "كلمتا المرور غير متطابقتين"
 
 #: src/accountcreationwizard.cpp:675
 msgid "Enter Jami account password"
@@ -1641,11 +1641,11 @@ msgstr "اربط جهاز"
 
 #: src/accountcreationwizard.cpp:695
 msgid "Import from backup"
-msgstr ""
+msgstr "استيراد من النسخ الاحتياطي"
 
 #: src/accountcreationwizard.cpp:1089
 msgid "Register name"
-msgstr ""
+msgstr "تسجيل الاسم"
 
 #: src/accountcreationwizard.cpp:1090
 msgid "Name"

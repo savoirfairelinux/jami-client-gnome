@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-18 03:09-0500\n"
-"PO-Revision-Date: 2020-12-28 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
-"Language-Team: Hindi (India) (http://www.transifex.com/savoirfairelinux/jami/language/hi_IN/)\n"
+"PO-Revision-Date: 2021-01-11 17:52+0000\n"
+"Last-Translator: ali ask <aliraadlar@gmail.com>\n"
+"Language-Team: Persian (http://www.transifex.com/savoirfairelinux/jami/language/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hi_IN\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ui/mainwindow.ui:63
 msgid "Menu"
@@ -36,11 +36,11 @@ msgstr ""
 #: ui/mainwindow.ui:136 ui/newaccountsettingsview.ui:387
 #: ui/accountcreationwizard.ui:530
 msgid "Account"
-msgstr "खाता"
+msgstr ""
 
 #: ui/mainwindow.ui:173 src/mainwindow.cpp:1949
 msgid "Settings"
-msgstr ""
+msgstr "تنظیمات"
 
 #: ui/mainwindow.ui:294 ui/mainwindow.ui:301
 msgid "Conversations"
@@ -48,11 +48,11 @@ msgstr ""
 
 #: ui/mainwindow.ui:327 ui/mainwindow.ui:334
 msgid "Contact requests"
-msgstr ""
+msgstr "درخواست های مخاطبین"
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
-msgstr "आॅडियो"
+msgstr ""
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
@@ -76,7 +76,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:251
 msgid "Video"
-msgstr "वीडियो"
+msgstr ""
 
 #: ui/mediasettingsview.ui:293
 msgid "No camera detected"
@@ -559,7 +559,7 @@ msgstr ""
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
 msgid "Settings"
-msgstr ""
+msgstr "تنظیمات"
 
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
@@ -1350,7 +1350,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2437
 msgid "Incoming call"
-msgstr ""
+msgstr "تماس ورودی"
 
 #: src/mainwindow.cpp:2594
 msgid "New request from "
@@ -1414,7 +1414,7 @@ msgstr ""
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr ""
+msgstr "جمی یک برنامه رایگان هست که برای ارتباط همگانی طراحی شده\nاز اهداف اصلی آن احترام به آزادی و حریم خصوصی کاربران می باشد"
 
 #: src/client_options.c:66
 msgid "Enable debug"
@@ -1644,4 +1644,4 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:1090
 msgid "Name"
-msgstr "नाम"
+msgstr ""
