@@ -5,18 +5,38 @@
  <metadata_license>CC-BY-SA-3.0</metadata_license>
  <project_license>GPL-3.0+</project_license>
  <name>Jami</name>
- <summary>Privacy oriented voice, video and chat platform.</summary>
+ <summary>Privacy-oriented voice, video, chat, and conference platform</summary>
  <icon type="stock">jami</icon>
  <description>
-  <p>
-     Peer-to-peer and end-to-end encrypted audio/video calling, conference, screen sharing, file sharing and messaging application with a distributed architecture that can also be used as a SIP client.
-  </p>
+    <p>
+      An end-to-end encrypted secure and distributed voice, video, and
+      chat communication platform that requires no central server and
+      leaves the power of privacy and freedom in the hands of users.
+    </p>
+    <p>
+      Jami supports the following key features:
+    </p>
+    <ul>
+      <li>One-to-one conversations</li>
+      <li>File sharing</li>
+      <li>Audio calls and conferences</li>
+      <li>Video calls and conferences</li>
+      <li>Screen sharing in video calls and conferences</li>
+      <li>Recording and sending audio messages</li>
+      <li>Recording and sending video messages</li>
+      <li>Functioning as a SIP phone software</li>
+    </ul>
+    <p>
+      Client applications for GNU/Linux, Windows, macOS, iOS, Android,
+      and Android TV are available, making Jami an interoperable and
+      cross-platform communication framework.
+    </p>
  </description>
 
  <url type="homepage">https://jami.net/</url>
  <url type="bugtracker">https://git.jami.net/savoirfairelinux/ring-client-gnome/issues/</url>
  <url type="translate">https://www.transifex.com/savoirfairelinux/jami</url>
- 
+
  <!-- Maximum caption length is 60 characters -->
  <!-- Officially GIF is not an allowed video format, but it appears to work nonetheless -->
  <screenshots>
