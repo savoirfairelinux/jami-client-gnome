@@ -909,39 +909,39 @@ choose_export_file(NewAccountSettingsView *view)
     QString uri = alias.isEmpty() ? "export.gz" : alias + ".gz";
 
 #if GTK_CHECK_VERSION(3,20,0)
-    GtkFileChooserNative *native;
+    GtkFileChooserNative *native = gtk_file_chooser_native_new(
+        _("Save File"),
+        GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
+        action,
+        _("_Save"),
+        _("_Cancel"));
 
-    native = gtk_file_chooser_native_new(_("Save File"),
-                                         GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
-                                         action,
-                                         _("_Save"),
-                                         _("_Cancel"));
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(native),
+                                      qUtf8Printable(uri));
 
-    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(native), qUtf8Printable(uri));
     res = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
-
     if (res == GTK_RESPONSE_ACCEPT) {
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
     }
-    g_object_unref (native);
+
+    g_object_unref(native);
 #else
-    GtkWidget* dialog;
+    GtkWidget* dialog = gtk_file_chooser_dialog_new(
+        _("Save File"),
+        GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
+        action,
+        _("_Cancel"), GTK_RESPONSE_CANCEL,
+        _("_Save"), GTK_RESPONSE_ACCEPT,
+        nullptr);
 
-    dialog = gtk_file_chooser_dialog_new(_("Save File"),
-                                         GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
-                                         action,
-                                         _("_Cancel"),
-                                         GTK_RESPONSE_CANCEL,
-                                         _("_Save"),
-                                         GTK_RESPONSE_ACCEPT,
-                                         nullptr);
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog),
+                                      qUtf8Printable(uri));
 
-    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog), qUtf8Printable(uri));
     res = gtk_dialog_run(GTK_DIALOG(dialog));
-
     if (res == GTK_RESPONSE_ACCEPT) {
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
     }
+
     gtk_widget_destroy(dialog);
 #endif
 

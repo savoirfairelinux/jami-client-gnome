@@ -427,54 +427,56 @@ choose_picture(AvatarManipulation *self)
 
     GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
     GtkWidget *main_window = gtk_widget_get_toplevel(GTK_WIDGET(self));
-    auto preview = gtk_image_new();
+    GtkWidget *preview = gtk_image_new();
     gint res;
     gchar *filename = nullptr;
 
-    #if GTK_CHECK_VERSION(3,20,0)
-        GtkFileChooserNative *native;
+#if GTK_CHECK_VERSION(3,20,0)
+    GtkFileChooserNative *native = gtk_file_chooser_native_new(
+        _("Open Avatar Image"),
+        GTK_WINDOW(main_window),
+        action,
+        _("_Open"),
+        _("_Cancel"));
 
-        native = gtk_file_chooser_native_new (_("Open Avatar Image"),
-                                            GTK_WINDOW(main_window),
-                                            action,
-                                            _("_Open"),
-                                            _("_Cancel"));
+    /* add an image preview inside the file choose */
+    gtk_file_chooser_set_preview_widget(GTK_FILE_CHOOSER(native),
+                                        preview);
+    g_signal_connect(GTK_FILE_CHOOSER(native), "update-preview",
+                     G_CALLBACK(update_preview_cb), preview);
 
-        /* add an image preview inside the file choose */
-        gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER(native), preview);
-        g_signal_connect (GTK_FILE_CHOOSER(native), "update-preview", G_CALLBACK (update_preview_cb), preview);
+    /* start the file chooser */
+    /* (blocks until the dialog is closed) */
+    res = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
+    if (res == GTK_RESPONSE_ACCEPT) {
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
+    }
 
-        /* start the file chooser */
-        res = gtk_native_dialog_run (GTK_NATIVE_DIALOG (native)); /* blocks until the dialog is closed */
+    g_object_unref (native);
+#else
+    GtkWidget *dialog = gtk_file_chooser_dialog_new(
+        _("Open Avatar Image"),
+        GTK_WINDOW(main_window),
+        action,
+        _("_Cancel"), GTK_RESPONSE_CANCEL,
+        _("_Open"), GTK_RESPONSE_ACCEPT,
+        NULL);
 
-        if (res == GTK_RESPONSE_ACCEPT) {
-            filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (native));
-        }
-        g_object_unref (native);
-    #else
-        GtkWidget *dialog;
+    /* add an image preview inside the file choose */
+    gtk_file_chooser_set_preview_widget(GTK_FILE_CHOOSER(dialog),
+                                        preview);
+    g_signal_connect (GTK_FILE_CHOOSER(dialog), "update-preview",
+                      G_CALLBACK(update_preview_cb), preview);
 
-        dialog = gtk_file_chooser_dialog_new (_("Open Avatar Image"),
-                                            GTK_WINDOW(main_window),
-                                            action,
-                                            _("_Cancel"),
-                                            GTK_RESPONSE_CANCEL,
-                                            _("_Open"),
-                                            GTK_RESPONSE_ACCEPT,
-                                            NULL);
+    /* start the file chooser */
+    /* (blocks until the dialog is closed) */
+    res = gtk_dialog_run(GTK_DIALOG(dialog));
+    if (res == GTK_RESPONSE_ACCEPT) {
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
+    }
 
-        /* add an image preview inside the file choose */
-        gtk_file_chooser_set_preview_widget (GTK_FILE_CHOOSER(dialog), preview);
-        g_signal_connect (GTK_FILE_CHOOSER(dialog), "update-preview", G_CALLBACK (update_preview_cb), preview);
-
-        /* start the file chooser */
-        res = gtk_dialog_run (GTK_DIALOG(dialog)); /* blocks until the dialog is closed */
-
-        if (res == GTK_RESPONSE_ACCEPT) {
-            filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (native));
-        }
-        gtk_widget_destroy(dialog);
-    #endif
+    gtk_widget_destroy(dialog);
+#endif
 
     if(filename) {
         GError* error =  nullptr; /* initialising to null avoid trouble... */

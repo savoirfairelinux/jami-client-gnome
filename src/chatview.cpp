@@ -277,40 +277,36 @@ file_to_manipulate(GtkWindow* top_window, bool send)
     gint res;
     gchar *filename = nullptr;
 
-    #if GTK_CHECK_VERSION(3,20,0)
-        GtkFileChooserNative *native;
+#if GTK_CHECK_VERSION(3,20,0)
+    GtkFileChooserNative *native = gtk_file_chooser_native_new(
+        send ? _("Send File") : _("Save File"),
+        top_window,
+        action,
+        send ? _("_Open") : _("_Save"),
+        _("_Cancel"));
 
-        native = gtk_file_chooser_native_new(send? _("Send File") : _("Save File"),
-                                            top_window,
-                                            action,
-                                            send? _("_Open"): _("_Save"),
-                                            _("_Cancel"));
+    res = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
+    if (res == GTK_RESPONSE_ACCEPT) {
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
+    }
 
-        res = gtk_native_dialog_run (GTK_NATIVE_DIALOG(native));
+    g_object_unref(native);
+#else
+    GtkWidget *dialog = gtk_file_chooser_dialog_new(
+        send ? _("Send File") : _("Save File"),
+        top_window,
+        action,
+        _("_Cancel"), GTK_RESPONSE_CANCEL,
+        send ? _("_Open") : _("_Save"), GTK_RESPONSE_ACCEPT,
+        nullptr);
 
-        if (res == GTK_RESPONSE_ACCEPT) {
-            filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
-        }
-        g_object_unref (native);
-    #else
-        GtkWidget *dialog;
+    res = gtk_dialog_run(GTK_DIALOG(dialog));
+    if (res == GTK_RESPONSE_ACCEPT) {
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+    }
 
-        dialog = gtk_file_chooser_dialog_new(send? _("Send File") : _("Save File"),
-                                            top_window,
-                                            action,
-                                            _("_Cancel"),
-                                            GTK_RESPONSE_CANCEL,
-                                            send? _("_Open"): _("_Save"),
-                                            GTK_RESPONSE_ACCEPT,
-                                            nullptr);
-
-        res = gtk_dialog_run (GTK_DIALOG(dialog));
-
-        if (res == GTK_RESPONSE_ACCEPT) {
-            filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-        }
-        gtk_widget_destroy (dialog);
-    #endif
+    gtk_widget_destroy(dialog);
+#endif
 
     return filename;
 }

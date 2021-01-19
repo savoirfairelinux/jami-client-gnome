@@ -228,22 +228,36 @@ choose_downloads_directory(GeneralSettingsView *self)
         return;
     }
 
-    GtkWidget *dialog = gtk_file_chooser_dialog_new (_("Choose download folder"),
-                                      GTK_WINDOW(priv->main_window_pnt),
-                                      GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-                                      _("_Cancel"),
-                                      GTK_RESPONSE_CANCEL,
-                                      _("_Save"),
-                                      GTK_RESPONSE_ACCEPT,
-                                      NULL);
+#if GTK_CHECK_VERSION(3,20,0)
+    GtkFileChooserNative *native = gtk_file_chooser_native_new(
+        _("Choose download folder"),
+        GTK_WINDOW(priv->main_window_pnt),
+        GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+        _("_Save"),
+        _("_Cancel"));
 
-    res = gtk_dialog_run (GTK_DIALOG(dialog));
-
+    res = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
     if (res == GTK_RESPONSE_ACCEPT) {
-        auto chooser = GTK_FILE_CHOOSER(dialog);
-        filename = gtk_file_chooser_get_filename(chooser);
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
     }
+
+    g_object_unref(native);
+#else
+    GtkWidget *dialog = gtk_file_chooser_dialog_new (
+        _("Choose download folder"),
+        GTK_WINDOW(priv->main_window_pnt),
+        GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
+        _("_Cancel"), GTK_RESPONSE_CANCEL,
+        _("_Save"), GTK_RESPONSE_ACCEPT,
+        NULL);
+
+    res = gtk_dialog_run(GTK_DIALOG(dialog));
+    if (res == GTK_RESPONSE_ACCEPT) {
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+    }
+
     gtk_widget_destroy (dialog);
+#endif
 
     if (!filename) return;
 

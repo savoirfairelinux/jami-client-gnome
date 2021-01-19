@@ -871,40 +871,42 @@ choose_export_file(AccountCreationWizard *view)
     auto alias = accountInfo.profileInfo.alias;
     auto uri = alias.isEmpty() ? "export.gz" : alias + ".gz";
 
-    #if GTK_CHECK_VERSION(3,20,0)
-        GtkFileChooserNative *native;
-        native = gtk_file_chooser_native_new(_("Save File"),
-                                            GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
-                                            action,
-                                            _("_Save"),
-                                            _("_Cancel"));
+#if GTK_CHECK_VERSION(3,20,0)
+    GtkFileChooserNative *native = gtk_file_chooser_native_new(
+        _("Save File"),
+        GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
+        action,
+        _("_Save"),
+        _("_Cancel"));
 
-        gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(native), qUtf8Printable(uri));
-        res = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(native),
+                                      qUtf8Printable(uri));
 
-        if (res == GTK_RESPONSE_ACCEPT) {
-            filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
-        }
-        g_object_unref(native);
-    #else
-        GtkWidget *dialog;
-        dialog = gtk_file_chooser_dialog_new(_("Save File"),
-                                            GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
-                                            action,
-                                            _("_Cancel"),
-                                            GTK_RESPONSE_CANCEL,
-                                            _("_Save"),
-                                            GTK_RESPONSE_ACCEPT,
-                                            nullptr);
+    res = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
+    if (res == GTK_RESPONSE_ACCEPT) {
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
+    }
 
-        gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog), qUtf8Printable(uri));
-        res = gtk_dialog_run(GTK_DIALOG(dialog));
+    g_object_unref(native);
+#else
+    GtkWidget *dialog = gtk_file_chooser_dialog_new(
+        _("Save File"),
+        GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(view))),
+        action,
+        _("_Cancel"), GTK_RESPONSE_CANCEL,
+        _("_Save"), GTK_RESPONSE_ACCEPT,
+        nullptr);
 
-        if (res == GTK_RESPONSE_ACCEPT) {
-            filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-        }
-        gtk_widget_destroy(dialog);
-    #endif
+    gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog),
+                                      qUtf8Printable(uri));
+
+    res = gtk_dialog_run(GTK_DIALOG(dialog));
+    if (res == GTK_RESPONSE_ACCEPT) {
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+    }
+
+    gtk_widget_destroy(dialog);
+#endif
 
     if (!filename) return;
 

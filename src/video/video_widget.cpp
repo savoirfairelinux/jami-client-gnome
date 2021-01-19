@@ -803,17 +803,38 @@ switch_video_input_file(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
         parent = gtk_widget_get_toplevel(GTK_WIDGET(parent));
     }
 
+    gint res;
+    gchar *uri = nullptr;
+
+#if GTK_CHECK_VERSION(3,20,0)
+    GtkFileChooserNative *native = gtk_file_chooser_native_new(
+        _("Choose file"),
+        GTK_WINDOW(parent),
+        GTK_FILE_CHOOSER_ACTION_OPEN,
+        _("_Open"),
+        _("_Cancel"));
+
+    res = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
+    if (res == GTK_RESPONSE_ACCEPT) {
+        uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(native));
+        if (uri && priv->avModel_) {
+            priv->avModel_->setInputFile(uri, priv->remote->v_renderer->getId());
+            g_free(uri);
+        }
+    }
+
+    g_object_unref(native);
+#else
     GtkWidget *dialog = gtk_file_chooser_dialog_new(
-            "Choose File",
-            GTK_WINDOW(parent),
-            GTK_FILE_CHOOSER_ACTION_OPEN,
-            "_Cancel", GTK_RESPONSE_CANCEL,
-            "_Open", GTK_RESPONSE_ACCEPT,
-            NULL);
+        _("Choose file"),
+        GTK_WINDOW(parent),
+        GTK_FILE_CHOOSER_ACTION_OPEN,
+        _("_Cancel"), GTK_RESPONSE_CANCEL,
+        _("_Open"), GTK_RESPONSE_ACCEPT,
+        NULL);
 
     if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
-        gchar *uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
-
+        uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
         if (uri && priv->avModel_) {
             priv->avModel_->setInputFile(uri, priv->remote->v_renderer->getId());
             g_free(uri);
@@ -821,6 +842,7 @@ switch_video_input_file(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
     }
 
     gtk_widget_destroy(dialog);
+#endif
 }
 
 /*

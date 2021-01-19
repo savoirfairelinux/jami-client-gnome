@@ -121,21 +121,37 @@ choose_jpl_file(PluginSettingsView *self)
         gint res;
         gchar* filename = nullptr;
 
-        GtkWidget *dialog = gtk_file_chooser_dialog_new (_("Choose plugin"),
-                                        GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))),
-                                        GTK_FILE_CHOOSER_ACTION_OPEN,
-                                        _("_Cancel"),
-                                        GTK_RESPONSE_CANCEL,
-                                        _("_Open"),
-                                        GTK_RESPONSE_ACCEPT,
-                                        NULL);
-        res = gtk_dialog_run (GTK_DIALOG(dialog));
+#if GTK_CHECK_VERSION(3,20,0)
+        GtkFileChooserNative *native = gtk_file_chooser_native_new(
+            _("Choose plugin"),
+            GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))),
+            GTK_FILE_CHOOSER_ACTION_OPEN,
+            _("_Open"),
+            _("_Cancel"));
 
+        res = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
         if (res == GTK_RESPONSE_ACCEPT) {
-            auto chooser = GTK_FILE_CHOOSER(dialog);
-            filename = gtk_file_chooser_get_filename(chooser);
+            filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(native));
         }
-        gtk_widget_destroy (dialog);
+
+        g_object_unref(native);
+#else
+        GtkWidget *dialog = gtk_file_chooser_dialog_new(
+            _("Choose plugin"),
+            GTK_WINDOW(gtk_widget_get_toplevel(GTK_WIDGET(self))),
+            GTK_FILE_CHOOSER_ACTION_OPEN,
+            _("_Cancel"), GTK_RESPONSE_CANCEL,
+            _("_Open"), GTK_RESPONSE_ACCEPT,
+            NULL);
+
+        res = gtk_dialog_run(GTK_DIALOG(dialog));
+        if (res == GTK_RESPONSE_ACCEPT) {
+            filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+        }
+
+        gtk_widget_destroy(dialog);
+#endif
+
         if (!filename) return;
 
         // install and load plugin
