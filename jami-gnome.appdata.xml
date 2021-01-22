@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2015-2020 Savoir-faire Linux -->
+<!-- Copyright 2015-2021 Savoir-faire Linux -->
 <component type="desktop-application">
  <id>net.jami.Jami</id>
  <metadata_license>CC-BY-SA-3.0</metadata_license>

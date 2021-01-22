@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015-2020 Savoir-faire Linux Inc.
+ *  Copyright (C) 2015-2021 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
@@ -123,7 +123,7 @@ about_dialog(GtkWidget *parent)
         about = gtk_about_dialog_new();
         g_object_ref_sink(about);
         gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(about), "");
-        gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(about), "© 2020 Savoir-faire Linux");
+        gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(about), "© 2021 Savoir-faire Linux");
         gtk_about_dialog_set_license_type(GTK_ABOUT_DIALOG(about), GTK_LICENSE_GPL_3_0);
         about_dialog_set_theme(GTK_ABOUT_DIALOG(about), use_dark_theme(get_ambient_color(parent)));
         gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(about), version);

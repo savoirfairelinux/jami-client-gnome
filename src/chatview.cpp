@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2016-2020 Savoir-faire Linux Inc.
+ *  Copyright (C) 2016-2021 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *  Author: Alexandre Viau <alexandre.viau@savoirfairelinux.com>
  *  Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>

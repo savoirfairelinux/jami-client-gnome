@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2013-2020 Savoir-faire Linux Inc.
+ *  Copyright (C) 2013-2021 Savoir-faire Linux Inc.
  *  Author: Tristan Matthews <tristan.matthews@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify

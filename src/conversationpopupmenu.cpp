@@ -1,5 +1,5 @@
 /****************************************************************************
- *    Copyright (C) 2017-2020 Savoir-faire Linux Inc.                             *
+ *    Copyright (C) 2017-2021 Savoir-faire Linux Inc.                             *
  *   Author: Nicolas Jäger <nicolas.jager@savoirfairelinux.com>             *
  *   Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>           *
  *                                                                          *
