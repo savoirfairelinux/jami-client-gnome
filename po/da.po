@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 03:09-0500\n"
-"PO-Revision-Date: 2020-12-28 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-01-25 03:09-0500\n"
+"PO-Revision-Date: 2021-01-25 08:09+0000\n"
+"Last-Translator: T Holm\n"
 "Language-Team: Danish (http://www.transifex.com/savoirfairelinux/jami/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -123,7 +123,7 @@ msgstr "Alias"
 #: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
 #: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
 #: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
-#: src/accountcreationwizard.cpp:1059
+#: src/accountcreationwizard.cpp:1079
 msgid "Username"
 msgstr "Brugernavn"
 
@@ -140,7 +140,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:975 src/newaccountsettingsview.cpp:2132
+#: src/newaccountsettingsview.cpp:995 src/newaccountsettingsview.cpp:2152
 msgid "Delete account"
 msgstr "Slet konto"
 
@@ -209,7 +209,7 @@ msgid "Click to change password"
 msgstr "Klik for at skifte adgangskode"
 
 #: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
-#: src/newaccountsettingsview.cpp:2065 src/accountcreationwizard.cpp:442
+#: src/newaccountsettingsview.cpp:2085 src/accountcreationwizard.cpp:442
 msgid "Export account"
 msgstr "Eksporter konto"
 
@@ -451,7 +451,7 @@ msgid "Video RTP Max port"
 msgstr "Maks. port for video-RTP "
 
 #: ui/messagingwidget.ui:29 ui/currentcallview.ui:424
-#: ui/currentcallview.ui:599 src/chatview.cpp:348
+#: ui/currentcallview.ui:599 src/chatview.cpp:361
 msgid "Record"
 msgstr "Optag"
 
@@ -702,7 +702,7 @@ msgstr ""
 msgid "Back"
 msgstr "Tilbage"
 
-#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1058
+#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1078
 msgid "Register username"
 msgstr "Registrer brugernavn"
 
@@ -999,7 +999,8 @@ msgstr "Overfør til"
 msgid "Add"
 msgstr ""
 
-#: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:124
+#: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:126
+#: src/pluginsettingsview.cpp:140
 msgid "Choose plugin"
 msgstr ""
 
@@ -1071,46 +1072,55 @@ msgstr "Auto"
 msgid "me"
 msgstr "mig"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:974
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:994
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Advarsel! Handlingen vil fjerne kontoen på enheden!\nBemærk: handlingen kan ikke fortrydes. Desuden kan dit registrerede navn gå tabt!"
 
-#: src/chatview.cpp:281
+#: src/chatview.cpp:282 src/chatview.cpp:296
 msgid "Send File"
 msgstr "Send fil"
 
-#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:908
-#: src/accountcreationwizard.cpp:870
+#: src/chatview.cpp:282 src/chatview.cpp:296
+#: src/newaccountsettingsview.cpp:913 src/newaccountsettingsview.cpp:930
+#: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
 msgid "Save File"
 msgstr "Gem fil"
 
-#: src/chatview.cpp:284 src/generalsettingsview.cpp:234
-#: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:127
-#: src/avatarmanipulation.cpp:437 src/accountcreationwizard.cpp:873
-msgid "_Cancel"
-msgstr "_Annuller"
-
-#: src/chatview.cpp:286 src/pluginsettingsview.cpp:129
-#: src/avatarmanipulation.cpp:439
+#: src/chatview.cpp:285 src/chatview.cpp:300 src/video/video_widget.cpp:814
+#: src/video/video_widget.cpp:833 src/pluginsettingsview.cpp:129
+#: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:439
+#: src/avatarmanipulation.cpp:462
 msgid "_Open"
 msgstr "_Åbn"
 
-#: src/chatview.cpp:286 src/generalsettingsview.cpp:236
-#: src/newaccountsettingsview.cpp:913 src/accountcreationwizard.cpp:875
+#: src/chatview.cpp:285 src/chatview.cpp:300 src/generalsettingsview.cpp:236
+#: src/generalsettingsview.cpp:251 src/newaccountsettingsview.cpp:916
+#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:879
+#: src/accountcreationwizard.cpp:897
 msgid "_Save"
 msgstr "_Gem"
 
-#: src/chatview.cpp:338
+#: src/chatview.cpp:286 src/chatview.cpp:299 src/generalsettingsview.cpp:237
+#: src/generalsettingsview.cpp:250 src/newaccountsettingsview.cpp:917
+#: src/newaccountsettingsview.cpp:933 src/video/video_widget.cpp:815
+#: src/video/video_widget.cpp:832 src/pluginsettingsview.cpp:130
+#: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:440
+#: src/avatarmanipulation.cpp:461 src/accountcreationwizard.cpp:880
+#: src/accountcreationwizard.cpp:896
+msgid "_Cancel"
+msgstr "_Annuller"
+
+#: src/chatview.cpp:351
 msgid "Retry"
 msgstr ""
 
-#: src/chatview.cpp:501
+#: src/chatview.cpp:514
 msgid "Stop"
 msgstr ""
 
-#: src/chatview.cpp:996
+#: src/chatview.cpp:1009
 msgid "Send"
 msgstr "Send"
 
@@ -1120,7 +1130,7 @@ msgid ""
 " chat and call history?"
 msgstr "Dette er en destruktiv handling. Er du sikker på, at du vil slette al historik for beskeder og opkald?"
 
-#: src/generalsettingsview.cpp:231
+#: src/generalsettingsview.cpp:233 src/generalsettingsview.cpp:247
 msgid "Choose download folder"
 msgstr "Vælg downloadmappe"
 
@@ -1175,79 +1185,79 @@ msgstr "Nuværende adgangskode"
 msgid "New password"
 msgstr "Ny adgangskode"
 
-#: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:899
+#: src/newaccountsettingsview.cpp:955 src/accountcreationwizard.cpp:919
 msgid "You need to enter your password to export the full archive."
 msgstr "Du skal skrive din adgangskode for at eksportere hele arkivet."
 
-#: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:900
+#: src/newaccountsettingsview.cpp:956 src/accountcreationwizard.cpp:920
 msgid "Enter password to export archive"
 msgstr "Skriv adgangskode for at eksportere arkivet"
 
-#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
+#: src/newaccountsettingsview.cpp:979 src/accountcreationwizard.cpp:943
 msgid "Account exported!"
 msgstr "Konto eksporteret!"
 
-#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
+#: src/newaccountsettingsview.cpp:979 src/accountcreationwizard.cpp:943
 msgid "Export account failure."
 msgstr "Eksport af konto mislykkedes."
 
-#: src/newaccountsettingsview.cpp:1739
+#: src/newaccountsettingsview.cpp:1759
 msgid "Exporting account…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1764
+#: src/newaccountsettingsview.cpp:1784
 msgid "Bad password"
 msgstr "Forkert adgangskode"
 
-#: src/newaccountsettingsview.cpp:1772
+#: src/newaccountsettingsview.cpp:1792
 msgid "Network error, try again"
 msgstr "Netværksfejl, prøv igen"
 
-#: src/newaccountsettingsview.cpp:1780
+#: src/newaccountsettingsview.cpp:1800
 msgid "Unknown error"
 msgstr "Ukendt fejl"
 
-#: src/newaccountsettingsview.cpp:1793
+#: src/newaccountsettingsview.cpp:1813
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Kunne ikke starte eksporten til Jami, prøv igen."
 
-#: src/newaccountsettingsview.cpp:1852
+#: src/newaccountsettingsview.cpp:1872
 msgid "Error: wrong password!"
 msgstr "Fejl: forkert adgangskode!"
 
-#: src/newaccountsettingsview.cpp:1855
+#: src/newaccountsettingsview.cpp:1875
 msgid "Error: unknown device!"
 msgstr "Fejl: ukendt enhed!"
 
-#: src/newaccountsettingsview.cpp:2030
+#: src/newaccountsettingsview.cpp:2050
 msgid "Initializing…"
 msgstr "Initialiserer..."
 
-#: src/newaccountsettingsview.cpp:2033
+#: src/newaccountsettingsview.cpp:2053
 msgid "Offline"
 msgstr "Ingen forbindelse"
 
-#: src/newaccountsettingsview.cpp:2036
+#: src/newaccountsettingsview.cpp:2056
 msgid "Connecting…"
 msgstr "Opretter forbindelse…"
 
-#: src/newaccountsettingsview.cpp:2039
+#: src/newaccountsettingsview.cpp:2059
 msgid "Online"
 msgstr "Forbundet"
 
-#: src/newaccountsettingsview.cpp:2043
+#: src/newaccountsettingsview.cpp:2063
 msgid "Unknown status"
 msgstr "Ukendt status"
 
-#: src/newaccountsettingsview.cpp:2076
+#: src/newaccountsettingsview.cpp:2096
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2076
+#: src/newaccountsettingsview.cpp:2096
 msgid "no password set"
 msgstr "der er ikke indstillet nogen adgangskode"
 
-#: src/newaccountsettingsview.cpp:2132
+#: src/newaccountsettingsview.cpp:2152
 msgid "Remove account"
 msgstr ""
 
@@ -1289,19 +1299,23 @@ msgstr "Minimer"
 msgid "More options"
 msgstr ""
 
-#: src/video/video_widget.cpp:868
+#: src/video/video_widget.cpp:811 src/video/video_widget.cpp:829
+msgid "Choose file"
+msgstr "Vælg fil"
+
+#: src/video/video_widget.cpp:890
 msgid "Share _screen area"
 msgstr "Del _skærmområde"
 
-#: src/video/video_widget.cpp:876
+#: src/video/video_widget.cpp:898
 msgid "Share _monitor"
 msgstr "Del _monitor"
 
-#: src/video/video_widget.cpp:883
+#: src/video/video_widget.cpp:905
 msgid "Stream _file"
 msgstr "Stream _fil"
 
-#: src/video/video_widget.cpp:893
+#: src/video/video_widget.cpp:915
 msgid "Show advanced information"
 msgstr "Vis udvidet information"
 
@@ -1456,17 +1470,17 @@ msgctxt ""
 msgid "Decline"
 msgstr "Afvis"
 
-#: src/pluginsettingsview.cpp:185
+#: src/pluginsettingsview.cpp:201
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
 msgstr ""
 
-#: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
+#: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
 msgid "Uninstall Plugin"
 msgstr ""
 
-#: src/pluginsettingsview.cpp:268
+#: src/pluginsettingsview.cpp:284
 msgid "Load/Unload Plugin"
 msgstr ""
 
@@ -1590,7 +1604,7 @@ msgstr "_Fjern blokering af kontakt"
 msgid "_Profile"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:434
+#: src/avatarmanipulation.cpp:436 src/avatarmanipulation.cpp:458
 msgid "Open Avatar Image"
 msgstr "Åbn profilbillede"
 
@@ -1644,10 +1658,10 @@ msgstr "Tilknyt enhed"
 msgid "Import from backup"
 msgstr ""
 
-#: src/accountcreationwizard.cpp:1089
+#: src/accountcreationwizard.cpp:1109
 msgid "Register name"
 msgstr "Registrer navn"
 
-#: src/accountcreationwizard.cpp:1090
+#: src/accountcreationwizard.cpp:1110
 msgid "Name"
 msgstr "Navn"

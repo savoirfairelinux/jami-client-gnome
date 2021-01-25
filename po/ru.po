@@ -34,9 +34,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 03:09-0500\n"
-"PO-Revision-Date: 2020-12-28 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-01-25 03:09-0500\n"
+"PO-Revision-Date: 2021-01-25 08:09+0000\n"
+"Last-Translator: Vladimir Pavlov <v.pavlov@i-teco.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -144,7 +144,7 @@ msgstr "Псевдоним "
 #: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
 #: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
 #: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
-#: src/accountcreationwizard.cpp:1059
+#: src/accountcreationwizard.cpp:1079
 msgid "Username"
 msgstr "Имя пользователя"
 
@@ -161,7 +161,7 @@ msgstr "Менеджер учетной записи"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:975 src/newaccountsettingsview.cpp:2132
+#: src/newaccountsettingsview.cpp:995 src/newaccountsettingsview.cpp:2152
 msgid "Delete account"
 msgstr "Удалить аккаунт"
 
@@ -230,7 +230,7 @@ msgid "Click to change password"
 msgstr "Нажмите для изменения пароля"
 
 #: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
-#: src/newaccountsettingsview.cpp:2065 src/accountcreationwizard.cpp:442
+#: src/newaccountsettingsview.cpp:2085 src/accountcreationwizard.cpp:442
 msgid "Export account"
 msgstr "Экспортировать аккаунт"
 
@@ -472,7 +472,7 @@ msgid "Video RTP Max port"
 msgstr "Максимальный порт RTP для видео"
 
 #: ui/messagingwidget.ui:29 ui/currentcallview.ui:424
-#: ui/currentcallview.ui:599 src/chatview.cpp:348
+#: ui/currentcallview.ui:599 src/chatview.cpp:361
 msgid "Record"
 msgstr "Запись"
 
@@ -723,7 +723,7 @@ msgstr "Введите ПИН-код из другой настроенной у
 msgid "Back"
 msgstr "Назад"
 
-#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1058
+#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1078
 msgid "Register username"
 msgstr "Зарегистрировать имя пользователя"
 
@@ -1020,7 +1020,8 @@ msgstr "Переадресовать на"
 msgid "Add"
 msgstr "Добавить"
 
-#: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:124
+#: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:126
+#: src/pluginsettingsview.cpp:140
 msgid "Choose plugin"
 msgstr "Выбрать дополнение"
 
@@ -1092,46 +1093,55 @@ msgstr "Автоматически"
 msgid "me"
 msgstr "мне"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:974
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:994
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Предупреждение: Это действие удалит выбранную учетную запись с данного устройства!\nОбратите внимание: это действие невозможно отменить. Ваше зарегистрированное имя так же может быть утрачено!"
 
-#: src/chatview.cpp:281
+#: src/chatview.cpp:282 src/chatview.cpp:296
 msgid "Send File"
 msgstr "Отправить файл"
 
-#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:908
-#: src/accountcreationwizard.cpp:870
+#: src/chatview.cpp:282 src/chatview.cpp:296
+#: src/newaccountsettingsview.cpp:913 src/newaccountsettingsview.cpp:930
+#: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
 msgid "Save File"
 msgstr "Сохранить файл"
 
-#: src/chatview.cpp:284 src/generalsettingsview.cpp:234
-#: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:127
-#: src/avatarmanipulation.cpp:437 src/accountcreationwizard.cpp:873
-msgid "_Cancel"
-msgstr "_Отмена"
-
-#: src/chatview.cpp:286 src/pluginsettingsview.cpp:129
-#: src/avatarmanipulation.cpp:439
+#: src/chatview.cpp:285 src/chatview.cpp:300 src/video/video_widget.cpp:814
+#: src/video/video_widget.cpp:833 src/pluginsettingsview.cpp:129
+#: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:439
+#: src/avatarmanipulation.cpp:462
 msgid "_Open"
 msgstr "_Открыть"
 
-#: src/chatview.cpp:286 src/generalsettingsview.cpp:236
-#: src/newaccountsettingsview.cpp:913 src/accountcreationwizard.cpp:875
+#: src/chatview.cpp:285 src/chatview.cpp:300 src/generalsettingsview.cpp:236
+#: src/generalsettingsview.cpp:251 src/newaccountsettingsview.cpp:916
+#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:879
+#: src/accountcreationwizard.cpp:897
 msgid "_Save"
 msgstr "_Сохранить"
 
-#: src/chatview.cpp:338
+#: src/chatview.cpp:286 src/chatview.cpp:299 src/generalsettingsview.cpp:237
+#: src/generalsettingsview.cpp:250 src/newaccountsettingsview.cpp:917
+#: src/newaccountsettingsview.cpp:933 src/video/video_widget.cpp:815
+#: src/video/video_widget.cpp:832 src/pluginsettingsview.cpp:130
+#: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:440
+#: src/avatarmanipulation.cpp:461 src/accountcreationwizard.cpp:880
+#: src/accountcreationwizard.cpp:896
+msgid "_Cancel"
+msgstr "_Отмена"
+
+#: src/chatview.cpp:351
 msgid "Retry"
 msgstr "Повторить"
 
-#: src/chatview.cpp:501
+#: src/chatview.cpp:514
 msgid "Stop"
 msgstr "Стоп"
 
-#: src/chatview.cpp:996
+#: src/chatview.cpp:1009
 msgid "Send"
 msgstr "Отправить"
 
@@ -1141,7 +1151,7 @@ msgid ""
 " chat and call history?"
 msgstr "Это разрушительная операция. Вы уверены, что хотите удалить всю вашу историю чатов и звонков?"
 
-#: src/generalsettingsview.cpp:231
+#: src/generalsettingsview.cpp:233 src/generalsettingsview.cpp:247
 msgid "Choose download folder"
 msgstr "Выберите папку для загрузок"
 
@@ -1196,79 +1206,79 @@ msgstr "Текущий пароль"
 msgid "New password"
 msgstr "Новый пароль"
 
-#: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:899
+#: src/newaccountsettingsview.cpp:955 src/accountcreationwizard.cpp:919
 msgid "You need to enter your password to export the full archive."
 msgstr "Для экспорта полного архива нужно ввести пароль."
 
-#: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:900
+#: src/newaccountsettingsview.cpp:956 src/accountcreationwizard.cpp:920
 msgid "Enter password to export archive"
 msgstr "Введите пароль для экспорта архива"
 
-#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
+#: src/newaccountsettingsview.cpp:979 src/accountcreationwizard.cpp:943
 msgid "Account exported!"
 msgstr "Аккаунт экспортирован!"
 
-#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
+#: src/newaccountsettingsview.cpp:979 src/accountcreationwizard.cpp:943
 msgid "Export account failure."
 msgstr "Экспорт аккаунта не выполнен."
 
-#: src/newaccountsettingsview.cpp:1739
+#: src/newaccountsettingsview.cpp:1759
 msgid "Exporting account…"
 msgstr "Экспорт аккаунта…"
 
-#: src/newaccountsettingsview.cpp:1764
+#: src/newaccountsettingsview.cpp:1784
 msgid "Bad password"
 msgstr "Недопустимый пароль"
 
-#: src/newaccountsettingsview.cpp:1772
+#: src/newaccountsettingsview.cpp:1792
 msgid "Network error, try again"
 msgstr "Ошибка сети, попробуйте снова"
 
-#: src/newaccountsettingsview.cpp:1780
+#: src/newaccountsettingsview.cpp:1800
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 
-#: src/newaccountsettingsview.cpp:1793
+#: src/newaccountsettingsview.cpp:1813
 msgid "Could not initiate export to the Jami, try again"
 msgstr "Не удалось инициировать экспорт в сеть Jami, попробуйте ещё раз"
 
-#: src/newaccountsettingsview.cpp:1852
+#: src/newaccountsettingsview.cpp:1872
 msgid "Error: wrong password!"
 msgstr "Ошибка: неверный пароль!"
 
-#: src/newaccountsettingsview.cpp:1855
+#: src/newaccountsettingsview.cpp:1875
 msgid "Error: unknown device!"
 msgstr "Ошибка: неизвестное устройство!"
 
-#: src/newaccountsettingsview.cpp:2030
+#: src/newaccountsettingsview.cpp:2050
 msgid "Initializing…"
 msgstr "Инициализация…"
 
-#: src/newaccountsettingsview.cpp:2033
+#: src/newaccountsettingsview.cpp:2053
 msgid "Offline"
 msgstr "Не в сети"
 
-#: src/newaccountsettingsview.cpp:2036
+#: src/newaccountsettingsview.cpp:2056
 msgid "Connecting…"
 msgstr "Соединение…"
 
-#: src/newaccountsettingsview.cpp:2039
+#: src/newaccountsettingsview.cpp:2059
 msgid "Online"
 msgstr "В сети"
 
-#: src/newaccountsettingsview.cpp:2043
+#: src/newaccountsettingsview.cpp:2063
 msgid "Unknown status"
 msgstr "Неизвестный статус"
 
-#: src/newaccountsettingsview.cpp:2076
+#: src/newaccountsettingsview.cpp:2096
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2076
+#: src/newaccountsettingsview.cpp:2096
 msgid "no password set"
 msgstr "пароль не установлен"
 
-#: src/newaccountsettingsview.cpp:2132
+#: src/newaccountsettingsview.cpp:2152
 msgid "Remove account"
 msgstr "Удаление учетной записи"
 
@@ -1310,19 +1320,23 @@ msgstr "Свернуть"
 msgid "More options"
 msgstr "Дополнительные опции"
 
-#: src/video/video_widget.cpp:868
+#: src/video/video_widget.cpp:811 src/video/video_widget.cpp:829
+msgid "Choose file"
+msgstr "Выбрать файл"
+
+#: src/video/video_widget.cpp:890
 msgid "Share _screen area"
 msgstr "Показать _область экрана"
 
-#: src/video/video_widget.cpp:876
+#: src/video/video_widget.cpp:898
 msgid "Share _monitor"
 msgstr "Показать _экран"
 
-#: src/video/video_widget.cpp:883
+#: src/video/video_widget.cpp:905
 msgid "Stream _file"
 msgstr "Транслировать _файл"
 
-#: src/video/video_widget.cpp:893
+#: src/video/video_widget.cpp:915
 msgid "Show advanced information"
 msgstr "Показать дополнительную информацию"
 
@@ -1477,17 +1491,17 @@ msgctxt ""
 msgid "Decline"
 msgstr "Отклонить"
 
-#: src/pluginsettingsview.cpp:185
+#: src/pluginsettingsview.cpp:201
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
 msgstr "Внимание! Это действие приведет к удалению плагина!\nПримечание: данное действие не может быть отменено."
 
-#: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
+#: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
 msgid "Uninstall Plugin"
 msgstr "Удалить плагин"
 
-#: src/pluginsettingsview.cpp:268
+#: src/pluginsettingsview.cpp:284
 msgid "Load/Unload Plugin"
 msgstr "Загрузить/Выгрузить плагин"
 
@@ -1611,7 +1625,7 @@ msgstr "_Разблокировать контакт"
 msgid "_Profile"
 msgstr "_Профиль"
 
-#: src/avatarmanipulation.cpp:434
+#: src/avatarmanipulation.cpp:436 src/avatarmanipulation.cpp:458
 msgid "Open Avatar Image"
 msgstr "Открыть изображение аватара"
 
@@ -1665,10 +1679,10 @@ msgstr "Привязать устройство"
 msgid "Import from backup"
 msgstr "Импортировать из резервной копии"
 
-#: src/accountcreationwizard.cpp:1089
+#: src/accountcreationwizard.cpp:1109
 msgid "Register name"
 msgstr "Зарегистрировать имя"
 
-#: src/accountcreationwizard.cpp:1090
+#: src/accountcreationwizard.cpp:1110
 msgid "Name"
 msgstr "Имя"

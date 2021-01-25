@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 03:09-0500\n"
-"PO-Revision-Date: 2020-12-28 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-01-25 03:09-0500\n"
+"PO-Revision-Date: 2021-01-25 08:09+0000\n"
+"Last-Translator: Amin Mahmudian\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/jami/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -127,7 +127,7 @@ msgstr "نام مستعار"
 #: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
 #: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
 #: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
-#: src/accountcreationwizard.cpp:1059
+#: src/accountcreationwizard.cpp:1079
 msgid "Username"
 msgstr "نام کاربری"
 
@@ -144,7 +144,7 @@ msgstr "مدیر حساب کاربری"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:975 src/newaccountsettingsview.cpp:2132
+#: src/newaccountsettingsview.cpp:995 src/newaccountsettingsview.cpp:2152
 msgid "Delete account"
 msgstr "حذف حساب"
 
@@ -213,7 +213,7 @@ msgid "Click to change password"
 msgstr "برای تغییر گذرواژه کلیک کنید"
 
 #: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
-#: src/newaccountsettingsview.cpp:2065 src/accountcreationwizard.cpp:442
+#: src/newaccountsettingsview.cpp:2085 src/accountcreationwizard.cpp:442
 msgid "Export account"
 msgstr "برون‌برد حساب"
 
@@ -455,7 +455,7 @@ msgid "Video RTP Max port"
 msgstr "درگاه بیشینه RTP ویدئو"
 
 #: ui/messagingwidget.ui:29 ui/currentcallview.ui:424
-#: ui/currentcallview.ui:599 src/chatview.cpp:348
+#: ui/currentcallview.ui:599 src/chatview.cpp:361
 msgid "Record"
 msgstr "ضبط"
 
@@ -706,7 +706,7 @@ msgstr ""
 msgid "Back"
 msgstr "بازگشت"
 
-#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1058
+#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1078
 msgid "Register username"
 msgstr "ثبت نام کاربری"
 
@@ -1003,7 +1003,8 @@ msgstr "انتقال به"
 msgid "Add"
 msgstr "افزودن"
 
-#: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:124
+#: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:126
+#: src/pluginsettingsview.cpp:140
 msgid "Choose plugin"
 msgstr "انتخاب افزونه"
 
@@ -1075,46 +1076,55 @@ msgstr "خودکار"
 msgid "me"
 msgstr ""
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:974
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:994
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "هشدار! این عمل باعث حذف این حساب از روی این دستگاه می شود!\nتوجه: این عمل غیرقابل بازگشت است. همچنین، نام ثبت شده شما ممکن است از بین برود!"
 
-#: src/chatview.cpp:281
+#: src/chatview.cpp:282 src/chatview.cpp:296
 msgid "Send File"
 msgstr "ارسال فایل"
 
-#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:908
-#: src/accountcreationwizard.cpp:870
+#: src/chatview.cpp:282 src/chatview.cpp:296
+#: src/newaccountsettingsview.cpp:913 src/newaccountsettingsview.cpp:930
+#: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
 msgid "Save File"
 msgstr "ذخیره فایل"
 
-#: src/chatview.cpp:284 src/generalsettingsview.cpp:234
-#: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:127
-#: src/avatarmanipulation.cpp:437 src/accountcreationwizard.cpp:873
-msgid "_Cancel"
-msgstr "_لغو"
-
-#: src/chatview.cpp:286 src/pluginsettingsview.cpp:129
-#: src/avatarmanipulation.cpp:439
+#: src/chatview.cpp:285 src/chatview.cpp:300 src/video/video_widget.cpp:814
+#: src/video/video_widget.cpp:833 src/pluginsettingsview.cpp:129
+#: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:439
+#: src/avatarmanipulation.cpp:462
 msgid "_Open"
 msgstr "_گشودن"
 
-#: src/chatview.cpp:286 src/generalsettingsview.cpp:236
-#: src/newaccountsettingsview.cpp:913 src/accountcreationwizard.cpp:875
+#: src/chatview.cpp:285 src/chatview.cpp:300 src/generalsettingsview.cpp:236
+#: src/generalsettingsview.cpp:251 src/newaccountsettingsview.cpp:916
+#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:879
+#: src/accountcreationwizard.cpp:897
 msgid "_Save"
 msgstr "_ذخیره"
 
-#: src/chatview.cpp:338
+#: src/chatview.cpp:286 src/chatview.cpp:299 src/generalsettingsview.cpp:237
+#: src/generalsettingsview.cpp:250 src/newaccountsettingsview.cpp:917
+#: src/newaccountsettingsview.cpp:933 src/video/video_widget.cpp:815
+#: src/video/video_widget.cpp:832 src/pluginsettingsview.cpp:130
+#: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:440
+#: src/avatarmanipulation.cpp:461 src/accountcreationwizard.cpp:880
+#: src/accountcreationwizard.cpp:896
+msgid "_Cancel"
+msgstr "_لغو"
+
+#: src/chatview.cpp:351
 msgid "Retry"
 msgstr "تلاش دوباره"
 
-#: src/chatview.cpp:501
+#: src/chatview.cpp:514
 msgid "Stop"
 msgstr "پایان"
 
-#: src/chatview.cpp:996
+#: src/chatview.cpp:1009
 msgid "Send"
 msgstr "ارسال"
 
@@ -1124,7 +1134,7 @@ msgid ""
 " chat and call history?"
 msgstr "این یک عملیات مخرب است. آیا مطمئن هستید که می‌خواهید تمام گفت‌وگو‌ها و تاریخ‌چه تماس‌تان را پاک کنید؟"
 
-#: src/generalsettingsview.cpp:231
+#: src/generalsettingsview.cpp:233 src/generalsettingsview.cpp:247
 msgid "Choose download folder"
 msgstr "انتخاب پوشه دانلود"
 
@@ -1179,79 +1189,79 @@ msgstr "گذرواژه فعلی"
 msgid "New password"
 msgstr "گذرواژهٔ نو"
 
-#: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:899
+#: src/newaccountsettingsview.cpp:955 src/accountcreationwizard.cpp:919
 msgid "You need to enter your password to export the full archive."
 msgstr "شما باید گذرواژه خود را برای برون برد تمام آرشیو وارد کنید."
 
-#: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:900
+#: src/newaccountsettingsview.cpp:956 src/accountcreationwizard.cpp:920
 msgid "Enter password to export archive"
 msgstr "گذرواژه خود را برای برون برد آرشیو وارد کنید"
 
-#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
+#: src/newaccountsettingsview.cpp:979 src/accountcreationwizard.cpp:943
 msgid "Account exported!"
 msgstr "حساب صادر شد!"
 
-#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
+#: src/newaccountsettingsview.cpp:979 src/accountcreationwizard.cpp:943
 msgid "Export account failure."
 msgstr "برون‌برد حساب کاربری ناموفق بود."
 
-#: src/newaccountsettingsview.cpp:1739
+#: src/newaccountsettingsview.cpp:1759
 msgid "Exporting account…"
 msgstr "برون برد حساب کاربری..."
 
-#: src/newaccountsettingsview.cpp:1764
+#: src/newaccountsettingsview.cpp:1784
 msgid "Bad password"
 msgstr "گذرواژهٔ بد"
 
-#: src/newaccountsettingsview.cpp:1772
+#: src/newaccountsettingsview.cpp:1792
 msgid "Network error, try again"
 msgstr "خطای شبکه، دوباره تلاش کنید"
 
-#: src/newaccountsettingsview.cpp:1780
+#: src/newaccountsettingsview.cpp:1800
 msgid "Unknown error"
 msgstr "خطای ناشناخته"
 
-#: src/newaccountsettingsview.cpp:1793
+#: src/newaccountsettingsview.cpp:1813
 msgid "Could not initiate export to the Jami, try again"
 msgstr "عدم توانایی در شروع برون برد به Jami، دوباره تلاش کنید"
 
-#: src/newaccountsettingsview.cpp:1852
+#: src/newaccountsettingsview.cpp:1872
 msgid "Error: wrong password!"
 msgstr "خطا: گذرواژه اشتباه!"
 
-#: src/newaccountsettingsview.cpp:1855
+#: src/newaccountsettingsview.cpp:1875
 msgid "Error: unknown device!"
 msgstr "خطا: دستگاه ناشناس!"
 
-#: src/newaccountsettingsview.cpp:2030
+#: src/newaccountsettingsview.cpp:2050
 msgid "Initializing…"
 msgstr "آغازِ فرایند..."
 
-#: src/newaccountsettingsview.cpp:2033
+#: src/newaccountsettingsview.cpp:2053
 msgid "Offline"
 msgstr "‌خط"
 
-#: src/newaccountsettingsview.cpp:2036
+#: src/newaccountsettingsview.cpp:2056
 msgid "Connecting…"
 msgstr "در حال اتصال..."
 
-#: src/newaccountsettingsview.cpp:2039
+#: src/newaccountsettingsview.cpp:2059
 msgid "Online"
 msgstr "برخط"
 
-#: src/newaccountsettingsview.cpp:2043
+#: src/newaccountsettingsview.cpp:2063
 msgid "Unknown status"
 msgstr "وضعیت ناشناخته"
 
-#: src/newaccountsettingsview.cpp:2076
+#: src/newaccountsettingsview.cpp:2096
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2076
+#: src/newaccountsettingsview.cpp:2096
 msgid "no password set"
 msgstr "هیچ گذرواژه ای تنظیم نشده است"
 
-#: src/newaccountsettingsview.cpp:2132
+#: src/newaccountsettingsview.cpp:2152
 msgid "Remove account"
 msgstr "حذف حساب"
 
@@ -1293,19 +1303,23 @@ msgstr "کمینه کردن"
 msgid "More options"
 msgstr ""
 
-#: src/video/video_widget.cpp:868
+#: src/video/video_widget.cpp:811 src/video/video_widget.cpp:829
+msgid "Choose file"
+msgstr "انتخاب فایل"
+
+#: src/video/video_widget.cpp:890
 msgid "Share _screen area"
 msgstr "به اشتراک گذاری _ناحیه صفحه"
 
-#: src/video/video_widget.cpp:876
+#: src/video/video_widget.cpp:898
 msgid "Share _monitor"
 msgstr "به اشتراک گذاری _مانیتور"
 
-#: src/video/video_widget.cpp:883
+#: src/video/video_widget.cpp:905
 msgid "Stream _file"
 msgstr "جریان _فایل"
 
-#: src/video/video_widget.cpp:893
+#: src/video/video_widget.cpp:915
 msgid "Show advanced information"
 msgstr "نمایش اطّلاعات پیشرفته"
 
@@ -1460,17 +1474,17 @@ msgctxt ""
 msgid "Decline"
 msgstr "رد کردن"
 
-#: src/pluginsettingsview.cpp:185
+#: src/pluginsettingsview.cpp:201
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
 msgstr "هشدار! این عمل باعث حذف نصب افزونه خواهد شد!\nتوجه: این عمل غیرقابل بازگشت است."
 
-#: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
+#: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
 msgid "Uninstall Plugin"
 msgstr "حذف نصب افزونه"
 
-#: src/pluginsettingsview.cpp:268
+#: src/pluginsettingsview.cpp:284
 msgid "Load/Unload Plugin"
 msgstr "بارگذاری/تخلیه افزونه"
 
@@ -1594,7 +1608,7 @@ msgstr "_رفع مسدودیت مخاطب"
 msgid "_Profile"
 msgstr "_پروفایل"
 
-#: src/avatarmanipulation.cpp:434
+#: src/avatarmanipulation.cpp:436 src/avatarmanipulation.cpp:458
 msgid "Open Avatar Image"
 msgstr "گشودن تصویر آواتار"
 
@@ -1648,10 +1662,10 @@ msgstr "پیوند این افزاره"
 msgid "Import from backup"
 msgstr "وارد کردن از پشتیبان"
 
-#: src/accountcreationwizard.cpp:1089
+#: src/accountcreationwizard.cpp:1109
 msgid "Register name"
 msgstr "ثبت نام"
 
-#: src/accountcreationwizard.cpp:1090
+#: src/accountcreationwizard.cpp:1110
 msgid "Name"
 msgstr "نام"

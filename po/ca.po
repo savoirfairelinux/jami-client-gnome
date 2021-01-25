@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 03:09-0500\n"
-"PO-Revision-Date: 2020-12-28 08:09+0000\n"
+"POT-Creation-Date: 2021-01-25 03:09-0500\n"
+"PO-Revision-Date: 2021-01-25 08:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/savoirfairelinux/jami/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +123,7 @@ msgstr "Àlies"
 #: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
 #: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
 #: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
-#: src/accountcreationwizard.cpp:1059
+#: src/accountcreationwizard.cpp:1079
 msgid "Username"
 msgstr "Nom d'usuari"
 
@@ -140,7 +140,7 @@ msgstr "Gestor del compte"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:975 src/newaccountsettingsview.cpp:2132
+#: src/newaccountsettingsview.cpp:995 src/newaccountsettingsview.cpp:2152
 msgid "Delete account"
 msgstr "Esborrar compte"
 
@@ -209,7 +209,7 @@ msgid "Click to change password"
 msgstr "Cliqueu per canviar la contrasenya"
 
 #: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
-#: src/newaccountsettingsview.cpp:2065 src/accountcreationwizard.cpp:442
+#: src/newaccountsettingsview.cpp:2085 src/accountcreationwizard.cpp:442
 msgid "Export account"
 msgstr "Exporta el compte"
 
@@ -451,7 +451,7 @@ msgid "Video RTP Max port"
 msgstr "Últim port de vídeo RTP"
 
 #: ui/messagingwidget.ui:29 ui/currentcallview.ui:424
-#: ui/currentcallview.ui:599 src/chatview.cpp:348
+#: ui/currentcallview.ui:599 src/chatview.cpp:361
 msgid "Record"
 msgstr "Grava"
 
@@ -702,7 +702,7 @@ msgstr ""
 msgid "Back"
 msgstr "Enrere"
 
-#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1058
+#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1078
 msgid "Register username"
 msgstr "Registra nom d'usuari"
 
@@ -999,7 +999,8 @@ msgstr "Transfereix a"
 msgid "Add"
 msgstr "Afegir"
 
-#: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:124
+#: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:126
+#: src/pluginsettingsview.cpp:140
 msgid "Choose plugin"
 msgstr ""
 
@@ -1071,46 +1072,55 @@ msgstr "Automàtic"
 msgid "me"
 msgstr ""
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:974
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:994
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Atenció! Aquesta acció eliminarà el compte d'aquest dispositiu!\nNota: aquesta acció no es pot desfer. A més, el vostre nom registrat es pot perdre!"
 
-#: src/chatview.cpp:281
+#: src/chatview.cpp:282 src/chatview.cpp:296
 msgid "Send File"
 msgstr "Enviar fitxer"
 
-#: src/chatview.cpp:281 src/newaccountsettingsview.cpp:908
-#: src/accountcreationwizard.cpp:870
+#: src/chatview.cpp:282 src/chatview.cpp:296
+#: src/newaccountsettingsview.cpp:913 src/newaccountsettingsview.cpp:930
+#: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
 msgid "Save File"
 msgstr "Desa fitxer"
 
-#: src/chatview.cpp:284 src/generalsettingsview.cpp:234
-#: src/newaccountsettingsview.cpp:911 src/pluginsettingsview.cpp:127
-#: src/avatarmanipulation.cpp:437 src/accountcreationwizard.cpp:873
-msgid "_Cancel"
-msgstr "_Cancel·la"
-
-#: src/chatview.cpp:286 src/pluginsettingsview.cpp:129
-#: src/avatarmanipulation.cpp:439
+#: src/chatview.cpp:285 src/chatview.cpp:300 src/video/video_widget.cpp:814
+#: src/video/video_widget.cpp:833 src/pluginsettingsview.cpp:129
+#: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:439
+#: src/avatarmanipulation.cpp:462
 msgid "_Open"
 msgstr "_Obre"
 
-#: src/chatview.cpp:286 src/generalsettingsview.cpp:236
-#: src/newaccountsettingsview.cpp:913 src/accountcreationwizard.cpp:875
+#: src/chatview.cpp:285 src/chatview.cpp:300 src/generalsettingsview.cpp:236
+#: src/generalsettingsview.cpp:251 src/newaccountsettingsview.cpp:916
+#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:879
+#: src/accountcreationwizard.cpp:897
 msgid "_Save"
 msgstr "_Desa"
 
-#: src/chatview.cpp:338
+#: src/chatview.cpp:286 src/chatview.cpp:299 src/generalsettingsview.cpp:237
+#: src/generalsettingsview.cpp:250 src/newaccountsettingsview.cpp:917
+#: src/newaccountsettingsview.cpp:933 src/video/video_widget.cpp:815
+#: src/video/video_widget.cpp:832 src/pluginsettingsview.cpp:130
+#: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:440
+#: src/avatarmanipulation.cpp:461 src/accountcreationwizard.cpp:880
+#: src/accountcreationwizard.cpp:896
+msgid "_Cancel"
+msgstr "_Cancel·la"
+
+#: src/chatview.cpp:351
 msgid "Retry"
 msgstr "Reintentar"
 
-#: src/chatview.cpp:501
+#: src/chatview.cpp:514
 msgid "Stop"
 msgstr "Para"
 
-#: src/chatview.cpp:996
+#: src/chatview.cpp:1009
 msgid "Send"
 msgstr "Envia"
 
@@ -1120,7 +1130,7 @@ msgid ""
 " chat and call history?"
 msgstr "Açò és una operació destructiva. Esteu segur que voleu esborrar tot l'historial de xats i trucades?"
 
-#: src/generalsettingsview.cpp:231
+#: src/generalsettingsview.cpp:233 src/generalsettingsview.cpp:247
 msgid "Choose download folder"
 msgstr "Esculli carpeta de descàrregues"
 
@@ -1175,79 +1185,79 @@ msgstr "Contrasenya actual"
 msgid "New password"
 msgstr "Nova contrasenya"
 
-#: src/newaccountsettingsview.cpp:935 src/accountcreationwizard.cpp:899
+#: src/newaccountsettingsview.cpp:955 src/accountcreationwizard.cpp:919
 msgid "You need to enter your password to export the full archive."
 msgstr "Ha d'introduir la seva contrasenya per exportar l'arxiu complet."
 
-#: src/newaccountsettingsview.cpp:936 src/accountcreationwizard.cpp:900
+#: src/newaccountsettingsview.cpp:956 src/accountcreationwizard.cpp:920
 msgid "Enter password to export archive"
 msgstr "Inseriu contrasenya per exportar l'arxiu"
 
-#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
+#: src/newaccountsettingsview.cpp:979 src/accountcreationwizard.cpp:943
 msgid "Account exported!"
 msgstr "Compte exportat!"
 
-#: src/newaccountsettingsview.cpp:959 src/accountcreationwizard.cpp:923
+#: src/newaccountsettingsview.cpp:979 src/accountcreationwizard.cpp:943
 msgid "Export account failure."
 msgstr "Exportació de compte fallida."
 
-#: src/newaccountsettingsview.cpp:1739
+#: src/newaccountsettingsview.cpp:1759
 msgid "Exporting account…"
 msgstr "Exportant compte…"
 
-#: src/newaccountsettingsview.cpp:1764
+#: src/newaccountsettingsview.cpp:1784
 msgid "Bad password"
 msgstr "Mala contrasenya"
 
-#: src/newaccountsettingsview.cpp:1772
+#: src/newaccountsettingsview.cpp:1792
 msgid "Network error, try again"
 msgstr "Error de xarxa, proveu de nou"
 
-#: src/newaccountsettingsview.cpp:1780
+#: src/newaccountsettingsview.cpp:1800
 msgid "Unknown error"
 msgstr "Error desconegut"
 
-#: src/newaccountsettingsview.cpp:1793
+#: src/newaccountsettingsview.cpp:1813
 msgid "Could not initiate export to the Jami, try again"
 msgstr "No s'ha pogut iniciar l'exportació a Jami, prova un altre cop"
 
-#: src/newaccountsettingsview.cpp:1852
+#: src/newaccountsettingsview.cpp:1872
 msgid "Error: wrong password!"
 msgstr "Error: contrasenya incorrecta!"
 
-#: src/newaccountsettingsview.cpp:1855
+#: src/newaccountsettingsview.cpp:1875
 msgid "Error: unknown device!"
 msgstr "Error: contrasenya desconeguda!"
 
-#: src/newaccountsettingsview.cpp:2030
+#: src/newaccountsettingsview.cpp:2050
 msgid "Initializing…"
 msgstr "Inicialitzant…"
 
-#: src/newaccountsettingsview.cpp:2033
+#: src/newaccountsettingsview.cpp:2053
 msgid "Offline"
 msgstr "Fora de línia"
 
-#: src/newaccountsettingsview.cpp:2036
+#: src/newaccountsettingsview.cpp:2056
 msgid "Connecting…"
 msgstr "Connectant…"
 
-#: src/newaccountsettingsview.cpp:2039
+#: src/newaccountsettingsview.cpp:2059
 msgid "Online"
 msgstr "En línia"
 
-#: src/newaccountsettingsview.cpp:2043
+#: src/newaccountsettingsview.cpp:2063
 msgid "Unknown status"
 msgstr "Estat desconegut"
 
-#: src/newaccountsettingsview.cpp:2076
+#: src/newaccountsettingsview.cpp:2096
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2076
+#: src/newaccountsettingsview.cpp:2096
 msgid "no password set"
 msgstr "Cap contrasenya establerta"
 
-#: src/newaccountsettingsview.cpp:2132
+#: src/newaccountsettingsview.cpp:2152
 msgid "Remove account"
 msgstr "Elimina el compte"
 
@@ -1289,19 +1299,23 @@ msgstr ""
 msgid "More options"
 msgstr ""
 
-#: src/video/video_widget.cpp:868
+#: src/video/video_widget.cpp:811 src/video/video_widget.cpp:829
+msgid "Choose file"
+msgstr ""
+
+#: src/video/video_widget.cpp:890
 msgid "Share _screen area"
 msgstr "Comparteix àrea de _pantalla"
 
-#: src/video/video_widget.cpp:876
+#: src/video/video_widget.cpp:898
 msgid "Share _monitor"
 msgstr "Comparteix _monitor"
 
-#: src/video/video_widget.cpp:883
+#: src/video/video_widget.cpp:905
 msgid "Stream _file"
 msgstr "Transmet _fitxer"
 
-#: src/video/video_widget.cpp:893
+#: src/video/video_widget.cpp:915
 msgid "Show advanced information"
 msgstr "Mostra informació avançada"
 
@@ -1456,17 +1470,17 @@ msgctxt ""
 msgid "Decline"
 msgstr "Rebutja"
 
-#: src/pluginsettingsview.cpp:185
+#: src/pluginsettingsview.cpp:201
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
 msgstr ""
 
-#: src/pluginsettingsview.cpp:186 src/pluginsettingsview.cpp:254
+#: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
 msgid "Uninstall Plugin"
 msgstr ""
 
-#: src/pluginsettingsview.cpp:268
+#: src/pluginsettingsview.cpp:284
 msgid "Load/Unload Plugin"
 msgstr ""
 
@@ -1590,7 +1604,7 @@ msgstr "_Desbloca contacte"
 msgid "_Profile"
 msgstr "_Perfil"
 
-#: src/avatarmanipulation.cpp:434
+#: src/avatarmanipulation.cpp:436 src/avatarmanipulation.cpp:458
 msgid "Open Avatar Image"
 msgstr "Obre imatge de l'avatar"
 
@@ -1644,10 +1658,10 @@ msgstr ""
 msgid "Import from backup"
 msgstr "Importa des d'una còpia de seguretat"
 
-#: src/accountcreationwizard.cpp:1089
+#: src/accountcreationwizard.cpp:1109
 msgid "Register name"
 msgstr "Registrar nom"
 
-#: src/accountcreationwizard.cpp:1090
+#: src/accountcreationwizard.cpp:1110
 msgid "Name"
 msgstr "Nom"
