@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "516a16c8_4035caf5",
+        "filename": ".gitlab/issue_templates/Bug.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-01-27T18:37:37Z",
+      "side": 1,
+      "message": "Missing jami.net",
+      "revId": "b0b51b9bf4b3a4f44cbf86dcf75e95728c781f4d",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d939dbb7_979e3d1e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-01-27T18:37:37Z",
+      "side": 1,
+      "message": "wrong commit format. Generally we respect the following\n\npart: short desc\n\nLong description if needed\n\nGitLab: #If exists\nChange-Id:",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "b0b51b9bf4b3a4f44cbf86dcf75e95728c781f4d",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
