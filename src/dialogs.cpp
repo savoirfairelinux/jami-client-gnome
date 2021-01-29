@@ -41,11 +41,14 @@ about_dialog_set_theme(GtkAboutDialog *dialog, gboolean use_dark_theme)
     gtk_about_dialog_set_logo(dialog, logo);
 }
 
-void
-about_dialog_on_redraw(GtkWidget *dialog)
+gboolean
+about_dialog_on_redraw(GtkWidget *dialog,
+                       G_GNUC_UNUSED cairo_t *cr,
+                       G_GNUC_UNUSED gpointer user_data)
 {
-  about_dialog_set_theme(GTK_ABOUT_DIALOG(dialog),
-                         use_dark_theme(get_ambient_color(dialog)));
+    about_dialog_set_theme(GTK_ABOUT_DIALOG(dialog),
+                           use_dark_theme(get_ambient_color(dialog)));
+    return FALSE;
 }
 
 void
