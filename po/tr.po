@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-25 03:09-0500\n"
-"PO-Revision-Date: 2021-01-25 08:09+0000\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2021-02-01 03:09-0500\n"
+"PO-Revision-Date: 2021-01-31 12:50+0000\n"
+"Last-Translator: mahmut özcan <mahmutozcan@protonmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/jami/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +41,7 @@ msgstr "Ortam"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
-msgstr ""
+msgstr "Eklenti"
 
 #: ui/mainwindow.ui:136 ui/newaccountsettingsview.ui:387
 #: ui/accountcreationwizard.ui:530
@@ -66,15 +66,15 @@ msgstr "Ses"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
-msgstr ""
+msgstr "Ses yöneticisi"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
-msgstr ""
+msgstr "Zil sesi aygıtı"
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr ""
+msgstr "Çıkış aygıtı"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
@@ -276,7 +276,7 @@ msgstr "Özel zil sesi "
 
 #: ui/newaccountsettingsview.ui:1264
 msgid "Convert your account into a rendezvous point"
-msgstr ""
+msgstr "Hesabınızı bir buluşma noktasına dönüştürün"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -364,7 +364,7 @@ msgstr "Bağlanabilirlik"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Auto Registration After Expired"
-msgstr ""
+msgstr "Süre Dolduktan Sonra Otomatik Kayıt"
 
 #: ui/newaccountsettingsview.ui:2136
 msgid "Registration expire timeout (seconds)"
@@ -639,7 +639,7 @@ msgstr "Bu aygıtta yeni Jami hesabı oluştur (yeni kullanıcılar için)"
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
-msgstr ""
+msgstr "Bir buluşma noktası oluştur"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
@@ -663,11 +663,11 @@ msgstr "Arşiviniz aracılığıyla bir hesabı içe aktarma"
 
 #: ui/accountcreationwizard.ui:108
 msgid "Advanced features"
-msgstr ""
+msgstr "Gelişmiş özellikler"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Connect to a JAMS server"
-msgstr ""
+msgstr "Bir JAMS sunucusuna bağlan"
 
 #: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
@@ -699,7 +699,7 @@ msgstr "PIN"
 msgid ""
 "Enter the PIN from another configured Jami account. Use the \"Link Another "
 "Device\" feature to obtain a PIN."
-msgstr ""
+msgstr "Başka yapılandırılmış Jami hesabından PIN'i girin. PIN edinmek için \"Başka bir aygıta bağlantı\" özelliğini kullanın."
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
@@ -719,7 +719,7 @@ msgstr "Bunu kontrol ederek, Jami ağına benzersiz bir kullanıcı adı ile kay
 
 #: ui/accountcreationwizard.ui:630
 msgid "Encrypt account with password"
-msgstr ""
+msgstr "Hesabı parola ile şifrele"
 
 #: ui/accountcreationwizard.ui:631
 msgid ""
@@ -780,7 +780,7 @@ msgstr "Jami hesabınız alınıyor..."
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr ""
+msgstr "Jami Yönetim Sunucusu (JAMS) Adresini Girin"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
@@ -788,7 +788,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
-msgstr ""
+msgstr "JAMS kimlik bilgilerinizi girin"
 
 #: ui/accountcreationwizard.ui:1167
 msgid "Connect"
@@ -796,7 +796,7 @@ msgstr "Bağlan"
 
 #: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
-msgstr ""
+msgstr "Var olan SIP hesabını yapılandırın"
 
 #: ui/accountcreationwizard.ui:1240
 msgid "Server"
@@ -804,7 +804,7 @@ msgstr "Sunucu"
 
 #: ui/accountcreationwizard.ui:1385
 msgid "Create SIP account"
-msgstr ""
+msgstr "SİP Hesabı Oluşturun"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
@@ -1006,7 +1006,7 @@ msgstr "Ekle"
 #: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:126
 #: src/pluginsettingsview.cpp:140
 msgid "Choose plugin"
-msgstr ""
+msgstr "Eklenti seçin"
 
 #: ui/pluginsettingsview.ui:44
 msgid "Plugins"
@@ -1293,7 +1293,7 @@ msgstr "Kapat"
 
 #: src/video/video_widget.cpp:429
 msgid "Maximize"
-msgstr ""
+msgstr "En büyük"
 
 #: src/video/video_widget.cpp:444
 msgid "Minimize"
@@ -1301,7 +1301,7 @@ msgstr "Küçült"
 
 #: src/video/video_widget.cpp:497
 msgid "More options"
-msgstr ""
+msgstr "Daha fazla seçenek"
 
 #: src/video/video_widget.cpp:811 src/video/video_widget.cpp:829
 msgid "Choose file"
@@ -1554,7 +1554,7 @@ msgstr "Kaydı durdur"
 msgid "Send recorded message"
 msgstr "Kaydedilmiş iletiyi gönder"
 
-#: src/dialogs.cpp:59
+#: src/dialogs.cpp:62
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
@@ -1562,7 +1562,7 @@ msgid ""
 "built on %.25s"
 msgstr ""
 
-#: src/dialogs.cpp:130
+#: src/dialogs.cpp:133
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1652,7 +1652,7 @@ msgstr "Parolalar uyuşmuyor"
 
 #: src/accountcreationwizard.cpp:675
 msgid "Enter Jami account password"
-msgstr ""
+msgstr "Jami hesap parolanızı girin"
 
 #: src/accountcreationwizard.cpp:676
 msgid "Link device"

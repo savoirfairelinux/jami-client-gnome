@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-25 03:09-0500\n"
-"PO-Revision-Date: 2021-01-25 08:09+0000\n"
+"POT-Creation-Date: 2021-02-01 03:09-0500\n"
+"PO-Revision-Date: 2021-01-26 08:19+0000\n"
 "Last-Translator: Xosé M. <correo@xmgz.eu>\n"
 "Language-Team: Galician (http://www.transifex.com/savoirfairelinux/jami/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -1050,11 +1050,11 @@ msgstr "Sen nome!"
 
 #: src/currentcallview.cpp:1185
 msgid "Current conference (all accounts)"
-msgstr ""
+msgstr "Conferencia actual (tódalas contas)"
 
 #: src/currentcallview.cpp:1220
 msgid "Current calls (all accounts)"
-msgstr ""
+msgstr "Chamadas actuais (tódalas contas)"
 
 #: src/currentcallview.cpp:1237
 msgid "Online contacts"
@@ -1129,17 +1129,17 @@ msgstr "Esta acción é destructiva. Tes a certeza de querer eliminar todo o teu
 
 #: src/generalsettingsview.cpp:233 src/generalsettingsview.cpp:247
 msgid "Choose download folder"
-msgstr ""
+msgstr "Escolle o cartafol de descargas"
 
 #: src/newaccountsettingsview.cpp:605
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Aviso! Esta acción revogará o dispositivo!\nNota: esta acción non ten volta atrás."
 
 #: src/newaccountsettingsview.cpp:606
 msgid "Enter password to revoke device"
-msgstr ""
+msgstr "Escribe o contrasinal para revogar o dispositivo"
 
 #: src/newaccountsettingsview.cpp:664
 msgid "Edit name"
@@ -1151,11 +1151,11 @@ msgstr "Revogar dispositivo"
 
 #: src/newaccountsettingsview.cpp:686
 msgid "Error when revoking device"
-msgstr ""
+msgstr "Fallou a revogación do dispositivo"
 
 #: src/newaccountsettingsview.cpp:759
 msgid "Unban"
-msgstr ""
+msgstr "Retirar veto"
 
 #: src/newaccountsettingsview.cpp:782 src/newaccountsettingsview.cpp:805
 #: src/newaccountsettingsview.cpp:829 src/newaccountsettingsview.cpp:865
@@ -1164,15 +1164,15 @@ msgstr "Cambiar contrasinal"
 
 #: src/newaccountsettingsview.cpp:795
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "O novo contrasinal e a confirmación son diferentes!"
 
 #: src/newaccountsettingsview.cpp:806
 msgid "Incorrect password!"
-msgstr ""
+msgstr "Contrasinal incorrecto!"
 
 #: src/newaccountsettingsview.cpp:843
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "Nota: esto cambiará o contrasinal só para este dispositivo."
 
 #: src/newaccountsettingsview.cpp:846
 msgid "Current password"
@@ -1184,19 +1184,19 @@ msgstr "Novo contrasinal"
 
 #: src/newaccountsettingsview.cpp:955 src/accountcreationwizard.cpp:919
 msgid "You need to enter your password to export the full archive."
-msgstr ""
+msgstr "Debes escribir o teu contrasinal para exportar o arquivo completo."
 
 #: src/newaccountsettingsview.cpp:956 src/accountcreationwizard.cpp:920
 msgid "Enter password to export archive"
-msgstr ""
+msgstr "Escribe o contrasinal para exportar o arquivo"
 
 #: src/newaccountsettingsview.cpp:979 src/accountcreationwizard.cpp:943
 msgid "Account exported!"
-msgstr ""
+msgstr "Conta exportada!"
 
 #: src/newaccountsettingsview.cpp:979 src/accountcreationwizard.cpp:943
 msgid "Export account failure."
-msgstr ""
+msgstr "Fallou a exportación da conta."
 
 #: src/newaccountsettingsview.cpp:1759
 msgid "Exporting account…"
@@ -1216,7 +1216,7 @@ msgstr "Fallo descoñecido"
 
 #: src/newaccountsettingsview.cpp:1813
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "Non se puido iniciar a exportación a Jami, inténtao outra vez"
 
 #: src/newaccountsettingsview.cpp:1872
 msgid "Error: wrong password!"
@@ -1264,7 +1264,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "No se puido iniciar.\nAsegúrate de que o demoño Jami (dring) está activo.\nErro: %s"
 
 #: src/client.cpp:118
 msgid "Jami Error"
@@ -1278,11 +1278,11 @@ msgstr "Mostrar Jami"
 
 #: src/client.cpp:399
 msgid "Quit"
-msgstr ""
+msgstr "Saír"
 
 #: src/video/video_widget.cpp:414
 msgid "Hangup"
-msgstr ""
+msgstr "Colgar"
 
 #: src/video/video_widget.cpp:429
 msgid "Maximize"
@@ -1290,11 +1290,11 @@ msgstr "Maximizar"
 
 #: src/video/video_widget.cpp:444
 msgid "Minimize"
-msgstr ""
+msgstr "Minimizar"
 
 #: src/video/video_widget.cpp:497
 msgid "More options"
-msgstr ""
+msgstr "Máis opcións"
 
 #: src/video/video_widget.cpp:811 src/video/video_widget.cpp:829
 msgid "Choose file"
@@ -1302,15 +1302,15 @@ msgstr "Escolle ficheiro"
 
 #: src/video/video_widget.cpp:890
 msgid "Share _screen area"
-msgstr ""
+msgstr "Compartir _área de pantalla"
 
 #: src/video/video_widget.cpp:898
 msgid "Share _monitor"
-msgstr ""
+msgstr "Compartir _monitor"
 
 #: src/video/video_widget.cpp:905
 msgid "Stream _file"
-msgstr ""
+msgstr "Retransmitir _ficheiro"
 
 #: src/video/video_widget.cpp:915
 msgid "Show advanced information"
@@ -1318,52 +1318,52 @@ msgstr "Mostrar información avanzada"
 
 #: src/mainwindow.cpp:200
 msgid "Add account…"
-msgstr ""
+msgstr "Engadir conta..."
 
 #: src/mainwindow.cpp:916
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
-msgstr ""
+msgstr "chamar"
 
 #: src/mainwindow.cpp:919
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr ""
+msgstr "abrir chat"
 
 #: src/mainwindow.cpp:1152
 msgid "Jami - Migration needed"
-msgstr ""
+msgstr "Jami - precísase migrar"
 
 #: src/mainwindow.cpp:1168
 msgid "Migration in progress... please do not close this window."
-msgstr ""
+msgstr "Migración en progreso... non peches esta ventá."
 
 #: src/mainwindow.cpp:1452
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr ""
+msgstr "Busca ou inicia unha conversa"
 
 #: src/mainwindow.cpp:1921
 msgid "Leave settings page"
-msgstr ""
+msgstr "Saír da páxina de axustes"
 
 #: src/mainwindow.cpp:2343
 msgid "Missed call from "
-msgstr ""
+msgstr "Chamada perdida de"
 
 #: src/mainwindow.cpp:2347
 msgid "Missed call"
-msgstr ""
+msgstr "Chamada perdida"
 
 #: src/mainwindow.cpp:2364
 msgid "There are active calls"
-msgstr ""
+msgstr "Hai chamadas activas"
 
 #: src/mainwindow.cpp:2434
 msgid " is calling you!"
-msgstr ""
+msgstr "estate chamando!"
 
 #: src/mainwindow.cpp:2437
 msgid "Incoming call"
@@ -1371,25 +1371,25 @@ msgstr "Chamada entrante"
 
 #: src/mainwindow.cpp:2594
 msgid "New request from "
-msgstr ""
+msgstr "Nova solicitude de"
 
 #: src/mainwindow.cpp:2597
 msgid "Trust request"
-msgstr ""
+msgstr "Confiar na solicitude"
 
 #: src/mainwindow.cpp:2659
 msgid "New message"
-msgstr ""
+msgstr "Nova mensaxe"
 
 #: src/mainwindow.cpp:2711
 msgid "Stop current call?"
-msgstr ""
+msgstr "Deter a chamada actual?"
 
 #: src/mainwindow.cpp:2712
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
-msgstr ""
+msgstr "Hai unha chamada en curso. Queres pechar a ventá e deter tódalas chamadas en curso?"
 
 #: src/mainwindow.cpp:2779
 msgid "Clear history"
@@ -1397,7 +1397,7 @@ msgstr "Eliminar historial"
 
 #: src/mainwindow.cpp:2780
 msgid "Do you really want to clear the history of this conversation?"
-msgstr ""
+msgstr "Tes a certeza de querer eliminar o historial desta conversa?"
 
 #: src/mainwindow.cpp:2795
 msgid "Remove conversation"
@@ -1405,7 +1405,7 @@ msgstr "Eliminar conversa"
 
 #: src/mainwindow.cpp:2796
 msgid "Do you really want to remove this conversation?"
-msgstr ""
+msgstr "Tes a certeza de que queres eliminar esta conversa?"
 
 #: src/mainwindow.cpp:2811
 msgid "Block contact"
@@ -1413,19 +1413,19 @@ msgstr "Bloquear contacto"
 
 #: src/mainwindow.cpp:2812
 msgid "Do you really want to block this contact?"
-msgstr ""
+msgstr "Tes a certeza de querer bloquear este contacto?"
 
 #: src/welcomeview.cpp:93
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Este é o teu nome de usuaria Jami.\nCopiao e compárteo coas túas amizades!"
 
 #: src/welcomeview.cpp:101
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr ""
+msgstr "Este é o teu ID.\nCópiao e compárteo coas túas amizades!"
 
 #: src/welcomeview.cpp:213
 msgid ""
@@ -1435,22 +1435,22 @@ msgstr "Jami é software libre para comunicacións universais e que respecta as 
 
 #: src/client_options.c:66
 msgid "Enable debug"
-msgstr ""
+msgstr "Activar depuración"
 
 #: src/client_options.c:68
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
-msgstr ""
+msgstr "Restablece o estado agochado da ventá principal (só se aplica á instancia primaria)"
 
 #: src/client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr ""
+msgstr "- Cliente GNOME para Jami"
 
 #: src/notifier.cpp:349
 msgctxt ""
 msgid "Open conversation"
-msgstr ""
+msgstr "Abrir conversa"
 
 #: src/notifier.cpp:357 src/notifier.cpp:373
 msgctxt ""
@@ -1471,23 +1471,23 @@ msgstr "Rexeitar"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Aviso! Esta acción desinstalará o complemento!\nNota: esta acción non ten volta atrás."
 
 #: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
 msgid "Uninstall Plugin"
-msgstr ""
+msgstr "Desinstalar complemento"
 
 #: src/pluginsettingsview.cpp:284
 msgid "Load/Unload Plugin"
-msgstr ""
+msgstr "Cargar/Retirar Complemento"
 
 #: src/profileview.cpp:130
 msgid "(None)"
-msgstr ""
+msgstr "(Ningún)"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
-msgstr ""
+msgstr "Rexistra este nome de usuaria no servidor de nomes"
 
 #: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
@@ -1499,45 +1499,45 @@ msgstr "Nome de usuaria non válido"
 
 #: src/usernameregistrationbox.cpp:193
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "Busca non dispoñible, comproba a conexión á rede"
 
 #: src/usernameregistrationbox.cpp:273
 msgid "Performing lookup…"
-msgstr ""
+msgstr "Realizando a busca..."
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
-msgstr ""
+msgstr "Escribe o contrasinal da túa conta Jami"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
-msgstr ""
+msgstr "Proceso de rexistro en proceso..."
 
 #: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
-msgstr ""
+msgstr "Erro ao rexistrar o nome"
 
 #: src/usernameregistrationbox.cpp:434
 msgid ""
 "Unable to register name (Invalid name). Your username should contains "
 "between 3 and 32 alphanumerics characters (or underscore)."
-msgstr ""
+msgstr "Non se puido rexistrar o nome (non válido). O nome de usuaria só pode conter entre 3 e 32 caracteres alfanuméricos (e trazo baixo)."
 
 #: src/usernameregistrationbox.cpp:438
 msgid "Unable to register name (Wrong password)."
-msgstr ""
+msgstr "Non se rexistrou o nome (contrasinal incorrecto)."
 
 #: src/usernameregistrationbox.cpp:442
 msgid "Unable to register name (Username already taken)."
-msgstr ""
+msgstr "Non se rexistrou o nome (nome de usuaria xa está a ser usado)."
 
 #: src/usernameregistrationbox.cpp:446
 msgid "Unable to register name (Network error) - check your connection."
-msgstr ""
+msgstr "Non se rexistrou o nome (fallo na rede) - comproba a conexión."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
-msgstr ""
+msgstr "O contacto semella ocupado. Déixaslle unha mensaxe?"
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
@@ -1545,95 +1545,95 @@ msgstr "Deixar de gravar"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
-msgstr ""
+msgstr "Enviar mensaxe gravada"
 
-#: src/dialogs.cpp:59
+#: src/dialogs.cpp:62
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"%s\"\nbaseado en %.25s"
 
-#: src/dialogs.cpp:130
+#: src/dialogs.cpp:133
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
+msgstr "O cliente GNOME para Jami.\nJami é software libre para comunicacións universais que respecta as liberdades e privacidade das súas usuarias."
 
 #: src/conversationpopupmenu.cpp:225
 msgid "Place _video call"
-msgstr ""
+msgstr "Facer chamada de _video"
 
 #: src/conversationpopupmenu.cpp:228
 msgid "Place _audio call"
-msgstr ""
+msgstr "Facer chamada de _audio"
 
 #: src/conversationpopupmenu.cpp:236
 msgid "_Add to conversations"
-msgstr ""
+msgstr "_Engadir ás conversas"
 
 #: src/conversationpopupmenu.cpp:240
 msgid "_Discard invitation"
-msgstr ""
+msgstr "_Rexeitar convite"
 
 #: src/conversationpopupmenu.cpp:243
 msgid "_Block invitations"
-msgstr ""
+msgstr "_Bloquear convites"
 
 #: src/conversationpopupmenu.cpp:248
 msgid "C_lear history"
-msgstr ""
+msgstr "Ba_leirar historial"
 
 #: src/conversationpopupmenu.cpp:251
 msgid "_Remove conversation"
-msgstr ""
+msgstr "Elimina_r conversa"
 
 #: src/conversationpopupmenu.cpp:257
 msgid "_Block contact"
-msgstr ""
+msgstr "_Bloquear contacto"
 
 #: src/conversationpopupmenu.cpp:261
 msgid "_Unblock contact"
-msgstr ""
+msgstr "_Desbloquear contacto"
 
 #: src/conversationpopupmenu.cpp:268
 msgid "_Profile"
-msgstr ""
+msgstr "_Perfil"
 
 #: src/avatarmanipulation.cpp:436 src/avatarmanipulation.cpp:458
 msgid "Open Avatar Image"
-msgstr ""
+msgstr "Abrir imaxe avatar"
 
 #: src/accountcreationwizard.cpp:327
 msgid "An error occurred during the account creation."
-msgstr ""
+msgstr "Houbo un erro durante a creación da conta."
 
 #: src/accountcreationwizard.cpp:331
 msgid "An error occurred during the rendez-vous creation."
-msgstr ""
+msgstr "Houbo un erro durante a creación do punto de encontro."
 
 #: src/accountcreationwizard.cpp:335
 msgid "An error occurred during the SIP account creation."
-msgstr ""
+msgstr "Houbo un erro durante a creación da conta SIP."
 
 #: src/accountcreationwizard.cpp:339
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "Non se puido obter a conta, comproba o PIN e o contrasinal."
 
 #: src/accountcreationwizard.cpp:343
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "Non se puido obter a conta, comproba o teu ficheiro e contrasinal."
 
 #: src/accountcreationwizard.cpp:347
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "Non se puido conectar co xestor de contas proporcionado. Comproba as credenciais."
 
 #: src/accountcreationwizard.cpp:536
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "Creando o teu punto de encontro..."
 
 #: src/accountcreationwizard.cpp:538
 msgid "Generating your Jami account…"
@@ -1645,7 +1645,7 @@ msgstr "Os contrasinais non concordan"
 
 #: src/accountcreationwizard.cpp:675
 msgid "Enter Jami account password"
-msgstr ""
+msgstr "Escribe o contrasinal da conta Jami"
 
 #: src/accountcreationwizard.cpp:676
 msgid "Link device"

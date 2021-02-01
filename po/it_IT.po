@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-25 03:09-0500\n"
+"POT-Creation-Date: 2021-02-01 03:09-0500\n"
 "PO-Revision-Date: 2021-01-25 08:09+0000\n"
 "Last-Translator: Max Lecomte <xineyos@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/savoirfairelinux/jami/language/it_IT/)\n"
@@ -1551,7 +1551,7 @@ msgstr "Interrompi la registrazione"
 msgid "Send recorded message"
 msgstr "Invia un messaggio registrato"
 
-#: src/dialogs.cpp:59
+#: src/dialogs.cpp:62
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
@@ -1559,7 +1559,7 @@ msgid ""
 "built on %.25s"
 msgstr "\"%s\"\ncostruito su %.25s"
 
-#: src/dialogs.cpp:130
+#: src/dialogs.cpp:133
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
