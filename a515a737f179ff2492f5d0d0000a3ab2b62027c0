@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0a1ad7df_1268fa47",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 859
+      },
+      "writtenOn": "2021-02-02T22:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32487d84_057a5fd6",
+      "range": {
+        "startLine": 161,
+        "startChar": 26,
+        "endLine": 161,
+        "endChar": 34
+      },
+      "revId": "a515a737f179ff2492f5d0d0000a3ab2b62027c0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02ae0f43_f598d2f5",
         "filename": "src/chatview.cpp",
         "patchSetId": 9
@@ -45,6 +69,30 @@
       "revId": "a515a737f179ff2492f5d0d0000a3ab2b62027c0",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc0f7a9a_3a08274f",
+        "filename": "src/chatview.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 859
+      },
+      "writtenOn": "2021-02-02T22:03:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02ae0f43_f598d2f5",
+      "range": {
+        "startLine": 623,
+        "startChar": 65,
+        "endLine": 623,
+        "endChar": 74
+      },
+      "revId": "a515a737f179ff2492f5d0d0000a3ab2b62027c0",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
     }
   ]
 }
