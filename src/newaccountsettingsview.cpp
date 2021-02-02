@@ -647,7 +647,11 @@ add_device(NewAccountSettingsView *view, const lrc::api::Device& device)
     gtk_style_context_add_class(context_box, "boxitem");
     // Fill with devices information
     auto* device_info_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    auto* label_name = gtk_label_new(qUtf8Printable(device.name));
+    auto label_str =
+        device.isCurrent
+        ? QString("%1 %2").arg(device.name).arg(_("(this device)"))
+        : device.name;
+    auto* label_name = gtk_label_new(qUtf8Printable(label_str));
     gtk_box_pack_start(GTK_BOX(device_info_box), label_name, false, false, 0);
     gtk_widget_set_halign(label_name, GtkAlign::GTK_ALIGN_START);
     auto* label_id = gtk_label_new("");
