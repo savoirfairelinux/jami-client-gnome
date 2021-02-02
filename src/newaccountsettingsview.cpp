@@ -503,8 +503,10 @@ get_devicename_from_row(GtkWidget* row)
     auto* list_iterator = get_row_iterator(row);
     auto* current_child = g_list_first(list_iterator);  // image
     current_child = g_list_next(current_child);  // box infos
-    auto box_devices_info = gtk_container_get_children(GTK_CONTAINER(current_child->data));
-    current_child = g_list_first(box_devices_info);  // device.name
+    auto* box_devices_info = gtk_container_get_children(GTK_CONTAINER(current_child->data));
+    current_child = g_list_first(box_devices_info);  // device name container
+    auto* box_device_name = gtk_container_get_children(GTK_CONTAINER(current_child->data));
+    current_child = g_list_first(box_device_name);  // device.name
     return GTK_WIDGET(current_child->data);
 }
 
@@ -515,24 +517,26 @@ replace_name_from_row(GtkWidget* row, const QString& name, const QString& id)
     auto* list_iterator = get_row_iterator(row);
     auto* box_info = g_list_next(g_list_first(list_iterator));  // box infos
     auto* action_button = g_list_last(list_iterator);
-    auto box_devices_info = gtk_container_get_children(GTK_CONTAINER(box_info->data));
-    auto* device_name = g_list_first(box_devices_info);  // device.name
+    auto* box_devices_info = gtk_container_get_children(GTK_CONTAINER(box_info->data));
+    auto* box_device_name_container = GTK_CONTAINER(g_list_first(box_devices_info)->data);
+    auto* box_device_name = gtk_container_get_children(box_device_name_container);
+    auto* device_name = g_list_first(box_device_name);  // device.name
     auto isEntryName = G_TYPE_CHECK_INSTANCE_TYPE(device_name->data, gtk_entry_get_type());
-    auto* label_id = g_list_next(box_devices_info);  // device.name
-    gtk_container_remove(GTK_CONTAINER(box_info->data), GTK_WIDGET(device_name->data));
+    auto* label_id = g_list_next(box_devices_info);  // device.id
+    gtk_container_remove(GTK_CONTAINER(box_device_name_container), GTK_WIDGET(device_name->data));
     gtk_container_remove(GTK_CONTAINER(box_info->data), GTK_WIDGET(label_id->data));
 
     // Rebuild item
     if (isEntryName) {
         auto* new_label_name = gtk_label_new(qUtf8Printable(name));
-        gtk_box_pack_start(GTK_BOX(box_info->data), new_label_name, true, true, 0);
+        gtk_box_pack_start(GTK_BOX(box_device_name_container), new_label_name, false, false, 0);
         gtk_widget_set_halign(new_label_name, GtkAlign::GTK_ALIGN_START);
         auto* image = gtk_image_new_from_icon_name("emblem-system-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
         gtk_button_set_image(GTK_BUTTON(action_button->data), image);
     } else {
         auto* entry_name = gtk_entry_new();
         gtk_entry_set_text(GTK_ENTRY(entry_name), qUtf8Printable(name));
-        gtk_container_add(GTK_CONTAINER(box_info->data), entry_name);
+        gtk_container_add(GTK_CONTAINER(box_device_name_container), entry_name);
         auto* image = gtk_image_new_from_icon_name("document-save-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
         gtk_button_set_image(GTK_BUTTON(action_button->data), image);
     }
@@ -560,7 +564,7 @@ get_contact_id_from_row(GtkWidget* row)
     auto* list_iterator = get_row_iterator(row);
     auto* current_child = g_list_first(list_iterator);  // image
     auto box_devices_info = gtk_container_get_children(GTK_CONTAINER(current_child->data));
-    current_child = g_list_last(box_devices_info);  // device.id
+    current_child = g_list_last(box_devices_info);  // contact.id
     return gtk_label_get_text(GTK_LABEL(current_child->data));
 }
 
@@ -647,9 +651,25 @@ add_device(NewAccountSettingsView *view, const lrc::api::Device& device)
     gtk_style_context_add_class(context_box, "boxitem");
     // Fill with devices information
     auto* device_info_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    auto* device_name_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     auto* label_name = gtk_label_new(qUtf8Printable(device.name));
-    gtk_box_pack_start(GTK_BOX(device_info_box), label_name, false, false, 0);
+    gtk_box_pack_start(GTK_BOX(device_name_box), label_name, false, false, 0);
     gtk_widget_set_halign(label_name, GtkAlign::GTK_ALIGN_START);
+    if (device.isCurrent) {
+        auto* label_this_device = gtk_label_new("");
+        std::string this_device_markup =
+            "<span font_desc=\"8.5\" weight=\"bold\">"
+            + std::string(_("(this device)"))
+            + "</span>";
+        gtk_label_set_markup(GTK_LABEL(label_this_device),
+                             this_device_markup.c_str());
+        gtk_widget_set_margin_start(label_this_device, 10);
+        gtk_box_pack_end(GTK_BOX(device_name_box),
+                           label_this_device, false, false, 0);
+        gtk_widget_set_halign(label_this_device,
+                              GtkAlign::GTK_ALIGN_END);
+    }
+    gtk_box_pack_start(GTK_BOX(device_info_box), device_name_box, false, false, 0);
     auto* label_id = gtk_label_new("");
     std::string markup = "<span font_desc=\"7.0\">" + device.id.toStdString() + "</span>";
     gtk_label_set_markup(GTK_LABEL(label_id), markup.c_str());
