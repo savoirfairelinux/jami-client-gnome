@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-01 03:09-0500\n"
+"POT-Creation-Date: 2021-02-08 03:09-0500\n"
 "PO-Revision-Date: 2021-01-25 08:09+0000\n"
 "Last-Translator: redfishleo <redfish.tbc@gmail.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/savoirfairelinux/jami/language/zh/)\n"
@@ -137,7 +137,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:995 src/newaccountsettingsview.cpp:2152
+#: src/newaccountsettingsview.cpp:1011 src/newaccountsettingsview.cpp:2168
 msgid "Delete account"
 msgstr ""
 
@@ -176,7 +176,7 @@ msgstr ""
 msgid "Enter archive password"
 msgstr ""
 
-#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:868
+#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:884
 msgid "Cancel"
 msgstr "取消"
 
@@ -206,7 +206,7 @@ msgid "Click to change password"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
-#: src/newaccountsettingsview.cpp:2085 src/accountcreationwizard.cpp:442
+#: src/newaccountsettingsview.cpp:2101 src/accountcreationwizard.cpp:442
 msgid "Export account"
 msgstr ""
 
@@ -448,7 +448,7 @@ msgid "Video RTP Max port"
 msgstr ""
 
 #: ui/messagingwidget.ui:29 ui/currentcallview.ui:424
-#: ui/currentcallview.ui:599 src/chatview.cpp:361
+#: ui/currentcallview.ui:599 src/chatview.cpp:461
 msgid "Record"
 msgstr "錄製"
 
@@ -460,7 +460,12 @@ msgstr ""
 msgid "End without message"
 msgstr ""
 
-#: ui/chatview.ui:39
+#: ui/chatview.ui:41 ui/currentcallview.ui:752 src/pluginsettingsview.cpp:126
+#: src/pluginsettingsview.cpp:140
+msgid "Choose plugin"
+msgstr ""
+
+#: ui/chatview.ui:73
 msgid "Send Invitation"
 msgstr ""
 
@@ -732,7 +737,7 @@ msgid ""
 "devices to your account."
 msgstr ""
 
-#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:858
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:874
 msgid "Confirm password"
 msgstr ""
 
@@ -996,11 +1001,6 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: ui/currentcallview.ui:752 src/pluginsettingsview.cpp:126
-#: src/pluginsettingsview.cpp:140
-msgid "Choose plugin"
-msgstr ""
-
 #: ui/pluginsettingsview.ui:44
 msgid "Plugins"
 msgstr ""
@@ -1044,64 +1044,68 @@ msgid ""
 "Jami will now quit."
 msgstr ""
 
-#: src/currentcallview.cpp:1070
+#: src/currentcallview.cpp:1064
 msgid "No name!"
 msgstr ""
 
-#: src/currentcallview.cpp:1185
+#: src/currentcallview.cpp:1176
 msgid "Current conference (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:1220
+#: src/currentcallview.cpp:1211
 msgid "Current calls (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:1237
+#: src/currentcallview.cpp:1228
 msgid "Online contacts"
 msgstr ""
 
-#: src/currentcallview.cpp:1680
+#: src/currentcallview.cpp:1672
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr ""
 
-#: src/currentcallview.cpp:1755
+#: src/currentcallview.cpp:1747
 msgid "me"
 msgstr ""
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:994
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:1010
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr ""
 
-#: src/chatview.cpp:282 src/chatview.cpp:296
+#: src/chatview.cpp:161
+msgid "Unnamed handler"
+msgstr ""
+
+#: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"
 msgstr ""
 
-#: src/chatview.cpp:282 src/chatview.cpp:296
-#: src/newaccountsettingsview.cpp:913 src/newaccountsettingsview.cpp:930
+#: src/chatview.cpp:382 src/chatview.cpp:396
+#: src/newaccountsettingsview.cpp:929 src/newaccountsettingsview.cpp:946
 #: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
 msgid "Save File"
 msgstr "儲存檔案"
 
-#: src/chatview.cpp:285 src/chatview.cpp:300 src/video/video_widget.cpp:814
+#: src/chatview.cpp:385 src/chatview.cpp:400 src/video/video_widget.cpp:814
 #: src/video/video_widget.cpp:833 src/pluginsettingsview.cpp:129
 #: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:439
 #: src/avatarmanipulation.cpp:462
 msgid "_Open"
 msgstr ""
 
-#: src/chatview.cpp:285 src/chatview.cpp:300 src/generalsettingsview.cpp:236
-#: src/generalsettingsview.cpp:251 src/newaccountsettingsview.cpp:916
-#: src/newaccountsettingsview.cpp:934 src/accountcreationwizard.cpp:879
+#: src/chatview.cpp:385 src/chatview.cpp:400 src/generalsettingsview.cpp:236
+#: src/generalsettingsview.cpp:251 src/newaccountsettingsview.cpp:932
+#: src/newaccountsettingsview.cpp:950 src/accountcreationwizard.cpp:879
 #: src/accountcreationwizard.cpp:897
 msgid "_Save"
 msgstr ""
 
-#: src/chatview.cpp:286 src/chatview.cpp:299 src/generalsettingsview.cpp:237
-#: src/generalsettingsview.cpp:250 src/newaccountsettingsview.cpp:917
-#: src/newaccountsettingsview.cpp:933 src/video/video_widget.cpp:815
+#: src/chatview.cpp:386 src/chatview.cpp:399 src/generalsettingsview.cpp:237
+#: src/generalsettingsview.cpp:250 src/newaccountsettingsview.cpp:933
+#: src/newaccountsettingsview.cpp:949 src/video/video_widget.cpp:815
 #: src/video/video_widget.cpp:832 src/pluginsettingsview.cpp:130
 #: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:440
 #: src/avatarmanipulation.cpp:461 src/accountcreationwizard.cpp:880
@@ -1109,15 +1113,15 @@ msgstr ""
 msgid "_Cancel"
 msgstr ""
 
-#: src/chatview.cpp:351
+#: src/chatview.cpp:451
 msgid "Retry"
 msgstr ""
 
-#: src/chatview.cpp:514
+#: src/chatview.cpp:696
 msgid "Stop"
 msgstr ""
 
-#: src/chatview.cpp:1009
+#: src/chatview.cpp:1206
 msgid "Send"
 msgstr "發送"
 
@@ -1131,130 +1135,134 @@ msgstr ""
 msgid "Choose download folder"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:605
+#: src/newaccountsettingsview.cpp:608
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:606
+#: src/newaccountsettingsview.cpp:609
 msgid "Enter password to revoke device"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:664
+#: src/newaccountsettingsview.cpp:657
+msgid "This device"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:680
 msgid "Edit name"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:664
+#: src/newaccountsettingsview.cpp:680
 msgid "Revoke device"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:686
+#: src/newaccountsettingsview.cpp:702
 msgid "Error when revoking device"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:759
+#: src/newaccountsettingsview.cpp:775
 msgid "Unban"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:782 src/newaccountsettingsview.cpp:805
-#: src/newaccountsettingsview.cpp:829 src/newaccountsettingsview.cpp:865
+#: src/newaccountsettingsview.cpp:798 src/newaccountsettingsview.cpp:821
+#: src/newaccountsettingsview.cpp:845 src/newaccountsettingsview.cpp:881
 msgid "Change password"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:795
+#: src/newaccountsettingsview.cpp:811
 msgid "New password and its confirmation are different!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:806
+#: src/newaccountsettingsview.cpp:822
 msgid "Incorrect password!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:843
+#: src/newaccountsettingsview.cpp:859
 msgid "Note: this will change the password only on this device."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:846
+#: src/newaccountsettingsview.cpp:862
 msgid "Current password"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:852
+#: src/newaccountsettingsview.cpp:868
 msgid "New password"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:955 src/accountcreationwizard.cpp:919
+#: src/newaccountsettingsview.cpp:971 src/accountcreationwizard.cpp:919
 msgid "You need to enter your password to export the full archive."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:956 src/accountcreationwizard.cpp:920
+#: src/newaccountsettingsview.cpp:972 src/accountcreationwizard.cpp:920
 msgid "Enter password to export archive"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:979 src/accountcreationwizard.cpp:943
+#: src/newaccountsettingsview.cpp:995 src/accountcreationwizard.cpp:943
 msgid "Account exported!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:979 src/accountcreationwizard.cpp:943
+#: src/newaccountsettingsview.cpp:995 src/accountcreationwizard.cpp:943
 msgid "Export account failure."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1759
+#: src/newaccountsettingsview.cpp:1775
 msgid "Exporting account…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1784
+#: src/newaccountsettingsview.cpp:1800
 msgid "Bad password"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1792
+#: src/newaccountsettingsview.cpp:1808
 msgid "Network error, try again"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1800
+#: src/newaccountsettingsview.cpp:1816
 msgid "Unknown error"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1813
+#: src/newaccountsettingsview.cpp:1829
 msgid "Could not initiate export to the Jami, try again"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1872
+#: src/newaccountsettingsview.cpp:1888
 msgid "Error: wrong password!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1875
+#: src/newaccountsettingsview.cpp:1891
 msgid "Error: unknown device!"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2050
+#: src/newaccountsettingsview.cpp:2066
 msgid "Initializing…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2053
+#: src/newaccountsettingsview.cpp:2069
 msgid "Offline"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2056
+#: src/newaccountsettingsview.cpp:2072
 msgid "Connecting…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2059
+#: src/newaccountsettingsview.cpp:2075
 msgid "Online"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2063
+#: src/newaccountsettingsview.cpp:2079
 msgid "Unknown status"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2096
+#: src/newaccountsettingsview.cpp:2112
 msgid "••••••••"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2096
+#: src/newaccountsettingsview.cpp:2112
 msgid "no password set"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2152
+#: src/newaccountsettingsview.cpp:2168
 msgid "Remove account"
 msgstr ""
 
