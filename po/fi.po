@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Kimmo Kujansuu <mrkujansuu@gmail.com>, 2020
+# Kimmo Kujansuu <mrkujansuu@gmail.com>, 2020-2021
 # Nikolay Korotkiy <sikmir@gmail.com>, 2019
 # nomen omen, 2020
 # nomen omen, 2020
@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 03:09-0500\n"
-"PO-Revision-Date: 2021-02-08 08:09+0000\n"
+"POT-Creation-Date: 2021-02-15 03:09-0500\n"
+"PO-Revision-Date: 2021-02-11 16:26+0000\n"
 "Last-Translator: Kimmo Kujansuu <mrkujansuu@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/savoirfairelinux/jami/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -1080,7 +1080,7 @@ msgstr "Varoitus! Tämä toiminto poistaa tämän tunnuksen tästä laitteesta!\
 
 #: src/chatview.cpp:161
 msgid "Unnamed handler"
-msgstr ""
+msgstr "Nimeämätön ohjaaja"
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"

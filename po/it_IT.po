@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 03:09-0500\n"
-"PO-Revision-Date: 2021-02-08 08:09+0000\n"
+"POT-Creation-Date: 2021-02-15 03:09-0500\n"
+"PO-Revision-Date: 2021-02-13 20:48+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/savoirfairelinux/jami/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
@@ -1081,7 +1081,7 @@ msgstr "Attenzione! Questa azione rimuoverà questo account su questo dispositiv
 
 #: src/chatview.cpp:161
 msgid "Unnamed handler"
-msgstr ""
+msgstr "Gestore senza nome"
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"

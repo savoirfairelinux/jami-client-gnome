@@ -19,7 +19,7 @@
 # jsagarribay <jsagarribay@gmail.com>, 2016
 # jsagarribay <jsagarribay@gmail.com>, 2016
 # Juanjo Faico <juanjofaico22@openmailbox.org>, 2016
-# Juan Manuel <jumase.25@gmail.com>, 2019-2020
+# Juan Manuel <jumase.25@gmail.com>, 2019-2021
 # Julie LeBrun <julie.lebrun@savoirfairelinux.com>, 2016
 # Julio Gutierrez <bubuntux@gmail.com>, 2016
 # jusore <jusore@gmail.com>, 2016
@@ -41,9 +41,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 03:09-0500\n"
-"PO-Revision-Date: 2021-02-08 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-02-15 03:09-0500\n"
+"PO-Revision-Date: 2021-02-12 17:13+0000\n"
+"Last-Translator: Juan Manuel <jumase.25@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/jami/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1108,7 +1108,7 @@ msgstr "Esta acción eliminará esta cuenta de este dispositivo.\nNota: Este acc
 
 #: src/chatview.cpp:161
 msgid "Unnamed handler"
-msgstr ""
+msgstr "Gestor desconocido"
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"
@@ -1178,7 +1178,7 @@ msgstr "Introduzca la contraseña para anular el dispositivo"
 
 #: src/newaccountsettingsview.cpp:657
 msgid "This device"
-msgstr ""
+msgstr "Este dispositivo"
 
 #: src/newaccountsettingsview.cpp:680
 msgid "Edit name"
@@ -1646,15 +1646,15 @@ msgstr "Abrir imagen de avatar"
 
 #: src/accountcreationwizard.cpp:327
 msgid "An error occurred during the account creation."
-msgstr ""
+msgstr "Se produjo un error durante la creación de la cuenta."
 
 #: src/accountcreationwizard.cpp:331
 msgid "An error occurred during the rendez-vous creation."
-msgstr ""
+msgstr "Se produjo un error durante la creación del punto de encuentro."
 
 #: src/accountcreationwizard.cpp:335
 msgid "An error occurred during the SIP account creation."
-msgstr ""
+msgstr "Se produjo un error durante la creación de la cuenta SIP."
 
 #: src/accountcreationwizard.cpp:339
 msgid "Cannot retrieve any account, please verify your PIN and your password."

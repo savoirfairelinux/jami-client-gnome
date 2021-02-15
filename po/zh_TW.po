@@ -6,13 +6,13 @@
 # Hsiu-Ming Chang <cges30901@gmail.com>, 2016
 # Hsiu-Ming Chang <cges30901@gmail.com>, 2016
 # 黃柏諺 <s8321414@gmail.com>, 2017-2019
-# 黃柏諺 <s8321414@gmail.com>, 2019-2020
+# 黃柏諺 <s8321414@gmail.com>, 2019-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 03:09-0500\n"
-"PO-Revision-Date: 2021-02-08 08:09+0000\n"
+"POT-Creation-Date: 2021-02-15 03:09-0500\n"
+"PO-Revision-Date: 2021-02-09 02:24+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -1078,7 +1078,7 @@ msgstr "警告！此動作將會在此裝置上移除此帳號！\n注意：此�
 
 #: src/chatview.cpp:161
 msgid "Unnamed handler"
-msgstr ""
+msgstr "未命名的處理程序"
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"

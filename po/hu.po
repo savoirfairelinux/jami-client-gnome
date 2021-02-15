@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Balázs Meskó <meskobalazs@mailbox.org>, 2017
-# . . <ovari123@zoho.com>, 2017-2020
+# . . <ovari123@zoho.com>, 2017-2021
 # Gábor Papp <pappgabor9@gmail.com>, 2020
 # 386902c248cb697d9d6d058103e08443_c36ce9b <3e1ab06cc760e2987b063fda7f345e3f_237544>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 03:09-0500\n"
-"PO-Revision-Date: 2021-01-25 08:09+0000\n"
+"POT-Creation-Date: 2021-02-15 03:09-0500\n"
+"PO-Revision-Date: 2021-02-09 20:32+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -1078,7 +1078,7 @@ msgstr "Figyelmeztetés! Ez a művelet eltávolítja ezt a fiókot az eszközön
 
 #: src/chatview.cpp:161
 msgid "Unnamed handler"
-msgstr ""
+msgstr "Névtelen kezelő"
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"
@@ -1148,7 +1148,7 @@ msgstr "Adja meg a jelszót az eszköz visszavonásához"
 
 #: src/newaccountsettingsview.cpp:657
 msgid "This device"
-msgstr ""
+msgstr "Ez az eszköz"
 
 #: src/newaccountsettingsview.cpp:680
 msgid "Edit name"

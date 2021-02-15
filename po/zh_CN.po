@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 03:09-0500\n"
-"PO-Revision-Date: 2021-01-25 08:09+0000\n"
-"Last-Translator: Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>\n"
+"POT-Creation-Date: 2021-02-15 03:09-0500\n"
+"PO-Revision-Date: 2021-02-08 08:09+0000\n"
+"Last-Translator: 李文睿 <happy.lwr@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1155,7 +1155,7 @@ msgstr "输入密码以吊销设备"
 
 #: src/newaccountsettingsview.cpp:657
 msgid "This device"
-msgstr ""
+msgstr "该设备"
 
 #: src/newaccountsettingsview.cpp:680
 msgid "Edit name"

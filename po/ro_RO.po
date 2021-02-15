@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 03:09-0500\n"
-"PO-Revision-Date: 2021-02-02 22:12+0000\n"
+"POT-Creation-Date: 2021-02-15 03:09-0500\n"
+"PO-Revision-Date: 2021-02-09 22:15+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -149,7 +149,7 @@ msgstr "Se transferă contul tău Jami..."
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
-msgstr "Transferul nu a reușit, parola e greșită?"
+msgstr "Transferul nu a reușit. Parola e greșită?"
 
 #: ui/newaccountsettingsview.ui:15 ui/pluginsettingsview.ui:15
 msgid "Add device"
@@ -721,13 +721,13 @@ msgstr "Cifrează contul cu parolă"
 msgid ""
 "Choose a password to encrypt your account on this device.  Note that the "
 "password cannot be recovered."
-msgstr "Alege o parolă pentru a cifra contul tău pe acest aparat. Reține că parola nu poate fi recuperată."
+msgstr "Alege o parolă pentru a cifra contul tău în acest aparat. Reține că parola nu poate fi recuperată."
 
 #: ui/accountcreationwizard.ui:658
 msgid ""
 "Choose a password to encrypt your account on this device.\n"
 "Note that the password cannot be recovered."
-msgstr "Alege o parolă pentru a cifra contul tău pe acest aparat.\nReține că parola nu poate fi recuperată."
+msgstr "Alege o parolă pentru a cifra contul tău în acest aparat.\nReține că parola nu poate fi recuperată."
 
 #: ui/accountcreationwizard.ui:686
 msgid ""
@@ -1075,7 +1075,7 @@ msgstr "Atenție! Această acțiune va elimina acest cont din acest aparat!\nNot
 
 #: src/chatview.cpp:161
 msgid "Unnamed handler"
-msgstr ""
+msgstr "Utilizator anonim"
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"
@@ -1145,7 +1145,7 @@ msgstr "Introdu parola pentru a elimina aparatul"
 
 #: src/newaccountsettingsview.cpp:657
 msgid "This device"
-msgstr ""
+msgstr "Acest aparat"
 
 #: src/newaccountsettingsview.cpp:680
 msgid "Edit name"
