@@ -6,7 +6,7 @@
 # Amin Mahmudian, 2017
 # Danial Behzadi <dani.behzi@ubuntu.com>, 2016-2017,2019
 # Goudarz Jafari <goudarz.jafari@gmail.com>, 2019
-# Hamid reza Zaefarani, 2019-2020
+# Hamid reza Zaefarani, 2019-2021
 # Hasan Hejdari Nasab <hsn6@openmailbox.org>, 2017
 # Hessam Shahpouri, 2016
 # Reza Ghasemi, 2020
@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-22 03:09-0500\n"
-"PO-Revision-Date: 2021-02-08 08:09+0000\n"
-"Last-Translator: Reza Ghasemi\n"
+"POT-Creation-Date: 2021-03-01 03:09-0500\n"
+"PO-Revision-Date: 2021-02-27 13:57+0000\n"
+"Last-Translator: Hamid reza Zaefarani\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/jami/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -276,7 +276,7 @@ msgstr "صدای زنگ سفارشی"
 
 #: ui/newaccountsettingsview.ui:1264
 msgid "Convert your account into a rendezvous point"
-msgstr ""
+msgstr "حساب خود را به یک نقطه قرار ملاقات تبدیل کنید"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -364,7 +364,7 @@ msgstr "اتصال"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Auto Registration After Expired"
-msgstr ""
+msgstr "ثبت‌نام خودکار پس از انقضا"
 
 #: ui/newaccountsettingsview.ui:2136
 msgid "Registration expire timeout (seconds)"
@@ -644,11 +644,11 @@ msgstr "ایجاد یک حساب جدید جمی در این دستگاه (بر�
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
-msgstr ""
+msgstr "یک نقطه قرار ملاقات ایجاد کنید"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
-msgstr ""
+msgstr "یک نقطه قرار ملاقات ایجاد کنید"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Link this device to an existing account"
@@ -660,7 +660,7 @@ msgstr "وارد کردن یک حساب یا پینی که شما در دستگ�
 
 #: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:696
 msgid "Restore an account from backup"
-msgstr ""
+msgstr "بازگردانی یک حساب از پشتیبان"
 
 #: ui/accountcreationwizard.ui:101
 msgid "Import an account via your archive"
@@ -668,11 +668,11 @@ msgstr "وارد کردن یک حساب با بایگانی شما"
 
 #: ui/accountcreationwizard.ui:108
 msgid "Advanced features"
-msgstr ""
+msgstr "ویژگی‌های پیشرفته"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Connect to a JAMS server"
-msgstr ""
+msgstr "اتصال به یک سرور JAMS"
 
 #: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
@@ -694,7 +694,7 @@ msgstr "اطلاعات."
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "می‌توانید با کلیک روی \"پشتیبان‌گیری حساب\" در تنظیمات حساب،یک بایگانی تهیه کنید. این کار یک پرونده ‎.gz را در دستگاه شما ایجاد می‌کند."
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
@@ -704,7 +704,7 @@ msgstr "پین"
 msgid ""
 "Enter the PIN from another configured Jami account. Use the \"Link Another "
 "Device\" feature to obtain a PIN."
-msgstr ""
+msgstr "پین را از حساب پیکربندی‌شده جمی دیگر وارد کنید. برای به دست آوردن یک پین، از ویژگی «برون‌برد حساب جمی» استفاده کنید."
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
@@ -730,13 +730,13 @@ msgstr "رمزگذاری حساب با گذرواژه"
 msgid ""
 "Choose a password to encrypt your account on this device.  Note that the "
 "password cannot be recovered."
-msgstr ""
+msgstr "برای رمزگذاری حساب خود در این دستگاه گذرواژه‌ای انتخاب کنید. توجه کنید که گذرواژه قابل بازیابی نخواهد بود."
 
 #: ui/accountcreationwizard.ui:658
 msgid ""
 "Choose a password to encrypt your account on this device.\n"
 "Note that the password cannot be recovered."
-msgstr ""
+msgstr "برای رمزگذاری حساب خود در این دستگاه گذرواژه‌ای انتخاب کنید.\nتوجه کنید که گذرواژه قابل بازیابی نخواهد بود."
 
 #: ui/accountcreationwizard.ui:686
 msgid ""
@@ -785,15 +785,15 @@ msgstr "در حال بازیابی حساب جمی شما..."
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr ""
+msgstr "آدرس URL سرور مدیریت حساب جمی (JAMS) را وارد کن"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
-msgstr ""
+msgstr "آدرس JAMS"
 
 #: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
-msgstr ""
+msgstr "اعتبار‌نامه JAMS خود را وارد کنید"
 
 #: ui/accountcreationwizard.ui:1167
 msgid "Connect"
@@ -801,7 +801,7 @@ msgstr "اتصال"
 
 #: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
-msgstr ""
+msgstr "پیکربندی یک حساب SIP موجود"
 
 #: ui/accountcreationwizard.ui:1240
 msgid "Server"
@@ -809,7 +809,7 @@ msgstr "سرور"
 
 #: ui/accountcreationwizard.ui:1385
 msgid "Create SIP account"
-msgstr ""
+msgstr "ساخت حساب کاربری SIP"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
@@ -849,7 +849,7 @@ msgstr "نمای گفتگو"
 
 #: ui/generalsettingsview.ui:390
 msgid "Show typing indications"
-msgstr "نمایش نشان‌های نوشتاری"
+msgstr "نمایش در‌حال‌نوشتن"
 
 #: ui/generalsettingsview.ui:426
 msgid "Display images and videos into the chatview"
@@ -1074,7 +1074,7 @@ msgstr "خودکار"
 
 #: src/currentcallview.cpp:1747
 msgid "me"
-msgstr ""
+msgstr "من"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:1010
 msgid ""
@@ -1084,7 +1084,7 @@ msgstr "هشدار! این عمل باعث حذف این حساب از روی ا
 
 #: src/chatview.cpp:161
 msgid "Unnamed handler"
-msgstr ""
+msgstr "مدیر (handler) بدون نام"
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"
@@ -1301,7 +1301,7 @@ msgstr "به صحبت تلفنی خاتمه دادن"
 
 #: src/video/video_widget.cpp:429
 msgid "Maximize"
-msgstr ""
+msgstr "به حداکثر رساندن"
 
 #: src/video/video_widget.cpp:444
 msgid "Minimize"
@@ -1309,7 +1309,7 @@ msgstr "کمینه کردن"
 
 #: src/video/video_widget.cpp:497
 msgid "More options"
-msgstr ""
+msgstr "تنظیمات بیشتر"
 
 #: src/video/video_widget.cpp:811 src/video/video_widget.cpp:829
 msgid "Choose file"
@@ -1366,7 +1366,7 @@ msgstr "خروج از صفحهٔ تنظیمات"
 
 #: src/mainwindow.cpp:2343
 msgid "Missed call from "
-msgstr ""
+msgstr "تماس از‌دست‌رفته از سمت"
 
 #: src/mainwindow.cpp:2347
 msgid "Missed call"
@@ -1568,7 +1568,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"%s\"\nساخته‌شده بر پایه %.25s"
 
 #: src/dialogs.cpp:133
 msgid ""
@@ -1622,15 +1622,15 @@ msgstr "گشودن تصویر آواتار"
 
 #: src/accountcreationwizard.cpp:327
 msgid "An error occurred during the account creation."
-msgstr ""
+msgstr "یک خطا در هنگام ایجاد حساب کاربری رخ داد."
 
 #: src/accountcreationwizard.cpp:331
 msgid "An error occurred during the rendez-vous creation."
-msgstr ""
+msgstr "یک خطا در هنگام ایجاد قرار ملاقات رخ داد."
 
 #: src/accountcreationwizard.cpp:335
 msgid "An error occurred during the SIP account creation."
-msgstr ""
+msgstr "یک خطا در هنگام ایجاد حساب کاربری SIP رخ داد."
 
 #: src/accountcreationwizard.cpp:339
 msgid "Cannot retrieve any account, please verify your PIN and your password."
@@ -1648,11 +1648,11 @@ msgstr "عدم توانایی در اتصال به حساب گردان تامی�
 
 #: src/accountcreationwizard.cpp:536
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "ایجاد قرار ملاقات شما..."
 
 #: src/accountcreationwizard.cpp:538
 msgid "Generating your Jami account…"
-msgstr "تولید حساب جمی شما..."
+msgstr "ایجاد حساب جمی شما..."
 
 #: src/accountcreationwizard.cpp:554
 msgid "Passwords don't match"
@@ -1660,7 +1660,7 @@ msgstr "گذرواژه‌ها یکسان نیستند"
 
 #: src/accountcreationwizard.cpp:675
 msgid "Enter Jami account password"
-msgstr ""
+msgstr "گذرواژه حساب جمی را وارد کنید"
 
 #: src/accountcreationwizard.cpp:676
 msgid "Link device"
