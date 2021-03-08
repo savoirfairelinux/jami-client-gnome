@@ -5,14 +5,14 @@
 # Translators:
 # Fefu Fefu, 2020
 # Gonzalo Maunas <gonzamaunas@gmail.com>, 2018
-# Juan Manuel <jumase.25@gmail.com>, 2020
+# Juan Manuel <jumase.25@gmail.com>, 2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-01 03:09-0500\n"
-"PO-Revision-Date: 2021-02-08 08:09+0000\n"
-"Last-Translator: Fefu Fefu\n"
+"POT-Creation-Date: 2021-03-08 03:09-0500\n"
+"PO-Revision-Date: 2021-03-01 20:20+0000\n"
+"Last-Translator: Juan Manuel <jumase.25@gmail.com>\n"
 "Language-Team: Spanish (Argentina) (http://www.transifex.com/savoirfairelinux/jami/language/es_AR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -357,7 +357,7 @@ msgstr "Conectividad"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Auto Registration After Expired"
-msgstr ""
+msgstr "Registro automático luego de haber expirado"
 
 #: ui/newaccountsettingsview.ui:2136
 msgid "Registration expire timeout (seconds)"
@@ -687,7 +687,7 @@ msgstr "Informaciones."
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr "Podés obtener un archivo de respaldo haciendo click en \"Exportar cuenta\" dentro de configuración de la cuenta. Esto creará un archivo .gz en tu dispositivo."
+msgstr "Podés obtener un archivo de respaldo haciendo click en \"Respaldá tu cuenta\" dentro de configuración de la cuenta. Esto creará un archivo .gz en tu dispositivo."
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
@@ -747,14 +747,14 @@ msgstr "Siguiente"
 
 #: ui/accountcreationwizard.ui:826
 msgid "Backup your account!"
-msgstr "Cree copia de seguridad de su cuenta!"
+msgstr "Respaldá tu cuenta!"
 
 #: ui/accountcreationwizard.ui:842
 msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr "Esta cuenta solo existe en este dispositivo. Si perdió su dispositivo o desinstala la aplicación, su cuenta será eliminada. Puede hacer una copia de seguridad de su cuenta ahora o más tarde."
+msgstr "Esta cuenta solo existe en este dispositivo. Si perdió su dispositivo o desinstala la aplicación, su cuenta será eliminada. Puede hacer una copia de respaldo de su cuenta ahora o más tarde."
 
 #: ui/accountcreationwizard.ui:849
 msgid "Never show me this again"
@@ -1077,7 +1077,7 @@ msgstr "¡Advertencia! ¡Esta acción eliminarás esta cuenta en este dispositiv
 
 #: src/chatview.cpp:161
 msgid "Unnamed handler"
-msgstr ""
+msgstr "Gestor desconocido"
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"
@@ -1615,15 +1615,15 @@ msgstr "Abrir imagen de avatar"
 
 #: src/accountcreationwizard.cpp:327
 msgid "An error occurred during the account creation."
-msgstr ""
+msgstr "Se produjo un error durante la creación de la cuenta."
 
 #: src/accountcreationwizard.cpp:331
 msgid "An error occurred during the rendez-vous creation."
-msgstr ""
+msgstr "Se produjo un error durante la creación del punto de encuentro."
 
 #: src/accountcreationwizard.cpp:335
 msgid "An error occurred during the SIP account creation."
-msgstr ""
+msgstr "Se produjo un error durante la creación de la cuenta SIP."
 
 #: src/accountcreationwizard.cpp:339
 msgid "Cannot retrieve any account, please verify your PIN and your password."
@@ -1661,7 +1661,7 @@ msgstr "Vincular dispositivo"
 
 #: src/accountcreationwizard.cpp:695
 msgid "Import from backup"
-msgstr "Importar desde copia de resguardo"
+msgstr "Importar desde copia de respaldo"
 
 #: src/accountcreationwizard.cpp:1109
 msgid "Register name"
