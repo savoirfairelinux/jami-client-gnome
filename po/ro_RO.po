@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-15 03:09-0400\n"
-"PO-Revision-Date: 2021-02-09 22:15+0000\n"
+"POT-Creation-Date: 2021-03-22 03:09-0400\n"
+"PO-Revision-Date: 2021-03-19 17:31+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -500,7 +500,7 @@ msgstr "Vezi lista cererilor în așteptare"
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr "Act/Dez ecran complet"
+msgstr "Act/Dez Pe tot ecranul"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -1017,7 +1017,7 @@ msgstr "Instalează Extensia"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
-msgstr "Comenzi _Rapide"
+msgstr "Taste _Rapide"
 
 #: ui/gearsmenu.ui:11
 msgid "_About"

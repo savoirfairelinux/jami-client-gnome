@@ -22,14 +22,15 @@
 # Stefan Langenmaier <stefan.langenmaier@gmail.com>, 2015
 # Thomas Chust <chust@web.de>, 2016
 # Tobias Schönberg <tobias47n9e@gmail.com>, 2016
+# nautilusx, 2021
 # Vincent Bermel <palob@users.noreply.github.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-15 03:09-0400\n"
-"PO-Revision-Date: 2021-02-08 08:09+0000\n"
-"Last-Translator: hermannsan <hermann-san@gmx.de>\n"
+"POT-Creation-Date: 2021-03-22 03:09-0400\n"
+"PO-Revision-Date: 2021-03-21 15:04+0000\n"
+"Last-Translator: nautilusx\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -480,7 +481,7 @@ msgstr "Ohne Nachricht beenden"
 #: ui/chatview.ui:41 ui/currentcallview.ui:752 src/pluginsettingsview.cpp:126
 #: src/pluginsettingsview.cpp:140
 msgid "Choose plugin"
-msgstr ""
+msgstr "Plugin wählen"
 
 #: ui/chatview.ui:73
 msgid "Send Invitation"
@@ -819,7 +820,7 @@ msgstr "Server"
 
 #: ui/accountcreationwizard.ui:1385
 msgid "Create SIP account"
-msgstr ""
+msgstr "SIP-Konto erstellen"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
@@ -919,7 +920,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr ""
+msgstr "Transfer akzeptieren unter (in MB, 0 = unbegrenzt)"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
@@ -1004,7 +1005,7 @@ msgstr "Audio stumm schalten"
 
 #: ui/currentcallview.ui:563
 msgid "Activate Plugin"
-msgstr ""
+msgstr "Plugin aktivieren"
 
 #: ui/currentcallview.ui:572
 msgid "Transfer"
@@ -1024,15 +1025,15 @@ msgstr "Plugins"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
-msgstr ""
+msgstr "Plugins aktivieren"
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
-msgstr ""
+msgstr "Installierte Plugins"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr ""
+msgstr "Plugin installieren"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
@@ -1063,7 +1064,7 @@ msgstr "Neuverbindung zum Jami-Daemon (dring) fehlgeschlagen.\nJami wird nun bee
 
 #: src/currentcallview.cpp:1064
 msgid "No name!"
-msgstr ""
+msgstr "Kein Name!"
 
 #: src/currentcallview.cpp:1176
 msgid "Current conference (all accounts)"
@@ -1084,7 +1085,7 @@ msgstr "Automatisch"
 
 #: src/currentcallview.cpp:1747
 msgid "me"
-msgstr ""
+msgstr "ich"
 
 #: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:1010
 msgid ""
@@ -1376,7 +1377,7 @@ msgstr "Seite mit Einstellungen verlassen"
 
 #: src/mainwindow.cpp:2343
 msgid "Missed call from "
-msgstr ""
+msgstr "Verpasster Anruf von"
 
 #: src/mainwindow.cpp:2347
 msgid "Missed call"
@@ -1496,11 +1497,11 @@ msgstr "Ablehnen"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "Warnung! Durch diese Aktion wird das Plugin deinstalliert!\nHinweis: Diese Aktion kann nicht rückgängig gemacht werden."
 
 #: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
 msgid "Uninstall Plugin"
-msgstr ""
+msgstr "Plugin deinstallieren"
 
 #: src/pluginsettingsview.cpp:284
 msgid "Load/Unload Plugin"
@@ -1532,7 +1533,7 @@ msgstr "Netzwerksuche wird durchgeführt..."
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
-msgstr "Passwort Ihres Jami-Kontos eingeben"
+msgstr "Passwort deines Jami-Kontos eingeben"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
@@ -1649,7 +1650,7 @@ msgstr "Konto kann nicht geladen werden, bitte prüfe deine PIN und dein Passwor
 #: src/accountcreationwizard.cpp:343
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr "Konto kann nicht geladen werden, bitte prüfen Sie ihr Archiv und ihr Passwort."
+msgstr "Konto kann nicht geladen werden, bitte prüfe dein Archiv und dein Passwort."
 
 #: src/accountcreationwizard.cpp:347
 msgid ""
@@ -1662,7 +1663,7 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:538
 msgid "Generating your Jami account…"
-msgstr "Erzeugen Ihres Jami-Kontos..."
+msgstr "Erzeuge dein Jami-Konto..."
 
 #: src/accountcreationwizard.cpp:554
 msgid "Passwords don't match"
@@ -1670,7 +1671,7 @@ msgstr "Passwörter stimmen nicht überein"
 
 #: src/accountcreationwizard.cpp:675
 msgid "Enter Jami account password"
-msgstr ""
+msgstr "Passwort des Jami-Kontos eingeben"
 
 #: src/accountcreationwizard.cpp:676
 msgid "Link device"
