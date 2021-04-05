@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-29 03:09-0400\n"
-"PO-Revision-Date: 2021-02-08 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-04-05 03:09-0400\n"
+"PO-Revision-Date: 2021-04-01 06:29+0000\n"
+"Last-Translator: R Houtman <rl_houtman@postpoort.nl>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/savoirfairelinux/jami/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,7 +85,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
-msgstr ""
+msgstr "Apparaat"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
@@ -101,7 +101,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
-msgstr ""
+msgstr "Hardware versnelling inschakelen"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
@@ -113,7 +113,7 @@ msgstr ""
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
 #: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
@@ -243,7 +243,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1054
 msgid "Advanced settings"
-msgstr ""
+msgstr "Uitgebreide instellingen"
 
 #: ui/newaccountsettingsview.ui:1090
 msgid "General settings"
@@ -251,11 +251,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
-msgstr ""
+msgstr "Bel instellingen"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "Sta inkomende oproepen van onbekende contacten toe"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
@@ -700,7 +700,7 @@ msgstr ""
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
 msgid "Back"
-msgstr ""
+msgstr "Terug"
 
 #: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1078
 msgid "Register username"
@@ -1153,7 +1153,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:680
 msgid "Revoke device"
-msgstr ""
+msgstr "Apparaat terugtrekken"
 
 #: src/newaccountsettingsview.cpp:702
 msgid "Error when revoking device"

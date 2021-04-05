@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-29 03:09-0400\n"
-"PO-Revision-Date: 2021-03-01 20:20+0000\n"
+"POT-Creation-Date: 2021-04-05 03:09-0400\n"
+"PO-Revision-Date: 2021-04-01 22:13+0000\n"
 "Last-Translator: Juan Manuel <jumase.25@gmail.com>\n"
 "Language-Team: Spanish (Argentina) (http://www.transifex.com/savoirfairelinux/jami/language/es_AR/)\n"
 "MIME-Version: 1.0\n"
@@ -782,11 +782,11 @@ msgstr "Ingresa la URL del JAMS (Jami Account Management Server)"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
-msgstr "URL de JAMS"
+msgstr "URL del JAMS"
 
 #: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
-msgstr "Ingresa tus credenciales de JAMS"
+msgstr "Ingresa tus credenciales del JAMS"
 
 #: ui/accountcreationwizard.ui:1167
 msgid "Connect"
