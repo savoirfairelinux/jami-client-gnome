@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-05 03:09-0400\n"
-"PO-Revision-Date: 2021-04-01 20:31+0000\n"
+"POT-Creation-Date: 2021-04-12 03:09-0400\n"
+"PO-Revision-Date: 2021-04-08 09:51+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -631,7 +631,7 @@ msgstr "Creează un cont Jami"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr "Creează un cont Jami nou în acest aparat (pentru utilizatori noi)"
+msgstr "Creează un cont nou Jami în acest aparat (pentru utilizatori noi)"
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
@@ -685,7 +685,7 @@ msgstr "Informații."
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr "Poți obține o arhivă făcînd clic pe \"Copie de rezervă a contului\" în reglările contului. Asta va crea un fișier .gz în aparatul tău."
+msgstr "Poți obține o arhivă făcînd clic pe „Copie de rezervă a contului” în reglările contului. Asta va crea un fișier .gz în aparatul tău."
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
@@ -695,7 +695,7 @@ msgstr "PIN"
 msgid ""
 "Enter the PIN from another configured Jami account. Use the \"Link Another "
 "Device\" feature to obtain a PIN."
-msgstr "Introdu codul PIN obținut de la un cont Jami. Folosește opțiunea \"Asociază alt aparat\" pentru a obține codul PIN."
+msgstr "Introdu codul PIN obținut de la un cont Jami. Folosește opțiunea „Asociază alt aparat” pentru a obține codul PIN."
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
@@ -711,7 +711,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr "Dacă bifezi asta, vei înscrie un nume de utilizator unic în rețeaua Jami. Ceilalți îl pot folosi ca să te contacteze în loc de ID-ul tău de 40 de caractere."
+msgstr "Dacă bifezi asta, vei înscrie un nume de utilizator unic în rețeaua Jami. Ceilalți îl pot folosi, ca să te contacteze, în locul ID-ului tău de 40 de caractere."
 
 #: ui/accountcreationwizard.ui:630
 msgid "Encrypt account with password"
@@ -868,7 +868,7 @@ msgstr "Șterge toată cronologia"
 
 #: ui/generalsettingsview.ui:638
 msgid "Call Recording"
-msgstr "Înregistrare Apeluri"
+msgstr "Înregistrare apeluri"
 
 #: ui/generalsettingsview.ui:676
 msgid "Record local video"
@@ -1034,13 +1034,13 @@ msgstr "Eroare Jami"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr "Reconectare la procesul de sistem Jami (dring)..."
+msgstr "Reconectare la serviciul Jami (dring)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
-msgstr "Imposibilă reconectarea la procesul de sistem Jami (dring).\nJami se va închide acum."
+msgstr "Reconectare imposibilă la serviciul Jami (dring).\nJami se va închide acum."
 
 #: src/currentcallview.cpp:1064
 msgid "No name!"
@@ -1170,7 +1170,7 @@ msgstr "Schimbă parola"
 
 #: src/newaccountsettingsview.cpp:811
 msgid "New password and its confirmation are different!"
-msgstr "Noua parolă și confirmarea nu sînt la fel!"
+msgstr "Parola nouă și confirmarea nu se potrivesc!"
 
 #: src/newaccountsettingsview.cpp:822
 msgid "Incorrect password!"
@@ -1270,7 +1270,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr "Nu pot inițializa.\nFi sigur că procesul de sistem Jami (dring) e activ.\nEroare: %s"
+msgstr "Nu pot inițializa.\nFii sigur că serviciul Jami (dring) e activ.\nEroare: %s"
 
 #: src/client.cpp:118
 msgid "Jami Error"
@@ -1316,7 +1316,7 @@ msgstr "Distribuie _ecranul"
 
 #: src/video/video_widget.cpp:905
 msgid "Stream _file"
-msgstr "Transferă _fișier"
+msgstr "Distribuie _fișierul"
 
 #: src/video/video_widget.cpp:915
 msgid "Show advanced information"
@@ -1543,7 +1543,7 @@ msgstr "Numele nu poate fi înscris (Eroare de rețea) - verifică conexiunea."
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
-msgstr "Contactul pare ocupat. Lași un mesaj ?"
+msgstr "Contactul pare ocupat. Lași un mesaj?"
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
@@ -1559,7 +1559,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "built on %.25s"
-msgstr "\"%s\"\nconstruit pe %.25s"
+msgstr "„%s”\nconstruit pe %.25s"
 
 #: src/dialogs.cpp:133
 msgid ""
@@ -1569,11 +1569,11 @@ msgstr "Jami pentru GNOME.\nJami este un program liber pentru comunicare univers
 
 #: src/conversationpopupmenu.cpp:225
 msgid "Place _video call"
-msgstr "Fă _apel video"
+msgstr "Fă apel _video"
 
 #: src/conversationpopupmenu.cpp:228
 msgid "Place _audio call"
-msgstr "Fă _apel audio"
+msgstr "Fă apel _audio"
 
 #: src/conversationpopupmenu.cpp:236
 msgid "_Add to conversations"
@@ -1593,7 +1593,7 @@ msgstr "Ș_terge cronologia"
 
 #: src/conversationpopupmenu.cpp:251
 msgid "_Remove conversation"
-msgstr "_Șterge conversația"
+msgstr "Șt_erge conversația"
 
 #: src/conversationpopupmenu.cpp:257
 msgid "_Block contact"
@@ -1613,15 +1613,15 @@ msgstr "Deschide poza de profil"
 
 #: src/accountcreationwizard.cpp:327
 msgid "An error occurred during the account creation."
-msgstr "O eroare a apărut în timpul creării contului."
+msgstr "A apărut o eroare în timpul creării contului."
 
 #: src/accountcreationwizard.cpp:331
 msgid "An error occurred during the rendez-vous creation."
-msgstr "O eroare a apărut în timpul creării locului de întîlnire."
+msgstr "A apărut o eroare în timpul creării locului de întîlnire."
 
 #: src/accountcreationwizard.cpp:335
 msgid "An error occurred during the SIP account creation."
-msgstr "O eroare a apărut în timpul creării contului SIP."
+msgstr "A apărut o eroare în timpul creării contului SIP."
 
 #: src/accountcreationwizard.cpp:339
 msgid "Cannot retrieve any account, please verify your PIN and your password."
