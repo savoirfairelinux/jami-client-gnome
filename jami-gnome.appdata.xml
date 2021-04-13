@@ -4,9 +4,9 @@
  <id>net.jami.Jami</id>
  <metadata_license>CC-BY-SA-3.0</metadata_license>
  <project_license>GPL-3.0+</project_license>
- <name>Jami</name>
+ <name>Jami (GNOME client)</name>
  <summary>Privacy-oriented voice, video, chat, and conference platform</summary>
- <icon type="stock">jami</icon>
+ <icon type="stock">jami-gnome</icon>
  <description>
     <p>
       An end-to-end encrypted secure and distributed voice, video, and

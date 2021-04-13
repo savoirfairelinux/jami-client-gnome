@@ -405,7 +405,7 @@ init_systray(Client *client)
     }
 
 #if HAVE_APPINDICATOR
-    auto indicator = app_indicator_new("jami", "jami", APP_INDICATOR_CATEGORY_COMMUNICATIONS);
+    auto indicator = app_indicator_new("jami-gnome", "jami-gnome", APP_INDICATOR_CATEGORY_COMMUNICATIONS);
     app_indicator_set_status(indicator, APP_INDICATOR_STATUS_ACTIVE);
     app_indicator_set_title(indicator, JAMI_CLIENT_NAME);
     /* app indicator requires a menu */
@@ -420,7 +420,7 @@ init_systray(Client *client)
     } else {
         G_GNUC_BEGIN_IGNORE_DEPRECATIONS // GtkStatusIcon is deprecated since 3.14, but we fallback on it
         auto status_icon = gtk_status_icon_new_from_pixbuf(icon);
-        gtk_status_icon_set_title(status_icon, "jami");
+        gtk_status_icon_set_title(status_icon, "jami-gnome");
         G_GNUC_END_IGNORE_DEPRECATIONS
         g_signal_connect_swapped(status_icon, "activate", G_CALLBACK(window_show), client);
         g_signal_connect(status_icon, "popup-menu", G_CALLBACK(popup_menu), client);
