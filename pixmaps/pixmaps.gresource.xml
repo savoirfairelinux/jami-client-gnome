@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/net/jami/JamiGnome">
-    <file alias="jami-symbol-blue">jami.svg</file>
+    <file alias="jami-symbol-blue">jami-gnome.svg</file>
     <file alias="jami-logo-blue">LOGO_JAMI_201106.svg</file>
     <file alias="jami-logo-white">LOGO_JAMI_201106_white.svg</file>
     <file alias="addressbook_small">addressbook.svg</file>
