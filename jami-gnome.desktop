@@ -1,11 +1,11 @@
 [Desktop Entry]
-Name=Jami
-GenericName=Jami
+Name=Jami (GNOME client)
+GenericName=Jami (GNOME client)
 Comment[hu]=A Jami egy biztonságos és elosztott csevegőprogram
 Comment[ru]=Jami — приложение для защищённой связи с распределённой архитектурой
 Comment=Jami is a secured and distributed communication software
 Exec=jami-gnome %u
-Icon=jami
+Icon=jami-gnome
 StartupNotify=true
 Terminal=false
 Type=Application
