@@ -63,6 +63,8 @@ struct _UsernameRegistrationBoxPrivate
 
     gboolean use_blockchain;
     gboolean show_register_button;
+
+    std::unique_ptr<NameDirectory> name_directory;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(UsernameRegistrationBox, username_registration_box, GTK_TYPE_GRID);
@@ -131,8 +133,10 @@ username_registration_box_init(UsernameRegistrationBox *view)
 
     auto priv = USERNAME_REGISTRATION_BOX_GET_PRIVATE(view);
 
+    priv->name_directory = std::make_unique<NameDirectory>();
+
     priv->registered_name_found = QObject::connect(
-        &NameDirectory::instance(),
+        priv->name_directory.get(),
         &NameDirectory::registeredNameFound,
         [=] (NameDirectory::LookupStatus status, const QString&, const QString& name) {
             // g_debug("Name lookup ended");
@@ -243,9 +247,9 @@ lookup_username(UsernameRegistrationBox *view)
 
     if (priv->accountInfo_) {
         auto prop = (*priv->accountInfo_)->accountModel->getAccountConfig((*priv->accountInfo_)->id);
-        NameDirectory::instance().lookupName(prop.RingNS.uri, username);
+        priv->name_directory->lookupName(prop.RingNS.uri, username);
     } else {
-        NameDirectory::instance().lookupName(QString(), username);
+        priv->name_directory->lookupName(QString(), username);
     }
 
 
