@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-12 03:09-0400\n"
-"PO-Revision-Date: 2021-04-08 09:51+0000\n"
+"POT-Creation-Date: 2021-04-19 03:09-0400\n"
+"PO-Revision-Date: 2021-04-17 13:45+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "Audio"
 
 #: ui/mediasettingsview.ui:67
 msgid "Audio manager"
-msgstr "Administrare Audio"
+msgstr "Administrare audio"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
@@ -109,7 +109,7 @@ msgstr "E necesar transferul contului"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr "Acest cont este incorect, te rog introdu parola ta"
+msgstr "Acest cont este incorect. Introdu parola ta."
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
@@ -120,7 +120,7 @@ msgstr "Alias"
 #: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
 #: src/accountcreationwizard.cpp:1079
 msgid "Username"
-msgstr "Nume de Utilizator"
+msgstr "Nume de utilizator"
 
 #: ui/accountmigrationview.ui:165 ui/newaccountsettingsview.ui:502
 #: ui/newaccountsettingsview.ui:742 ui/accountcreationwizard.ui:286
@@ -176,7 +176,7 @@ msgstr "Introdu parola arhivei"
 
 #: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:884
 msgid "Cancel"
-msgstr "Renunță"
+msgstr "Anulează"
 
 #: ui/newaccountsettingsview.ui:211
 msgid "Export on the network"
@@ -227,7 +227,7 @@ msgstr "Proxy"
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
-msgstr "Mesagerie Vocală"
+msgstr "Mesagerie vocală"
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
@@ -339,7 +339,7 @@ msgstr "Verifică certificatele primite (partea server)"
 
 #: ui/newaccountsettingsview.ui:1979
 msgid "Verify answer certificates (client side)"
-msgstr "Verifică certificatele de răspuns (partea clientului)"
+msgstr "Verifică certificatele de răspuns (partea programului)"
 
 #: ui/newaccountsettingsview.ui:2014
 msgid "Require a certificate for incoming TLS connections"
@@ -355,7 +355,7 @@ msgstr "Conectare"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Auto Registration After Expired"
-msgstr "Înscriere Automată După Expirare"
+msgstr "Înscriere automată după expirare"
 
 #: ui/newaccountsettingsview.ui:2136
 msgid "Registration expire timeout (seconds)"
@@ -431,19 +431,19 @@ msgstr "Folosit numai în timpul negocierii SDP în caz că ICE nu este acceptat
 
 #: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Min port"
-msgstr "Port Min RTP Audio"
+msgstr "Port Min audio RTP"
 
 #: ui/newaccountsettingsview.ui:2872
 msgid "Audio RTP Max port"
-msgstr "Port Max RTP Audio"
+msgstr "Port Max audio RTP"
 
 #: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Min port"
-msgstr "Port Min RTP Video"
+msgstr "Port Min video RTP"
 
 #: ui/newaccountsettingsview.ui:2942
 msgid "Video RTP Max port"
-msgstr "Port Max RTP Video"
+msgstr "Port Max video RTP"
 
 #: ui/messagingwidget.ui:29 ui/currentcallview.ui:424
 #: ui/currentcallview.ui:599 src/chatview.cpp:461
@@ -485,7 +485,7 @@ msgstr "Deschide lista de conturi"
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Select search bar"
-msgstr "Alege bara de căutare"
+msgstr "Alege banda de căutare"
 
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
@@ -575,12 +575,12 @@ msgstr "Deschide/Închide pagina Reglări"
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
-msgstr "Deschide Reglările generale"
+msgstr "Deschide reglările generale"
 
 #: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
-msgstr "Deschide Reglările Media"
+msgstr "Deschide reglările media"
 
 #: ui/help-overlay.ui:174
 msgctxt "shortcut window"
@@ -1013,7 +1013,7 @@ msgstr "Extensii instalate"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr "Instalează Extensia"
+msgstr "Instalează extensia"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
@@ -1079,13 +1079,13 @@ msgstr "Utilizator anonim"
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"
-msgstr "Trimite Fișierul"
+msgstr "Trimite un fișier"
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 #: src/newaccountsettingsview.cpp:929 src/newaccountsettingsview.cpp:946
 #: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
 msgid "Save File"
-msgstr "Salvează Fișierul"
+msgstr "Salvează fișierul"
 
 #: src/chatview.cpp:385 src/chatview.cpp:400 src/video/video_widget.cpp:814
 #: src/video/video_widget.cpp:833 src/pluginsettingsview.cpp:129
@@ -1186,7 +1186,7 @@ msgstr "Parola actuală"
 
 #: src/newaccountsettingsview.cpp:868
 msgid "New password"
-msgstr "Parolă nouă"
+msgstr "Parola nouă"
 
 #: src/newaccountsettingsview.cpp:971 src/accountcreationwizard.cpp:919
 msgid "You need to enter your password to export the full archive."
@@ -1521,7 +1521,7 @@ msgstr "Înscriere în curs..."
 
 #: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
-msgstr "Eroare de înscriere a numelui"
+msgstr "Eroare la înscrierea numelui"
 
 #: src/usernameregistrationbox.cpp:434
 msgid ""

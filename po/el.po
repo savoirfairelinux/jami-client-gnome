@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-12 03:09-0400\n"
-"PO-Revision-Date: 2021-02-08 08:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-04-19 03:09-0400\n"
+"PO-Revision-Date: 2021-04-17 10:39+0000\n"
+"Last-Translator: Oxoumas Taxeispriksei <focijin239@zefara.com>\n"
 "Language-Team: Greek (http://www.transifex.com/savoirfairelinux/jami/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -253,15 +253,15 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
-msgstr ""
+msgstr "Ρυθμίσεις κλήσης"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
-msgstr ""
+msgstr "Να επιτρέπονται κλήσεις από άγνωστες επαφές"
 
 #: ui/newaccountsettingsview.ui:1181
 msgid "Auto answer calls"
-msgstr ""
+msgstr "Αυτόματη απάντηση κλήσεων"
 
 #: ui/newaccountsettingsview.ui:1217
 msgid "Custom ringtone"
@@ -281,7 +281,7 @@ msgstr "Διεύθυνση"
 
 #: ui/newaccountsettingsview.ui:1370
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "Ρύθμιση OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1454
 msgid "Auto connect on local network"
@@ -353,7 +353,7 @@ msgstr "Ασφάλεια"
 
 #: ui/newaccountsettingsview.ui:2063
 msgid "Connectivity"
-msgstr ""
+msgstr "Συνδεσιμότητα"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Auto Registration After Expired"
@@ -369,7 +369,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2209
 msgid "UPnP"
-msgstr ""
+msgstr "UPnP"
 
 #: ui/newaccountsettingsview.ui:2244
 msgid "Use TURN"
@@ -413,7 +413,7 @@ msgstr "Θύρα"
 
 #: ui/newaccountsettingsview.ui:2631
 msgid "Video codecs"
-msgstr ""
+msgstr "Κωδικοποιητές βίντεο"
 
 #: ui/newaccountsettingsview.ui:2694
 msgid "Enable video"
@@ -421,7 +421,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2721
 msgid "Audio codecs"
-msgstr ""
+msgstr "Κωδικοποιητές ήχου"
 
 #: ui/newaccountsettingsview.ui:2791
 msgid "SDP Session Negotiation (ICE Fallback)"
@@ -522,7 +522,7 @@ msgstr ""
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Clear history"
-msgstr ""
+msgstr "Διαγραφή ιστορικού"
 
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
@@ -537,7 +537,7 @@ msgstr ""
 #: ui/help-overlay.ui:103
 msgctxt "shortcut window"
 msgid "Block contact"
-msgstr ""
+msgstr "Μπλοκάρισμα επαφής"
 
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
@@ -629,7 +629,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create a Jami account"
-msgstr ""
+msgstr "Δημιουργία λογαριασμού Jami"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
@@ -637,7 +637,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
-msgstr ""
+msgstr "Δημιουργεία σημείου συνάντησης"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
@@ -665,7 +665,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:119
 msgid "Connect to a JAMS server"
-msgstr ""
+msgstr "Σύνδεση σε έναν  διακομιστή JAMS"
 
 #: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
@@ -717,7 +717,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:630
 msgid "Encrypt account with password"
-msgstr ""
+msgstr "Κρυπτογράφηση λογαριασμού με κωδικό"
 
 #: ui/accountcreationwizard.ui:631
 msgid ""
@@ -1155,7 +1155,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:680
 msgid "Revoke device"
-msgstr ""
+msgstr "Αφαίρεση συσκευής"
 
 #: src/newaccountsettingsview.cpp:702
 msgid "Error when revoking device"
@@ -1401,7 +1401,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2779
 msgid "Clear history"
-msgstr ""
+msgstr "Διαγραφή ιστορικού"
 
 #: src/mainwindow.cpp:2780
 msgid "Do you really want to clear the history of this conversation?"
@@ -1417,7 +1417,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2811
 msgid "Block contact"
-msgstr ""
+msgstr "Μπλοκάρισμα επαφής"
 
 #: src/mainwindow.cpp:2812
 msgid "Do you really want to block this contact?"
