@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Zkdc, 2019-2020
+# Zkdc, 2019-2021
 # Beta Ba <linsui@inbox.lv>, 2020
 # Beta Ba <linsui@inbox.lv>, 2020-2021
 # Sak94664, 2020
@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-19 03:09-0400\n"
-"PO-Revision-Date: 2021-02-08 08:09+0000\n"
-"Last-Translator: 李文睿 <happy.lwr@gmail.com>\n"
+"POT-Creation-Date: 2021-04-26 03:09-0400\n"
+"PO-Revision-Date: 2021-04-20 09:32+0000\n"
+"Last-Translator: Zkdc\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -762,7 +762,7 @@ msgid ""
 "This account only exists on this device. If you lost your device or "
 "uninstall the application, your account will be deleted. You can backup your"
 " account now or later."
-msgstr "本账户仅存在于此设备上。如果您丢失了该设备或卸载了本应用，那么您的账户也会被删除。您可现在或稍后备份您的账户。"
+msgstr "本账户仅存在于此设备上。如果您丢失了您的设备或卸载了本应用，那么您的账户也会被删除。您可现在或稍后备份您的账户。"
 
 #: ui/accountcreationwizard.ui:849
 msgid "Never show me this again"
@@ -1081,7 +1081,7 @@ msgstr "我"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr "警告！此操作将从此设备上删除该账户！\n注意：此操作无法撤消。同时，您也会失去已注册的用户名！"
+msgstr "警告！此操作将从此设备上删除该账户！\n注意：此操作无法撤消。同时，您也会失去您的注册用户名！"
 
 #: src/chatview.cpp:161
 msgid "Unnamed handler"
@@ -1155,7 +1155,7 @@ msgstr "输入密码以吊销设备"
 
 #: src/newaccountsettingsview.cpp:657
 msgid "This device"
-msgstr "该设备"
+msgstr "本设备"
 
 #: src/newaccountsettingsview.cpp:680
 msgid "Edit name"
@@ -1359,7 +1359,7 @@ msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr "查找或开始会话"
+msgstr "查找或发起会话"
 
 #: src/mainwindow.cpp:1921
 msgid "Leave settings page"

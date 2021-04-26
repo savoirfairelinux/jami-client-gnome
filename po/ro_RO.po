@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-19 03:09-0400\n"
-"PO-Revision-Date: 2021-04-17 13:45+0000\n"
+"POT-Creation-Date: 2021-04-26 03:09-0400\n"
+"PO-Revision-Date: 2021-04-23 12:51+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -61,15 +61,15 @@ msgstr "Administrare audio"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
-msgstr "Periferic sonerie"
+msgstr "Dispozitivul soneriei"
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
-msgstr "Periferic de ieșire"
+msgstr "Dispozitiv de ieșire"
 
 #: ui/mediasettingsview.ui:178
 msgid "Input device"
-msgstr "Periferic de intrare"
+msgstr "Dispozitiv de intrare"
 
 #: ui/mediasettingsview.ui:215
 msgid "Input volume meter"
@@ -490,12 +490,12 @@ msgstr "Alege banda de căutare"
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Focus the list of conversations"
-msgstr "Vezi lista conversațiilor"
+msgstr "Arată lista conversațiilor"
 
 #: ui/help-overlay.ui:46
 msgctxt "shortcut window"
 msgid "Focus the list pending requests"
-msgstr "Vezi lista cererilor în așteptare"
+msgstr "Arată lista cererilor în așteptare"
 
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
