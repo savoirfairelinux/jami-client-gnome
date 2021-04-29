@@ -1,0 +1,1 @@
+../../lrc/src/web-chatview/emoji.js
