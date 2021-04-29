@@ -439,6 +439,7 @@ load_javascript_libs(WebKitWebView *webview_chat,
     /* Create the list of libraries to load */
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/jed.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify.js");
+    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/emoji.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/chatview.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify-string.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify-html.js");
@@ -563,6 +564,38 @@ build_view(WebKitChatContainer *view)
     );
     webkit_user_content_manager_add_style_sheet(webkit_content_manager, chatview_style_sheet);
 
+    chatview_style_sheet = webkit_user_style_sheet_new(
+        (gchar*) g_bytes_get_data(
+            g_resources_lookup_data(
+                "/net/jami/JamiGnome/emoji.css",
+                G_RESOURCE_LOOKUP_FLAGS_NONE,
+                NULL
+            ),
+            NULL
+        ),
+        WEBKIT_USER_CONTENT_INJECT_ALL_FRAMES,
+        WEBKIT_USER_STYLE_LEVEL_USER,
+        NULL,
+        NULL
+    );
+    webkit_user_content_manager_add_style_sheet(webkit_content_manager, chatview_style_sheet);
+
+    chatview_style_sheet = webkit_user_style_sheet_new(
+        (gchar*) g_bytes_get_data(
+            g_resources_lookup_data(
+                "/net/jami/JamiGnome/fa.css",
+                G_RESOURCE_LOOKUP_FLAGS_NONE,
+                NULL
+            ),
+            NULL
+        ),
+        WEBKIT_USER_CONTENT_INJECT_ALL_FRAMES,
+        WEBKIT_USER_STYLE_LEVEL_USER,
+        NULL,
+        NULL
+    );
+    webkit_user_content_manager_add_style_sheet(webkit_content_manager, chatview_style_sheet);
+
     /* Prepare WebKitSettings */
     WebKitSettings* webkit_settings = webkit_settings_new_with_settings(
         "enable-javascript", TRUE,
@@ -571,6 +604,7 @@ build_view(WebKitChatContainer *view)
         "enable-plugins", FALSE,
         "enable-site-specific-quirks", FALSE,
         "enable-smooth-scrolling", TRUE,
+        "enable-html5-local-storage", TRUE,
         NULL
     );
 
@@ -795,7 +829,8 @@ webkit_chat_set_dark_mode(WebKitChatContainer *view, bool darkMode, const std::s
             --hairline-color: #262626;\
         ";
     }
-    gchar* function_call = g_strdup_printf("setTheme(\"%s\")", theme.c_str());
+    gchar* function_call = g_strdup_printf("setTheme(\"%s\"); init_picker(%s)",
+                                           theme.c_str(), darkMode ? "true" : "false");
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
