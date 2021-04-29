@@ -442,6 +442,7 @@ load_javascript_libs(WebKitWebView *webview_chat,
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/chatview.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify-string.js");
     priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/linkify-html.js");
+    priv->js_libs_to_load = g_list_append(priv->js_libs_to_load, (gchar*) "/net/jami/JamiGnome/emoji.js");
 
     /* ref the chat view so that its not destroyed while we load
      * we will unref in javascript_library_loaded
@@ -571,6 +572,7 @@ build_view(WebKitChatContainer *view)
         "enable-plugins", FALSE,
         "enable-site-specific-quirks", FALSE,
         "enable-smooth-scrolling", TRUE,
+        "enable-html5-local-storage", TRUE,
         NULL
     );
 
@@ -795,7 +797,8 @@ webkit_chat_set_dark_mode(WebKitChatContainer *view, bool darkMode, const std::s
             --hairline-color: #262626;\
         ";
     }
-    gchar* function_call = g_strdup_printf("setTheme(\"%s\")", theme.c_str());
+    gchar* function_call = g_strdup_printf("setTheme(\"%s\"); init_picker(\"%s\")",
+                                           theme.c_str(), darkMode ? "true" : "false");
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
