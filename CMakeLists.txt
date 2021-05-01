@@ -84,11 +84,36 @@ ELSE(LibRingClient_PROJECT_DIR)
    FIND_PACKAGE(LibRingClient REQUIRED)
 ENDIF(LibRingClient_PROJECT_DIR)
 
+if(QT5_VER AND QT5_PATH)
+    string(REPLACE "." ";" VERSION_LIST ${QT5_VER})
+    list(GET VERSION_LIST 0 QT5_VER_MAJOR)
+    list(GET VERSION_LIST 1 QT5_VER_MINOR)
+    list(GET VERSION_LIST 2 QT5_VER_PATCH)
+    if((${QT5_VER_MAJOR} GREATER_EQUAL 5) AND (${QT5_VER_MINOR} GREATER_EQUAL 14))
+        message(STATUS "Using custom Qt version")
+        find_package(Qt5 ${QT5_VER} REQUIRED COMPONENTS
+            Core
+            PATHS ${QT5_PATH} NO_DEFAULT_PATH)
+      IF(NOT ${ENABLE_STATIC} MATCHES false)
+        find_package(Qt5 ${QT5_VER} REQUIRED COMPONENTS
+            DBus
+            PATHS ${QT5_PATH} NO_DEFAULT_PATH)
+      endif()
+    endif()
+   set(CMAKE_INSTALL_RPATH_USE_LINK_PATH true)
+else()
+    find_package(Qt5 REQUIRED COMPONENTS
+        Core)
+   IF(NOT ${ENABLE_STATIC} MATCHES false)
+      find_package(Qt5 ${QT5_VER} REQUIRED COMPONENTS
+         DBus)
+   endif()
+endif()
+
 # find packages
 FIND_PACKAGE(PkgConfig REQUIRED)
 PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0>=3.10)
 PKG_CHECK_MODULES(GLIB REQUIRED glib-2.0>=2.40)
-FIND_PACKAGE(Qt5Core REQUIRED)
 PKG_CHECK_MODULES(CLUTTER REQUIRED clutter-1.0)
 PKG_CHECK_MODULES(CLUTTERGTK REQUIRED clutter-gtk-1.0)
 PKG_CHECK_MODULES(LIBNOTIFY libnotify>=0.7.6) #optional
