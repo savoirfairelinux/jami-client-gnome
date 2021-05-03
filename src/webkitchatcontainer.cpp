@@ -812,6 +812,7 @@ webkit_chat_set_dark_mode(WebKitChatContainer *view, bool darkMode, const std::s
     std::string theme = "";
     if (darkMode) {
         theme = "\
+            --svg-invert-percentage: 1;\
             --jami-light-blue: #003b4e;\
             --jami-dark-blue: #28b1ed;\
             --text-color: white;\
