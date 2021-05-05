@@ -393,6 +393,21 @@ on_minimize(GtkButton *button, VideoWidget *self)
 }
 
 static void
+on_set_moderator(GtkButton *button, VideoWidget *self)
+{
+    g_return_if_fail(IS_VIDEO_WIDGET(self));
+    VideoWidgetPrivate *priv = VIDEO_WIDGET_GET_PRIVATE(self);
+    QString uri = QString::fromStdString((gchar*) g_object_get_data(G_OBJECT(button), "uri"));
+    bool set_moderator = (bool) g_object_get_data(G_OBJECT(button), "set-moderator");
+    auto conv_opt = (*priv->cpp->accountInfo)->conversationModel->getConversationForCallId(priv->cpp->callId);
+    if (conv_opt.has_value()) {
+        auto* conv = &(conv_opt.value().get());
+        auto confId = conv->getConfIdOrCallId();
+        (*priv->cpp->accountInfo)->callModel->setModerator(confId, uri, set_moderator);
+    }
+}
+
+static void
 on_show_actions_popover(GtkButton *button, VideoWidget *self)
 {
     g_return_if_fail(IS_VIDEO_WIDGET(self));
@@ -454,6 +469,33 @@ on_show_actions_popover(GtkButton *button, VideoWidget *self)
             g_signal_connect(minBtn, "clicked", G_CALLBACK(on_minimize), self);
         }
     } catch (...) {}
+
+    auto conv_opt = (*priv->cpp->accountInfo)->conversationModel->getConversationForCallId(priv->cpp->callId);
+    if (conv_opt.has_value()) {
+        auto conv = conv_opt.value();
+        if ((*priv->cpp->accountInfo)->callModel->isConference(priv->cpp->callId)) {
+            bool moderator = (*priv->cpp->accountInfo)->callModel->isModerator(priv->cpp->callId, (gchar*) uri);
+            auto* modBtn = gtk_button_new();
+            gtk_button_set_label(GTK_BUTTON(modBtn), moderator ? _("Unset moderator") : _("Set moderator"));
+            gtk_box_pack_start(GTK_BOX(box), modBtn, FALSE, TRUE, 0);
+            g_object_set_data(G_OBJECT(modBtn), "uri", uri);
+            g_object_set_data(G_OBJECT(modBtn), "set-moderator", (void*) !moderator);
+            context = gtk_widget_get_style_context(modBtn);
+            gtk_style_context_add_class(context, "options-btn");
+            GError *error = nullptr;
+            auto* icon = gdk_pixbuf_new_from_resource("/net/jami/JamiGnome/moderator", &error);
+            if (!icon) {
+                g_debug("Could not load icon: %s", error->message);
+                g_clear_error(&error);
+            } else {
+                auto* image = gtk_image_new_from_pixbuf(icon);
+                gtk_button_set_image(GTK_BUTTON(modBtn), image);
+            }
+            gtk_button_set_relief(GTK_BUTTON(modBtn), GTK_RELIEF_NONE);
+            gtk_button_set_alignment(GTK_BUTTON(modBtn), 0, -1);
+            g_signal_connect(modBtn, "clicked", G_CALLBACK(on_set_moderator), self);
+        }
+    }
     gtk_container_add(GTK_CONTAINER(GTK_POPOVER(priv->actions_popover)), box);
 
     gtk_widget_set_size_request(priv->actions_popover, -1, -1);

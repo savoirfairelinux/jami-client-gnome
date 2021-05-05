@@ -64,5 +64,6 @@
     <file alias="view">view.svg</file>
     <file alias="more">more_vert-24px.svg</file>
     <file alias="groups">groups-24px.svg</file>
+    <file alias="moderator">icons_Moderator_Black_24dp.svg</file>
   </gresource>
 </gresources>
