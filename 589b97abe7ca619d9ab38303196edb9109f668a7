@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "305564e9_a0450202",
+        "filename": "src/utils/calls.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-05-05T23:15:55Z",
+      "side": 1,
+      "message": "this is no what the code do.\nIf participantsInfos.size() !\u003d 0, the call is a conference, but the device is not the host",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 20
+      },
+      "revId": "589b97abe7ca619d9ab38303196edb9109f668a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09c81af0_59b68048",
+        "filename": "src/utils/calls.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-05-05T23:15:55Z",
+      "side": 1,
+      "message": "callModel-\u003eisModerator() is already here for that",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 25
+      },
+      "revId": "589b97abe7ca619d9ab38303196edb9109f668a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "188fad9f_a2c83d08",
+        "filename": "src/utils/calls.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-05-05T23:15:55Z",
+      "side": 1,
+      "message": "why not group code and if uri empty take account\u0027s uri",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 1
+      },
+      "revId": "589b97abe7ca619d9ab38303196edb9109f668a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c17d4de_8d2b2b75",
+        "filename": "src/utils/calls.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-05-05T23:15:55Z",
+      "side": 1,
+      "message": "In fact major art of this file is to get the confId, else callId, can be moevd into conversation::Info imho",
+      "range": {
+        "startLine": 108,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 9
+      },
+      "revId": "589b97abe7ca619d9ab38303196edb9109f668a7",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    }
+  ]
+}
