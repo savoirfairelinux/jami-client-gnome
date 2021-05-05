@@ -284,6 +284,8 @@ SET( SRC_FILES
    src/models/gtkaccessproxymodel.cpp
    src/models/gtkqtreemodel.h
    src/models/gtkqtreemodel.cpp
+   src/utils/calls.h
+   src/utils/calls.cpp
    src/utils/drawing.h
    src/utils/drawing.cpp
    src/video/video_widget.h
