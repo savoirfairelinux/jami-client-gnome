@@ -1061,7 +1061,7 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
 void
 CppImpl::add_media_handler(lrc::api::plugin::PluginHandlerDetails mediaHandlerDetails)
 {
-    QString bestName = _("No name!");
+    QString bestName = "No name!";
     auto* mediaHandlerImage = gtk_image_new_from_icon_name("application-x-addon-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
 
     auto mediaHandlerStatus = lrc_.getPluginModel().getCallMediaHandlerStatus(conversation->callId);

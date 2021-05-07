@@ -158,7 +158,7 @@ activate_chat_handler(GtkToggleButton* switchBtn, GParamSpec*, ChatView* view);
 void
 CppImpl::add_chat_handler(lrc::api::plugin::PluginHandlerDetails chatHandlerDetails)
 {
-    QString bestName = _("Unnamed handler");
+    QString bestName = "Unnamed handler";
     auto* chatHandlerImage = gtk_image_new_from_icon_name("application-x-addon-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
     auto accountId = widgets->conversation_->accountId;
     auto peerId = widgets->conversation_->participants.front();
