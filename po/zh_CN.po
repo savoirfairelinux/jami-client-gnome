@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 03:09-0400\n"
-"PO-Revision-Date: 2021-04-20 09:32+0000\n"
-"Last-Translator: Zkdc\n"
+"POT-Creation-Date: 2021-05-10 03:09-0400\n"
+"PO-Revision-Date: 2021-05-10 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1052,10 +1052,6 @@ msgid ""
 "Jami will now quit."
 msgstr "无法连接至 Jami 守护进程（dring）。\nJami 将立即退出。"
 
-#: src/currentcallview.cpp:1064
-msgid "No name!"
-msgstr "无名称！"
-
 #: src/currentcallview.cpp:1176
 msgid "Current conference (all accounts)"
 msgstr "当前会议 (所有账户)"
@@ -1082,10 +1078,6 @@ msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "警告！此操作将从此设备上删除该账户！\n注意：此操作无法撤消。同时，您也会失去您的注册用户名！"
-
-#: src/chatview.cpp:161
-msgid "Unnamed handler"
-msgstr ""
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"

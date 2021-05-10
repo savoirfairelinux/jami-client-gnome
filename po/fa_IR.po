@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 03:09-0400\n"
+"POT-Creation-Date: 2021-05-10 03:09-0400\n"
 "PO-Revision-Date: 2021-03-26 10:53+0000\n"
 "Last-Translator: Hamid reza Zaefarani\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/jami/language/fa_IR/)\n"
@@ -1051,10 +1051,6 @@ msgid ""
 "Jami will now quit."
 msgstr "عدم توانایی در اتصال مجدد به دیمن Jami (dring).\nJami اکنون بسته خواهد شد."
 
-#: src/currentcallview.cpp:1064
-msgid "No name!"
-msgstr "بدون نام!"
-
 #: src/currentcallview.cpp:1176
 msgid "Current conference (all accounts)"
 msgstr "کنفرانس فعلی (تمام حساب های کاربری)"
@@ -1081,10 +1077,6 @@ msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "هشدار! این عمل باعث حذف این حساب از روی این دستگاه می شود!\nتوجه: این عمل غیرقابل بازگشت است. همچنین، نام ثبت شده شما ممکن است از بین برود!"
-
-#: src/chatview.cpp:161
-msgid "Unnamed handler"
-msgstr "مدیر (handler) بدون نام"
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"

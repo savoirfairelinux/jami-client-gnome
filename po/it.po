@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 03:09-0400\n"
-"PO-Revision-Date: 2021-04-29 11:19+0000\n"
-"Last-Translator: liberi liberi <postav@pm.me>\n"
+"POT-Creation-Date: 2021-05-10 03:09-0400\n"
+"PO-Revision-Date: 2021-05-10 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Italian (http://www.transifex.com/savoirfairelinux/jami/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -457,7 +457,7 @@ msgstr "Registra"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
-msgstr "Registra un messaggio audio"
+msgstr "Registra un messaggio vocale"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
@@ -954,7 +954,7 @@ msgstr "Attiva/Disattiva il microfono"
 
 #: ui/currentcallview.ui:396
 msgid "Toggle mute video"
-msgstr "Attiva/Disattiva video"
+msgstr "Attiva/Disattiva videocamera"
 
 #: ui/currentcallview.ui:400 ui/currentcallview.ui:536
 msgid "Mute video"
@@ -1047,10 +1047,6 @@ msgid ""
 "Jami will now quit."
 msgstr "Impossibile riconnettersi al demone Jami (dring).\nJami ora si chiuderà."
 
-#: src/currentcallview.cpp:1064
-msgid "No name!"
-msgstr "Senza nome!"
-
 #: src/currentcallview.cpp:1176
 msgid "Current conference (all accounts)"
 msgstr "Conferenza corrente (tutti gli account)"
@@ -1077,10 +1073,6 @@ msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Attenzione! Questa azione rimuoverà questo account su questo dispositivo!\nNota: questa azione non può essere annullata. Inoltre, il tuo nome registrato può essere perso!"
-
-#: src/chatview.cpp:161
-msgid "Unnamed handler"
-msgstr "Utente anonimo"
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"
@@ -1574,7 +1566,7 @@ msgstr "Il client GNOME per Jami.\nJami è un software gratuito per la comunicaz
 
 #: src/conversationpopupmenu.cpp:225
 msgid "Place _video call"
-msgstr "Effettua chiamata _video"
+msgstr "Effettua _videochiamata"
 
 #: src/conversationpopupmenu.cpp:228
 msgid "Place _audio call"

@@ -35,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 03:09-0400\n"
-"PO-Revision-Date: 2021-02-08 08:09+0000\n"
-"Last-Translator: Андрей Шевчук <andrei@shevchuk.co>\n"
+"POT-Creation-Date: 2021-05-10 03:09-0400\n"
+"PO-Revision-Date: 2021-05-10 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1069,10 +1069,6 @@ msgid ""
 "Jami will now quit."
 msgstr "Не удалось переподключиться к демону Jami (dring).\nЗавершение работы Jami."
 
-#: src/currentcallview.cpp:1064
-msgid "No name!"
-msgstr "Без имени!"
-
 #: src/currentcallview.cpp:1176
 msgid "Current conference (all accounts)"
 msgstr "Текущая конференция (все аккаунты)"
@@ -1099,10 +1095,6 @@ msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Предупреждение: Это действие удалит выбранную учетную запись с данного устройства!\nОбратите внимание: это действие невозможно отменить. Ваше зарегистрированное имя так же может быть утрачено!"
-
-#: src/chatview.cpp:161
-msgid "Unnamed handler"
-msgstr ""
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"

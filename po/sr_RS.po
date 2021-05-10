@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 03:09-0400\n"
+"POT-Creation-Date: 2021-05-10 03:09-0400\n"
 "PO-Revision-Date: 2021-04-09 20:10+0000\n"
 "Last-Translator: Marko Živanović <markozivanovic@kurozy.xyz>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/savoirfairelinux/jami/language/sr_RS/)\n"
@@ -1041,10 +1041,6 @@ msgid ""
 "Jami will now quit."
 msgstr ""
 
-#: src/currentcallview.cpp:1064
-msgid "No name!"
-msgstr ""
-
 #: src/currentcallview.cpp:1176
 msgid "Current conference (all accounts)"
 msgstr ""
@@ -1070,10 +1066,6 @@ msgstr ""
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
-
-#: src/chatview.cpp:161
-msgid "Unnamed handler"
 msgstr ""
 
 #: src/chatview.cpp:382 src/chatview.cpp:396

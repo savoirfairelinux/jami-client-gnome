@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-03 03:09-0400\n"
-"PO-Revision-Date: 2021-03-30 07:52+0000\n"
-"Last-Translator: R Houtman <rl_houtman@postpoort.nl>\n"
+"POT-Creation-Date: 2021-05-10 03:09-0400\n"
+"PO-Revision-Date: 2021-05-10 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/jami/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1044,10 +1044,6 @@ msgid ""
 "Jami will now quit."
 msgstr "Kon niet opnieuw verbinding maken met de Jami-daemon (dring).\nJami zal nu afsluiten."
 
-#: src/currentcallview.cpp:1064
-msgid "No name!"
-msgstr ""
-
 #: src/currentcallview.cpp:1176
 msgid "Current conference (all accounts)"
 msgstr ""
@@ -1074,10 +1070,6 @@ msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Let op! Deze handeling zal dit account van dit apparaat verwijderen!\nDeze handeling kan niet ongedaan gemaakt worden. Uw geregistreerde naam zal ook verloren gaan!"
-
-#: src/chatview.cpp:161
-msgid "Unnamed handler"
-msgstr ""
 
 #: src/chatview.cpp:382 src/chatview.cpp:396
 msgid "Send File"
