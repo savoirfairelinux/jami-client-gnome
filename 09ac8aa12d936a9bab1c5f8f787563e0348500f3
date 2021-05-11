@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7d9079d9_49332f1b",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2021-05-11T16:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4dedfd1_4fd869ff",
+      "range": {
+        "startLine": 477,
+        "startChar": 12,
+        "endLine": 477,
+        "endChar": 48
+      },
+      "revId": "09ac8aa12d936a9bab1c5f8f787563e0348500f3",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "054475df_4b4dc3bd",
         "filename": "src/video/video_widget.cpp",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2021-05-11T15:02:14Z",
       "side": 1,
       "message": "GTK_ICON_SIZE_BUTTON to avoid magic numbers",
+      "range": {
+        "startLine": 491,
+        "startChar": 16,
+        "endLine": 491,
+        "endChar": 18
+      },
+      "revId": "09ac8aa12d936a9bab1c5f8f787563e0348500f3",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dd187d1_64be526d",
+        "filename": "src/video/video_widget.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2021-05-11T16:43:24Z",
+      "side": 1,
+      "message": "actually that\u0027s slightly different, and doesn\u0027t seem to be directly usable here.\nhttps://developer.gnome.org/gtk3/stable/gtk3-Themeable-Stock-Images.html#GtkIconSize\n\nand that particular enum item seems to have gone away in gtk4:\nhttps://developer.gnome.org/gtk4/stable/ch41s02.html#id-1.7.4.4.58\nhttps://developer.gnome.org/gtk4/stable/gtk4-Standard-Enumerations.html#GtkIconSize\n\nso i\u0027m not sure what the best approach is for resizing custom icons from resources.\nwhat i\u0027ve done here is also used in mainwindow and welcomeview (try: grep -rn \u002716,\u0027)\n\nif you know how to do it in cleaner way, please let me know :-)",
+      "parentUuid": "054475df_4b4dc3bd",
       "range": {
         "startLine": 491,
         "startChar": 16,
