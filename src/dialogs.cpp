@@ -60,7 +60,7 @@ about_dialog(GtkWidget *parent)
 
     gchar *version = g_strdup_printf(C_("Do not translate the release name nor the status (beta, final, ...)",
                                         "\"%s\"\nbuilt on %.25s"),
-                                        "Together",
+                                        "Mekhenty",
                                      CLIENT_BUILD_DATE);
 
     const gchar *authors[] = {
