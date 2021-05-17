@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-10 03:09-0400\n"
+"POT-Creation-Date: 2021-05-17 03:09-0400\n"
 "PO-Revision-Date: 2021-05-10 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/savoirfairelinux/jami/language/zh/)\n"
@@ -1081,8 +1081,8 @@ msgstr ""
 msgid "Save File"
 msgstr "儲存檔案"
 
-#: src/chatview.cpp:385 src/chatview.cpp:400 src/video/video_widget.cpp:814
-#: src/video/video_widget.cpp:833 src/pluginsettingsview.cpp:129
+#: src/chatview.cpp:385 src/chatview.cpp:400 src/video/video_widget.cpp:864
+#: src/video/video_widget.cpp:883 src/pluginsettingsview.cpp:129
 #: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:439
 #: src/avatarmanipulation.cpp:462
 msgid "_Open"
@@ -1097,8 +1097,8 @@ msgstr ""
 
 #: src/chatview.cpp:386 src/chatview.cpp:399 src/generalsettingsview.cpp:237
 #: src/generalsettingsview.cpp:250 src/newaccountsettingsview.cpp:933
-#: src/newaccountsettingsview.cpp:949 src/video/video_widget.cpp:815
-#: src/video/video_widget.cpp:832 src/pluginsettingsview.cpp:130
+#: src/newaccountsettingsview.cpp:949 src/video/video_widget.cpp:865
+#: src/video/video_widget.cpp:882 src/pluginsettingsview.cpp:130
 #: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:440
 #: src/avatarmanipulation.cpp:461 src/accountcreationwizard.cpp:880
 #: src/accountcreationwizard.cpp:896
@@ -1280,39 +1280,47 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: src/video/video_widget.cpp:414
+#: src/video/video_widget.cpp:433
 msgid "Hangup"
 msgstr ""
 
-#: src/video/video_widget.cpp:429
+#: src/video/video_widget.cpp:448
 msgid "Maximize"
 msgstr ""
 
-#: src/video/video_widget.cpp:444
+#: src/video/video_widget.cpp:463
 msgid "Minimize"
 msgstr "最小化"
 
-#: src/video/video_widget.cpp:497
+#: src/video/video_widget.cpp:483
+msgid "Unset moderator"
+msgstr ""
+
+#: src/video/video_widget.cpp:483
+msgid "Set moderator"
+msgstr ""
+
+#: src/video/video_widget.cpp:547
 msgid "More options"
 msgstr ""
 
-#: src/video/video_widget.cpp:811 src/video/video_widget.cpp:829
+#: src/video/video_widget.cpp:861 src/video/video_widget.cpp:879
 msgid "Choose file"
 msgstr "選擇檔案"
 
-#: src/video/video_widget.cpp:890
+#: src/video/video_widget.cpp:940
 msgid "Share _screen area"
 msgstr ""
 
-#: src/video/video_widget.cpp:898
+#: src/video/video_widget.cpp:948
 msgid "Share _monitor"
 msgstr ""
 
-#: src/video/video_widget.cpp:905
+#: src/video/video_widget.cpp:955
 msgid "Stream _file"
 msgstr ""
 
-#: src/video/video_widget.cpp:915
+#: src/video/video_widget.cpp:965
 msgid "Show advanced information"
 msgstr ""
 
@@ -1555,7 +1563,7 @@ msgid ""
 "built on %.25s"
 msgstr ""
 
-#: src/dialogs.cpp:133
+#: src/dialogs.cpp:135
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
