@@ -1084,7 +1084,7 @@ on_notification_accept_call(GtkWidget*, gchar *title, MainWindow* self)
 
     try {
         auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id.c_str());
-        accountInfo.callModel->accept(information.c_str());
+        accountInfo.callModel->acceptWithMedia(information.c_str());
     } catch (const std::out_of_range& e) {
         g_warning("Can't get account %s: %s", id.c_str(), e.what());
     }
@@ -2884,7 +2884,7 @@ main_window_accept_call(MainWindow *win)
     if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
         priv->cpp->accountInfo_->conversationModel->makePermanent(conv.uid);
     // Accept call
-    priv->cpp->accountInfo_->callModel->accept(conv.callId);
+    priv->cpp->accountInfo_->callModel->acceptWithMedia(conv.callId);
 }
 
 void

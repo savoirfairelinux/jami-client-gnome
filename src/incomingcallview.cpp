@@ -164,7 +164,7 @@ accept_incoming_call(IncomingCallView *self)
         if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
             (*priv->accountInfo_)->conversationModel->makePermanent(priv->conversation_->uid);
         // Accept call
-        (*priv->accountInfo_)->callModel->accept(priv->conversation_->callId);
+        (*priv->accountInfo_)->callModel->acceptWithMedia(priv->conversation_->callId);
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
     }
