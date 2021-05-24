@@ -35,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-17 03:09-0400\n"
+"POT-Creation-Date: 2021-05-24 03:09-0400\n"
 "PO-Revision-Date: 2021-05-17 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"Last-Translator: hlm hlmfn\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1319,11 +1319,11 @@ msgstr "Свернуть"
 
 #: src/video/video_widget.cpp:483
 msgid "Unset moderator"
-msgstr ""
+msgstr "Отменить установку модератора"
 
 #: src/video/video_widget.cpp:483
 msgid "Set moderator"
-msgstr ""
+msgstr "Установить модератора"
 
 #: src/video/video_widget.cpp:547
 msgid "More options"

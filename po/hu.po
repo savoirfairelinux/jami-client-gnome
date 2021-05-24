@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-17 03:09-0400\n"
-"PO-Revision-Date: 2021-05-17 07:09+0000\n"
+"POT-Creation-Date: 2021-05-24 03:09-0400\n"
+"PO-Revision-Date: 2021-05-22 07:28+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -226,7 +226,7 @@ msgstr "jelszó"
 #: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
 #: ui/accountcreationwizard.ui:1276
 msgid "Proxy"
-msgstr "Meghatalmazott"
+msgstr "Meghatalmazás"
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
@@ -290,7 +290,7 @@ msgstr "Ónműködő csatlakozás helyi hálózaton"
 
 #: ui/newaccountsettingsview.ui:1490
 msgid "Bootstrap"
-msgstr "Bootstrap"
+msgstr "Rendszerindítás"
 
 #: ui/newaccountsettingsview.ui:1550
 msgid "Encrypt media streams (SRTP)"
@@ -618,7 +618,7 @@ msgstr "Kijelölés beállítása képként"
 
 #: ui/profile.ui:58
 msgid "Informations"
-msgstr "Részletek"
+msgstr "Kapcsolattartó adatai"
 
 #: ui/profile.ui:153
 msgid "QR Code"
@@ -682,7 +682,7 @@ msgstr "Archiválás"
 
 #: ui/accountcreationwizard.ui:205 ui/accountcreationwizard.ui:334
 msgid "Informations."
-msgstr "Adatai"
+msgstr "Kapcsolattartó adatai"
 
 #: ui/accountcreationwizard.ui:258
 msgid ""
@@ -1116,7 +1116,7 @@ msgstr "Megállítás"
 
 #: src/chatview.cpp:1206
 msgid "Send"
-msgstr "Elküld"
+msgstr "Küldés"
 
 #: src/generalsettingsview.cpp:161
 msgid ""

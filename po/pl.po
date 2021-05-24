@@ -5,14 +5,15 @@
 # Translators:
 # Jan Wielkiewicz <grzybowawspulnota@cock.li>, 2018-2019
 # Caspar Cedro <casparcedro96@gmail.com>, 2016
+# Jacob D <tornadowro@gmail.com>, 2021
 # Jan Wielkiewicz <grzybowawspulnota@cock.li>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-17 03:09-0400\n"
-"PO-Revision-Date: 2021-05-17 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-05-24 03:09-0400\n"
+"PO-Revision-Date: 2021-05-21 09:45+0000\n"
+"Last-Translator: Jacob D <tornadowro@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/savoirfairelinux/jami/language/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -107,7 +108,7 @@ msgstr "Włącz przyśpieszanie sprzętowe"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
-msgstr "Wymagana migracja konta"
+msgstr "Wymagane przeniesienie konta"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
@@ -621,7 +622,7 @@ msgstr ""
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "Kod QR"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -782,7 +783,7 @@ msgstr "Wprowadź adres URL Jami Account Management Server (JAMS)"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
-msgstr ""
+msgstr "JAMS URL"
 
 #: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
@@ -1294,11 +1295,11 @@ msgstr "Zminimalizuj"
 
 #: src/video/video_widget.cpp:483
 msgid "Unset moderator"
-msgstr ""
+msgstr "Odznacz moderatora"
 
 #: src/video/video_widget.cpp:483
 msgid "Set moderator"
-msgstr ""
+msgstr "Zaznacz moderatora"
 
 #: src/video/video_widget.cpp:547
 msgid "More options"
