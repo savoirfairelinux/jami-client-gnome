@@ -26,7 +26,7 @@
 namespace Interfaces {
 
 static GtkWidget*
-dring_crash_dialog()
+jamid_crash_dialog()
 {
     GtkWidget *dialog = gtk_dialog_new();
     gtk_window_set_destroy_with_parent(GTK_WINDOW(dialog), TRUE);
@@ -54,7 +54,7 @@ dring_crash_dialog()
     gtk_widget_set_margin_top(content_area, 25);
 
     auto message = gtk_label_new(
-        _("Trying to reconnect to the Jami daemon (dring)…")
+        _("Trying to reconnect to the Jami daemon (jamid)…")
     );
 
     gtk_box_pack_start(GTK_BOX(content_area), message, FALSE, TRUE, 0);
@@ -84,7 +84,7 @@ quitting_dialog()
         win,
         (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
         GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
-        _("Could not re-connect to the Jami daemon (dring).\nJami will now quit.")
+        _("Could not re-connect to the Jami daemon (jamid).\nJami will now quit.")
     );
 
     if (win) {
@@ -132,9 +132,9 @@ check_connection_cb(GtkWidget *warning_dialog)
 static gboolean
 error_cb(G_GNUC_UNUSED gpointer user_data)
 {
-    g_warning("dring has possibly crashed, or has been killed... will wait 2.5 seconds and try to reconnect");
+    g_warning("jamid has possibly crashed, or has been killed... will wait 2.5 seconds and try to reconnect");
 
-    auto warning_dialog = dring_crash_dialog();
+    auto warning_dialog = jamid_crash_dialog();
     gtk_window_present(GTK_WINDOW(warning_dialog));
 
     /* allow 2.5 seconds for the daemon to restart and then see if we're re-connected */
