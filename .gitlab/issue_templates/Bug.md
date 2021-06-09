@@ -7,7 +7,7 @@ Bug report form
 
 ## Jami daemon version:
 
-<!-- type `/usr/lib/ring/dring -h` into your terminal -->
+<!-- type `/usr/libexec/jamid -h` into your terminal -->
 
 ## Jami GNOME client version:
 
@@ -19,7 +19,7 @@ Bug report form
 
 - [x] My OS package manager (e.g. apt, yum, pacman)
 - [ ] I downloaded it from jami.net
-- [ ] I built it from source using the make-ring.py script
+- [ ] I built it from source using the build.py script
 - [ ] I built it from source manually or other (please explain):
 
 ## Steps to reproduce bug
@@ -42,7 +42,7 @@ Steps:
 
 <!-- run
 
-journalctl --since "24h ago" | grep dring
+journalctl --since "24h ago" | grep jamid
 
 in your terminal -->
 
