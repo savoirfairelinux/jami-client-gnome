@@ -1736,19 +1736,19 @@ CppImpl::update_participants_hovers(const QString& callId)
             // Create participant hovers
             for (const auto& participant: call.participantsInfos) {
                 QJsonObject data;
-                data["x"] = participant["x"].toInt();
-                data["y"] = participant["y"].toInt();
-                data["w"] = participant["w"].toInt();
-                data["h"] = participant["h"].toInt();
-                data["active"] = participant["active"] == "true";
-                auto bestName = participant["uri"];
+                data["x"] = participant.x;
+                data["y"] = participant.y;
+                data["w"] = participant.width;
+                data["h"] = participant.height;
+                data["active"] = participant.active;
+                auto bestName = participant.uri;
                 data["isLocal"] = false;
                 if (bestName == (*accountInfo)->profileInfo.uri) {
                     bestName = _("me");
                     data["isLocal"] = true;
                 } else {
                     try {
-                        auto &contact = (*accountInfo)->contactModel->getContact(participant["uri"]);
+                        auto &contact = (*accountInfo)->contactModel->getContact(participant.uri);
                         bestName = contact.profileInfo.alias;
                         if (bestName.isEmpty())
                             bestName = contact.registeredName;
@@ -1758,7 +1758,7 @@ CppImpl::update_participants_hovers(const QString& callId)
                     } catch (...) {}
                 }
                 data["bestName"] = bestName;
-                data["uri"] = participant["uri"];
+                data["uri"] = participant.uri;
                 video_widget_add_participant_hover(
                     VIDEO_WIDGET(widgets->video_widget),
                     data
