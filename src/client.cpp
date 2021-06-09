@@ -112,7 +112,7 @@ exception_dialog(const char* msg)
     GtkWidget *dialog = gtk_message_dialog_new(NULL,
                             (GtkDialogFlags)(GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT),
                             GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
-                            _("Unable to initialize.\nMake sure the Jami daemon (dring) is running.\nError: %s"),
+                            _("Unable to initialize.\nMake sure the Jami daemon (jamid) is running.\nError: %s"),
                             msg);
 
     gtk_window_set_title(GTK_WINDOW(dialog), _("Jami Error"));
@@ -507,7 +507,7 @@ client_startup(GApplication *app)
     /* init libRingClient and make sure its connected to the dbus */
     try {
         priv->qtapp = new QCoreApplication(priv->argc, priv->argv);
-        /* the call model will try to connect to dring via dbus */
+        /* the call model will try to connect to jamid via dbus */
     } catch(const char * msg) {
         exception_dialog(msg);
         exit(1);
@@ -582,7 +582,7 @@ client_shutdown(GApplication *app)
     QObject::disconnect(priv->uam_updated);
 
     /* free the QCoreApplication, which will destroy all libRingClient models
-     * and thus send the Unregister signal over dbus to dring */
+     * and thus send the Unregister signal over dbus to jamid */
     if (priv->qtapp) {
         delete priv->qtapp;
         priv->qtapp = nullptr;
