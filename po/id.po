@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-31 03:09-0400\n"
-"PO-Revision-Date: 2021-05-30 03:55+0000\n"
+"POT-Creation-Date: 2021-06-14 03:09-0400\n"
+"PO-Revision-Date: 2021-06-11 00:23+0000\n"
 "Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/savoirfairelinux/jami/language/id/)\n"
 "MIME-Version: 1.0\n"
@@ -55,7 +55,7 @@ msgstr ""
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
 msgid "Conversations"
-msgstr ""
+msgstr "Obrolan"
 
 #: ui/help-overlay.ui:68
 msgctxt "shortcut window"
@@ -70,7 +70,7 @@ msgstr ""
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
 msgid "Clear history"
-msgstr ""
+msgstr "Bersihkan riwayat"
 
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
@@ -174,7 +174,7 @@ msgstr "Setelan"
 
 #: ui/mainwindow.ui:294 ui/mainwindow.ui:301
 msgid "Conversations"
-msgstr ""
+msgstr "Obrolan"
 
 #: ui/mainwindow.ui:327 ui/mainwindow.ui:334
 msgid "Contact requests"
@@ -214,7 +214,7 @@ msgstr ""
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
 #: src/newaccountsettingsview.cpp:1011 src/newaccountsettingsview.cpp:2168
 msgid "Delete account"
-msgstr ""
+msgstr "Hapus akun"
 
 #: ui/accountmigrationview.ui:251
 msgid "Migrate account"
@@ -234,7 +234,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:288 ui/currentcallview.ui:581
 msgid "End call"
-msgstr ""
+msgstr "Akhiri panggilan"
 
 #: ui/currentcallview.ui:308 ui/currentcallview.ui:554
 msgid "Add participant"
@@ -387,7 +387,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
-msgstr ""
+msgstr "PIN"
 
 #: ui/accountcreationwizard.ui:390
 msgid ""
@@ -468,7 +468,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:873
 msgid "Skip"
-msgstr ""
+msgstr "Lewat"
 
 #: ui/accountcreationwizard.ui:899
 msgid "Registering username…"
@@ -484,7 +484,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:973 ui/newaccountsettingsview.ui:262
 msgid "OK"
-msgstr ""
+msgstr "Oke"
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
@@ -533,7 +533,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
-msgstr ""
+msgstr "Sistem"
 
 #: ui/generalsettingsview.ui:96
 msgid "Start application on login"
@@ -641,7 +641,7 @@ msgstr ""
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr ""
+msgstr "Kode QR"
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
@@ -720,7 +720,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:884
 msgid "Cancel"
-msgstr ""
+msgstr "Batal"
 
 #: ui/newaccountsettingsview.ui:211
 msgid "Export on the network"
@@ -748,7 +748,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
-msgstr ""
+msgstr "Pesan suara"
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
@@ -784,7 +784,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1217
 msgid "Custom ringtone"
-msgstr ""
+msgstr "Nada dering kustom"
 
 #: ui/newaccountsettingsview.ui:1264
 msgid "Convert your account into a rendezvous point"
@@ -792,15 +792,15 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
-msgstr ""
+msgstr "Nama peladen"
 
 #: ui/newaccountsettingsview.ui:1336 ui/newaccountsettingsview.ui:2560
 msgid "Address"
-msgstr ""
+msgstr "Alamat"
 
 #: ui/newaccountsettingsview.ui:1370
 msgid "OpenDHT configuration"
-msgstr ""
+msgstr "Konfigurasi OpenDHT"
 
 #: ui/newaccountsettingsview.ui:1454
 msgid "Auto connect on local network"
@@ -828,11 +828,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1691
 msgid "CA certificate"
-msgstr ""
+msgstr "Sertifikat CA"
 
 #: ui/newaccountsettingsview.ui:1727
 msgid "User certificate"
-msgstr ""
+msgstr "Sertifikat pengguna"
 
 #: ui/newaccountsettingsview.ui:1763
 msgid "Private key"
@@ -872,7 +872,7 @@ msgstr "Keamanan"
 
 #: ui/newaccountsettingsview.ui:2063
 msgid "Connectivity"
-msgstr ""
+msgstr "Konektivitas"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Auto Registration After Expired"
@@ -888,11 +888,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2209
 msgid "UPnP"
-msgstr ""
+msgstr "UPnP"
 
 #: ui/newaccountsettingsview.ui:2244
 msgid "Use TURN"
-msgstr ""
+msgstr "Gunakan TURN"
 
 #: ui/newaccountsettingsview.ui:2279
 msgid "(TURN) address"
@@ -912,7 +912,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2419
 msgid "Use STUN"
-msgstr ""
+msgstr "Gunakan TURN"
 
 #: ui/newaccountsettingsview.ui:2454
 msgid "(STUN) address"
@@ -972,7 +972,7 @@ msgstr ""
 
 #: ui/pluginsettingsview.ui:44
 msgid "Plugins"
-msgstr ""
+msgstr "Plugin"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
@@ -1168,7 +1168,7 @@ msgstr ""
 
 #: src/video/video_widget.cpp:448
 msgid "Maximize"
-msgstr ""
+msgstr "Maksimalkan"
 
 #: src/video/video_widget.cpp:463
 msgid "Minimize"
@@ -1383,7 +1383,7 @@ msgstr ""
 
 #: src/accountcreationwizard.cpp:1109
 msgid "Register name"
-msgstr ""
+msgstr "Daftarkan nama"
 
 #: src/accountcreationwizard.cpp:1110
 msgid "Name"
@@ -1428,7 +1428,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2347
 msgid "Missed call"
-msgstr ""
+msgstr "Panggilan terlewat"
 
 #: src/mainwindow.cpp:2364
 msgid "There are active calls"
@@ -1452,7 +1452,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2659
 msgid "New message"
-msgstr ""
+msgstr "Pesan baru"
 
 #: src/mainwindow.cpp:2711
 msgid "Stop current call?"
@@ -1466,7 +1466,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2779
 msgid "Clear history"
-msgstr ""
+msgstr "Bersihkan riwayat"
 
 #: src/mainwindow.cpp:2780
 msgid "Do you really want to clear the history of this conversation?"
@@ -1551,7 +1551,7 @@ msgstr ""
 
 #: src/currentcallview.cpp:1747
 msgid "me"
-msgstr ""
+msgstr "saya"
 
 #: src/newaccountsettingsview.cpp:608
 msgid ""

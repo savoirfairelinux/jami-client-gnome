@@ -41,8 +41,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-31 03:09-0400\n"
-"PO-Revision-Date: 2021-05-17 07:09+0000\n"
+"POT-Creation-Date: 2021-06-14 03:09-0400\n"
+"PO-Revision-Date: 2021-06-02 17:51+0000\n"
 "Last-Translator: Juan Manuel <jumase.25@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/jami/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -383,7 +383,7 @@ msgstr "Importar una cuenta con el PIN generado en otro dispositivo"
 
 #: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:696
 msgid "Restore an account from backup"
-msgstr "Recupera una cuenta desde una copia de respaldo"
+msgstr "Recuperar una cuenta desde un respaldo"
 
 #: ui/accountcreationwizard.ui:101
 msgid "Import an account via your archive"
@@ -417,7 +417,7 @@ msgstr "Información"
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr "Puedes obtener un archivo haciendo click en \"Exportar cuenta\" dentro de configuración de la cuenta. Esto creará un archivo .gz en tu dispositivo."
+msgstr "Puedes obtener un archivo haciendo click en \"Crear respaldo de la cuenta\" dentro de configuración de la cuenta. Esto creará un archivo .gz en tu dispositivo."
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"

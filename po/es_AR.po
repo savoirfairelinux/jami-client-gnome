@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-31 03:09-0400\n"
-"PO-Revision-Date: 2021-05-17 07:09+0000\n"
+"POT-Creation-Date: 2021-06-14 03:09-0400\n"
+"PO-Revision-Date: 2021-06-02 18:03+0000\n"
 "Last-Translator: Juan Manuel <jumase.25@gmail.com>\n"
 "Language-Team: Spanish (Argentina) (http://www.transifex.com/savoirfairelinux/jami/language/es_AR/)\n"
 "MIME-Version: 1.0\n"
@@ -352,7 +352,7 @@ msgstr "Importar una cuenta con su PIN generado en otro dispositivo"
 
 #: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:696
 msgid "Restore an account from backup"
-msgstr "Recuperá una cuenta desde una copia de respaldo"
+msgstr "Recuperar una cuenta desde un respaldo"
 
 #: ui/accountcreationwizard.ui:101
 msgid "Import an account via your archive"
@@ -451,7 +451,7 @@ msgstr "Siguiente"
 
 #: ui/accountcreationwizard.ui:826
 msgid "Backup your account!"
-msgstr "Respaldá tu cuenta!"
+msgstr "¡Respaldá tu cuenta!"
 
 #: ui/accountcreationwizard.ui:842
 msgid ""
@@ -462,7 +462,7 @@ msgstr "Esta cuenta solo existe en este dispositivo. Si perdió su dispositivo o
 
 #: ui/accountcreationwizard.ui:849
 msgid "Never show me this again"
-msgstr "No vuelva a mostrarme ésto"
+msgstr "No volver a mostrarme esto"
 
 #: ui/accountcreationwizard.ui:863 ui/newaccountsettingsview.ui:539
 #: src/accountcreationwizard.cpp:442 src/newaccountsettingsview.cpp:2101
@@ -759,7 +759,7 @@ msgstr "Dispositivos conocidos conectados a esta cuenta de Jami"
 
 #: ui/newaccountsettingsview.ui:933
 msgid "Link another device"
-msgstr "Vincula otro dispositivo"
+msgstr "Vincular otro dispositivo"
 
 #: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
@@ -791,7 +791,7 @@ msgstr "Tono de llamada personalizado"
 
 #: ui/newaccountsettingsview.ui:1264
 msgid "Convert your account into a rendezvous point"
-msgstr "Convierte tu cuenta en un punto de encuentro"
+msgstr "Convertir tu cuenta en un punto de encuentro"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -1118,7 +1118,7 @@ msgstr "Esta es una operación destructiva. ¿Estás seguro de que deseas elimin
 
 #: src/generalsettingsview.cpp:233 src/generalsettingsview.cpp:247
 msgid "Choose download folder"
-msgstr "Elija carpeta de descargas"
+msgstr "Elegí la carpeta de descargas"
 
 #: src/generalsettingsview.cpp:236 src/generalsettingsview.cpp:251
 #: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:897

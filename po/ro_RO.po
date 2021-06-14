@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-31 03:09-0400\n"
-"PO-Revision-Date: 2021-05-30 15:21+0000\n"
+"POT-Creation-Date: 2021-06-14 03:09-0400\n"
+"PO-Revision-Date: 2021-06-06 14:39+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -1169,7 +1169,7 @@ msgstr "Închide"
 
 #: src/video/video_widget.cpp:448
 msgid "Maximize"
-msgstr "Mărește"
+msgstr "Maximizează"
 
 #: src/video/video_widget.cpp:463
 msgid "Minimize"

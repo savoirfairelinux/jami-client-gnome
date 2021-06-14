@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-31 03:09-0400\n"
-"PO-Revision-Date: 2021-05-27 22:37+0000\n"
+"POT-Creation-Date: 2021-06-14 03:09-0400\n"
+"PO-Revision-Date: 2021-05-31 22:56+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -1091,7 +1091,7 @@ msgstr "Bejegyeztetés folyamatban…"
 
 #: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
-msgstr "Név regisztrációs hiba"
+msgstr "Névbejegyeztetés hiba"
 
 #: src/usernameregistrationbox.cpp:434
 msgid ""
@@ -1204,7 +1204,7 @@ msgstr "_Monitor megosztása"
 
 #: src/video/video_widget.cpp:955
 msgid "Stream _file"
-msgstr "Stream _fájl"
+msgstr "_Fájl-adatfolyam"
 
 #: src/video/video_widget.cpp:965
 msgid "Show advanced information"
