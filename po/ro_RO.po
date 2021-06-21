@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-14 03:09-0400\n"
-"PO-Revision-Date: 2021-06-06 14:39+0000\n"
+"POT-Creation-Date: 2021-06-21 03:09-0400\n"
+"PO-Revision-Date: 2021-06-17 15:55+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/savoirfairelinux/jami/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
@@ -419,7 +419,7 @@ msgstr "Dacă bifezi asta, vei înscrie un nume de utilizator unic în rețeaua 
 
 #: ui/accountcreationwizard.ui:630
 msgid "Encrypt account with password"
-msgstr "Cifrează contul cu parolă"
+msgstr "Cifrează contul cu o parolă"
 
 #: ui/accountcreationwizard.ui:631
 msgid ""
@@ -953,19 +953,19 @@ msgstr "Folosit numai în timpul negocierii SDP în caz că ICE nu este acceptat
 
 #: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Min port"
-msgstr "Port Min audio RTP"
+msgstr "Port audio RTP minim"
 
 #: ui/newaccountsettingsview.ui:2872
 msgid "Audio RTP Max port"
-msgstr "Port Max audio RTP"
+msgstr "Port audio RTP maxim"
 
 #: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Min port"
-msgstr "Port Min video RTP"
+msgstr "Port video RTP minim"
 
 #: ui/newaccountsettingsview.ui:2942
 msgid "Video RTP Max port"
-msgstr "Port Max video RTP"
+msgstr "Port video RTP maxim"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"

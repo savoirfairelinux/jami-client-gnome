@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-14 03:09-0400\n"
-"PO-Revision-Date: 2021-05-31 22:56+0000\n"
+"POT-Creation-Date: 2021-06-21 03:09-0400\n"
+"PO-Revision-Date: 2021-06-17 23:03+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -693,7 +693,7 @@ msgstr "Felbontás"
 
 #: ui/mediasettingsview.ui:447
 msgid "Framerate"
-msgstr "Képarány"
+msgstr "Képkockasebesség"
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
