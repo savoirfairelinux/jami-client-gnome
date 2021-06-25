@@ -27,6 +27,7 @@
 // LRC
 #include <api/avmodel.h>
 #include <api/datatransfermodel.h>
+#include <api/newaccountmodel.h>
 
 // Jami Client
 #include "utils/files.h"
@@ -100,19 +101,19 @@ namespace { namespace details {
 class CppImpl
 {
 public:
-    explicit CppImpl(GeneralSettingsView& widget, lrc::api::AVModel& avModel, lrc::api::DataTransferModel& dtModel);
+    explicit CppImpl(GeneralSettingsView& widget, lrc::api::AVModel& avModel, lrc::api::NewAccountModel& accountModel);
 
     lrc::api::AVModel* avModel_ = nullptr;
-    lrc::api::DataTransferModel* dtModel_ = nullptr;
+    lrc::api::NewAccountModel* accountModel_ = nullptr;
     GeneralSettingsView* self = nullptr; // The GTK widget itself
     GeneralSettingsViewPrivate* widgets = nullptr;
 };
 
-CppImpl::CppImpl(GeneralSettingsView& widget, lrc::api::AVModel& avModel, lrc::api::DataTransferModel& dtModel)
+CppImpl::CppImpl(GeneralSettingsView& widget, lrc::api::AVModel& avModel, lrc::api::NewAccountModel& accountModel)
     : self(&widget)
     , widgets(GENERAL_SETTINGS_VIEW_GET_PRIVATE(&widget))
     , avModel_(&avModel)
-    , dtModel_(&dtModel)
+    , accountModel_(&accountModel)
 {
     gtk_switch_set_active(
         GTK_SWITCH(widgets->record_preview_button),
@@ -203,7 +204,7 @@ update_downloads_button_label(GeneralSettingsView *self)
 }
 
 static void
-change_prefered_directory (gchar * directory, GeneralSettingsView *self, gchar * id, void (*cb)(GeneralSettingsView*))
+change_prefered_directory (const gchar *directory, GeneralSettingsView *self, const gchar *id, void (*cb)(GeneralSettingsView*))
 {
     g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
@@ -303,8 +304,8 @@ file_transfer_limit_changed(GtkAdjustment *adjustment, GeneralSettingsView *self
     g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
     gdouble limit = gtk_adjustment_get_value(adjustment);
-    if (priv && priv->cpp && priv->cpp->dtModel_)
-        priv->cpp->dtModel_->acceptBehindMb = limit;
+    if (priv && priv->cpp && priv->cpp->accountModel_)
+        priv->cpp->accountModel_->autoTransferSizeThreshold = limit;
 }
 
 static void
@@ -313,8 +314,8 @@ accept_untrusted_toggled(GtkSwitch *button, GParamSpec* /*spec*/, GeneralSetting
     g_return_if_fail(IS_GENERAL_SETTINGS_VIEW(self));
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
     gboolean accept = gtk_switch_get_active(button);
-    if (priv && priv->cpp && priv->cpp->dtModel_)
-        priv->cpp->dtModel_->acceptFromUnstrusted = accept;
+    if (priv && priv->cpp && priv->cpp->accountModel_)
+        priv->cpp->accountModel_->autoTransferFromUntrusted = accept;
 }
 
 static void
@@ -324,8 +325,8 @@ accept_transfer_toggled(GtkSwitch *button, GParamSpec* /*spec*/, GeneralSettings
     GeneralSettingsViewPrivate *priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(self);
     gboolean accept = gtk_switch_get_active(button);
     gtk_widget_set_sensitive(priv->spinbutton_limit_transfer, accept);
-    if (priv && priv->cpp && priv->cpp->dtModel_) {
-        priv->cpp->dtModel_->automaticAcceptTransfer = accept;
+    if (priv && priv->cpp && priv->cpp->accountModel_) {
+        priv->cpp->accountModel_->autoTransferFromTrusted = accept;
     }
 }
 
@@ -538,12 +539,13 @@ general_settings_view_class_init(GeneralSettingsViewClass *klass)
 }
 
 GtkWidget *
-general_settings_view_new(GtkWidget* main_window_pointer, lrc::api::AVModel& avModel, lrc::api::DataTransferModel& dtModel)
+general_settings_view_new(GtkWidget* main_window_pointer, lrc::api::AVModel& avModel, lrc::api::NewAccountModel& accountModel)
 {
     auto self = g_object_new(GENERAL_SETTINGS_VIEW_TYPE, NULL);
     auto* priv = GENERAL_SETTINGS_VIEW_GET_PRIVATE(GENERAL_SETTINGS_VIEW (self));
     priv->cpp = new details::CppImpl(
-        *(reinterpret_cast<GeneralSettingsView*>(self)), avModel, dtModel
+        *(reinterpret_cast<GeneralSettingsView*>(self)),
+        avModel, accountModel
     );
 
     // set_up ring main window pointer (needed by modal dialogs)

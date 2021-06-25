@@ -25,6 +25,7 @@
 namespace lrc { namespace api {
 class AVModel;
 class DataTransferModel;
+class NewAccountModel;
 }}
 
 G_BEGIN_DECLS
@@ -39,7 +40,7 @@ typedef struct _GeneralSettingsView      GeneralSettingsView;
 typedef struct _GeneralSettingsViewClass GeneralSettingsViewClass;
 
 GType      general_settings_view_get_type      (void) G_GNUC_CONST;
-GtkWidget *general_settings_view_new           (GtkWidget* main_window_pnt, lrc::api::AVModel& avModel, lrc::api::DataTransferModel& dtModel);
+GtkWidget *general_settings_view_new           (GtkWidget* main_window_pnt, lrc::api::AVModel& avModel, lrc::api::NewAccountModel& accountModel);
 
 G_END_DECLS
 
