@@ -173,7 +173,8 @@ webkit_chat_container_execute_js(WebKitChatContainer *view, const gchar* functio
 
 QJsonObject
 build_interaction_json(lrc::api::ConversationModel& conversation_model,
-                       const uint64_t msgId,
+                       const QString& convId,
+                       const QString& msgId,
                        const lrc::api::interaction::Info& interaction)
 {
     auto sender = interaction.authorUri;
@@ -185,7 +186,7 @@ build_interaction_json(lrc::api::ConversationModel& conversation_model,
 
     QJsonObject interaction_object = QJsonObject();
     interaction_object.insert("text", QJsonValue(interaction.body));
-    interaction_object.insert("id", QJsonValue(QString::number(msgId)));
+    interaction_object.insert("id", QJsonValue(msgId));
     interaction_object.insert("sender", QJsonValue(sender));
     interaction_object.insert("duration", QJsonValue(static_cast<int>(interaction.duration)));
     interaction_object.insert("sender_contact_method", QJsonValue(sender));
@@ -206,7 +207,7 @@ build_interaction_json(lrc::api::ConversationModel& conversation_model,
     case lrc::api::interaction::Type::DATA_TRANSFER: {
         interaction_object.insert("type", QJsonValue("data_transfer"));
         lrc::api::datatransfer::Info info = {};
-        conversation_model.getTransferInfo(msgId, info);
+        conversation_model.getTransferInfo(convId, msgId, info);
         if (info.status != lrc::api::datatransfer::Status::INVALID) {
             interaction_object.insert("totalSize", QJsonValue(qint64(info.totalSize)));
             interaction_object.insert("progress", QJsonValue(qint64(info.progress)));
@@ -273,19 +274,20 @@ build_interaction_json(lrc::api::ConversationModel& conversation_model,
 
 QString
 interaction_to_json_interaction_object(lrc::api::ConversationModel& conversation_model,
-                                       const uint64_t msgId,
+                                       const QString& convId,
+                                       const QString& msgId,
                                        const lrc::api::interaction::Info& interaction)
 {
-    auto interaction_object = build_interaction_json(conversation_model, msgId, interaction);
+    auto interaction_object = build_interaction_json(conversation_model, convId, msgId, interaction);
     return QString(QJsonDocument(interaction_object).toJson(QJsonDocument::Compact));
 }
 
 QString
 interactions_to_json_array_object(lrc::api::ConversationModel& conversation_model,
-                                  const std::map<uint64_t, lrc::api::interaction::Info> interactions) {
+                                  lrc::api::MessagesList interactions) {
     QJsonArray array;
     for (const auto& interaction: interactions)
-        array.append(build_interaction_json(conversation_model, interaction.first, interaction.second));
+        array.append(build_interaction_json(conversation_model, 0, interaction.first, interaction.second));
     return QString(QJsonDocument(array).toJson(QJsonDocument::Compact));
 }
 
@@ -708,17 +710,18 @@ webkit_chat_container_clear(WebKitChatContainer *view)
 void
 webkit_chat_container_update_interaction(WebKitChatContainer *view,
                                          lrc::api::ConversationModel& conversation_model,
-                                         uint64_t msgId,
+                                         const QString& convUid,
+                                         const QString& msgId,
                                          const lrc::api::interaction::Info& interaction)
 {
-    auto interaction_object = interaction_to_json_interaction_object(conversation_model, msgId, interaction).toUtf8();
+    auto interaction_object = interaction_to_json_interaction_object(conversation_model, convUid, msgId, interaction).toUtf8();
     gchar* function_call = g_strdup_printf("updateMessage(%s);", interaction_object.constData());
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
 
 void
-webkit_chat_container_remove_interaction(WebKitChatContainer *view, uint64_t interactionId)
+webkit_chat_container_remove_interaction(WebKitChatContainer *view, const QString& interactionId)
 {
     gchar* function_call = g_strdup_printf("removeInteraction(%lu);", interactionId);
     webkit_chat_container_execute_js(view, function_call);
@@ -729,10 +732,11 @@ webkit_chat_container_remove_interaction(WebKitChatContainer *view, uint64_t int
 void
 webkit_chat_container_print_new_interaction(WebKitChatContainer *view,
                                             lrc::api::ConversationModel& conversation_model,
-                                            uint64_t msgId,
+                                            const QString& convUid,
+                                            const QString& msgId,
                                             const lrc::api::interaction::Info& interaction)
 {
-    auto interaction_object = interaction_to_json_interaction_object(conversation_model, msgId, interaction).toUtf8();
+    auto interaction_object = interaction_to_json_interaction_object(conversation_model, convUid, msgId, interaction).toUtf8();
     gchar* function_call = g_strdup_printf("addMessage(%s);", interaction_object.constData());
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
@@ -741,7 +745,7 @@ webkit_chat_container_print_new_interaction(WebKitChatContainer *view,
 void
 webkit_chat_container_print_history(WebKitChatContainer *view,
                                     lrc::api::ConversationModel& conversation_model,
-                                    const std::map<uint64_t, lrc::api::interaction::Info> interactions)
+                                    lrc::api::MessagesList interactions)
 {
     auto interactions_str = interactions_to_json_array_object(conversation_model, interactions).toUtf8();
     gchar* function_call = g_strdup_printf("printHistory(%s)", interactions_str.constData());
