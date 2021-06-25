@@ -128,8 +128,8 @@ class CppImpl {
 public:
     explicit CppImpl(ChatView& widget);
     struct Interaction {
-        std::string conv;
-        uint64_t id;
+        const QString& conv;
+        const QString& id;
         lrc::api::interaction::Info info;
     };
     std::vector<Interaction> interactionsBuffer_;
@@ -730,7 +730,7 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         hide_chat_view(webview, self);
     } else if (order.find("SEND:") == 0) {
         auto toSend = order.substr(std::string("SEND:").size());
-        if ((*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::RING) {
+        if ((*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::JAMI) {
             (*priv->accountInfo_)->conversationModel->sendMessage(priv->conversation_->uid, toSend.c_str());
         } else {
             // For SIP accounts, we need to wait that the conversation is created to send text
@@ -744,10 +744,10 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
     } else if (order.find("ACCEPT_FILE:") == 0) {
         if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
             try {
-                auto interactionId = std::stoull(order.substr(std::string("ACCEPT_FILE:").size()));
+                auto interactionId = QString::fromStdString(order.substr(std::string("ACCEPT_FILE:").size()));
 
                 lrc::api::datatransfer::Info info = {};
-                (*priv->accountInfo_)->conversationModel->getTransferInfo(interactionId, info);
+                (*priv->accountInfo_)->conversationModel->getTransferInfo(priv->conversation_->uid, interactionId, info);
 
                 // get preferred directory destination.
                 auto* download_directory_variant = g_settings_get_value(priv->settings, "download-folder");
@@ -780,7 +780,7 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
     } else if (order.find("REFUSE_FILE:") == 0) {
         if (auto model = (*priv->accountInfo_)->conversationModel.get()) {
             try {
-                auto interactionId = std::stoull(order.substr(std::string("REFUSE_FILE:").size()));
+                auto interactionId = QString::fromStdString(order.substr(std::string("REFUSE_FILE:").size()));
                 model->cancelTransfer(priv->conversation_->uid, interactionId);
             } catch (...) {
                 // ignore
@@ -800,7 +800,7 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         add_to_conversations_clicked(self);
     } else if (order.find("DELETE_INTERACTION:") == 0) {
         try {
-            auto interactionId = std::stoull(order.substr(std::string("DELETE_INTERACTION:").size()));
+            auto interactionId = QString::fromStdString(order.substr(std::string("DELETE_INTERACTION:").size()));
             if (!priv->conversation_) return;
             (*priv->accountInfo_)->conversationModel->clearInteractionFromConversation(priv->conversation_->uid, interactionId);
         } catch (...) {
@@ -808,7 +808,7 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         }
     } else if (order.find("RETRY_INTERACTION:") == 0) {
         try {
-            auto interactionId = std::stoull(order.substr(std::string("RETRY_INTERACTION:").size()));
+            auto interactionId = QString::fromStdString(order.substr(std::string("RETRY_INTERACTION:").size()));
             if (!priv->conversation_) return;
             (*priv->accountInfo_)->conversationModel->retryInteraction(priv->conversation_->uid, interactionId);
         } catch (...) {
@@ -942,7 +942,7 @@ chat_view_class_init(ChatViewClass *klass)
 }
 
 static void
-print_interaction_to_buffer(ChatView* self, uint64_t interactionId, const lrc::api::interaction::Info& interaction)
+print_interaction_to_buffer(ChatView* self, const QString& convUid, const QString& interactionId, const lrc::api::interaction::Info& interaction)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
 
@@ -953,25 +953,27 @@ print_interaction_to_buffer(ChatView* self, uint64_t interactionId, const lrc::a
     webkit_chat_container_print_new_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
         *(*priv->accountInfo_)->conversationModel,
+        convUid,
         interactionId,
         interaction
     );
 }
 
 static void
-update_interaction(ChatView* self, uint64_t interactionId, const lrc::api::interaction::Info& interaction)
+update_interaction(ChatView* self, const QString& convUid, const QString& interactionId, const lrc::api::interaction::Info& interaction)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     webkit_chat_container_update_interaction(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
         *(*priv->accountInfo_)->conversationModel,
+        convUid,
         interactionId,
         interaction
     );
 }
 
 static void
-remove_interaction(ChatView* self, uint64_t interactionId)
+remove_interaction(ChatView* self, const QString& interactionId)
 {
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     webkit_chat_container_remove_interaction(
@@ -1064,23 +1066,23 @@ webkit_chat_container_ready(ChatView* self)
 
     priv->ready_ = true;
     for (const auto& interaction: priv->cpp->interactionsBuffer_) {
-        if (interaction.conv == priv->conversation_->uid.toStdString()) {
-            print_interaction_to_buffer(self, interaction.id, interaction.info);
+        if (interaction.conv == priv->conversation_->uid) {
+            print_interaction_to_buffer(self, priv->conversation_->uid, interaction.id, interaction.info);
         }
     }
 
     priv->update_interaction_connection = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::interactionStatusUpdated,
-    [self, priv](const QString& uid, uint64_t msgId, lrc::api::interaction::Info msg) {
+    [self, priv](const QString& uid, const QString& msgId, lrc::api::interaction::Info msg) {
         if (!priv->conversation_) return;
         if (uid == priv->conversation_->uid) {
-            update_interaction(self, msgId, msg);
+            update_interaction(self, priv->conversation_->uid, msgId, msg);
         }
     });
 
     priv->interaction_removed = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::interactionRemoved,
-    [self, priv](const QString& convUid, uint64_t interactionId) {
+    [self, priv](const QString& convUid, const QString& interactionId) {
         if (!priv->conversation_) return;
         if (convUid == priv->conversation_->uid) {
             remove_interaction(self, interactionId);
@@ -1329,13 +1331,13 @@ build_chat_view(ChatView* self)
 
     priv->new_interaction_connection = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newInteraction,
-    [self, priv](const QString& uid, uint64_t interactionId, lrc::api::interaction::Info interaction) {
+    [self, priv](const QString& uid, const QString& interactionId, lrc::api::interaction::Info interaction) {
         if (!priv->conversation_) return;
         if (!priv->ready_ && priv->cpp) {
             priv->cpp->interactionsBuffer_.emplace_back(CppImpl::Interaction {
-                uid.toStdString(), interactionId, interaction});
+                uid, interactionId, interaction});
         } else if (uid == priv->conversation_->uid) {
-            print_interaction_to_buffer(self, interactionId, interaction);
+            print_interaction_to_buffer(self, uid, interactionId, interaction);
         }
     });
 

@@ -386,7 +386,7 @@ create_account(AccountCreationWizard *view,
     priv->username = g_strdup(username);
     priv->password = g_strdup(password);
     auto accountId = lrc::api::NewAccountModel::createNewAccount(
-                                   lrc::api::profile::Type::RING,
+                                   lrc::api::profile::Type::JAMI,
                                    display_name? display_name : "",
                                    archivePath? archivePath : "",
                                    password? password : "",
