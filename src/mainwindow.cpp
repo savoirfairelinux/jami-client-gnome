@@ -348,7 +348,7 @@ public:
     AccountInfoPointer accountInfo_ = nullptr;
     AccountInfoPointer accountInfoForMigration_ = nullptr;
     std::optional<std::reference_wrapper<lrc::api::conversation::Info>> chatViewConversation_;
-    lrc::api::profile::Type currentTypeFilter_;
+    lrc::api::FilterType currentFilterType_;
     bool show_settings = false;
     bool is_fullscreen = false;
     bool has_cleared_all_history = false;
@@ -415,8 +415,8 @@ private:
     void slotNewTrustRequest(const std::string& id, const std::string& contactUri);
     void slotCloseTrustRequest(const std::string& id, const std::string& contactUri);
     void slotNewInteraction(const std::string& accountId, const std::string& conversation,
-                                uint64_t interactionId, const lrc::api::interaction::Info& interaction);
-    void slotCloseInteraction(const std::string& accountId, const std::string& conversation, uint64_t interactionId);
+                                const QString& interactionId, const lrc::api::interaction::Info& interaction);
+    void slotCloseInteraction(const std::string& accountId, const std::string& conversation, const QString& interactionId);
     void slotProfileUpdated(const std::string& id);
 };
 
@@ -672,7 +672,7 @@ on_account_changed(MainWindow* self)
                 priv->cpp->accountInfo_->accountModel->setTopAccount(accountId);
             priv->cpp->onAccountSelectionChange(accountId);
             gtk_notebook_set_show_tabs(GTK_NOTEBOOK(priv->notebook_contacts),
-                priv->cpp->accountInfo_->contactModel->hasPendingRequests());
+                priv->cpp->accountInfo_->conversationModel->hasPendingRequests());
         }
         g_free(accountId);
     }
@@ -874,10 +874,16 @@ on_tab_changed(GtkNotebook* notebook, GtkWidget* page, guint page_num, MainWindo
     g_return_if_fail(IS_MAIN_WINDOW(self));
     auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
 
-    auto newType = page_num == 0 ? priv->cpp->accountInfo_->profileInfo.type : lrc::api::profile::Type::PENDING;
-    if (priv->cpp->currentTypeFilter_ != newType) {
-        priv->cpp->currentTypeFilter_ = newType;
-        priv->cpp->accountInfo_->conversationModel->setFilter(priv->cpp->currentTypeFilter_);
+    lrc::api::FilterType newType;
+    if (priv->cpp->accountInfo_->profileInfo.type == lrc::api::profile::Type::JAMI)
+        newType = lrc::api::FilterType::JAMI;
+    else if (priv->cpp->accountInfo_->profileInfo.type == lrc::api::profile::Type::SIP)
+        newType = lrc::api::FilterType::SIP;
+
+    newType = page_num == 0 ? newType : lrc::api::FilterType::REQUEST;
+    if (priv->cpp->currentFilterType_ != newType) {
+        priv->cpp->currentFilterType_ = newType;
+        priv->cpp->accountInfo_->conversationModel->setFilter(priv->cpp->currentFilterType_);
     }
 }
 
@@ -1204,7 +1210,7 @@ on_clear_all_history_clicked(MainWindow* self)
 }
 
 static void
-update_data_transfer(lrc::api::DataTransferModel& model, GSettings* settings)
+update_data_transfer(lrc::api::NewAccountModel& model, GSettings* settings)
 {
     char* download_directory_value;
     auto* download_directory_variant = g_settings_get_value(settings, "download-folder");
@@ -1221,7 +1227,7 @@ update_download_folder(MainWindow* self)
     auto* priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(self));
     g_return_if_fail(priv);
 
-    update_data_transfer(priv->cpp->lrc_->getDataTransferModel(), priv->window_settings);
+    update_data_transfer(priv->cpp->lrc_->getAccountModel(), priv->window_settings);
 }
 
 #if USE_LIBNM
@@ -1344,7 +1350,7 @@ CppImpl::init()
     if (g_settings_get_boolean(widgets->window_settings, "window-maximized"))
         gtk_window_maximize(GTK_WINDOW(self));
 
-    update_data_transfer(lrc_->getDataTransferModel(), widgets->window_settings);
+    update_data_transfer(lrc_->getAccountModel(), widgets->window_settings);
 
     /* search-entry-places-call setting */
     on_search_entry_places_call_changed(widgets->window_settings, "search-entry-places-call", self);
@@ -1401,13 +1407,13 @@ CppImpl::init()
                             NEW_ACCOUNT_SETTINGS_VIEW_NAME);
     }
 
-    widgets->general_settings_view = general_settings_view_new(GTK_WIDGET(self), lrc_->getAVModel(), lrc_->getDataTransferModel());
-    widgets->update_download_folder = g_signal_connect_swapped(
-        widgets->general_settings_view,
-        "update-download-folder",
-        G_CALLBACK(update_download_folder),
-        self
-    );
+    widgets->general_settings_view = general_settings_view_new(GTK_WIDGET(self), lrc_->getAVModel(), lrc_->getAccountModel());
+    // widgets->update_download_folder = g_signal_connect_swapped(
+    //     widgets->general_settings_view,
+    //     "update-download-folder",
+    //     G_CALLBACK(update_download_folder),
+    //     self
+    // );
     gtk_stack_add_named(GTK_STACK(widgets->stack_main_view), widgets->general_settings_view,
                         GENERAL_SETTINGS_VIEW_NAME);
     g_signal_connect_swapped(widgets->general_settings_view, "clear-all-history", G_CALLBACK(on_clear_all_history_clicked), self);
@@ -1741,7 +1747,7 @@ CppImpl::refreshPendingContactRequestTab()
     if (!accountInfo_)
         return;
 
-    auto hasPendingRequests = accountInfo_->contactModel->hasPendingRequests();
+    auto hasPendingRequests = accountInfo_->conversationModel->hasPendingRequests();
     gtk_widget_set_visible(widgets->scrolled_window_contact_requests, hasPendingRequests);
     gtk_notebook_set_show_tabs(GTK_NOTEBOOK(widgets->notebook_contacts), hasPendingRequests);
 
@@ -2130,18 +2136,23 @@ CppImpl::updateLrc(const std::string& id, const std::string& accountIdToFlagFree
     slotNewInteraction_ = QObject::connect(&lrc_->getBehaviorController(),
                                            &lrc::api::BehaviorController::newUnreadInteraction,
                                            [this] (const QString& accountId, const QString& conversation,
-                                                  uint64_t interactionId, const lrc::api::interaction::Info& interaction)
+                                                  const QString& interactionId, const lrc::api::interaction::Info& interaction)
                                                   { slotNewInteraction(accountId.toStdString(), conversation.toStdString(), interactionId, interaction); });
 
     slotReadInteraction_ = QObject::connect(&lrc_->getBehaviorController(),
                                             &lrc::api::BehaviorController::newReadInteraction,
-                                            [this] (const QString& accountId, const QString& conversation, uint64_t interactionId)
+                                            [this] (const QString& accountId, const QString& conversation, const QString& interactionId)
                                                    { slotCloseInteraction(accountId.toStdString(), conversation.toStdString(), interactionId); });
 
     const gchar *text = gtk_entry_get_text(GTK_ENTRY(widgets->search_entry));
-    currentTypeFilter_ = accountInfo_->profileInfo.type;
+
+    lrc::api::FilterType newType;
+    if (accountInfo_->profileInfo.type == lrc::api::profile::Type::JAMI)
+        currentFilterType_ = lrc::api::FilterType::JAMI;
+    else if (accountInfo_->profileInfo.type == lrc::api::profile::Type::SIP)
+        currentFilterType_ = lrc::api::FilterType::SIP;
     accountInfo_->conversationModel->setFilter(text);
-    accountInfo_->conversationModel->setFilter(currentTypeFilter_);
+    accountInfo_->conversationModel->setFilter(currentFilterType_);
 }
 
 void
@@ -2473,7 +2484,7 @@ void
 CppImpl::slotNewConversation(const std::string& uid)
 {
     gtk_notebook_set_current_page(GTK_NOTEBOOK(widgets->notebook_contacts), 0);
-    accountInfo_->conversationModel->setFilter(lrc::api::profile::Type::RING);
+    accountInfo_->conversationModel->setFilter(lrc::api::FilterType::JAMI);
     gtk_entry_set_text(GTK_ENTRY(widgets->search_entry), "");
     accountInfo_->conversationModel->setFilter("");
     // Select new conversation if contact added
@@ -2614,7 +2625,7 @@ CppImpl::slotCloseTrustRequest(const std::string& id, const std::string& contact
 
 void
 CppImpl::slotNewInteraction(const std::string& accountId, const std::string& conversation,
-                            uint64_t interactionId, const lrc::api::interaction::Info& interaction)
+                            const QString& interactionId, const lrc::api::interaction::Info& interaction)
 {
     if (chatViewConversation_ && chatViewConversation_->get().uid == QString::fromStdString(conversation)) {
         auto *old_view = gtk_bin_get_child(GTK_BIN(widgets->frame_call));
@@ -2627,7 +2638,7 @@ CppImpl::slotNewInteraction(const std::string& accountId, const std::string& con
     }
     try {
         auto& accountInfo = lrc_->getAccountModel().getAccountInfo(QString::fromStdString(accountId));
-        auto notifId = accountInfo.id.toStdString() + ":interaction:" + conversation + ":" + std::to_string(interactionId);
+        auto notifId = accountInfo.id.toStdString() + ":interaction:" + conversation + ":" + interactionId.toStdString();
         auto& contactModel = accountInfo.contactModel;
         auto& conversationModel = accountInfo.conversationModel;
         for (lrc::api::conversation::Info& conv : conversationModel->allFilteredConversations().get())
@@ -2666,7 +2677,7 @@ CppImpl::slotNewInteraction(const std::string& accountId, const std::string& con
 }
 
 void
-CppImpl::slotCloseInteraction(const std::string& accountId, const std::string& conversation, uint64_t interactionId)
+CppImpl::slotCloseInteraction(const std::string& accountId, const std::string& conversation, const QString& interactionId)
 {
     if (!gtk_window_is_active(GTK_WINDOW(self))
         || (chatViewConversation_ && chatViewConversation_->get().uid != QString::fromStdString(conversation))) {
@@ -2674,7 +2685,7 @@ CppImpl::slotCloseInteraction(const std::string& accountId, const std::string& c
     }
     try {
         auto& accountInfo = lrc_->getAccountModel().getAccountInfo(QString::fromStdString(accountId));
-        auto notifId = accountInfo.id.toStdString() + ":interaction:" + conversation + ":" + std::to_string(interactionId);
+        auto notifId = accountInfo.id.toStdString() + ":interaction:" + conversation + ":" + interactionId.toStdString();
         hide_notification(NOTIFIER(widgets->notifier), notifId);
     } catch (...) {
         g_warning("Can't get account %s", accountId.c_str());
@@ -2748,7 +2759,7 @@ main_window_requests_list(MainWindow *win)
 {
     g_return_if_fail(IS_MAIN_WINDOW(win));
     auto *priv = MAIN_WINDOW_GET_PRIVATE(MAIN_WINDOW(win));
-    if (!priv->cpp->accountInfo_->contactModel->hasPendingRequests()) return;
+    if (!priv->cpp->accountInfo_->conversationModel->hasPendingRequests()) return;
     auto contactRequestsPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(priv->notebook_contacts),
                                                                priv->scrolled_window_contact_requests);
     gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), contactRequestsPageNum);

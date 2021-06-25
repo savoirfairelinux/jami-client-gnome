@@ -117,6 +117,7 @@ struct _NewAccountSettingsViewPrivate
     GtkWidget* rendez_vous_button;
     GtkWidget* custom_ringtone_button;
     GtkWidget* filechooserbutton_custom_ringtone;
+
     GtkWidget* box_name_server;
         GtkWidget* entry_name_server;
     GtkWidget* box_dht;
@@ -1464,7 +1465,7 @@ set_account_enabled(GObject*, GParamSpec*, NewAccountSettingsView *view)
     if (!is_config_ok(view)) return;
     auto* priv = NEW_ACCOUNT_SETTINGS_VIEW_GET_PRIVATE(view);
     auto newState = false;
-    if ((*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::RING) {
+    if ((*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::JAMI) {
         newState = gtk_switch_get_active(GTK_SWITCH(priv->account_enabled));
     } else {
         newState = gtk_switch_get_active(GTK_SWITCH(priv->sip_account_enabled));
@@ -2056,7 +2057,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
     bool has_account_manager = !priv->currentProp_->managerUri.isEmpty();
 
     auto label_status = priv->label_status;
-    if ((*priv->accountInfo_)->profileInfo.type != lrc::api::profile::Type::RING) {
+    if ((*priv->accountInfo_)->profileInfo.type != lrc::api::profile::Type::JAMI) {
         label_status = priv->sip_label_status;
     }
 
@@ -2084,7 +2085,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         ((*priv->accountInfo_)->status) == lrc::api::account::Status::REGISTERED);
     gtk_entry_set_text(GTK_ENTRY(priv->entry_display_name), qUtf8Printable((*priv->accountInfo_)->profileInfo.alias));
 
-    if ((*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::RING) {
+    if ((*priv->accountInfo_)->profileInfo.type == lrc::api::profile::Type::JAMI) {
         gtk_switch_set_active(GTK_SWITCH(priv->account_enabled), (*priv->accountInfo_)->enabled);
 
         gtk_widget_show_all(priv->vbox_devices);
