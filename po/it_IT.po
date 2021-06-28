@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-14 03:09-0400\n"
-"PO-Revision-Date: 2021-06-08 19:40+0000\n"
+"POT-Creation-Date: 2021-06-28 03:09-0400\n"
+"PO-Revision-Date: 2021-06-27 12:51+0000\n"
 "Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/savoirfairelinux/jami/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
@@ -391,7 +391,7 @@ msgstr "Informazioni."
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr "È possibile ottenere un archivio facendo clic su \"Account di backup\" nelle impostazioni dell'account. Questo creerà un file .gz sul tuo dispositivo."
+msgstr "È possibile ottenere un archivio facendo clic su \"Fai il backup dell'account\" nelle impostazioni dell'account. Questo creerà un file .gz sul tuo dispositivo."
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
@@ -426,25 +426,25 @@ msgstr "Controllando questo, registrerai un nome utente univoco sulla rete Jami.
 
 #: ui/accountcreationwizard.ui:630
 msgid "Encrypt account with password"
-msgstr "Crittografa account con password"
+msgstr "Cifrare l'account con una password"
 
 #: ui/accountcreationwizard.ui:631
 msgid ""
 "Choose a password to encrypt your account on this device.  Note that the "
 "password cannot be recovered."
-msgstr "Scegli una password per crittografare il tuo account su questo dispositivo. Nota che la password non può essere recuperata."
+msgstr "Scegli una password per cifrare il tuo account su questo dispositivo. Nota che la password non può essere recuperata."
 
 #: ui/accountcreationwizard.ui:658
 msgid ""
 "Choose a password to encrypt your account on this device.\n"
 "Note that the password cannot be recovered."
-msgstr "Scegli una password per crittografare il tuo account su questo dispositivo.\nNota che la password non può essere recuperata."
+msgstr "Scegli una password per cifrare il tuo account su questo dispositivo.\nNota che la password non può essere recuperata."
 
 #: ui/accountcreationwizard.ui:686
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr "Questa password verrà utilizzata per crittografare i tuoi dati dell'account e per collegare i nuovi dispositivi al tuo account."
+msgstr "Questa password sarà utilizzata per cifrare i dati del tuo account e per collegare nuovi dispositivi al tuo account."
 
 #: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:874
 msgid "Confirm password"
@@ -496,7 +496,7 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr "Inserisci l'URL di Jami Account Management Server (JAMS)"
+msgstr "Inserire l'URL di Jami Account Management Server (JAMS)"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
@@ -724,7 +724,7 @@ msgstr "Password (obbligatorio):"
 
 #: ui/newaccountsettingsview.ui:166
 msgid "Enter archive password"
-msgstr "Digitare la password dell'archivio"
+msgstr "Inserire la password dell'archivio"
 
 #: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:884
 msgid "Cancel"
@@ -820,7 +820,7 @@ msgstr "Avvio"
 
 #: ui/newaccountsettingsview.ui:1550
 msgid "Encrypt media streams (SRTP)"
-msgstr "Cifrare i flussi media (SRTP)"
+msgstr "Cifrare i flussi multimediali (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1585
 msgid "Enable SDES for key exchange protocol"
@@ -828,11 +828,11 @@ msgstr "Abilita SDES per il protocollo di scambio chiavi"
 
 #: ui/newaccountsettingsview.ui:1621
 msgid "Fallback on RTP on encryption failure"
-msgstr "Ricadi su RTP in caso di fallimento della cifratura"
+msgstr "Utilizzare RTP quando la cifratura fallisce"
 
 #: ui/newaccountsettingsview.ui:1656
 msgid "Encrypt negotiation (TLS)"
-msgstr "Negoziazione della cifratura (TLS)"
+msgstr "Cifrare la negoziazione (TLS)"
 
 #: ui/newaccountsettingsview.ui:1691
 msgid "CA certificate"
@@ -960,19 +960,19 @@ msgstr "Utilizzato solo durante la negoziazione SDP nel caso in cui ICE non sia 
 
 #: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Min port"
-msgstr "Min Port RTP Audio"
+msgstr "Porta audio RTP minima"
 
 #: ui/newaccountsettingsview.ui:2872
 msgid "Audio RTP Max port"
-msgstr "Max Port RTP Audio"
+msgstr "Porta audio RTP massima"
 
 #: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Min port"
-msgstr "Min port video RTP "
+msgstr "Porta video RTP minima"
 
 #: ui/newaccountsettingsview.ui:2942
 msgid "Video RTP Max port"
-msgstr "Video RTP Max port"
+msgstr "Porta video RTP massima"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
@@ -1071,7 +1071,7 @@ msgstr "Registra questo nome utente sul server dei nomi"
 
 #: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
-msgstr "Il nome utente è già utilizzato"
+msgstr "Nome utente già utilizzato"
 
 #: src/usernameregistrationbox.cpp:179
 msgid "Invalid username"
@@ -1087,7 +1087,7 @@ msgstr "Ricerca in corso…"
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
-msgstr "Inserisci la password del tuo account Jami"
+msgstr "Inserire la password del tuo account Jami"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
@@ -1148,7 +1148,7 @@ msgstr "Questo è il tuo ID.\nCopia e condividi con i tuoi amici!"
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr "Jami è un software gratuito per la comunicazione universale che rispetta le libertà e la privacy dei suoi utenti."
+msgstr "Jami è un software libero per la comunicazione universale che rispetta le libertà e la privacy dei suoi utenti."
 
 #: src/notifier.cpp:349
 msgctxt ""
@@ -1357,7 +1357,7 @@ msgstr "Le password non coincidono"
 
 #: src/accountcreationwizard.cpp:675
 msgid "Enter Jami account password"
-msgstr "Inserisci la password dell'account Jami"
+msgstr "Inserire la password dell'account Jami"
 
 #: src/accountcreationwizard.cpp:676
 msgid "Link device"
@@ -1379,7 +1379,7 @@ msgstr "È necessario inserire la password per esportare l'archivio completo."
 
 #: src/accountcreationwizard.cpp:920 src/newaccountsettingsview.cpp:972
 msgid "Enter password to export archive"
-msgstr "Inserisci la password per esportare l'archivio"
+msgstr "Inserire la password per esportare l'archivio"
 
 #: src/accountcreationwizard.cpp:943 src/newaccountsettingsview.cpp:995
 msgid "Account exported!"
@@ -1569,7 +1569,7 @@ msgstr "Attenzione! Questa azione revocherà il dispositivo!\nNota: questa azion
 
 #: src/newaccountsettingsview.cpp:609
 msgid "Enter password to revoke device"
-msgstr "Inserisci la password per revocare il dispositivo"
+msgstr "Inserire la password per revocare il dispositivo"
 
 #: src/newaccountsettingsview.cpp:657
 msgid "This device"
