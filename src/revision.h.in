@@ -1,4 +1,0 @@
-/* cmake will generate revision.h with a define containing the git revision (if found) */
-
-#define CLIENT_REVISION "@CLIENT_REVISION@"
-#define CLIENT_BUILD_DATE "@CLIENT_BUILD_DATE@"
