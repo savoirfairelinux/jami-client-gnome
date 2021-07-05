@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-28 03:09-0400\n"
+"POT-Creation-Date: 2021-07-05 03:09-0400\n"
 "PO-Revision-Date: 2021-05-17 07:09+0000\n"
 "Last-Translator: Ronaldo V. Lobato <vieira.lobato@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/jami/language/pt_BR/)\n"
@@ -188,7 +188,7 @@ msgstr "Plugin"
 msgid "Account"
 msgstr "Conta"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1949
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1955
 msgid "Settings"
 msgstr "Configurações"
 
@@ -1054,7 +1054,7 @@ msgid "_Open"
 msgstr "_Abrir"
 
 #: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
-#: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:250
+#: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
 #: src/video/video_widget.cpp:865 src/video/video_widget.cpp:882
 #: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
@@ -1127,17 +1127,17 @@ msgstr "Não foi possível registrar o nome (Nome de usuário já em uso)."
 msgid "Unable to register name (Network error) - check your connection."
 msgstr "Não foi possível registrar o nome (Erro de rede) - verifique sua conexão."
 
-#: src/generalsettingsview.cpp:161
+#: src/generalsettingsview.cpp:162
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Esta é uma operação destrutiva. Você tem certeza que quer apagar todo o seu histórico de conversas e ligações?"
 
-#: src/generalsettingsview.cpp:233 src/generalsettingsview.cpp:247
+#: src/generalsettingsview.cpp:234 src/generalsettingsview.cpp:248
 msgid "Choose download folder"
 msgstr "Escolha a pasta de arquivos baixados"
 
-#: src/generalsettingsview.cpp:236 src/generalsettingsview.cpp:251
+#: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
 #: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:897
 #: src/chatview.cpp:385 src/chatview.cpp:400
 #: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:950
@@ -1413,98 +1413,98 @@ msgstr "Nome"
 msgid "Add account…"
 msgstr "Adicionar conta…"
 
-#: src/mainwindow.cpp:916
+#: src/mainwindow.cpp:922
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "fazer ligação"
 
-#: src/mainwindow.cpp:919
+#: src/mainwindow.cpp:925
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "abrir chat"
 
-#: src/mainwindow.cpp:1152
+#: src/mainwindow.cpp:1158
 msgid "Jami - Migration needed"
 msgstr "Jami - Migração necessária"
 
-#: src/mainwindow.cpp:1168
+#: src/mainwindow.cpp:1174
 msgid "Migration in progress... please do not close this window."
 msgstr "Migração em andamento... por favor, não feche esta janela."
 
-#: src/mainwindow.cpp:1452
+#: src/mainwindow.cpp:1458
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Encontrar ou iniciar uma conversa"
 
-#: src/mainwindow.cpp:1921
+#: src/mainwindow.cpp:1927
 msgid "Leave settings page"
 msgstr "Deixar a página de configurações"
 
-#: src/mainwindow.cpp:2343
+#: src/mainwindow.cpp:2354
 msgid "Missed call from "
 msgstr "Chamada perdida de"
 
-#: src/mainwindow.cpp:2347
+#: src/mainwindow.cpp:2358
 msgid "Missed call"
 msgstr "Chamada perdida"
 
-#: src/mainwindow.cpp:2364
+#: src/mainwindow.cpp:2375
 msgid "There are active calls"
 msgstr "Há chamadas ativas"
 
-#: src/mainwindow.cpp:2434
+#: src/mainwindow.cpp:2445
 msgid " is calling you!"
 msgstr "está chamando você!"
 
-#: src/mainwindow.cpp:2437
+#: src/mainwindow.cpp:2448
 msgid "Incoming call"
 msgstr "Chamada recebida"
 
-#: src/mainwindow.cpp:2594
+#: src/mainwindow.cpp:2605
 msgid "New request from "
 msgstr "Nova requisição de"
 
-#: src/mainwindow.cpp:2597
+#: src/mainwindow.cpp:2608
 msgid "Trust request"
 msgstr "Confiar na requisição"
 
-#: src/mainwindow.cpp:2659
+#: src/mainwindow.cpp:2670
 msgid "New message"
 msgstr "Nova mensagem"
 
-#: src/mainwindow.cpp:2711
+#: src/mainwindow.cpp:2722
 msgid "Stop current call?"
 msgstr "Parar chamada atual?"
 
-#: src/mainwindow.cpp:2712
+#: src/mainwindow.cpp:2723
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Uma chamada está em andamento. Você quer fechar a janela e interromper todas as chamadas atuais?"
 
-#: src/mainwindow.cpp:2779
+#: src/mainwindow.cpp:2790
 msgid "Clear history"
 msgstr "Limpar histórico"
 
-#: src/mainwindow.cpp:2780
+#: src/mainwindow.cpp:2791
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Você realmente quer limpar o histórico desta conversa?"
 
-#: src/mainwindow.cpp:2795
+#: src/mainwindow.cpp:2806
 msgid "Remove conversation"
 msgstr "Excluir uma conversa"
 
-#: src/mainwindow.cpp:2796
+#: src/mainwindow.cpp:2807
 msgid "Do you really want to remove this conversation?"
 msgstr "Você realmente quer excluir esta conversa?"
 
-#: src/mainwindow.cpp:2811
+#: src/mainwindow.cpp:2822
 msgid "Block contact"
 msgstr "Bloquear contato"
 
-#: src/mainwindow.cpp:2812
+#: src/mainwindow.cpp:2823
 msgid "Do you really want to block this contact?"
 msgstr "Você realmente quer bloquear este contato?"
 
@@ -1520,7 +1520,7 @@ msgstr "Tente novamente"
 msgid "Stop"
 msgstr "Parar"
 
-#: src/chatview.cpp:1206
+#: src/chatview.cpp:1208
 msgid "Send"
 msgstr "Enviar"
 

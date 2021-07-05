@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-28 03:09-0400\n"
+"POT-Creation-Date: 2021-07-05 03:09-0400\n"
 "PO-Revision-Date: 2021-05-17 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/savoirfairelinux/jami/language/sv/)\n"
@@ -169,7 +169,7 @@ msgstr "Insticksmodul"
 msgid "Account"
 msgstr "Konto"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1949
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1955
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -1035,7 +1035,7 @@ msgid "_Open"
 msgstr "_Öppna"
 
 #: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
-#: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:250
+#: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
 #: src/video/video_widget.cpp:865 src/video/video_widget.cpp:882
 #: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
@@ -1108,17 +1108,17 @@ msgstr "Kan inte registrera namnet  (användarnamnet upptaget)."
 msgid "Unable to register name (Network error) - check your connection."
 msgstr "Kan inte registrera namnet (nätverksfel). Kontrollera din anslutning."
 
-#: src/generalsettingsview.cpp:161
+#: src/generalsettingsview.cpp:162
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "Detta är en destruktiv åtgärd. Vill du verkligen ta bort all din chatt- och samtalshistorik?"
 
-#: src/generalsettingsview.cpp:233 src/generalsettingsview.cpp:247
+#: src/generalsettingsview.cpp:234 src/generalsettingsview.cpp:248
 msgid "Choose download folder"
 msgstr "Välj nerladdningsmapp"
 
-#: src/generalsettingsview.cpp:236 src/generalsettingsview.cpp:251
+#: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
 #: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:897
 #: src/chatview.cpp:385 src/chatview.cpp:400
 #: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:950
@@ -1394,98 +1394,98 @@ msgstr "Namn"
 msgid "Add account…"
 msgstr "Lägg till konto..."
 
-#: src/mainwindow.cpp:916
+#: src/mainwindow.cpp:922
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Placera samtal"
 
-#: src/mainwindow.cpp:919
+#: src/mainwindow.cpp:925
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Öppna chatt"
 
-#: src/mainwindow.cpp:1152
+#: src/mainwindow.cpp:1158
 msgid "Jami - Migration needed"
 msgstr "Jami - Migrering behövs"
 
-#: src/mainwindow.cpp:1168
+#: src/mainwindow.cpp:1174
 msgid "Migration in progress... please do not close this window."
 msgstr "Migrering pågår... stäng inte detta fönster."
 
-#: src/mainwindow.cpp:1452
+#: src/mainwindow.cpp:1458
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Hitta eller starta en konversation"
 
-#: src/mainwindow.cpp:1921
+#: src/mainwindow.cpp:1927
 msgid "Leave settings page"
 msgstr "Lämna inställningssidan"
 
-#: src/mainwindow.cpp:2343
+#: src/mainwindow.cpp:2354
 msgid "Missed call from "
 msgstr "Missat samtal från"
 
-#: src/mainwindow.cpp:2347
+#: src/mainwindow.cpp:2358
 msgid "Missed call"
 msgstr "Missat samtal"
 
-#: src/mainwindow.cpp:2364
+#: src/mainwindow.cpp:2375
 msgid "There are active calls"
 msgstr "Det finns aktiva samtal"
 
-#: src/mainwindow.cpp:2434
+#: src/mainwindow.cpp:2445
 msgid " is calling you!"
 msgstr " ringer dig!"
 
-#: src/mainwindow.cpp:2437
+#: src/mainwindow.cpp:2448
 msgid "Incoming call"
 msgstr "Inkommande samtal"
 
-#: src/mainwindow.cpp:2594
+#: src/mainwindow.cpp:2605
 msgid "New request from "
 msgstr "Ny förfrågan från"
 
-#: src/mainwindow.cpp:2597
+#: src/mainwindow.cpp:2608
 msgid "Trust request"
 msgstr "Lita på begäran"
 
-#: src/mainwindow.cpp:2659
+#: src/mainwindow.cpp:2670
 msgid "New message"
 msgstr "Nytt meddelande"
 
-#: src/mainwindow.cpp:2711
+#: src/mainwindow.cpp:2722
 msgid "Stop current call?"
 msgstr "Vill du stoppa aktuellt samtal?"
 
-#: src/mainwindow.cpp:2712
+#: src/mainwindow.cpp:2723
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Det finns ett pågående samtal. Vill du stänga fönstret och stoppa alla aktuella samtal?"
 
-#: src/mainwindow.cpp:2779
+#: src/mainwindow.cpp:2790
 msgid "Clear history"
 msgstr "Rensa historik"
 
-#: src/mainwindow.cpp:2780
+#: src/mainwindow.cpp:2791
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Vill du verkligen ta bort historiken för den här konversationen?"
 
-#: src/mainwindow.cpp:2795
+#: src/mainwindow.cpp:2806
 msgid "Remove conversation"
 msgstr "Ta bort konversationen"
 
-#: src/mainwindow.cpp:2796
+#: src/mainwindow.cpp:2807
 msgid "Do you really want to remove this conversation?"
 msgstr "Vill du verkligen ta bort den här konversationen?"
 
-#: src/mainwindow.cpp:2811
+#: src/mainwindow.cpp:2822
 msgid "Block contact"
 msgstr "Blockera kontakt"
 
-#: src/mainwindow.cpp:2812
+#: src/mainwindow.cpp:2823
 msgid "Do you really want to block this contact?"
 msgstr "Vill du verkligen blockera den här kontakten?"
 
@@ -1501,7 +1501,7 @@ msgstr "Försök igen"
 msgid "Stop"
 msgstr "Stopp"
 
-#: src/chatview.cpp:1206
+#: src/chatview.cpp:1208
 msgid "Send"
 msgstr "Skicka"
 

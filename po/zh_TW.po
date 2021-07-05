@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-28 03:09-0400\n"
+"POT-Creation-Date: 2021-07-05 03:09-0400\n"
 "PO-Revision-Date: 2021-05-17 07:09+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
@@ -172,7 +172,7 @@ msgstr "外掛程式"
 msgid "Account"
 msgstr "帳號"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1949
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1955
 msgid "Settings"
 msgstr "設定"
 
@@ -1038,7 +1038,7 @@ msgid "_Open"
 msgstr "開啟(_O)"
 
 #: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
-#: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:250
+#: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
 #: src/video/video_widget.cpp:865 src/video/video_widget.cpp:882
 #: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
@@ -1111,17 +1111,17 @@ msgstr "無法註冊名稱（使用者名稱已使用）。"
 msgid "Unable to register name (Network error) - check your connection."
 msgstr "無法註冊名稱（網路錯誤），請檢查您的連線。"
 
-#: src/generalsettingsview.cpp:161
+#: src/generalsettingsview.cpp:162
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "這是一個破壞性的操作。您確定您想要刪除您所有的聊天與通話紀錄嗎？"
 
-#: src/generalsettingsview.cpp:233 src/generalsettingsview.cpp:247
+#: src/generalsettingsview.cpp:234 src/generalsettingsview.cpp:248
 msgid "Choose download folder"
 msgstr "選擇下載資料夾"
 
-#: src/generalsettingsview.cpp:236 src/generalsettingsview.cpp:251
+#: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
 #: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:897
 #: src/chatview.cpp:385 src/chatview.cpp:400
 #: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:950
@@ -1397,98 +1397,98 @@ msgstr "名稱"
 msgid "Add account…"
 msgstr "新增帳號……"
 
-#: src/mainwindow.cpp:916
+#: src/mainwindow.cpp:922
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "開始通話"
 
-#: src/mainwindow.cpp:919
+#: src/mainwindow.cpp:925
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "開啟聊天"
 
-#: src/mainwindow.cpp:1152
+#: src/mainwindow.cpp:1158
 msgid "Jami - Migration needed"
 msgstr "Jami - 需要遷移"
 
-#: src/mainwindow.cpp:1168
+#: src/mainwindow.cpp:1174
 msgid "Migration in progress... please do not close this window."
 msgstr "正在遷移…… 請不要關閉視窗。"
 
-#: src/mainwindow.cpp:1452
+#: src/mainwindow.cpp:1458
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "尋找或開始對話"
 
-#: src/mainwindow.cpp:1921
+#: src/mainwindow.cpp:1927
 msgid "Leave settings page"
 msgstr "離開設定頁面"
 
-#: src/mainwindow.cpp:2343
+#: src/mainwindow.cpp:2354
 msgid "Missed call from "
 msgstr "未接來電，來自"
 
-#: src/mainwindow.cpp:2347
+#: src/mainwindow.cpp:2358
 msgid "Missed call"
 msgstr "未接來電"
 
-#: src/mainwindow.cpp:2364
+#: src/mainwindow.cpp:2375
 msgid "There are active calls"
 msgstr "有活躍的通話"
 
-#: src/mainwindow.cpp:2434
+#: src/mainwindow.cpp:2445
 msgid " is calling you!"
 msgstr "正在與您通話！"
 
-#: src/mainwindow.cpp:2437
+#: src/mainwindow.cpp:2448
 msgid "Incoming call"
 msgstr "來電"
 
-#: src/mainwindow.cpp:2594
+#: src/mainwindow.cpp:2605
 msgid "New request from "
 msgstr "新請求從"
 
-#: src/mainwindow.cpp:2597
+#: src/mainwindow.cpp:2608
 msgid "Trust request"
 msgstr "信任請求"
 
-#: src/mainwindow.cpp:2659
+#: src/mainwindow.cpp:2670
 msgid "New message"
 msgstr "新訊息"
 
-#: src/mainwindow.cpp:2711
+#: src/mainwindow.cpp:2722
 msgid "Stop current call?"
 msgstr "停止目前的通話？"
 
-#: src/mainwindow.cpp:2712
+#: src/mainwindow.cpp:2723
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "通話進行中。您想要關閉視窗並停止目前所有的通話嗎？"
 
-#: src/mainwindow.cpp:2779
+#: src/mainwindow.cpp:2790
 msgid "Clear history"
 msgstr "清除記錄"
 
-#: src/mainwindow.cpp:2780
+#: src/mainwindow.cpp:2791
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "您真的想要清除此對話的歷史嗎？"
 
-#: src/mainwindow.cpp:2795
+#: src/mainwindow.cpp:2806
 msgid "Remove conversation"
 msgstr "移除對話"
 
-#: src/mainwindow.cpp:2796
+#: src/mainwindow.cpp:2807
 msgid "Do you really want to remove this conversation?"
 msgstr "您真的想要移除此對話嗎？"
 
-#: src/mainwindow.cpp:2811
+#: src/mainwindow.cpp:2822
 msgid "Block contact"
 msgstr "阻擋連絡人"
 
-#: src/mainwindow.cpp:2812
+#: src/mainwindow.cpp:2823
 msgid "Do you really want to block this contact?"
 msgstr "您真的想要封鎖此聯絡人嗎？"
 
@@ -1504,7 +1504,7 @@ msgstr "重試"
 msgid "Stop"
 msgstr "停止"
 
-#: src/chatview.cpp:1206
+#: src/chatview.cpp:1208
 msgid "Send"
 msgstr "傳送"
 

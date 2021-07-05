@@ -7,14 +7,14 @@
 # futr <ilce.ma@gmail.com>, 2017
 # Masahiko Imanaka <chimantaea_mirabilis@yahoo.co.jp>, 2016
 # Toshiya Saito, 2020
-# YOSHIDUMI, Rentaro, 2020
+# YOSHIDUMI, Rentaro, 2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-28 03:09-0400\n"
-"PO-Revision-Date: 2021-05-17 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-07-05 03:09-0400\n"
+"PO-Revision-Date: 2021-07-02 08:21+0000\n"
+"Last-Translator: YOSHIDUMI, Rentaro\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/jami/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,32 +30,32 @@ msgstr "全般"
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
 msgid "Open application menu"
-msgstr ""
+msgstr "アプリケーションメニューを開く"
 
 #: ui/help-overlay.ui:25
 msgctxt "shortcut window"
 msgid "Open account list"
-msgstr ""
+msgstr "アカウント一覧を表示"
 
 #: ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Select search bar"
-msgstr ""
+msgstr "検索欄を選択"
 
 #: ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Focus the list of conversations"
-msgstr ""
+msgstr "会話の一覧に注目"
 
 #: ui/help-overlay.ui:46
 msgctxt "shortcut window"
 msgid "Focus the list pending requests"
-msgstr ""
+msgstr "保留中の着信一覧に注目"
 
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "全画面表示・解除"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -80,7 +80,7 @@ msgstr "履歴をクリア"
 #: ui/help-overlay.ui:89
 msgctxt "shortcut window"
 msgid "Add conversation"
-msgstr ""
+msgstr "会話を追加"
 
 #: ui/help-overlay.ui:96
 msgctxt "shortcut window"
@@ -95,12 +95,12 @@ msgstr "連絡先をブロック"
 #: ui/help-overlay.ui:110
 msgctxt "shortcut window"
 msgid "Unblock contact"
-msgstr "連絡先のブロックを解除"
+msgstr "連絡先の拒否を解除"
 
 #: ui/help-overlay.ui:117
 msgctxt "shortcut window"
 msgid "Copy contact name"
-msgstr ""
+msgstr "連絡先名を複製"
 
 #: ui/help-overlay.ui:127
 msgctxt "shortcut window"
@@ -110,12 +110,12 @@ msgstr "通話"
 #: ui/help-overlay.ui:132
 msgctxt "shortcut window"
 msgid "Accept call"
-msgstr ""
+msgstr "着信を受ける"
 
 #: ui/help-overlay.ui:139
 msgctxt "shortcut window"
 msgid "Decline call"
-msgstr ""
+msgstr "着信を辞退"
 
 #: ui/help-overlay.ui:148
 msgctxt "shortcut window"
@@ -125,32 +125,32 @@ msgstr "設定"
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
-msgstr ""
+msgstr "設定画面を開く・閉じる"
 
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
 msgid "Open general settings"
-msgstr ""
+msgstr "一般設定を開く"
 
 #: ui/help-overlay.ui:167
 msgctxt "shortcut window"
 msgid "Open media settings"
-msgstr ""
+msgstr "映像設定を開く"
 
 #: ui/help-overlay.ui:174
 msgctxt "shortcut window"
 msgid "Open account settings"
-msgstr ""
+msgstr "アカウント設定を開く"
 
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
-msgstr ""
+msgstr "チャットの表示"
 
 #: ui/help-overlay.ui:189
 msgctxt "shortcut window"
 msgid "Write on a new line"
-msgstr ""
+msgstr "新しい行に書き込む"
 
 #: ui/mainwindow.ui:63
 msgid "Menu"
@@ -166,14 +166,14 @@ msgstr "メディア"
 
 #: ui/mainwindow.ui:119
 msgid "Plugin"
-msgstr ""
+msgstr "追加機能"
 
 #: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:530
 #: ui/newaccountsettingsview.ui:387
 msgid "Account"
 msgstr "アカウント"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1949
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1955
 msgid "Settings"
 msgstr "設定"
 
@@ -183,7 +183,7 @@ msgstr "会話"
 
 #: ui/mainwindow.ui:327 ui/mainwindow.ui:334
 msgid "Contact requests"
-msgstr "連絡先のリクエスト"
+msgstr "連絡先の要求"
 
 #: ui/accountmigrationview.ui:20
 msgid "Account migration required"
@@ -191,7 +191,7 @@ msgstr "アカウントの移行が必要です"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr ""
+msgstr "アカウントに何かしらの不備があります。暗証語を入力してください。"
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
@@ -202,18 +202,18 @@ msgstr "別名"
 #: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
 #: src/accountcreationwizard.cpp:1079
 msgid "Username"
-msgstr "ユーザー名"
+msgstr "利用者名"
 
 #: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:286
 #: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
 #: ui/accountcreationwizard.ui:1347 ui/newaccountsettingsview.ui:502
 #: ui/newaccountsettingsview.ui:742
 msgid "Password"
-msgstr "パスワード"
+msgstr "暗証語"
 
 #: ui/accountmigrationview.ui:205
 msgid "Account manager"
-msgstr "アカウントマネージャー"
+msgstr "アカウント管理機能"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
@@ -227,11 +227,11 @@ msgstr "アカウントを移行"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr ""
+msgstr "Jamiアカウントを移行しています…"
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
-msgstr ""
+msgstr "移行に失敗しました。暗証語が間違っていませんか？"
 
 #: ui/currentcallview.ui:284
 msgid "End this call"
@@ -247,11 +247,11 @@ msgstr "参加者を追加"
 
 #: ui/currentcallview.ui:327
 msgid "Toggle transfer"
-msgstr ""
+msgstr "転送を切り替え"
 
 #: ui/currentcallview.ui:346
 msgid "Toggle hold"
-msgstr "ホールド"
+msgstr "保留を切り替える"
 
 #: ui/currentcallview.ui:350 ui/currentcallview.ui:375
 #: ui/currentcallview.ui:545
@@ -260,11 +260,11 @@ msgstr "保留"
 
 #: ui/currentcallview.ui:371
 msgid "Toggle mute audio"
-msgstr "音声をミュート"
+msgstr "音声の有効無効を切り替える"
 
 #: ui/currentcallview.ui:396
 msgid "Toggle mute video"
-msgstr "ビデオをミュート"
+msgstr "映像表示を切り替える"
 
 #: ui/currentcallview.ui:400 ui/currentcallview.ui:536
 msgid "Mute video"
@@ -272,7 +272,7 @@ msgstr "動画オフ"
 
 #: ui/currentcallview.ui:421
 msgid "Toggle recording"
-msgstr ""
+msgstr "録画を切り替え"
 
 #: ui/currentcallview.ui:424 ui/currentcallview.ui:599
 #: ui/messagingwidget.ui:29 src/chatview.cpp:461
@@ -301,11 +301,11 @@ msgstr "表示"
 
 #: ui/currentcallview.ui:527
 msgid "Mute audio"
-msgstr "音声オフ"
+msgstr "音声を消音する"
 
 #: ui/currentcallview.ui:563
 msgid "Activate Plugin"
-msgstr ""
+msgstr "有効な追加機能"
 
 #: ui/currentcallview.ui:572
 msgid "Transfer"
@@ -313,7 +313,7 @@ msgstr "転送"
 
 #: ui/currentcallview.ui:622
 msgid "Transfer to"
-msgstr ""
+msgstr "転送先"
 
 #: ui/currentcallview.ui:686
 msgid "Add"
@@ -322,7 +322,7 @@ msgstr "追加"
 #: ui/currentcallview.ui:752 ui/chatview.ui:41 src/pluginsettingsview.cpp:126
 #: src/pluginsettingsview.cpp:140
 msgid "Choose plugin"
-msgstr ""
+msgstr "追加機能を選択"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -334,43 +334,43 @@ msgstr "Jamiアカウントを作成"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
+msgstr "この機器のJamiアカウントを新規作成（新規利用者向け）"
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
-msgstr ""
+msgstr "待合室を作成"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
-msgstr ""
+msgstr "待合室を作成"
 
 #: ui/accountcreationwizard.ui:92
 msgid "Link this device to an existing account"
-msgstr ""
+msgstr "この機器を既存のアカウントと関連付ける"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account with your PIN generated on another device"
-msgstr ""
+msgstr "別の機器で生成したPINでアカウントをインポート"
 
 #: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:696
 msgid "Restore an account from backup"
-msgstr ""
+msgstr "バックアップからアカウントを復元"
 
 #: ui/accountcreationwizard.ui:101
 msgid "Import an account via your archive"
-msgstr ""
+msgstr "アーカイブからアカウントをインポート"
 
 #: ui/accountcreationwizard.ui:108
 msgid "Advanced features"
-msgstr ""
+msgstr "高度な機能"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Connect to a JAMS server"
-msgstr ""
+msgstr "JAMSサーバーに接続"
 
 #: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
-msgstr ""
+msgstr "認証情報を使ってアカウントを取得"
 
 #: ui/accountcreationwizard.ui:127
 msgid "Add a SIP account"
@@ -382,13 +382,13 @@ msgstr "アーカイブ"
 
 #: ui/accountcreationwizard.ui:205 ui/accountcreationwizard.ui:334
 msgid "Informations."
-msgstr ""
+msgstr "案内"
 
 #: ui/accountcreationwizard.ui:258
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr ""
+msgstr "アカウント設定で「アカウントをバックアップする」を実行してアーカイブを取得できます。機器に.gzファイルが保存されます。"
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
@@ -398,7 +398,7 @@ msgstr "PIN"
 msgid ""
 "Enter the PIN from another configured Jami account. Use the \"Link Another "
 "Device\" feature to obtain a PIN."
-msgstr ""
+msgstr "他で構成されたJamiアカウントからのPINを入力します。PINは「他の機器を接続する」機能を用いて取得できます。"
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
@@ -419,7 +419,7 @@ msgid ""
 "By checking this, you will register a unique username on the Jami network. "
 "People can use it to contact you instead of using your ID, which is 40 "
 "characters long."
-msgstr ""
+msgstr "これを有効にして，Jami通信網上に固有の利用者名を登録できます。人々はあなたと連絡を取る際に40文字の識別子ではなく利用者名を使えるようになります。"
 
 #: ui/accountcreationwizard.ui:630
 msgid "Encrypt account with password"
@@ -429,23 +429,23 @@ msgstr "アカウントをパスワードで暗号化"
 msgid ""
 "Choose a password to encrypt your account on this device.  Note that the "
 "password cannot be recovered."
-msgstr ""
+msgstr "この機器上でのアカウントを暗号化するための暗証語を選んでください。暗証語は復旧できないことにご注意ください。"
 
 #: ui/accountcreationwizard.ui:658
 msgid ""
 "Choose a password to encrypt your account on this device.\n"
 "Note that the password cannot be recovered."
-msgstr ""
+msgstr "この機器上でのアカウントを暗号化するための暗証語を選んでください。\n暗証語は復旧できないことにご注意ください。"
 
 #: ui/accountcreationwizard.ui:686
 msgid ""
 "This password will be used to encrypt your account data and to link new "
 "devices to your account."
-msgstr ""
+msgstr "暗証語はアカウント情報を暗号化し，新しい機器をアカウントに関連付けるために用いられます。"
 
 #: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:874
 msgid "Confirm password"
-msgstr "パスワードの再入力"
+msgstr "暗証語の再入力"
 
 #: ui/accountcreationwizard.ui:772
 msgid "Next"
@@ -453,7 +453,7 @@ msgstr "次へ"
 
 #: ui/accountcreationwizard.ui:826
 msgid "Backup your account!"
-msgstr ""
+msgstr "アカウントをバックアップしてください！"
 
 #: ui/accountcreationwizard.ui:842
 msgid ""
@@ -481,11 +481,11 @@ msgstr "ユーザー名を登録中…"
 
 #: ui/accountcreationwizard.ui:906
 msgid "This may take a few minutes."
-msgstr ""
+msgstr "数分を要する可能性があります。"
 
 #: ui/accountcreationwizard.ui:932
 msgid "Retrieving your Jami account…"
-msgstr ""
+msgstr "Jamiアカウントを復元しています…"
 
 #: ui/accountcreationwizard.ui:973 ui/newaccountsettingsview.ui:262
 msgid "OK"
@@ -493,15 +493,15 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr ""
+msgstr "Jamiアカウント管理サーバー (JAMS) URLを入力"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
-msgstr ""
+msgstr "JAMSのURL"
 
 #: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
-msgstr ""
+msgstr "JAMS資格情報を入力"
 
 #: ui/accountcreationwizard.ui:1167
 msgid "Connect"
@@ -509,7 +509,7 @@ msgstr "接続"
 
 #: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
-msgstr ""
+msgstr "既存のSIPアカウントを構成"
 
 #: ui/accountcreationwizard.ui:1240
 msgid "Server"
@@ -522,7 +522,7 @@ msgstr "プロキシ"
 
 #: ui/accountcreationwizard.ui:1385
 msgid "Create SIP account"
-msgstr ""
+msgstr "SIPアカウントを作成"
 
 #: ui/gearsmenu.ui:7
 msgid "Keyboard _Shortcuts"
@@ -562,11 +562,11 @@ msgstr "着信の通知を有効化"
 
 #: ui/generalsettingsview.ui:279
 msgid "Enable notifications for pending requests"
-msgstr ""
+msgstr "要求を保留している旨の通知を有効化"
 
 #: ui/generalsettingsview.ui:315
 msgid "Enable notifications for new chat messages"
-msgstr ""
+msgstr "新しいチャットメッセージの通知を有効化"
 
 #: ui/generalsettingsview.ui:351
 msgid "Chatview"
@@ -574,15 +574,15 @@ msgstr "チャット表示"
 
 #: ui/generalsettingsview.ui:390
 msgid "Show typing indications"
-msgstr "入力中インジケータを表示"
+msgstr "入力の様子を表示"
 
 #: ui/generalsettingsview.ui:426
 msgid "Display images and videos into the chatview"
-msgstr ""
+msgstr "チャット欄で画像・映像を表示する"
 
 #: ui/generalsettingsview.ui:463
 msgid "Show chatview on the right (on the bottom if off)"
-msgstr ""
+msgstr "チャット欄の位置を右（使わないときは底）に"
 
 #: ui/generalsettingsview.ui:500
 msgid "Download folder"
@@ -618,7 +618,7 @@ msgstr "記録フォルダー"
 
 #: ui/generalsettingsview.ui:786
 msgid "Bitrate for call recordings (kb/s)"
-msgstr ""
+msgstr "通話記録のビット速度（kb/s）"
 
 #: ui/generalsettingsview.ui:824
 msgid "File transfer"
@@ -634,7 +634,7 @@ msgstr "ファイルの受信を自動的に許可"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr ""
+msgstr "許容する転送回数の最低値（Mb単位，0なら無制限）"
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -658,7 +658,7 @@ msgstr "オーディオマネージャー"
 
 #: ui/mediasettingsview.ui:104
 msgid "Ringtone device"
-msgstr ""
+msgstr "機器の着信音"
 
 #: ui/mediasettingsview.ui:141
 msgid "Output device"
@@ -713,7 +713,7 @@ msgid ""
 "To add a new device to your Jami account, you export your account on the "
 "Jami. This will generate a pin that must be entered on your new device "
 "within 5 minutes of its generation."
-msgstr ""
+msgstr "Jamiアカウントに新しい機器を追加するには，Jamiからアカウントをエクスポートしてください。これで生成したPINを5分以内に新しい機器に入力してください。"
 
 #: ui/newaccountsettingsview.ui:155
 msgid "Password (required):"
@@ -729,7 +729,7 @@ msgstr "キャンセル"
 
 #: ui/newaccountsettingsview.ui:211
 msgid "Export on the network"
-msgstr ""
+msgstr "ネットワーク上でエクスポート"
 
 #: ui/newaccountsettingsview.ui:231
 msgid "Your generated pin:"
@@ -737,7 +737,7 @@ msgstr "生成したpin:"
 
 #: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
-msgstr ""
+msgstr "押下して暗証語を変更"
 
 #: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
@@ -765,7 +765,7 @@ msgstr "別のデバイスをリンク"
 
 #: ui/newaccountsettingsview.ui:998
 msgid "Banned contacts"
-msgstr ""
+msgstr "追放された連絡先"
 
 #: ui/newaccountsettingsview.ui:1054
 msgid "Advanced settings"
@@ -793,7 +793,7 @@ msgstr "カスタム着信音"
 
 #: ui/newaccountsettingsview.ui:1264
 msgid "Convert your account into a rendezvous point"
-msgstr ""
+msgstr "アカウントを待合室に変換"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -809,7 +809,7 @@ msgstr "OpenDHT設定"
 
 #: ui/newaccountsettingsview.ui:1454
 msgid "Auto connect on local network"
-msgstr ""
+msgstr "局所通信網に自動的に接続"
 
 #: ui/newaccountsettingsview.ui:1490
 msgid "Bootstrap"
@@ -881,7 +881,7 @@ msgstr "接続性"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Auto Registration After Expired"
-msgstr ""
+msgstr "期限切れの後 自動的に登録"
 
 #: ui/newaccountsettingsview.ui:2136
 msgid "Registration expire timeout (seconds)"
@@ -913,7 +913,7 @@ msgstr "(TURN) パスワード"
 
 #: ui/newaccountsettingsview.ui:2385
 msgid "(TURN) realm"
-msgstr ""
+msgstr "(TURN) レノム"
 
 #: ui/newaccountsettingsview.ui:2419
 msgid "Use STUN"
@@ -937,7 +937,7 @@ msgstr "ポート番号"
 
 #: ui/newaccountsettingsview.ui:2631
 msgid "Video codecs"
-msgstr "動画コーデック"
+msgstr "映像符号器"
 
 #: ui/newaccountsettingsview.ui:2694
 msgid "Enable video"
@@ -953,7 +953,7 @@ msgstr "SDPセッションネゴシエーション (ICEフォールバック)"
 
 #: ui/newaccountsettingsview.ui:2803
 msgid "Only used during SDP negotiation in case ICE is not supported."
-msgstr ""
+msgstr "ICEに対応していない場合のSDP折衝中にのみ使用されます。"
 
 #: ui/newaccountsettingsview.ui:2837
 msgid "Audio RTP Min port"
@@ -965,11 +965,11 @@ msgstr "音声RTPポート最大値"
 
 #: ui/newaccountsettingsview.ui:2907
 msgid "Video RTP Min port"
-msgstr ""
+msgstr "映像RTPポートの最小値"
 
 #: ui/newaccountsettingsview.ui:2942
 msgid "Video RTP Max port"
-msgstr ""
+msgstr "映像RTPポートの最大値"
 
 #: ui/usernameregistrationbox.ui:28
 msgid "register username"
@@ -981,15 +981,15 @@ msgstr "プラグイン"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
-msgstr ""
+msgstr "追加機能を有効化"
 
 #: ui/pluginsettingsview.ui:128
 msgid "Installed Plugins"
-msgstr ""
+msgstr "導入済み追加機能"
 
 #: ui/pluginsettingsview.ui:136
 msgid "Install Plugin"
-msgstr ""
+msgstr "追加機能を導入する"
 
 #: ui/chatview.ui:73
 msgid "Send Invitation"
@@ -1001,7 +1001,7 @@ msgstr "音声メッセージを録音"
 
 #: ui/messagingwidget.ui:96
 msgid "End without message"
-msgstr ""
+msgstr "メッセージを送らずに終了"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
@@ -1039,7 +1039,7 @@ msgid "_Open"
 msgstr "開く(_O)"
 
 #: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
-#: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:250
+#: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
 #: src/video/video_widget.cpp:865 src/video/video_widget.cpp:882
 #: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
@@ -1052,19 +1052,19 @@ msgstr "キャンセル(_C)"
 msgid ""
 "Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "警告: 追加機能を削除しようとしています。\n注意: この操作は元に戻せません。"
 
 #: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
 msgid "Uninstall Plugin"
-msgstr ""
+msgstr "追加機能を削除"
 
 #: src/pluginsettingsview.cpp:284
 msgid "Load/Unload Plugin"
-msgstr ""
+msgstr "追加機能の読込/解除"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
-msgstr ""
+msgstr "この利用者名を利用者名サーバーに登録"
 
 #: src/usernameregistrationbox.cpp:172
 msgid "Username already taken"
@@ -1076,76 +1076,76 @@ msgstr "無効なユーザー名"
 
 #: src/usernameregistrationbox.cpp:193
 msgid "Lookup unavailable, check your network connection"
-msgstr ""
+msgstr "名前検索ができません。ネットワーク接続を確認してください。"
 
 #: src/usernameregistrationbox.cpp:273
 msgid "Performing lookup…"
-msgstr ""
+msgstr "名前検索を実行中…"
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
-msgstr ""
+msgstr "Jamiアカウントの暗証語を入力してください"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
-msgstr ""
+msgstr "登録中…"
 
 #: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
-msgstr ""
+msgstr "名前の登録に失敗しました"
 
 #: src/usernameregistrationbox.cpp:434
 msgid ""
 "Unable to register name (Invalid name). Your username should contains "
 "between 3 and 32 alphanumerics characters (or underscore)."
-msgstr ""
+msgstr "名前を登録できませんでした（不正な利用者名）。利用者名は3から32文字の英数字（および下線記号）である必要があります。"
 
 #: src/usernameregistrationbox.cpp:438
 msgid "Unable to register name (Wrong password)."
-msgstr ""
+msgstr "名前の登録に失敗しました（間違った暗証語）。"
 
 #: src/usernameregistrationbox.cpp:442
 msgid "Unable to register name (Username already taken)."
-msgstr ""
+msgstr "名前の登録に失敗しました（既に存在する利用者名）。"
 
 #: src/usernameregistrationbox.cpp:446
 msgid "Unable to register name (Network error) - check your connection."
-msgstr ""
+msgstr "名前の登録に失敗しました（通信失敗）――接続を確認してください。"
 
-#: src/generalsettingsview.cpp:161
+#: src/generalsettingsview.cpp:162
 msgid ""
 "This is a destructive operation. Are you sure you want to delete all of your"
 " chat and call history?"
 msgstr "この操作は取り消すことができません。本当にあなたのすべてのチャットと通話の履歴を削除しますか？"
 
-#: src/generalsettingsview.cpp:233 src/generalsettingsview.cpp:247
+#: src/generalsettingsview.cpp:234 src/generalsettingsview.cpp:248
 msgid "Choose download folder"
-msgstr ""
+msgstr "入手先のフォルダーを選択"
 
-#: src/generalsettingsview.cpp:236 src/generalsettingsview.cpp:251
+#: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
 #: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:897
 #: src/chatview.cpp:385 src/chatview.cpp:400
 #: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:950
 msgid "_Save"
-msgstr "保存(_S)"
+msgstr "保存 (_S)"
 
 #: src/welcomeview.cpp:93
 msgid ""
 "This is your Jami username.\n"
 "Copy and share it with your friends!"
-msgstr "これがあなたの Jami ユーザー名です。\nコピーして友達とシェアしましょう！"
+msgstr "これがあなたのJami利用者名です。\n複製して友達と共有しましょう！"
 
 #: src/welcomeview.cpp:101
 msgid ""
 "This is your ID.\n"
 "Copy and share it with your friends!"
-msgstr "これがあなたのIDです。\nコピーして友達とシェアしましょう！"
+msgstr "複製して友人と共有しましょう！"
 
 #: src/welcomeview.cpp:213
 msgid ""
 "Jami is free software for universal communication which respects the "
 "freedoms and privacy of its users."
-msgstr "Jami は、世界中のユーザーと繋がることができるユーザーの自由とプライバシーを尊重したフリーソフトウェアです。"
+msgstr "Jamiは世界中の利用者と繋がることができる自由ソフトウェアであり，利用者の自由と私事権とを尊重しています。"
 
 #: src/notifier.cpp:349
 msgctxt ""
@@ -1181,15 +1181,15 @@ msgstr "最小化"
 
 #: src/video/video_widget.cpp:483
 msgid "Unset moderator"
-msgstr ""
+msgstr "調停者を取り消し"
 
 #: src/video/video_widget.cpp:483
 msgid "Set moderator"
-msgstr ""
+msgstr "調停者を設定"
 
 #: src/video/video_widget.cpp:547
 msgid "More options"
-msgstr ""
+msgstr "詳細な設定"
 
 #: src/video/video_widget.cpp:861 src/video/video_widget.cpp:879
 msgid "Choose file"
@@ -1197,15 +1197,15 @@ msgstr "ファイルの選択"
 
 #: src/video/video_widget.cpp:940
 msgid "Share _screen area"
-msgstr ""
+msgstr "画面領域を共有 (_S)"
 
 #: src/video/video_widget.cpp:948
 msgid "Share _monitor"
-msgstr ""
+msgstr "画面全体を共有 (_M)"
 
 #: src/video/video_widget.cpp:955
 msgid "Stream _file"
-msgstr ""
+msgstr "ファイルを流す (_F)"
 
 #: src/video/video_widget.cpp:965
 msgid "Show advanced information"
@@ -1217,7 +1217,7 @@ msgstr "アバター画像を開く"
 
 #: src/messagingwidget.cpp:223
 msgid "Contact appears to be busy. Leave a message ?"
-msgstr ""
+msgstr "連絡先は通話中のようです。伝言を残しますか？"
 
 #: src/messagingwidget.cpp:245
 msgid "Stop recording"
@@ -1225,7 +1225,7 @@ msgstr "録音を停止"
 
 #: src/messagingwidget.cpp:259
 msgid "Send recorded message"
-msgstr ""
+msgstr "録音したメッセージを送信"
 
 #: src/dialogs.cpp:62
 #, c-format
@@ -1233,28 +1233,28 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "built on %.25s"
-msgstr ""
+msgstr "\"%s\"\n%.25s上でビルド。"
 
 #: src/dialogs.cpp:135
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "Jami の GNOME クライアントです。\nJami は、世界中のユーザーと繋がることができる、ユーザーの自由とプライバシーを尊重したフリーソフトウェアです。"
+msgstr "Jami の GNOME クライアントです。\nJamiは世界中の利用者と繋がることができる自由ソフトウェアであり，利用者の自由と私事権とを尊重しています。"
 
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr ""
+msgstr "Jamiの失敗状態"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr ""
+msgstr "Jamiデーモン (dring) へ再接続しています…"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (dring).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "Jamiデーモン (dring) への再接続に失敗しました。\nただちにJamiを終了します。"
 
 #: src/client_options.c:66
 msgid "Enable debug"
@@ -1268,15 +1268,15 @@ msgstr "メインウィンドウの隠し状態を復元します (最初のイ�
 
 #: src/client_options.c:85
 msgid "- GNOME client for Jami"
-msgstr ""
+msgstr "- JamiのGNOMEクライアント"
 
 #: src/conversationpopupmenu.cpp:225
 msgid "Place _video call"
-msgstr "ビデオ通話を開始 (_v)"
+msgstr "映像通話を開始 (_V)"
 
 #: src/conversationpopupmenu.cpp:228
 msgid "Place _audio call"
-msgstr "音声通話を開始 (_a)"
+msgstr "音声通話を開始 (_A)"
 
 #: src/conversationpopupmenu.cpp:236
 msgid "_Add to conversations"
@@ -1288,27 +1288,27 @@ msgstr "招待を破棄 (_D)"
 
 #: src/conversationpopupmenu.cpp:243
 msgid "_Block invitations"
-msgstr "招待をブロック (_B)"
+msgstr "招待を拒否 (_B)"
 
 #: src/conversationpopupmenu.cpp:248
 msgid "C_lear history"
-msgstr ""
+msgstr "履歴を消去 (_L)"
 
 #: src/conversationpopupmenu.cpp:251
 msgid "_Remove conversation"
-msgstr "会話を削除(_R)"
+msgstr "会話を削除 (_R)"
 
 #: src/conversationpopupmenu.cpp:257
 msgid "_Block contact"
-msgstr "連絡先をブロック (_B)"
+msgstr "連絡先を拒否 (_B)"
 
 #: src/conversationpopupmenu.cpp:261
 msgid "_Unblock contact"
-msgstr "連絡先のブロックを解除 (_U)"
+msgstr "連絡先の拒否を解除 (_U)"
 
 #: src/conversationpopupmenu.cpp:268
 msgid "_Profile"
-msgstr "プロフィール(_P)"
+msgstr "個人設定 (_P)"
 
 #: src/profileview.cpp:130
 msgid "(None)"
@@ -1316,37 +1316,37 @@ msgstr "(なし)"
 
 #: src/accountcreationwizard.cpp:327
 msgid "An error occurred during the account creation."
-msgstr ""
+msgstr "アカウント作成中に問題が発生しました。"
 
 #: src/accountcreationwizard.cpp:331
 msgid "An error occurred during the rendez-vous creation."
-msgstr ""
+msgstr "会合の作成中に問題が発生しました。"
 
 #: src/accountcreationwizard.cpp:335
 msgid "An error occurred during the SIP account creation."
-msgstr ""
+msgstr "SIPアカウント作成中に問題が発生しました。"
 
 #: src/accountcreationwizard.cpp:339
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
+msgstr "アカウントが復旧できません。PINおよび暗証語が正しいかご確認ください。"
 
 #: src/accountcreationwizard.cpp:343
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
+msgstr "アカウントが復旧できません。アーカイブおよび暗証語が正しいかご確認ください。"
 
 #: src/accountcreationwizard.cpp:347
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
+msgstr "ご指定のアカウント管理機能に接続できません。資格情報をご確認ください。"
 
 #: src/accountcreationwizard.cpp:536
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "会合を生成中…"
 
 #: src/accountcreationwizard.cpp:538
 msgid "Generating your Jami account…"
-msgstr ""
+msgstr "Jamiアカウントを生成中…"
 
 #: src/accountcreationwizard.cpp:554
 msgid "Passwords don't match"
@@ -1354,7 +1354,7 @@ msgstr "パスワードが一致しません"
 
 #: src/accountcreationwizard.cpp:675
 msgid "Enter Jami account password"
-msgstr ""
+msgstr "Jamiアカウントの暗証語を入力してください"
 
 #: src/accountcreationwizard.cpp:676
 msgid "Link device"
@@ -1372,11 +1372,11 @@ msgstr "ファイルを保存"
 
 #: src/accountcreationwizard.cpp:919 src/newaccountsettingsview.cpp:971
 msgid "You need to enter your password to export the full archive."
-msgstr ""
+msgstr "すべてのアーカイブを出力するには暗証語を入力してください。"
 
 #: src/accountcreationwizard.cpp:920 src/newaccountsettingsview.cpp:972
 msgid "Enter password to export archive"
-msgstr ""
+msgstr "アーカイブを出力するために暗証語を入力してください"
 
 #: src/accountcreationwizard.cpp:943 src/newaccountsettingsview.cpp:995
 msgid "Account exported!"
@@ -1398,98 +1398,98 @@ msgstr "名前"
 msgid "Add account…"
 msgstr "アカウントを追加…"
 
-#: src/mainwindow.cpp:916
+#: src/mainwindow.cpp:922
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "通話を開始"
 
-#: src/mainwindow.cpp:919
+#: src/mainwindow.cpp:925
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "チャットを開く"
 
-#: src/mainwindow.cpp:1152
+#: src/mainwindow.cpp:1158
 msgid "Jami - Migration needed"
-msgstr ""
+msgstr "Jami - 移行が必要です"
 
-#: src/mainwindow.cpp:1168
+#: src/mainwindow.cpp:1174
 msgid "Migration in progress... please do not close this window."
-msgstr ""
+msgstr "移行中です…この画面を閉じないでください。"
 
-#: src/mainwindow.cpp:1452
+#: src/mainwindow.cpp:1458
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "会話の検索と開始"
 
-#: src/mainwindow.cpp:1921
+#: src/mainwindow.cpp:1927
 msgid "Leave settings page"
-msgstr ""
+msgstr "設定画面を閉じる"
 
-#: src/mainwindow.cpp:2343
+#: src/mainwindow.cpp:2354
 msgid "Missed call from "
-msgstr ""
+msgstr "不在着信元:"
 
-#: src/mainwindow.cpp:2347
+#: src/mainwindow.cpp:2358
 msgid "Missed call"
-msgstr ""
+msgstr "不在着信"
 
-#: src/mainwindow.cpp:2364
+#: src/mainwindow.cpp:2375
 msgid "There are active calls"
-msgstr ""
+msgstr "保存された通信があります"
 
-#: src/mainwindow.cpp:2434
+#: src/mainwindow.cpp:2445
 msgid " is calling you!"
-msgstr ""
+msgstr "から着信です！"
 
-#: src/mainwindow.cpp:2437
+#: src/mainwindow.cpp:2448
 msgid "Incoming call"
 msgstr "着信"
 
-#: src/mainwindow.cpp:2594
+#: src/mainwindow.cpp:2605
 msgid "New request from "
-msgstr ""
+msgstr "新しい要求があります。要求元:"
 
-#: src/mainwindow.cpp:2597
+#: src/mainwindow.cpp:2608
 msgid "Trust request"
-msgstr ""
+msgstr "要求を信頼"
 
-#: src/mainwindow.cpp:2659
+#: src/mainwindow.cpp:2670
 msgid "New message"
-msgstr ""
+msgstr "新規メッセージ"
 
-#: src/mainwindow.cpp:2711
+#: src/mainwindow.cpp:2722
 msgid "Stop current call?"
 msgstr "現在の通話を停止しますか？"
 
-#: src/mainwindow.cpp:2712
+#: src/mainwindow.cpp:2723
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
-msgstr ""
+msgstr "現在通話が行なわれています。画面を閉じると現在の全ての通話が切断されますがよろしいですか？"
 
-#: src/mainwindow.cpp:2779
+#: src/mainwindow.cpp:2790
 msgid "Clear history"
 msgstr "履歴をクリア"
 
-#: src/mainwindow.cpp:2780
+#: src/mainwindow.cpp:2791
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "会話の履歴を消去してもよろしいですか？"
 
-#: src/mainwindow.cpp:2795
+#: src/mainwindow.cpp:2806
 msgid "Remove conversation"
 msgstr "会話を削除"
 
-#: src/mainwindow.cpp:2796
+#: src/mainwindow.cpp:2807
 msgid "Do you really want to remove this conversation?"
-msgstr ""
+msgstr "この会話を退出してよろしいですか？"
 
-#: src/mainwindow.cpp:2811
+#: src/mainwindow.cpp:2822
 msgid "Block contact"
 msgstr "連絡先をブロック"
 
-#: src/mainwindow.cpp:2812
+#: src/mainwindow.cpp:2823
 msgid "Do you really want to block this contact?"
 msgstr "この連絡先をブロックしてよろしいですか？"
 
@@ -1499,13 +1499,13 @@ msgstr "ファイルの送信"
 
 #: src/chatview.cpp:451
 msgid "Retry"
-msgstr ""
+msgstr "再試行"
 
 #: src/chatview.cpp:696
 msgid "Stop"
 msgstr "停止"
 
-#: src/chatview.cpp:1206
+#: src/chatview.cpp:1208
 msgid "Send"
 msgstr "送信"
 
@@ -1515,11 +1515,11 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (dring) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "初期化できません。\nJamiデーモン (dring) が稼動しているか確かめてください。\n失敗の詳細: %s"
 
 #: src/client.cpp:118
 msgid "Jami Error"
-msgstr ""
+msgstr "Jamiの失敗状態"
 
 #: src/client.cpp:395
 msgctxt ""
@@ -1535,42 +1535,42 @@ msgstr "終了"
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
+msgstr "警告: アカウントをこの機器から削除しようとしています。\n注意: この操作は元に戻せません。加えて，登録名も消失します。"
 
 #: src/currentcallview.cpp:1176
 msgid "Current conference (all accounts)"
-msgstr ""
+msgstr "現在の会話（全アカウント）"
 
 #: src/currentcallview.cpp:1211
 msgid "Current calls (all accounts)"
-msgstr ""
+msgstr "現在の通話（全アカウント）"
 
 #: src/currentcallview.cpp:1228
 msgid "Online contacts"
-msgstr ""
+msgstr "発信可能な連絡先"
 
 #: src/currentcallview.cpp:1672
 msgctxt "Enable automatic video quality"
 msgid "Auto"
-msgstr ""
+msgstr "自動"
 
 #: src/currentcallview.cpp:1747
 msgid "me"
-msgstr ""
+msgstr "自分"
 
 #: src/newaccountsettingsview.cpp:608
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
-msgstr ""
+msgstr "警告: この機器を破棄しようとしています。\n注意: この操作は元に戻せません。"
 
 #: src/newaccountsettingsview.cpp:609
 msgid "Enter password to revoke device"
-msgstr ""
+msgstr "機器の破棄するには暗証語が必要です"
 
 #: src/newaccountsettingsview.cpp:657
 msgid "This device"
-msgstr "このデバイス"
+msgstr "この機器"
 
 #: src/newaccountsettingsview.cpp:680
 msgid "Edit name"
@@ -1578,15 +1578,15 @@ msgstr "名前の編集"
 
 #: src/newaccountsettingsview.cpp:680
 msgid "Revoke device"
-msgstr "デバイスを取り消し"
+msgstr "機器を破棄"
 
 #: src/newaccountsettingsview.cpp:702
 msgid "Error when revoking device"
-msgstr ""
+msgstr "機器の破棄に失敗しました"
 
 #: src/newaccountsettingsview.cpp:775
 msgid "Unban"
-msgstr ""
+msgstr "追放を解禁する"
 
 #: src/newaccountsettingsview.cpp:798 src/newaccountsettingsview.cpp:821
 #: src/newaccountsettingsview.cpp:845 src/newaccountsettingsview.cpp:881
@@ -1595,15 +1595,15 @@ msgstr "パスワードを変更"
 
 #: src/newaccountsettingsview.cpp:811
 msgid "New password and its confirmation are different!"
-msgstr ""
+msgstr "新しい暗証語の入力確認ができません。"
 
 #: src/newaccountsettingsview.cpp:822
 msgid "Incorrect password!"
-msgstr ""
+msgstr "暗証語が違います。"
 
 #: src/newaccountsettingsview.cpp:859
 msgid "Note: this will change the password only on this device."
-msgstr ""
+msgstr "注意: この機器上の暗証語のみが変更されます。"
 
 #: src/newaccountsettingsview.cpp:862
 msgid "Current password"
@@ -1631,7 +1631,7 @@ msgstr "不明なエラー"
 
 #: src/newaccountsettingsview.cpp:1829
 msgid "Could not initiate export to the Jami, try again"
-msgstr ""
+msgstr "Jamiへの書き出しを開始できません。もう一度試してください。"
 
 #: src/newaccountsettingsview.cpp:1888
 msgid "Error: wrong password!"
@@ -1659,7 +1659,7 @@ msgstr "オンライン"
 
 #: src/newaccountsettingsview.cpp:2079
 msgid "Unknown status"
-msgstr ""
+msgstr "不明な状態"
 
 #: src/newaccountsettingsview.cpp:2112
 msgid "••••••••"
@@ -1667,7 +1667,7 @@ msgstr "••••••••"
 
 #: src/newaccountsettingsview.cpp:2112
 msgid "no password set"
-msgstr ""
+msgstr "暗証語が未設定"
 
 #: src/newaccountsettingsview.cpp:2168
 msgid "Remove account"
