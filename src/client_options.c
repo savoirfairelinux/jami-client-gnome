@@ -21,7 +21,6 @@
 #include "client_options.h"
 
 #include "config.h"
-#include "revision.h"
 #include "client.h"
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
@@ -33,7 +32,7 @@ option_version_cb(G_GNUC_UNUSED const gchar *option_name,
                   G_GNUC_UNUSED gpointer data,
                   G_GNUC_UNUSED GError **error)
 {
-    g_print("%s - %s\n", VERSION, CLIENT_REVISION);
+    g_print("%s\n", VERSION);
     exit(EXIT_SUCCESS);
 }
 

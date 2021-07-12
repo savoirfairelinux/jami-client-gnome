@@ -49,7 +49,6 @@
 #include "notifier.h"
 #include "config.h"
 #include "utils/files.h"
-#include "revision.h"
 
 #if HAVE_AYATANAAPPINDICATOR
 #include <libayatana-appindicator/app-indicator.h>
@@ -491,7 +490,6 @@ client_startup(GApplication *app)
     ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
 
     g_message("Jami GNOME client version: %s", VERSION);
-    g_message("git ref: %s", CLIENT_REVISION);
 
     /* make sure that the system corresponds to the autostart setting */
     autostart_symlink(g_settings_get_boolean(priv->settings, "start-on-login"));

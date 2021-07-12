@@ -17,12 +17,12 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
+#include "config.h"             // for VERSION
 #include "dialogs.h"
 
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <glib/gprintf.h>
-#include "revision.h"
 #include "utils/drawing.h"
 
 void
@@ -58,10 +58,9 @@ about_dialog(GtkWidget *parent)
     if (parent && GTK_IS_WIDGET(parent))
         parent = gtk_widget_get_toplevel(GTK_WIDGET(parent));
 
-    gchar *version = g_strdup_printf(C_("Do not translate the release name nor the status (beta, final, ...)",
-                                        "\"%s\"\nbuilt on %.25s"),
-                                        "Maloya",
-                                     CLIENT_BUILD_DATE);
+    gchar *version = g_strdup_printf(
+        C_("Do not translate the release name nor the status (beta, final, ...)",
+           "\"%s\"\n(%s)"), "Maloya", VERSION);
 
     const gchar *authors[] = {
         "Adrien Béraud",

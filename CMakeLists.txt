@@ -13,29 +13,7 @@ ENDIF()
 
 set (CMAKE_CXX_STANDARD 17)
 
-# set project name and version
 PROJECT(jami-client-gnome)
-
-IF(EXISTS "${PROJECT_SOURCE_DIR}/version.txt")
-   FILE (STRINGS "version.txt" PROJECT_VERSION)
-ELSE()
-   SET (PROJECT_VERSION "development")
-ENDIF()
-
-# set build date
-IF( NOT ("$ENV{SOURCE_DATE_EPOCH}" STREQUAL ""))
-  EXECUTE_PROCESS(
-    COMMAND date -u -d "1970-01-01 UTC $ENV{SOURCE_DATE_EPOCH} seconds" "+%Y-%m-%d %H:%M:%S UTC"
-    OUTPUT_VARIABLE CLIENT_BUILD_DATE
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-ELSEIF( "${CLIENT_BUILD_DATE}" STREQUAL "")
-  EXECUTE_PROCESS(
-    COMMAND date -u "+%Y-%m-%d %H:%M:%S UTC"
-    OUTPUT_VARIABLE CLIENT_BUILD_DATE
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-ENDIF()
 
 # add the binary tree to the search path for include files
 # so that we will find config.h
@@ -46,6 +24,23 @@ LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 # include custom cmake modules
 INCLUDE(${CMAKE_SOURCE_DIR}/cmake/GResources.cmake)
 INCLUDE(${CMAKE_SOURCE_DIR}/cmake/GSettings.cmake)
+
+# Set VERSION.
+IF(EXISTS "${PROJECT_SOURCE_DIR}/version.txt")
+    FILE (STRINGS "version.txt" PROJECT_VERSION)
+ELSE()
+    FIND_PACKAGE(Git)
+    IF(GIT_FOUND)
+        EXECUTE_PROCESS(
+            COMMAND ${GIT_EXECUTABLE} rev-parse --verify HEAD
+            OUTPUT_VARIABLE PROJECT_VERSION
+            OUTPUT_STRIP_TRAILING_WHITESPACE)
+    ENDIF()
+ENDIF()
+IF("${PROJECT_VERSION}" STREQUAL "")
+    SET(PROJECT_VERSION "unknown")
+    MESSAGE(WARNING "Failed to retrieve version information")
+ENDIF()
 
 # make sure we're using Qt5
 SET(ENABLE_QT5 true)
@@ -247,25 +242,6 @@ IF (CMAKE_COMPILER_IS_GNUCC)
    ENDIF()
 
 ENDIF()
-
-# get git version on every build
-SET(GIT_REVISION_INPUT_FILE ${PROJECT_SOURCE_DIR}/src/revision.h.in)
-SET(GIT_REVISION_OUTPUT_FILE ${PROJECT_BINARY_DIR}/revision.h)
-
-ADD_CUSTOM_TARGET(
-   git_revision ALL
-   COMMAND ${CMAKE_COMMAND}
-      -DGIT_REVISION_INPUT_FILE=${GIT_REVISION_INPUT_FILE}
-      -DGIT_REVISION_OUTPUT_FILE=${GIT_REVISION_OUTPUT_FILE}
-      -DCLIENT_BUILD_DATE=${CLIENT_BUILD_DATE}
-      -P ${CMAKE_SOURCE_DIR}/cmake/GitRevision.cmake
-   COMMENT "generating ${GIT_REVISION_OUTPUT_FILE}"
-)
-
-ADD_CUSTOM_COMMAND(
-   OUTPUT ${GIT_REVISION_OUTPUT_FILE}
-   DEPENDS git_revision
-)
 
 # source files to compile
 SET( SRC_FILES
