@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33090d32_090f9083",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2021-07-12T18:54:46Z",
+      "side": 1,
+      "message": "please update your user.email git config to point to your SFL address and push an amended version\n\notherwise lgtm",
+      "revId": "8d4485bb41df814e8aff926a70c21a83ee8dd6d8",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a"
+    }
+  ]
+}
