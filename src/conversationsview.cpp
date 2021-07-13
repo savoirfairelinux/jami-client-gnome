@@ -132,9 +132,9 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         isBanned = contactInfo.isBanned;
     }
     std::shared_ptr<GdkPixbuf> image;
-    static lrc::api::conversation::Info invalidConverstation = {.uid = "-1"};
+    static lrc::api::conversation::Info invalidConversation;
     auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
-        convOpt ? convOpt->get() : invalidConverstation,
+        convOpt ? convOpt->get() : invalidConversation,
         **(priv->accountInfo_),
         QSize(50, 50),
         isPresent
