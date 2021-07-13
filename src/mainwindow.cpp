@@ -2255,8 +2255,8 @@ CppImpl::getCurrentConversation(GtkWidget* frame_call)
         return incoming_call_view_get_conversation(INCOMING_CALL_VIEW(frame_call));
     }
 
-    static lrc::api::conversation::Info invalidConverstation;
-    return invalidConverstation;
+    static lrc::api::conversation::Info invalidConversation;
+    return invalidConversation;
 }
 
 void
