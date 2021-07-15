@@ -56,6 +56,7 @@ struct _ProfileViewPrivate
         GtkWidget* username_label;
         GtkWidget* id_label;
         GtkWidget* qr_image;
+        GtkWidget* is_swarm_label;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE(ProfileView, profile_view, GTK_TYPE_DIALOG)
@@ -101,6 +102,7 @@ profile_view_class_init(ProfileViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), ProfileView, username_label);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), ProfileView, id_label);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), ProfileView, qr_image);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), ProfileView, is_swarm_label);
 }
 
 static bool
@@ -156,6 +158,9 @@ build_view(ProfileView* view)
 
         g_free(surface);
         g_free(cr);
+
+        auto is_swarm = convOpt->get().mode != lrc::api::conversation::Mode::NON_SWARM;
+        gtk_label_set_text(GTK_LABEL(priv->is_swarm_label), is_swarm ? _("Yes") : _("No"));
 
         gtk_window_set_title(GTK_WINDOW(view), std::string("Profile - " + alias.toStdString()).c_str());
         gtk_window_set_modal(GTK_WINDOW(view), false);
