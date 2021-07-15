@@ -212,6 +212,7 @@ build_interaction_json(lrc::api::ConversationModel& conversation_model,
             interaction_object.insert("totalSize", QJsonValue(qint64(info.totalSize)));
             interaction_object.insert("progress", QJsonValue(qint64(info.progress)));
         }
+        interaction_object.insert("displayName", QJsonValue(interaction.commit["displayName"]));
         break;
     }
     case lrc::api::interaction::Type::INVALID:
@@ -836,6 +837,14 @@ webkit_chat_set_dark_mode(WebKitChatContainer *view, bool darkMode, const std::s
     }
     gchar* function_call = g_strdup_printf("setTheme(\"%s\"); init_picker(%s)",
                                            theme.c_str(), darkMode ? "true" : "false");
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
+}
+
+void
+webkit_chat_set_is_swarm(WebKitChatContainer *view, bool isSwarm)
+{
+    gchar* function_call = g_strdup_printf("set_is_swarm(%s)", isSwarm ? "true" : "false");
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }

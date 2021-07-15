@@ -40,7 +40,9 @@
 #include <api/contactmodel.h>
 #include <api/conversationmodel.h>
 #include <api/contact.h>
+#include <api/datatransfermodel.h>
 #include <api/lrc.h>
+#include <api/newaccountmodel.h>
 #include <api/newcallmodel.h>
 #include <api/avmodel.h>
 #include <api/pluginmodel.h>
@@ -806,6 +808,20 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         } catch (...) {
             g_warning("delete interaction failed: can't find %s", order.substr(std::string("DELETE_INTERACTION:").size()).c_str());
         }
+    } else if (order.find("COPY:") == 0) {
+        try {
+            auto data = QString::fromStdString(order.substr(std::string("COPY:").size()));
+            auto interactionId = data.left(data.indexOf(':'));
+            auto displayName = data.right(data.size() - data.indexOf(':') - 1);
+            auto downloadDir = (*priv->accountInfo_)->accountModel->downloadDirectory;
+            (*priv->accountInfo_)->dataTransferModel->copyTo(priv->conversation_->accountId,
+                                           priv->conversation_->uid,
+                                           interactionId,
+                                           downloadDir,
+                                           displayName);
+        } catch (...) {
+            g_warning("copy file failed: %s", order.substr(std::string("COPY:").size()).c_str());
+        }
     } else if (order.find("RETRY_INTERACTION:") == 0) {
         try {
             auto interactionId = QString::fromStdString(order.substr(std::string("RETRY_INTERACTION:").size()));
@@ -1058,6 +1074,7 @@ webkit_chat_container_ready(ChatView* self)
     webkit_chat_container_clear(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)
     );
+    webkit_chat_set_is_swarm(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->conversation_->isSwarm());
 
     display_links_toggled(self);
     print_text_recording(self);

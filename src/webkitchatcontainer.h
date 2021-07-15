@@ -58,6 +58,7 @@ void       webkit_chat_set_header_visible             (WebKitChatContainer *view
 void       webkit_chat_set_record_visible             (WebKitChatContainer *view, bool isVisible);
 void       webkit_chat_set_plugin_visible             (WebKitChatContainer *view, bool isVisible);
 void       webkit_chat_set_dark_mode                  (WebKitChatContainer *view, bool darkMode, const std::string& background);
+void       webkit_chat_set_is_swarm                   (WebKitChatContainer *view, bool isSwarm);
 void       webkit_chat_set_is_composing               (WebKitChatContainer *view, const std::string& contactUri, bool isComposing);
 void       webkit_chat_update_chatview_frame          (WebKitChatContainer *view, bool accountEnabled, bool isBanned, bool isInvited, const gchar* alias, const gchar* bestId);
 
