@@ -754,6 +754,20 @@ webkit_chat_container_print_history(WebKitChatContainer *view,
 }
 
 void
+webkit_chat_container_update_history(WebKitChatContainer *view,
+                                     lrc::api::ConversationModel& conversation_model,
+                                     lrc::api::MessagesList interactions,
+                                     bool all_loaded)
+{
+    auto interactions_str = interactions_to_json_array_object(conversation_model, interactions).toUtf8();
+    gchar* function_call = g_strdup_printf("updateHistory(%s, %s)",
+                                           interactions_str.constData(),
+                                           all_loaded ? "true" : "false");
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
+}
+
+void
 webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
                                      const std::string& contactUri, const std::string& contactId)
 {
