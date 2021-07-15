@@ -754,6 +754,20 @@ webkit_chat_container_print_history(WebKitChatContainer *view,
 }
 
 void
+webkit_chat_container_update_history(WebKitChatContainer *view,
+                                     lrc::api::ConversationModel& conversation_model,
+                                     lrc::api::MessagesList interactions,
+                                     bool all_loaded)
+{
+    auto interactions_str = interactions_to_json_array_object(conversation_model, interactions).toUtf8();
+    gchar* function_call = g_strdup_printf("updateHistory(%s, %s)",
+                                           interactions_str.constData(),
+                                           all_loaded ? "true" : "false");
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
+}
+
+void
 webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
                                      const std::string& contactUri, const std::string& contactId)
 {
@@ -777,6 +791,20 @@ webkit_chat_container_set_sender_image(WebKitChatContainer *view, const std::str
     gchar* function_call = g_strdup_printf("setSenderImage(%s);", set_sender_image_object_string.toUtf8().constData());
     webkit_web_view_run_javascript(WEBKIT_WEB_VIEW(priv->webview_chat), function_call, NULL, NULL, NULL);
     g_free(function_call);
+}
+
+void
+webkit_chat_container_load_messages(WebKitChatContainer *view,
+                                    lrc::api::ConversationModel& conversation_model,
+                                    const QString& convUid,
+                                    int n)
+{
+    auto convOpt = conversation_model.getConversationForUid(convUid);
+    if (!convOpt)
+        return;
+    if (convOpt->get().mode != lrc::api::conversation::Mode::NON_SWARM
+        && !convOpt->get().allMessagesLoaded)
+        conversation_model.loadConversationMessages(convOpt->get().uid, n);;
 }
 
 gboolean

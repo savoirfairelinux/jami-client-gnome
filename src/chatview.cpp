@@ -84,6 +84,7 @@ struct _ChatViewPrivate
     QMetaObject::Connection composing_changed_connection;
     QMetaObject::Connection interaction_removed;
     QMetaObject::Connection update_interaction_connection;
+    QMetaObject::Connection new_messages_available_connection;
     QMetaObject::Connection update_plugin_status;
     QMetaObject::Connection update_add_to_conversations;
     QMetaObject::Connection local_renderer_connection;
@@ -257,6 +258,7 @@ chat_view_dispose(GObject *object)
     QObject::disconnect(priv->new_interaction_connection);
     QObject::disconnect(priv->composing_changed_connection);
     QObject::disconnect(priv->update_interaction_connection);
+    QObject::disconnect(priv->new_messages_available_connection);
     QObject::disconnect(priv->update_plugin_status);
     QObject::disconnect(priv->interaction_removed);
     QObject::disconnect(priv->update_add_to_conversations);
@@ -1088,6 +1090,20 @@ webkit_chat_container_ready(ChatView* self)
             remove_interaction(self, interactionId);
         }
     });
+
+    priv->new_messages_available_connection = QObject::connect(
+        &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newMessagesAvailable,
+        [self, priv](const QString& accountId, const QString& conversationId) {
+            auto *convModel = (*priv->accountInfo_)->conversationModel.get();
+            auto optConv = convModel->getConversationForUid(conversationId);
+            if (!optConv)
+                return;
+            webkit_chat_container_update_history(
+                WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                *convModel,
+                optConv->get().interactions,
+                optConv->get().allMessagesLoaded);
+        });
 
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
