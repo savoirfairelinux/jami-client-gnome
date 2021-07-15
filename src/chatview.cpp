@@ -84,6 +84,7 @@ struct _ChatViewPrivate
     QMetaObject::Connection composing_changed_connection;
     QMetaObject::Connection interaction_removed;
     QMetaObject::Connection update_interaction_connection;
+    QMetaObject::Connection new_messages_available_connection;
     QMetaObject::Connection update_plugin_status;
     QMetaObject::Connection update_add_to_conversations;
     QMetaObject::Connection local_renderer_connection;
@@ -257,6 +258,7 @@ chat_view_dispose(GObject *object)
     QObject::disconnect(priv->new_interaction_connection);
     QObject::disconnect(priv->composing_changed_connection);
     QObject::disconnect(priv->update_interaction_connection);
+    QObject::disconnect(priv->new_messages_available_connection);
     QObject::disconnect(priv->update_plugin_status);
     QObject::disconnect(priv->interaction_removed);
     QObject::disconnect(priv->update_add_to_conversations);
@@ -702,6 +704,18 @@ reset_recorder(ChatView *self)
 
 }
 
+void
+load_messages(lrc::api::ConversationModel& conversation_model,
+              const QString& convUid,
+              int n)
+{
+    auto convOpt = conversation_model.getConversationForUid(convUid);
+    if (!convOpt)
+        return;
+    if (convOpt->get().isSwarm() && !convOpt->get().allMessagesLoaded)
+        conversation_model.loadConversationMessages(convOpt->get().uid, n);
+}
+
 static void
 webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, ChatView* self)
 {
@@ -856,6 +870,11 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         } catch (...) {
             // ignore
         }
+    } else if (order.find("LOAD_MESSAGES:") == 0) {
+        auto n = stoi(order.substr(std::string("LOAD_MESSAGES:").size()));
+        load_messages(*(*priv->accountInfo_)->conversationModel,
+                      priv->conversation_->uid,
+                      n);
     }
 }
 
@@ -1059,6 +1078,19 @@ webkit_chat_container_ready(ChatView* self)
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container)
     );
 
+    auto *convModel = (*priv->accountInfo_)->conversationModel.get();
+    auto optConv = convModel->getConversationForUid(priv->conversation_->uid);
+    if (!optConv)
+        return;
+    if (optConv->get().isSwarm() && !optConv->get().allMessagesLoaded) {
+        convModel->loadConversationMessages(optConv->get().uid, 20);
+    } else {
+        webkit_chat_container_print_history(
+            WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+            *convModel,
+            optConv->get().interactions);
+    }
+
     display_links_toggled(self);
     print_text_recording(self);
     load_participants_images(self);
@@ -1088,6 +1120,20 @@ webkit_chat_container_ready(ChatView* self)
             remove_interaction(self, interactionId);
         }
     });
+
+    priv->new_messages_available_connection = QObject::connect(
+        &*(*priv->accountInfo_)->conversationModel, &lrc::api::ConversationModel::newMessagesAvailable,
+        [self, priv](const QString& accountId, const QString& conversationId) {
+            auto *convModel = (*priv->accountInfo_)->conversationModel.get();
+            auto optConv = convModel->getConversationForUid(conversationId);
+            if (!optConv)
+                return;
+            webkit_chat_container_update_history(
+                WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+                *convModel,
+                optConv->get().interactions,
+                optConv->get().allMessagesLoaded);
+        });
 
     if (!priv->conversation_) return;
     auto contactUri = priv->conversation_->participants.front();
