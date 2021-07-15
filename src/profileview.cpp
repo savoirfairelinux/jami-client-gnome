@@ -159,8 +159,7 @@ build_view(ProfileView* view)
         g_free(surface);
         g_free(cr);
 
-        auto is_swarm = convOpt->get().mode != lrc::api::conversation::Mode::NON_SWARM;
-        gtk_label_set_text(GTK_LABEL(priv->is_swarm_label), is_swarm ? _("Yes") : _("No"));
+        gtk_label_set_text(GTK_LABEL(priv->is_swarm_label), convOpt->get().isSwarm() ? _("Yes") : _("No"));
 
         gtk_window_set_title(GTK_WINDOW(view), std::string("Profile - " + alias.toStdString()).c_str());
         gtk_window_set_modal(GTK_WINDOW(view), false);
