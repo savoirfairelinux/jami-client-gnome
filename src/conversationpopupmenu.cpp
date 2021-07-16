@@ -245,9 +245,11 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
                 g_signal_connect(block_conversation_item, "activate", G_CALLBACK(block_conversation), priv);
             }
         } else {
-            auto rm_history_conversation = gtk_menu_item_new_with_mnemonic(_("C_lear history"));
-            gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_history_conversation);
-            g_signal_connect(rm_history_conversation, "activate", G_CALLBACK(remove_history_conversation), priv);
+            if (!conv.isSwarm()) {
+                auto rm_history_conversation = gtk_menu_item_new_with_mnemonic(_("C_lear history"));
+                gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_history_conversation);
+                g_signal_connect(rm_history_conversation, "activate", G_CALLBACK(remove_history_conversation), priv);
+            }
             auto rm_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Remove conversation"));
             gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_conversation_item);
             g_signal_connect(rm_conversation_item, "activate", G_CALLBACK(remove_conversation), priv);

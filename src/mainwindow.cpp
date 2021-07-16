@@ -2786,11 +2786,13 @@ main_window_clear_history(MainWindow *win)
     g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
 
     priv->cpp->forCurrentConversation([&](const auto &conversation) {
-        auto res = priv->cpp->showOkCancelDialog(
-            _("Clear history"),
-            _("Do you really want to clear the history of this conversation?"));
-        if (!res) return;
-        priv->cpp->accountInfo_->conversationModel->clearHistory(conversation.uid);
+        if (!conversation.isSwarm()) {
+            auto res = priv->cpp->showOkCancelDialog(
+                _("Clear history"),
+                _("Do you really want to clear the history of this conversation?"));
+            if (!res) return;
+            priv->cpp->accountInfo_->conversationModel->clearHistory(conversation.uid);
+        }
     });
 }
 
