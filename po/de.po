@@ -28,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-12 03:09-0400\n"
-"PO-Revision-Date: 2021-06-13 07:52+0000\n"
-"Last-Translator: nautilusx\n"
+"POT-Creation-Date: 2021-07-19 03:09-0400\n"
+"PO-Revision-Date: 2021-07-19 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -291,7 +291,7 @@ msgid "Toggle recording"
 msgstr "Aufnahme umschalten"
 
 #: ui/currentcallview.ui:424 ui/currentcallview.ui:599
-#: ui/messagingwidget.ui:29 src/chatview.cpp:461
+#: ui/messagingwidget.ui:29 src/chatview.cpp:463
 msgid "Record"
 msgstr "Aufzeichnen"
 
@@ -663,6 +663,10 @@ msgstr "ID"
 #: ui/profile.ui:153
 msgid "QR Code"
 msgstr "QR-Code"
+
+#: ui/profile.ui:179
+msgid "Is swarm"
+msgstr ""
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
@@ -1050,7 +1054,7 @@ msgstr "Auswahl als Bild benutzen"
 #: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
 #: src/video/video_widget.cpp:864 src/video/video_widget.cpp:883
 #: src/avatarmanipulation.cpp:439 src/avatarmanipulation.cpp:462
-#: src/chatview.cpp:385 src/chatview.cpp:400
+#: src/chatview.cpp:387 src/chatview.cpp:402
 msgid "_Open"
 msgstr "_Öffnen"
 
@@ -1059,7 +1063,7 @@ msgstr "_Öffnen"
 #: src/video/video_widget.cpp:865 src/video/video_widget.cpp:882
 #: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
-#: src/chatview.cpp:386 src/chatview.cpp:399
+#: src/chatview.cpp:388 src/chatview.cpp:401
 #: src/newaccountsettingsview.cpp:933 src/newaccountsettingsview.cpp:949
 msgid "_Cancel"
 msgstr "_Abbrechen"
@@ -1140,7 +1144,7 @@ msgstr "Zielordner wählen"
 
 #: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
 #: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:897
-#: src/chatview.cpp:385 src/chatview.cpp:400
+#: src/chatview.cpp:387 src/chatview.cpp:402
 #: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:950
 msgid "_Save"
 msgstr "_Speichern"
@@ -1243,15 +1247,15 @@ msgstr "Aufnahme stoppen"
 msgid "Send recorded message"
 msgstr "Aufgenommene Nachricht senden"
 
-#: src/dialogs.cpp:62
+#: src/dialogs.cpp:63
 #, c-format
 msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
-"built on %.25s"
+"(%s)"
 msgstr ""
 
-#: src/dialogs.cpp:135
+#: src/dialogs.cpp:134
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1263,26 +1267,26 @@ msgid "Jami Error"
 msgstr "Fehler in Jami"
 
 #: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Jami daemon (dring)…"
-msgstr "Neuer Verbindungsversuch zum Jami-Daemon (dring)..."
+msgid "Trying to reconnect to the Jami daemon (jamid)…"
+msgstr ""
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
-"Could not re-connect to the Jami daemon (dring).\n"
+"Could not re-connect to the Jami daemon (jamid).\n"
 "Jami will now quit."
-msgstr "Neuverbindung zum Jami-Daemon (dring) fehlgeschlagen.\nJami wird nun beendet."
+msgstr ""
 
-#: src/client_options.c:66
+#: src/client_options.c:65
 msgid "Enable debug"
 msgstr "Debugoption aktivieren"
 
-#: src/client_options.c:68
+#: src/client_options.c:67
 msgid ""
 "Restores the hidden state of the main window (only applicable to the primary"
 " instance)"
 msgstr "Stellt den versteckten Zustand des Hauptfensters wieder her (nur für die Hauptinstanz möglich)"
 
-#: src/client_options.c:85
+#: src/client_options.c:84
 msgid "- GNOME client for Jami"
 msgstr "- GNOME-Client für Jami"
 
@@ -1326,9 +1330,17 @@ msgstr "Kontakt _entsperren"
 msgid "_Profile"
 msgstr "_Profil"
 
-#: src/profileview.cpp:130
+#: src/profileview.cpp:132
 msgid "(None)"
 msgstr "(Nichts)"
+
+#: src/profileview.cpp:163
+msgid "Yes"
+msgstr ""
+
+#: src/profileview.cpp:163
+msgid "No"
+msgstr ""
 
 #: src/accountcreationwizard.cpp:327
 msgid "An error occurred during the account creation."
@@ -1381,7 +1393,7 @@ msgid "Import from backup"
 msgstr "Aus Sicherung importieren"
 
 #: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
-#: src/chatview.cpp:382 src/chatview.cpp:396
+#: src/chatview.cpp:384 src/chatview.cpp:398
 #: src/newaccountsettingsview.cpp:929 src/newaccountsettingsview.cpp:946
 msgid "Save File"
 msgstr "Datei speichern"
@@ -1509,41 +1521,41 @@ msgstr "Kontakt blockieren"
 msgid "Do you really want to block this contact?"
 msgstr "Wollen Sie wirklich diesen Kontakt sperren?"
 
-#: src/chatview.cpp:382 src/chatview.cpp:396
+#: src/chatview.cpp:384 src/chatview.cpp:398
 msgid "Send File"
 msgstr "Datei senden"
 
-#: src/chatview.cpp:451
+#: src/chatview.cpp:453
 msgid "Retry"
 msgstr "Wiederholen"
 
-#: src/chatview.cpp:696
+#: src/chatview.cpp:698
 msgid "Stop"
 msgstr "Stop"
 
-#: src/chatview.cpp:1208
+#: src/chatview.cpp:1225
 msgid "Send"
 msgstr "Senden"
 
-#: src/client.cpp:115
+#: src/client.cpp:114
 #, c-format
 msgid ""
 "Unable to initialize.\n"
-"Make sure the Jami daemon (dring) is running.\n"
+"Make sure the Jami daemon (jamid) is running.\n"
 "Error: %s"
-msgstr "Initialiierung fehlgeschlagen.\nÜberprüfen Sie, ob der Jami-Daemon (dring) läuft.\nFehler: %s"
+msgstr ""
 
-#: src/client.cpp:118
+#: src/client.cpp:117
 msgid "Jami Error"
 msgstr "Fehler in Jami"
 
-#: src/client.cpp:395
+#: src/client.cpp:394
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Jami anzeigen"
 
-#: src/client.cpp:399
+#: src/client.cpp:398
 msgid "Quit"
 msgstr "Beenden"
 
