@@ -407,7 +407,7 @@ create_and_fill_model(ConversationsView *self)
                     conversation.interactions.at(conversation.lastMessageUid).body;
                 std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
                 gtk_list_store_append (store, &iter);
-                auto alias = contactInfo.profileInfo.alias;
+                auto alias = (*priv->accountInfo_)->conversationModel->title(conversation.uid);
                 alias.remove('\r');
                 gtk_list_store_set (store, &iter,
                                     0 /* col # */ , qUtf8Printable(conversation.uid) /* celldata */,
