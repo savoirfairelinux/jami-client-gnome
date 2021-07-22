@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d8397c6_7623366a",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-07-22T18:47:50Z",
+      "side": 0,
+      "message": "This will generally be wrong. should use ConversationModel::peersForConversation().front()\n\nSo the conversation will generally not be shown",
+      "range": {
+        "startLine": 403,
+        "startChar": 30,
+        "endLine": 403,
+        "endChar": 64
+      },
+      "revId": "8412f8180bdc8b4f8aeff5f4eee822f3c6cb44cd",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a"
+    }
+  ]
+}
