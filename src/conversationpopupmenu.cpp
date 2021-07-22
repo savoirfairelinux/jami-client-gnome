@@ -112,21 +112,18 @@ static void
 unblock_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 {
     if (!priv->cpp) return;
-    auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(priv->cpp->uid_);
-    if (!convOpt) {
-        g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
-        return;
-    }
-    auto uri = convOpt->get().participants[0];
+    auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(priv->cpp->uid_);
+    if (contacts.empty()) return;
+    try {
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contacts.front());
 
-    auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(uri);
+        if (!contactInfo.isBanned) {
+            g_debug("unblock_conversation: trying to unban a contact which isn't banned !");
+            return;
+        }
 
-    if (!contactInfo.isBanned) {
-        g_debug("unblock_conversation: trying to unban a contact which isn't banned !");
-        return;
-    }
-
-    (*priv->accountInfo_)->contactModel->addContact(contactInfo);
+        (*priv->accountInfo_)->contactModel->addContact(contactInfo);
+    } catch (...) { }
 }
 
 static void
@@ -203,14 +200,15 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
                         -1);
 
     auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(uid);
+    auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(uid);
     if (priv->cpp) priv->cpp->uid_ = uid;
     try {
-        if (!convOpt || convOpt->get().participants.isEmpty()) {
+        if (!convOpt || contacts.empty()) {
             g_free(uid);
             return;
         }
         auto& conv = convOpt->get();
-        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(conv.participants.front());
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contacts.front());
         if (contactInfo.profileInfo.uri.isEmpty()) {
             g_free(uid);
             return;
