@@ -30,6 +30,7 @@
 // lrc
 #include <api/contactmodel.h>
 #include <api/conversation.h>
+#include <api/conversationmodel.h>
 #include <api/account.h>
 #include <api/contact.h>
 
@@ -190,7 +191,7 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
                                      const QSize& size,
                                      bool displayInformation)
 {
-    auto contacts = conversationInfo.participants;
+    auto contacts = accountInfo.conversationModel->peersForConversation(conversationInfo.uid);
     if (!contacts.empty()) {
         try {
             // Get first contact photo

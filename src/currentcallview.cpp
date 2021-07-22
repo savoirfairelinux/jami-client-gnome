@@ -611,7 +611,9 @@ on_toggle_smartinfo(GSimpleAction* action, G_GNUC_UNUSED GVariant* state, GtkWid
 static void
 transfer_to_peer(CurrentCallViewPrivate* priv, const std::string& peerUri)
 {
-    if (peerUri == priv->cpp->conversation->participants.front().toStdString()) {
+    auto contacts = (*priv->cpp->accountInfo)->conversationModel->peersForConversation(priv->cpp->conversation->uid);
+    if (contacts.empty()) return;
+    if (peerUri == contacts.front().toStdString()) {
         g_warning("avoid to transfer to the same call, abort.");
 #if GTK_CHECK_VERSION(3,22,0)
         gtk_popover_popdown(GTK_POPOVER(priv->siptransfer_popover));
@@ -856,9 +858,11 @@ filter_transfer_list(CurrentCallView *self)
     auto row = 0;
     while (GtkWidget* children = GTK_WIDGET(gtk_list_box_get_row_at_index(GTK_LIST_BOX(priv->list_conversations), row))) {
         auto* sip_address = get_address_label(GTK_LIST_BOX_ROW(children));
+        auto contacts = (*priv->cpp->accountInfo)->conversationModel->peersForConversation(priv->cpp->conversation->uid);
+        if (contacts.empty()) continue;
         if (row == 0) {
             // Update searching item
-            if (currentFilter.empty() || currentFilter == priv->cpp->conversation->participants.front().toStdString()) {
+            if (currentFilter.empty() || currentFilter == contacts.front().toStdString()) {
                 // Hide temporary item if filter is empty or same number
                 gtk_widget_hide(children);
             } else {
@@ -871,7 +875,7 @@ filter_transfer_list(CurrentCallView *self)
             // It's a contact
             std::string item_address = gtk_label_get_text(GTK_LABEL(sip_address));
 
-            if (item_address == priv->cpp->conversation->participants.front().toStdString())
+            if (item_address == contacts.front().toStdString())
                 // if item is the current conversation, hide it
                 gtk_widget_hide(children);
             else if (currentFilter.empty())
@@ -1046,8 +1050,11 @@ CppImpl::setup(WebKitChatContainer* chat_widget,
             gtk_container_remove(GTK_CONTAINER(widgets->list_conversations), children);
         // Fill with SIP contacts
         add_transfer_contact("");  // Temporary item
-        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP).get())
-            add_transfer_contact(c.get().participants.front().toStdString());
+        for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations(lrc::api::profile::Type::SIP).get()) {
+            auto contacts = (*accountInfo)->conversationModel->peersForConversation(c.get().uid);
+            if (contacts.empty()) continue;
+            add_transfer_contact(contacts.front().toStdString());
+        }
         gtk_widget_show_all(widgets->list_conversations);
         gtk_widget_show(widgets->togglebutton_transfer);
         gtk_widget_show(widgets->togglebutton_hold);
@@ -1218,8 +1225,10 @@ CppImpl::updateConvList()
 
     first = true;
     for (const auto& c : (*accountInfo)->conversationModel->getFilteredConversations((*accountInfo)->profileInfo.type).get()) {
+        auto contacts = (*accountInfo)->conversationModel->peersForConversation(c.get().uid);
+        if (contacts.empty()) continue;
         try {
-            auto participant = c.get().participants.front();
+            auto participant = contacts.front();
             auto contactInfo = (*accountInfo)->contactModel->getContact(participant);
             auto isPresent = std::find(uris.cbegin(), uris.cend(), participant) != uris.cend();
             if (!isPresent
@@ -1533,7 +1542,9 @@ CppImpl::setCallInfo()
         &*(*accountInfo)->contactModel,
         &lrc::api::ContactModel::contactAdded,
         [this] (const QString& uri) {
-            if (uri == conversation->participants.front()) {
+            auto contacts = (*accountInfo)->conversationModel->peersForConversation(conversation->uid);
+            if (contacts.empty()) return;
+            if (uri == contacts.front()) {
                 updateNameAndPhoto();
             }
         });
@@ -1850,8 +1861,10 @@ CppImpl::updateNameAndPhoto()
     std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
     gtk_image_set_from_pixbuf(GTK_IMAGE(widgets->image_peer), image.get());
 
+    auto contacts = (*accountInfo)->conversationModel->peersForConversation(conversation->uid);
+    if (contacts.empty()) return;
     try {
-        auto contactInfo = (*accountInfo)->contactModel->getContact(conversation->participants.front());
+        auto contactInfo = (*accountInfo)->contactModel->getContact(contacts.front());
         auto alias = contactInfo.profileInfo.alias;
         auto bestName = contactInfo.registeredName;
         if (bestName.isEmpty())
