@@ -158,8 +158,9 @@ accept_incoming_call(IncomingCallView *self)
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
 
     try {
-        auto contactUri = priv->conversation_->participants.at(0);
-        auto contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
+        auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(priv->conversation_->uid);
+        if (contacts.empty()) return;
+        auto contact = (*priv->accountInfo_)->contactModel->getContact(contacts.front());
         // If the contact is pending, we should accept its request
         if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
             (*priv->accountInfo_)->conversationModel->makePermanent(priv->conversation_->uid);
@@ -284,7 +285,9 @@ update_name_and_photo(IncomingCallView *view)
     gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), image.get());
 
     try {
-        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(priv->conversation_->participants.front());
+        auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(priv->conversation_->uid);
+        if (contacts.empty()) return;
+        auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contacts.front());
 
         auto name = contactInfo.profileInfo.alias;
         gtk_label_set_text(GTK_LABEL(priv->label_name), qUtf8Printable(name));

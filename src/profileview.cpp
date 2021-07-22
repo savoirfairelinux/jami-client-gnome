@@ -115,8 +115,9 @@ build_view(ProfileView* view)
     try
     {
         const auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(priv->cpp->uid_);
-        if (!convOpt || convOpt->get().participants.empty()) return false;
-        const auto& contact = (*priv->accountInfo_)->contactModel->getContact(convOpt->get().participants.front());
+        auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(priv->cpp->uid_);
+        if (!convOpt || contacts.empty()) return false;
+        const auto& contact = (*priv->accountInfo_)->contactModel->getContact(contacts.front());
 
         auto alias = contact.profileInfo.alias;
         alias.remove('\r');

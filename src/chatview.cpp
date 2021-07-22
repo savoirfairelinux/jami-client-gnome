@@ -164,7 +164,9 @@ CppImpl::add_chat_handler(lrc::api::plugin::PluginHandlerDetails chatHandlerDeta
     QString bestName = "Unnamed handler";
     auto* chatHandlerImage = gtk_image_new_from_icon_name("application-x-addon-symbolic", GTK_ICON_SIZE_LARGE_TOOLBAR);
     auto accountId = widgets->conversation_->accountId;
-    auto peerId = widgets->conversation_->participants.front();
+    auto contacts = (*widgets->accountInfo_)->conversationModel->peersForConversation(widgets->conversation_->uid);
+    if (contacts.empty()) return;
+    auto peerId = contacts.front();
     auto chatHandlerStatus = pluginModel_->getChatHandlerStatus(accountId, peerId);
     bool isActive = false;
     if (!chatHandlerDetails.name.isEmpty()) {
@@ -598,8 +600,9 @@ activate_chat_handler(GtkToggleButton* switchBtn, GParamSpec*, ChatView* view)
             auto toggled = gtk_toggle_button_get_active(btn);
             QString chatHandlerID = QString::fromStdString((gchar*)g_object_get_data(G_OBJECT(label), "chatHandlerID"));
             auto accountId = priv->conversation_->accountId;
-            auto peerId = priv->conversation_->participants.front();
-
+            auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(priv->conversation_->uid);
+            if (contacts.empty()) continue;
+            auto peerId = contacts.front();
             priv->cpp->pluginModel_->toggleChatHandler(chatHandlerID, accountId, peerId, toggled);
         }
         ++rowIdx;
@@ -732,8 +735,9 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
         (*priv->accountInfo_)->conversationModel->removeConversation(priv->conversation_->uid, true);
     } else if (order == "UNBLOCK") {
         try {
-            auto contactUri = priv->conversation_->participants.front();
-            auto& contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
+            auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(priv->conversation_->uid);
+            if (contacts.empty()) return;
+            auto& contact = (*priv->accountInfo_)->contactModel->getContact(contacts.front());
             (*priv->accountInfo_)->contactModel->addContact(contact);
         } catch (std::out_of_range&) {
             g_debug("webkit_chat_container_script_dialog: oor while retrieving invalid contact info. Chatview bug ?");
@@ -1025,8 +1029,10 @@ load_participants_images(ChatView *self)
 
     // Contact
     if (!priv->conversation_) return;
-    auto contactUri = priv->conversation_->participants.front();
-    try{
+    auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(priv->conversation_->uid);
+    if (contacts.empty()) return;
+    try {
+        auto contactUri = contacts.front();
         auto& contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         std::string avatar_str = contact.profileInfo.avatar.toStdString();
         if (avatar_str.empty()) {
@@ -1066,23 +1072,6 @@ load_participants_images(ChatView *self)
 }
 
 static void
-print_text_recording(ChatView *self)
-{
-    g_return_if_fail(IS_CHAT_VIEW(self));
-    ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
-
-    // Read interactions
-    if (!priv->conversation_) return;
-    (*priv->accountInfo_)->conversationModel->clearUnreadInteractions(priv->conversation_->uid);
-
-    webkit_chat_container_print_history(
-        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-        *(*priv->accountInfo_)->conversationModel,
-        priv->conversation_->interactions
-    );
-}
-
-static void
 webkit_chat_container_ready(ChatView* self)
 {
     /* The webkit chat container has loaded the javascript libraries, we can
@@ -1107,9 +1096,9 @@ webkit_chat_container_ready(ChatView* self)
             *convModel,
             optConv->get().interactions);
     }
+    convModel->clearUnreadInteractions(priv->conversation_->uid);
 
     display_links_toggled(self);
-    print_text_recording(self);
     load_participants_images(self);
     webkit_chat_set_dark_mode(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), priv->useDarkTheme, priv->background);
 
@@ -1153,7 +1142,9 @@ webkit_chat_container_ready(ChatView* self)
         });
 
     if (!priv->conversation_) return;
-    auto contactUri = priv->conversation_->participants.front();
+    auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(priv->conversation_->uid);
+    if (contacts.empty()) return;
+    auto contactUri = contacts.front();
     try {
         auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         auto bestName = contactInfo.profileInfo.alias;
@@ -1177,7 +1168,9 @@ update_chatview_frame(ChatView* self)
     ChatViewPrivate *priv = CHAT_VIEW_GET_PRIVATE(self);
     if (!priv->conversation_) return;
 
-    auto contactUri = priv->conversation_->participants.front();
+    auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(priv->conversation_->uid);
+    if (contacts.empty()) return;
+    auto contactUri = contacts.front();
 
     lrc::api::contact::Info contactInfo;
     try {

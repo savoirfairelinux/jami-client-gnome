@@ -1014,7 +1014,8 @@ action_notification(gchar* title, MainWindow* self, Action action)
                 auto contactRequestsPageNum = gtk_notebook_page_num(GTK_NOTEBOOK(priv->notebook_contacts),
                                                                priv->scrolled_window_contact_requests);
                 gtk_notebook_set_current_page(GTK_NOTEBOOK(priv->notebook_contacts), contactRequestsPageNum);
-                if (!conversation.participants.empty() && conversation.participants.front().toStdString() == information) {
+                auto contacts = priv->cpp->accountInfo_->conversationModel->peersForConversation(conversation.uid);
+                if (!contacts.empty() && contacts.front().toStdString() == information) {
                     priv->cpp->accountInfo_->conversationModel->selectConversation(conversation.uid);
                 }
                 conversations_view_select_conversation(CONVERSATIONS_VIEW(priv->treeview_conversations), conversation.uid.toStdString());
@@ -1025,7 +1026,8 @@ action_notification(gchar* title, MainWindow* self, Action action)
         try {
             auto& accountInfo = priv->cpp->lrc_->getAccountModel().getAccountInfo(id.c_str());
             for (const lrc::api::conversation::Info& conversation : accountInfo.conversationModel->getFilteredConversations(lrc::api::profile::Type::PENDING).get()) {
-                if (!conversation.participants.empty() && conversation.participants.front().toStdString() == information) {
+                auto contacts = accountInfo.conversationModel->peersForConversation(conversation.uid);
+                if (!contacts.empty() && contacts.front().toStdString() == information) {
                     if (action == Action::ACCEPT) {
                         accountInfo.conversationModel->makePermanent(conversation.uid);
                     } else {
@@ -1641,13 +1643,16 @@ CppImpl::displayCurrentCallView(lrc::api::conversation::Info& conversation, bool
                                            *chatViewConversation_,
                                            lrc_->getAVModel(), *lrc_.get()); // TODO improve. Only LRC is needed
 
-    try {
-        auto contactUri = chatViewConversation_->get().participants.front();
-        auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
-        if (auto chat_view = current_call_view_get_chat_view(CURRENT_CALL_VIEW(new_view))) {
-            chat_view_update_temporary(CHAT_VIEW(chat_view));
-        }
-    } catch(...) { }
+    auto contacts = accountInfo_->conversationModel->peersForConversation(chatViewConversation_->get().uid);
+    if (!contacts.empty()) {
+        try {
+            auto contactUri = contacts.front();
+            auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
+            if (auto chat_view = current_call_view_get_chat_view(CURRENT_CALL_VIEW(new_view))) {
+                chat_view_update_temporary(CHAT_VIEW(chat_view));
+            }
+        } catch(...) { }
+    }
 
     g_signal_connect_swapped(new_view, "video-double-clicked",
                              G_CALLBACK(on_video_double_clicked), self);
@@ -1665,15 +1670,18 @@ CppImpl::displayChatView(lrc::api::conversation::Info& conversation, bool redraw
     g_signal_connect(new_view, "place-audio-call-clicked", G_CALLBACK(on_place_audio_call_clicked), self);
     g_signal_connect(new_view, "place-call-clicked", G_CALLBACK(on_place_call_clicked), self);
     g_signal_connect(new_view, "send-text-clicked", G_CALLBACK(on_send_text_clicked), self);
-    try {
-        auto contactUri = chatViewConversation_->get().participants.front();
-        auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
-        auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
-        if (isPending) {
-            auto notifId = accountInfo_->id + ":request:" + contactUri;
-            hide_notification(NOTIFIER(widgets->notifier), notifId.toStdString());
-        }
-    } catch(...) { }
+    auto contacts = accountInfo_->conversationModel->peersForConversation(chatViewConversation_->get().uid);
+    if (!contacts.empty()) {
+        try {
+            auto contactUri = contacts.front();
+            auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
+            auto isPending = contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
+            if (isPending) {
+                auto notifId = accountInfo_->id + ":request:" + contactUri;
+                hide_notification(NOTIFIER(widgets->notifier), notifId.toStdString());
+            }
+        } catch(...) { }
+    }
 
     return new_view;
 }
@@ -2492,11 +2500,14 @@ CppImpl::slotNewConversation(const std::string& uid)
     if (IS_WELCOME_VIEW(old_view)) {
         accountInfo_->conversationModel->selectConversation(uid.c_str());
         if (chatViewConversation_) {
-            try {
-                auto contactUri =  chatViewConversation_->get().participants.front();
-                auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
-                chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(widgets->frame_call))));
-            } catch(...) { }
+            auto contacts = accountInfo_->conversationModel->peersForConversation(chatViewConversation_->get().uid);
+            if (!contacts.empty()) {
+                try {
+                    auto contactUri =  contacts.front();
+                    auto contactInfo = accountInfo_->contactModel->getContact(contactUri);
+                    chat_view_update_temporary(CHAT_VIEW(gtk_bin_get_child(GTK_BIN(widgets->frame_call))));
+                } catch(...) { }
+            }
         }
     }
 }
@@ -2646,8 +2657,12 @@ CppImpl::slotNewInteraction(const std::string& accountId, const std::string& con
             if (conv.uid.toStdString() == conversation) {
                 if (conv.participants.empty()) return;
                 QString avatar = "", name = "", uri = "";
+
+                auto contacts = conversationModel->peersForConversation(conv.uid);
+                if (contacts.empty()) return;
+
                 try {
-                    auto contactInfo = contactModel->getContact(conv.participants.front());
+                    auto contactInfo = contactModel->getContact(contacts.front());
                     uri = contactInfo.profileInfo.uri;
                     avatar = contactInfo.profileInfo.avatar;
                     name = contactInfo.profileInfo.alias;
@@ -2836,11 +2851,14 @@ main_window_unblock_contact(MainWindow *win)
     g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
 
     priv->cpp->forCurrentConversation([&](const auto& conversation){
-        auto& uri = conversation.participants[0];
+        auto contacts = priv->cpp->accountInfo_->conversationModel->peersForConversation(conversation.uid);
+        if (contacts.empty()) return;
 
-        auto contactInfo = priv->cpp->accountInfo_->contactModel->getContact(uri);
-        if (!contactInfo.isBanned) return;
-        priv->cpp->accountInfo_->contactModel->addContact(contactInfo);
+        try {
+            auto contactInfo = priv->cpp->accountInfo_->contactModel->getContact(contacts.front());
+            if (!contactInfo.isBanned) return;
+            priv->cpp->accountInfo_->contactModel->addContact(contactInfo);
+        } catch (...) { }
     });
 }
 
@@ -2852,13 +2870,17 @@ main_window_copy_contact(MainWindow *win)
     g_return_if_fail(priv && priv->cpp && priv->cpp->accountInfo_);
 
     priv->cpp->forCurrentConversation([&](const auto& conversation){
-        auto& contact = priv->cpp->accountInfo_->contactModel->getContact(conversation.participants.front());
-        auto bestName = contact.registeredName.isEmpty() ? contact.profileInfo.uri : contact.registeredName;
-        auto text = (gchar *)qUtf8Printable(bestName);
-        GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-        gtk_clipboard_set_text(clip, text, -1);
-        clip = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
-        gtk_clipboard_set_text(clip, text, -1);
+        auto contacts = priv->cpp->accountInfo_->conversationModel->peersForConversation(conversation.uid);
+        if (contacts.empty()) return;
+        try {
+            auto& contact = priv->cpp->accountInfo_->contactModel->getContact(contacts.front());
+            auto bestName = contact.registeredName.isEmpty() ? contact.profileInfo.uri : contact.registeredName;
+            auto text = (gchar *)qUtf8Printable(bestName);
+            GtkClipboard* clip = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+            gtk_clipboard_set_text(clip, text, -1);
+            clip = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+            gtk_clipboard_set_text(clip, text, -1);
+        } catch (...) { }
     });
 }
 
@@ -2886,18 +2908,22 @@ main_window_accept_call(MainWindow *win)
     if (current.empty()) return;
 
     auto optConv = priv->cpp->accountInfo_->conversationModel->getConversationForUid(current.c_str());
-    if (!optConv || optConv->get().participants.empty()) {
+    if (!optConv) {
         g_warning("Can't retrieve conversation %s", current.c_str());
         return;
     }
-    auto& conv = optConv->get();
-    auto contactUri = conv.participants.at(0);
-    auto contact = priv->cpp->accountInfo_->contactModel->getContact(contactUri);
-    // If the contact is pending, we should accept its request
-    if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
-        priv->cpp->accountInfo_->conversationModel->makePermanent(conv.uid);
-    // Accept call
-    priv->cpp->accountInfo_->callModel->accept(conv.callId);
+
+    auto contacts = priv->cpp->accountInfo_->conversationModel->peersForConversation(current.c_str());
+    if (contacts.empty()) return;
+    try {
+        auto contactUri = contacts.front();
+        auto contact = priv->cpp->accountInfo_->contactModel->getContact(contactUri);
+        // If the contact is pending, we should accept its request
+        if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
+            priv->cpp->accountInfo_->conversationModel->makePermanent(current.c_str());
+        // Accept call
+        priv->cpp->accountInfo_->callModel->accept(optConv->get().callId);
+    } catch (...) { }
 }
 
 void
