@@ -22,6 +22,30 @@
       },
       "revId": "8412f8180bdc8b4f8aeff5f4eee822f3c6cb44cd",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "417ecdaf_7cfacae9",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2021-07-26T14:36:46Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "4d8397c6_7623366a",
+      "range": {
+        "startLine": 403,
+        "startChar": 30,
+        "endLine": 403,
+        "endChar": 64
+      },
+      "revId": "8412f8180bdc8b4f8aeff5f4eee822f3c6cb44cd",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a"
     }
   ]
 }
