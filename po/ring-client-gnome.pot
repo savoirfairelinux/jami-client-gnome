@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-19 03:09-0400\n"
+"POT-Creation-Date: 2021-07-26 03:09-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -270,7 +270,7 @@ msgid "Toggle recording"
 msgstr ""
 
 #: ui/currentcallview.ui:424 ui/currentcallview.ui:599 ui/messagingwidget.ui:29
-#: src/chatview.cpp:463
+#: src/chatview.cpp:465
 msgid "Record"
 msgstr ""
 
@@ -1033,7 +1033,7 @@ msgstr ""
 #: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
 #: src/video/video_widget.cpp:864 src/video/video_widget.cpp:883
 #: src/avatarmanipulation.cpp:439 src/avatarmanipulation.cpp:462
-#: src/chatview.cpp:387 src/chatview.cpp:402
+#: src/chatview.cpp:389 src/chatview.cpp:404
 msgid "_Open"
 msgstr ""
 
@@ -1042,7 +1042,7 @@ msgstr ""
 #: src/video/video_widget.cpp:865 src/video/video_widget.cpp:882
 #: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
-#: src/chatview.cpp:388 src/chatview.cpp:401 src/newaccountsettingsview.cpp:933
+#: src/chatview.cpp:390 src/chatview.cpp:403 src/newaccountsettingsview.cpp:933
 #: src/newaccountsettingsview.cpp:949
 msgid "_Cancel"
 msgstr ""
@@ -1123,7 +1123,7 @@ msgstr ""
 
 #: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
 #: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:897
-#: src/chatview.cpp:387 src/chatview.cpp:402 src/newaccountsettingsview.cpp:932
+#: src/chatview.cpp:389 src/chatview.cpp:404 src/newaccountsettingsview.cpp:932
 #: src/newaccountsettingsview.cpp:950
 msgid "_Save"
 msgstr ""
@@ -1290,23 +1290,23 @@ msgstr ""
 msgid "_Block invitations"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:248
+#: src/conversationpopupmenu.cpp:249
 msgid "C_lear history"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:251
+#: src/conversationpopupmenu.cpp:253
 msgid "_Remove conversation"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:257
+#: src/conversationpopupmenu.cpp:259
 msgid "_Block contact"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:261
+#: src/conversationpopupmenu.cpp:263
 msgid "_Unblock contact"
 msgstr ""
 
-#: src/conversationpopupmenu.cpp:268
+#: src/conversationpopupmenu.cpp:270
 msgid "_Profile"
 msgstr ""
 
@@ -1314,11 +1314,11 @@ msgstr ""
 msgid "(None)"
 msgstr ""
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:162
 msgid "Yes"
 msgstr ""
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:162
 msgid "No"
 msgstr ""
 
@@ -1373,7 +1373,7 @@ msgid "Import from backup"
 msgstr ""
 
 #: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
-#: src/chatview.cpp:384 src/chatview.cpp:398 src/newaccountsettingsview.cpp:929
+#: src/chatview.cpp:386 src/chatview.cpp:400 src/newaccountsettingsview.cpp:929
 #: src/newaccountsettingsview.cpp:946
 msgid "Save File"
 msgstr ""
@@ -1477,43 +1477,43 @@ msgid ""
 "current calls?"
 msgstr ""
 
-#: src/mainwindow.cpp:2790
+#: src/mainwindow.cpp:2791
 msgid "Clear history"
 msgstr ""
 
-#: src/mainwindow.cpp:2791
+#: src/mainwindow.cpp:2792
 msgid "Do you really want to clear the history of this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2806
+#: src/mainwindow.cpp:2808
 msgid "Remove conversation"
 msgstr ""
 
-#: src/mainwindow.cpp:2807
+#: src/mainwindow.cpp:2809
 msgid "Do you really want to remove this conversation?"
 msgstr ""
 
-#: src/mainwindow.cpp:2822
+#: src/mainwindow.cpp:2824
 msgid "Block contact"
 msgstr ""
 
-#: src/mainwindow.cpp:2823
+#: src/mainwindow.cpp:2825
 msgid "Do you really want to block this contact?"
 msgstr ""
 
-#: src/chatview.cpp:384 src/chatview.cpp:398
+#: src/chatview.cpp:386 src/chatview.cpp:400
 msgid "Send File"
 msgstr ""
 
-#: src/chatview.cpp:453
+#: src/chatview.cpp:455
 msgid "Retry"
 msgstr ""
 
-#: src/chatview.cpp:698
+#: src/chatview.cpp:700
 msgid "Stop"
 msgstr ""
 
-#: src/chatview.cpp:1225
+#: src/chatview.cpp:1271
 msgid "Send"
 msgstr ""
 

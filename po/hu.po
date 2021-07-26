@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-19 03:09-0400\n"
-"PO-Revision-Date: 2021-07-19 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-07-26 03:09-0400\n"
+"PO-Revision-Date: 2021-07-20 09:51+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -246,7 +246,7 @@ msgstr "Résztvevő hozzáadása"
 
 #: ui/currentcallview.ui:327
 msgid "Toggle transfer"
-msgstr "Átadás be-/kikapcsolása"
+msgstr "Fájlküldés be-/kikapcsolása"
 
 #: ui/currentcallview.ui:346
 msgid "Toggle hold"
@@ -274,7 +274,7 @@ msgid "Toggle recording"
 msgstr "Felvétel be-/kikapcsolása"
 
 #: ui/currentcallview.ui:424 ui/currentcallview.ui:599
-#: ui/messagingwidget.ui:29 src/chatview.cpp:463
+#: ui/messagingwidget.ui:29 src/chatview.cpp:465
 msgid "Record"
 msgstr "Felvétel"
 
@@ -308,11 +308,11 @@ msgstr "Beépülő modul aktiválása"
 
 #: ui/currentcallview.ui:572
 msgid "Transfer"
-msgstr "Átadás"
+msgstr "Fájlküldés"
 
 #: ui/currentcallview.ui:622
 msgid "Transfer to"
-msgstr "Átadás:"
+msgstr "Fájlküldés:"
 
 #: ui/currentcallview.ui:686
 msgid "Add"
@@ -621,7 +621,7 @@ msgstr "Bitsebesség hívásfelvételekhez (kb/mp)"
 
 #: ui/generalsettingsview.ui:824
 msgid "File transfer"
-msgstr "Fájlátvitel"
+msgstr "Fájlküldés"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
@@ -633,7 +633,7 @@ msgstr "A bejövő fájlok önműködő elfogadása"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr "Legnagyobb fájlméret az önműködő elfogadáshoz (Mb, 0 = korlátlan)"
+msgstr "Legnagyobb fájlküldési méret az önműködő elfogadáshoz (Mb, 0 = korlátlan)"
 
 #: ui/profile.ui:58
 msgid "Informations"
@@ -649,7 +649,7 @@ msgstr "QR-kód"
 
 #: ui/profile.ui:179
 msgid "Is swarm"
-msgstr ""
+msgstr "Rajcsoport"
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
@@ -1037,7 +1037,7 @@ msgstr "Kijelölés beállítása képként"
 #: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
 #: src/video/video_widget.cpp:864 src/video/video_widget.cpp:883
 #: src/avatarmanipulation.cpp:439 src/avatarmanipulation.cpp:462
-#: src/chatview.cpp:387 src/chatview.cpp:402
+#: src/chatview.cpp:389 src/chatview.cpp:404
 msgid "_Open"
 msgstr "_Megnyitás"
 
@@ -1046,7 +1046,7 @@ msgstr "_Megnyitás"
 #: src/video/video_widget.cpp:865 src/video/video_widget.cpp:882
 #: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
-#: src/chatview.cpp:388 src/chatview.cpp:401
+#: src/chatview.cpp:390 src/chatview.cpp:403
 #: src/newaccountsettingsview.cpp:933 src/newaccountsettingsview.cpp:949
 msgid "_Cancel"
 msgstr "_Mégse"
@@ -1127,7 +1127,7 @@ msgstr "Letöltési mappa kiválasztása"
 
 #: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
 #: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:897
-#: src/chatview.cpp:387 src/chatview.cpp:402
+#: src/chatview.cpp:389 src/chatview.cpp:404
 #: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:950
 msgid "_Save"
 msgstr "_Mentés"
@@ -1236,7 +1236,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "(%s)"
-msgstr ""
+msgstr "„%s”\n(%s)"
 
 #: src/dialogs.cpp:134
 msgid ""
@@ -1251,13 +1251,13 @@ msgstr "Jami hiba"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (jamid)…"
-msgstr ""
+msgstr "Újrakapcsolódás a Jami rendszerfolyamathoz (jamid)…"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (jamid).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "Nem sikerült újrakapcsolódni a Jami rendszerfolyamathoz (jamid).\nA Jami most kilép."
 
 #: src/client_options.c:65
 msgid "Enable debug"
@@ -1293,23 +1293,23 @@ msgstr "Meghívás _elutasítása"
 msgid "_Block invitations"
 msgstr "Meghívások _letiltása"
 
-#: src/conversationpopupmenu.cpp:248
+#: src/conversationpopupmenu.cpp:249
 msgid "C_lear history"
 msgstr "Előzmények _törlése"
 
-#: src/conversationpopupmenu.cpp:251
+#: src/conversationpopupmenu.cpp:253
 msgid "_Remove conversation"
 msgstr "Beszélgetés eltávolítása"
 
-#: src/conversationpopupmenu.cpp:257
+#: src/conversationpopupmenu.cpp:259
 msgid "_Block contact"
 msgstr "Kapcsolat _letiltása"
 
-#: src/conversationpopupmenu.cpp:261
+#: src/conversationpopupmenu.cpp:263
 msgid "_Unblock contact"
 msgstr "Kapcsolat letiltás _feloldása"
 
-#: src/conversationpopupmenu.cpp:268
+#: src/conversationpopupmenu.cpp:270
 msgid "_Profile"
 msgstr "_Profil"
 
@@ -1317,13 +1317,13 @@ msgstr "_Profil"
 msgid "(None)"
 msgstr "(Nincs)"
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:162
 msgid "Yes"
-msgstr ""
+msgstr "Igen"
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:162
 msgid "No"
-msgstr ""
+msgstr "Nem"
 
 #: src/accountcreationwizard.cpp:327
 msgid "An error occurred during the account creation."
@@ -1376,7 +1376,7 @@ msgid "Import from backup"
 msgstr "Importálás biztonsági másolatból"
 
 #: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
-#: src/chatview.cpp:384 src/chatview.cpp:398
+#: src/chatview.cpp:386 src/chatview.cpp:400
 #: src/newaccountsettingsview.cpp:929 src/newaccountsettingsview.cpp:946
 msgid "Save File"
 msgstr "Fájl mentése"
@@ -1480,43 +1480,43 @@ msgid ""
 "current calls?"
 msgstr "A hívás jelenleg folyamatban van. Be kívánja zárni az ablakot és az összes jelenlegi hívást?"
 
-#: src/mainwindow.cpp:2790
+#: src/mainwindow.cpp:2791
 msgid "Clear history"
 msgstr "Előzmények törlése"
 
-#: src/mainwindow.cpp:2791
+#: src/mainwindow.cpp:2792
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Valóban szeretné törölni ennek a csevegésnek az előzményeit?"
 
-#: src/mainwindow.cpp:2806
+#: src/mainwindow.cpp:2808
 msgid "Remove conversation"
 msgstr "Beszélgetés törlése"
 
-#: src/mainwindow.cpp:2807
+#: src/mainwindow.cpp:2809
 msgid "Do you really want to remove this conversation?"
 msgstr "Valóban szeretné törölni ezt a csevegését?"
 
-#: src/mainwindow.cpp:2822
+#: src/mainwindow.cpp:2824
 msgid "Block contact"
 msgstr "Kapcsolat letiltása"
 
-#: src/mainwindow.cpp:2823
+#: src/mainwindow.cpp:2825
 msgid "Do you really want to block this contact?"
 msgstr "Valóban szeretné letiltani ezt a kapcsolatot?"
 
-#: src/chatview.cpp:384 src/chatview.cpp:398
+#: src/chatview.cpp:386 src/chatview.cpp:400
 msgid "Send File"
 msgstr "Fájl küldése"
 
-#: src/chatview.cpp:453
+#: src/chatview.cpp:455
 msgid "Retry"
 msgstr "Újra"
 
-#: src/chatview.cpp:698
+#: src/chatview.cpp:700
 msgid "Stop"
 msgstr "Megállítás"
 
-#: src/chatview.cpp:1225
+#: src/chatview.cpp:1271
 msgid "Send"
 msgstr "Küldés"
 
@@ -1526,7 +1526,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (jamid) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Képtelen előkészíteni.\nGyőződjön meg róla, hogy a Jami rendszerfolyamat (jamid) fut.\nHiba: %s"
 
 #: src/client.cpp:117
 msgid "Jami Error"

@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-19 03:09-0400\n"
+"POT-Creation-Date: 2021-07-26 03:09-0400\n"
 "PO-Revision-Date: 2021-07-19 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
@@ -282,7 +282,7 @@ msgid "Toggle recording"
 msgstr "录制开始/结束"
 
 #: ui/currentcallview.ui:424 ui/currentcallview.ui:599
-#: ui/messagingwidget.ui:29 src/chatview.cpp:463
+#: ui/messagingwidget.ui:29 src/chatview.cpp:465
 msgid "Record"
 msgstr "录制"
 
@@ -1045,7 +1045,7 @@ msgstr "设置选区为头像"
 #: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
 #: src/video/video_widget.cpp:864 src/video/video_widget.cpp:883
 #: src/avatarmanipulation.cpp:439 src/avatarmanipulation.cpp:462
-#: src/chatview.cpp:387 src/chatview.cpp:402
+#: src/chatview.cpp:389 src/chatview.cpp:404
 msgid "_Open"
 msgstr "打开(_O)"
 
@@ -1054,7 +1054,7 @@ msgstr "打开(_O)"
 #: src/video/video_widget.cpp:865 src/video/video_widget.cpp:882
 #: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
-#: src/chatview.cpp:388 src/chatview.cpp:401
+#: src/chatview.cpp:390 src/chatview.cpp:403
 #: src/newaccountsettingsview.cpp:933 src/newaccountsettingsview.cpp:949
 msgid "_Cancel"
 msgstr "取消(_C)"
@@ -1135,7 +1135,7 @@ msgstr "选择下载文件夹"
 
 #: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
 #: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:897
-#: src/chatview.cpp:387 src/chatview.cpp:402
+#: src/chatview.cpp:389 src/chatview.cpp:404
 #: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:950
 msgid "_Save"
 msgstr "保存(_S)"
@@ -1301,23 +1301,23 @@ msgstr "丢弃邀请(_D)"
 msgid "_Block invitations"
 msgstr "屏蔽邀请(_B)"
 
-#: src/conversationpopupmenu.cpp:248
+#: src/conversationpopupmenu.cpp:249
 msgid "C_lear history"
 msgstr "清除历史记录(_l)"
 
-#: src/conversationpopupmenu.cpp:251
+#: src/conversationpopupmenu.cpp:253
 msgid "_Remove conversation"
 msgstr "删除会话(_R)"
 
-#: src/conversationpopupmenu.cpp:257
+#: src/conversationpopupmenu.cpp:259
 msgid "_Block contact"
 msgstr "屏蔽联系人(_B)"
 
-#: src/conversationpopupmenu.cpp:261
+#: src/conversationpopupmenu.cpp:263
 msgid "_Unblock contact"
 msgstr "取消屏蔽联系人(_U)"
 
-#: src/conversationpopupmenu.cpp:268
+#: src/conversationpopupmenu.cpp:270
 msgid "_Profile"
 msgstr "资料(_P)"
 
@@ -1325,11 +1325,11 @@ msgstr "资料(_P)"
 msgid "(None)"
 msgstr "（无）"
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:162
 msgid "Yes"
 msgstr ""
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:162
 msgid "No"
 msgstr ""
 
@@ -1384,7 +1384,7 @@ msgid "Import from backup"
 msgstr "从备份文件导入"
 
 #: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
-#: src/chatview.cpp:384 src/chatview.cpp:398
+#: src/chatview.cpp:386 src/chatview.cpp:400
 #: src/newaccountsettingsview.cpp:929 src/newaccountsettingsview.cpp:946
 msgid "Save File"
 msgstr "保存文件"
@@ -1488,43 +1488,43 @@ msgid ""
 "current calls?"
 msgstr "当前有通话正在进行。您要关闭窗口并停止当前所有通话吗？"
 
-#: src/mainwindow.cpp:2790
+#: src/mainwindow.cpp:2791
 msgid "Clear history"
 msgstr "清除历史记录"
 
-#: src/mainwindow.cpp:2791
+#: src/mainwindow.cpp:2792
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "您真的要清除此会话的历史记录吗？"
 
-#: src/mainwindow.cpp:2806
+#: src/mainwindow.cpp:2808
 msgid "Remove conversation"
 msgstr "移除会话"
 
-#: src/mainwindow.cpp:2807
+#: src/mainwindow.cpp:2809
 msgid "Do you really want to remove this conversation?"
 msgstr "您真的要删除此会话吗？"
 
-#: src/mainwindow.cpp:2822
+#: src/mainwindow.cpp:2824
 msgid "Block contact"
 msgstr "屏蔽联系人"
 
-#: src/mainwindow.cpp:2823
+#: src/mainwindow.cpp:2825
 msgid "Do you really want to block this contact?"
 msgstr "您真的要屏蔽此联系人吗？"
 
-#: src/chatview.cpp:384 src/chatview.cpp:398
+#: src/chatview.cpp:386 src/chatview.cpp:400
 msgid "Send File"
 msgstr "发送文件"
 
-#: src/chatview.cpp:453
+#: src/chatview.cpp:455
 msgid "Retry"
 msgstr "重试"
 
-#: src/chatview.cpp:698
+#: src/chatview.cpp:700
 msgid "Stop"
 msgstr "停止"
 
-#: src/chatview.cpp:1225
+#: src/chatview.cpp:1271
 msgid "Send"
 msgstr "发送"
 

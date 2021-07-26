@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-19 03:09-0400\n"
-"PO-Revision-Date: 2021-07-19 07:09+0000\n"
+"POT-Creation-Date: 2021-07-26 03:09-0400\n"
+"PO-Revision-Date: 2021-07-19 10:03+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/jami/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
@@ -272,7 +272,7 @@ msgid "Toggle recording"
 msgstr "Shfa/fshih incizim"
 
 #: ui/currentcallview.ui:424 ui/currentcallview.ui:599
-#: ui/messagingwidget.ui:29 src/chatview.cpp:463
+#: ui/messagingwidget.ui:29 src/chatview.cpp:465
 msgid "Record"
 msgstr "Regjistroje"
 
@@ -1035,7 +1035,7 @@ msgstr "Si figurë cakto përzgjedhjen"
 #: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
 #: src/video/video_widget.cpp:864 src/video/video_widget.cpp:883
 #: src/avatarmanipulation.cpp:439 src/avatarmanipulation.cpp:462
-#: src/chatview.cpp:387 src/chatview.cpp:402
+#: src/chatview.cpp:389 src/chatview.cpp:404
 msgid "_Open"
 msgstr "_Hape"
 
@@ -1044,7 +1044,7 @@ msgstr "_Hape"
 #: src/video/video_widget.cpp:865 src/video/video_widget.cpp:882
 #: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
-#: src/chatview.cpp:388 src/chatview.cpp:401
+#: src/chatview.cpp:390 src/chatview.cpp:403
 #: src/newaccountsettingsview.cpp:933 src/newaccountsettingsview.cpp:949
 msgid "_Cancel"
 msgstr "_Anuloje"
@@ -1125,7 +1125,7 @@ msgstr "Zgjidhni dosje shkarkimesh"
 
 #: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
 #: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:897
-#: src/chatview.cpp:387 src/chatview.cpp:402
+#: src/chatview.cpp:389 src/chatview.cpp:404
 #: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:950
 msgid "_Save"
 msgstr "_Ruaje"
@@ -1234,7 +1234,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "(%s)"
-msgstr ""
+msgstr "\"%s\"\n(%s)"
 
 #: src/dialogs.cpp:134
 msgid ""
@@ -1291,23 +1291,23 @@ msgstr "_Hidhe tej ftesën"
 msgid "_Block invitations"
 msgstr "_Blloko ftesat"
 
-#: src/conversationpopupmenu.cpp:248
+#: src/conversationpopupmenu.cpp:249
 msgid "C_lear history"
 msgstr "_Spastroje historikun"
 
-#: src/conversationpopupmenu.cpp:251
+#: src/conversationpopupmenu.cpp:253
 msgid "_Remove conversation"
 msgstr "Hi_qe bisedën"
 
-#: src/conversationpopupmenu.cpp:257
+#: src/conversationpopupmenu.cpp:259
 msgid "_Block contact"
 msgstr "B_llokoje kontakt"
 
-#: src/conversationpopupmenu.cpp:261
+#: src/conversationpopupmenu.cpp:263
 msgid "_Unblock contact"
 msgstr "_Zhbllokoje kontaktin"
 
-#: src/conversationpopupmenu.cpp:268
+#: src/conversationpopupmenu.cpp:270
 msgid "_Profile"
 msgstr "_Profil"
 
@@ -1315,13 +1315,13 @@ msgstr "_Profil"
 msgid "(None)"
 msgstr "(Asnjë)"
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:162
 msgid "Yes"
-msgstr ""
+msgstr "Po"
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:162
 msgid "No"
-msgstr ""
+msgstr "Jo"
 
 #: src/accountcreationwizard.cpp:327
 msgid "An error occurred during the account creation."
@@ -1374,7 +1374,7 @@ msgid "Import from backup"
 msgstr "Importoni prej kopjeruajtjeje"
 
 #: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
-#: src/chatview.cpp:384 src/chatview.cpp:398
+#: src/chatview.cpp:386 src/chatview.cpp:400
 #: src/newaccountsettingsview.cpp:929 src/newaccountsettingsview.cpp:946
 msgid "Save File"
 msgstr "Ruaje Kartelën"
@@ -1478,43 +1478,43 @@ msgid ""
 "current calls?"
 msgstr "Ka një thirrje në kryerje e sipër. Doni të mbyllet dritarja dhe të ndalen krejt thirrjet e tanishme?"
 
-#: src/mainwindow.cpp:2790
+#: src/mainwindow.cpp:2791
 msgid "Clear history"
 msgstr "Spastroje historikun"
 
-#: src/mainwindow.cpp:2791
+#: src/mainwindow.cpp:2792
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Doni të spastrohet vërtet historiku i kësaj bisede?"
 
-#: src/mainwindow.cpp:2806
+#: src/mainwindow.cpp:2808
 msgid "Remove conversation"
 msgstr "Hiqe bisedën"
 
-#: src/mainwindow.cpp:2807
+#: src/mainwindow.cpp:2809
 msgid "Do you really want to remove this conversation?"
 msgstr "Doni të hiqet vërtet kjo bisedë?"
 
-#: src/mainwindow.cpp:2822
+#: src/mainwindow.cpp:2824
 msgid "Block contact"
 msgstr "Bllokojeni kontaktin"
 
-#: src/mainwindow.cpp:2823
+#: src/mainwindow.cpp:2825
 msgid "Do you really want to block this contact?"
 msgstr "Doni të bllokohet vërtet ky kontakt?"
 
-#: src/chatview.cpp:384 src/chatview.cpp:398
+#: src/chatview.cpp:386 src/chatview.cpp:400
 msgid "Send File"
 msgstr "Dërgo Kartelë"
 
-#: src/chatview.cpp:453
+#: src/chatview.cpp:455
 msgid "Retry"
 msgstr "Riprovoni"
 
-#: src/chatview.cpp:698
+#: src/chatview.cpp:700
 msgid "Stop"
 msgstr "Ndale"
 
-#: src/chatview.cpp:1225
+#: src/chatview.cpp:1271
 msgid "Send"
 msgstr "Dërgoje"
 
@@ -1524,7 +1524,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (jamid) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "S’arrihet të gatitet.\nSigurohuni se demoni Jami (jamid) është në punë.\nGabim: %s"
 
 #: src/client.cpp:117
 msgid "Jami Error"
