@@ -86,6 +86,26 @@ G_DEFINE_TYPE_WITH_PRIVATE(ConversationsView, conversations_view, GTK_TYPE_TREE_
 
 #define CONVERSATIONS_VIEW_GET_PRIVATE(obj) (G_TYPE_INSTANCE_GET_PRIVATE ((obj), CONVERSATIONS_VIEW_TYPE, ConversationsViewPrivate))
 
+enum {
+    STATE_STARTED, /* start state */
+    STATE_LOADING, /* feeding items to store */
+    STATE_COMPLETE, /* feeding store to view */
+    LAST_STATE
+};
+
+struct idle_data {
+    guint state;
+    guint id;
+
+    GtkListStore *list_store;
+    GtkWidget *tree_view;
+    AccountInfoPointer const *accountInfo;
+
+    gint num_items;
+    gint num_loaded;
+    GList *items;
+};
+
 namespace { namespace details {
 
 class CppImpl
@@ -315,6 +335,102 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     g_object_set(G_OBJECT(cell), "markup", "", NULL);
 }
 
+static gboolean
+load_conversations(gpointer data)
+{
+    struct idle_data *d = (struct idle_data *) data;
+    const lrc::api::conversation::Info *conv;
+    GtkTreeIter iter;
+
+    g_assert(d->state == STATE_STARTED || d->state == STATE_LOADING);
+
+    if (!d->items) {
+        d->state = STATE_COMPLETE;
+        return FALSE;
+    }
+
+    if (!d->num_items) {
+        /* first run */
+        d->num_items = g_list_length(d->items);
+        d->num_loaded = 0;
+        d->state = STATE_LOADING;
+    }
+
+    conv = (lrc::api::conversation::Info *) g_list_nth_data(d->items, d->num_loaded);
+    g_assert(conv != NULL);
+
+    if (conv->participants.empty())
+        return TRUE;
+
+    auto contacts = (*d->accountInfo)->conversationModel->peersForConversation(conv->uid);
+    if (contacts.empty())
+        return TRUE;
+    auto contactUri = contacts.front();
+    try {
+        auto contactInfo = (*d->accountInfo)->contactModel->getContact(contactUri);
+        auto lastMessage = conv->interactions.empty() ? "" :
+            conv->interactions.at(conv->lastMessageUid).body;
+        std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
+        auto alias = (*d->accountInfo)->conversationModel->title(conv->uid);
+        alias.remove('\r');
+        gtk_list_store_append(d->list_store, &iter);
+        gtk_list_store_set(d->list_store, &iter,
+                           0 /* col # */ , qUtf8Printable(conv->uid) /* celldata */,
+                           1 /* col # */ , qUtf8Printable(alias) /* celldata */,
+                           2 /* col # */ , qUtf8Printable(contactInfo.profileInfo.uri) /* celldata */,
+                           3 /* col # */ , qUtf8Printable(contactInfo.registeredName) /* celldata */,
+                           4 /* col # */ , qUtf8Printable(contactInfo.profileInfo.avatar) /* celldata */,
+                           5 /* col # */ , qUtf8Printable(lastMessage) /* celldata */,
+                           -1 /* end */);
+    } catch (const std::out_of_range&) {
+        // ContactModel::getContact() exception
+    }
+    d->num_loaded++;
+
+    if (d->num_loaded == d->num_items) {
+        /* loaded everything, can now change state and remove the
+         * idle callback function.  after use, cleanup_load_items
+         * will be called. */
+        d->state = STATE_COMPLETE;
+        d->num_loaded = 0;
+        d->num_items = 0;
+        d->items = NULL;
+        return FALSE;
+    } else {
+        return TRUE;
+    }
+}
+
+static void
+cleanup_load_conversations(gpointer data)
+{
+    struct idle_data *d = (struct idle_data *) data;
+    g_assert(d->state == STATE_COMPLETE);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(d->tree_view),
+                            GTK_TREE_MODEL(d->list_store));
+    g_free(d);
+}
+
+static void
+lazy_load_conversations(AccountInfoPointer const *accountInfo,
+                        GtkWidget *tree_view,
+                        GtkListStore *list_store,
+                        GList *items)
+{
+    struct idle_data *data = g_new(struct idle_data, 1);
+    data->state = STATE_STARTED;
+    data->num_items = 0;
+    data->num_loaded = 0;
+    data->list_store = list_store;
+    data->tree_view = tree_view;
+    data->accountInfo = accountInfo;
+    data->items = items;
+    data->id = g_idle_add_full(G_PRIORITY_HIGH_IDLE,
+                               load_conversations,
+                               data,
+                               cleanup_load_conversations);
+}
+
 void
 update_conversation(ConversationsView *self, const std::string& uid) {
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
@@ -366,70 +482,51 @@ update_conversation(ConversationsView *self, const std::string& uid) {
     }
 }
 
-static GtkTreeModel*
+static void
 create_and_fill_model(ConversationsView *self)
 {
     auto priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
-    auto store = gtk_list_store_new (6 /* # of cols */ ,
-                                     G_TYPE_STRING,
-                                     G_TYPE_STRING,
-                                     G_TYPE_STRING,
-                                     G_TYPE_STRING,
-                                     G_TYPE_STRING,
-                                     G_TYPE_STRING,
-                                     G_TYPE_UINT);
-    if(!priv) GTK_TREE_MODEL (store);
+    auto store = gtk_list_store_new(6 /* # of cols */ ,
+                                    G_TYPE_STRING,
+                                    G_TYPE_STRING,
+                                    G_TYPE_STRING,
+                                    G_TYPE_STRING,
+                                    G_TYPE_STRING,
+                                    G_TYPE_STRING,
+                                    G_TYPE_UINT);
+    if (!priv) return;
+
     GtkTreeIter iter;
 
     if (priv->cpp && !priv->cpp->status.isEmpty()) {
-        gtk_list_store_append (store, &iter);
-        gtk_list_store_set (store, &iter,
-                            0 /* col # */ , "" /* celldata */,
-                            1 /* col # */ , qUtf8Printable(priv->cpp->status) /* celldata */,
-                            2 /* col # */ , "" /* celldata */,
-                            3 /* col # */ , "" /* celldata */,
-                            4 /* col # */ , "" /* celldata */,
-                            5 /* col # */ , "" /* celldata */,
-                            -1 /* end */);
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter,
+                           0 /* col # */ , "" /* celldata */,
+                           1 /* col # */ , qUtf8Printable(priv->cpp->status) /* celldata */,
+                           2 /* col # */ , "" /* celldata */,
+                           3 /* col # */ , "" /* celldata */,
+                           4 /* col # */ , "" /* celldata */,
+                           5 /* col # */ , "" /* celldata */,
+                           -1 /* end */);
     }
 
+    GList *list = nullptr;
+    for (const lrc::api::conversation::Info& c :
+             (*priv->accountInfo_)->conversationModel->getAllSearchResults()) {
+        list = g_list_append(list, (gpointer) &c);
+    }
+    lazy_load_conversations(priv->accountInfo_,
+                            (GtkWidget *) self,
+                            store, list);
 
-    auto fillModelLambda = [&](const auto& queue) {
-        for (const lrc::api::conversation::Info& conversation : queue) {
-            if (conversation.participants.empty()) {
-                g_debug("Found conversation with empty list of participants - most likely the result of earlier bug.");
-                break;
-            }
-
-            auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(conversation.uid);
-            if (contacts.empty()) continue;
-            auto contactUri = contacts.front();
-            try {
-                auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contactUri);
-                auto lastMessage = conversation.interactions.empty() ? "" :
-                    conversation.interactions.at(conversation.lastMessageUid).body;
-                std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
-                gtk_list_store_append (store, &iter);
-                auto alias = (*priv->accountInfo_)->conversationModel->title(conversation.uid);
-                alias.remove('\r');
-                gtk_list_store_set (store, &iter,
-                                    0 /* col # */ , qUtf8Printable(conversation.uid) /* celldata */,
-                                    1 /* col # */ , qUtf8Printable(alias) /* celldata */,
-                                    2 /* col # */ , qUtf8Printable(contactInfo.profileInfo.uri) /* celldata */,
-                                    3 /* col # */ , qUtf8Printable(contactInfo.registeredName) /* celldata */,
-                                    4 /* col # */ , qUtf8Printable(contactInfo.profileInfo.avatar) /* celldata */,
-                                    5 /* col # */ , qUtf8Printable(lastMessage) /* celldata */,
-                                    -1 /* end */);
-            } catch (const std::out_of_range&) {
-                // ContactModel::getContact() exception
-            }
-        }
-    };
-
-    fillModelLambda((*priv->accountInfo_)->conversationModel->getAllSearchResults());
-    fillModelLambda((*priv->accountInfo_)->conversationModel->allFilteredConversations().get());
-
-    return GTK_TREE_MODEL (store);
+    list = nullptr;
+    for (const lrc::api::conversation::Info& c :
+             (*priv->accountInfo_)->conversationModel->allFilteredConversations().get()) {
+        list = g_list_append(list, (gpointer) &c);
+    }
+    lazy_load_conversations(priv->accountInfo_,
+                            (GtkWidget *) self,
+                            store, list);
 }
 
 static void
@@ -667,10 +764,7 @@ build_conversations_view(ConversationsView *self)
     auto* priv = CONVERSATIONS_VIEW_GET_PRIVATE(self);
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(self), FALSE);
 
-    auto model = create_and_fill_model(self);
-    gtk_tree_view_set_model(GTK_TREE_VIEW(self),
-                            GTK_TREE_MODEL(model));
-    g_object_unref(model);
+    create_and_fill_model(self);
 
     gtk_tree_view_set_enable_search(GTK_TREE_VIEW(self), false);
 
@@ -721,11 +815,7 @@ build_conversations_view(ConversationsView *self)
     &*(*priv->accountInfo_)->conversationModel,
     &lrc::api::ConversationModel::modelChanged,
     [self] () {
-        auto model = create_and_fill_model(self);
-
-        gtk_tree_view_set_model(GTK_TREE_VIEW(self),
-                                GTK_TREE_MODEL(model));
-        g_object_unref(model);
+        create_and_fill_model(self);
     });
 
 
@@ -733,11 +823,7 @@ build_conversations_view(ConversationsView *self)
     &*(*priv->accountInfo_)->conversationModel,
     &lrc::api::ConversationModel::searchResultUpdated,
     [self] () {
-        auto model = create_and_fill_model(self);
-
-        gtk_tree_view_set_model(GTK_TREE_VIEW(self),
-                                GTK_TREE_MODEL(model));
-        g_object_unref(model);
+        create_and_fill_model(self);
     });
     priv->searchStatusChangedConnection_ = QObject::connect(
     &*(*priv->accountInfo_)->conversationModel,
@@ -793,11 +879,7 @@ build_conversations_view(ConversationsView *self)
     &*(*priv->accountInfo_)->conversationModel,
     &lrc::api::ConversationModel::filterChanged,
     [self] () {
-        auto model = create_and_fill_model(self);
-
-        gtk_tree_view_set_model(GTK_TREE_VIEW(self),
-                                GTK_TREE_MODEL(model));
-        g_object_unref(model);
+        create_and_fill_model(self);
     });
 
     priv->callChangedConnection_ = QObject::connect(
@@ -814,9 +896,7 @@ build_conversations_view(ConversationsView *self)
         gtk_tree_model_get(model, &iter, 0, &conversationUid, -1);
 
         // create updated model
-        auto new_model = create_and_fill_model(self);
-        gtk_tree_view_set_model(GTK_TREE_VIEW(self), GTK_TREE_MODEL(new_model));
-        g_object_unref(new_model);
+        create_and_fill_model(self);
 
         // make sure conversation remains selected
         conversations_view_select_conversation(self, conversationUid);
