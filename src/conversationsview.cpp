@@ -94,6 +94,13 @@ enum {
     LAST_STATE
 };
 
+struct render_contact_photo_data {
+    QString& uid;
+    AccountInfoPointer const *accountInfo;
+    QSize& size;
+    bool displayInformation;
+};
+
 struct idle_data {
     guint state;
     guint id;
@@ -124,6 +131,38 @@ CppImpl::CppImpl()
 }}
 
 static void
+render_contact_photo_thread(GTask *task,
+                            G_GNUC_UNUSED gpointer source_object,
+                            gpointer task_data,
+                            G_GNUC_UNUSED GCancellable *cancellable)
+{
+    auto *d = (struct render_contact_photo_data *) task_data;
+    static lrc::api::conversation::Info invalidConversation;
+    auto convOpt = (*d->accountInfo)->conversationModel->getConversationForUid(d->uid);
+    auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
+        convOpt ? convOpt->get() : invalidConversation,
+        **(d->accountInfo),
+        d->size,
+        d->displayInformation);
+    g_task_return_pointer(task,
+                          var_photo.value<std::shared_ptr<GdkPixbuf>>().get(),
+                          (GDestroyNotify) g_free);
+}
+
+static void
+render_contact_photo_callback(G_GNUC_UNUSED GObject *source_object,
+                              GAsyncResult *result /* image pointer */,
+                              gpointer data /* cell */)
+{
+    // set the width of the cell rendered to the width of the photo
+    // so that the other renderers are shifted to the right
+    g_object_set(G_OBJECT(data), "width", 50, NULL);
+    g_object_set(G_OBJECT(data), "pixbuf",
+                 g_task_propagate_pointer(G_TASK(result), NULL),
+                 NULL);
+}
+
+static void
 render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
                      GtkCellRenderer *cell,
                      GtkTreeModel *model,
@@ -152,21 +191,17 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             isBanned = contactInfo.isBanned;
         } catch (...) { }
     }
-    std::shared_ptr<GdkPixbuf> image;
-    static lrc::api::conversation::Info invalidConversation;
-    auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(uid);
-    auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
-        convOpt ? convOpt->get() : invalidConversation,
-        **(priv->accountInfo_),
-        QSize(50, 50),
-        isPresent
-    );
-    image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
 
-    // set the width of the cell rendered to the width of the photo
-    // so that the other renderers are shifted to the right
-    g_object_set(G_OBJECT(cell), "width", 50, NULL);
-    g_object_set(G_OBJECT(cell), "pixbuf", image.get(), NULL);
+    auto *data = g_new(struct render_contact_photo_data, 1);
+    data->uid = uid;
+    data->accountInfo = priv->accountInfo_;
+    data->size = QSize(50, 50);
+    data->displayInformation = isPresent;
+
+    GTask *task = g_task_new(self, NULL, render_contact_photo_callback, cell);
+    g_task_set_task_data(task, data, g_free);
+    g_task_run_in_thread(task, render_contact_photo_thread);
+    g_object_unref(task);
 
     // Banned contacts should be displayed with grey bg
     g_object_set(G_OBJECT(cell), "cell-background", isBanned ? "#BDBDBD" : NULL, NULL);
