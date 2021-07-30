@@ -22,6 +22,30 @@
       },
       "revId": "9cfc4fcd07363f8517e3d5d2385b20b39e48b8f2",
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06b6e2d5_8a83b4c0",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2021-07-30T19:39:51Z",
+      "side": 1,
+      "message": "Ack. thanks, i think this takes me one step closer. i think now i might have to deal with conversationPhoto\u0027s return type.",
+      "parentUuid": "e1ec6c60_f4271e8a",
+      "range": {
+        "startLine": 98,
+        "startChar": 7,
+        "endLine": 98,
+        "endChar": 17
+      },
+      "revId": "9cfc4fcd07363f8517e3d5d2385b20b39e48b8f2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a"
     }
   ]
 }
