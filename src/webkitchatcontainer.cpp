@@ -285,10 +285,11 @@ interaction_to_json_interaction_object(lrc::api::ConversationModel& conversation
 
 QString
 interactions_to_json_array_object(lrc::api::ConversationModel& conversation_model,
+                                  const QString& convId,
                                   lrc::api::MessagesList interactions) {
     QJsonArray array;
     for (const auto& interaction: interactions)
-        array.append(build_interaction_json(conversation_model, 0, interaction.first, interaction.second));
+        array.append(build_interaction_json(conversation_model, convId, interaction.first, interaction.second));
     return QString(QJsonDocument(array).toJson(QJsonDocument::Compact));
 }
 
@@ -746,9 +747,10 @@ webkit_chat_container_print_new_interaction(WebKitChatContainer *view,
 void
 webkit_chat_container_print_history(WebKitChatContainer *view,
                                     lrc::api::ConversationModel& conversation_model,
+                                    const QString& convId,
                                     lrc::api::MessagesList interactions)
 {
-    auto interactions_str = interactions_to_json_array_object(conversation_model, interactions).toUtf8();
+    auto interactions_str = interactions_to_json_array_object(conversation_model, convId, interactions).toUtf8();
     gchar* function_call = g_strdup_printf("printHistory(%s)", interactions_str.constData());
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
@@ -757,10 +759,11 @@ webkit_chat_container_print_history(WebKitChatContainer *view,
 void
 webkit_chat_container_update_history(WebKitChatContainer *view,
                                      lrc::api::ConversationModel& conversation_model,
+                                     const QString& convId,
                                      lrc::api::MessagesList interactions,
                                      bool all_loaded)
 {
-    auto interactions_str = interactions_to_json_array_object(conversation_model, interactions).toUtf8();
+    auto interactions_str = interactions_to_json_array_object(conversation_model, convId, interactions).toUtf8();
     gchar* function_call = g_strdup_printf("updateHistory(%s, %s)",
                                            interactions_str.constData(),
                                            all_loaded ? "true" : "false");
