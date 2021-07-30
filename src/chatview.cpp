@@ -131,8 +131,8 @@ class CppImpl {
 public:
     explicit CppImpl(ChatView& widget);
     struct Interaction {
-        const QString& conv;
-        const QString& id;
+        QString conv;
+        QString id;
         lrc::api::interaction::Info info;
     };
     std::vector<Interaction> interactionsBuffer_;
