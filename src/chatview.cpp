@@ -1094,6 +1094,7 @@ webkit_chat_container_ready(ChatView* self)
         webkit_chat_container_print_history(
             WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
             *convModel,
+            priv->conversation_->uid,
             optConv->get().interactions);
     }
     convModel->clearUnreadInteractions(priv->conversation_->uid);
@@ -1137,6 +1138,7 @@ webkit_chat_container_ready(ChatView* self)
             webkit_chat_container_update_history(
                 WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                 *convModel,
+                conversationId,
                 optConv->get().interactions,
                 optConv->get().allMessagesLoaded);
         });
