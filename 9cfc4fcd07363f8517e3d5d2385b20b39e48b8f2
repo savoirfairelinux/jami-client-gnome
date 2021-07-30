@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1ec6c60_f4271e8a",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 220
+      },
+      "writtenOn": "2021-07-30T18:10:10Z",
+      "side": 1,
+      "message": "no reference, that can be invalidated.\n\nAlso Gtk doesn\u0027t support well cpp objects (g_new, etc). You must not store cpp objects there. That\u0027s why AccountInfoPointer and CppImpl exists, generally we store pointers or plain C objects in structures for Gtk, else it will be weirdly created/deleted and will cause a lot of weird behaviours.\n\nI think the crashes you are experimenting are from there",
+      "range": {
+        "startLine": 98,
+        "startChar": 7,
+        "endLine": 98,
+        "endChar": 17
+      },
+      "revId": "9cfc4fcd07363f8517e3d5d2385b20b39e48b8f2",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a"
+    }
+  ]
+}
