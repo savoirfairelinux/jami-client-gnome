@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-26 03:09-0400\n"
+"POT-Creation-Date: 2021-08-02 03:09-0400\n"
 "PO-Revision-Date: 2021-07-20 09:51+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/savoirfairelinux/jami/language/hu/)\n"
@@ -172,7 +172,7 @@ msgstr "Beépülő modul"
 msgid "Account"
 msgstr "Fiók"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1955
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1963
 msgid "Settings"
 msgstr "Beállítások"
 
@@ -274,7 +274,7 @@ msgid "Toggle recording"
 msgstr "Felvétel be-/kikapcsolása"
 
 #: ui/currentcallview.ui:424 ui/currentcallview.ui:599
-#: ui/messagingwidget.ui:29 src/chatview.cpp:465
+#: ui/messagingwidget.ui:29 src/chatview.cpp:467
 msgid "Record"
 msgstr "Felvétel"
 
@@ -1035,18 +1035,18 @@ msgid "Set selection as image"
 msgstr "Kijelölés beállítása képként"
 
 #: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
-#: src/video/video_widget.cpp:864 src/video/video_widget.cpp:883
+#: src/video/video_widget.cpp:865 src/video/video_widget.cpp:884
 #: src/avatarmanipulation.cpp:439 src/avatarmanipulation.cpp:462
-#: src/chatview.cpp:389 src/chatview.cpp:404
+#: src/chatview.cpp:391 src/chatview.cpp:406
 msgid "_Open"
 msgstr "_Megnyitás"
 
 #: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
 #: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
-#: src/video/video_widget.cpp:865 src/video/video_widget.cpp:882
+#: src/video/video_widget.cpp:866 src/video/video_widget.cpp:883
 #: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
-#: src/chatview.cpp:390 src/chatview.cpp:403
+#: src/chatview.cpp:392 src/chatview.cpp:405
 #: src/newaccountsettingsview.cpp:933 src/newaccountsettingsview.cpp:949
 msgid "_Cancel"
 msgstr "_Mégse"
@@ -1127,7 +1127,7 @@ msgstr "Letöltési mappa kiválasztása"
 
 #: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
 #: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:897
-#: src/chatview.cpp:389 src/chatview.cpp:404
+#: src/chatview.cpp:391 src/chatview.cpp:406
 #: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:950
 msgid "_Save"
 msgstr "_Mentés"
@@ -1170,47 +1170,47 @@ msgctxt ""
 msgid "Decline"
 msgstr "Elutasítás"
 
-#: src/video/video_widget.cpp:433
+#: src/video/video_widget.cpp:434
 msgid "Hangup"
 msgstr "Hívás befejezése"
 
-#: src/video/video_widget.cpp:448
+#: src/video/video_widget.cpp:449
 msgid "Maximize"
 msgstr "Teljes méret"
 
-#: src/video/video_widget.cpp:463
+#: src/video/video_widget.cpp:464
 msgid "Minimize"
 msgstr "Kis méret"
 
-#: src/video/video_widget.cpp:483
+#: src/video/video_widget.cpp:484
 msgid "Unset moderator"
 msgstr "Moderátor megszüntetése"
 
-#: src/video/video_widget.cpp:483
+#: src/video/video_widget.cpp:484
 msgid "Set moderator"
 msgstr "Moderátor beállítása"
 
-#: src/video/video_widget.cpp:547
+#: src/video/video_widget.cpp:548
 msgid "More options"
 msgstr "További lehetőségek"
 
-#: src/video/video_widget.cpp:861 src/video/video_widget.cpp:879
+#: src/video/video_widget.cpp:862 src/video/video_widget.cpp:880
 msgid "Choose file"
 msgstr "Fájl kiválasztása"
 
-#: src/video/video_widget.cpp:940
+#: src/video/video_widget.cpp:941
 msgid "Share _screen area"
 msgstr "_Képernyő részének megosztása"
 
-#: src/video/video_widget.cpp:948
+#: src/video/video_widget.cpp:949
 msgid "Share _monitor"
 msgstr "_Monitor megosztása"
 
-#: src/video/video_widget.cpp:955
+#: src/video/video_widget.cpp:956
 msgid "Stream _file"
 msgstr "_Fájl-adatfolyam"
 
-#: src/video/video_widget.cpp:965
+#: src/video/video_widget.cpp:966
 msgid "Show advanced information"
 msgstr "Haladó részletek megjelenítése"
 
@@ -1273,55 +1273,55 @@ msgstr "Visszaállítja a főablak rejtett állapotát (csak az elsődleges pél
 msgid "- GNOME client for Jami"
 msgstr "– GNOME ügyfél Jami számára"
 
-#: src/conversationpopupmenu.cpp:225
+#: src/conversationpopupmenu.cpp:223
 msgid "Place _video call"
 msgstr "_Videohívás"
 
-#: src/conversationpopupmenu.cpp:228
+#: src/conversationpopupmenu.cpp:226
 msgid "Place _audio call"
 msgstr "_Hanghívás"
 
-#: src/conversationpopupmenu.cpp:236
+#: src/conversationpopupmenu.cpp:234
 msgid "_Add to conversations"
 msgstr "Hozzáad a beszélgetésekhez"
 
-#: src/conversationpopupmenu.cpp:240
+#: src/conversationpopupmenu.cpp:238
 msgid "_Discard invitation"
 msgstr "Meghívás _elutasítása"
 
-#: src/conversationpopupmenu.cpp:243
+#: src/conversationpopupmenu.cpp:241
 msgid "_Block invitations"
 msgstr "Meghívások _letiltása"
 
-#: src/conversationpopupmenu.cpp:249
+#: src/conversationpopupmenu.cpp:247
 msgid "C_lear history"
 msgstr "Előzmények _törlése"
 
-#: src/conversationpopupmenu.cpp:253
+#: src/conversationpopupmenu.cpp:251
 msgid "_Remove conversation"
 msgstr "Beszélgetés eltávolítása"
 
-#: src/conversationpopupmenu.cpp:259
+#: src/conversationpopupmenu.cpp:257
 msgid "_Block contact"
 msgstr "Kapcsolat _letiltása"
 
-#: src/conversationpopupmenu.cpp:263
+#: src/conversationpopupmenu.cpp:261
 msgid "_Unblock contact"
 msgstr "Kapcsolat letiltás _feloldása"
 
-#: src/conversationpopupmenu.cpp:270
+#: src/conversationpopupmenu.cpp:268
 msgid "_Profile"
 msgstr "_Profil"
 
-#: src/profileview.cpp:132
+#: src/profileview.cpp:133
 msgid "(None)"
 msgstr "(Nincs)"
 
-#: src/profileview.cpp:162
+#: src/profileview.cpp:163
 msgid "Yes"
 msgstr "Igen"
 
-#: src/profileview.cpp:162
+#: src/profileview.cpp:163
 msgid "No"
 msgstr "Nem"
 
@@ -1376,7 +1376,7 @@ msgid "Import from backup"
 msgstr "Importálás biztonsági másolatból"
 
 #: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
-#: src/chatview.cpp:386 src/chatview.cpp:400
+#: src/chatview.cpp:388 src/chatview.cpp:402
 #: src/newaccountsettingsview.cpp:929 src/newaccountsettingsview.cpp:946
 msgid "Save File"
 msgstr "Fájl mentése"
@@ -1419,104 +1419,104 @@ msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Csevegés megnyitása"
 
-#: src/mainwindow.cpp:1158
+#: src/mainwindow.cpp:1160
 msgid "Jami - Migration needed"
 msgstr "Jami - áttelepítés szükséges"
 
-#: src/mainwindow.cpp:1174
+#: src/mainwindow.cpp:1176
 msgid "Migration in progress... please do not close this window."
 msgstr "Az áttelepítés folyamatban van… Kérjük, ne zárja be ezt az ablakot."
 
-#: src/mainwindow.cpp:1458
+#: src/mainwindow.cpp:1460
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Beszélgetés keresése vagy indítása"
 
-#: src/mainwindow.cpp:1927
+#: src/mainwindow.cpp:1935
 msgid "Leave settings page"
 msgstr "A beállítási oldal elhagyása"
 
-#: src/mainwindow.cpp:2354
+#: src/mainwindow.cpp:2362
 msgid "Missed call from "
 msgstr "Nem fogadott hívás a következőtől: "
 
-#: src/mainwindow.cpp:2358
+#: src/mainwindow.cpp:2366
 msgid "Missed call"
 msgstr "Nem fogadott hívás"
 
-#: src/mainwindow.cpp:2375
+#: src/mainwindow.cpp:2383
 msgid "There are active calls"
 msgstr "Folyamatban lévő hívás(ok)"
 
-#: src/mainwindow.cpp:2445
+#: src/mainwindow.cpp:2453
 msgid " is calling you!"
 msgstr " hívja Önt"
 
-#: src/mainwindow.cpp:2448
+#: src/mainwindow.cpp:2456
 msgid "Incoming call"
 msgstr "Bejövő hívás"
 
-#: src/mainwindow.cpp:2605
+#: src/mainwindow.cpp:2616
 msgid "New request from "
 msgstr "Új kérés"
 
-#: src/mainwindow.cpp:2608
+#: src/mainwindow.cpp:2619
 msgid "Trust request"
 msgstr "Megbízható kérelem"
 
-#: src/mainwindow.cpp:2670
+#: src/mainwindow.cpp:2685
 msgid "New message"
 msgstr "Új üzenet"
 
-#: src/mainwindow.cpp:2722
+#: src/mainwindow.cpp:2737
 msgid "Stop current call?"
 msgstr "A jelenlegi hívás(ok) leállítása?"
 
-#: src/mainwindow.cpp:2723
+#: src/mainwindow.cpp:2738
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "A hívás jelenleg folyamatban van. Be kívánja zárni az ablakot és az összes jelenlegi hívást?"
 
-#: src/mainwindow.cpp:2791
+#: src/mainwindow.cpp:2806
 msgid "Clear history"
 msgstr "Előzmények törlése"
 
-#: src/mainwindow.cpp:2792
+#: src/mainwindow.cpp:2807
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Valóban szeretné törölni ennek a csevegésnek az előzményeit?"
 
-#: src/mainwindow.cpp:2808
+#: src/mainwindow.cpp:2823
 msgid "Remove conversation"
 msgstr "Beszélgetés törlése"
 
-#: src/mainwindow.cpp:2809
+#: src/mainwindow.cpp:2824
 msgid "Do you really want to remove this conversation?"
 msgstr "Valóban szeretné törölni ezt a csevegését?"
 
-#: src/mainwindow.cpp:2824
+#: src/mainwindow.cpp:2839
 msgid "Block contact"
 msgstr "Kapcsolat letiltása"
 
-#: src/mainwindow.cpp:2825
+#: src/mainwindow.cpp:2840
 msgid "Do you really want to block this contact?"
 msgstr "Valóban szeretné letiltani ezt a kapcsolatot?"
 
-#: src/chatview.cpp:386 src/chatview.cpp:400
+#: src/chatview.cpp:388 src/chatview.cpp:402
 msgid "Send File"
 msgstr "Fájl küldése"
 
-#: src/chatview.cpp:455
+#: src/chatview.cpp:457
 msgid "Retry"
 msgstr "Újra"
 
-#: src/chatview.cpp:700
+#: src/chatview.cpp:703
 msgid "Stop"
 msgstr "Megállítás"
 
-#: src/chatview.cpp:1271
+#: src/chatview.cpp:1266
 msgid "Send"
 msgstr "Küldés"
 
@@ -1548,24 +1548,24 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Figyelmeztetés! Ez a művelet eltávolítja ezt a fiókot az eszközön!\nMegjegyzés: ez a művelet nem vonható vissza. A bejegyzett neved is elveszhető!"
 
-#: src/currentcallview.cpp:1176
+#: src/currentcallview.cpp:1183
 msgid "Current conference (all accounts)"
 msgstr "Jelenlegi konferenciát (minden fiók)"
 
-#: src/currentcallview.cpp:1211
+#: src/currentcallview.cpp:1218
 msgid "Current calls (all accounts)"
 msgstr "Jelenlegi hívást (minden fiók)"
 
-#: src/currentcallview.cpp:1228
+#: src/currentcallview.cpp:1237
 msgid "Online contacts"
 msgstr "Elérhető kapcsolatok"
 
-#: src/currentcallview.cpp:1672
+#: src/currentcallview.cpp:1683
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Önműködő"
 
-#: src/currentcallview.cpp:1747
+#: src/currentcallview.cpp:1758
 msgid "me"
 msgstr "én"
 
