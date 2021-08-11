@@ -157,18 +157,11 @@ accept_incoming_call(IncomingCallView *self)
     g_return_if_fail(IS_INCOMING_CALL_VIEW(self));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(self);
 
-    try {
-        auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(priv->conversation_->uid);
-        if (contacts.empty()) return;
-        auto contact = (*priv->accountInfo_)->contactModel->getContact(contacts.front());
-        // If the contact is pending, we should accept its request
-        if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
-            (*priv->accountInfo_)->conversationModel->makePermanent(priv->conversation_->uid);
-        // Accept call
-        (*priv->accountInfo_)->callModel->accept(priv->conversation_->callId);
-    } catch (const std::out_of_range&) {
-        // ContactModel::getContact() exception
-    }
+    if (priv->conversation_->uid.isEmpty())
+        return;
+    (*priv->accountInfo_)->callModel->accept(priv->conversation_->callId);
+    if (priv->conversation_->isRequest)
+        (*priv->accountInfo_)->conversationModel->makePermanent(priv->conversation_->uid);
 }
 
 static void
