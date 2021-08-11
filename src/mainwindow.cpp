@@ -1029,9 +1029,9 @@ action_notification(gchar* title, MainWindow* self, Action action)
                 auto contacts = accountInfo.conversationModel->peersForConversation(conversation.uid);
                 if (!contacts.empty() && contacts.front().toStdString() == information) {
                     if (action == Action::ACCEPT) {
-                        accountInfo.conversationModel->makePermanent(conversation.uid);
+                        accountInfo.conversationModel->acceptConversationRequest(conversation.uid);
                     } else {
-                        accountInfo.conversationModel->removeConversation(conversation.uid);
+                        accountInfo.conversationModel->declineConversationRequest(conversation.uid);
                     }
                 }
             }
@@ -2913,17 +2913,9 @@ main_window_accept_call(MainWindow *win)
         return;
     }
 
-    auto contacts = priv->cpp->accountInfo_->conversationModel->peersForConversation(current.c_str());
-    if (contacts.empty()) return;
-    try {
-        auto contactUri = contacts.front();
-        auto contact = priv->cpp->accountInfo_->contactModel->getContact(contactUri);
-        // If the contact is pending, we should accept its request
-        if (contact.profileInfo.type == lrc::api::profile::Type::PENDING)
-            priv->cpp->accountInfo_->conversationModel->makePermanent(current.c_str());
-        // Accept call
-        priv->cpp->accountInfo_->callModel->accept(optConv->get().callId);
-    } catch (...) { }
+    priv->cpp->accountInfo_->callModel->accept(optConv->get().callId);
+    if (optConv->get().isRequest)
+        priv->cpp->accountInfo_->conversationModel->makePermanent(current.c_str());
 }
 
 void

@@ -155,6 +155,20 @@ add_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* pr
 }
 
 static void
+accept_conversation(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
+{
+    try
+    {
+        if (!priv->cpp || priv->cpp->uid_.isEmpty()) return;
+        (*priv->accountInfo_)->conversationModel->acceptConversationRequest(priv->cpp->uid_);
+    }
+    catch (...)
+    {
+        g_warning("Can't get conversation %s", priv->cpp? priv->cpp->uid_.toStdString().c_str() : "");
+    }
+}
+
+static void
 place_video_call(G_GNUC_UNUSED GtkWidget *menu, ConversationPopupMenuPrivate* priv)
 {
     if (!priv->cpp) return;
@@ -228,20 +242,20 @@ update(GtkTreeSelection *selection, ConversationPopupMenu *self)
             g_signal_connect(place_audio_call_conversation, "activate", G_CALLBACK(place_audio_call), priv);
         }
 
-        if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY ||
-            contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING) {
-            // If we can add this conversation
-            auto add_conversation_conversation = gtk_menu_item_new_with_mnemonic(_("_Add to conversations"));
-            gtk_menu_shell_append(GTK_MENU_SHELL(self), add_conversation_conversation);
-            g_signal_connect(add_conversation_conversation, "activate", G_CALLBACK(add_conversation), priv);
-            if (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING) {
-                auto rm_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Discard invitation"));
-                gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_conversation_item);
-                g_signal_connect(rm_conversation_item, "activate", G_CALLBACK(remove_conversation), priv);
-                auto block_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Block invitations"));
-                gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
-                g_signal_connect(block_conversation_item, "activate", G_CALLBACK(block_conversation), priv);
-            }
+        if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY) {
+            auto add_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Add to conversations"));
+            gtk_menu_shell_append(GTK_MENU_SHELL(self), add_conversation_item);
+            g_signal_connect(add_conversation_item, "activate", G_CALLBACK(add_conversation), priv);
+        } else if (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING) {
+            auto accept_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Accept invitation"));
+            gtk_menu_shell_append(GTK_MENU_SHELL(self), accept_conversation_item);
+            g_signal_connect(accept_conversation_item, "activate", G_CALLBACK(accept_conversation), priv);
+            auto rm_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Discard invitation"));
+            gtk_menu_shell_append(GTK_MENU_SHELL(self), rm_conversation_item);
+            g_signal_connect(rm_conversation_item, "activate", G_CALLBACK(remove_conversation), priv);
+            auto block_conversation_item = gtk_menu_item_new_with_mnemonic(_("_Block invitations"));
+            gtk_menu_shell_append(GTK_MENU_SHELL(self), block_conversation_item);
+            g_signal_connect(block_conversation_item, "activate", G_CALLBACK(block_conversation), priv);
         } else {
             if (!conv.isSwarm()) {
                 auto rm_history_conversation = gtk_menu_item_new_with_mnemonic(_("C_lear history"));

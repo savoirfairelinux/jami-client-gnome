@@ -845,6 +845,7 @@ webkit_chat_set_dark_mode(WebKitChatContainer *view, bool darkMode, const std::s
             --message-in-txt: white;\
             --file-in-timestamp-color: #999;\
             --file-out-timestamp-color: #eee;\
+            --bg-invitation-rect: #222;\
             --bg-color: " + background + ";\
             --non-action-icon-color: white;\
             --placeholder-text-color: #2b2b2b;\
