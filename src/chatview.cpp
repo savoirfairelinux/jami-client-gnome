@@ -728,11 +728,11 @@ webkit_chat_container_script_dialog(GtkWidget* webview, gchar *interaction, Chat
     auto order = std::string(interaction);
     if (!priv->conversation_) return;
     if (order == "ACCEPT") {
-        (*priv->accountInfo_)->conversationModel->makePermanent(priv->conversation_->uid);
+        (*priv->accountInfo_)->conversationModel->acceptConversationRequest(priv->conversation_->uid);
     } else if (order == "REFUSE") {
-        (*priv->accountInfo_)->conversationModel->removeConversation(priv->conversation_->uid);
+        (*priv->accountInfo_)->conversationModel->declineConversationRequest(priv->conversation_->uid);
     } else if (order == "BLOCK") {
-        (*priv->accountInfo_)->conversationModel->removeConversation(priv->conversation_->uid, true);
+        (*priv->accountInfo_)->conversationModel->declineConversationRequest(priv->conversation_->uid, true);
     } else if (order == "UNBLOCK") {
         try {
             auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(priv->conversation_->uid);
