@@ -140,15 +140,14 @@ build_view(ProfileView* view)
         gtk_label_set_text(GTK_LABEL(priv->id_label), qUtf8Printable(contact.profileInfo.uri));
 
         uint32_t img_size = 128;
-        std::shared_ptr<GdkPixbuf> image;
-        auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
+        GdkPixbuf *p = pxbm_conversation_photo(
             *convOpt,
             **(priv->accountInfo_),
             QSize(img_size, img_size),
             false
         );
-        image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
-        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->avatar), image.get());
+        gtk_image_set_from_pixbuf(GTK_IMAGE(priv->avatar), p);
+        g_object_unref(p);
 
         auto* surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, img_size, img_size);
         auto* cr = cairo_create(surface);
