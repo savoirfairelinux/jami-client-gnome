@@ -540,7 +540,6 @@ client_startup(GApplication *app)
     }
 
     /* init delegates */
-    GlobalInstances::setPixmapManipulator(std::unique_ptr<Interfaces::PixbufManipulator>(new Interfaces::PixbufManipulator()));
     GlobalInstances::setDBusErrorHandler(std::unique_ptr<Interfaces::DBusErrorHandler>(new Interfaces::DBusErrorHandler()));
 
     /* Override theme since we don't have appropriate icons for a dark them (yet) */

@@ -2,6 +2,7 @@
  *  Copyright (C) 2015-2021 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
+ *  Author: Amin Bandali <amin.bandali@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,10 +21,6 @@
 
 #include "pixbufmanipulator.h"
 
-#include <QtCore/QSize>
-#include <QtCore/QMetaType>
-#include <memory>
-
 #include <string>
 #include <algorithm>
 
@@ -34,32 +31,10 @@
 #include <api/account.h>
 #include <api/contact.h>
 
-namespace Interfaces {
+#define FALLBACK_AVATAR_SIZE 100
 
-PixbufManipulator::PixbufManipulator()
-    : conferenceAvatar_{draw_conference_avatar(FALLBACK_AVATAR_SIZE), g_object_unref}
-{
-}
-
-std::shared_ptr<GdkPixbuf>
-PixbufManipulator::temporaryItemAvatar() const
-{
-    GError *error = nullptr;
-    std::shared_ptr<GdkPixbuf> result(
-        gdk_pixbuf_new_from_resource("/net/jami/JamiGnome/temporary-item", &error),
-        g_object_unref
-    );
-
-    if (result == nullptr) {
-        g_debug("Could not load icon: %s", error->message);
-        g_clear_error(&error);
-        return generateAvatar("", "");
-    }
-    return result;
-}
-
-std::shared_ptr<GdkPixbuf>
-PixbufManipulator::generateAvatar(const std::string& alias, const std::string& uri) const
+GdkPixbuf *pxbm_generate_avatar(const std::string& alias,
+                                const std::string& uri)
 {
     std::string letter = {};
     if (!alias.empty()) {
@@ -72,22 +47,14 @@ PixbufManipulator::generateAvatar(const std::string& alias, const std::string& u
         color = std::string("0123456789abcdef").find(md5[0]);
     }
 
-    return std::shared_ptr<GdkPixbuf> {
-        draw_fallback_avatar(
-            FALLBACK_AVATAR_SIZE,
-            letter,
-            color
-        ),
-        g_object_unref
-    };
+    return draw_fallback_avatar(FALLBACK_AVATAR_SIZE, letter, color);
 }
 
-std::shared_ptr<GdkPixbuf>
-PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo,
-                                 const QSize& size,
-                                 bool displayInformation,
-                                 IconStatus status,
-                                 uint unreadMessages)
+GdkPixbuf *pxbm_scale_and_frame(const GdkPixbuf *photo,
+                                const QSize& size,
+                                bool displayInformation,
+                                IconStatus status,
+                                uint unreadMessages)
 {
     /**
      * for now, respect the height requested
@@ -109,32 +76,32 @@ PixbufManipulator::scaleAndFrame(const GdkPixbuf *photo,
     if (w > h)
         photo_h = h * ((double)photo_w / w);
 
-    std::unique_ptr<GdkPixbuf, decltype(g_object_unref)&> scaled_photo{
-        gdk_pixbuf_scale_simple(photo, photo_w, photo_h, GDK_INTERP_BILINEAR),
-        g_object_unref};
+    GdkPixbuf *scaled_photo = gdk_pixbuf_scale_simple(
+        photo, photo_w, photo_h, GDK_INTERP_BILINEAR);
 
     /* frame photo */
-    std::shared_ptr<GdkPixbuf> result {
-        frame_avatar(scaled_photo.get()),
-        g_object_unref
-    };
+    GdkPixbuf *result = frame_avatar(scaled_photo);
 
     /* draw information */
     if (displayInformation) {
         /* draw status */
-        result.reset(draw_status(result.get(), status), g_object_unref);
+        GdkPixbuf *result2 = draw_status(result, status);
+        g_object_unref(result);
 
         /* draw visual notification for unread messages */
-        if (unreadMessages)
-            result.reset(draw_unread_messages(result.get(), unreadMessages), g_object_unref);
+        if (unreadMessages) {
+            result = draw_unread_messages(result2, unreadMessages);
+            g_object_unref(result2);
+        } else {
+            result = result2;
+        }
     }
 
     return result;
 }
 
-QVariant PixbufManipulator::personPhoto(const QByteArray& data, const QString& type)
+GdkPixbuf *pxbm_person_photo(const QByteArray& data)
 {
-    Q_UNUSED(type);
     /* Try to load the image from the data provided by lrc vcard utils;
      * lrc is getting the image data assuming that it is inlined in the vcard,
      * for now URIs are not supported.
@@ -176,20 +143,27 @@ QVariant PixbufManipulator::personPhoto(const QByteArray& data, const QString& t
         }
     }
 
-    if (pixbuf) {
-        std::shared_ptr<GdkPixbuf> avatar(pixbuf, g_object_unref);
-        return QVariant::fromValue(avatar);
-    }
-
-    /* could not load image, return emtpy QVariant */
-    return QVariant();
+    return pixbuf;
 }
 
-QVariant
-PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& conversationInfo,
-                                     const lrc::api::account::Info& accountInfo,
-                                     const QSize& size,
-                                     bool displayInformation)
+static GdkPixbuf *temporary_item_avatar()
+{
+    GError *error = nullptr;
+    GdkPixbuf *result = gdk_pixbuf_new_from_resource(
+        "/net/jami/JamiGnome/temporary-item", &error);
+
+    if (result == nullptr) {
+        g_debug("Could not load icon: %s", error->message);
+        g_clear_error(&error);
+        return pxbm_generate_avatar("", "");
+    }
+    return result;
+}
+
+GdkPixbuf *pxbm_conversation_photo(const lrc::api::conversation::Info& conversationInfo,
+                                   const lrc::api::account::Info& accountInfo,
+                                   const QSize& size,
+                                   bool displayInformation)
 {
     auto contacts = accountInfo.conversationModel->peersForConversation(conversationInfo.uid);
     if (!contacts.empty()) {
@@ -201,95 +175,80 @@ PixbufManipulator::conversationPhoto(const lrc::api::conversation::Info& convers
             auto alias = contactInfo.profileInfo.alias;
             alias.remove('\r');
             alias.remove('\n');
-            auto bestName = alias.isEmpty() ? contactInfo.registeredName : alias;
+            auto bestName = alias.isEmpty()
+                ? contactInfo.registeredName
+                : alias;
             auto unreadMessages = conversationInfo.unreadMessages;
-            auto status = contactInfo.isPresent? IconStatus::PRESENT : IconStatus::ABSENT;
-            if (accountInfo.profileInfo.type == lrc::api::profile::Type::SIP && contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY)
+            auto status = contactInfo.isPresent
+                ? IconStatus::PRESENT
+                : IconStatus::ABSENT;
+
+            GdkPixbuf *tmp, *ret;
+            if (accountInfo.profileInfo.type == lrc::api::profile::Type::SIP
+                && contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY)
             {
-                return QVariant::fromValue(scaleAndFrame(generateAvatar("", "").get(), size, displayInformation, status));
+                tmp = pxbm_generate_avatar("", "");
+                ret = pxbm_scale_and_frame(tmp, size, displayInformation, status);
             } else if (accountInfo.profileInfo.type == lrc::api::profile::Type::SIP) {
-                return QVariant::fromValue(scaleAndFrame(generateAvatar("", "sip:" + contactInfo.profileInfo.uri.toStdString()).get(), size, displayInformation, status));
-            } else if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY && contactInfo.profileInfo.uri.isEmpty()) {
-                return QVariant::fromValue(scaleAndFrame(temporaryItemAvatar().get(), size, false, status, unreadMessages));
+                tmp = pxbm_generate_avatar(
+                    "", "sip:" + contactInfo.profileInfo.uri.toStdString());
+                ret = pxbm_scale_and_frame(tmp, size, displayInformation, status);
+            } else if (contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY
+                       && contactInfo.profileInfo.uri.isEmpty()) {
+                tmp = temporary_item_avatar();
+                ret = pxbm_scale_and_frame(tmp, size, false, status, unreadMessages);
             } else if (!contactPhoto.isEmpty()) {
-                QByteArray byteArray = contactPhoto.toUtf8();
-                QVariant photo = personPhoto(byteArray);
-                if (GDK_IS_PIXBUF(photo.value<std::shared_ptr<GdkPixbuf>>().get())) {
-                    return QVariant::fromValue(scaleAndFrame(
-                        photo.value<std::shared_ptr<GdkPixbuf>>().get(), size,
-                        displayInformation, status, unreadMessages));
+                tmp = pxbm_person_photo(contactPhoto.toUtf8());
+                if (GDK_IS_PIXBUF(tmp)) {
+                    ret = pxbm_scale_and_frame(
+                        tmp, size, displayInformation, status, unreadMessages);
                 } else {
-                    return QVariant::fromValue(scaleAndFrame(
-                        generateAvatar(bestName.toStdString(),
-                            "ring:" + contactInfo.profileInfo.uri.toStdString()).get(),
-                        size, displayInformation, status, unreadMessages));
+                    g_object_unref(tmp);
+                    tmp = pxbm_generate_avatar(
+                        bestName.toStdString(),
+                        "ring:" + contactInfo.profileInfo.uri.toStdString());
+                    ret = pxbm_scale_and_frame(
+                        tmp, size, displayInformation, status, unreadMessages);
                 }
             } else {
-                return QVariant::fromValue(scaleAndFrame(generateAvatar(bestName.toStdString(),
-                     "ring:" + contactInfo.profileInfo.uri.toStdString()).get(), size, displayInformation, status, unreadMessages));
+                tmp = pxbm_generate_avatar(
+                    bestName.toStdString(),
+                    "ring:" + contactInfo.profileInfo.uri.toStdString());
+                ret = pxbm_scale_and_frame(
+                    tmp, size, displayInformation, status, unreadMessages);
             }
+            g_object_unref(tmp);
+            return ret;
         } catch (...) {}
     }
-    return QVariant::fromValue(scaleAndFrame(temporaryItemAvatar().get(), size, displayInformation));
+    GdkPixbuf *tmp = temporary_item_avatar();
+    GdkPixbuf *ret = pxbm_scale_and_frame(tmp, size, displayInformation);
+    g_object_unref(tmp);
+    return ret;
 
 }
 
-QVariant
-PixbufManipulator::numberCategoryIcon(const QVariant& p, const QSize& size, bool displayInformation, bool isPresent)
+QByteArray pxbm_to_QByteArray(GdkPixbuf *pxm)
 {
-    Q_UNUSED(p)
-    Q_UNUSED(size)
-    Q_UNUSED(displayInformation)
-    Q_UNUSED(isPresent)
-    return QVariant();
-}
-
-QByteArray
-PixbufManipulator::toByteArray(const QVariant& pxm)
-{
-    std::shared_ptr<GdkPixbuf> pixbuf_photo = pxm.value<std::shared_ptr<GdkPixbuf>>();
-
-    if(pixbuf_photo.get()) {
-        gchar* png_buffer = nullptr;
+    if(pxm) {
+        gchar *png_buffer = nullptr;
         gsize png_buffer_size;
         GError *error = nullptr;
 
-        gdk_pixbuf_save_to_buffer(pixbuf_photo.get(), &png_buffer, &png_buffer_size, "png", &error, NULL);
+        gdk_pixbuf_save_to_buffer(pxm, &png_buffer, &png_buffer_size,
+                                  "png", &error, NULL);
         QByteArray array = QByteArray(png_buffer, png_buffer_size);
-
         g_free(png_buffer);
 
         if (error != NULL) {
-            g_warning("in toByteArray, gdk_pixbuf_save_to_buffer failed : %s\n", error->message);
+            g_warning("in toByteArray, gdk_pixbuf_save_to_buffer failed: %s\n",
+                      error->message);
             g_clear_error(&error);
         }
 
         return array;
     } else {
-        g_debug("in toByteArray, failed to retrieve data from parameter pxm");
+        g_debug("in toByteArray, the pxm parameter was null");
         return QByteArray();
     }
 }
-
-QVariant
-PixbufManipulator::userActionIcon(const UserActionElement& state) const
-{
-    Q_UNUSED(state)
-    return QVariant();
-}
-
-QVariant PixbufManipulator::decorationRole(const QModelIndex& index)
-{
-    Q_UNUSED(index)
-    return QVariant();
-}
-
-QVariant PixbufManipulator::decorationRole(const lrc::api::conversation::Info& conversation,
-                                           const lrc::api::account::Info& accountInfo)
-{
-    Q_UNUSED(conversation)
-    Q_UNUSED(accountInfo)
-    return QVariant();
-}
-
-} // namespace Interfaces
