@@ -26,7 +26,7 @@
 #include <QSize>
 
 /* client */
-#include "native/pixbufmanipulator.h"
+#include "utils/drawing.h"
 #include "video/video_widget.h"
 #include "cc-crop-area.h"
 
@@ -234,17 +234,17 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
         case AVATAR_MANIPULATION_STATE_CURRENT:
         {
             /* get the current or default profile avatar */
-            GdkPixbuf *default_avatar = pxbm_generate_avatar("", "");
-            GdkPixbuf *photo = pxbm_scale_and_frame(
+            GdkPixbuf *default_avatar = draw_generate_avatar("", "");
+            GdkPixbuf *photo = draw_scale_and_frame(
                 default_avatar, QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
             g_object_unref(default_avatar);
             if ((priv->accountInfo_ && (*priv->accountInfo_)) || priv->temporaryAvatar) {
                 auto photostr = priv->temporaryAvatar? priv->temporaryAvatar : (*priv->accountInfo_)->profileInfo.avatar;
                 QByteArray byteArray = photostr.toUtf8();
-                GdkPixbuf *avatar = pxbm_person_photo(byteArray);
+                GdkPixbuf *avatar = draw_person_photo(byteArray);
                 if (avatar) {
                     g_object_unref(photo);
-                    photo = pxbm_scale_and_frame(avatar, QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
+                    photo = draw_scale_and_frame(avatar, QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
                     g_object_unref(avatar);
                 }
             }

@@ -21,6 +21,8 @@
 
 #include "webkitchatcontainer.h"
 
+#include "utils/drawing.h"
+
 // GTK+ related
 #include <webkit2/webkit2.h>
 
@@ -35,9 +37,6 @@
 #include <api/conversationmodel.h>
 #include <api/account.h>
 #include <api/chatview.h>
-
-// Jami  Client
-#include "native/pixbufmanipulator.h"
 
 struct _WebKitChatContainer
 {

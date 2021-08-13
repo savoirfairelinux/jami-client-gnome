@@ -285,8 +285,6 @@ SET( SRC_FILES
    src/newaccountsettingsview.cpp
    src/generalsettingsview.h
    src/generalsettingsview.cpp
-   src/native/pixbufmanipulator.h
-   src/native/pixbufmanipulator.cpp
    src/utils/models.h
    src/utils/models.cpp
    src/notifier.h

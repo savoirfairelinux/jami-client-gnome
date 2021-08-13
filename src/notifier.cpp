@@ -27,10 +27,10 @@
 #endif // USE_CANBERRA
 
 #if USE_LIBNOTIFY
+#include "utils/drawing.h"
 #include <glib/gi18n.h>
 #include <libnotify/notify.h>
 #include <memory>
-#include "native/pixbufmanipulator.h"
 #include <QSize>
 #include <QString>
 #include <map>
@@ -310,15 +310,15 @@ show_notification(Notifier* view, const std::string& icon,
     // Draw icon
     auto firstLetter = (name == uri || name.empty()) ?
         "" : QString(QString(name.c_str()).at(0)).toStdString();  // NOTE best way to be compatible with UTF-8
-    GdkPixbuf *default_avatar = pxbm_generate_avatar(firstLetter, "ring:" + uri);
-    GdkPixbuf *photo = pxbm_scale_and_frame(default_avatar, QSize(50, 50));
+    GdkPixbuf *default_avatar = draw_generate_avatar(firstLetter, "ring:" + uri);
+    GdkPixbuf *photo = draw_scale_and_frame(default_avatar, QSize(50, 50));
     g_object_unref(default_avatar);
     if (!icon.empty()) {
         QByteArray byteArray(icon.c_str(), icon.length());
-        GdkPixbuf *avatar = pxbm_person_photo(byteArray);
+        GdkPixbuf *avatar = draw_person_photo(byteArray);
         if (avatar) {
             g_object_unref(photo);
-            photo = pxbm_scale_and_frame(avatar, QSize(50, 50));
+            photo = draw_scale_and_frame(avatar, QSize(50, 50));
             g_object_unref(avatar);
         }
     }

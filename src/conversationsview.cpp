@@ -38,8 +38,8 @@
 #include <api/newcallmodel.h>
 
 // Gnome client
-#include "native/pixbufmanipulator.h"
 #include "conversationpopupmenu.h"
+#include "utils/drawing.h"
 #include "utils/files.h"
 
 static constexpr const char* CALL_TARGET    = "CALL_TARGET";
@@ -133,7 +133,7 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
     }
     static lrc::api::conversation::Info invalidConversation;
     auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(uid);
-    GdkPixbuf *p = pxbm_conversation_photo(
+    GdkPixbuf *p = draw_conversation_photo(
         convOpt ? convOpt->get() : invalidConversation,
         **(priv->accountInfo_),
         QSize(50, 50),

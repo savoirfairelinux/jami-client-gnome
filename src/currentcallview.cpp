@@ -21,7 +21,6 @@
 
  // Client
 #include "chatview.h"
-#include "native/pixbufmanipulator.h"
 #include "notifier.h"
 #include "utils/drawing.h"
 #include "utils/files.h"
@@ -1261,8 +1260,8 @@ void
 CppImpl::add_present_contact(const QString& uri, const QString& custom_data, RowType custom_type, const QString& accountId)
 {
     QString bestName = uri, bestUri = uri;
-    GdkPixbuf *default_avatar = pxbm_generate_avatar("", "");
-    GdkPixbuf *photo = pxbm_scale_and_frame(
+    GdkPixbuf *default_avatar = draw_generate_avatar("", "");
+    GdkPixbuf *photo = draw_scale_and_frame(
         default_avatar,
         QSize(48, 48), true, IconStatus::PRESENT);
     g_object_unref(default_avatar);
@@ -1283,10 +1282,10 @@ CppImpl::add_present_contact(const QString& uri, const QString& custom_data, Row
 
         if (!photostr.isEmpty()) {
             QByteArray byteArray = photostr.toUtf8();
-            GdkPixbuf *p = pxbm_person_photo(byteArray);
+            GdkPixbuf *p = draw_person_photo(byteArray);
             if (p) {
                 g_object_unref(photo);
-                photo = pxbm_scale_and_frame(
+                photo = draw_scale_and_frame(
                     p, QSize(48, 48), true, IconStatus::PRESENT);
                 g_object_unref(p);
             }
@@ -1299,9 +1298,9 @@ CppImpl::add_present_contact(const QString& uri, const QString& custom_data, Row
                 fullUri = "ring:" + fullUri;
             else
                 fullUri = "sip:" + fullUri;
-            GdkPixbuf *photo_tmp = pxbm_generate_avatar(
+            GdkPixbuf *photo_tmp = draw_generate_avatar(
                 firstLetter.toStdString(), fullUri.toStdString());
-            photo = pxbm_scale_and_frame(
+            photo = draw_scale_and_frame(
                 photo_tmp, QSize(48, 48), true, IconStatus::PRESENT);
             g_object_unref(photo_tmp);
         }
@@ -1351,7 +1350,7 @@ CppImpl::add_conference(const VectorString& uris, const QString& custom_data, co
         g_clear_error(&error);
         return;
     }
-    GdkPixbuf *photo = pxbm_scale_and_frame(default_avatar, QSize(50, 50));
+    GdkPixbuf *photo = draw_scale_and_frame(default_avatar, QSize(50, 50));
     g_object_unref(default_avatar);
 
     std::string label;
@@ -1405,8 +1404,8 @@ void
 CppImpl::add_transfer_contact(const std::string& uri)
 {
     auto *box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    GdkPixbuf *p = pxbm_generate_avatar("", uri.empty() ? uri : "sip" + uri);
-    GdkPixbuf *scaled = pxbm_scale_and_frame(p, QSize(48, 48));
+    GdkPixbuf *p = draw_generate_avatar("", uri.empty() ? uri : "sip" + uri);
+    GdkPixbuf *scaled = draw_scale_and_frame(p, QSize(48, 48));
     g_object_unref(p);
     auto *avatar = gtk_image_new_from_pixbuf(scaled);
     g_object_unref(scaled);
@@ -1859,7 +1858,7 @@ CppImpl::updateNameAndPhoto()
     } catch (std::out_of_range& e) {
     }
 
-    GdkPixbuf *p = pxbm_conversation_photo(
+    GdkPixbuf *p = draw_conversation_photo(
         *conversation,
         **(accountInfo),
         photoSize,

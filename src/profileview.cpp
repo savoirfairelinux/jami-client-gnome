@@ -19,7 +19,6 @@
 
 #include "profileview.h"
 
-#include "native/pixbufmanipulator.h"
 #include "utils/drawing.h"
 
 #include <QSize>
@@ -140,7 +139,7 @@ build_view(ProfileView* view)
         gtk_label_set_text(GTK_LABEL(priv->id_label), qUtf8Printable(contact.profileInfo.uri));
 
         uint32_t img_size = 128;
-        GdkPixbuf *p = pxbm_conversation_photo(
+        GdkPixbuf *p = draw_conversation_photo(
             *convOpt,
             **(priv->accountInfo_),
             QSize(img_size, img_size),

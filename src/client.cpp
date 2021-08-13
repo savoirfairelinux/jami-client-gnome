@@ -44,10 +44,10 @@
 #include "client_options.h"
 #include "mainwindow.h"
 #include "dialogs.h"
-#include "native/pixbufmanipulator.h"
 #include "native/dbuserrorhandler.h"
 #include "notifier.h"
 #include "config.h"
+#include "utils/drawing.h"
 #include "utils/files.h"
 
 #if HAVE_AYATANAAPPINDICATOR
