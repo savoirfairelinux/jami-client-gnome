@@ -66,7 +66,6 @@
 #include "utils/files.h"
 #include "notifier.h"
 #include "accountinfopointer.h"
-#include "native/pixbufmanipulator.h"
 #include "notifier.h"
 
 #if USE_LIBNM
@@ -274,17 +273,17 @@ render_account_avatar(GtkCellLayout*,
     } else if (statusStr == "CONNECTED") {
         iconStatus = IconStatus::CONNECTED;
     }
-    GdkPixbuf *default_avatar = pxbm_generate_avatar("", "");
-    GdkPixbuf *photo = pxbm_scale_and_frame(default_avatar, QSize(32, 32), true, iconStatus);
+    GdkPixbuf *default_avatar = draw_generate_avatar("", "");
+    GdkPixbuf *photo = draw_scale_and_frame(default_avatar, QSize(32, 32), true, iconStatus);
     g_object_unref(default_avatar);
 
     std::string photostr = avatar;
     if (!photostr.empty()) {
         QByteArray byteArray(photostr.c_str(), photostr.length());
-        GdkPixbuf *p = pxbm_person_photo(byteArray);
+        GdkPixbuf *p = draw_person_photo(byteArray);
         if (p) {
             g_object_unref(photo);
-            photo = pxbm_scale_and_frame(p, QSize(32, 32), true, iconStatus);
+            photo = draw_scale_and_frame(p, QSize(32, 32), true, iconStatus);
             g_object_unref(p);
         }
     }

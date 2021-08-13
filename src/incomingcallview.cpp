@@ -44,7 +44,6 @@
 #include "chatview.h"
 #include "marshals.h"
 #include "messagingwidget.h"
-#include "native/pixbufmanipulator.h"
 #include "utils/drawing.h"
 #include "utils/files.h"
 
@@ -267,7 +266,7 @@ update_name_and_photo(IncomingCallView *view)
     g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
-    GdkPixbuf *p = pxbm_conversation_photo(
+    GdkPixbuf *p = draw_conversation_photo(
         *priv->conversation_,
         **(priv->accountInfo_),
         QSize(110, 110),
