@@ -2,6 +2,7 @@
  *  Copyright (C) 2015-2021 Savoir-faire Linux Inc.
  *  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
  *  Author: Sebastien Blin <sebastien.blin@savoirfairelinux.com>
+ *  Author: Amin Bandali <amin.bandali@savoirfairelinux.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,49 +19,45 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
  */
 
-#pragma once
+#ifndef _PIXBUFMANIPULATOR_H
+#define _PIXBUFMANIPULATOR_H
 
 #include <gtk/gtk.h>
-#include <memory>
-#include <interfaces/pixmapmanipulatori.h>
+#include <QSize>
 #include "../utils/drawing.h"
 
-Q_DECLARE_METATYPE(std::shared_ptr<GdkPixbuf>);
+namespace lrc
+{
+namespace api
+{
+namespace account
+{
+    struct Info;
+}
+namespace conversation
+{
+    struct Info;
+}
+}
+}
 
-class Person;
+G_BEGIN_DECLS
 
-namespace Interfaces {
+GdkPixbuf *pxbm_conversation_photo(const lrc::api::conversation::Info& conversation,
+                              const lrc::api::account::Info& accountInfo,
+                              const QSize& size,
+                              bool displayInformation = true);
+GdkPixbuf *pxbm_person_photo(const QByteArray& data);
+GdkPixbuf *pxbm_generate_avatar(const std::string& alias,
+                           const std::string& uri);
+GdkPixbuf *pxbm_scale_and_frame(const GdkPixbuf *photo,
+                           const QSize &size,
+                           bool displayInformation = false,
+                           IconStatus status = IconStatus::INVALID,
+                           uint unreadMessages = 0);
+QByteArray pxbm_to_QByteArray(GdkPixbuf *pxm);
 
-/**
- * TODO remove old methods (methods which use Call, ContactMethod, Person, etc)
- * But before, they should be removed from PixmapManipulatorI
- */
-class PixbufManipulator : public PixmapManipulatorI {
-    constexpr static int FALLBACK_AVATAR_SIZE {100};
-public:
-    PixbufManipulator();
 
-    QVariant conversationPhoto(const lrc::api::conversation::Info& conversation,
-                               const lrc::api::account::Info& accountInfo,
-                               const QSize& size,
-                               bool displayInformation = true) override;
-    QVariant personPhoto(const QByteArray& data, const QString& type = "PNG") override;
+G_END_DECLS
 
-    QVariant   numberCategoryIcon(const QVariant& p, const QSize& size, bool displayInformation = false, bool isPresent = false) override;
-    QByteArray toByteArray(const QVariant& pxm) override;
-    QVariant   userActionIcon(const UserActionElement& state) const override;
-    QVariant   decorationRole(const QModelIndex& index) override;
-    QVariant   decorationRole(const lrc::api::conversation::Info& conversation,
-                              const lrc::api::account::Info& accountInfo) override;
-
-    // Helpers
-    std::shared_ptr<GdkPixbuf> temporaryItemAvatar() const;
-    std::shared_ptr<GdkPixbuf> generateAvatar(const std::string& alias, const std::string& uri) const;
-
-    std::shared_ptr<GdkPixbuf> scaleAndFrame(const GdkPixbuf *photo, const QSize &size, bool displayInformation = false, IconStatus status = IconStatus::INVALID, uint unreadMessages = 0);
-
-  private:
-    std::shared_ptr<GdkPixbuf> conferenceAvatar_;
-};
-
-} // namespace Interfaces
+#endif /* _PIXBUFMANIPULATOR_H */

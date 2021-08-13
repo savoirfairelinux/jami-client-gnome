@@ -274,24 +274,26 @@ render_account_avatar(GtkCellLayout*,
     } else if (statusStr == "CONNECTED") {
         iconStatus = IconStatus::CONNECTED;
     }
-    auto default_avatar = Interfaces::PixbufManipulator().generateAvatar("", "");
-    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(32, 32), true, iconStatus);
-    auto photo = default_scaled;
+    GdkPixbuf *default_avatar = pxbm_generate_avatar("", "");
+    GdkPixbuf *photo = pxbm_scale_and_frame(default_avatar, QSize(32, 32), true, iconStatus);
+    g_object_unref(default_avatar);
 
     std::string photostr = avatar;
     if (!photostr.empty()) {
         QByteArray byteArray(photostr.c_str(), photostr.length());
-        QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
-        auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(32, 32), true, iconStatus);
-        if (avatar.isValid()) {
-            photo = pixbuf_photo;
+        GdkPixbuf *p = pxbm_person_photo(byteArray);
+        if (p) {
+            g_object_unref(photo);
+            photo = pxbm_scale_and_frame(p, QSize(32, 32), true, iconStatus);
+            g_object_unref(p);
         }
     }
 
     g_object_set(G_OBJECT(cell), "width", 32, nullptr);
     g_object_set(G_OBJECT(cell), "height", 32, nullptr);
-    g_object_set(G_OBJECT(cell), "pixbuf", photo.get(), nullptr);
+    g_object_set(G_OBJECT(cell), "pixbuf", photo, nullptr);
 
+    g_object_unref(photo);
     g_free(status);
     g_free(avatar);
     g_free(id);

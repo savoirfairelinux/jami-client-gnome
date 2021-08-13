@@ -36,7 +36,6 @@
 #include <api/contactmodel.h>
 #include <api/newcallmodel.h>
 #include <api/newcodecmodel.h>
-#include <globalinstances.h>
 #include <smartinfohub.h>
 
 // Gtk
@@ -1262,9 +1261,11 @@ void
 CppImpl::add_present_contact(const QString& uri, const QString& custom_data, RowType custom_type, const QString& accountId)
 {
     QString bestName = uri, bestUri = uri;
-    auto default_avatar = Interfaces::PixbufManipulator().generateAvatar("", "");
-    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(48, 48), true, IconStatus::PRESENT);
-    auto photo = default_scaled;
+    GdkPixbuf *default_avatar = pxbm_generate_avatar("", "");
+    GdkPixbuf *photo = pxbm_scale_and_frame(
+        default_avatar,
+        QSize(48, 48), true, IconStatus::PRESENT);
+    g_object_unref(default_avatar);
 
     try {
         auto &accInfo = lrc_.getAccountModel().getAccountInfo(accountId);
@@ -1282,10 +1283,12 @@ CppImpl::add_present_contact(const QString& uri, const QString& custom_data, Row
 
         if (!photostr.isEmpty()) {
             QByteArray byteArray = photostr.toUtf8();
-            QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
-            auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(48, 48), true, IconStatus::PRESENT);
-            if (avatar.isValid()) {
-                photo = pixbuf_photo;
+            GdkPixbuf *p = pxbm_person_photo(byteArray);
+            if (p) {
+                g_object_unref(photo);
+                photo = pxbm_scale_and_frame(
+                    p, QSize(48, 48), true, IconStatus::PRESENT);
+                g_object_unref(p);
             }
         } else {
             auto name = alias.isEmpty()? contactInfo.registeredName : alias;
@@ -1296,8 +1299,11 @@ CppImpl::add_present_contact(const QString& uri, const QString& custom_data, Row
                 fullUri = "ring:" + fullUri;
             else
                 fullUri = "sip:" + fullUri;
-            photo = Interfaces::PixbufManipulator().generateAvatar(firstLetter.toStdString(), fullUri.toStdString());
-            photo = Interfaces::PixbufManipulator().scaleAndFrame(photo.get(), QSize(48, 48), true, IconStatus::PRESENT);
+            GdkPixbuf *photo_tmp = pxbm_generate_avatar(
+                firstLetter.toStdString(), fullUri.toStdString());
+            photo = pxbm_scale_and_frame(
+                photo_tmp, QSize(48, 48), true, IconStatus::PRESENT);
+            g_object_unref(photo_tmp);
         }
     } catch (const std::out_of_range&) {
         // ContactModel::getContact() exception
@@ -1320,7 +1326,8 @@ CppImpl::add_present_contact(const QString& uri, const QString& custom_data, Row
     }
 
     auto* box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    auto* avatar = gtk_image_new_from_pixbuf(photo.get());
+    auto* avatar = gtk_image_new_from_pixbuf(photo);
+    g_object_unref(photo);
     auto* info = gtk_label_new(nullptr);
     gtk_label_set_markup(GTK_LABEL(info), text);
     gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(avatar));
@@ -1337,17 +1344,15 @@ void
 CppImpl::add_conference(const VectorString& uris, const QString& custom_data, const QString& accountId)
 {
     GError *error = nullptr;
-    auto default_avatar = std::shared_ptr<GdkPixbuf>(
-        gdk_pixbuf_new_from_resource_at_scale("/net/jami/JamiGnome/contacts_list", 50, 50, true, &error),
-        g_object_unref
-    );
-    if (default_avatar == nullptr) {
+    GdkPixbuf *default_avatar = gdk_pixbuf_new_from_resource_at_scale(
+        "/net/jami/JamiGnome/contacts_list", 50, 50, true, &error);
+    if (!default_avatar) {
         g_debug("Could not load icon: %s", error->message);
         g_clear_error(&error);
         return;
     }
-    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(50, 50));
-    auto photo = default_scaled;
+    GdkPixbuf *photo = pxbm_scale_and_frame(default_avatar, QSize(50, 50));
+    g_object_unref(default_avatar);
 
     std::string label;
     auto idx = 0;
@@ -1382,7 +1387,8 @@ CppImpl::add_conference(const VectorString& uris, const QString& custom_data, co
     );
 
     auto* box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    auto* avatar = gtk_image_new_from_pixbuf(photo.get());
+    auto* avatar = gtk_image_new_from_pixbuf(photo);
+    g_object_unref(photo);
     auto* info = gtk_label_new(nullptr);
     gtk_label_set_markup(GTK_LABEL(info), text);
     gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(avatar));
@@ -1398,12 +1404,13 @@ CppImpl::add_conference(const VectorString& uris, const QString& custom_data, co
 void
 CppImpl::add_transfer_contact(const std::string& uri)
 {
-    auto* box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    auto pixbufmanipulator = Interfaces::PixbufManipulator();
-    auto image_buf = pixbufmanipulator.generateAvatar("", uri.empty() ? uri : "sip" + uri);
-    auto scaled = pixbufmanipulator.scaleAndFrame(image_buf.get(), QSize(48, 48));
-    auto* avatar = gtk_image_new_from_pixbuf(scaled.get());
-    auto* address = gtk_label_new(uri.c_str());
+    auto *box_item = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    GdkPixbuf *p = pxbm_generate_avatar("", uri.empty() ? uri : "sip" + uri);
+    GdkPixbuf *scaled = pxbm_scale_and_frame(p, QSize(48, 48));
+    g_object_unref(p);
+    auto *avatar = gtk_image_new_from_pixbuf(scaled);
+    g_object_unref(scaled);
+    auto *address = gtk_label_new(uri.c_str());
     gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(avatar));
     gtk_container_add(GTK_CONTAINER(box_item), GTK_WIDGET(address));
     gtk_list_box_insert(GTK_LIST_BOX(widgets->list_conversations), GTK_WIDGET(box_item), -1);
@@ -1852,14 +1859,14 @@ CppImpl::updateNameAndPhoto()
     } catch (std::out_of_range& e) {
     }
 
-    QVariant var_i = GlobalInstances::pixmapManipulator().conversationPhoto(
+    GdkPixbuf *p = pxbm_conversation_photo(
         *conversation,
         **(accountInfo),
         photoSize,
         false
     );
-    std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
-    gtk_image_set_from_pixbuf(GTK_IMAGE(widgets->image_peer), image.get());
+    gtk_image_set_from_pixbuf(GTK_IMAGE(widgets->image_peer), p);
+    g_object_unref(p);
 
     auto contacts = (*accountInfo)->conversationModel->peersForConversation(conversation->uid);
     if (contacts.empty()) return;

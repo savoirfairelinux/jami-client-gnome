@@ -31,7 +31,6 @@
 #include <QSize>
 
 // LRC
-#include <globalinstances.h>
 #include <api/conversationmodel.h>
 #include <api/contactmodel.h>
 #include <api/call.h>
@@ -132,21 +131,20 @@ render_contact_photo(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
             isBanned = contactInfo.isBanned;
         } catch (...) { }
     }
-    std::shared_ptr<GdkPixbuf> image;
     static lrc::api::conversation::Info invalidConversation;
     auto convOpt = (*priv->accountInfo_)->conversationModel->getConversationForUid(uid);
-    auto var_photo = GlobalInstances::pixmapManipulator().conversationPhoto(
+    GdkPixbuf *p = pxbm_conversation_photo(
         convOpt ? convOpt->get() : invalidConversation,
         **(priv->accountInfo_),
         QSize(50, 50),
         isPresent
     );
-    image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
 
     // set the width of the cell rendered to the width of the photo
     // so that the other renderers are shifted to the right
     g_object_set(G_OBJECT(cell), "width", 50, NULL);
-    g_object_set(G_OBJECT(cell), "pixbuf", image.get(), NULL);
+    g_object_set(G_OBJECT(cell), "pixbuf", p, NULL);
+    g_object_unref(p);
 
     // Banned contacts should be displayed with grey bg
     g_object_set(G_OBJECT(cell), "cell-background", isBanned ? "#BDBDBD" : NULL, NULL);

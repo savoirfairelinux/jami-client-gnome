@@ -31,7 +31,6 @@
 #include <QtCore/QJsonDocument>
 
 // LRC
-#include <globalinstances.h>
 #include <api/conversationmodel.h>
 #include <api/account.h>
 #include <api/chatview.h>
