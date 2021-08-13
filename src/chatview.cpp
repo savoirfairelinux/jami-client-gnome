@@ -1036,15 +1036,14 @@ load_participants_images(ChatView *self)
         auto& contact = (*priv->accountInfo_)->contactModel->getContact(contactUri);
         std::string avatar_str = contact.profileInfo.avatar.toStdString();
         if (avatar_str.empty()) {
-            auto var_photo = Interfaces::PixbufManipulator().conversationPhoto(
+            GdkPixbuf *p = pxbm_conversation_photo(
                 *priv->conversation_,
                 **(priv->accountInfo_),
                 QSize(AVATAR_WIDTH, AVATAR_HEIGHT),
                 contact.isPresent
             );
-            auto image = var_photo.value<std::shared_ptr<GdkPixbuf>>();
-            auto ba = Interfaces::PixbufManipulator().toByteArray(var_photo);
-            avatar_str = ba.toBase64().toStdString();
+            avatar_str = pxbm_to_QByteArray(p).toBase64().toStdString();
+            g_object_unref(p);
         }
         webkit_chat_container_set_sender_image(
             WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
@@ -1058,11 +1057,12 @@ load_participants_images(ChatView *self)
     // For this account
     std::string avatar_str = (*priv->accountInfo_)->profileInfo.avatar.toStdString();
     if (avatar_str.empty()) {
-        auto default_photo = QVariant::fromValue(Interfaces::PixbufManipulator().scaleAndFrame(
-            Interfaces::PixbufManipulator().generateAvatar("", "").get(),
-            QSize(AVATAR_WIDTH, AVATAR_HEIGHT), false));
-        auto ba = Interfaces::PixbufManipulator().toByteArray(default_photo);
-        avatar_str = ba.toBase64().toStdString();
+        GdkPixbuf *p = pxbm_generate_avatar("", "");
+        GdkPixbuf *default_photo = pxbm_scale_and_frame(
+            p, QSize(AVATAR_WIDTH, AVATAR_HEIGHT), false);
+        g_object_unref(p);
+        avatar_str = pxbm_to_QByteArray(default_photo).toBase64().toStdString();
+        g_object_unref(default_photo);
     }
     webkit_chat_container_set_sender_image(
         WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),

@@ -39,7 +39,6 @@
 #include <api/contactmodel.h>
 #include <api/conversationmodel.h>
 #include <api/contact.h>
-#include <globalinstances.h>
 
 // Client
 #include "chatview.h"
@@ -268,14 +267,13 @@ update_name_and_photo(IncomingCallView *view)
     g_return_if_fail(IS_INCOMING_CALL_VIEW(view));
     auto priv = INCOMING_CALL_VIEW_GET_PRIVATE(view);
 
-    QVariant var_i = GlobalInstances::pixmapManipulator().conversationPhoto(
+    GdkPixbuf *p = pxbm_conversation_photo(
         *priv->conversation_,
         **(priv->accountInfo_),
         QSize(110, 110),
         false
     );
-    std::shared_ptr<GdkPixbuf> image = var_i.value<std::shared_ptr<GdkPixbuf>>();
-    gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), image.get());
+    gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_incoming), p);
 
     try {
         auto contacts = (*priv->accountInfo_)->conversationModel->peersForConversation(priv->conversation_->uid);

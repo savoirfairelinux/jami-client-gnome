@@ -240,19 +240,19 @@ build_migration_view(AccountMigrationView *view)
     }
 
     /* get the current or default profile avatar */
-    auto default_avatar = Interfaces::PixbufManipulator().generateAvatar("", "");
-    auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
-    auto photo = default_scaled;
+    GdkPixbuf *photo = pxbm_scale_and_frame(
+        pxbm_generate_avatar("", ""),
+        QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
     auto photostr = (*priv->accountInfo_)->profileInfo.avatar;
     if (!photostr.isEmpty()) {
         QByteArray byteArray = photostr.toUtf8();
-        QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
-        auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
-        if (avatar.isValid()) {
-            photo = pixbuf_photo;
+        GdkPixbuf *p = pxbm_person_photo(byteArray);
+        if (p) {
+            photo = pxbm_scale_and_frame(p, QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
+            g_object_unref(p);
         }
     }
-    gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_avatar), photo.get());
+    gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_avatar), photo);
 
     // CSS styles
     auto provider = gtk_css_provider_new();
