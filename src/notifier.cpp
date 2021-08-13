@@ -30,9 +30,9 @@
 #include <glib/gi18n.h>
 #include <libnotify/notify.h>
 #include <memory>
-#include <globalinstances.h>
 #include "native/pixbufmanipulator.h"
-#include <QtCore/QSize>
+#include <QSize>
+#include <QString>
 #include <map>
 #endif
 
@@ -310,17 +310,20 @@ show_notification(Notifier* view, const std::string& icon,
     // Draw icon
     auto firstLetter = (name == uri || name.empty()) ?
         "" : QString(QString(name.c_str()).at(0)).toStdString();  // NOTE best way to be compatible with UTF-8
-    auto default_avatar = Interfaces::PixbufManipulator().generateAvatar(firstLetter, "ring:" + uri);
-    auto photo = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(50, 50));
+    GdkPixbuf *default_avatar = pxbm_generate_avatar(firstLetter, "ring:" + uri);
+    GdkPixbuf *photo = pxbm_scale_and_frame(default_avatar, QSize(50, 50));
+    g_object_unref(default_avatar);
     if (!icon.empty()) {
         QByteArray byteArray(icon.c_str(), icon.length());
-        QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
-        auto pixbuf_photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), QSize(50, 50));
-        if (avatar.isValid()) {
-            photo = pixbuf_photo;
+        GdkPixbuf *avatar = pxbm_person_photo(byteArray);
+        if (avatar) {
+            g_object_unref(photo);
+            photo = pxbm_scale_and_frame(avatar, QSize(50, 50));
+            g_object_unref(avatar);
         }
     }
-    notify_notification_set_image_from_pixbuf(notification.get(), photo.get());
+    notify_notification_set_image_from_pixbuf(notification.get(), photo);
+    g_object_unref(photo);
 
     if (type != NotificationType::CHAT) {
         notify_notification_set_urgency(notification.get(), NOTIFY_URGENCY_CRITICAL);

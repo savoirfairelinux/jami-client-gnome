@@ -23,7 +23,6 @@
 /* LRC */
 #include <api/newaccountmodel.h>
 #include <api/avmodel.h>
-#include <globalinstances.h>
 #include <QSize>
 
 /* client */
@@ -235,19 +234,22 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
         case AVATAR_MANIPULATION_STATE_CURRENT:
         {
             /* get the current or default profile avatar */
-            auto default_avatar = Interfaces::PixbufManipulator().generateAvatar("", "");
-            auto default_scaled = Interfaces::PixbufManipulator().scaleAndFrame(default_avatar.get(), QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
-            auto photo = default_scaled;
+            GdkPixbuf *default_avatar = pxbm_generate_avatar("", "");
+            GdkPixbuf *photo = pxbm_scale_and_frame(
+                default_avatar, QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
+            g_object_unref(default_avatar);
             if ((priv->accountInfo_ && (*priv->accountInfo_)) || priv->temporaryAvatar) {
                 auto photostr = priv->temporaryAvatar? priv->temporaryAvatar : (*priv->accountInfo_)->profileInfo.avatar;
                 QByteArray byteArray = photostr.toUtf8();
-                QVariant avatar = Interfaces::PixbufManipulator().personPhoto(byteArray);
-                if (avatar.isValid()) {
-                    auto size = QSize(AVATAR_WIDTH, AVATAR_HEIGHT);
-                    photo = Interfaces::PixbufManipulator().scaleAndFrame(avatar.value<std::shared_ptr<GdkPixbuf>>().get(), size);
+                GdkPixbuf *avatar = pxbm_person_photo(byteArray);
+                if (avatar) {
+                    g_object_unref(photo);
+                    photo = pxbm_scale_and_frame(avatar, QSize(AVATAR_WIDTH, AVATAR_HEIGHT));
+                    g_object_unref(avatar);
                 }
             }
-            gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_avatar), photo.get());
+            gtk_image_set_from_pixbuf(GTK_IMAGE(priv->image_avatar), photo);
+            g_object_unref(photo);
 
             gtk_stack_set_visible_child_name(GTK_STACK(priv->stack_views), "page_avatar");
 
