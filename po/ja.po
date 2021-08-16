@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-09 03:09-0400\n"
-"PO-Revision-Date: 2021-07-19 07:09+0000\n"
+"POT-Creation-Date: 2021-08-16 03:09-0400\n"
+"PO-Revision-Date: 2021-08-16 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/jami/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -173,7 +173,7 @@ msgstr "追加機能"
 msgid "Account"
 msgstr "アカウント"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1963
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1964
 msgid "Settings"
 msgstr "設定"
 
@@ -1037,7 +1037,7 @@ msgstr "画像として選択"
 
 #: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
 #: src/video/video_widget.cpp:865 src/video/video_widget.cpp:884
-#: src/avatarmanipulation.cpp:439 src/avatarmanipulation.cpp:462
+#: src/avatarmanipulation.cpp:441 src/avatarmanipulation.cpp:464
 #: src/chatview.cpp:391 src/chatview.cpp:406
 msgid "_Open"
 msgstr "開く(_O)"
@@ -1045,7 +1045,7 @@ msgstr "開く(_O)"
 #: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
 #: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
 #: src/video/video_widget.cpp:866 src/video/video_widget.cpp:883
-#: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
+#: src/avatarmanipulation.cpp:442 src/avatarmanipulation.cpp:463
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
 #: src/chatview.cpp:392 src/chatview.cpp:405
 #: src/newaccountsettingsview.cpp:933 src/newaccountsettingsview.cpp:949
@@ -1151,22 +1151,22 @@ msgid ""
 "freedoms and privacy of its users."
 msgstr "Jamiは世界中の利用者と繋がることができる自由ソフトウェアであり，利用者の自由と私事権とを尊重しています。"
 
-#: src/notifier.cpp:349
+#: src/notifier.cpp:352
 msgctxt ""
 msgid "Open conversation"
 msgstr "会話を開く"
 
-#: src/notifier.cpp:357 src/notifier.cpp:373
+#: src/notifier.cpp:360 src/notifier.cpp:376
 msgctxt ""
 msgid "Accept"
 msgstr "受け入れ"
 
-#: src/notifier.cpp:364
+#: src/notifier.cpp:367
 msgctxt ""
 msgid "Refuse"
 msgstr "拒否"
 
-#: src/notifier.cpp:380
+#: src/notifier.cpp:383
 msgctxt ""
 msgid "Decline"
 msgstr "辞退"
@@ -1215,7 +1215,7 @@ msgstr "ファイルを流す (_F)"
 msgid "Show advanced information"
 msgstr "詳細情報を表示"
 
-#: src/avatarmanipulation.cpp:436 src/avatarmanipulation.cpp:458
+#: src/avatarmanipulation.cpp:438 src/avatarmanipulation.cpp:460
 msgid "Open Avatar Image"
 msgstr "アバター画像を開く"
 
@@ -1274,55 +1274,59 @@ msgstr "メインウィンドウの隠し状態を復元します (最初のイ�
 msgid "- GNOME client for Jami"
 msgstr "- JamiのGNOMEクライアント"
 
-#: src/conversationpopupmenu.cpp:223
+#: src/conversationpopupmenu.cpp:237
 msgid "Place _video call"
 msgstr "映像通話を開始 (_V)"
 
-#: src/conversationpopupmenu.cpp:226
+#: src/conversationpopupmenu.cpp:240
 msgid "Place _audio call"
 msgstr "音声通話を開始 (_A)"
 
-#: src/conversationpopupmenu.cpp:234
+#: src/conversationpopupmenu.cpp:246
 msgid "_Add to conversations"
 msgstr "会話に追加 (_A)"
 
-#: src/conversationpopupmenu.cpp:238
+#: src/conversationpopupmenu.cpp:250
+msgid "_Accept invitation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:253
 msgid "_Discard invitation"
 msgstr "招待を破棄 (_D)"
 
-#: src/conversationpopupmenu.cpp:241
+#: src/conversationpopupmenu.cpp:256
 msgid "_Block invitations"
 msgstr "招待を拒否 (_B)"
 
-#: src/conversationpopupmenu.cpp:247
+#: src/conversationpopupmenu.cpp:261
 msgid "C_lear history"
 msgstr "履歴を消去 (_L)"
 
-#: src/conversationpopupmenu.cpp:251
+#: src/conversationpopupmenu.cpp:265
 msgid "_Remove conversation"
 msgstr "会話を削除 (_R)"
 
-#: src/conversationpopupmenu.cpp:257
+#: src/conversationpopupmenu.cpp:271
 msgid "_Block contact"
 msgstr "連絡先を拒否 (_B)"
 
-#: src/conversationpopupmenu.cpp:261
+#: src/conversationpopupmenu.cpp:275
 msgid "_Unblock contact"
 msgstr "連絡先の拒否を解除 (_U)"
 
-#: src/conversationpopupmenu.cpp:268
+#: src/conversationpopupmenu.cpp:282
 msgid "_Profile"
 msgstr "個人設定 (_P)"
 
-#: src/profileview.cpp:133
+#: src/profileview.cpp:131
 msgid "(None)"
 msgstr "(なし)"
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:160
 msgid "Yes"
 msgstr ""
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:160
 msgid "No"
 msgstr ""
 
@@ -1406,102 +1410,102 @@ msgstr "登録名"
 msgid "Name"
 msgstr "名前"
 
-#: src/mainwindow.cpp:200
+#: src/mainwindow.cpp:199
 msgid "Add account…"
 msgstr "アカウントを追加…"
 
-#: src/mainwindow.cpp:922
+#: src/mainwindow.cpp:923
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "通話を開始"
 
-#: src/mainwindow.cpp:925
+#: src/mainwindow.cpp:926
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "チャットを開く"
 
-#: src/mainwindow.cpp:1160
+#: src/mainwindow.cpp:1161
 msgid "Jami - Migration needed"
 msgstr "Jami - 移行が必要です"
 
-#: src/mainwindow.cpp:1176
+#: src/mainwindow.cpp:1177
 msgid "Migration in progress... please do not close this window."
 msgstr "移行中です…この画面を閉じないでください。"
 
-#: src/mainwindow.cpp:1460
+#: src/mainwindow.cpp:1461
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "会話の検索と開始"
 
-#: src/mainwindow.cpp:1935
+#: src/mainwindow.cpp:1936
 msgid "Leave settings page"
 msgstr "設定画面を閉じる"
 
-#: src/mainwindow.cpp:2362
+#: src/mainwindow.cpp:2363
 msgid "Missed call from "
 msgstr "不在着信元:"
 
-#: src/mainwindow.cpp:2366
+#: src/mainwindow.cpp:2367
 msgid "Missed call"
 msgstr "不在着信"
 
-#: src/mainwindow.cpp:2383
+#: src/mainwindow.cpp:2384
 msgid "There are active calls"
 msgstr "保存された通信があります"
 
-#: src/mainwindow.cpp:2453
+#: src/mainwindow.cpp:2454
 msgid " is calling you!"
 msgstr "から着信です！"
 
-#: src/mainwindow.cpp:2456
+#: src/mainwindow.cpp:2457
 msgid "Incoming call"
 msgstr "着信"
 
-#: src/mainwindow.cpp:2616
+#: src/mainwindow.cpp:2617
 msgid "New request from "
 msgstr "新しい要求があります。要求元:"
 
-#: src/mainwindow.cpp:2619
+#: src/mainwindow.cpp:2620
 msgid "Trust request"
 msgstr "要求を信頼"
 
-#: src/mainwindow.cpp:2685
+#: src/mainwindow.cpp:2686
 msgid "New message"
 msgstr "新規メッセージ"
 
-#: src/mainwindow.cpp:2737
+#: src/mainwindow.cpp:2738
 msgid "Stop current call?"
 msgstr "現在の通話を停止しますか？"
 
-#: src/mainwindow.cpp:2738
+#: src/mainwindow.cpp:2739
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "現在通話が行なわれています。画面を閉じると現在の全ての通話が切断されますがよろしいですか？"
 
-#: src/mainwindow.cpp:2806
+#: src/mainwindow.cpp:2807
 msgid "Clear history"
 msgstr "履歴をクリア"
 
-#: src/mainwindow.cpp:2807
+#: src/mainwindow.cpp:2808
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "会話の履歴を消去してもよろしいですか？"
 
-#: src/mainwindow.cpp:2823
+#: src/mainwindow.cpp:2824
 msgid "Remove conversation"
 msgstr "会話を削除"
 
-#: src/mainwindow.cpp:2824
+#: src/mainwindow.cpp:2825
 msgid "Do you really want to remove this conversation?"
 msgstr "この会話を退出してよろしいですか？"
 
-#: src/mainwindow.cpp:2839
+#: src/mainwindow.cpp:2840
 msgid "Block contact"
 msgstr "連絡先をブロック"
 
-#: src/mainwindow.cpp:2840
+#: src/mainwindow.cpp:2841
 msgid "Do you really want to block this contact?"
 msgstr "この連絡先をブロックしてよろしいですか？"
 
@@ -1549,24 +1553,24 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "警告: アカウントをこの機器から削除しようとしています。\n注意: この操作は元に戻せません。加えて，登録名も消失します。"
 
-#: src/currentcallview.cpp:1183
+#: src/currentcallview.cpp:1181
 msgid "Current conference (all accounts)"
 msgstr "現在の会話（全アカウント）"
 
-#: src/currentcallview.cpp:1218
+#: src/currentcallview.cpp:1216
 msgid "Current calls (all accounts)"
 msgstr "現在の通話（全アカウント）"
 
-#: src/currentcallview.cpp:1237
+#: src/currentcallview.cpp:1235
 msgid "Online contacts"
 msgstr "発信可能な連絡先"
 
-#: src/currentcallview.cpp:1683
+#: src/currentcallview.cpp:1689
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自動"
 
-#: src/currentcallview.cpp:1758
+#: src/currentcallview.cpp:1764
 msgid "me"
 msgstr "自分"
 

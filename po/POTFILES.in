@@ -37,7 +37,6 @@ src/cc-crop-area.c
 src/main.cpp
 src/dialogs.cpp
 src/native/dbuserrorhandler.cpp
-src/native/pixbufmanipulator.cpp
 src/client_options.c
 src/incomingcallview.cpp
 src/conversationpopupmenu.cpp

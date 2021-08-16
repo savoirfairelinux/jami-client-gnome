@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-09 03:09-0400\n"
-"PO-Revision-Date: 2021-07-19 07:09+0000\n"
+"POT-Creation-Date: 2021-08-16 03:09-0400\n"
+"PO-Revision-Date: 2021-08-16 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/jami/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -188,7 +188,7 @@ msgstr "Plugin"
 msgid "Account"
 msgstr "Conta"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1963
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1964
 msgid "Settings"
 msgstr "Configurações"
 
@@ -1052,7 +1052,7 @@ msgstr "Configurar seleção como imagem"
 
 #: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
 #: src/video/video_widget.cpp:865 src/video/video_widget.cpp:884
-#: src/avatarmanipulation.cpp:439 src/avatarmanipulation.cpp:462
+#: src/avatarmanipulation.cpp:441 src/avatarmanipulation.cpp:464
 #: src/chatview.cpp:391 src/chatview.cpp:406
 msgid "_Open"
 msgstr "_Abrir"
@@ -1060,7 +1060,7 @@ msgstr "_Abrir"
 #: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
 #: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
 #: src/video/video_widget.cpp:866 src/video/video_widget.cpp:883
-#: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
+#: src/avatarmanipulation.cpp:442 src/avatarmanipulation.cpp:463
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
 #: src/chatview.cpp:392 src/chatview.cpp:405
 #: src/newaccountsettingsview.cpp:933 src/newaccountsettingsview.cpp:949
@@ -1166,22 +1166,22 @@ msgid ""
 "freedoms and privacy of its users."
 msgstr "Jami é um software livre para comunicação universal que respeita as liberdades e privacidade de seus usuários."
 
-#: src/notifier.cpp:349
+#: src/notifier.cpp:352
 msgctxt ""
 msgid "Open conversation"
 msgstr "Conversa em curso"
 
-#: src/notifier.cpp:357 src/notifier.cpp:373
+#: src/notifier.cpp:360 src/notifier.cpp:376
 msgctxt ""
 msgid "Accept"
 msgstr "Aceitar"
 
-#: src/notifier.cpp:364
+#: src/notifier.cpp:367
 msgctxt ""
 msgid "Refuse"
 msgstr "Recusar"
 
-#: src/notifier.cpp:380
+#: src/notifier.cpp:383
 msgctxt ""
 msgid "Decline"
 msgstr "Rejeitar"
@@ -1230,7 +1230,7 @@ msgstr "Transmitir _arquivo"
 msgid "Show advanced information"
 msgstr "Mostrar informação avançada"
 
-#: src/avatarmanipulation.cpp:436 src/avatarmanipulation.cpp:458
+#: src/avatarmanipulation.cpp:438 src/avatarmanipulation.cpp:460
 msgid "Open Avatar Image"
 msgstr "Abrir Avatar"
 
@@ -1289,55 +1289,59 @@ msgstr "Restaurar o estado oculto da janela principal (aplicável apenas à prim
 msgid "- GNOME client for Jami"
 msgstr "- cliente GNOME para o Jami"
 
-#: src/conversationpopupmenu.cpp:223
+#: src/conversationpopupmenu.cpp:237
 msgid "Place _video call"
 msgstr "Fazer _chamada de vídeo"
 
-#: src/conversationpopupmenu.cpp:226
+#: src/conversationpopupmenu.cpp:240
 msgid "Place _audio call"
 msgstr "Fazer _chamada de áudio"
 
-#: src/conversationpopupmenu.cpp:234
+#: src/conversationpopupmenu.cpp:246
 msgid "_Add to conversations"
 msgstr "_Adicionar a conversas"
 
-#: src/conversationpopupmenu.cpp:238
+#: src/conversationpopupmenu.cpp:250
+msgid "_Accept invitation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:253
 msgid "_Discard invitation"
 msgstr "_Recusar convite"
 
-#: src/conversationpopupmenu.cpp:241
+#: src/conversationpopupmenu.cpp:256
 msgid "_Block invitations"
 msgstr "_Bloquear convites"
 
-#: src/conversationpopupmenu.cpp:247
+#: src/conversationpopupmenu.cpp:261
 msgid "C_lear history"
 msgstr "_Limpar histórico"
 
-#: src/conversationpopupmenu.cpp:251
+#: src/conversationpopupmenu.cpp:265
 msgid "_Remove conversation"
 msgstr "_Apagar conversa"
 
-#: src/conversationpopupmenu.cpp:257
+#: src/conversationpopupmenu.cpp:271
 msgid "_Block contact"
 msgstr "_Bloquear contato"
 
-#: src/conversationpopupmenu.cpp:261
+#: src/conversationpopupmenu.cpp:275
 msgid "_Unblock contact"
 msgstr "_Desbloquear contato"
 
-#: src/conversationpopupmenu.cpp:268
+#: src/conversationpopupmenu.cpp:282
 msgid "_Profile"
 msgstr "_Perfil"
 
-#: src/profileview.cpp:133
+#: src/profileview.cpp:131
 msgid "(None)"
 msgstr "(Nenhum)"
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:160
 msgid "Yes"
 msgstr ""
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:160
 msgid "No"
 msgstr ""
 
@@ -1421,102 +1425,102 @@ msgstr "Registrar nome"
 msgid "Name"
 msgstr "Nome"
 
-#: src/mainwindow.cpp:200
+#: src/mainwindow.cpp:199
 msgid "Add account…"
 msgstr "Adicionar conta…"
 
-#: src/mainwindow.cpp:922
+#: src/mainwindow.cpp:923
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "fazer ligação"
 
-#: src/mainwindow.cpp:925
+#: src/mainwindow.cpp:926
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "abrir chat"
 
-#: src/mainwindow.cpp:1160
+#: src/mainwindow.cpp:1161
 msgid "Jami - Migration needed"
 msgstr "Jami - Migração necessária"
 
-#: src/mainwindow.cpp:1176
+#: src/mainwindow.cpp:1177
 msgid "Migration in progress... please do not close this window."
 msgstr "Migração em andamento... por favor, não feche esta janela."
 
-#: src/mainwindow.cpp:1460
+#: src/mainwindow.cpp:1461
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Encontrar ou iniciar uma conversa"
 
-#: src/mainwindow.cpp:1935
+#: src/mainwindow.cpp:1936
 msgid "Leave settings page"
 msgstr "Deixar a página de configurações"
 
-#: src/mainwindow.cpp:2362
+#: src/mainwindow.cpp:2363
 msgid "Missed call from "
 msgstr "Chamada perdida de"
 
-#: src/mainwindow.cpp:2366
+#: src/mainwindow.cpp:2367
 msgid "Missed call"
 msgstr "Chamada perdida"
 
-#: src/mainwindow.cpp:2383
+#: src/mainwindow.cpp:2384
 msgid "There are active calls"
 msgstr "Há chamadas ativas"
 
-#: src/mainwindow.cpp:2453
+#: src/mainwindow.cpp:2454
 msgid " is calling you!"
 msgstr "está chamando você!"
 
-#: src/mainwindow.cpp:2456
+#: src/mainwindow.cpp:2457
 msgid "Incoming call"
 msgstr "Chamada recebida"
 
-#: src/mainwindow.cpp:2616
+#: src/mainwindow.cpp:2617
 msgid "New request from "
 msgstr "Nova requisição de"
 
-#: src/mainwindow.cpp:2619
+#: src/mainwindow.cpp:2620
 msgid "Trust request"
 msgstr "Confiar na requisição"
 
-#: src/mainwindow.cpp:2685
+#: src/mainwindow.cpp:2686
 msgid "New message"
 msgstr "Nova mensagem"
 
-#: src/mainwindow.cpp:2737
+#: src/mainwindow.cpp:2738
 msgid "Stop current call?"
 msgstr "Parar chamada atual?"
 
-#: src/mainwindow.cpp:2738
+#: src/mainwindow.cpp:2739
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Uma chamada está em andamento. Você quer fechar a janela e interromper todas as chamadas atuais?"
 
-#: src/mainwindow.cpp:2806
+#: src/mainwindow.cpp:2807
 msgid "Clear history"
 msgstr "Limpar histórico"
 
-#: src/mainwindow.cpp:2807
+#: src/mainwindow.cpp:2808
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Você realmente quer limpar o histórico desta conversa?"
 
-#: src/mainwindow.cpp:2823
+#: src/mainwindow.cpp:2824
 msgid "Remove conversation"
 msgstr "Excluir uma conversa"
 
-#: src/mainwindow.cpp:2824
+#: src/mainwindow.cpp:2825
 msgid "Do you really want to remove this conversation?"
 msgstr "Você realmente quer excluir esta conversa?"
 
-#: src/mainwindow.cpp:2839
+#: src/mainwindow.cpp:2840
 msgid "Block contact"
 msgstr "Bloquear contato"
 
-#: src/mainwindow.cpp:2840
+#: src/mainwindow.cpp:2841
 msgid "Do you really want to block this contact?"
 msgstr "Você realmente quer bloquear este contato?"
 
@@ -1564,24 +1568,24 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Atenção! Esta ação irá remover esta conta deste dispositivo!\nNota: esta ação não pode ser desfeita. Além disso, seu nome registrado pode ser perdido!"
 
-#: src/currentcallview.cpp:1183
+#: src/currentcallview.cpp:1181
 msgid "Current conference (all accounts)"
 msgstr "Conferência atual (todas as contas)"
 
-#: src/currentcallview.cpp:1218
+#: src/currentcallview.cpp:1216
 msgid "Current calls (all accounts)"
 msgstr "Chamadas atuais (todas as contas)"
 
-#: src/currentcallview.cpp:1237
+#: src/currentcallview.cpp:1235
 msgid "Online contacts"
 msgstr "Contatos disponíveis"
 
-#: src/currentcallview.cpp:1683
+#: src/currentcallview.cpp:1689
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Automático"
 
-#: src/currentcallview.cpp:1758
+#: src/currentcallview.cpp:1764
 msgid "me"
 msgstr "eu"
 

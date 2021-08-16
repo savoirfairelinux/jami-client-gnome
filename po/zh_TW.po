@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-09 03:09-0400\n"
-"PO-Revision-Date: 2021-07-20 01:46+0000\n"
-"Last-Translator: 黃柏諺 <s8321414@gmail.com>\n"
+"POT-Creation-Date: 2021-08-16 03:09-0400\n"
+"PO-Revision-Date: 2021-08-16 07:09+0000\n"
+"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/savoirfairelinux/jami/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -172,7 +172,7 @@ msgstr "外掛程式"
 msgid "Account"
 msgstr "帳號"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1963
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1964
 msgid "Settings"
 msgstr "設定"
 
@@ -1036,7 +1036,7 @@ msgstr "設定選擇為圖片"
 
 #: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
 #: src/video/video_widget.cpp:865 src/video/video_widget.cpp:884
-#: src/avatarmanipulation.cpp:439 src/avatarmanipulation.cpp:462
+#: src/avatarmanipulation.cpp:441 src/avatarmanipulation.cpp:464
 #: src/chatview.cpp:391 src/chatview.cpp:406
 msgid "_Open"
 msgstr "開啟(_O)"
@@ -1044,7 +1044,7 @@ msgstr "開啟(_O)"
 #: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
 #: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
 #: src/video/video_widget.cpp:866 src/video/video_widget.cpp:883
-#: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:461
+#: src/avatarmanipulation.cpp:442 src/avatarmanipulation.cpp:463
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
 #: src/chatview.cpp:392 src/chatview.cpp:405
 #: src/newaccountsettingsview.cpp:933 src/newaccountsettingsview.cpp:949
@@ -1150,22 +1150,22 @@ msgid ""
 "freedoms and privacy of its users."
 msgstr "Jami 是一套通用通訊的自由軟體，其尊重使用者的自由與隱私。"
 
-#: src/notifier.cpp:349
+#: src/notifier.cpp:352
 msgctxt ""
 msgid "Open conversation"
 msgstr "開啟對話"
 
-#: src/notifier.cpp:357 src/notifier.cpp:373
+#: src/notifier.cpp:360 src/notifier.cpp:376
 msgctxt ""
 msgid "Accept"
 msgstr "接聽"
 
-#: src/notifier.cpp:364
+#: src/notifier.cpp:367
 msgctxt ""
 msgid "Refuse"
 msgstr "拒絕"
 
-#: src/notifier.cpp:380
+#: src/notifier.cpp:383
 msgctxt ""
 msgid "Decline"
 msgstr "拒絕"
@@ -1214,7 +1214,7 @@ msgstr "串流檔案(_F)"
 msgid "Show advanced information"
 msgstr "顯示進階資訊"
 
-#: src/avatarmanipulation.cpp:436 src/avatarmanipulation.cpp:458
+#: src/avatarmanipulation.cpp:438 src/avatarmanipulation.cpp:460
 msgid "Open Avatar Image"
 msgstr "開啟大頭貼圖片"
 
@@ -1273,55 +1273,59 @@ msgstr "還原主視窗的隱藏狀態(只適用於主程序)"
 msgid "- GNOME client for Jami"
 msgstr "- Jami 的 GNOME 用戶端"
 
-#: src/conversationpopupmenu.cpp:223
+#: src/conversationpopupmenu.cpp:237
 msgid "Place _video call"
 msgstr "撥出視訊通話"
 
-#: src/conversationpopupmenu.cpp:226
+#: src/conversationpopupmenu.cpp:240
 msgid "Place _audio call"
 msgstr "撥出音訊通話"
 
-#: src/conversationpopupmenu.cpp:234
+#: src/conversationpopupmenu.cpp:246
 msgid "_Add to conversations"
 msgstr "新增到對話中(_A)"
 
-#: src/conversationpopupmenu.cpp:238
+#: src/conversationpopupmenu.cpp:250
+msgid "_Accept invitation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:253
 msgid "_Discard invitation"
 msgstr "丟棄邀請(_D)"
 
-#: src/conversationpopupmenu.cpp:241
+#: src/conversationpopupmenu.cpp:256
 msgid "_Block invitations"
 msgstr "阻擋邀請(_B)"
 
-#: src/conversationpopupmenu.cpp:247
+#: src/conversationpopupmenu.cpp:261
 msgid "C_lear history"
 msgstr "清除歷史(_L)"
 
-#: src/conversationpopupmenu.cpp:251
+#: src/conversationpopupmenu.cpp:265
 msgid "_Remove conversation"
 msgstr "移除對話(_R)"
 
-#: src/conversationpopupmenu.cpp:257
+#: src/conversationpopupmenu.cpp:271
 msgid "_Block contact"
 msgstr "阻擋聯絡人(_B)"
 
-#: src/conversationpopupmenu.cpp:261
+#: src/conversationpopupmenu.cpp:275
 msgid "_Unblock contact"
 msgstr "解除阻擋聯絡人(_U)"
 
-#: src/conversationpopupmenu.cpp:268
+#: src/conversationpopupmenu.cpp:282
 msgid "_Profile"
 msgstr "設定檔(_P)"
 
-#: src/profileview.cpp:133
+#: src/profileview.cpp:131
 msgid "(None)"
 msgstr "（無）"
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:160
 msgid "Yes"
 msgstr "是"
 
-#: src/profileview.cpp:163
+#: src/profileview.cpp:160
 msgid "No"
 msgstr "否"
 
@@ -1405,102 +1409,102 @@ msgstr "註冊名稱"
 msgid "Name"
 msgstr "名稱"
 
-#: src/mainwindow.cpp:200
+#: src/mainwindow.cpp:199
 msgid "Add account…"
 msgstr "新增帳號……"
 
-#: src/mainwindow.cpp:922
+#: src/mainwindow.cpp:923
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "開始通話"
 
-#: src/mainwindow.cpp:925
+#: src/mainwindow.cpp:926
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "開啟聊天"
 
-#: src/mainwindow.cpp:1160
+#: src/mainwindow.cpp:1161
 msgid "Jami - Migration needed"
 msgstr "Jami - 需要遷移"
 
-#: src/mainwindow.cpp:1176
+#: src/mainwindow.cpp:1177
 msgid "Migration in progress... please do not close this window."
 msgstr "正在遷移…… 請不要關閉視窗。"
 
-#: src/mainwindow.cpp:1460
+#: src/mainwindow.cpp:1461
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "尋找或開始對話"
 
-#: src/mainwindow.cpp:1935
+#: src/mainwindow.cpp:1936
 msgid "Leave settings page"
 msgstr "離開設定頁面"
 
-#: src/mainwindow.cpp:2362
+#: src/mainwindow.cpp:2363
 msgid "Missed call from "
 msgstr "未接來電，來自"
 
-#: src/mainwindow.cpp:2366
+#: src/mainwindow.cpp:2367
 msgid "Missed call"
 msgstr "未接來電"
 
-#: src/mainwindow.cpp:2383
+#: src/mainwindow.cpp:2384
 msgid "There are active calls"
 msgstr "有活躍的通話"
 
-#: src/mainwindow.cpp:2453
+#: src/mainwindow.cpp:2454
 msgid " is calling you!"
 msgstr "正在與您通話！"
 
-#: src/mainwindow.cpp:2456
+#: src/mainwindow.cpp:2457
 msgid "Incoming call"
 msgstr "來電"
 
-#: src/mainwindow.cpp:2616
+#: src/mainwindow.cpp:2617
 msgid "New request from "
 msgstr "新請求從"
 
-#: src/mainwindow.cpp:2619
+#: src/mainwindow.cpp:2620
 msgid "Trust request"
 msgstr "信任請求"
 
-#: src/mainwindow.cpp:2685
+#: src/mainwindow.cpp:2686
 msgid "New message"
 msgstr "新訊息"
 
-#: src/mainwindow.cpp:2737
+#: src/mainwindow.cpp:2738
 msgid "Stop current call?"
 msgstr "停止目前的通話？"
 
-#: src/mainwindow.cpp:2738
+#: src/mainwindow.cpp:2739
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "通話進行中。您想要關閉視窗並停止目前所有的通話嗎？"
 
-#: src/mainwindow.cpp:2806
+#: src/mainwindow.cpp:2807
 msgid "Clear history"
 msgstr "清除記錄"
 
-#: src/mainwindow.cpp:2807
+#: src/mainwindow.cpp:2808
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "您真的想要清除此對話的歷史嗎？"
 
-#: src/mainwindow.cpp:2823
+#: src/mainwindow.cpp:2824
 msgid "Remove conversation"
 msgstr "移除對話"
 
-#: src/mainwindow.cpp:2824
+#: src/mainwindow.cpp:2825
 msgid "Do you really want to remove this conversation?"
 msgstr "您真的想要移除此對話嗎？"
 
-#: src/mainwindow.cpp:2839
+#: src/mainwindow.cpp:2840
 msgid "Block contact"
 msgstr "阻擋連絡人"
 
-#: src/mainwindow.cpp:2840
+#: src/mainwindow.cpp:2841
 msgid "Do you really want to block this contact?"
 msgstr "您真的想要封鎖此聯絡人嗎？"
 
@@ -1548,24 +1552,24 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "警告！此動作將會在此裝置上移除此帳號！\n注意：此動作無法復原。同時，您已註冊的名稱也將會遺失！"
 
-#: src/currentcallview.cpp:1183
+#: src/currentcallview.cpp:1181
 msgid "Current conference (all accounts)"
 msgstr "目前的會議（所有帳號）"
 
-#: src/currentcallview.cpp:1218
+#: src/currentcallview.cpp:1216
 msgid "Current calls (all accounts)"
 msgstr "目前的通話（所有帳號）"
 
-#: src/currentcallview.cpp:1237
+#: src/currentcallview.cpp:1235
 msgid "Online contacts"
 msgstr "線上聯絡人"
 
-#: src/currentcallview.cpp:1683
+#: src/currentcallview.cpp:1689
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自動"
 
-#: src/currentcallview.cpp:1758
+#: src/currentcallview.cpp:1764
 msgid "me"
 msgstr "我"
 
