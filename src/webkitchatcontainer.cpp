@@ -811,6 +811,22 @@ webkit_chat_set_header_visible(WebKitChatContainer *view, bool isVisible)
 }
 
 void
+webkit_chat_hide_controls(WebKitChatContainer *view, bool hide)
+{
+    gchar* function_call = g_strdup_printf("hideControls(%s)", hide ? "true" : "false");
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
+}
+
+void
+webkit_chat_hide_message_bar(WebKitChatContainer *view, bool hide)
+{
+    gchar* function_call = g_strdup_printf("hideMessageBar(%s)", hide ? "true" : "false");
+    webkit_chat_container_execute_js(view, function_call);
+    g_free(function_call);
+}
+
+void
 webkit_chat_set_record_visible(WebKitChatContainer *view, bool isVisible)
 {
     gchar* function_call = g_strdup_printf("displayRecordControls(%s)", isVisible ? "true" : "false");

@@ -1199,9 +1199,13 @@ update_chatview_frame(ChatView* self)
                                      contactInfo.isBanned, temp, qUtf8Printable(alias), qUtf8Printable(bestName));
 
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                             (contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING),
+                                             priv->conversation_->isRequest,
                                              bestName.toStdString(),
                                              contactInfo.profileInfo.uri.toStdString());
+    if (priv->conversation_->isSwarm() && priv->conversation_->isRequest) {
+        webkit_chat_hide_controls(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), true);
+        webkit_chat_hide_message_bar(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), true);
+    }
 
     // hide navbar if we are in call
     try {
