@@ -770,11 +770,16 @@ webkit_chat_container_update_history(WebKitChatContainer *view,
 }
 
 void
-webkit_chat_container_set_invitation(WebKitChatContainer *view, bool show,
-                                     const std::string& contactUri, const std::string& contactId)
+webkit_chat_container_set_invitation(WebKitChatContainer *view,
+                                     bool show,
+                                     const std::string& bestName,
+                                     const std::string& bestId)
 {
     // TODO better escape names
-    gchar* function_call = g_strdup_printf(show ? "showInvitation(\"%s\", \"%s\")" : "showInvitation()", contactUri.c_str(), contactId.c_str());
+    gchar* function_call = g_strdup_printf(
+        show ? "showInvitation(\"%s\", \"%s\")" : "showInvitation()",
+        bestName.c_str(),
+        bestId.c_str());
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }
@@ -890,11 +895,18 @@ webkit_chat_set_is_composing(WebKitChatContainer *view, const std::string& conta
 }
 
 void
-webkit_chat_update_chatview_frame(WebKitChatContainer *view, bool accountEnabled, bool isBanned, bool isTemporary, const gchar* alias, const gchar* bestId)
+webkit_chat_update_chatview_frame(WebKitChatContainer *view,
+                                  bool accountEnabled, bool isBanned,
+                                  bool isInvited,
+                                  const gchar* bestName,
+                                  const gchar* bestId)
 {
-    gchar* function_call = g_strdup_printf("update_chatview_frame(%s, %s, %s, \"%s\", \"%s\")",
-                                           accountEnabled ? "true" : "false",
-                                           isBanned ? "true" : "false", isTemporary ? "true" : "false", alias, bestId);
+    gchar* function_call = g_strdup_printf(
+        "update_chatview_frame(%s, %s, %s, \"%s\", \"%s\")",
+        accountEnabled ? "true" : "false",
+        isBanned ? "true" : "false",
+        isInvited ? "true" : "false",
+        bestName, bestId);
     webkit_chat_container_execute_js(view, function_call);
     g_free(function_call);
 }

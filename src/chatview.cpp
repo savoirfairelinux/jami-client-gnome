@@ -1182,26 +1182,30 @@ update_chatview_frame(ChatView* self)
         return;
     }
 
-    // get alias and bestName
-    auto alias = contactInfo.profileInfo.alias;
-    auto bestName = contactInfo.registeredName;
+    // get bestName and bestId
+    auto bestName = contactInfo.profileInfo.alias.simplified();
+    auto bestId = contactInfo.registeredName.simplified();
     if (bestName.isEmpty())
-        bestName = contactInfo.profileInfo.uri;
-    if (bestName == alias)
-        alias = "";
-    bestName.remove('\r');
-    alias.remove('\r');
+        bestName = contactInfo.registeredName.simplified();
+    if (bestId.isEmpty())
+        bestId = contactInfo.profileInfo.uri.simplified();
+    if (bestName == bestId)
+        bestName = "";
     // get temporary status
-    bool temp = contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY || contactInfo.profileInfo.type == lrc::api::profile::Type::PENDING;
+    bool temp = contactInfo.profileInfo.type == lrc::api::profile::Type::TEMPORARY;
 
-    webkit_chat_update_chatview_frame(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
-                                     (*priv->accountInfo_)->enabled,
-                                     contactInfo.isBanned, temp, qUtf8Printable(alias), qUtf8Printable(bestName));
+    webkit_chat_update_chatview_frame(
+        WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
+        (*priv->accountInfo_)->enabled,
+        contactInfo.isBanned,
+        temp,
+        qUtf8Printable(bestName),
+        qUtf8Printable(bestId));
 
     webkit_chat_container_set_invitation(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container),
                                              priv->conversation_->isRequest,
                                              bestName.toStdString(),
-                                             contactInfo.profileInfo.uri.toStdString());
+                                             bestId.toStdString());
     if (priv->conversation_->isSwarm() && priv->conversation_->isRequest) {
         webkit_chat_hide_controls(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), true);
         webkit_chat_hide_message_bar(WEBKIT_CHAT_CONTAINER(priv->webkit_chat_container), true);

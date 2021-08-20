@@ -54,7 +54,7 @@ void       webkit_chat_container_update_history       (WebKitChatContainer *view
 void       webkit_chat_container_set_sender_image     (WebKitChatContainer *view, const std::string& sender, const std::string& senderImage);
 gboolean   webkit_chat_container_is_ready             (WebKitChatContainer *view);
 void       webkit_chat_container_set_display_links    (WebKitChatContainer *view, bool display);
-void       webkit_chat_container_set_invitation       (WebKitChatContainer *view, bool show, const std::string& contactUri, const std::string& contactId);
+void       webkit_chat_container_set_invitation       (WebKitChatContainer *view, bool show, const std::string& bestName, const std::string& bestId);
 void       webkit_chat_set_header_visible             (WebKitChatContainer *view, bool isVisible);
 void       webkit_chat_hide_controls                  (WebKitChatContainer *view, bool hide);
 void       webkit_chat_hide_message_bar               (WebKitChatContainer *view, bool hide);
@@ -63,6 +63,6 @@ void       webkit_chat_set_plugin_visible             (WebKitChatContainer *view
 void       webkit_chat_set_dark_mode                  (WebKitChatContainer *view, bool darkMode, const std::string& background);
 void       webkit_chat_set_is_swarm                   (WebKitChatContainer *view, bool isSwarm);
 void       webkit_chat_set_is_composing               (WebKitChatContainer *view, const std::string& contactUri, bool isComposing);
-void       webkit_chat_update_chatview_frame          (WebKitChatContainer *view, bool accountEnabled, bool isBanned, bool isInvited, const gchar* alias, const gchar* bestId);
+void       webkit_chat_update_chatview_frame          (WebKitChatContainer *view, bool accountEnabled, bool isBanned, bool isInvited, const gchar* bestName, const gchar* bestId);
 
 G_END_DECLS
