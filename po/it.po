@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-16 03:09-0400\n"
-"PO-Revision-Date: 2021-08-16 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-08-23 03:09-0400\n"
+"PO-Revision-Date: 2021-08-17 13:33+0000\n"
+"Last-Translator: liberi liberi <postav@pm.me>\n"
 "Language-Team: Italian (http://www.transifex.com/savoirfairelinux/jami/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1289,7 +1289,7 @@ msgstr "_Aggiungi alle conversazioni"
 
 #: src/conversationpopupmenu.cpp:250
 msgid "_Accept invitation"
-msgstr ""
+msgstr "_Accetta invito"
 
 #: src/conversationpopupmenu.cpp:253
 msgid "_Discard invitation"
@@ -1522,7 +1522,7 @@ msgstr "Riprova"
 msgid "Stop"
 msgstr "Stop"
 
-#: src/chatview.cpp:1266
+#: src/chatview.cpp:1274
 msgid "Send"
 msgstr "Invia"
 

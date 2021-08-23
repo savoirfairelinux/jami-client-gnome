@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-16 03:09-0400\n"
+"POT-Creation-Date: 2021-08-23 03:09-0400\n"
 "PO-Revision-Date: 2021-08-16 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/savoirfairelinux/jami/language/et/)\n"
@@ -1517,7 +1517,7 @@ msgstr ""
 msgid "Stop"
 msgstr ""
 
-#: src/chatview.cpp:1266
+#: src/chatview.cpp:1274
 msgid "Send"
 msgstr ""
 

@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-16 03:09-0400\n"
-"PO-Revision-Date: 2021-08-16 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-08-23 03:09-0400\n"
+"PO-Revision-Date: 2021-08-19 19:44+0000\n"
+"Last-Translator: Kimmo Kujansuu <mrkujansuu@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/savoirfairelinux/jami/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -146,7 +146,7 @@ msgstr "Avaa Tilin asetukset"
 #: ui/help-overlay.ui:184
 msgctxt "shortcut window"
 msgid "Chat view"
-msgstr "Chat-näkymä"
+msgstr "Keskustelunäkymä"
 
 #: ui/help-overlay.ui:189
 msgctxt "shortcut window"
@@ -567,11 +567,11 @@ msgstr "Ota ilmoitukset käyttöön odottaviin pyyntöihin"
 
 #: ui/generalsettingsview.ui:315
 msgid "Enable notifications for new chat messages"
-msgstr "Ota ilmoitukset käyttöön uusista chat-viesteistä"
+msgstr "Ota ilmoitukset käyttöön uusista viesteistä"
 
 #: ui/generalsettingsview.ui:351
 msgid "Chatview"
-msgstr "Chat-näkymä"
+msgstr "Keskustelunäkymä"
 
 #: ui/generalsettingsview.ui:390
 msgid "Show typing indications"
@@ -579,11 +579,11 @@ msgstr "Kirjoittamisen merkki näkyviin"
 
 #: ui/generalsettingsview.ui:426
 msgid "Display images and videos into the chatview"
-msgstr "Näytä kuvat ja videot chat-näkymään"
+msgstr "Näytä kuvat ja videot keskustelussa"
 
 #: ui/generalsettingsview.ui:463
 msgid "Show chatview on the right (on the bottom if off)"
-msgstr "Näytä chat-näkymä oikealla (alhaalla jos pois päältä)"
+msgstr "Näytä keskustelu oikealla (jos pois päältä alhaalla)"
 
 #: ui/generalsettingsview.ui:500
 msgid "Download folder"
@@ -1289,7 +1289,7 @@ msgstr "_Lisää keskusteluihin"
 
 #: src/conversationpopupmenu.cpp:250
 msgid "_Accept invitation"
-msgstr ""
+msgstr "_Hyväksy kutsu"
 
 #: src/conversationpopupmenu.cpp:253
 msgid "_Discard invitation"
@@ -1423,7 +1423,7 @@ msgstr "aloita puhelu"
 #: src/mainwindow.cpp:926
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
-msgstr "avaa chatti"
+msgstr "avaa keskustelu"
 
 #: src/mainwindow.cpp:1161
 msgid "Jami - Migration needed"
@@ -1522,7 +1522,7 @@ msgstr "Yritä uudelleen"
 msgid "Stop"
 msgstr "Lopeta"
 
-#: src/chatview.cpp:1266
+#: src/chatview.cpp:1274
 msgid "Send"
 msgstr "Lähetä"
 
