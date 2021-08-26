@@ -24,6 +24,30 @@
       "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63e5b7da_b4945e8e",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2021-08-26T17:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88b3af16_9f5f85b1",
+      "range": {
+        "startLine": 359,
+        "startChar": 4,
+        "endLine": 359,
+        "endChar": 6
+      },
+      "revId": "ec1abe9d3aebd472701069574c5117a0c4806038",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6ac3a17_4f06ad9b",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-26T15:04:05Z",
       "side": 1,
       "message": "if list \u003d nullptr, do we need to load it?",
+      "range": {
+        "startLine": 527,
+        "startChar": 4,
+        "endLine": 527,
+        "endChar": 27
+      },
+      "revId": "ec1abe9d3aebd472701069574c5117a0c4806038",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb2a6c19_359f617b",
+        "filename": "src/conversationsview.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2021-08-26T17:45:00Z",
+      "side": 1,
+      "message": "Ack; don\u0027t think so.",
+      "parentUuid": "f6ac3a17_4f06ad9b",
       "range": {
         "startLine": 527,
         "startChar": 4,
