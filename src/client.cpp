@@ -361,6 +361,38 @@ on_close_window(GtkWidget *window, G_GNUC_UNUSED GdkEvent *event, Client *client
     }
 }
 
+void
+on_main_window_urgency_changed(GtkWidget *, gboolean urgent, Client *client)
+{
+    ClientPrivate *priv = CLIENT_GET_PRIVATE(client);
+#if HAVE_APPINDICATOR
+    app_indicator_set_status((AppIndicator *) priv->systray_icon,
+                             urgent
+                             ? APP_INDICATOR_STATUS_ATTENTION
+                             : APP_INDICATOR_STATUS_ACTIVE);
+#else
+    GError *error = NULL;
+    GdkPixbuf* icon =
+        gdk_pixbuf_new_from_resource(urgent
+                                     ? "/net/jami/JamiGnome/jami-symbol-blue-new"
+                                     : "/net/jami/JamiGnome/jami-symbol-blue",
+                                     &error);
+    if (icon) {
+        // GtkStatusIcon is deprecated since 3.14, but we fallback on it
+        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+        gtk_status_icon_set_from_pixbuf(priv->systray_icon, icon);
+        gtk_status_icon_set_title(priv->systray_icon,
+                                  urgent
+                                  ? _("Jami needs your attention")
+                                  : "jami-gnome");
+        G_GNUC_END_IGNORE_DEPRECATIONS
+    } else {
+        g_debug("Could not load icon: %s", error->message);
+        g_clear_error(&error);
+    }
+#endif
+}
+
 #if !HAVE_APPINDICATOR
 
 static void
@@ -407,6 +439,8 @@ init_systray(Client *client)
     auto indicator = app_indicator_new("jami-gnome", "jami-gnome", APP_INDICATOR_CATEGORY_COMMUNICATIONS);
     app_indicator_set_status(indicator, APP_INDICATOR_STATUS_ACTIVE);
     app_indicator_set_title(indicator, JAMI_CLIENT_NAME);
+    app_indicator_set_attention_icon_full(
+        indicator, "jami-gnome-new", _("Jami needs your attention"));
     /* app indicator requires a menu */
     app_indicator_set_menu(indicator, GTK_MENU(priv->icon_menu));
     priv->systray_icon = indicator;
@@ -426,6 +460,14 @@ init_systray(Client *client)
         priv->systray_icon = status_icon;
     }
 #endif
+    g_signal_connect(
+        priv->win, "main-window-urgency-changed",
+        G_CALLBACK(on_main_window_urgency_changed),
+        client);
+    on_main_window_urgency_changed(
+        priv->win,
+        main_window_get_urgency(MAIN_WINDOW(priv->win)),
+        client);
 }
 
 static void
