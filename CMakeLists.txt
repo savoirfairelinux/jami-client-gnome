@@ -451,7 +451,7 @@ INSTALL(FILES ${PROJECT_SOURCE_DIR}/jami-gnome.desktop.autostart
       jami-gnome.desktop
 )
 
-INSTALL(FILES pixmaps/jami-gnome.svg
+INSTALL(FILES pixmaps/jami-gnome.svg pixmaps/jami-gnome-new.svg
     DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps
 )
 
