@@ -381,8 +381,8 @@ on_main_window_urgency_changed(GtkWidget *, gboolean urgent, Client *client)
     if (icon) {
         // GtkStatusIcon is deprecated since 3.14, but we fallback on it
         G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-        gtk_status_icon_set_from_pixbuf(priv->systray_icon, icon);
-        gtk_status_icon_set_title(priv->systray_icon,
+        gtk_status_icon_set_from_pixbuf((GtkStatusIcon *) priv->systray_icon, icon);
+        gtk_status_icon_set_title((GtkStatusIcon *) priv->systray_icon,
                                   urgent
                                   ? _("Jami needs your attention")
                                   : "jami-gnome");
