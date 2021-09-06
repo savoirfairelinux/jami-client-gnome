@@ -41,8 +41,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-30 03:09-0400\n"
-"PO-Revision-Date: 2021-08-16 07:09+0000\n"
+"POT-Creation-Date: 2021-09-06 03:09-0400\n"
+"PO-Revision-Date: 2021-09-06 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/savoirfairelinux/jami/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -202,7 +202,7 @@ msgstr "Complemento"
 msgid "Account"
 msgstr "Cuenta"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1964
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1979
 msgid "Settings"
 msgstr "Configuración"
 
@@ -679,7 +679,7 @@ msgstr "Código QR"
 
 #: ui/profile.ui:179
 msgid "Is swarm"
-msgstr ""
+msgstr "Es enjambre"
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
@@ -1266,7 +1266,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "(%s)"
-msgstr ""
+msgstr "\"%s\"\n(%s)"
 
 #: src/dialogs.cpp:134
 msgid ""
@@ -1281,13 +1281,13 @@ msgstr "Error en Jami"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (jamid)…"
-msgstr ""
+msgstr "Intentando reconectar al deamon Jami (jamid)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (jamid).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "No se pudo reconectar al deamon Jami (jamid).\nJami se cerrará."
 
 #: src/client_options.c:65
 msgid "Enable debug"
@@ -1317,7 +1317,7 @@ msgstr "_Añadir a conversaciones"
 
 #: src/conversationpopupmenu.cpp:250
 msgid "_Accept invitation"
-msgstr ""
+msgstr "_Aceptar invitación"
 
 #: src/conversationpopupmenu.cpp:253
 msgid "_Discard invitation"
@@ -1353,11 +1353,11 @@ msgstr "(Nada)"
 
 #: src/profileview.cpp:160
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: src/profileview.cpp:160
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: src/accountcreationwizard.cpp:327
 msgid "An error occurred during the account creation."
@@ -1439,102 +1439,102 @@ msgstr "Registrar nombre"
 msgid "Name"
 msgstr "Nombre"
 
-#: src/mainwindow.cpp:199
+#: src/mainwindow.cpp:207
 msgid "Add account…"
 msgstr "Añadir cuenta..."
 
-#: src/mainwindow.cpp:923
+#: src/mainwindow.cpp:934
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "llamar"
 
-#: src/mainwindow.cpp:926
+#: src/mainwindow.cpp:937
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Abrir chat"
 
-#: src/mainwindow.cpp:1161
+#: src/mainwindow.cpp:1172
 msgid "Jami - Migration needed"
 msgstr "Jami - se requiere migración"
 
-#: src/mainwindow.cpp:1177
+#: src/mainwindow.cpp:1188
 msgid "Migration in progress... please do not close this window."
 msgstr "Migración en proceso... por favor, no cierres esta ventana."
 
-#: src/mainwindow.cpp:1461
+#: src/mainwindow.cpp:1472
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Busca o comienza una conversación"
 
-#: src/mainwindow.cpp:1936
+#: src/mainwindow.cpp:1951
 msgid "Leave settings page"
 msgstr "Abandonar la página de configuración"
 
-#: src/mainwindow.cpp:2363
+#: src/mainwindow.cpp:2405
 msgid "Missed call from "
 msgstr "Llamada perdida de"
 
-#: src/mainwindow.cpp:2367
+#: src/mainwindow.cpp:2409
 msgid "Missed call"
 msgstr "Llamada perdida"
 
-#: src/mainwindow.cpp:2384
+#: src/mainwindow.cpp:2426
 msgid "There are active calls"
 msgstr "Hay llamadas activas"
 
-#: src/mainwindow.cpp:2454
+#: src/mainwindow.cpp:2496
 msgid " is calling you!"
 msgstr "te está llamando!"
 
-#: src/mainwindow.cpp:2457
+#: src/mainwindow.cpp:2499
 msgid "Incoming call"
 msgstr "Llamada entrante"
 
-#: src/mainwindow.cpp:2617
+#: src/mainwindow.cpp:2661
 msgid "New request from "
 msgstr "Nueva petición de"
 
-#: src/mainwindow.cpp:2620
+#: src/mainwindow.cpp:2664
 msgid "Trust request"
 msgstr "Solicitud de confianza"
 
-#: src/mainwindow.cpp:2686
+#: src/mainwindow.cpp:2732
 msgid "New message"
 msgstr "Nuevo mensaje"
 
-#: src/mainwindow.cpp:2738
+#: src/mainwindow.cpp:2787
 msgid "Stop current call?"
 msgstr "¿Finalizar llamada actual?"
 
-#: src/mainwindow.cpp:2739
+#: src/mainwindow.cpp:2788
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Una llamada está activa. ¿Quiere cerrar la ventana y finalizar todas las llamadas que se están llevando a cabo?"
 
-#: src/mainwindow.cpp:2807
+#: src/mainwindow.cpp:2865
 msgid "Clear history"
 msgstr "Limpiar historial"
 
-#: src/mainwindow.cpp:2808
+#: src/mainwindow.cpp:2866
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "¿Desea eliminar el historial de esta conversación?"
 
-#: src/mainwindow.cpp:2824
+#: src/mainwindow.cpp:2882
 msgid "Remove conversation"
 msgstr "Eliminar conversación"
 
-#: src/mainwindow.cpp:2825
+#: src/mainwindow.cpp:2883
 msgid "Do you really want to remove this conversation?"
 msgstr "¿Desea eliminar esta conversación?"
 
-#: src/mainwindow.cpp:2840
+#: src/mainwindow.cpp:2898
 msgid "Block contact"
 msgstr "Bloquear contacto"
 
-#: src/mainwindow.cpp:2841
+#: src/mainwindow.cpp:2899
 msgid "Do you really want to block this contact?"
 msgstr "¿Desea bloquear este contacto?"
 
@@ -1560,19 +1560,23 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (jamid) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "No se puede inicializar.\nAsegúrate de que el deamon Jami (jamid) se está ejecutando.\nError: %s"
 
 #: src/client.cpp:117
 msgid "Jami Error"
 msgstr "Error en Jami"
 
-#: src/client.cpp:394
+#: src/client.cpp:387 src/client.cpp:444
+msgid "Jami needs your attention"
+msgstr ""
+
+#: src/client.cpp:427
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Mostrar Jami"
 
-#: src/client.cpp:398
+#: src/client.cpp:431
 msgid "Quit"
 msgstr "Salir"
 

@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-30 03:09-0400\n"
-"PO-Revision-Date: 2021-08-16 07:09+0000\n"
+"POT-Creation-Date: 2021-09-06 03:09-0400\n"
+"PO-Revision-Date: 2021-09-06 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/savoirfairelinux/jami/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
@@ -179,7 +179,7 @@ msgstr "Plugin"
 msgid "Account"
 msgstr "Konto"
 
-#: ui/mainwindow.ui:173 src/mainwindow.cpp:1964
+#: ui/mainwindow.ui:173 src/mainwindow.cpp:1979
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -1416,102 +1416,102 @@ msgstr "Namen registrieren"
 msgid "Name"
 msgstr "Name"
 
-#: src/mainwindow.cpp:199
+#: src/mainwindow.cpp:207
 msgid "Add account…"
 msgstr "Konto hinzufügen…"
 
-#: src/mainwindow.cpp:923
+#: src/mainwindow.cpp:934
 msgctxt "button next to search entry will place a new call"
 msgid "place call"
 msgstr "Anrufen"
 
-#: src/mainwindow.cpp:926
+#: src/mainwindow.cpp:937
 msgctxt "button next to search entry will open chat"
 msgid "open chat"
 msgstr "Chat öffnen"
 
-#: src/mainwindow.cpp:1161
+#: src/mainwindow.cpp:1172
 msgid "Jami - Migration needed"
 msgstr "Jami-Migration erforderlich"
 
-#: src/mainwindow.cpp:1177
+#: src/mainwindow.cpp:1188
 msgid "Migration in progress... please do not close this window."
 msgstr "Migration läuft ... dieses Fenster nicht schließen!"
 
-#: src/mainwindow.cpp:1461
+#: src/mainwindow.cpp:1472
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
 msgstr "Ein Gespräch suchen oder beginnen"
 
-#: src/mainwindow.cpp:1936
+#: src/mainwindow.cpp:1951
 msgid "Leave settings page"
 msgstr "Einstellungen schließen"
 
-#: src/mainwindow.cpp:2363
+#: src/mainwindow.cpp:2405
 msgid "Missed call from "
 msgstr "Verpasster Anruf von "
 
-#: src/mainwindow.cpp:2367
+#: src/mainwindow.cpp:2409
 msgid "Missed call"
 msgstr "Anruf verpasst"
 
-#: src/mainwindow.cpp:2384
+#: src/mainwindow.cpp:2426
 msgid "There are active calls"
 msgstr "Es laufen noch Anrufe"
 
-#: src/mainwindow.cpp:2454
+#: src/mainwindow.cpp:2496
 msgid " is calling you!"
 msgstr " ruft Sie an!"
 
-#: src/mainwindow.cpp:2457
+#: src/mainwindow.cpp:2499
 msgid "Incoming call"
 msgstr "Eingehender Anruf"
 
-#: src/mainwindow.cpp:2617
+#: src/mainwindow.cpp:2661
 msgid "New request from "
 msgstr "Neue Anfrage von"
 
-#: src/mainwindow.cpp:2620
+#: src/mainwindow.cpp:2664
 msgid "Trust request"
 msgstr "Vertrauensbeweis gefordert"
 
-#: src/mainwindow.cpp:2686
+#: src/mainwindow.cpp:2732
 msgid "New message"
 msgstr "Neue Nachricht"
 
-#: src/mainwindow.cpp:2738
+#: src/mainwindow.cpp:2787
 msgid "Stop current call?"
 msgstr "Laufenden Anruf beenden?"
 
-#: src/mainwindow.cpp:2739
+#: src/mainwindow.cpp:2788
 msgid ""
 "A call is currently ongoing. Do you want to close the window and stop all "
 "current calls?"
 msgstr "Es findet gerade ein Gespräch statt. Wollen Sie das Fenster schließen und alle momentanen Anrufe beenden?"
 
-#: src/mainwindow.cpp:2807
+#: src/mainwindow.cpp:2865
 msgid "Clear history"
 msgstr "Verlauf löschen"
 
-#: src/mainwindow.cpp:2808
+#: src/mainwindow.cpp:2866
 msgid "Do you really want to clear the history of this conversation?"
 msgstr "Wollen Sie wirklich die Vorgeschichte dieser Unterhaltung löschen?"
 
-#: src/mainwindow.cpp:2824
+#: src/mainwindow.cpp:2882
 msgid "Remove conversation"
 msgstr "Entferne Gespräch"
 
-#: src/mainwindow.cpp:2825
+#: src/mainwindow.cpp:2883
 msgid "Do you really want to remove this conversation?"
 msgstr "Wollen Sie diese Unterhaltung wirklich löschen?"
 
-#: src/mainwindow.cpp:2840
+#: src/mainwindow.cpp:2898
 msgid "Block contact"
 msgstr "Kontakt blockieren"
 
-#: src/mainwindow.cpp:2841
+#: src/mainwindow.cpp:2899
 msgid "Do you really want to block this contact?"
 msgstr "Wollen Sie diesen Kontakt wirklich blockieren?"
 
@@ -1543,13 +1543,17 @@ msgstr ""
 msgid "Jami Error"
 msgstr "Jami-Fehler"
 
-#: src/client.cpp:394
+#: src/client.cpp:387 src/client.cpp:444
+msgid "Jami needs your attention"
+msgstr ""
+
+#: src/client.cpp:427
 msgctxt ""
 "In the status icon menu, toggle action to show or hide the Jami main window"
 msgid "Show Jami"
 msgstr "Jami anzeigen"
 
-#: src/client.cpp:398
+#: src/client.cpp:431
 msgid "Quit"
 msgstr "Beenden"
 
