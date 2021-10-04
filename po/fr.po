@@ -13,6 +13,7 @@
 # Baptiste Jonglez, 2016
 # Breizh <breizh@breizh.noho.st>, 2016
 # Bruno Pagani <bruno.n.pagani@gmail.com>, 2015
+# Charles Deschamps, 2021
 # Cyrille Béraud <cyrille.beraud@savoirfairelinux.com>, 2015,2017-2021
 # Gervais Potvin <gervais.potvin@gmail.com>, 2019
 # Guillaume Roguez, 2015-2016
@@ -27,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-27 03:09-0400\n"
-"PO-Revision-Date: 2021-09-06 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-10-04 03:09-0400\n"
+"PO-Revision-Date: 2021-10-03 12:52+0000\n"
+"Last-Translator: Charles Deschamps\n"
 "Language-Team: French (http://www.transifex.com/savoirfairelinux/jami/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1554,7 +1555,7 @@ msgstr "Erreur Jami"
 
 #: src/client.cpp:387 src/client.cpp:444
 msgid "Jami needs your attention"
-msgstr ""
+msgstr "Jami nécessite votre attention"
 
 #: src/client.cpp:427
 msgctxt ""
