@@ -312,8 +312,8 @@ render_time(G_GNUC_UNUSED GtkTreeViewColumn *tree_column,
         auto& interactions = conv.interactions;
         auto lastUid = conv.lastMessageUid;
 
-        if (!interactions.empty() && interactions.find(lastUid) != interactions.end()) {
-            std::time_t lastTimestamp = interactions[lastUid].timestamp;
+        if (!interactions->empty() && interactions->find(lastUid) != interactions->end()) {
+            std::time_t lastTimestamp = interactions->at(lastUid).timestamp;
             std::chrono::time_point<std::chrono::system_clock> lastTs = std::chrono::system_clock::from_time_t(lastTimestamp);
             std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
             std::chrono::hours diff = std::chrono::duration_cast<std::chrono::hours>(now - lastTs);
@@ -368,8 +368,8 @@ load_conversations(gpointer data)
     auto contactUri = contacts.front();
     try {
         auto contactInfo = (*d->accountInfo)->contactModel->getContact(contactUri);
-        auto lastMessage = conv->interactions.empty() ? "" :
-            conv->interactions.at(conv->lastMessageUid).body;
+        auto lastMessage = conv->interactions->empty() ? "" :
+            conv->interactions->at(conv->lastMessageUid).body;
         std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
         auto alias = (*d->accountInfo)->conversationModel->title(conv->uid);
         alias.remove('\r');
@@ -459,8 +459,8 @@ update_conversation(ConversationsView *self, const std::string& uid) {
             auto& conv = convOpt->get();
 
             auto contactInfo = (*priv->accountInfo_)->contactModel->getContact(contacts.front());
-            auto lastMessage = conv.interactions.empty() ? "" :
-                conv.interactions.at(conv.lastMessageUid).body;
+            auto lastMessage = conv.interactions->empty() ? "" :
+                conv.interactions->at(conv.lastMessageUid).body;
             std::replace(lastMessage.begin(), lastMessage.end(), '\n', ' ');
             auto alias = contactInfo.profileInfo.alias;
             alias.remove('\r');

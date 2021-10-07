@@ -284,9 +284,9 @@ interaction_to_json_interaction_object(lrc::api::ConversationModel& conversation
 QString
 interactions_to_json_array_object(lrc::api::ConversationModel& conversation_model,
                                   const QString& convId,
-                                  lrc::api::MessagesList interactions) {
+                                  std::unique_ptr<lrc::api::MessageListModel>& interactions) {
     QJsonArray array;
-    for (const auto& interaction: interactions)
+    for (const auto& interaction: *interactions.get())
         array.append(build_interaction_json(conversation_model, convId, interaction.first, interaction.second));
     return QString(QJsonDocument(array).toJson(QJsonDocument::Compact));
 }
@@ -746,7 +746,7 @@ void
 webkit_chat_container_print_history(WebKitChatContainer *view,
                                     lrc::api::ConversationModel& conversation_model,
                                     const QString& convId,
-                                    lrc::api::MessagesList interactions)
+                                    std::unique_ptr<lrc::api::MessageListModel>& interactions)
 {
     auto interactions_str = interactions_to_json_array_object(conversation_model, convId, interactions).toUtf8();
     gchar* function_call = g_strdup_printf("printHistory(%s)", interactions_str.constData());
@@ -758,7 +758,7 @@ void
 webkit_chat_container_update_history(WebKitChatContainer *view,
                                      lrc::api::ConversationModel& conversation_model,
                                      const QString& convId,
-                                     lrc::api::MessagesList interactions,
+                                     std::unique_ptr<lrc::api::MessageListModel>& interactions,
                                      bool all_loaded)
 {
     auto interactions_str = interactions_to_json_array_object(conversation_model, convId, interactions).toUtf8();

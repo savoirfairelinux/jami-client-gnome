@@ -26,9 +26,11 @@
 // LRC
 #include <api/interaction.h>
 
+#include <memory>
+
 namespace lrc { namespace api {
 class ConversationModel;
-class MessagesList;
+class MessageListModel;
 }};
 
 G_BEGIN_DECLS
@@ -49,8 +51,8 @@ void       webkit_chat_container_clear_sender_images  (WebKitChatContainer *view
 void       webkit_chat_container_print_new_interaction(WebKitChatContainer *view, lrc::api::ConversationModel& conversation_model, const QString& convId, const QString& msgId, const lrc::api::interaction::Info& interaction);
 void       webkit_chat_container_update_interaction   (WebKitChatContainer *view, lrc::api::ConversationModel& conversation_model, const QString& convId, const QString& msgId, const lrc::api::interaction::Info& interaction);
 void       webkit_chat_container_remove_interaction   (WebKitChatContainer *view, const QString& interactionId);
-void       webkit_chat_container_print_history        (WebKitChatContainer *view, lrc::api::ConversationModel& conversation_model, const QString& convId, lrc::api::MessagesList interactions);
-void       webkit_chat_container_update_history       (WebKitChatContainer *view, lrc::api::ConversationModel& conversation_model, const QString& convId, lrc::api::MessagesList interactions, bool all_loaded);
+void       webkit_chat_container_print_history        (WebKitChatContainer *view, lrc::api::ConversationModel& conversation_model, const QString& convId, std::unique_ptr<lrc::api::MessageListModel>& interactions);
+void       webkit_chat_container_update_history       (WebKitChatContainer *view, lrc::api::ConversationModel& conversation_model, const QString& convId, std::unique_ptr<lrc::api::MessageListModel>& interactions, bool all_loaded);
 void       webkit_chat_container_set_sender_image     (WebKitChatContainer *view, const std::string& sender, const std::string& senderImage);
 gboolean   webkit_chat_container_is_ready             (WebKitChatContainer *view);
 void       webkit_chat_container_set_display_links    (WebKitChatContainer *view, bool display);
