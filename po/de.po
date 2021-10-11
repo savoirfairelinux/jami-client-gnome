@@ -16,6 +16,7 @@
 # Moritz Brunner <moritzbrunner@freenet.de>, 2019
 # M. Utkun Uyar, 2016
 # M Wellnitz <marcus@wellnitzfamily.de>, 2020
+# M Z, 2021
 # René Krell <renda.krell@gmail.com>, 2019
 # resajo sceniar <resajo-transifex@munin-soft.de>, 2016
 # rezor92 <rezor92@googlemail.com>, 2016
@@ -28,9 +29,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-04 03:09-0400\n"
-"PO-Revision-Date: 2021-09-06 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-10-11 03:09-0400\n"
+"PO-Revision-Date: 2021-10-05 11:32+0000\n"
+"Last-Translator: M Z\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -414,7 +415,7 @@ msgstr "PIN"
 msgid ""
 "Enter the PIN from another configured Jami account. Use the \"Link Another "
 "Device\" feature to obtain a PIN."
-msgstr ""
+msgstr "Geben Sie die PIN eines anderen konfigurierten Jami-Kontos ein. Verwenden Sie die Funktion \"Anderes Gerät verknüpfen\", um eine PIN zu erhalten."
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
@@ -509,7 +510,7 @@ msgstr "OK"
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr ""
+msgstr "Geben Sie die URL des Jami Account Management Servers (JAMS) ein"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
@@ -517,7 +518,7 @@ msgstr "JAMS URL"
 
 #: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
-msgstr ""
+msgstr "Geben Sie Ihre JAMS-Anmeldedaten ein"
 
 #: ui/accountcreationwizard.ui:1167
 msgid "Connect"
@@ -525,7 +526,7 @@ msgstr "Verbinden"
 
 #: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
-msgstr ""
+msgstr "Ein vorhandenes SIP-Konto konfigurieren"
 
 #: ui/accountcreationwizard.ui:1240
 msgid "Server"
@@ -642,11 +643,11 @@ msgstr "Dateitransfer"
 
 #: ui/generalsettingsview.ui:862
 msgid "Allow incoming files from unknown contacts"
-msgstr ""
+msgstr "Eingehende Dateien von unbekannten Kontakten zulassen"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
-msgstr ""
+msgstr "Eingehende Dateien automatisch annehmen"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
@@ -666,7 +667,7 @@ msgstr "QR-Code"
 
 #: ui/profile.ui:179
 msgid "Is swarm"
-msgstr ""
+msgstr "Ist Schwarm"
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
@@ -901,7 +902,7 @@ msgstr "Verbindung"
 
 #: ui/newaccountsettingsview.ui:2100
 msgid "Auto Registration After Expired"
-msgstr ""
+msgstr "Automatische Registrierung nach Ablauf"
 
 #: ui/newaccountsettingsview.ui:2136
 msgid "Registration expire timeout (seconds)"
@@ -1080,7 +1081,7 @@ msgstr "Plugin deinstallieren"
 
 #: src/pluginsettingsview.cpp:284
 msgid "Load/Unload Plugin"
-msgstr ""
+msgstr "Plugin laden/entladen"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
@@ -1201,11 +1202,11 @@ msgstr "Minimieren"
 
 #: src/video/video_widget.cpp:484
 msgid "Unset moderator"
-msgstr ""
+msgstr "Moderator entfernen"
 
 #: src/video/video_widget.cpp:484
 msgid "Set moderator"
-msgstr ""
+msgstr "Moderator einstellen"
 
 #: src/video/video_widget.cpp:548
 msgid "More options"
@@ -1253,7 +1254,7 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "(%s)"
-msgstr ""
+msgstr "%s\n(%s)"
 
 #: src/dialogs.cpp:134
 msgid ""
@@ -1268,13 +1269,13 @@ msgstr "Fehler in Jami"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (jamid)…"
-msgstr ""
+msgstr "Versuch, sich wieder mit dem Jami-Daemon (jamid) zu verbinden…"
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (jamid).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "Die Verbindung zum Jami-Daemon (jamid) konnte nicht erneut hergestellt werden.\nJami wird jetzt beendet."
 
 #: src/client_options.c:65
 msgid "Enable debug"
@@ -1304,7 +1305,7 @@ msgstr "_Zu Konversationen hinzufügen"
 
 #: src/conversationpopupmenu.cpp:250
 msgid "_Accept invitation"
-msgstr ""
+msgstr "_Einladung annehmen"
 
 #: src/conversationpopupmenu.cpp:253
 msgid "_Discard invitation"
@@ -1340,23 +1341,23 @@ msgstr "(Nichts)"
 
 #: src/profileview.cpp:160
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: src/profileview.cpp:160
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: src/accountcreationwizard.cpp:327
 msgid "An error occurred during the account creation."
-msgstr ""
+msgstr "Bei der Kontoerstellung ist ein Fehler aufgetreten."
 
 #: src/accountcreationwizard.cpp:331
 msgid "An error occurred during the rendez-vous creation."
-msgstr ""
+msgstr "Bei der Rendezvous-Erstellung ist ein Fehler aufgetreten."
 
 #: src/accountcreationwizard.cpp:335
 msgid "An error occurred during the SIP account creation."
-msgstr ""
+msgstr "Bei der Erstellung des SIP-Kontos ist ein Fehler aufgetreten."
 
 #: src/accountcreationwizard.cpp:339
 msgid "Cannot retrieve any account, please verify your PIN and your password."
@@ -1374,7 +1375,7 @@ msgstr "Es kann keine Verbindung mit dem angegebenen Kontoverwalter hergestellt 
 
 #: src/accountcreationwizard.cpp:536
 msgid "Generating your rendez-vous…"
-msgstr ""
+msgstr "Generieren Ihres Rendezvous…"
 
 #: src/accountcreationwizard.cpp:538
 msgid "Generating your Jami account…"
@@ -1547,7 +1548,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (jamid) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Initialisierung nicht möglich.\nStellen Sie sicher, dass der Jami-Daemon (jamid) ausgeführt wird.\nFehler:%s"
 
 #: src/client.cpp:117
 msgid "Jami Error"
@@ -1555,7 +1556,7 @@ msgstr "Fehler in Jami"
 
 #: src/client.cpp:387 src/client.cpp:444
 msgid "Jami needs your attention"
-msgstr ""
+msgstr "Jami braucht Ihre Aufmerksamkeit"
 
 #: src/client.cpp:427
 msgctxt ""
