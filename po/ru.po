@@ -16,6 +16,7 @@
 # ​⠀ ​⠀ <kereyi3325@mailivw.com>, 2020
 # Konstantin, 2016
 # l comrade, 2021
+# Leon Backs, 2021
 # Marat Gubaidullin <marat.gubaidullin@savoirfairelinux.com>, 2015
 # Natalia <sonaux@gmail.com>, 2015
 # Nikita Epifanov, 2020-2021
@@ -36,9 +37,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-11 03:09-0400\n"
-"PO-Revision-Date: 2021-09-06 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-10-18 03:09-0400\n"
+"PO-Revision-Date: 2021-10-12 19:55+0000\n"
+"Last-Translator: Leon Backs\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1312,7 +1313,7 @@ msgstr "_Добавить к контактам"
 
 #: src/conversationpopupmenu.cpp:250
 msgid "_Accept invitation"
-msgstr ""
+msgstr "Принять приглашение"
 
 #: src/conversationpopupmenu.cpp:253
 msgid "_Discard invitation"
@@ -1563,7 +1564,7 @@ msgstr "Ошибка Jami"
 
 #: src/client.cpp:387 src/client.cpp:444
 msgid "Jami needs your attention"
-msgstr ""
+msgstr "Jami нуждается в вашем внимании"
 
 #: src/client.cpp:427
 msgctxt ""
