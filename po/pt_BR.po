@@ -19,7 +19,7 @@
 # Raul Dipeas <rauldipeas@outlook.com>, 2015
 # Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2020
 # Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2016
-# Ronaldo V. Lobato <vieira.lobato@gmail.com>, 2021
+# Ronaldo Lobato <vieira.lobato@gmail.com>, 2021
 # Rui <xymarior@yandex.com>, 2018
 # The Cat, 2018
 # The Cat, 2017-2018
@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-25 03:09-0400\n"
+"POT-Creation-Date: 2021-11-01 03:09-0400\n"
 "PO-Revision-Date: 2021-09-06 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/jami/language/pt_BR/)\n"
