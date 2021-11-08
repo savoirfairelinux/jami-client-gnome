@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# . . <ovari123@zoho.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-01 03:09-0400\n"
-"PO-Revision-Date: 2021-09-06 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-11-08 03:09-0500\n"
+"PO-Revision-Date: 2021-11-02 05:27+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/savoirfairelinux/jami/language/sr_RS/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +21,7 @@ msgstr ""
 #: ui/help-overlay.ui:13
 msgctxt "shortcut window"
 msgid "General"
-msgstr "General"
+msgstr "Opšte"
 
 #: ui/help-overlay.ui:18
 msgctxt "shortcut window"
@@ -153,7 +154,7 @@ msgstr ""
 
 #: ui/mainwindow.ui:86
 msgid "General"
-msgstr "General"
+msgstr "Opšte"
 
 #: ui/mainwindow.ui:102
 msgid "Media"
@@ -772,7 +773,7 @@ msgstr "Napredna podešavanja"
 
 #: ui/newaccountsettingsview.ui:1090
 msgid "General settings"
-msgstr ""
+msgstr "Opšte postavke"
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
@@ -1506,7 +1507,7 @@ msgstr ""
 
 #: src/chatview.cpp:388 src/chatview.cpp:402
 msgid "Send File"
-msgstr ""
+msgstr "Pošalji podatak"
 
 #: src/chatview.cpp:457
 msgid "Retry"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-01 03:09-0400\n"
-"PO-Revision-Date: 2021-09-06 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-11-08 03:09-0500\n"
+"PO-Revision-Date: 2021-11-05 15:12+0000\n"
+"Last-Translator: Altonss <marsupilami450@gmail.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/savoirfairelinux/jami/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -215,7 +215,7 @@ msgstr ""
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
 #: src/newaccountsettingsview.cpp:1011 src/newaccountsettingsview.cpp:2168
 msgid "Delete account"
-msgstr ""
+msgstr "Supprimer le compte"
 
 #: ui/accountmigrationview.ui:251
 msgid "Migrate account"
@@ -235,7 +235,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:288 ui/currentcallview.ui:581
 msgid "End call"
-msgstr ""
+msgstr "Fin d’appel"
 
 #: ui/currentcallview.ui:308 ui/currentcallview.ui:554
 msgid "Add participant"
@@ -394,7 +394,7 @@ msgstr "PIN"
 msgid ""
 "Enter the PIN from another configured Jami account. Use the \"Link Another "
 "Device\" feature to obtain a PIN."
-msgstr ""
+msgstr "Entrer le NIP obtenu à partir d'un compte Jami configuré sur un autre appareil. Utiliser la fonction \"Associer un autre appareil\" pour obtenir un NIP."
 
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
@@ -753,7 +753,7 @@ msgstr "mot de passe"
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
-msgstr ""
+msgstr "Boîte vocale"
 
 #: ui/newaccountsettingsview.ui:925
 msgid "Known devices linked to this Jami account"
@@ -793,7 +793,7 @@ msgstr "Sonnerie personnalisée"
 
 #: ui/newaccountsettingsview.ui:1264
 msgid "Convert your account into a rendezvous point"
-msgstr ""
+msgstr "Transformer votre compte en point de rendez-vous"
 
 #: ui/newaccountsettingsview.ui:1299
 msgid "Name server"
@@ -817,7 +817,7 @@ msgstr "Amorcer"
 
 #: ui/newaccountsettingsview.ui:1550
 msgid "Encrypt media streams (SRTP)"
-msgstr ""
+msgstr "Chiffrer les flux média (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1585
 msgid "Enable SDES for key exchange protocol"
@@ -829,7 +829,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1656
 msgid "Encrypt negotiation (TLS)"
-msgstr ""
+msgstr "Chiffrer les négociations (TLS)"
 
 #: ui/newaccountsettingsview.ui:1691
 msgid "CA certificate"
@@ -849,7 +849,7 @@ msgstr "Mot de passe de la clé privée "
 
 #: ui/newaccountsettingsview.ui:1837
 msgid "TLS protocol method"
-msgstr ""
+msgstr "Méthode du protocole TLS"
 
 #: ui/newaccountsettingsview.ui:1873
 msgid "Outgoing TLS server name"
@@ -857,7 +857,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:1908
 msgid "Negotiation timeout (seconds)"
-msgstr ""
+msgstr "Délai de négociation (en secondes)"
 
 #: ui/newaccountsettingsview.ui:1944
 msgid "Verify incoming certificates (server side)"
@@ -929,7 +929,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2524
 msgid "Use custom address and port"
-msgstr ""
+msgstr "Utiliser une adresse et un port personnalisés"
 
 #: ui/newaccountsettingsview.ui:2595
 msgid "Port"
@@ -1254,7 +1254,7 @@ msgstr ""
 msgid ""
 "Could not re-connect to the Jami daemon (jamid).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "Impossible de se reconnecter au daemon Jami (jamid).\nJami s’arrête."
 
 #: src/client_options.c:65
 msgid "Enable debug"
@@ -1445,7 +1445,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2409
 msgid "Missed call"
-msgstr ""
+msgstr "Appel manqué"
 
 #: src/mainwindow.cpp:2426
 msgid "There are active calls"
@@ -1465,11 +1465,11 @@ msgstr ""
 
 #: src/mainwindow.cpp:2664
 msgid "Trust request"
-msgstr ""
+msgstr "Invitation"
 
 #: src/mainwindow.cpp:2732
 msgid "New message"
-msgstr ""
+msgstr "Nouveau message"
 
 #: src/mainwindow.cpp:2787
 msgid "Stop current call?"
@@ -1572,7 +1572,7 @@ msgstr ""
 
 #: src/currentcallview.cpp:1764
 msgid "me"
-msgstr ""
+msgstr "moi"
 
 #: src/newaccountsettingsview.cpp:608
 msgid ""

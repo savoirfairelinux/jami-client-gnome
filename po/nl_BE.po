@@ -5,14 +5,15 @@
 # Translators:
 # Bert Frederiks <bert2017@elektroaandrijving.nl>, 2017
 # Nathan Follens, 2018-2019
+# . . <ovari123@zoho.com>, 2021
 # Peter Dhaene <pdhaene.transifex.ue8c2i@nym.hush.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-01 03:09-0400\n"
-"PO-Revision-Date: 2021-09-06 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-11-08 03:09-0500\n"
+"PO-Revision-Date: 2021-11-02 02:33+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/savoirfairelinux/jami/language/nl_BE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1509,7 +1510,7 @@ msgstr "Wilt u dit contact echt blokkeren?"
 
 #: src/chatview.cpp:388 src/chatview.cpp:402
 msgid "Send File"
-msgstr "Bestand versturen"
+msgstr "Bestand verzenden"
 
 #: src/chatview.cpp:457
 msgid "Retry"
