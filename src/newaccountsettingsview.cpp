@@ -1,6 +1,7 @@
 /*
  *  Copyright (C) 2015-2021 Savoir-faire Linux Inc.
  *  Author: Sebastien Blin <sebastien.blin@savoirfairelinux.com>
+ *  Author: Alberto Eleuterio Flores Guerrero <albertoefg+bugs@posteo.mx>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU NewAccount Public License as published by
@@ -153,6 +154,7 @@ struct _NewAccountSettingsViewPrivate
     GtkWidget* sip_network_interface_row;
         GtkWidget* spinbutton_network_interface;
     GtkWidget* upnp_button;
+    GtkWidget* sip_auto_registration_box;
     GtkWidget* sip_auto_registration_button;
     GtkWidget* switch_use_turn;
     GtkWidget* entry_turnserver;
@@ -333,6 +335,7 @@ new_account_settings_view_class_init(NewAccountSettingsViewClass *klass)
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, spinbutton_network_interface);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, upnp_button);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, sip_auto_registration_button);
+    gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, sip_auto_registration_box);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, switch_use_turn);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, entry_turnserver);
     gtk_widget_class_bind_template_child_private(GTK_WIDGET_CLASS(klass), NewAccountSettingsView, entry_turnusername);
@@ -2091,6 +2094,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_widget_show_all(priv->vbox_banned_contacts);
         gtk_widget_show_all(priv->username_box);
         gtk_widget_hide(priv->sip_info_box);
+        gtk_widget_hide(priv->sip_auto_registration_box);
         gtk_widget_show(priv->button_export_account);
         gtk_widget_show(priv->type_box);
         gtk_widget_hide(priv->sip_enable_account);
@@ -2178,6 +2182,7 @@ new_account_settings_view_update(NewAccountSettingsView *view, gboolean reset_vi
         gtk_widget_hide(priv->account_options_box);
         gtk_widget_hide(priv->type_box);
         gtk_widget_show_all(priv->sip_enable_account);
+        gtk_widget_show_all(priv->sip_auto_registration_box);
         gtk_widget_hide(priv->vbox_devices);
         gtk_widget_hide(priv->vbox_banned_contacts);
         gtk_widget_hide(priv->button_export_account);
