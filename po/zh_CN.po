@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-08 03:09-0500\n"
+"POT-Creation-Date: 2021-11-15 03:09-0500\n"
 "PO-Revision-Date: 2021-09-06 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
@@ -224,7 +224,7 @@ msgstr "账户管理器"
 
 #: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
 #: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:1011 src/newaccountsettingsview.cpp:2168
+#: src/newaccountsettingsview.cpp:1014 src/newaccountsettingsview.cpp:2172
 msgid "Delete account"
 msgstr "删除账户"
 
@@ -450,7 +450,7 @@ msgid ""
 "devices to your account."
 msgstr "该密码用于加密您的账户数据，以及将其他设备关联到您的账户。"
 
-#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:874
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:877
 msgid "Confirm password"
 msgstr "确认密码"
 
@@ -474,7 +474,7 @@ msgid "Never show me this again"
 msgstr "不再向我显示这个"
 
 #: ui/accountcreationwizard.ui:863 ui/newaccountsettingsview.ui:539
-#: src/accountcreationwizard.cpp:442 src/newaccountsettingsview.cpp:2101
+#: src/accountcreationwizard.cpp:442 src/newaccountsettingsview.cpp:2105
 msgid "Export account"
 msgstr "导出账户"
 
@@ -734,7 +734,7 @@ msgstr "密码（必填）："
 msgid "Enter archive password"
 msgstr "输入归档密码"
 
-#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:884
+#: ui/newaccountsettingsview.ui:205 src/newaccountsettingsview.cpp:887
 msgid "Cancel"
 msgstr "取消"
 
@@ -1055,7 +1055,7 @@ msgstr "打开(_O)"
 #: src/avatarmanipulation.cpp:442 src/avatarmanipulation.cpp:463
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
 #: src/chatview.cpp:392 src/chatview.cpp:405
-#: src/newaccountsettingsview.cpp:933 src/newaccountsettingsview.cpp:949
+#: src/newaccountsettingsview.cpp:936 src/newaccountsettingsview.cpp:952
 msgid "_Cancel"
 msgstr "取消(_C)"
 
@@ -1136,7 +1136,7 @@ msgstr "选择下载文件夹"
 #: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
 #: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:897
 #: src/chatview.cpp:391 src/chatview.cpp:406
-#: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:950
+#: src/newaccountsettingsview.cpp:935 src/newaccountsettingsview.cpp:953
 msgid "_Save"
 msgstr "保存(_S)"
 
@@ -1389,23 +1389,23 @@ msgstr "从备份文件导入"
 
 #: src/accountcreationwizard.cpp:876 src/accountcreationwizard.cpp:893
 #: src/chatview.cpp:388 src/chatview.cpp:402
-#: src/newaccountsettingsview.cpp:929 src/newaccountsettingsview.cpp:946
+#: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:949
 msgid "Save File"
 msgstr "保存文件"
 
-#: src/accountcreationwizard.cpp:919 src/newaccountsettingsview.cpp:971
+#: src/accountcreationwizard.cpp:919 src/newaccountsettingsview.cpp:974
 msgid "You need to enter your password to export the full archive."
 msgstr "您需要密码来导出完整归档。"
 
-#: src/accountcreationwizard.cpp:920 src/newaccountsettingsview.cpp:972
+#: src/accountcreationwizard.cpp:920 src/newaccountsettingsview.cpp:975
 msgid "Enter password to export archive"
 msgstr "输入密码以导出归档"
 
-#: src/accountcreationwizard.cpp:943 src/newaccountsettingsview.cpp:995
+#: src/accountcreationwizard.cpp:943 src/newaccountsettingsview.cpp:998
 msgid "Account exported!"
 msgstr "账户已导出！"
 
-#: src/accountcreationwizard.cpp:943 src/newaccountsettingsview.cpp:995
+#: src/accountcreationwizard.cpp:943 src/newaccountsettingsview.cpp:998
 msgid "Export account failure."
 msgstr "导出账户失败。"
 
@@ -1558,7 +1558,7 @@ msgstr "显示 Jami"
 msgid "Quit"
 msgstr "退出"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:1010
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:1013
 msgid ""
 "Warning! This action will remove this account on this device!\n"
 "Note: this action cannot be undone. Also, your registered name can be lost!"
@@ -1585,117 +1585,117 @@ msgstr "自动"
 msgid "me"
 msgstr "我"
 
-#: src/newaccountsettingsview.cpp:608
+#: src/newaccountsettingsview.cpp:611
 msgid ""
 "Warning! This action will revoke the device!\n"
 "Note: this action cannot be undone."
 msgstr "警告！此操作将吊销设备！\n注意：此操作无法撤消。"
 
-#: src/newaccountsettingsview.cpp:609
+#: src/newaccountsettingsview.cpp:612
 msgid "Enter password to revoke device"
 msgstr "输入密码以吊销设备"
 
-#: src/newaccountsettingsview.cpp:657
+#: src/newaccountsettingsview.cpp:660
 msgid "This device"
 msgstr "本设备"
 
-#: src/newaccountsettingsview.cpp:680
+#: src/newaccountsettingsview.cpp:683
 msgid "Edit name"
 msgstr "编辑名称"
 
-#: src/newaccountsettingsview.cpp:680
+#: src/newaccountsettingsview.cpp:683
 msgid "Revoke device"
 msgstr "吊销设备"
 
-#: src/newaccountsettingsview.cpp:702
+#: src/newaccountsettingsview.cpp:705
 msgid "Error when revoking device"
 msgstr "吊销设备时发生错误"
 
-#: src/newaccountsettingsview.cpp:775
+#: src/newaccountsettingsview.cpp:778
 msgid "Unban"
 msgstr "从黑名单中删除"
 
-#: src/newaccountsettingsview.cpp:798 src/newaccountsettingsview.cpp:821
-#: src/newaccountsettingsview.cpp:845 src/newaccountsettingsview.cpp:881
+#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
+#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
 msgid "Change password"
 msgstr "更改密码"
 
-#: src/newaccountsettingsview.cpp:811
+#: src/newaccountsettingsview.cpp:814
 msgid "New password and its confirmation are different!"
 msgstr "新密码和确认密码不相同！"
 
-#: src/newaccountsettingsview.cpp:822
+#: src/newaccountsettingsview.cpp:825
 msgid "Incorrect password!"
 msgstr "密码错误！"
 
-#: src/newaccountsettingsview.cpp:859
+#: src/newaccountsettingsview.cpp:862
 msgid "Note: this will change the password only on this device."
 msgstr "注意：这只会更改此设备上的密码。"
 
-#: src/newaccountsettingsview.cpp:862
+#: src/newaccountsettingsview.cpp:865
 msgid "Current password"
 msgstr "当前密码"
 
-#: src/newaccountsettingsview.cpp:868
+#: src/newaccountsettingsview.cpp:871
 msgid "New password"
 msgstr "新密码"
 
-#: src/newaccountsettingsview.cpp:1775
+#: src/newaccountsettingsview.cpp:1778
 msgid "Exporting account…"
 msgstr "正在导出账户…"
 
-#: src/newaccountsettingsview.cpp:1800
+#: src/newaccountsettingsview.cpp:1803
 msgid "Bad password"
 msgstr "密码错误"
 
-#: src/newaccountsettingsview.cpp:1808
+#: src/newaccountsettingsview.cpp:1811
 msgid "Network error, try again"
 msgstr "网络错误，请重试"
 
-#: src/newaccountsettingsview.cpp:1816
+#: src/newaccountsettingsview.cpp:1819
 msgid "Unknown error"
 msgstr "未知错误"
 
-#: src/newaccountsettingsview.cpp:1829
+#: src/newaccountsettingsview.cpp:1832
 msgid "Could not initiate export to the Jami, try again"
 msgstr "无法导出至 Jami，请重试"
 
-#: src/newaccountsettingsview.cpp:1888
+#: src/newaccountsettingsview.cpp:1891
 msgid "Error: wrong password!"
 msgstr "错误：密码错误！"
 
-#: src/newaccountsettingsview.cpp:1891
+#: src/newaccountsettingsview.cpp:1894
 msgid "Error: unknown device!"
 msgstr "错误：未知设备！"
 
-#: src/newaccountsettingsview.cpp:2066
+#: src/newaccountsettingsview.cpp:2069
 msgid "Initializing…"
 msgstr "正在初始化…"
 
-#: src/newaccountsettingsview.cpp:2069
+#: src/newaccountsettingsview.cpp:2072
 msgid "Offline"
 msgstr "离线"
 
-#: src/newaccountsettingsview.cpp:2072
+#: src/newaccountsettingsview.cpp:2075
 msgid "Connecting…"
 msgstr "正在连接…"
 
-#: src/newaccountsettingsview.cpp:2075
+#: src/newaccountsettingsview.cpp:2078
 msgid "Online"
 msgstr "在线"
 
-#: src/newaccountsettingsview.cpp:2079
+#: src/newaccountsettingsview.cpp:2082
 msgid "Unknown status"
 msgstr "未知状态"
 
-#: src/newaccountsettingsview.cpp:2112
+#: src/newaccountsettingsview.cpp:2116
 msgid "••••••••"
 msgstr "••••••••"
 
-#: src/newaccountsettingsview.cpp:2112
+#: src/newaccountsettingsview.cpp:2116
 msgid "no password set"
 msgstr "未设置密码"
 
-#: src/newaccountsettingsview.cpp:2168
+#: src/newaccountsettingsview.cpp:2172
 msgid "Remove account"
 msgstr "移除账户"
