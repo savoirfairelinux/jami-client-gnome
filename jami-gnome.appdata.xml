@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2015-2021 Savoir-faire Linux -->
+<!-- https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html -->
 <component type="desktop-application">
  <id>net.jami.Jami</id>
  <metadata_license>CC-BY-SA-3.0</metadata_license>
  <project_license>GPL-3.0+</project_license>
  <name>Jami (GNOME client)</name>
+ <name xml:lang="hu">Jami (GNOME-ügyfél)</name>
  <summary>Privacy-oriented voice, video, chat, and conference platform</summary>
+ <summary xml:lang="hu">Adatvédelem-orientált hang-, video-, csevegés- és konferenciaplatform</summary>
  <icon type="stock">jami-gnome</icon>
  <description>
     <p>
@@ -31,37 +34,73 @@
       and Android TV are available, making Jami an interoperable and
       cross-platform communication framework.
     </p>
+
+    <p xml:lang="hu">
+      Végpontokig titkosított biztonságos és elosztott hang-, videó-
+      és csevegés-kommunikációs platform, amely nem igényel központi
+      kiszolgálót, és a felhasználók kezében hagyja a magánélet és a
+      szabadság hatalmát.
+    </p>
+    <p xml:lang="hu">
+      A Jami a következő főbb funkciókat támogatja:
+    </p>
+    <ul>
+      <li xml:lang="hu">Személyes beszélgetések</li>
+      <li xml:lang="hu">Fájlmegosztás</li>
+      <li xml:lang="hu">Hanghívások és konferenciák</li>
+      <li xml:lang="hu">Videohívások és konferenciák</li>
+      <li xml:lang="hu">Képernyőmegosztás videohívásokban és
+        konferenciákon</li>
+      <li xml:lang="hu">Hangüzenetek rögzítése és küldése</li>
+      <li xml:lang="hu">Videoüzenetek rögzítése és küldése</li>
+      <li xml:lang="hu">SIP-telefonszoftverként működik</li>
+    </ul>
+    <p xml:lang="hu">
+      Elérhetők a GNU/Linux, Windows, macOS, iOS, Android és Android TV
+      ügyfélalkalmazásai, így a Jami interoperábilis és többplatformos
+      kommunikációs keretrendszerré válik.
+    </p>
+
  </description>
 
  <url type="homepage">https://jami.net/</url>
- <url type="bugtracker">https://git.jami.net/savoirfairelinux/ring-client-gnome/issues/</url>
- <url type="translate">https://www.transifex.com/savoirfairelinux/jami</url>
+ <url type="bugtracker">https://git.jami.net/savoirfairelinux/jami-client-gnome/-/issues</url>
+ <url type="faq">https://jami.net/help/</url>
+ <url type="help">https://git.jami.net/savoirfairelinux/jami-project/-/wikis/home</url>
+ <url type="donation">https://www.paypal.com/donate/?hosted_button_id=MGUDJLQZ4TP5W</url>
+ <url type="translate">https://www.transifex.com/savoirfairelinux/jami/</url>
 
  <!-- Maximum caption length is 60 characters -->
  <!-- Officially GIF is not an allowed video format, but it appears to work nonetheless -->
  <screenshots>
   <screenshot type="default">
    <caption>Send Audio, Video and Chat messages</caption>
+   <caption xml:lang="hu">Hang-, video- és csevegőüzeneteket küldhet</caption>
    <image type="source" width="1310" height="650">https://dl.jami.net/media-resources/screenshots/jami_linux_audiovideo.png</image>
   </screenshot>
   <screenshot>
    <caption>Easily share desktop contents</caption>
+   <caption xml:lang="hu">Könnyen megoszthatja az asztali tartalmat</caption>
    <image type="source" width="1016" height="659">https://dl.jami.net/media-resources/screenshots/jami_linux_screenshare.png</image>
   </screenshot>
   <screenshot>
    <caption>Crystal clear audio calls between Jami users</caption>
+   <caption xml:lang="hu">Kristálytiszta hanghívások a Jami felhasználók között</caption>
    <video container="webm" codec="vp9" width="600" height="400">https://dl.jami.net/media-resources/gifs_features/conversiongif_webm/audio-call_web.webm</video>
   </screenshot>
   <screenshot>
    <caption>Conference calls with an unlimited participants</caption>
+   <caption xml:lang="hu">Konferenciahívások korlátlan számú résztvevővel</caption>
    <video container="webm" codec="vp9" width="600" height="400">https://dl.jami.net/media-resources/gifs_features/conversiongif_webm/conference_web.webm</video>
   </screenshot>
   <screenshot>
    <caption>Encrypted and secure text messaging, no servers</caption>
+   <caption xml:lang="hu">Titkosított és biztonságos csevegési üzenetküldés, kiszolgálók nélkül</caption>
    <video container="webm" codec="vp9" width="600" height="400">https://dl.jami.net/media-resources/gifs_features/conversiongif_webm/chat_web.webm</video>
   </screenshot>
   <screenshot>
-   <caption>Send files of all sizes</caption>
+   <caption>Send files of any size</caption>
+   <caption xml:lang="hu">Bármilyen méretű fájl küldése</caption>
    <video container="webm" codec="vp9" width="600" height="400">https://dl.jami.net/media-resources/gifs_features/conversiongif_webm/files-share_web.webm</video>
   </screenshot>
  </screenshots>
@@ -70,13 +109,19 @@
 
  <provides><binary>jami-gnome</binary><binary>jami</binary></provides>
 
+ <!-- https://specifications.freedesktop.org/menu-spec/latest/apa.html -->
+ <!-- https://specifications.freedesktop.org/menu-spec/latest/apas02.html -->
  <categories>
-  <category>Network</category>
-  <category>P2P</category>
-  <category>InstantMessaging</category>
+  <category>Chat</category>
+  <category>Communication</category>
   <category>FileTransfer</category>
   <category>GNOME</category>
   <category>GTK</category>
+  <category>InstantMessaging</category>
+  <category>Network</category>
+  <category>Office</category>
+  <category>P2P</category>
+  <category>Productivity</category>
  </categories>
 
  <translation type="gettext">jami-client-gnome</translation>
