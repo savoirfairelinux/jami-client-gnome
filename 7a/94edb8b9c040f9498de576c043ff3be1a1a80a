@@ -1,0 +1,8 @@
+Code-Review+2: Adrien Béraud <adrien.beraud@savoirfairelinux.com>
+Code-Review+2: Amin Bandali <amin.bandali@savoirfairelinux.com>
+Verified+1: Jenkins CI <jenkins@ring-packaging.cx>
+Submitted-by: Amin Bandali <amin.bandali@savoirfairelinux.com>
+Submitted-at: Wed, 17 Nov 2021 15:33:31 -0500
+Reviewed-on: https://review.jami.net/c/jami-client-gnome/+/19806
+Project: jami-client-gnome
+Branch: refs/heads/master
