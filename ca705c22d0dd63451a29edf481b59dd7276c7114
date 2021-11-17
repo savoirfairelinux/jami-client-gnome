@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e0c4c67_0d2927ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 892
+      },
+      "writtenOn": "2021-11-17T14:30:08Z",
+      "side": 1,
+      "message": "Why the removal of the \"(GNOME client)\" from the name?\n\nI had added that to avoid confusion with client-qt, the new main Jami\nclient, since that one is just called Jami, and having two different\napplications with the same would be confusing to the users.",
+      "revId": "ca705c22d0dd63451a29edf481b59dd7276c7114",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a"
+    }
+  ]
+}
