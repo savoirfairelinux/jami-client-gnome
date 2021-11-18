@@ -118,7 +118,7 @@ avatar_manipulation_dispose(GObject *object)
 
     /* make sure we stop the preview and the video widget */
     if (priv->video_started_by_avatar_manipulation)
-        priv->avModel_->stopPreview();
+        priv->avModel_->stopPreview(priv->avModel_->getDefaultDevice());
     if (priv->video_widget) {
         gtk_container_remove(GTK_CONTAINER(priv->frame_video), priv->video_widget);
         priv->video_widget = NULL;
@@ -264,7 +264,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
 
             /* make sure video widget and camera is not running */
             if (priv->video_started_by_avatar_manipulation) {
-                priv->avModel_->stopPreview();
+                priv->avModel_->stopPreview(priv->avModel_->getDefaultDevice());
                 QObject::disconnect(priv->local_renderer_connection);
             }
             if (priv->video_widget) {
@@ -318,7 +318,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
                             g_warning("Cannot start preview");
                         }
                     });
-                priv->avModel_->startPreview();
+                priv->avModel_->startPreview(priv->avModel_->getDefaultDevice());
             }
 
             /* available actions: take snapshot, return*/
@@ -331,7 +331,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
         {
             /* make sure video widget and camera is not running */
             if (priv->video_started_by_avatar_manipulation)
-                priv->avModel_->stopPreview();
+                priv->avModel_->stopPreview(priv->avModel_->getDefaultDevice());
             if (priv->video_widget) {
                 gtk_container_remove(GTK_CONTAINER(priv->frame_video), priv->video_widget);
                 priv->video_widget = NULL;

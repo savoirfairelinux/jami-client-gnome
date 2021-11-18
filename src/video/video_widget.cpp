@@ -757,8 +757,9 @@ void video_widget_on_drag_data_received(G_GNUC_UNUSED GtkWidget *self,
     auto* priv = VIDEO_WIDGET_GET_PRIVATE(self);
     g_return_if_fail(priv);
     gchar **uris = gtk_selection_data_get_uris(selection_data);
-    if (uris && *uris && priv->avModel_) {
-        priv->avModel_->setInputFile(*uris);
+    auto& callModel = (*priv->cpp->accountInfo)->callModel;
+    if (uris && *uris && callModel) {
+        callModel->setInputFile(*uris);
     }
     g_strfreev(uris);
 }
@@ -778,7 +779,9 @@ switch_video_input(GtkWidget *widget, GtkWidget *parent)
             g_warning("switch_video_input couldn't find device: %s", label);
             return;
         }
-        priv->avModel_->switchInputTo(device_id, priv->remote->v_renderer->getId());
+        auto& callModel = (*priv->cpp->accountInfo)->callModel;
+        if (callModel)
+            callModel->switchInputTo(device_id, priv->remote->v_renderer->getId());
     }
 }
 
@@ -812,8 +815,9 @@ switch_video_input_screen_area(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
         height = gdk_screen_height();
     }
 
-    if (priv->avModel_)
-        priv->avModel_->setDisplay(display, x, y, width, height, priv->remote->v_renderer->getId());
+    auto& callModel = (*priv->cpp->accountInfo)->callModel;
+    if (callModel)
+        callModel->setDisplay(display, x, y, width, height, priv->remote->v_renderer->getId());
 }
 
 static void
@@ -840,8 +844,9 @@ switch_video_input_monitor(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
     width = gdk_screen_width();
     height = gdk_screen_height();
 
-    if (priv->avModel_)
-        priv->avModel_->setDisplay(display, x, y, width, height, priv->remote->v_renderer->getId());
+    auto& callModel = (*priv->cpp->accountInfo)->callModel;
+    if (callModel)
+        callModel->setDisplay(display, x, y, width, height, priv->remote->v_renderer->getId());
 }
 
 
@@ -868,8 +873,9 @@ switch_video_input_file(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
     res = gtk_native_dialog_run(GTK_NATIVE_DIALOG(native));
     if (res == GTK_RESPONSE_ACCEPT) {
         uri = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(native));
-        if (uri && priv->avModel_) {
-            priv->avModel_->setInputFile(uri, priv->remote->v_renderer->getId());
+        auto& callModel = (*priv->cpp->accountInfo)->callModel;
+        if (uri && callModel) {
+            callModel->setInputFile(uri, priv->remote->v_renderer->getId());
             g_free(uri);
         }
     }
@@ -916,9 +922,11 @@ video_widget_on_button_press_in_screen_event(VideoWidget *self,  GdkEventButton 
     gtk_container_forall(GTK_CONTAINER(menu), (GtkCallback)gtk_widget_destroy,
         nullptr);
 
+    auto& callModel = (*priv->cpp->accountInfo)->callModel;
+
     // list available devices and check off the active device
     auto device_list = priv->avModel_->getDevices();
-    auto active_device = priv->avModel_->getCurrentRenderedDevice(
+    auto active_device = callModel->getCurrentRenderedDevice(
         priv->remote->v_renderer->getId());
 
     g_debug("active_device.name: %s", qUtf8Printable(active_device.name));

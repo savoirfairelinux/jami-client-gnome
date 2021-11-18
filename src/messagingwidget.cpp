@@ -229,7 +229,7 @@ CppImpl::set_state(MessagingWidgetState state)
         break;
     case MESSAGING_WIDGET_REC_AUDIO:
     {
-        QString file_name = avModel_->startLocalRecorder(true);
+        QString file_name = avModel_->startLocalMediaRecorder(avModel_->getDefaultDevice());
         if (file_name.isEmpty()) {
             g_warning("set_state: failed to start recording");
             return;

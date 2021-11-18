@@ -2786,7 +2786,7 @@ main_window_can_close(MainWindow* self)
         auto res = priv->cpp->showOkCancelDialog(
             _("Stop current call?"),
             _("A call is currently ongoing. Do you want to close the window and stop all current calls?"));
-        if (res) lrc::api::NewCallModel::hangupCallsAndConferences();
+        if (res) priv->cpp->lrc_->hangupCallsAndConferences();
         return res;
     }
     return true;

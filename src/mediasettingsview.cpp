@@ -390,7 +390,7 @@ CppImpl::drawVideoDevices()
         gtk_widget_hide(widgets->video_resolution_row);
         gtk_widget_hide(widgets->video_framerate_row);
         if (widgets->video_widget)
-            avModel_->stopPreview();
+            avModel_->stopPreview(avModel_->getDefaultDevice());
         return;
     }
     if (gtk_widget_get_visible(widgets->no_camera_row)) {
@@ -401,7 +401,7 @@ CppImpl::drawVideoDevices()
         gtk_widget_show(widgets->video_resolution_row);
         gtk_widget_show(widgets->video_framerate_row);
         if (widgets->video_widget) {
-            avModel_->startPreview();
+            avModel_->startPreview(avModel_->getDefaultDevice());
         }
     }
 
@@ -445,7 +445,7 @@ media_settings_view_dispose(GObject *object)
 
     /* make sure to stop the preview if this view is getting destroyed */
     if (priv->video_started_by_settings) {
-        priv->cpp->avModel_->stopPreview();
+        priv->cpp->avModel_->stopPreview(priv->cpp->avModel_->getDefaultDevice());
         priv->video_started_by_settings = FALSE;
     }
 
@@ -570,7 +570,7 @@ set_video_device(MediaSettingsView* self)
                 g_warning("set_video_device out_of_range exception");
             }
             priv->cpp->drawVideoDevices();
-            priv->cpp->avModel_->startPreview();
+            priv->cpp->avModel_->startPreview(priv->cpp->avModel_->getDefaultDevice());
         }
         g_free(text);
     }
@@ -879,13 +879,13 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
                 prenderer, VIDEO_RENDERER_REMOTE);
         }
         else
-            priv->cpp->avModel_->startPreview();
+            priv->cpp->avModel_->startPreview(priv->cpp->avModel_->getDefaultDevice());
 
         priv->cpp->avModel_->startAudioDevice();
         priv->cpp->avModel_->setAudioMeterState(true);
     } else {
         if (priv->video_started_by_settings) {
-            priv->cpp->avModel_->stopPreview();
+            priv->cpp->avModel_->stopPreview(priv->cpp->avModel_->getDefaultDevice());
             QObject::disconnect(priv->local_renderer_connection);
             QObject::disconnect(priv->device_event_connection);
             priv->video_started_by_settings = FALSE;

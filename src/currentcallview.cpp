@@ -1151,16 +1151,15 @@ CppImpl::updateConvList()
     VectorString uris;
     bool first = true;
     for (const auto& c : lrc_.getConferences()) {
-        // Get subcalls
-        auto cid = lrc_.getConferenceSubcalls(c);
-        callsId.append(cid);
         // Get participants
         QString uri, accountId;
         VectorString curis;
-        for (const auto& callId: cid) {
-            for (const auto &account_id : lrc_.getAccountModel().getAccountList()) {
-                try {
-                    auto &accountInfo = lrc_.getAccountModel().getAccountInfo(account_id);
+        for (const auto &account_id : lrc_.getAccountModel().getAccountList()) {
+            try {
+                auto &accountInfo = lrc_.getAccountModel().getAccountInfo(account_id);
+                auto cid = accountInfo.callModel->getConferenceSubcalls(c);
+                callsId.append(cid);
+                for (const auto& callId : cid) {
                     if (accountInfo.callModel->hasCall(callId)) {
                         const auto& call = accountInfo.callModel->getCall(callId);
                         uri = QString(call.peerUri).remove("ring:");
@@ -1169,8 +1168,8 @@ CppImpl::updateConvList()
                         accountId = account_id;
                         break;
                     }
-                } catch (...) {}
-            }
+                }
+            } catch (...) {}
         }
 
         if (c == callToRender) {
