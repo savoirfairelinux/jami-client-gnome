@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-15 03:09-0500\n"
+"POT-Creation-Date: 2021-11-22 03:09-0500\n"
 "PO-Revision-Date: 2021-09-06 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
@@ -1043,7 +1043,7 @@ msgid "Set selection as image"
 msgstr "设置选区为头像"
 
 #: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
-#: src/video/video_widget.cpp:865 src/video/video_widget.cpp:884
+#: src/video/video_widget.cpp:870 src/video/video_widget.cpp:890
 #: src/avatarmanipulation.cpp:441 src/avatarmanipulation.cpp:464
 #: src/chatview.cpp:391 src/chatview.cpp:406
 msgid "_Open"
@@ -1051,7 +1051,7 @@ msgstr "打开(_O)"
 
 #: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
 #: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
-#: src/video/video_widget.cpp:866 src/video/video_widget.cpp:883
+#: src/video/video_widget.cpp:871 src/video/video_widget.cpp:889
 #: src/avatarmanipulation.cpp:442 src/avatarmanipulation.cpp:463
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
 #: src/chatview.cpp:392 src/chatview.cpp:405
@@ -1202,23 +1202,23 @@ msgstr "设置管理员"
 msgid "More options"
 msgstr "更多选项"
 
-#: src/video/video_widget.cpp:862 src/video/video_widget.cpp:880
+#: src/video/video_widget.cpp:867 src/video/video_widget.cpp:886
 msgid "Choose file"
 msgstr "选择文件"
 
-#: src/video/video_widget.cpp:941
+#: src/video/video_widget.cpp:949
 msgid "Share _screen area"
 msgstr "共享屏幕区域(_s)"
 
-#: src/video/video_widget.cpp:949
+#: src/video/video_widget.cpp:957
 msgid "Share _monitor"
 msgstr "共享监视器(_m)"
 
-#: src/video/video_widget.cpp:956
+#: src/video/video_widget.cpp:964
 msgid "Stream _file"
 msgstr "流 _文件"
 
-#: src/video/video_widget.cpp:966
+#: src/video/video_widget.cpp:974
 msgid "Show advanced information"
 msgstr "显示高级信息"
 
@@ -1524,11 +1524,11 @@ msgstr "发送文件"
 msgid "Retry"
 msgstr "重试"
 
-#: src/chatview.cpp:703
+#: src/chatview.cpp:704
 msgid "Stop"
 msgstr "停止"
 
-#: src/chatview.cpp:1274
+#: src/chatview.cpp:1275
 msgid "Send"
 msgstr "发送"
 
@@ -1564,24 +1564,24 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "警告！此操作将从此设备上删除该账户！\n注意：此操作无法撤消。同时，您也会失去您的注册用户名！"
 
-#: src/currentcallview.cpp:1181
+#: src/currentcallview.cpp:1180
 msgid "Current conference (all accounts)"
 msgstr "当前会议 (所有账户)"
 
-#: src/currentcallview.cpp:1216
+#: src/currentcallview.cpp:1215
 msgid "Current calls (all accounts)"
 msgstr "当前通话 (所有账户)"
 
-#: src/currentcallview.cpp:1235
+#: src/currentcallview.cpp:1234
 msgid "Online contacts"
 msgstr "在线联系人"
 
-#: src/currentcallview.cpp:1689
+#: src/currentcallview.cpp:1688
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "自动"
 
-#: src/currentcallview.cpp:1764
+#: src/currentcallview.cpp:1763
 msgid "me"
 msgstr "我"
 

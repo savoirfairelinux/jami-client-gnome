@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-15 03:09-0500\n"
+"POT-Creation-Date: 2021-11-22 03:09-0500\n"
 "PO-Revision-Date: 2021-11-02 02:32+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/savoirfairelinux/jami/language/nl/)\n"
@@ -1035,7 +1035,7 @@ msgid "Set selection as image"
 msgstr "Selectie instellen als afbeelding"
 
 #: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
-#: src/video/video_widget.cpp:865 src/video/video_widget.cpp:884
+#: src/video/video_widget.cpp:870 src/video/video_widget.cpp:890
 #: src/avatarmanipulation.cpp:441 src/avatarmanipulation.cpp:464
 #: src/chatview.cpp:391 src/chatview.cpp:406
 msgid "_Open"
@@ -1043,7 +1043,7 @@ msgstr "_Openen"
 
 #: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
 #: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
-#: src/video/video_widget.cpp:866 src/video/video_widget.cpp:883
+#: src/video/video_widget.cpp:871 src/video/video_widget.cpp:889
 #: src/avatarmanipulation.cpp:442 src/avatarmanipulation.cpp:463
 #: src/accountcreationwizard.cpp:880 src/accountcreationwizard.cpp:896
 #: src/chatview.cpp:392 src/chatview.cpp:405
@@ -1194,23 +1194,23 @@ msgstr ""
 msgid "More options"
 msgstr ""
 
-#: src/video/video_widget.cpp:862 src/video/video_widget.cpp:880
+#: src/video/video_widget.cpp:867 src/video/video_widget.cpp:886
 msgid "Choose file"
 msgstr "Kies bestand"
 
-#: src/video/video_widget.cpp:941
+#: src/video/video_widget.cpp:949
 msgid "Share _screen area"
 msgstr "_Schermruimte delen"
 
-#: src/video/video_widget.cpp:949
+#: src/video/video_widget.cpp:957
 msgid "Share _monitor"
 msgstr "Beeldscher_m delen"
 
-#: src/video/video_widget.cpp:956
+#: src/video/video_widget.cpp:964
 msgid "Stream _file"
 msgstr "Bes_tand streamen"
 
-#: src/video/video_widget.cpp:966
+#: src/video/video_widget.cpp:974
 msgid "Show advanced information"
 msgstr "Toon geavanceerde informatie"
 
@@ -1516,11 +1516,11 @@ msgstr "Bestand verzenden"
 msgid "Retry"
 msgstr "Opnieuw proberen"
 
-#: src/chatview.cpp:703
+#: src/chatview.cpp:704
 msgid "Stop"
 msgstr "Stoppen"
 
-#: src/chatview.cpp:1274
+#: src/chatview.cpp:1275
 msgid "Send"
 msgstr "Versturen"
 
@@ -1556,24 +1556,24 @@ msgid ""
 "Note: this action cannot be undone. Also, your registered name can be lost!"
 msgstr "Let op! Deze handeling zal dit account van dit apparaat verwijderen!\nDeze handeling kan niet ongedaan gemaakt worden. Uw geregistreerde naam zal ook verloren gaan!"
 
-#: src/currentcallview.cpp:1181
+#: src/currentcallview.cpp:1180
 msgid "Current conference (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:1216
+#: src/currentcallview.cpp:1215
 msgid "Current calls (all accounts)"
 msgstr ""
 
-#: src/currentcallview.cpp:1235
+#: src/currentcallview.cpp:1234
 msgid "Online contacts"
 msgstr ""
 
-#: src/currentcallview.cpp:1689
+#: src/currentcallview.cpp:1688
 msgctxt "Enable automatic video quality"
 msgid "Auto"
 msgstr "Auto"
 
-#: src/currentcallview.cpp:1764
+#: src/currentcallview.cpp:1763
 msgid "me"
 msgstr ""
 
