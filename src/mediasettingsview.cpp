@@ -852,7 +852,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
                     &*priv->cpp->avModel_,
                     &lrc::api::AVModel::rendererStarted,
                     [=](const QString& id) {
-                        if (id != lrc::api::video::PREVIEW_RENDERER_ID)
+                        if (id.indexOf(priv->cpp->avModel_->getDefaultDevice()) == -1)
                             return;
                         const auto* prenderer = &priv->cpp->avModel_->getRenderer(id);
                         video_widget_add_new_renderer(
@@ -869,7 +869,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
         const lrc::api::video::Renderer* prenderer = nullptr;
         try {
             prenderer = &priv->cpp->avModel_->getRenderer(
-                lrc::api::video::PREVIEW_RENDERER_ID);
+                "camera://" + priv->cpp->avModel_->getDefaultDevice());
         } catch (const std::out_of_range& e) {
         }
         if (prenderer){
@@ -879,7 +879,7 @@ media_settings_view_show_preview(MediaSettingsView *self, gboolean show_preview)
                 prenderer, VIDEO_RENDERER_REMOTE);
         }
         else
-            priv->cpp->avModel_->startPreview(priv->cpp->avModel_->getDefaultDevice());
+            priv->cpp->avModel_->startPreview("camera://" + priv->cpp->avModel_->getDefaultDevice());
 
         priv->cpp->avModel_->startAudioDevice();
         priv->cpp->avModel_->setAudioMeterState(true);

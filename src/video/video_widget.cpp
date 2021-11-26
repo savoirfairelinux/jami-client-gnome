@@ -141,6 +141,8 @@ public:
     VideoWidget* self = nullptr; // The GTK widget itself
     AccountInfoPointer const *accountInfo = nullptr;
     QString callId {};
+
+    std::vector<uint8_t> buffer;
 };
 
 }
@@ -990,7 +992,7 @@ free_pixels(guchar *pixels, gpointer)
 }
 
 static void
-clutter_render_image(VideoWidgetRenderer* wg_renderer)
+clutter_render_image(VideoWidgetRenderer* wg_renderer, VideoWidgetPrivate* priv)
 {
     auto actor = wg_renderer->actor;
     g_return_if_fail(CLUTTER_IS_ACTOR(actor));
@@ -1055,10 +1057,27 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         auto v_renderer = wg_renderer->v_renderer;
         if (!v_renderer)
             return;
-        auto frame_data = v_renderer->currentFrame().ptr;
-        if (!frame_data)
-            return;
+        auto frame = v_renderer->currentFrame();
 
+        auto size = 0;
+        unsigned int width = v_renderer->size().width();
+        unsigned int height = v_renderer->size().height();
+        if (v_renderer->useDirectRenderer()) {
+            size = frame.storage.size();
+        } else {
+            size = frame.size;
+        }
+
+        if (size != 0 && size == width * height * 4) {
+            if (v_renderer->useDirectRenderer()) {
+                priv->cpp->buffer = std::move(frame.storage);
+            } else {
+                priv->cpp->buffer.resize(size);
+                std::move(frame.ptr, frame.ptr + size, priv->cpp->buffer.begin());
+            }
+        } else {
+            return;
+        }
         image_new = clutter_image_new();
         g_return_if_fail(image_new);
 
@@ -1069,7 +1088,7 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
         GError *error = nullptr;
         clutter_image_set_data(
             CLUTTER_IMAGE(image_new),
-            frame_data,
+            priv->cpp->buffer.data(),
             COGL_PIXEL_FORMAT_BGRA_8888,
             res.width(),
             res.height(),
@@ -1090,9 +1109,9 @@ clutter_render_image(VideoWidgetRenderer* wg_renderer)
 
             /* conversion from BGRA to RGB */
             for(int i = 0, j = 0 ; i < res.width() * res.height() * 4 ; i += 4, j += 3 ) {
-                pixbuf_frame_data[j + 0] = frame_data[i + 2];
-                pixbuf_frame_data[j + 1] = frame_data[i + 1];
-                pixbuf_frame_data[j + 2] = frame_data[i + 0];
+                pixbuf_frame_data[j + 0] = priv->cpp->buffer[i + 2];
+                pixbuf_frame_data[j + 1] = priv->cpp->buffer[i + 1];
+                pixbuf_frame_data[j + 2] = priv->cpp->buffer[i + 0];
             }
 
             if (wg_renderer->snapshot) {
@@ -1129,9 +1148,9 @@ check_frame_queue(VideoWidget *self)
         return TRUE;
 
     /* display renderer's frames */
-    if (priv->show_preview)
-        clutter_render_image(priv->local);
-    clutter_render_image(priv->remote);
+    if (priv->show_preview && priv->local)
+        clutter_render_image(priv->local, priv);
+    clutter_render_image(priv->remote, priv);
 
     // HACK: https://gitlab.gnome.org/GNOME/clutter-gtk/-/issues/11
     // Because the CLUTTER_CONTENT_GRAVITY_RESIZE_ASPECT change the ratio of the widget inside the actor
@@ -1194,6 +1213,7 @@ free_video_widget_renderer(VideoWidgetRenderer *renderer)
 {
     QObject::disconnect(renderer->render_stop);
     QObject::disconnect(renderer->render_start);
+    renderer_stop(renderer);
     if (renderer->snapshot)
         g_object_unref(renderer->snapshot);
     g_free(renderer);

@@ -288,8 +288,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
             // local renderer, but set as "remote" so that it takes up the whole screen
             const lrc::api::video::Renderer* prenderer = nullptr;
             try {
-                prenderer = &priv->avModel_->getRenderer(
-                    lrc::api::video::PREVIEW_RENDERER_ID);
+                prenderer = &priv->avModel_->getRenderer("camera://" + priv->avModel_->getDefaultDevice());
             } catch (const std::out_of_range& e) {}
 
             priv->video_started_by_avatar_manipulation =
@@ -305,7 +304,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
                     &*priv->avModel_,
                     &lrc::api::AVModel::rendererStarted,
                     [=](const QString& id) {
-                        if (id != lrc::api::video::PREVIEW_RENDERER_ID)
+                        if (id.indexOf( priv->avModel_->getDefaultDevice()) == -1)
                             return;
                         try {
                             const auto* prenderer =
@@ -318,7 +317,7 @@ set_state(AvatarManipulation *self, AvatarManipulationState state)
                             g_warning("Cannot start preview");
                         }
                     });
-                priv->avModel_->startPreview(priv->avModel_->getDefaultDevice());
+                priv->avModel_->startPreview("camera://" + priv->avModel_->getDefaultDevice());
             }
 
             /* available actions: take snapshot, return*/

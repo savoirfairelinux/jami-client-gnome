@@ -1436,7 +1436,7 @@ CppImpl::setCallInfo()
         // local renderer
         const lrc::api::video::Renderer* previewRenderer =
              &avModel_->getRenderer(
-             lrc::api::video::PREVIEW_RENDERER_ID);
+             "camera://" + avModel_->getDefaultDevice());
         if (previewRenderer->isRendering()) {
             video_widget_add_new_renderer(VIDEO_WIDGET(widgets->video_widget),
                 avModel_, previewRenderer, VIDEO_RENDERER_LOCAL);
@@ -1478,11 +1478,11 @@ CppImpl::setCallInfo()
         &*avModel_,
         &lrc::api::AVModel::rendererStarted,
         [=](const QString& id) {
-            if (id == lrc::api::video::PREVIEW_RENDERER_ID) {
+            if (id.indexOf("://") != -1) {
                 try {
                     // local renderer
                     const lrc::api::video::Renderer* previewRenderer =
-                        &avModel_->getRenderer(lrc::api::video::PREVIEW_RENDERER_ID);
+                        &avModel_->getRenderer(id);
                     if (previewRenderer->isRendering()) {
                         video_widget_add_new_renderer(VIDEO_WIDGET(widgets->video_widget),
                             avModel_, previewRenderer, VIDEO_RENDERER_LOCAL);
