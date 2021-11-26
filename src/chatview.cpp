@@ -436,7 +436,7 @@ on_record_closed(GtkPopover*, ChatView *self)
     priv->cpp->current_action_ = RecordAction::RECORD;
     if (priv->timer_duration) g_source_remove(priv->timer_duration);
     if (priv->is_video_record) {
-        priv->cpp->avModel_->stopPreview(priv->cpp->avModel_->getDefaultDevice());
+        priv->cpp->avModel_->stopPreview("camera://" + priv->cpp->avModel_->getDefaultDevice());
         QObject::disconnect(priv->local_renderer_connection);
     }
     priv->duration = 0;
@@ -484,7 +484,7 @@ chat_view_show_recorder(ChatView *self, int pt_x, int pt_y, bool is_video_record
 
     priv->is_video_record = is_video_record;
     if (is_video_record)
-      priv->cpp->avModel_->startPreview(priv->cpp->avModel_->getDefaultDevice());
+      priv->cpp->avModel_->startPreview("camera://" + priv->cpp->avModel_->getDefaultDevice());
     std::string css = is_video_record ? ".record-button { background: rgba(0, 0, 0, 0.2); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
         .record-button:hover { background: rgba(0, 0, 0, 0.2); border-radius: 50%; border: 0; transition: all 0.3s ease; } \
         .label_time { color: white; }"
@@ -1287,7 +1287,7 @@ on_main_action_clicked(ChatView *self)
             }
             gtk_widget_destroy(priv->record_popover);
             priv->cpp->current_action_ = RecordAction::RECORD;
-            priv->cpp->avModel_->stopPreview(priv->cpp->avModel_->getDefaultDevice());
+            priv->cpp->avModel_->stopPreview("camera://" + priv->cpp->avModel_->getDefaultDevice());
             QObject::disconnect(priv->local_renderer_connection);
             break;
         }
@@ -1305,7 +1305,7 @@ init_video_widget(ChatView* self)
     const lrc::api::video::Renderer* prenderer = nullptr;
     try {
         prenderer = &priv->cpp->avModel_->getRenderer(
-            lrc::api::video::PREVIEW_RENDERER_ID);
+            "camera://" + priv->cpp->avModel_->getDefaultDevice());
     } catch (const std::out_of_range& e) {}
 
     priv->video_started_by_settings =
@@ -1322,7 +1322,7 @@ init_video_widget(ChatView* self)
             &*priv->cpp->avModel_,
             &lrc::api::AVModel::rendererStarted,
             [=](const QString& id) {
-                if (id != lrc::api::video::PREVIEW_RENDERER_ID
+                if (id.indexOf(priv->cpp->avModel_->getDefaultDevice()) == -1
                     || !priv->readyToRecord_)
                     return;
                 try {
