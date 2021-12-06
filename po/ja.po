@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-29 03:09-0500\n"
+"POT-Creation-Date: 2021-12-06 03:09-0500\n"
 "PO-Revision-Date: 2021-09-06 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/savoirfairelinux/jami/language/ja/)\n"
@@ -1087,10 +1087,10 @@ msgstr "ファイルの送信"
 msgid "Save File"
 msgstr "ファイルを保存"
 
-#: src/chatview.cpp:391 src/chatview.cpp:406 src/video/video_widget.cpp:870
-#: src/video/video_widget.cpp:890 src/pluginsettingsview.cpp:129
-#: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:441
-#: src/avatarmanipulation.cpp:464
+#: src/chatview.cpp:391 src/chatview.cpp:406 src/video/video_widget.cpp:872
+#: src/video/video_widget.cpp:892 src/pluginsettingsview.cpp:129
+#: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:440
+#: src/avatarmanipulation.cpp:463
 msgid "_Open"
 msgstr "開く(_O)"
 
@@ -1103,10 +1103,10 @@ msgstr "保存 (_S)"
 
 #: src/chatview.cpp:392 src/chatview.cpp:405 src/generalsettingsview.cpp:238
 #: src/generalsettingsview.cpp:251 src/newaccountsettingsview.cpp:936
-#: src/newaccountsettingsview.cpp:952 src/video/video_widget.cpp:871
-#: src/video/video_widget.cpp:889 src/pluginsettingsview.cpp:130
-#: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:442
-#: src/avatarmanipulation.cpp:463 src/accountcreationwizard.cpp:880
+#: src/newaccountsettingsview.cpp:952 src/video/video_widget.cpp:873
+#: src/video/video_widget.cpp:891 src/pluginsettingsview.cpp:130
+#: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:441
+#: src/avatarmanipulation.cpp:462 src/accountcreationwizard.cpp:880
 #: src/accountcreationwizard.cpp:896
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
@@ -1290,47 +1290,47 @@ msgstr "Jami を表示"
 msgid "Quit"
 msgstr "終了"
 
-#: src/video/video_widget.cpp:434
+#: src/video/video_widget.cpp:436
 msgid "Hangup"
 msgstr "受話"
 
-#: src/video/video_widget.cpp:449
+#: src/video/video_widget.cpp:451
 msgid "Maximize"
 msgstr "最大化"
 
-#: src/video/video_widget.cpp:464
+#: src/video/video_widget.cpp:466
 msgid "Minimize"
 msgstr "最小化"
 
-#: src/video/video_widget.cpp:484
+#: src/video/video_widget.cpp:486
 msgid "Unset moderator"
 msgstr "調停者を取り消し"
 
-#: src/video/video_widget.cpp:484
+#: src/video/video_widget.cpp:486
 msgid "Set moderator"
 msgstr "調停者を設定"
 
-#: src/video/video_widget.cpp:548
+#: src/video/video_widget.cpp:550
 msgid "More options"
 msgstr "詳細な設定"
 
-#: src/video/video_widget.cpp:867 src/video/video_widget.cpp:886
+#: src/video/video_widget.cpp:869 src/video/video_widget.cpp:888
 msgid "Choose file"
 msgstr "ファイルの選択"
 
-#: src/video/video_widget.cpp:949
+#: src/video/video_widget.cpp:951
 msgid "Share _screen area"
 msgstr "画面領域を共有 (_S)"
 
-#: src/video/video_widget.cpp:957
+#: src/video/video_widget.cpp:959
 msgid "Share _monitor"
 msgstr "画面全体を共有 (_M)"
 
-#: src/video/video_widget.cpp:964
+#: src/video/video_widget.cpp:966
 msgid "Stream _file"
 msgstr "ファイルを流す (_F)"
 
-#: src/video/video_widget.cpp:974
+#: src/video/video_widget.cpp:976
 msgid "Show advanced information"
 msgstr "詳細情報を表示"
 
@@ -1631,7 +1631,7 @@ msgstr "連絡先の拒否を解除 (_U)"
 msgid "_Profile"
 msgstr "個人設定 (_P)"
 
-#: src/avatarmanipulation.cpp:438 src/avatarmanipulation.cpp:460
+#: src/avatarmanipulation.cpp:437 src/avatarmanipulation.cpp:459
 msgid "Open Avatar Image"
 msgstr "アバター画像を開く"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-29 03:09-0500\n"
+"POT-Creation-Date: 2021-12-06 03:09-0500\n"
 "PO-Revision-Date: 2021-11-02 02:55+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hindi (India) (http://www.transifex.com/savoirfairelinux/jami/language/hi_IN/)\n"
@@ -1083,10 +1083,10 @@ msgstr "फ़ाइल भेजें"
 msgid "Save File"
 msgstr ""
 
-#: src/chatview.cpp:391 src/chatview.cpp:406 src/video/video_widget.cpp:870
-#: src/video/video_widget.cpp:890 src/pluginsettingsview.cpp:129
-#: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:441
-#: src/avatarmanipulation.cpp:464
+#: src/chatview.cpp:391 src/chatview.cpp:406 src/video/video_widget.cpp:872
+#: src/video/video_widget.cpp:892 src/pluginsettingsview.cpp:129
+#: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:440
+#: src/avatarmanipulation.cpp:463
 msgid "_Open"
 msgstr ""
 
@@ -1099,10 +1099,10 @@ msgstr ""
 
 #: src/chatview.cpp:392 src/chatview.cpp:405 src/generalsettingsview.cpp:238
 #: src/generalsettingsview.cpp:251 src/newaccountsettingsview.cpp:936
-#: src/newaccountsettingsview.cpp:952 src/video/video_widget.cpp:871
-#: src/video/video_widget.cpp:889 src/pluginsettingsview.cpp:130
-#: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:442
-#: src/avatarmanipulation.cpp:463 src/accountcreationwizard.cpp:880
+#: src/newaccountsettingsview.cpp:952 src/video/video_widget.cpp:873
+#: src/video/video_widget.cpp:891 src/pluginsettingsview.cpp:130
+#: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:441
+#: src/avatarmanipulation.cpp:462 src/accountcreationwizard.cpp:880
 #: src/accountcreationwizard.cpp:896
 msgid "_Cancel"
 msgstr ""
@@ -1286,47 +1286,47 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: src/video/video_widget.cpp:434
+#: src/video/video_widget.cpp:436
 msgid "Hangup"
 msgstr ""
 
-#: src/video/video_widget.cpp:449
+#: src/video/video_widget.cpp:451
 msgid "Maximize"
 msgstr ""
 
-#: src/video/video_widget.cpp:464
+#: src/video/video_widget.cpp:466
 msgid "Minimize"
 msgstr ""
 
-#: src/video/video_widget.cpp:484
+#: src/video/video_widget.cpp:486
 msgid "Unset moderator"
 msgstr ""
 
-#: src/video/video_widget.cpp:484
+#: src/video/video_widget.cpp:486
 msgid "Set moderator"
 msgstr ""
 
-#: src/video/video_widget.cpp:548
+#: src/video/video_widget.cpp:550
 msgid "More options"
 msgstr ""
 
-#: src/video/video_widget.cpp:867 src/video/video_widget.cpp:886
+#: src/video/video_widget.cpp:869 src/video/video_widget.cpp:888
 msgid "Choose file"
 msgstr ""
 
-#: src/video/video_widget.cpp:949
+#: src/video/video_widget.cpp:951
 msgid "Share _screen area"
 msgstr ""
 
-#: src/video/video_widget.cpp:957
+#: src/video/video_widget.cpp:959
 msgid "Share _monitor"
 msgstr ""
 
-#: src/video/video_widget.cpp:964
+#: src/video/video_widget.cpp:966
 msgid "Stream _file"
 msgstr ""
 
-#: src/video/video_widget.cpp:974
+#: src/video/video_widget.cpp:976
 msgid "Show advanced information"
 msgstr ""
 
@@ -1627,7 +1627,7 @@ msgstr ""
 msgid "_Profile"
 msgstr ""
 
-#: src/avatarmanipulation.cpp:438 src/avatarmanipulation.cpp:460
+#: src/avatarmanipulation.cpp:437 src/avatarmanipulation.cpp:459
 msgid "Open Avatar Image"
 msgstr ""
 
