@@ -15,7 +15,7 @@
 # Elijah Draga, 2019-2020
 # ​⠀ ​⠀ <kereyi3325@mailivw.com>, 2020
 # Konstantin, 2016
-# l comrade, 2021
+# lcomrade, 2021
 # Leon Backs, 2021
 # Marat Gubaidullin <marat.gubaidullin@savoirfairelinux.com>, 2015
 # Natalia <sonaux@gmail.com>, 2015
@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-06 03:09-0500\n"
+"POT-Creation-Date: 2021-12-13 03:09-0500\n"
 "PO-Revision-Date: 2021-10-12 19:55+0000\n"
 "Last-Translator: Leon Backs\n"
 "Language-Team: Russian (http://www.transifex.com/savoirfairelinux/jami/language/ru/)\n"
