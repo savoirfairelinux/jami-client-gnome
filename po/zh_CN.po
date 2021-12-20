@@ -11,7 +11,7 @@
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2016
 # Shuisi Liu <forevoliu@gmail.com>, 2020
 # Tiansworld <tiansworld@fedoraproject.org>, 2020
-# QWERT, 2020
+# QWERT Eric, 2020
 # 李文睿 <happy.lwr@gmail.com>, 2017
 # 李文睿 <happy.lwr@gmail.com>, 2017
 # 狂男风 <CrazyBoyFeng@Live.Com>, 2021
@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-13 03:09-0500\n"
+"POT-Creation-Date: 2021-12-20 03:09-0500\n"
 "PO-Revision-Date: 2021-09-06 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"

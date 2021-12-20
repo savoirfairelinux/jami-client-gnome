@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-13 03:09-0500\n"
-"PO-Revision-Date: 2021-12-05 16:58+0000\n"
+"POT-Creation-Date: 2021-12-20 03:09-0500\n"
+"PO-Revision-Date: 2021-12-18 21:38+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian (http://www.transifex.com/savoirfairelinux/jami/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -115,7 +115,7 @@ msgstr "Ta račun je napačno oblikovan. Vnesite geslo"
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
-msgstr "Alias"
+msgstr "Vzdevek"
 
 #: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
 #: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
@@ -147,7 +147,7 @@ msgstr "Preseli račun"
 
 #: ui/accountmigrationview.ui:283
 msgid "Migrating your Jami account…"
-msgstr "Selitev Jami računa..."
+msgstr "Selitev računa Jami ..."
 
 #: ui/accountmigrationview.ui:295
 msgid "Migration failed, wrong password?"
@@ -216,7 +216,7 @@ msgstr "Vklopi račun"
 
 #: ui/newaccountsettingsview.ui:670
 msgid "SIP server"
-msgstr "SIP strežnik"
+msgstr "Strežnik SIP"
 
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
@@ -253,7 +253,7 @@ msgstr "Splošne nastavitve"
 
 #: ui/newaccountsettingsview.ui:1108
 msgid "Call settings"
-msgstr "Nastavitve Klicev"
+msgstr "Nastavitve klicev"
 
 #: ui/newaccountsettingsview.ui:1146
 msgid "Allow incoming calls from unknown contacts"
@@ -281,7 +281,7 @@ msgstr "Naslov"
 
 #: ui/newaccountsettingsview.ui:1370
 msgid "OpenDHT configuration"
-msgstr "OpenDTH nastavitve"
+msgstr "Nastavitve OpenDTH"
 
 #: ui/newaccountsettingsview.ui:1454
 msgid "Auto connect on local network"
@@ -309,7 +309,7 @@ msgstr "Šifriranje usklajevanja (TLS)"
 
 #: ui/newaccountsettingsview.ui:1691
 msgid "CA certificate"
-msgstr "CA Certifikat"
+msgstr "Potrdilo CA"
 
 #: ui/newaccountsettingsview.ui:1727
 msgid "User certificate"
@@ -325,11 +325,11 @@ msgstr "Geslo zasebnega ključa"
 
 #: ui/newaccountsettingsview.ui:1837
 msgid "TLS protocol method"
-msgstr "Metoda TLS protokola"
+msgstr "Metoda protokola TLS"
 
 #: ui/newaccountsettingsview.ui:1873
 msgid "Outgoing TLS server name"
-msgstr "Odhodno ime TLS strežnika"
+msgstr "Odhodno ime strežnika TLS"
 
 #: ui/newaccountsettingsview.ui:1908
 msgid "Negotiation timeout (seconds)"
@@ -345,7 +345,7 @@ msgstr "Preveri odhodne certifikate (odjemalec)"
 
 #: ui/newaccountsettingsview.ui:2014
 msgid "Require a certificate for incoming TLS connections"
-msgstr "Zahtevaj certifikat za dohodne TLS povezave"
+msgstr "Zahtevaj certifikat za dohodne povezave TLS"
 
 #: ui/newaccountsettingsview.ui:2038
 msgid "Security"
@@ -425,7 +425,7 @@ msgstr "Zvočni kodeki"
 
 #: ui/newaccountsettingsview.ui:2791
 msgid "SDP Session Negotiation (ICE Fallback)"
-msgstr "Usklajevanje SDP seje (ICE Fallback)"
+msgstr "Usklajevanje seje SDP (zasilni ICE)"
 
 #: ui/newaccountsettingsview.ui:2803
 msgid "Only used during SDP negotiation in case ICE is not supported."
@@ -517,7 +517,7 @@ msgstr "Začni video klic"
 #: ui/help-overlay.ui:75
 msgctxt "shortcut window"
 msgid "Start an audio call"
-msgstr "Začni z avdio klicem"
+msgstr "Začni z zvočnim klicem"
 
 #: ui/help-overlay.ui:82
 msgctxt "shortcut window"
@@ -572,7 +572,7 @@ msgstr "Nastavitve"
 #: ui/help-overlay.ui:153
 msgctxt "shortcut window"
 msgid "Open/Close settings page"
-msgstr "Odpri/Zapri nastavitveno stran"
+msgstr "Odpri/zapri nastavitveno stran"
 
 #: ui/help-overlay.ui:160
 msgctxt "shortcut window"
@@ -621,11 +621,11 @@ msgstr "Informacije"
 
 #: ui/profile.ui:153
 msgid "QR Code"
-msgstr "QR koda"
+msgstr "QR-koda"
 
 #: ui/profile.ui:179
 msgid "Is swarm"
-msgstr ""
+msgstr "Je roj"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -633,11 +633,11 @@ msgstr "Dobrodošli v"
 
 #: ui/accountcreationwizard.ui:76
 msgid "Create a Jami account"
-msgstr "Ustvari Jami račun"
+msgstr "Ustvari račun Jami"
 
 #: ui/accountcreationwizard.ui:77
 msgid "Create a new Jami account on this device (for new users)"
-msgstr "Ustvarite nov Jami račun na tej napravi (za nove uporabnike)"
+msgstr "Ustvarite nov račun Jami na tej napravi (za nove uporabnike)"
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
@@ -653,7 +653,7 @@ msgstr "Poveži to napravo k obstoječemu računu"
 
 #: ui/accountcreationwizard.ui:93
 msgid "Import an account with your PIN generated on another device"
-msgstr "Uvozite račun s PIN kodo, ki je bila generirana na drugi napravi"
+msgstr "Uvozite račun s kodo PIN, ki je bila generirana na drugi napravi"
 
 #: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:696
 msgid "Restore an account from backup"
@@ -669,7 +669,7 @@ msgstr "Napredno"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Connect to a JAMS server"
-msgstr "Poveži se z JAMS strežnikom"
+msgstr "Poveži se s strežnikom JAMS"
 
 #: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
@@ -677,7 +677,7 @@ msgstr "Pridobite svoj račun preko svojih podatkov."
 
 #: ui/accountcreationwizard.ui:127
 msgid "Add a SIP account"
-msgstr "Dodaj SIP račun"
+msgstr "Dodaj račun SIP"
 
 #: ui/accountcreationwizard.ui:199
 msgid "Archive"
@@ -786,7 +786,7 @@ msgstr "Vnesite URl naslov za Jami Account Management Server (JAMS) URL"
 
 #: ui/accountcreationwizard.ui:1043
 msgid "JAMS URL"
-msgstr "JAMS URL"
+msgstr "URL JAMS"
 
 #: ui/accountcreationwizard.ui:1068
 msgid "Enter your JAMS credentials"
@@ -798,7 +798,7 @@ msgstr "Poveži"
 
 #: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
-msgstr "Nastavi obstoječi SIP račun"
+msgstr "Nastavi obstoječi račun SIP"
 
 #: ui/accountcreationwizard.ui:1240
 msgid "Server"
@@ -806,7 +806,7 @@ msgstr "Strežnik"
 
 #: ui/accountcreationwizard.ui:1385
 msgid "Create SIP account"
-msgstr "Ustvari SIP račun"
+msgstr "Ustvari račun SIP"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
@@ -878,7 +878,7 @@ msgstr "Snemanje klica"
 
 #: ui/generalsettingsview.ui:676
 msgid "Record local video"
-msgstr "Snemaj lokalni vido"
+msgstr "Snemaj krajevni video"
 
 #: ui/generalsettingsview.ui:712
 msgid "Always record calls"
@@ -914,7 +914,7 @@ msgstr "registracija uporabniškega imena"
 
 #: ui/incomingcallview.ui:99
 msgid "Incoming…"
-msgstr "Dohodni..."
+msgstr "Dohodni ..."
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
@@ -971,7 +971,7 @@ msgstr "Prilagoditev izhodne kakovosti videa"
 
 #: ui/currentcallview.ui:469 ui/currentcallview.ui:590
 msgid "Video quality"
-msgstr "Video kvaliteta"
+msgstr "Kakovost videa"
 
 #: ui/currentcallview.ui:488
 msgid "Toggle show chat"
@@ -1036,7 +1036,7 @@ msgstr "_Izhod"
 #: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
 msgctxt "Name of error window (dialog)"
 msgid "Jami Error"
-msgstr "Jami napaka"
+msgstr "Napaka Jami"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (jamid)…"
@@ -1204,7 +1204,7 @@ msgstr "Izvažanje računa ni uspelo."
 
 #: src/newaccountsettingsview.cpp:1778
 msgid "Exporting account…"
-msgstr "Izvažanje računa..."
+msgstr "Izvažanje računa ..."
 
 #: src/newaccountsettingsview.cpp:1803
 msgid "Bad password"
@@ -1232,7 +1232,7 @@ msgstr "Napaka: neznana naprava!"
 
 #: src/newaccountsettingsview.cpp:2069
 msgid "Initializing…"
-msgstr "Vzpostavljanje..."
+msgstr "Vzpostavljanje ..."
 
 #: src/newaccountsettingsview.cpp:2072
 msgid "Offline"
@@ -1240,7 +1240,7 @@ msgstr "Brez povezave"
 
 #: src/newaccountsettingsview.cpp:2075
 msgid "Connecting…"
-msgstr "Povezovanje..."
+msgstr "Povezovanje ..."
 
 #: src/newaccountsettingsview.cpp:2078
 msgid "Online"
@@ -1272,7 +1272,7 @@ msgstr "Neuspela incializacija.\nPreverite, da je prikriti proces Jami (jamid) z
 
 #: src/client.cpp:117
 msgid "Jami Error"
-msgstr "Jami napaka"
+msgstr "Napaka Jami"
 
 #: src/client.cpp:387 src/client.cpp:444
 msgid "Jami needs your attention"
@@ -1298,7 +1298,7 @@ msgstr "Povečaj"
 
 #: src/video/video_widget.cpp:466
 msgid "Minimize"
-msgstr "Minimaliziraj"
+msgstr "Zmanjšaj"
 
 #: src/video/video_widget.cpp:486
 msgid "Unset moderator"
@@ -1314,7 +1314,7 @@ msgstr "Več možnosti"
 
 #: src/video/video_widget.cpp:869 src/video/video_widget.cpp:888
 msgid "Choose file"
-msgstr "zberite datoteko"
+msgstr "Izberite datoteko"
 
 #: src/video/video_widget.cpp:951
 msgid "Share _screen area"
@@ -1334,7 +1334,7 @@ msgstr "Prikaži napredne informacije"
 
 #: src/mainwindow.cpp:207
 msgid "Add account…"
-msgstr "Dodajanje računa..."
+msgstr "Dodajanje računa ..."
 
 #: src/mainwindow.cpp:934
 msgctxt "button next to search entry will place a new call"
@@ -1352,14 +1352,14 @@ msgstr "Jami - potrebna je selitev"
 
 #: src/mainwindow.cpp:1188
 msgid "Migration in progress... please do not close this window."
-msgstr "Selitev se izvaja... ne zaprite tega okna."
+msgstr "Selitev se izvaja ... ne zaprite tega okna."
 
 #: src/mainwindow.cpp:1472
 msgctxt ""
 "Please try to make the translation 50 chars or less so that it fits into the"
 " layout"
 msgid "Find or start a conversation"
-msgstr "najdi ali začni pogovor"
+msgstr "Najdi ali začni pogovor"
 
 #: src/mainwindow.cpp:1951
 msgid "Leave settings page"
@@ -1527,15 +1527,15 @@ msgstr "Pregled ni na voljo. Preverite povezavo"
 
 #: src/usernameregistrationbox.cpp:273
 msgid "Performing lookup…"
-msgstr "Izvajam pregled..."
+msgstr "Izvajanje pregleda ..."
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
-msgstr "Vnesite geslo vašega Jami računa"
+msgstr "Vnesite geslo vašega računa Jami"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
-msgstr "Registracija poteka..."
+msgstr "Registracija v teku ..."
 
 #: src/usernameregistrationbox.cpp:375
 msgid "Name registration Error"
@@ -1631,7 +1631,7 @@ msgstr "_Profil"
 
 #: src/avatarmanipulation.cpp:437 src/avatarmanipulation.cpp:459
 msgid "Open Avatar Image"
-msgstr "Odpri avatar sliko"
+msgstr "Odpri sliko avatarja"
 
 #: src/accountcreationwizard.cpp:327
 msgid "An error occurred during the account creation."
@@ -1665,7 +1665,7 @@ msgstr "Ustvarjanje vaših točk srečevanja"
 
 #: src/accountcreationwizard.cpp:538
 msgid "Generating your Jami account…"
-msgstr "Ustvarjanje Jami računa..."
+msgstr "Ustvarjanje računa Jami ..."
 
 #: src/accountcreationwizard.cpp:554
 msgid "Passwords don't match"
@@ -1673,7 +1673,7 @@ msgstr "Gesli se ne ujemata"
 
 #: src/accountcreationwizard.cpp:675
 msgid "Enter Jami account password"
-msgstr "Vnesite geslo Jami računa"
+msgstr "Vnesite geslo računa Jami"
 
 #: src/accountcreationwizard.cpp:676
 msgid "Link device"
