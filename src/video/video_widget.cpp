@@ -799,7 +799,7 @@ switch_video_input_screen_area(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
     int display = 0;
 
     if (!display_env.isEmpty()) {
-        auto list = display_env.split(":", QString::SkipEmptyParts);
+        auto list = display_env.split(":", Qt::SkipEmptyParts);
         /* should only be one display, so get the first one */
         if (list.size() > 0) {
             display = list.at(0).toInt();
@@ -834,7 +834,7 @@ switch_video_input_monitor(G_GNUC_UNUSED GtkWidget *item, GtkWidget *parent)
     int display = 0;
 
     if (!display_env.isEmpty()) {
-        auto list = display_env.split(":", QString::SkipEmptyParts);
+        auto list = display_env.split(":", Qt::SkipEmptyParts);
         /* should only be one display, so get the first one */
         if (list.size() > 0) {
             display = list.at(0).toInt();

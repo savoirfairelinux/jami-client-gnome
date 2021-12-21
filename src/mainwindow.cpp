@@ -60,7 +60,6 @@
 #include "pluginsettingsview.h"
 #include "incomingcallview.h"
 #include "mediasettingsview.h"
-#include "models/gtkqtreemodel.h"
 #include "welcomeview.h"
 #include "utils/drawing.h"
 #include "utils/files.h"
