@@ -27,7 +27,6 @@
 
 // Jami  Client
 #include "usernameregistrationbox.h"
-#include "utils/models.h"
 
 struct _UsernameRegistrationBox
 {

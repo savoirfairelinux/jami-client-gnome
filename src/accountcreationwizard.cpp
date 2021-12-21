@@ -26,7 +26,6 @@
 #include "api/newaccountmodel.h"
 
 // Jami Client
-#include "utils/models.h"
 #include "avatarmanipulation.h"
 #include "accountcreationwizard.h"
 #include "usernameregistrationbox.h"

@@ -42,9 +42,6 @@ IF("${PROJECT_VERSION}" STREQUAL "")
     MESSAGE(WARNING "Failed to retrieve version information")
 ENDIF()
 
-# make sure we're using Qt5
-SET(ENABLE_QT5 true)
-
 # for now, set debug as default
 SET(CMAKE_BUILD_TYPE Debug)
 
@@ -79,27 +76,25 @@ ELSE(LibRingClient_PROJECT_DIR)
    FIND_PACKAGE(LibRingClient REQUIRED)
 ENDIF(LibRingClient_PROJECT_DIR)
 
-if(QT5_VER AND QT5_PATH)
-    string(REPLACE "." ";" VERSION_LIST ${QT5_VER})
-    list(GET VERSION_LIST 0 QT5_VER_MAJOR)
-    list(GET VERSION_LIST 1 QT5_VER_MINOR)
-    list(GET VERSION_LIST 2 QT5_VER_PATCH)
-
-    if((${QT5_VER_MAJOR} GREATER_EQUAL 5) AND (${QT5_VER_MINOR} GREATER_EQUAL 14))
-        message(STATUS "Using custom Qt version")
-        find_package(Qt5 ${QT5_VER} REQUIRED COMPONENTS
-            Core
-            DBus
-            PATHS ${QT5_PATH} NO_DEFAULT_PATH)
-        find_package(Qt5LinguistTools ${QT5_VER}
-            PATHS ${QT5_PATH} NO_DEFAULT_PATH)
+# Here we let find_package(<PackageName>...) try to find Qt 6,
+# If it is found, find_package will succeed, and the CMake variable
+# QT_VERSION_MAJOR will be defined 6.
+find_package(QT NAMES Qt6 REQUIRED)
+if (${QT_VERSION_MAJOR} STRLESS 6)
+    if (${QT_VERSION_MINOR} STRLESS 2)
+        message(FATAL_ERROR "Qt 6.2 or higher is required." )
     endif()
-else()
-    find_package(Qt5 REQUIRED COMPONENTS
-        Core
-        DBus)
-    find_package(Qt5LinguistTools)
 endif()
+set(QT_MODULES
+    Core
+    Core5Compat
+    DBus
+)
+find_package(Qt6 COMPONENTS ${QT_MODULES} REQUIRED)
+foreach(MODULE ${QT_MODULES})
+  list(APPEND QT_LIBS "Qt::${MODULE}")
+endforeach()
+
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH true)
 
 # find packages
@@ -141,7 +136,7 @@ ENDIF()
 # include libs
 INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${LIB_RING_CLIENT_INCLUDE_DIR})
-INCLUDE_DIRECTORIES(SYSTEM ${Qt5Core_INCLUDE_DIRS} )
+INCLUDE_DIRECTORIES(SYSTEM ${Qt6Core_INCLUDE_DIRS} )
 INCLUDE_DIRECTORIES(${CLUTTER_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${CLUTTERGTK_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${LIBNOTIFY_INCLUDE_DIRS})
@@ -153,7 +148,7 @@ INCLUDE_DIRECTORIES(${CANBERRA_INCLUDE_DIRS})
 # link libs
 LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
 LINK_DIRECTORIES(${LIB_RING_LIBRARY_INCLUDE_DIR})
-LINK_DIRECTORIES(${Qt5Core_LIBRARY_DIRS} )
+LINK_DIRECTORIES(${Qt6Core_LIBRARY_DIRS} )
 LINK_DIRECTORIES(${CLUTTER_LIBRARY_DIRS})
 LINK_DIRECTORIES(${CLUTTERGTK_LIBRARY_DIRS})
 LINK_DIRECTORIES(${LIBNOTIFY_LIBRARY_DIRS})
@@ -166,7 +161,7 @@ LINK_DIRECTORIES(${CANBERRA_LIBRARY_DIRS})
 ADD_DEFINITIONS(${GTK3_CFLAGS})
 ADD_DEFINITIONS(${GTK3_CFLAGS_OTHER})
 ADD_DEFINITIONS(${LIB_RING_LIBRARY_CFLAGS})
-ADD_DEFINITIONS(${Qt5Core_CFLAGS})
+ADD_DEFINITIONS(${Qt6Core_CFLAGS})
 ADD_DEFINITIONS(${CLUTTER_CFLAGS})
 ADD_DEFINITIONS(${CLUTTERGTK_CFLAGS})
 ADD_DEFINITIONS(${LIBNOTIFY_CFLAGS})
@@ -176,12 +171,12 @@ ADD_DEFINITIONS(${WEBKIT_CFLAGS})
 ADD_DEFINITIONS(${CANBERRA_CFLAGS})
 
 IF(NOT ${ENABLE_STATIC} MATCHES false)
-  SET(QT5_MODULE_PATH ${QT5_PATH}/lib/cmake)
-  FIND_PACKAGE(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus)
-  FIND_PACKAGE(Qt5DBus REQUIRED)
-  INCLUDE_DIRECTORIES(SYSTEM ${Qt5DBus_INCLUDE_DIRS} )
-  LINK_DIRECTORIES(${Qt5DBus_LIBRARY_DIRS} )
-  ADD_DEFINITIONS(${Qt5DBus_CFLAGS})
+  SET(QT6_MODULE_PATH ${QT6_PATH}/lib/cmake)
+  FIND_PACKAGE(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus)
+  FIND_PACKAGE(Qt6DBus REQUIRED)
+  INCLUDE_DIRECTORIES(SYSTEM ${Qt6DBus_INCLUDE_DIRS} )
+  LINK_DIRECTORIES(${Qt6DBus_LIBRARY_DIRS} )
+  ADD_DEFINITIONS(${Qt6DBus_CFLAGS})
 ENDIF()
 
 # warnings
@@ -256,10 +251,6 @@ SET( SRC_FILES
    src/incomingcallview.cpp
    src/currentcallview.h
    src/currentcallview.cpp
-   src/models/gtkaccessproxymodel.h
-   src/models/gtkaccessproxymodel.cpp
-   src/models/gtkqtreemodel.h
-   src/models/gtkqtreemodel.cpp
    src/utils/drawing.h
    src/utils/drawing.cpp
    src/video/video_widget.h
@@ -270,8 +261,6 @@ SET( SRC_FILES
    src/accountmigrationview.cpp
    src/usernameregistrationbox.h
    src/usernameregistrationbox.cpp
-   src/models/activeitemproxymodel.h
-   src/models/activeitemproxymodel.cpp
    src/defines.h
    src/video/xrectsel.h
    src/video/xrectsel.c
@@ -285,8 +274,6 @@ SET( SRC_FILES
    src/newaccountsettingsview.cpp
    src/generalsettingsview.h
    src/generalsettingsview.cpp
-   src/utils/models.h
-   src/utils/models.cpp
    src/notifier.h
    src/notifier.cpp
    src/utils/files.h
@@ -366,8 +353,8 @@ IF(NOT ${ENABLE_STATIC} MATCHES false)
 TARGET_LINK_LIBRARIES(jami-gnome
    ${LIB_RING_CLIENT_LIBRARY}
    ${GTK3_LIBRARIES}
-   ${Qt5Core_LIBRARIES}
-   ${Qt5DBus_LIBRARIES}
+   ${Qt6Core_LIBRARIES}
+   ${Qt6DBus_LIBRARIES}
    ${CLUTTER_LIBRARIES}
    ${CLUTTERGTK_LIBRARIES}
    ${LIBNOTIFY_LIBRARIES}
@@ -383,7 +370,7 @@ ELSE()
 TARGET_LINK_LIBRARIES(jami-gnome
    ${LIB_RING_CLIENT_LIBRARY}
    ${GTK3_LIBRARIES}
-   ${Qt5Core_LIBRARIES}
+   ${Qt6Core_LIBRARIES}
    ${CLUTTER_LIBRARIES}
    ${CLUTTERGTK_LIBRARIES}
    ${LIBNOTIFY_LIBRARIES}
