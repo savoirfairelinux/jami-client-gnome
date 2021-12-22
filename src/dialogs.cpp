@@ -60,13 +60,13 @@ about_dialog(GtkWidget *parent)
 
     gchar *version = g_strdup_printf(
         C_("Do not translate the release name nor the status (beta, final, ...)",
-           "\"%s\"\n(%s)"), "Maloya", VERSION);
+           "\"%s\"\n(%s)"), "Taranis", VERSION);
 
     const gchar *authors[] = {
         "Adrien Béraud",
         "Albert Babí",
-        "Alexandre Lision",
         "Alexandr Sergheev",
+        "Alexandre Lision",
         "Alexandre Viau",
         "Aline Bonnet",
         "Aline Gondim Santos",
@@ -92,8 +92,10 @@ about_dialog(GtkWidget *parent)
         "Loïc Siret",
         "Marianne Forget",
         "Maxim Cournoyer",
+        "Maxime Callet",
         "Michel Schmit",
         "Mingrui Zhang",
+        "Mehdi Ghayour",
         "Mohamed Amine Younes Bouacida",
         "Mohamed Chibani",
         "Nicolas Jäger",
