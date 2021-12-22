@@ -65,6 +65,7 @@ about_dialog(GtkWidget *parent)
     const gchar *authors[] = {
         "Adrien Béraud",
         "Albert Babí",
+        "Alberto Eleuterio Flores Guerrero",
         "Alexandr Sergheev",
         "Alexandre Lision",
         "Alexandre Viau",
@@ -105,6 +106,7 @@ about_dialog(GtkWidget *parent)
         "Patrick Keroulas",
         "Peymane Marandi",
         "Philippe Gorley",
+        "Pier-Luc Thériault",
         "Pierre Duchemin",
         "Pierre Lespagnol",
         "Raphaël Brulé",
