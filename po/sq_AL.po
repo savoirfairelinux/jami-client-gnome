@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-20 03:09-0500\n"
+"POT-Creation-Date: 2021-12-27 03:09-0500\n"
 "PO-Revision-Date: 2021-09-06 10:22+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/jami/language/sq_AL/)\n"
@@ -1578,7 +1578,7 @@ msgid ""
 "(%s)"
 msgstr "\"%s\"\n(%s)"
 
-#: src/dialogs.cpp:134
+#: src/dialogs.cpp:138
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."

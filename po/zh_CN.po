@@ -10,7 +10,7 @@
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2017
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2016
 # Shuisi Liu <forevoliu@gmail.com>, 2020
-# Tiansworld <tiansworld@fedoraproject.org>, 2020
+# Tiansworld <tiansworld@fedoraproject.org>, 2020-2021
 # QWERT Eric, 2020
 # 李文睿 <happy.lwr@gmail.com>, 2017
 # 李文睿 <happy.lwr@gmail.com>, 2017
@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-20 03:09-0500\n"
-"PO-Revision-Date: 2021-09-06 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2021-12-27 03:09-0500\n"
+"PO-Revision-Date: 2021-12-24 14:19+0000\n"
+"Last-Translator: Tiansworld <tiansworld@fedoraproject.org>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1277,7 +1277,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (jamid) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "无法初始化。\n确认 Jami 守护进程 (jamid) 正在运行。\n错误：%s"
 
 #: src/client.cpp:117
 msgid "Jami Error"
@@ -1512,11 +1512,11 @@ msgstr "（无）"
 
 #: src/profileview.cpp:160
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: src/profileview.cpp:160
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
@@ -1586,9 +1586,9 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "(%s)"
-msgstr ""
+msgstr "\"%s\"\n(%s)"
 
-#: src/dialogs.cpp:134
+#: src/dialogs.cpp:138
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1608,7 +1608,7 @@ msgstr "添加到会话(_A)"
 
 #: src/conversationpopupmenu.cpp:250
 msgid "_Accept invitation"
-msgstr ""
+msgstr "接受邀请(_A)"
 
 #: src/conversationpopupmenu.cpp:253
 msgid "_Discard invitation"

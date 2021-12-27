@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-20 03:09-0500\n"
-"PO-Revision-Date: 2021-11-20 23:27+0000\n"
+"POT-Creation-Date: 2021-12-27 03:09-0500\n"
+"PO-Revision-Date: 2021-12-20 16:44+0000\n"
 "Last-Translator: Juan Manuel <jumase.25@gmail.com>\n"
 "Language-Team: Spanish (Argentina) (http://www.transifex.com/savoirfairelinux/jami/language/es_AR/)\n"
 "MIME-Version: 1.0\n"
@@ -111,7 +111,7 @@ msgstr "Micración de cuenta requerida"
 
 #: ui/accountmigrationview.ui:31
 msgid "This account is malformed, please enter your password"
-msgstr "Esta cuenta está mal formada, ingrese su contraseña"
+msgstr "Esta cuenta está mal formada, ingresá tu contraseña"
 
 #: ui/accountmigrationview.ui:90
 msgid "Alias"
@@ -691,7 +691,7 @@ msgstr "Informaciones."
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr "Podés obtener un archivo de respaldo haciendo click en \"Respaldá tu cuenta\" dentro de configuración de la cuenta. Esto creará un archivo .gz en tu dispositivo."
+msgstr "Podés obtener un archivo de respaldo haciendo click en \"Respaldar tu cuenta\" dentro de configuración de la cuenta. Esto creará un archivo .gz en tu dispositivo."
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
@@ -751,7 +751,7 @@ msgstr "Siguiente"
 
 #: ui/accountcreationwizard.ui:826
 msgid "Backup your account!"
-msgstr "¡Respaldá tu cuenta!"
+msgstr "¡Respaldar tu cuenta!"
 
 #: ui/accountcreationwizard.ui:842
 msgid ""
@@ -902,7 +902,7 @@ msgstr "Permitir archivos entrantes de contactos desconocidos"
 
 #: ui/generalsettingsview.ui:899
 msgid "Automatically accept incoming files"
-msgstr "Acepta automáticamente los archivos entrantes"
+msgstr "Aceptar automáticamente los archivos entrantes"
 
 #: ui/generalsettingsview.ui:937
 msgid "Accept transfer below (in Mb, 0 = unlimited)"
@@ -1139,7 +1139,7 @@ msgstr "¡Advertencia! ¡Esta acción revocará el dispositivo!\n Nota: esta acc
 
 #: src/newaccountsettingsview.cpp:612
 msgid "Enter password to revoke device"
-msgstr "Ingrese la contraseña para revocar el dispositivo"
+msgstr "Ingresá la contraseña para revocar el dispositivo"
 
 #: src/newaccountsettingsview.cpp:660
 msgid "This device"
@@ -1192,7 +1192,7 @@ msgstr "Debe ingresar su contraseña para exportar el archivo completo."
 
 #: src/newaccountsettingsview.cpp:975 src/accountcreationwizard.cpp:920
 msgid "Enter password to export archive"
-msgstr "Ingrese la contraseña para exportar el archivo"
+msgstr "Ingresá la contraseña para exportar el archivo"
 
 #: src/newaccountsettingsview.cpp:998 src/accountcreationwizard.cpp:943
 msgid "Account exported!"
@@ -1531,7 +1531,7 @@ msgstr "Realizando búsqueda..."
 
 #: src/usernameregistrationbox.cpp:324
 msgid "Enter the password of your Jami account"
-msgstr "Ingrese la contraseña de su cuenta Jami"
+msgstr "Ingresá la contraseña de tu cuenta Jami"
 
 #: src/usernameregistrationbox.cpp:356
 msgid "Registration in progress…"
@@ -1579,7 +1579,7 @@ msgid ""
 "(%s)"
 msgstr "\"%s\"\n(%s)"
 
-#: src/dialogs.cpp:134
+#: src/dialogs.cpp:138
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
