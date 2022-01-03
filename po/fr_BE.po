@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-20 03:09-0500\n"
+"POT-Creation-Date: 2022-01-03 10:23-0500\n"
 "PO-Revision-Date: 2021-09-06 07:09+0000\n"
 "Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
 "Language-Team: French (Belgium) (http://www.transifex.com/savoirfairelinux/jami/language/fr_BE/)\n"
@@ -1577,7 +1577,7 @@ msgid ""
 "(%s)"
 msgstr ""
 
-#: src/dialogs.cpp:134
+#: src/dialogs.cpp:138
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."

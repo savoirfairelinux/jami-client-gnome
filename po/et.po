@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-20 03:09-0500\n"
-"PO-Revision-Date: 2021-11-02 02:42+0000\n"
-"Last-Translator: . . <ovari123@zoho.com>\n"
+"POT-Creation-Date: 2022-01-03 10:23-0500\n"
+"PO-Revision-Date: 2021-12-30 08:33+0000\n"
+"Last-Translator: Priit Jõerüüt <transifex@joeruut.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/savoirfairelinux/jami/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -705,7 +705,7 @@ msgstr ""
 #: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
 #: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
 msgid "Back"
-msgstr ""
+msgstr "Tagasi"
 
 #: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1078
 msgid "Register username"
@@ -1578,7 +1578,7 @@ msgid ""
 "(%s)"
 msgstr ""
 
-#: src/dialogs.cpp:134
+#: src/dialogs.cpp:138
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."

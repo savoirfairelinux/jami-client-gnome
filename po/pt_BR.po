@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Antonio Augusto de Cintra Batista, 2021
 # 4a07df7d16253bcdb03104f7ee66c2be_5b7215b, 2020
 # fe2dc5b0508cf164c0ef73bd7bbf072f, 2016
 # Danton Medrado, 2019
@@ -27,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-20 03:09-0500\n"
-"PO-Revision-Date: 2021-09-06 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2022-01-03 10:23-0500\n"
+"PO-Revision-Date: 2021-12-25 20:38+0000\n"
+"Last-Translator: Antonio Augusto de Cintra Batista\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/savoirfairelinux/jami/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -642,7 +643,7 @@ msgstr "Código QR"
 
 #: ui/profile.ui:179
 msgid "Is swarm"
-msgstr ""
+msgstr "ls swarm"
 
 #: ui/accountcreationwizard.ui:42
 msgid "Welcome to"
@@ -1057,13 +1058,13 @@ msgstr "Erro Jami"
 
 #: src/native/dbuserrorhandler.cpp:57
 msgid "Trying to reconnect to the Jami daemon (jamid)…"
-msgstr ""
+msgstr "Tentando se reconectar ao daemon do Jami (jamid)..."
 
 #: src/native/dbuserrorhandler.cpp:87
 msgid ""
 "Could not re-connect to the Jami daemon (jamid).\n"
 "Jami will now quit."
-msgstr ""
+msgstr "Não conseguiu se reconectar ao daemon do Jami (jamid).\nJami será finalizado agora."
 
 #: src/currentcallview.cpp:1180
 msgid "Current conference (all accounts)"
@@ -1285,7 +1286,7 @@ msgid ""
 "Unable to initialize.\n"
 "Make sure the Jami daemon (jamid) is running.\n"
 "Error: %s"
-msgstr ""
+msgstr "Não foi possível inicializar.\nConfira se o daemon do Jami (jamid) está em execução.\nErro: %s"
 
 #: src/client.cpp:117
 msgid "Jami Error"
@@ -1293,7 +1294,7 @@ msgstr "Erro Jami"
 
 #: src/client.cpp:387 src/client.cpp:444
 msgid "Jami needs your attention"
-msgstr ""
+msgstr "Jami precisa de sua atenção"
 
 #: src/client.cpp:427
 msgctxt ""
@@ -1520,11 +1521,11 @@ msgstr "(Nenhum)"
 
 #: src/profileview.cpp:160
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 #: src/profileview.cpp:160
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: src/usernameregistrationbox.cpp:163 src/usernameregistrationbox.cpp:186
 msgid "Register this username on the name server"
@@ -1594,9 +1595,9 @@ msgctxt "Do not translate the release name nor the status (beta, final, ...)"
 msgid ""
 "\"%s\"\n"
 "(%s)"
-msgstr ""
+msgstr "\"%s\"\n(%s)"
 
-#: src/dialogs.cpp:134
+#: src/dialogs.cpp:138
 msgid ""
 "The GNOME client for Jami.\n"
 "Jami is free software for universal communication which respects the freedoms and privacy of its users."
@@ -1616,7 +1617,7 @@ msgstr "_Adicionar a conversas"
 
 #: src/conversationpopupmenu.cpp:250
 msgid "_Accept invitation"
-msgstr ""
+msgstr "_Aceitar o convite"
 
 #: src/conversationpopupmenu.cpp:253
 msgid "_Discard invitation"
