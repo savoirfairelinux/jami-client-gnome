@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6669382b_19b5056d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 907
+      },
+      "writtenOn": "2022-01-03T18:19:06Z",
+      "side": 1,
+      "message": "I tested this patch with my flatpak build and it works fine.\nhttps://github.com/flathub/net.jami.Jami/pull/46",
+      "revId": "d493e44ff3fd106456df85d0e73f6b3c08ecd38c",
+      "serverId": "1e26b4c1-6b8c-47ff-9df7-501b633d3b5a"
+    }
+  ]
+}
