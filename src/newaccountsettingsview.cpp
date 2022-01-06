@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015-2021 Savoir-faire Linux Inc.
+ *  Copyright (C) 2015-2022 Savoir-faire Linux Inc.
  *  Author: Sebastien Blin <sebastien.blin@savoirfairelinux.com>
  *  Author: Alberto Eleuterio Flores Guerrero <albertoefg+bugs@posteo.mx>
  *

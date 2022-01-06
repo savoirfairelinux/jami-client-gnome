@@ -1,7 +1,7 @@
 #  CMake macros adapted from those written for Marlin, released under GPLv3:
 #  https://github.com/ammonkey/marlin/blob/master/cmake/GSettings.cmake
 #
-#  Copyright (C) 2015-2016 Savoir-faire Linux Inc.
+#  Copyright (C) 2015-2022 Savoir-faire Linux Inc.
 #  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
 #
 #  This program is free software; you can redistribute it and/or modify
