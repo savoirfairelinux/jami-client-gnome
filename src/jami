@@ -1,8 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 #  Copyright (C) 2015-2022 Savoir-faire Linux Inc.
 #  Author: Emmanuel Lepage Vallee <emmanuel.lepage@savoirfairelinux.com>
 #  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+#  Author: Albert Babí <albert.babi@savoirfairelinux.com>
+#  Author: Maxim Cournoyer <maxim.cournoyer@savoirfairelinux.com>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -19,38 +21,11 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
 #
 
-HAS_KDE=0
-HAS_GNOME=0
-
-if type "ring-kde" > /dev/null 2> /dev/null; then
-  HAS_KDE=1
-fi
-
-if type "jami-gnome" > /dev/null 2> /dev/null; then
-  HAS_GNOME=1
-fi
-
-# No clients installed
-if [ $HAS_KDE == "0" ] && [ $HAS_GNOME == "0" ]; then
-  echo "Jami not found" >&2
-  exit 1
-fi
-
-# Only one client is installed
-if [ $HAS_KDE == "1" ] && [ $HAS_GNOME == "0" ]; then
-  ring-kde $*
-  exit $?
-elif [ $HAS_KDE == "0" ] && [ $HAS_GNOME == "1" ]; then
-  jami-gnome $*
-  exit $?
-fi
-
-# Both clients installed: run KDE client if KDE wm is running
-# else use the Gnome client.
-if [ -z "$(ps aux | grep kwin | grep -v grep)" ]; then
-  jami-gnome $*
-  exit $?
+if command -v jami-qt > /dev/null; then
+    exec jami-qt $*
+elif command -v jami-gnome > /dev/null; then
+    exec jami-gnome $*
 else
-  ring-kde $*
-  exit $?
+    echo "Jami not found" >&2
+    exit 1
 fi
