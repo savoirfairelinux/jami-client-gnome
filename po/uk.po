@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-31 03:09-0500\n"
-"PO-Revision-Date: 2021-11-02 03:56+0000\n"
-"Last-Translator: . . <ovari123@zoho.com>\n"
+"POT-Creation-Date: 2022-02-07 03:11-0500\n"
+"PO-Revision-Date: 2022-02-02 16:54+0000\n"
+"Last-Translator: Z G\n"
 "Language-Team: Ukrainian (http://www.transifex.com/savoirfairelinux/jami/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1473,11 +1473,11 @@ msgstr ""
 
 #: src/mainwindow.cpp:2663
 msgid "Trust request"
-msgstr ""
+msgstr "Запит довіри"
 
 #: src/mainwindow.cpp:2731
 msgid "New message"
-msgstr ""
+msgstr "Нове повідомлення"
 
 #: src/mainwindow.cpp:2786
 msgid "Stop current call?"
@@ -1580,7 +1580,7 @@ msgstr "Авто"
 
 #: src/currentcallview.cpp:1763
 msgid "me"
-msgstr ""
+msgstr "мені"
 
 #: src/newaccountsettingsview.cpp:611
 msgid ""
