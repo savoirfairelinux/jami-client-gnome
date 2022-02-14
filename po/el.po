@@ -5,14 +5,14 @@
 # Translators:
 # a a <gfvbjhgf@mailinator.com>, 2016
 # Efstathios Iosifidis <iefstathios@gmail.com>, 2016
-# . . <ovari123@zoho.com>, 2021
+# . . <ovari123@zoho.com>, 2021-2022
 # Vangelis Skarmoutsos <skarmoutsosv@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-11-02 02:46+0000\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-10 08:31+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Greek (http://www.transifex.com/savoirfairelinux/jami/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgstr ""
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Εναλλαγή πλήρους οθόνης"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"

@@ -9,6 +9,7 @@
 # Sak94664, 2020
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2017
 # Ling-Xiao Yang <ling-xiao.yang@mail.mcgill.ca>, 2016
+# . . <ovari123@zoho.com>, 2022
 # Shuisi Liu <forevoliu@gmail.com>, 2020
 # Tiansworld <tiansworld@fedoraproject.org>, 2020-2021
 # Tommy He <lovenemesis@gmail.com>, 2021
@@ -20,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-12-30 02:41+0000\n"
-"Last-Translator: Tommy He <lovenemesis@gmail.com>\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-10 08:06+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/savoirfairelinux/jami/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +64,7 @@ msgstr "关注列表中的待处理请求"
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr "切换全屏"
+msgstr "全屏切换"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"

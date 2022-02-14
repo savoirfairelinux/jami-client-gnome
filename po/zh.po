@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Derek 呆 <dailidu@linuxdeepin.com>, 2016
-# . . <ovari123@zoho.com>, 2021
+# . . <ovari123@zoho.com>, 2021-2022
 # redfishleo <redfish.tbc@gmail.com>, 2016
 # Tom Samder <2v894l+efbge9r9x3pt0@sharklasers.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-11-02 02:26+0000\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-10 08:04+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/savoirfairelinux/jami/language/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgstr ""
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "全屏切换"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -537,7 +537,7 @@ msgstr "_離開"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
-msgstr ""
+msgstr "系统"
 
 #: ui/generalsettingsview.ui:96
 msgid "Start application on login"

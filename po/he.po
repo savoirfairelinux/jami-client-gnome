@@ -6,13 +6,13 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2014
 # GenghisKhan <genghiskhan@gmx.ca>, 2015-2017
 # Omer I.S. <omeritzicschwartz@gmail.com>, 2020
-# . . <ovari123@zoho.com>, 2021
+# . . <ovari123@zoho.com>, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-11-02 02:51+0000\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-10 08:45+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Hebrew (http://www.transifex.com/savoirfairelinux/jami/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgstr ""
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "החלף מצב מסך מלא"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -537,7 +537,7 @@ msgstr "י_ציאה"
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
-msgstr ""
+msgstr "מערכת"
 
 #: ui/generalsettingsview.ui:96
 msgid "Start application on login"

@@ -5,14 +5,15 @@
 # Translators:
 # Caspar Cedro <casparcedro96@gmail.com>, 2016
 # Michał Majek <michal.majek@wp.pl>, 2020
+# . . <ovari123@zoho.com>, 2022
 # Tom Bosxter <wawoha7980@boersy.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-09-06 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-11 01:46+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/savoirfairelinux/jami/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +54,7 @@ msgstr ""
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Włącz/wyłącz pełny ekran"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"

@@ -10,6 +10,7 @@
 # Hasan Hejdari Nasab <hsn6@openmailbox.org>, 2017
 # Hessam Shahpouri, 2016
 # Reza Ghasemi, 2020
+# . . <ovari123@zoho.com>, 2022
 # Reza Ghasemi, 2018
 # Reza Ghasemi, 2018
 # seyed rahim firouzi <seyed.rahim.firouzi@gmail.com>, 2020
@@ -17,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-09-06 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-11 01:42+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/savoirfairelinux/jami/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,7 +61,7 @@ msgstr "تمرکز روی لیست درخواست‌های در‌انتظار"
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr "تغییر وضعیت تمام‌صفحه"
+msgstr "نمایش/پنهان سازی حالت تمام صفحه"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# . . <ovari123@zoho.com>, 2021
+# . . <ovari123@zoho.com>, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-11-02 03:20+0000\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-11 01:41+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Persian (http://www.transifex.com/savoirfairelinux/jami/language/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr ""
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "نمایش/پنهان سازی حالت تمام صفحه"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -231,11 +231,11 @@ msgstr ""
 
 #: ui/currentcallview.ui:284
 msgid "End this call"
-msgstr ""
+msgstr "پایان دادن به تماس"
 
 #: ui/currentcallview.ui:288 ui/currentcallview.ui:581
 msgid "End call"
-msgstr ""
+msgstr "پایان دادن به تماس"
 
 #: ui/currentcallview.ui:308 ui/currentcallview.ui:554
 msgid "Add participant"
@@ -534,7 +534,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
-msgstr ""
+msgstr "سیستم"
 
 #: ui/generalsettingsview.ui:96
 msgid "Start application on login"

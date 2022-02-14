@@ -5,14 +5,15 @@
 # Translators:
 # Astar Seran <zic.spse@gmail.com>, 2016
 # Microtus <hrabosmartin@gmail.com>, 2020
+# . . <ovari123@zoho.com>, 2022
 # Tomáš Vavro <tomas.j.vavro@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-09-06 07:09+0000\n"
-"Last-Translator: savoirfairelinux <support@savoirfairelinux.com>\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-11 02:08+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/savoirfairelinux/jami/language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +54,7 @@ msgstr "Zamerať na zoznam čakajúcich žiadostí"
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr "Prepnúť zobrazenie na celú obrazovku"
+msgstr "Prepnúť na režim celej obrazovky"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"

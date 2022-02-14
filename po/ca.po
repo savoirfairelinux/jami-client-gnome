@@ -9,13 +9,13 @@
 # Jaume Zaragoza <jaumet@posteo.net>, 2016
 # Jaume Zaragoza <jaumet@posteo.net>, 2017
 # muzzol mussol <muzzol@gmail.com>, 2017
-# . . <ovari123@zoho.com>, 2021
+# . . <ovari123@zoho.com>, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-11-02 02:25+0000\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-10 08:01+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/savoirfairelinux/jami/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "Mostra la llista de peticions pendents"
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr "Pantalla completa"
+msgstr "Commuta la visualització de pantalla sencera"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"

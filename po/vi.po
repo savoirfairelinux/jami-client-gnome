@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# . . <ovari123@zoho.com>, 2021
+# . . <ovari123@zoho.com>, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-11-09 03:32+0000\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-11 07:57+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/savoirfairelinux/jami/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr ""
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Bật/tắt toàn màn hình"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -534,7 +534,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
-msgstr ""
+msgstr "Hệ thống"
 
 #: ui/generalsettingsview.ui:96
 msgid "Start application on login"

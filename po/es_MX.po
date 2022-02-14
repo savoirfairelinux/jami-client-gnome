@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# . . <ovari123@zoho.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2022-01-26 19:39+0000\n"
-"Last-Translator: javier tapia\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-11 06:33+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Spanish (Mexico) (http://www.transifex.com/savoirfairelinux/jami/language/es_MX/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +51,7 @@ msgstr ""
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "Cambiar a pantalla completa"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -533,7 +534,7 @@ msgstr ""
 
 #: ui/generalsettingsview.ui:58
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: ui/generalsettingsview.ui:96
 msgid "Start application on login"

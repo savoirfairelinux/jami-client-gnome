@@ -4,13 +4,13 @@
 # 
 # Translators:
 # 5d97d600fd5b1d263750025e34b47339_614f688 <911f7049d7660c93e2d0e01245ee2d4f_224544>, 2019
-# . . <ovari123@zoho.com>, 2021
+# . . <ovari123@zoho.com>, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-11-02 03:36+0000\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-11 01:39+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/savoirfairelinux/jami/language/pa/)\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr ""
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "ਪੂਰੀ ਸਕ੍ਰੀਨ ਟੌਗਲ ਕਰਦਾ ਹੈ"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
@@ -232,11 +232,11 @@ msgstr ""
 
 #: ui/currentcallview.ui:284
 msgid "End this call"
-msgstr ""
+msgstr "ਕਾਲ ਸਮਾਪਤ ਕਰੋ"
 
 #: ui/currentcallview.ui:288 ui/currentcallview.ui:581
 msgid "End call"
-msgstr ""
+msgstr "ਕਾਲ ਸਮਾਪਤ ਕਰੋ"
 
 #: ui/currentcallview.ui:308 ui/currentcallview.ui:554
 msgid "Add participant"

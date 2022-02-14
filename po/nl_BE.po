@@ -5,14 +5,14 @@
 # Translators:
 # Bert Frederiks <bert2017@elektroaandrijving.nl>, 2017
 # Nathan Follens, 2018-2019
-# . . <ovari123@zoho.com>, 2021
+# . . <ovari123@zoho.com>, 2021-2022
 # Peter Dhaene <pdhaene.transifex.ue8c2i@nym.hush.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-11-02 02:33+0000\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-10 08:19+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Dutch (Belgium) (http://www.transifex.com/savoirfairelinux/jami/language/nl_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgstr "Focus de lijst met lopende verzoeken"
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr "Volledigschermmodus in-/uitschakelen"
+msgstr "Volledig scherm aan/uit"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"

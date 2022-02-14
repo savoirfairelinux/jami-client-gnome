@@ -7,14 +7,14 @@
 # Jihed Amine Maaref <jihed-amine.maaref@savoirfairelinux.com>, 2015
 # Moo Dooh <mxr2z@grr.la>, 2016
 # OmarRi <om_80_m@yahoo.com>, 2016
-# . . <ovari123@zoho.com>, 2021
+# . . <ovari123@zoho.com>, 2021-2022
 # Waleed Moussa <askme9000@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-07 03:11-0500\n"
-"PO-Revision-Date: 2021-11-09 07:56+0000\n"
+"POT-Creation-Date: 2022-02-14 03:11-0500\n"
+"PO-Revision-Date: 2022-02-10 06:26+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/savoirfairelinux/jami/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +56,7 @@ msgstr ""
 #: ui/help-overlay.ui:53
 msgctxt "shortcut window"
 msgid "Toggle fullscreen"
-msgstr ""
+msgstr "تبديل عرض ملء الشاشة"
 
 #: ui/help-overlay.ui:63
 msgctxt "shortcut window"
