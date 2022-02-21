@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-14 03:11-0500\n"
-"PO-Revision-Date: 2022-02-11 07:37+0000\n"
+"POT-Creation-Date: 2022-02-21 03:11-0500\n"
+"PO-Revision-Date: 2022-02-21 06:12+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Tamil (http://www.transifex.com/savoirfairelinux/jami/language/ta/)\n"
 "MIME-Version: 1.0\n"
@@ -1197,7 +1197,7 @@ msgstr ""
 
 #: src/video/video_widget.cpp:951
 msgid "Share _screen area"
-msgstr ""
+msgstr "திரைப் _பகுதியைப் பகிரவும்"
 
 #: src/video/video_widget.cpp:959
 msgid "Share _monitor"

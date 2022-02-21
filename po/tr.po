@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-14 03:11-0500\n"
-"PO-Revision-Date: 2022-02-11 07:46+0000\n"
+"POT-Creation-Date: 2022-02-21 03:11-0500\n"
+"PO-Revision-Date: 2022-02-21 05:45+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/savoirfairelinux/jami/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -1207,7 +1207,7 @@ msgstr "Dosya seç"
 
 #: src/video/video_widget.cpp:951
 msgid "Share _screen area"
-msgstr "Ekranı paylaş"
+msgstr "Ekran _alanı paylaş"
 
 #: src/video/video_widget.cpp:959
 msgid "Share _monitor"

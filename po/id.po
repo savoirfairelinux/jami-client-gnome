@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-14 03:11-0500\n"
-"PO-Revision-Date: 2022-02-10 09:07+0000\n"
-"Last-Translator: . . <ovari123@zoho.com>\n"
+"POT-Creation-Date: 2022-02-21 03:11-0500\n"
+"PO-Revision-Date: 2022-02-20 01:58+0000\n"
+"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/savoirfairelinux/jami/language/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -334,7 +334,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:84
 msgid "Create a rendezvous point"
-msgstr ""
+msgstr "Buat titik pertemuan"
 
 #: ui/accountcreationwizard.ui:85
 msgid "Create a Rendezvous point"
@@ -362,7 +362,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:119
 msgid "Connect to a JAMS server"
-msgstr ""
+msgstr "Hubungkan ke server JAMS"
 
 #: ui/accountcreationwizard.ui:120
 msgid "Get your account via your credentials."
@@ -682,7 +682,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:339
 msgid "Device"
-msgstr ""
+msgstr "Perangkat"
 
 #: ui/mediasettingsview.ui:375
 msgid "Channel"
@@ -698,7 +698,7 @@ msgstr ""
 
 #: ui/mediasettingsview.ui:484
 msgid "Enable hardware acceleration"
-msgstr ""
+msgstr "Aktifkan akselerasi hardware"
 
 #: ui/newaccountsettingsview.ui:15 ui/pluginsettingsview.ui:15
 msgid "Add device"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-14 03:11-0500\n"
-"PO-Revision-Date: 2022-02-11 07:40+0000\n"
+"POT-Creation-Date: 2022-02-21 03:11-0500\n"
+"PO-Revision-Date: 2022-02-21 05:53+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Tatar (http://www.transifex.com/savoirfairelinux/jami/language/tt/)\n"
 "MIME-Version: 1.0\n"
@@ -1197,7 +1197,7 @@ msgstr ""
 
 #: src/video/video_widget.cpp:951
 msgid "Share _screen area"
-msgstr ""
+msgstr "Экран _өлкәсен бүлешү"
 
 #: src/video/video_widget.cpp:959
 msgid "Share _monitor"
