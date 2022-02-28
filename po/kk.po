@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-21 03:11-0500\n"
-"PO-Revision-Date: 2022-02-10 09:18+0000\n"
+"POT-Creation-Date: 2022-02-28 03:09-0500\n"
+"PO-Revision-Date: 2022-02-21 09:19+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Kazakh (http://www.transifex.com/savoirfairelinux/jami/language/kk/)\n"
 "MIME-Version: 1.0\n"
@@ -17,136 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: kk\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-
-#: ui/help-overlay.ui:13
-msgctxt "shortcut window"
-msgid "General"
-msgstr ""
-
-#: ui/help-overlay.ui:18
-msgctxt "shortcut window"
-msgid "Open application menu"
-msgstr ""
-
-#: ui/help-overlay.ui:25
-msgctxt "shortcut window"
-msgid "Open account list"
-msgstr ""
-
-#: ui/help-overlay.ui:32
-msgctxt "shortcut window"
-msgid "Select search bar"
-msgstr ""
-
-#: ui/help-overlay.ui:39
-msgctxt "shortcut window"
-msgid "Focus the list of conversations"
-msgstr ""
-
-#: ui/help-overlay.ui:46
-msgctxt "shortcut window"
-msgid "Focus the list pending requests"
-msgstr ""
-
-#: ui/help-overlay.ui:53
-msgctxt "shortcut window"
-msgid "Toggle fullscreen"
-msgstr "Толық экранға ауысу"
-
-#: ui/help-overlay.ui:63
-msgctxt "shortcut window"
-msgid "Conversations"
-msgstr ""
-
-#: ui/help-overlay.ui:68
-msgctxt "shortcut window"
-msgid "Start a video call"
-msgstr ""
-
-#: ui/help-overlay.ui:75
-msgctxt "shortcut window"
-msgid "Start an audio call"
-msgstr ""
-
-#: ui/help-overlay.ui:82
-msgctxt "shortcut window"
-msgid "Clear history"
-msgstr ""
-
-#: ui/help-overlay.ui:89
-msgctxt "shortcut window"
-msgid "Add conversation"
-msgstr ""
-
-#: ui/help-overlay.ui:96
-msgctxt "shortcut window"
-msgid "Remove conversation"
-msgstr ""
-
-#: ui/help-overlay.ui:103
-msgctxt "shortcut window"
-msgid "Block contact"
-msgstr ""
-
-#: ui/help-overlay.ui:110
-msgctxt "shortcut window"
-msgid "Unblock contact"
-msgstr ""
-
-#: ui/help-overlay.ui:117
-msgctxt "shortcut window"
-msgid "Copy contact name"
-msgstr ""
-
-#: ui/help-overlay.ui:127
-msgctxt "shortcut window"
-msgid "Call"
-msgstr ""
-
-#: ui/help-overlay.ui:132
-msgctxt "shortcut window"
-msgid "Accept call"
-msgstr ""
-
-#: ui/help-overlay.ui:139
-msgctxt "shortcut window"
-msgid "Decline call"
-msgstr ""
-
-#: ui/help-overlay.ui:148
-msgctxt "shortcut window"
-msgid "Settings"
-msgstr ""
-
-#: ui/help-overlay.ui:153
-msgctxt "shortcut window"
-msgid "Open/Close settings page"
-msgstr ""
-
-#: ui/help-overlay.ui:160
-msgctxt "shortcut window"
-msgid "Open general settings"
-msgstr ""
-
-#: ui/help-overlay.ui:167
-msgctxt "shortcut window"
-msgid "Open media settings"
-msgstr ""
-
-#: ui/help-overlay.ui:174
-msgctxt "shortcut window"
-msgid "Open account settings"
-msgstr ""
-
-#: ui/help-overlay.ui:184
-msgctxt "shortcut window"
-msgid "Chat view"
-msgstr ""
-
-#: ui/help-overlay.ui:189
-msgctxt "shortcut window"
-msgid "Write on a new line"
-msgstr ""
 
 #: ui/mainwindow.ui:63
 msgid "Menu"
@@ -164,8 +34,8 @@ msgstr ""
 msgid "Plugin"
 msgstr ""
 
-#: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:530
-#: ui/newaccountsettingsview.ui:387
+#: ui/mainwindow.ui:136 ui/newaccountsettingsview.ui:387
+#: ui/accountcreationwizard.ui:530
 msgid "Account"
 msgstr ""
 
@@ -179,473 +49,6 @@ msgstr ""
 
 #: ui/mainwindow.ui:327 ui/mainwindow.ui:334
 msgid "Contact requests"
-msgstr ""
-
-#: ui/accountmigrationview.ui:20
-msgid "Account migration required"
-msgstr ""
-
-#: ui/accountmigrationview.ui:31
-msgid "This account is malformed, please enter your password"
-msgstr ""
-
-#: ui/accountmigrationview.ui:90
-msgid "Alias"
-msgstr ""
-
-#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:1093
-#: ui/accountcreationwizard.ui:1311 ui/profile.ui:73
-#: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
-#: src/accountcreationwizard.cpp:1078
-msgid "Username"
-msgstr ""
-
-#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:286
-#: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
-#: ui/accountcreationwizard.ui:1347 ui/newaccountsettingsview.ui:502
-#: ui/newaccountsettingsview.ui:742
-msgid "Password"
-msgstr ""
-
-#: ui/accountmigrationview.ui:205
-msgid "Account manager"
-msgstr ""
-
-#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
-#: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:1014 src/newaccountsettingsview.cpp:2172
-msgid "Delete account"
-msgstr ""
-
-#: ui/accountmigrationview.ui:251
-msgid "Migrate account"
-msgstr ""
-
-#: ui/accountmigrationview.ui:283
-msgid "Migrating your Jami account…"
-msgstr ""
-
-#: ui/accountmigrationview.ui:295
-msgid "Migration failed, wrong password?"
-msgstr ""
-
-#: ui/currentcallview.ui:284
-msgid "End this call"
-msgstr "Қоңырауды аяқтау"
-
-#: ui/currentcallview.ui:288 ui/currentcallview.ui:581
-msgid "End call"
-msgstr "Қоңырауды аяқтау"
-
-#: ui/currentcallview.ui:308 ui/currentcallview.ui:554
-msgid "Add participant"
-msgstr ""
-
-#: ui/currentcallview.ui:327
-msgid "Toggle transfer"
-msgstr ""
-
-#: ui/currentcallview.ui:346
-msgid "Toggle hold"
-msgstr ""
-
-#: ui/currentcallview.ui:350 ui/currentcallview.ui:375
-#: ui/currentcallview.ui:545
-msgid "Hold"
-msgstr ""
-
-#: ui/currentcallview.ui:371
-msgid "Toggle mute audio"
-msgstr ""
-
-#: ui/currentcallview.ui:396
-msgid "Toggle mute video"
-msgstr ""
-
-#: ui/currentcallview.ui:400 ui/currentcallview.ui:536
-msgid "Mute video"
-msgstr ""
-
-#: ui/currentcallview.ui:421
-msgid "Toggle recording"
-msgstr ""
-
-#: ui/currentcallview.ui:424 ui/currentcallview.ui:599
-#: ui/messagingwidget.ui:29 src/chatview.cpp:467
-msgid "Record"
-msgstr ""
-
-#: ui/currentcallview.ui:464
-msgid "Adjust outgoing video quality"
-msgstr ""
-
-#: ui/currentcallview.ui:469 ui/currentcallview.ui:590
-msgid "Video quality"
-msgstr ""
-
-#: ui/currentcallview.ui:488
-msgid "Toggle show chat"
-msgstr ""
-
-#: ui/currentcallview.ui:492 ui/currentcallview.ui:509
-msgid "Chat"
-msgstr ""
-
-#: ui/currentcallview.ui:518
-msgid "View"
-msgstr ""
-
-#: ui/currentcallview.ui:527
-msgid "Mute audio"
-msgstr ""
-
-#: ui/currentcallview.ui:563
-msgid "Activate Plugin"
-msgstr ""
-
-#: ui/currentcallview.ui:572
-msgid "Transfer"
-msgstr ""
-
-#: ui/currentcallview.ui:622
-msgid "Transfer to"
-msgstr ""
-
-#: ui/currentcallview.ui:686
-msgid "Add"
-msgstr ""
-
-#: ui/currentcallview.ui:752 ui/chatview.ui:41 src/pluginsettingsview.cpp:126
-#: src/pluginsettingsview.cpp:140
-msgid "Choose plugin"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:42
-msgid "Welcome to"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:76
-msgid "Create a Jami account"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:77
-msgid "Create a new Jami account on this device (for new users)"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:84
-msgid "Create a rendezvous point"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:85
-msgid "Create a Rendezvous point"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:92
-msgid "Link this device to an existing account"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:93
-msgid "Import an account with your PIN generated on another device"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:695
-msgid "Restore an account from backup"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:101
-msgid "Import an account via your archive"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:108
-msgid "Advanced features"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:119
-msgid "Connect to a JAMS server"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:120
-msgid "Get your account via your credentials."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:127
-msgid "Add a SIP account"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:199
-msgid "Archive"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:205 ui/accountcreationwizard.ui:334
-msgid "Informations."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:258
-msgid ""
-"You can obtain an archive by clicking on \"Backup account\" in the account "
-"settings. This will create a .gz file on your device."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:328
-msgid "PIN"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:390
-msgid ""
-"Enter the PIN from another configured Jami account. Use the \"Link Another "
-"Device\" feature to obtain a PIN."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
-#: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
-msgid "Back"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:449 ui/profile.ui:7
-#: ui/newaccountsettingsview.ui:307
-msgid "Profile"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1077
-msgid "Register username"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:568
-msgid ""
-"By checking this, you will register a unique username on the Jami network. "
-"People can use it to contact you instead of using your ID, which is 40 "
-"characters long."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:630
-msgid "Encrypt account with password"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:631
-msgid ""
-"Choose a password to encrypt your account on this device.  Note that the "
-"password cannot be recovered."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:658
-msgid ""
-"Choose a password to encrypt your account on this device.\n"
-"Note that the password cannot be recovered."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:686
-msgid ""
-"This password will be used to encrypt your account data and to link new "
-"devices to your account."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:877
-msgid "Confirm password"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:772
-msgid "Next"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:826
-msgid "Backup your account!"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:842
-msgid ""
-"This account only exists on this device. If you lost your device or "
-"uninstall the application, your account will be deleted. You can backup your"
-" account now or later."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:849
-msgid "Never show me this again"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:863 ui/newaccountsettingsview.ui:539
-#: src/accountcreationwizard.cpp:441 src/newaccountsettingsview.cpp:2105
-msgid "Export account"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:873
-msgid "Skip"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:899
-msgid "Registering username…"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:906
-msgid "This may take a few minutes."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:932
-msgid "Retrieving your Jami account…"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:973 ui/newaccountsettingsview.ui:262
-msgid "OK"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:998
-msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:1043
-msgid "JAMS URL"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:1068
-msgid "Enter your JAMS credentials"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:1167
-msgid "Connect"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:1195
-msgid "Configure an existing SIP account"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:1240
-msgid "Server"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:1276 ui/newaccountsettingsview.ui:783
-#: ui/newaccountsettingsview.ui:1409
-msgid "Proxy"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:1385
-msgid "Create SIP account"
-msgstr ""
-
-#: ui/gearsmenu.ui:7
-msgid "Keyboard _Shortcuts"
-msgstr ""
-
-#: ui/gearsmenu.ui:11
-msgid "_About"
-msgstr ""
-
-#: ui/gearsmenu.ui:17
-msgid "_Quit"
-msgstr ""
-
-#: ui/generalsettingsview.ui:58
-msgid "System"
-msgstr "жүйе"
-
-#: ui/generalsettingsview.ui:96
-msgid "Start application on login"
-msgstr ""
-
-#: ui/generalsettingsview.ui:132
-msgid "Keep Jami active when window is closed."
-msgstr ""
-
-#: ui/generalsettingsview.ui:168
-msgid "Bring Jami to the foreground on incoming calls"
-msgstr ""
-
-#: ui/generalsettingsview.ui:204
-msgid "Notifications"
-msgstr ""
-
-#: ui/generalsettingsview.ui:243
-msgid "Enable notifications for incoming calls"
-msgstr ""
-
-#: ui/generalsettingsview.ui:279
-msgid "Enable notifications for pending requests"
-msgstr ""
-
-#: ui/generalsettingsview.ui:315
-msgid "Enable notifications for new chat messages"
-msgstr ""
-
-#: ui/generalsettingsview.ui:351
-msgid "Chatview"
-msgstr ""
-
-#: ui/generalsettingsview.ui:390
-msgid "Show typing indications"
-msgstr ""
-
-#: ui/generalsettingsview.ui:426
-msgid "Display images and videos into the chatview"
-msgstr ""
-
-#: ui/generalsettingsview.ui:463
-msgid "Show chatview on the right (on the bottom if off)"
-msgstr ""
-
-#: ui/generalsettingsview.ui:500
-msgid "Download folder"
-msgstr ""
-
-#: ui/generalsettingsview.ui:537
-msgid "History"
-msgstr ""
-
-#: ui/generalsettingsview.ui:576
-msgid "Keep history for (days, 0 = unlimited)"
-msgstr ""
-
-#: ui/generalsettingsview.ui:606
-msgid "Clear all history"
-msgstr ""
-
-#: ui/generalsettingsview.ui:638
-msgid "Call Recording"
-msgstr ""
-
-#: ui/generalsettingsview.ui:676
-msgid "Record local video"
-msgstr ""
-
-#: ui/generalsettingsview.ui:712
-msgid "Always record calls"
-msgstr ""
-
-#: ui/generalsettingsview.ui:749
-msgid "Record folder"
-msgstr ""
-
-#: ui/generalsettingsview.ui:786
-msgid "Bitrate for call recordings (kb/s)"
-msgstr ""
-
-#: ui/generalsettingsview.ui:824
-msgid "File transfer"
-msgstr ""
-
-#: ui/generalsettingsview.ui:862
-msgid "Allow incoming files from unknown contacts"
-msgstr ""
-
-#: ui/generalsettingsview.ui:899
-msgid "Automatically accept incoming files"
-msgstr ""
-
-#: ui/generalsettingsview.ui:937
-msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr ""
-
-#: ui/profile.ui:58
-msgid "Informations"
-msgstr ""
-
-#: ui/profile.ui:88 ui/newaccountsettingsview.ui:433
-msgid "ID"
-msgstr ""
-
-#: ui/profile.ui:153
-msgid "QR Code"
-msgstr ""
-
-#: ui/profile.ui:179
-msgid "Is swarm"
 msgstr ""
 
 #: ui/mediasettingsview.ui:28
@@ -700,6 +103,54 @@ msgstr ""
 msgid "Enable hardware acceleration"
 msgstr ""
 
+#: ui/accountmigrationview.ui:20
+msgid "Account migration required"
+msgstr ""
+
+#: ui/accountmigrationview.ui:31
+msgid "This account is malformed, please enter your password"
+msgstr ""
+
+#: ui/accountmigrationview.ui:90
+msgid "Alias"
+msgstr ""
+
+#: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
+#: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
+#: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
+#: src/accountcreationwizard.cpp:1078
+msgid "Username"
+msgstr ""
+
+#: ui/accountmigrationview.ui:165 ui/newaccountsettingsview.ui:502
+#: ui/newaccountsettingsview.ui:742 ui/accountcreationwizard.ui:286
+#: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
+#: ui/accountcreationwizard.ui:1347
+msgid "Password"
+msgstr ""
+
+#: ui/accountmigrationview.ui:205
+msgid "Account manager"
+msgstr ""
+
+#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
+#: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
+#: src/newaccountsettingsview.cpp:1014 src/newaccountsettingsview.cpp:2172
+msgid "Delete account"
+msgstr ""
+
+#: ui/accountmigrationview.ui:251
+msgid "Migrate account"
+msgstr ""
+
+#: ui/accountmigrationview.ui:283
+msgid "Migrating your Jami account…"
+msgstr ""
+
+#: ui/accountmigrationview.ui:295
+msgid "Migration failed, wrong password?"
+msgstr ""
+
 #: ui/newaccountsettingsview.ui:15 ui/pluginsettingsview.ui:15
 msgid "Add device"
 msgstr ""
@@ -735,8 +186,26 @@ msgstr ""
 msgid "Your generated pin:"
 msgstr ""
 
+#: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:973
+msgid "OK"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:307 ui/profile.ui:7
+#: ui/accountcreationwizard.ui:449
+msgid "Profile"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:433 ui/profile.ui:88
+msgid "ID"
+msgstr ""
+
 #: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
+#: src/newaccountsettingsview.cpp:2105 src/accountcreationwizard.cpp:441
+msgid "Export account"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
@@ -749,6 +218,11 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
+msgstr ""
+
+#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
+#: ui/accountcreationwizard.ui:1276
+msgid "Proxy"
 msgstr ""
 
 #: ui/newaccountsettingsview.ui:819
@@ -971,28 +445,9 @@ msgstr ""
 msgid "Video RTP Max port"
 msgstr ""
 
-#: ui/usernameregistrationbox.ui:28
-msgid "register username"
-msgstr ""
-
-#: ui/pluginsettingsview.ui:44
-msgid "Plugins"
-msgstr ""
-
-#: ui/pluginsettingsview.ui:85
-msgid "Enable plugins"
-msgstr ""
-
-#: ui/pluginsettingsview.ui:128
-msgid "Installed Plugins"
-msgstr ""
-
-#: ui/pluginsettingsview.ui:136
-msgid "Install Plugin"
-msgstr ""
-
-#: ui/chatview.ui:73
-msgid "Send Invitation"
+#: ui/messagingwidget.ui:29 ui/currentcallview.ui:424
+#: ui/currentcallview.ui:599 src/chatview.cpp:467
+msgid "Record"
 msgstr ""
 
 #: ui/messagingwidget.ui:76
@@ -1003,16 +458,143 @@ msgstr ""
 msgid "End without message"
 msgstr ""
 
-#: ui/incomingcallview.ui:99
-msgid "Incoming…"
+#: ui/chatview.ui:41 ui/currentcallview.ui:752 src/pluginsettingsview.cpp:126
+#: src/pluginsettingsview.cpp:140
+msgid "Choose plugin"
 msgstr ""
 
-#: ui/incomingcallview.ui:152
-msgid "Accept"
+#: ui/chatview.ui:73
+msgid "Send Invitation"
 msgstr ""
 
-#: ui/incomingcallview.ui:172
-msgid "Reject"
+#: ui/help-overlay.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr ""
+
+#: ui/help-overlay.ui:18
+msgctxt "shortcut window"
+msgid "Open application menu"
+msgstr ""
+
+#: ui/help-overlay.ui:25
+msgctxt "shortcut window"
+msgid "Open account list"
+msgstr ""
+
+#: ui/help-overlay.ui:32
+msgctxt "shortcut window"
+msgid "Select search bar"
+msgstr ""
+
+#: ui/help-overlay.ui:39
+msgctxt "shortcut window"
+msgid "Focus the list of conversations"
+msgstr ""
+
+#: ui/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Focus the list pending requests"
+msgstr ""
+
+#: ui/help-overlay.ui:53
+msgctxt "shortcut window"
+msgid "Toggle fullscreen"
+msgstr "Толық экранға ауысу"
+
+#: ui/help-overlay.ui:63
+msgctxt "shortcut window"
+msgid "Conversations"
+msgstr ""
+
+#: ui/help-overlay.ui:68
+msgctxt "shortcut window"
+msgid "Start a video call"
+msgstr ""
+
+#: ui/help-overlay.ui:75
+msgctxt "shortcut window"
+msgid "Start an audio call"
+msgstr ""
+
+#: ui/help-overlay.ui:82
+msgctxt "shortcut window"
+msgid "Clear history"
+msgstr ""
+
+#: ui/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Add conversation"
+msgstr ""
+
+#: ui/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Remove conversation"
+msgstr ""
+
+#: ui/help-overlay.ui:103
+msgctxt "shortcut window"
+msgid "Block contact"
+msgstr ""
+
+#: ui/help-overlay.ui:110
+msgctxt "shortcut window"
+msgid "Unblock contact"
+msgstr ""
+
+#: ui/help-overlay.ui:117
+msgctxt "shortcut window"
+msgid "Copy contact name"
+msgstr ""
+
+#: ui/help-overlay.ui:127
+msgctxt "shortcut window"
+msgid "Call"
+msgstr ""
+
+#: ui/help-overlay.ui:132
+msgctxt "shortcut window"
+msgid "Accept call"
+msgstr ""
+
+#: ui/help-overlay.ui:139
+msgctxt "shortcut window"
+msgid "Decline call"
+msgstr ""
+
+#: ui/help-overlay.ui:148
+msgctxt "shortcut window"
+msgid "Settings"
+msgstr ""
+
+#: ui/help-overlay.ui:153
+msgctxt "shortcut window"
+msgid "Open/Close settings page"
+msgstr ""
+
+#: ui/help-overlay.ui:160
+msgctxt "shortcut window"
+msgid "Open general settings"
+msgstr ""
+
+#: ui/help-overlay.ui:167
+msgctxt "shortcut window"
+msgid "Open media settings"
+msgstr ""
+
+#: ui/help-overlay.ui:174
+msgctxt "shortcut window"
+msgid "Open account settings"
+msgstr ""
+
+#: ui/help-overlay.ui:184
+msgctxt "shortcut window"
+msgid "Chat view"
+msgstr ""
+
+#: ui/help-overlay.ui:189
+msgctxt "shortcut window"
+msgid "Write on a new line"
 msgstr ""
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
@@ -1031,85 +613,510 @@ msgstr ""
 msgid "Set selection as image"
 msgstr ""
 
-#: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
-#: src/video/video_widget.cpp:872 src/video/video_widget.cpp:892
-#: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:463
-#: src/chatview.cpp:391 src/chatview.cpp:406
+#: ui/profile.ui:58
+msgid "Informations"
+msgstr ""
+
+#: ui/profile.ui:153
+msgid "QR Code"
+msgstr ""
+
+#: ui/profile.ui:179
+msgid "Is swarm"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:42
+msgid "Welcome to"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:76
+msgid "Create a Jami account"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:77
+msgid "Create a new Jami account on this device (for new users)"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:84
+msgid "Create a rendezvous point"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:85
+msgid "Create a Rendezvous point"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:92
+msgid "Link this device to an existing account"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:93
+msgid "Import an account with your PIN generated on another device"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:695
+msgid "Restore an account from backup"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:101
+msgid "Import an account via your archive"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:108
+msgid "Advanced features"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:119
+msgid "Connect to a JAMS server"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:120
+msgid "Get your account via your credentials."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:127
+msgid "Add a SIP account"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:199
+msgid "Archive"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:205 ui/accountcreationwizard.ui:334
+msgid "Informations."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:258
+msgid ""
+"You can obtain an archive by clicking on \"Backup account\" in the account "
+"settings. This will create a .gz file on your device."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:328
+msgid "PIN"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:390
+msgid ""
+"Enter the PIN from another configured Jami account. Use the \"Link Another "
+"Device\" feature to obtain a PIN."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
+#: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
+msgid "Back"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1077
+msgid "Register username"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:568
+msgid ""
+"By checking this, you will register a unique username on the Jami network. "
+"People can use it to contact you instead of using your ID, which is 40 "
+"characters long."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:630
+msgid "Encrypt account with password"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:631
+msgid ""
+"Choose a password to encrypt your account on this device.  Note that the "
+"password cannot be recovered."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:658
+msgid ""
+"Choose a password to encrypt your account on this device.\n"
+"Note that the password cannot be recovered."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:686
+msgid ""
+"This password will be used to encrypt your account data and to link new "
+"devices to your account."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:877
+msgid "Confirm password"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:772
+msgid "Next"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:826
+msgid "Backup your account!"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:842
+msgid ""
+"This account only exists on this device. If you lost your device or "
+"uninstall the application, your account will be deleted. You can backup your"
+" account now or later."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:849
+msgid "Never show me this again"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:873
+msgid "Skip"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:899
+msgid "Registering username…"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:906
+msgid "This may take a few minutes."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:932
+msgid "Retrieving your Jami account…"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:998
+msgid "Enter Jami Account Management Server (JAMS) URL"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:1043
+msgid "JAMS URL"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:1068
+msgid "Enter your JAMS credentials"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:1167
+msgid "Connect"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:1195
+msgid "Configure an existing SIP account"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:1240
+msgid "Server"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:1385
+msgid "Create SIP account"
+msgstr ""
+
+#: ui/generalsettingsview.ui:58
+msgid "System"
+msgstr "жүйе"
+
+#: ui/generalsettingsview.ui:96
+msgid "Start application on login"
+msgstr ""
+
+#: ui/generalsettingsview.ui:132
+msgid "Keep Jami active when window is closed."
+msgstr ""
+
+#: ui/generalsettingsview.ui:168
+msgid "Bring Jami to the foreground on incoming calls"
+msgstr ""
+
+#: ui/generalsettingsview.ui:204
+msgid "Notifications"
+msgstr ""
+
+#: ui/generalsettingsview.ui:243
+msgid "Enable notifications for incoming calls"
+msgstr ""
+
+#: ui/generalsettingsview.ui:279
+msgid "Enable notifications for pending requests"
+msgstr ""
+
+#: ui/generalsettingsview.ui:315
+msgid "Enable notifications for new chat messages"
+msgstr ""
+
+#: ui/generalsettingsview.ui:351
+msgid "Chatview"
+msgstr ""
+
+#: ui/generalsettingsview.ui:390
+msgid "Show typing indications"
+msgstr ""
+
+#: ui/generalsettingsview.ui:426
+msgid "Display images and videos into the chatview"
+msgstr ""
+
+#: ui/generalsettingsview.ui:463
+msgid "Show chatview on the right (on the bottom if off)"
+msgstr ""
+
+#: ui/generalsettingsview.ui:500
+msgid "Download folder"
+msgstr ""
+
+#: ui/generalsettingsview.ui:537
+msgid "History"
+msgstr ""
+
+#: ui/generalsettingsview.ui:576
+msgid "Keep history for (days, 0 = unlimited)"
+msgstr ""
+
+#: ui/generalsettingsview.ui:606
+msgid "Clear all history"
+msgstr ""
+
+#: ui/generalsettingsview.ui:638
+msgid "Call Recording"
+msgstr ""
+
+#: ui/generalsettingsview.ui:676
+msgid "Record local video"
+msgstr ""
+
+#: ui/generalsettingsview.ui:712
+msgid "Always record calls"
+msgstr ""
+
+#: ui/generalsettingsview.ui:749
+msgid "Record folder"
+msgstr ""
+
+#: ui/generalsettingsview.ui:786
+msgid "Bitrate for call recordings (kb/s)"
+msgstr ""
+
+#: ui/generalsettingsview.ui:824
+msgid "File transfer"
+msgstr ""
+
+#: ui/generalsettingsview.ui:862
+msgid "Allow incoming files from unknown contacts"
+msgstr ""
+
+#: ui/generalsettingsview.ui:899
+msgid "Automatically accept incoming files"
+msgstr ""
+
+#: ui/generalsettingsview.ui:937
+msgid "Accept transfer below (in Mb, 0 = unlimited)"
+msgstr ""
+
+#: ui/usernameregistrationbox.ui:28
+msgid "register username"
+msgstr ""
+
+#: ui/incomingcallview.ui:99
+msgid "Incoming…"
+msgstr ""
+
+#: ui/incomingcallview.ui:152
+msgid "Accept"
+msgstr ""
+
+#: ui/incomingcallview.ui:172
+msgid "Reject"
+msgstr ""
+
+#: ui/currentcallview.ui:284
+msgid "End this call"
+msgstr "Қоңырауды аяқтау"
+
+#: ui/currentcallview.ui:288 ui/currentcallview.ui:581
+msgid "End call"
+msgstr "Қоңырауды аяқтау"
+
+#: ui/currentcallview.ui:308 ui/currentcallview.ui:554
+msgid "Add participant"
+msgstr ""
+
+#: ui/currentcallview.ui:327
+msgid "Toggle transfer"
+msgstr ""
+
+#: ui/currentcallview.ui:346
+msgid "Toggle hold"
+msgstr ""
+
+#: ui/currentcallview.ui:350 ui/currentcallview.ui:375
+#: ui/currentcallview.ui:545
+msgid "Hold"
+msgstr ""
+
+#: ui/currentcallview.ui:371
+msgid "Toggle mute audio"
+msgstr ""
+
+#: ui/currentcallview.ui:396
+msgid "Toggle mute video"
+msgstr ""
+
+#: ui/currentcallview.ui:400 ui/currentcallview.ui:536
+msgid "Mute video"
+msgstr ""
+
+#: ui/currentcallview.ui:421
+msgid "Toggle recording"
+msgstr ""
+
+#: ui/currentcallview.ui:464
+msgid "Adjust outgoing video quality"
+msgstr ""
+
+#: ui/currentcallview.ui:469 ui/currentcallview.ui:590
+msgid "Video quality"
+msgstr ""
+
+#: ui/currentcallview.ui:488
+msgid "Toggle show chat"
+msgstr ""
+
+#: ui/currentcallview.ui:492 ui/currentcallview.ui:509
+msgid "Chat"
+msgstr ""
+
+#: ui/currentcallview.ui:518
+msgid "View"
+msgstr ""
+
+#: ui/currentcallview.ui:527
+msgid "Mute audio"
+msgstr ""
+
+#: ui/currentcallview.ui:563
+msgid "Activate Plugin"
+msgstr ""
+
+#: ui/currentcallview.ui:572
+msgid "Transfer"
+msgstr ""
+
+#: ui/currentcallview.ui:622
+msgid "Transfer to"
+msgstr ""
+
+#: ui/currentcallview.ui:686
+msgid "Add"
+msgstr ""
+
+#: ui/pluginsettingsview.ui:44
+msgid "Plugins"
+msgstr ""
+
+#: ui/pluginsettingsview.ui:85
+msgid "Enable plugins"
+msgstr ""
+
+#: ui/pluginsettingsview.ui:128
+msgid "Installed Plugins"
+msgstr ""
+
+#: ui/pluginsettingsview.ui:136
+msgid "Install Plugin"
+msgstr ""
+
+#: ui/gearsmenu.ui:7
+msgid "Keyboard _Shortcuts"
+msgstr ""
+
+#: ui/gearsmenu.ui:11
+msgid "_About"
+msgstr ""
+
+#: ui/gearsmenu.ui:17
+msgid "_Quit"
+msgstr ""
+
+#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
+msgctxt "Name of error window (dialog)"
+msgid "Jami Error"
+msgstr ""
+
+#: src/native/dbuserrorhandler.cpp:57
+msgid "Trying to reconnect to the Jami daemon (jamid)…"
+msgstr ""
+
+#: src/native/dbuserrorhandler.cpp:87
+msgid ""
+"Could not re-connect to the Jami daemon (jamid).\n"
+"Jami will now quit."
+msgstr ""
+
+#: src/currentcallview.cpp:1180
+msgid "Current conference (all accounts)"
+msgstr ""
+
+#: src/currentcallview.cpp:1215
+msgid "Current calls (all accounts)"
+msgstr ""
+
+#: src/currentcallview.cpp:1234
+msgid "Online contacts"
+msgstr ""
+
+#: src/currentcallview.cpp:1688
+msgctxt "Enable automatic video quality"
+msgid "Auto"
+msgstr ""
+
+#: src/currentcallview.cpp:1763
+msgid "me"
+msgstr ""
+
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:1013
+msgid ""
+"Warning! This action will remove this account on this device!\n"
+"Note: this action cannot be undone. Also, your registered name can be lost!"
+msgstr ""
+
+#: src/chatview.cpp:388 src/chatview.cpp:402
+msgid "Send File"
+msgstr "Файл жіберу"
+
+#: src/chatview.cpp:388 src/chatview.cpp:402
+#: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:949
+#: src/accountcreationwizard.cpp:875 src/accountcreationwizard.cpp:892
+msgid "Save File"
+msgstr ""
+
+#: src/chatview.cpp:391 src/chatview.cpp:406 src/video/video_widget.cpp:872
+#: src/video/video_widget.cpp:892 src/pluginsettingsview.cpp:129
+#: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:440
+#: src/avatarmanipulation.cpp:463
 msgid "_Open"
 msgstr ""
 
-#: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
-#: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
-#: src/video/video_widget.cpp:873 src/video/video_widget.cpp:891
-#: src/avatarmanipulation.cpp:441 src/avatarmanipulation.cpp:462
-#: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:895
-#: src/chatview.cpp:392 src/chatview.cpp:405
-#: src/newaccountsettingsview.cpp:936 src/newaccountsettingsview.cpp:952
+#: src/chatview.cpp:391 src/chatview.cpp:406 src/generalsettingsview.cpp:237
+#: src/generalsettingsview.cpp:252 src/newaccountsettingsview.cpp:935
+#: src/newaccountsettingsview.cpp:953 src/accountcreationwizard.cpp:878
+#: src/accountcreationwizard.cpp:896
+msgid "_Save"
+msgstr ""
+
+#: src/chatview.cpp:392 src/chatview.cpp:405 src/generalsettingsview.cpp:238
+#: src/generalsettingsview.cpp:251 src/newaccountsettingsview.cpp:936
+#: src/newaccountsettingsview.cpp:952 src/video/video_widget.cpp:873
+#: src/video/video_widget.cpp:891 src/pluginsettingsview.cpp:130
+#: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:441
+#: src/avatarmanipulation.cpp:462 src/accountcreationwizard.cpp:879
+#: src/accountcreationwizard.cpp:895
 msgid "_Cancel"
 msgstr ""
 
-#: src/pluginsettingsview.cpp:201
-msgid ""
-"Warning! This action will uninstall the plugin!\n"
-"Note: this action cannot be undone."
+#: src/chatview.cpp:457
+msgid "Retry"
 msgstr ""
 
-#: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
-msgid "Uninstall Plugin"
+#: src/chatview.cpp:704
+msgid "Stop"
 msgstr ""
 
-#: src/pluginsettingsview.cpp:284
-msgid "Load/Unload Plugin"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:162 src/usernameregistrationbox.cpp:185
-msgid "Register this username on the name server"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:171
-msgid "Username already taken"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:178
-msgid "Invalid username"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:192
-msgid "Lookup unavailable, check your network connection"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:272
-msgid "Performing lookup…"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:323
-msgid "Enter the password of your Jami account"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:355
-msgid "Registration in progress…"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:374
-msgid "Name registration Error"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:433
-msgid ""
-"Unable to register name (Invalid name). Your username should contains "
-"between 3 and 32 alphanumerics characters (or underscore)."
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:437
-msgid "Unable to register name (Wrong password)."
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:441
-msgid "Unable to register name (Username already taken)."
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:445
-msgid "Unable to register name (Network error) - check your connection."
+#: src/chatview.cpp:1275
+msgid "Send"
 msgstr ""
 
 #: src/generalsettingsview.cpp:162
@@ -1122,49 +1129,161 @@ msgstr ""
 msgid "Choose download folder"
 msgstr ""
 
-#: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
-#: src/accountcreationwizard.cpp:878 src/accountcreationwizard.cpp:896
-#: src/chatview.cpp:391 src/chatview.cpp:406
-#: src/newaccountsettingsview.cpp:935 src/newaccountsettingsview.cpp:953
-msgid "_Save"
-msgstr ""
-
-#: src/welcomeview.cpp:93
+#: src/newaccountsettingsview.cpp:611
 msgid ""
-"This is your Jami username.\n"
-"Copy and share it with your friends!"
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
 msgstr ""
 
-#: src/welcomeview.cpp:101
+#: src/newaccountsettingsview.cpp:612
+msgid "Enter password to revoke device"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:660
+msgid "This device"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:683
+msgid "Edit name"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:683
+msgid "Revoke device"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:705
+msgid "Error when revoking device"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:778
+msgid "Unban"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
+#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
+msgid "Change password"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:814
+msgid "New password and its confirmation are different!"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:825
+msgid "Incorrect password!"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:862
+msgid "Note: this will change the password only on this device."
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:865
+msgid "Current password"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:871
+msgid "New password"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:974 src/accountcreationwizard.cpp:918
+msgid "You need to enter your password to export the full archive."
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:975 src/accountcreationwizard.cpp:919
+msgid "Enter password to export archive"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:998 src/accountcreationwizard.cpp:942
+msgid "Account exported!"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:998 src/accountcreationwizard.cpp:942
+msgid "Export account failure."
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1778
+msgid "Exporting account…"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1803
+msgid "Bad password"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1811
+msgid "Network error, try again"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1819
+msgid "Unknown error"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1832
+msgid "Could not initiate export to the Jami, try again"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1891
+msgid "Error: wrong password!"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:1894
+msgid "Error: unknown device!"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:2069
+msgid "Initializing…"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:2072
+msgid "Offline"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:2075
+msgid "Connecting…"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:2078
+msgid "Online"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:2082
+msgid "Unknown status"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:2116
+msgid "••••••••"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:2116
+msgid "no password set"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:2172
+msgid "Remove account"
+msgstr ""
+
+#: src/client.cpp:114
+#, c-format
 msgid ""
-"This is your ID.\n"
-"Copy and share it with your friends!"
+"Unable to initialize.\n"
+"Make sure the Jami daemon (jamid) is running.\n"
+"Error: %s"
 msgstr ""
 
-#: src/welcomeview.cpp:213
-msgid ""
-"Jami is free software for universal communication which respects the "
-"freedoms and privacy of its users."
+#: src/client.cpp:117
+msgid "Jami Error"
 msgstr ""
 
-#: src/notifier.cpp:352
+#: src/client.cpp:387 src/client.cpp:444
+msgid "Jami needs your attention"
+msgstr ""
+
+#: src/client.cpp:427
 msgctxt ""
-msgid "Open conversation"
+"In the status icon menu, toggle action to show or hide the Jami main window"
+msgid "Show Jami"
 msgstr ""
 
-#: src/notifier.cpp:360 src/notifier.cpp:376
-msgctxt ""
-msgid "Accept"
-msgstr ""
-
-#: src/notifier.cpp:367
-msgctxt ""
-msgid "Refuse"
-msgstr ""
-
-#: src/notifier.cpp:383
-msgctxt ""
-msgid "Decline"
+#: src/client.cpp:431
+msgid "Quit"
 msgstr ""
 
 #: src/video/video_widget.cpp:436
@@ -1197,7 +1316,7 @@ msgstr ""
 
 #: src/video/video_widget.cpp:951
 msgid "Share _screen area"
-msgstr ""
+msgstr "Экран _аймағын бөлісу"
 
 #: src/video/video_widget.cpp:959
 msgid "Share _monitor"
@@ -1209,201 +1328,6 @@ msgstr ""
 
 #: src/video/video_widget.cpp:976
 msgid "Show advanced information"
-msgstr ""
-
-#: src/avatarmanipulation.cpp:437 src/avatarmanipulation.cpp:459
-msgid "Open Avatar Image"
-msgstr ""
-
-#: src/messagingwidget.cpp:223
-msgid "Contact appears to be busy. Leave a message ?"
-msgstr ""
-
-#: src/messagingwidget.cpp:245
-msgid "Stop recording"
-msgstr ""
-
-#: src/messagingwidget.cpp:259
-msgid "Send recorded message"
-msgstr ""
-
-#: src/dialogs.cpp:63
-#, c-format
-msgctxt "Do not translate the release name nor the status (beta, final, ...)"
-msgid ""
-"\"%s\"\n"
-"(%s)"
-msgstr ""
-
-#: src/dialogs.cpp:138
-msgid ""
-"The GNOME client for Jami.\n"
-"Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr ""
-
-#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
-msgctxt "Name of error window (dialog)"
-msgid "Jami Error"
-msgstr ""
-
-#: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Jami daemon (jamid)…"
-msgstr ""
-
-#: src/native/dbuserrorhandler.cpp:87
-msgid ""
-"Could not re-connect to the Jami daemon (jamid).\n"
-"Jami will now quit."
-msgstr ""
-
-#: src/client_options.c:65
-msgid "Enable debug"
-msgstr ""
-
-#: src/client_options.c:67
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
-msgstr ""
-
-#: src/client_options.c:84
-msgid "- GNOME client for Jami"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:237
-msgid "Place _video call"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:240
-msgid "Place _audio call"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:246
-msgid "_Add to conversations"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:250
-msgid "_Accept invitation"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:253
-msgid "_Discard invitation"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:256
-msgid "_Block invitations"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:261
-msgid "C_lear history"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:265
-msgid "_Remove conversation"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:271
-msgid "_Block contact"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:275
-msgid "_Unblock contact"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:282
-msgid "_Profile"
-msgstr ""
-
-#: src/profileview.cpp:131
-msgid "(None)"
-msgstr ""
-
-#: src/profileview.cpp:160
-msgid "Yes"
-msgstr ""
-
-#: src/profileview.cpp:160
-msgid "No"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:326
-msgid "An error occurred during the account creation."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:330
-msgid "An error occurred during the rendez-vous creation."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:334
-msgid "An error occurred during the SIP account creation."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:338
-msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:342
-msgid ""
-"Cannot retrieve any account, please verify your archive and your password."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:346
-msgid ""
-"Cannot connect to provided account manager. Please check your credentials."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:535
-msgid "Generating your rendez-vous…"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:537
-msgid "Generating your Jami account…"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:553
-msgid "Passwords don't match"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:674
-msgid "Enter Jami account password"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:675
-msgid "Link device"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:694
-msgid "Import from backup"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:875 src/accountcreationwizard.cpp:892
-#: src/chatview.cpp:388 src/chatview.cpp:402
-#: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:949
-msgid "Save File"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:918 src/newaccountsettingsview.cpp:974
-msgid "You need to enter your password to export the full archive."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:919 src/newaccountsettingsview.cpp:975
-msgid "Enter password to export archive"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:942 src/newaccountsettingsview.cpp:998
-msgid "Account exported!"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:942 src/newaccountsettingsview.cpp:998
-msgid "Export account failure."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:1108
-msgid "Register name"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:1109
-msgid "Name"
 msgstr ""
 
 #: src/mainwindow.cpp:206
@@ -1505,186 +1429,262 @@ msgstr ""
 msgid "Do you really want to block this contact?"
 msgstr ""
 
-#: src/chatview.cpp:388 src/chatview.cpp:402
-msgid "Send File"
-msgstr "Файл жіберу"
-
-#: src/chatview.cpp:457
-msgid "Retry"
-msgstr ""
-
-#: src/chatview.cpp:704
-msgid "Stop"
-msgstr ""
-
-#: src/chatview.cpp:1275
-msgid "Send"
-msgstr ""
-
-#: src/client.cpp:114
-#, c-format
+#: src/welcomeview.cpp:93
 msgid ""
-"Unable to initialize.\n"
-"Make sure the Jami daemon (jamid) is running.\n"
-"Error: %s"
+"This is your Jami username.\n"
+"Copy and share it with your friends!"
 msgstr ""
 
-#: src/client.cpp:117
-msgid "Jami Error"
+#: src/welcomeview.cpp:101
+msgid ""
+"This is your ID.\n"
+"Copy and share it with your friends!"
 msgstr ""
 
-#: src/client.cpp:387 src/client.cpp:444
-msgid "Jami needs your attention"
+#: src/welcomeview.cpp:213
+msgid ""
+"Jami is free software for universal communication which respects the "
+"freedoms and privacy of its users."
 msgstr ""
 
-#: src/client.cpp:427
+#: src/client_options.c:65
+msgid "Enable debug"
+msgstr ""
+
+#: src/client_options.c:67
+msgid ""
+"Restores the hidden state of the main window (only applicable to the primary"
+" instance)"
+msgstr ""
+
+#: src/client_options.c:84
+msgid "- GNOME client for Jami"
+msgstr ""
+
+#: src/notifier.cpp:352
 msgctxt ""
-"In the status icon menu, toggle action to show or hide the Jami main window"
-msgid "Show Jami"
+msgid "Open conversation"
 msgstr ""
 
-#: src/client.cpp:431
-msgid "Quit"
+#: src/notifier.cpp:360 src/notifier.cpp:376
+msgctxt ""
+msgid "Accept"
 msgstr ""
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:1013
+#: src/notifier.cpp:367
+msgctxt ""
+msgid "Refuse"
+msgstr ""
+
+#: src/notifier.cpp:383
+msgctxt ""
+msgid "Decline"
+msgstr ""
+
+#: src/pluginsettingsview.cpp:201
 msgid ""
-"Warning! This action will remove this account on this device!\n"
-"Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr ""
-
-#: src/currentcallview.cpp:1180
-msgid "Current conference (all accounts)"
-msgstr ""
-
-#: src/currentcallview.cpp:1215
-msgid "Current calls (all accounts)"
-msgstr ""
-
-#: src/currentcallview.cpp:1234
-msgid "Online contacts"
-msgstr ""
-
-#: src/currentcallview.cpp:1688
-msgctxt "Enable automatic video quality"
-msgid "Auto"
-msgstr ""
-
-#: src/currentcallview.cpp:1763
-msgid "me"
-msgstr ""
-
-#: src/newaccountsettingsview.cpp:611
-msgid ""
-"Warning! This action will revoke the device!\n"
+"Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:612
-msgid "Enter password to revoke device"
+#: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
+msgid "Uninstall Plugin"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:660
-msgid "This device"
+#: src/pluginsettingsview.cpp:284
+msgid "Load/Unload Plugin"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:683
-msgid "Edit name"
+#: src/profileview.cpp:131
+msgid "(None)"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:683
-msgid "Revoke device"
+#: src/profileview.cpp:160
+msgid "Yes"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:705
-msgid "Error when revoking device"
+#: src/profileview.cpp:160
+msgid "No"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:778
-msgid "Unban"
+#: src/usernameregistrationbox.cpp:162 src/usernameregistrationbox.cpp:185
+msgid "Register this username on the name server"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
-#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
-msgid "Change password"
+#: src/usernameregistrationbox.cpp:171
+msgid "Username already taken"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:814
-msgid "New password and its confirmation are different!"
+#: src/usernameregistrationbox.cpp:178
+msgid "Invalid username"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:825
-msgid "Incorrect password!"
+#: src/usernameregistrationbox.cpp:192
+msgid "Lookup unavailable, check your network connection"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:862
-msgid "Note: this will change the password only on this device."
+#: src/usernameregistrationbox.cpp:272
+msgid "Performing lookup…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:865
-msgid "Current password"
+#: src/usernameregistrationbox.cpp:323
+msgid "Enter the password of your Jami account"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:871
-msgid "New password"
+#: src/usernameregistrationbox.cpp:355
+msgid "Registration in progress…"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1778
-msgid "Exporting account…"
+#: src/usernameregistrationbox.cpp:374
+msgid "Name registration Error"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1803
-msgid "Bad password"
+#: src/usernameregistrationbox.cpp:433
+msgid ""
+"Unable to register name (Invalid name). Your username should contains "
+"between 3 and 32 alphanumerics characters (or underscore)."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1811
-msgid "Network error, try again"
+#: src/usernameregistrationbox.cpp:437
+msgid "Unable to register name (Wrong password)."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1819
-msgid "Unknown error"
+#: src/usernameregistrationbox.cpp:441
+msgid "Unable to register name (Username already taken)."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1832
-msgid "Could not initiate export to the Jami, try again"
+#: src/usernameregistrationbox.cpp:445
+msgid "Unable to register name (Network error) - check your connection."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1891
-msgid "Error: wrong password!"
+#: src/messagingwidget.cpp:223
+msgid "Contact appears to be busy. Leave a message ?"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:1894
-msgid "Error: unknown device!"
+#: src/messagingwidget.cpp:245
+msgid "Stop recording"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2069
-msgid "Initializing…"
+#: src/messagingwidget.cpp:259
+msgid "Send recorded message"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2072
-msgid "Offline"
+#: src/dialogs.cpp:63
+#, c-format
+msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+msgid ""
+"\"%s\"\n"
+"(%s)"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2075
-msgid "Connecting…"
+#: src/dialogs.cpp:138
+msgid ""
+"The GNOME client for Jami.\n"
+"Jami is free software for universal communication which respects the freedoms and privacy of its users."
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2078
-msgid "Online"
+#: src/conversationpopupmenu.cpp:237
+msgid "Place _video call"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2082
-msgid "Unknown status"
+#: src/conversationpopupmenu.cpp:240
+msgid "Place _audio call"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2116
-msgid "••••••••"
+#: src/conversationpopupmenu.cpp:246
+msgid "_Add to conversations"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2116
-msgid "no password set"
+#: src/conversationpopupmenu.cpp:250
+msgid "_Accept invitation"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:2172
-msgid "Remove account"
+#: src/conversationpopupmenu.cpp:253
+msgid "_Discard invitation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:256
+msgid "_Block invitations"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:261
+msgid "C_lear history"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:265
+msgid "_Remove conversation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:271
+msgid "_Block contact"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:275
+msgid "_Unblock contact"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:282
+msgid "_Profile"
+msgstr ""
+
+#: src/avatarmanipulation.cpp:437 src/avatarmanipulation.cpp:459
+msgid "Open Avatar Image"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:326
+msgid "An error occurred during the account creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:330
+msgid "An error occurred during the rendez-vous creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:334
+msgid "An error occurred during the SIP account creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:338
+msgid "Cannot retrieve any account, please verify your PIN and your password."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:342
+msgid ""
+"Cannot retrieve any account, please verify your archive and your password."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:346
+msgid ""
+"Cannot connect to provided account manager. Please check your credentials."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:535
+msgid "Generating your rendez-vous…"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:537
+msgid "Generating your Jami account…"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:553
+msgid "Passwords don't match"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:674
+msgid "Enter Jami account password"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:675
+msgid "Link device"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:694
+msgid "Import from backup"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:1108
+msgid "Register name"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:1109
+msgid "Name"
 msgstr ""
