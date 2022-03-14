@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-07 03:09-0500\n"
-"PO-Revision-Date: 2022-03-06 05:46+0000\n"
-"Last-Translator: . . <ovari123@zoho.com>\n"
+"POT-Creation-Date: 2022-03-14 03:09-0400\n"
+"PO-Revision-Date: 2022-03-13 00:35+0000\n"
+"Last-Translator: Stevan Josimovic\n"
 "Language-Team: Serbian (Serbia) (http://www.transifex.com/savoirfairelinux/jami/language/sr_RS/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -313,7 +313,7 @@ msgstr ""
 
 #: ui/currentcallview.ui:686
 msgid "Add"
-msgstr ""
+msgstr "Dodaj"
 
 #: ui/currentcallview.ui:752 ui/chatview.ui:41 src/pluginsettingsview.cpp:126
 #: src/pluginsettingsview.cpp:140
@@ -501,7 +501,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:1167
 msgid "Connect"
-msgstr ""
+msgstr "Poveži"
 
 #: ui/accountcreationwizard.ui:1195
 msgid "Configure an existing SIP account"
@@ -817,7 +817,7 @@ msgstr "Bootstrap"
 
 #: ui/newaccountsettingsview.ui:1550
 msgid "Encrypt media streams (SRTP)"
-msgstr ""
+msgstr "Šifruj medijski strim (SRTP)"
 
 #: ui/newaccountsettingsview.ui:1585
 msgid "Enable SDES for key exchange protocol"
@@ -873,7 +873,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2038
 msgid "Security"
-msgstr ""
+msgstr "Bezbednost"
 
 #: ui/newaccountsettingsview.ui:2063
 msgid "Connectivity"
@@ -897,7 +897,7 @@ msgstr ""
 
 #: ui/newaccountsettingsview.ui:2244
 msgid "Use TURN"
-msgstr ""
+msgstr "Koristi TURN"
 
 #: ui/newaccountsettingsview.ui:2279
 msgid "(TURN) address"
@@ -977,7 +977,7 @@ msgstr ""
 
 #: ui/pluginsettingsview.ui:44
 msgid "Plugins"
-msgstr ""
+msgstr "Dodaci"
 
 #: ui/pluginsettingsview.ui:85
 msgid "Enable plugins"
@@ -1068,11 +1068,11 @@ msgstr ""
 
 #: src/usernameregistrationbox.cpp:171
 msgid "Username already taken"
-msgstr ""
+msgstr "Korisničko ime je zauzeto"
 
 #: src/usernameregistrationbox.cpp:178
 msgid "Invalid username"
-msgstr ""
+msgstr "Nepravilno korisničko ime"
 
 #: src/usernameregistrationbox.cpp:192
 msgid "Lookup unavailable, check your network connection"
@@ -1586,7 +1586,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:660
 msgid "This device"
-msgstr ""
+msgstr "Ovaj uređaj"
 
 #: src/newaccountsettingsview.cpp:683
 msgid "Edit name"
@@ -1663,7 +1663,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2072
 msgid "Offline"
-msgstr ""
+msgstr "Nije na vezi"
 
 #: src/newaccountsettingsview.cpp:2075
 msgid "Connecting…"
@@ -1671,7 +1671,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:2078
 msgid "Online"
-msgstr ""
+msgstr "Na vezi"
 
 #: src/newaccountsettingsview.cpp:2082
 msgid "Unknown status"

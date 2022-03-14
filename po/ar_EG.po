@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-07 03:09-0500\n"
-"PO-Revision-Date: 2022-03-05 06:04+0000\n"
+"POT-Creation-Date: 2022-03-14 03:09-0400\n"
+"PO-Revision-Date: 2022-03-07 09:09+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Arabic (Egypt) (http://www.transifex.com/savoirfairelinux/jami/language/ar_EG/)\n"
 "MIME-Version: 1.0\n"
@@ -485,7 +485,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:973 ui/newaccountsettingsview.ui:262
 msgid "OK"
-msgstr ""
+msgstr "موافق"
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"
@@ -1594,7 +1594,7 @@ msgstr ""
 
 #: src/newaccountsettingsview.cpp:683
 msgid "Revoke device"
-msgstr ""
+msgstr "إبطال جهاز"
 
 #: src/newaccountsettingsview.cpp:705
 msgid "Error when revoking device"

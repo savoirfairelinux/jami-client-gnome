@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-07 03:09-0500\n"
-"PO-Revision-Date: 2022-02-21 10:27+0000\n"
+"POT-Creation-Date: 2022-03-14 03:09-0400\n"
+"PO-Revision-Date: 2022-03-07 08:23+0000\n"
 "Last-Translator: . . <ovari123@zoho.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/savoirfairelinux/jami/language/zh/)\n"
 "MIME-Version: 1.0\n"
@@ -488,7 +488,7 @@ msgstr ""
 
 #: ui/accountcreationwizard.ui:973 ui/newaccountsettingsview.ui:262
 msgid "OK"
-msgstr ""
+msgstr "確定"
 
 #: ui/accountcreationwizard.ui:998
 msgid "Enter Jami Account Management Server (JAMS) URL"

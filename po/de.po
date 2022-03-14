@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-07 03:09-0500\n"
-"PO-Revision-Date: 2022-02-22 14:40+0000\n"
+"POT-Creation-Date: 2022-03-14 03:09-0400\n"
+"PO-Revision-Date: 2022-03-09 21:54+0000\n"
 "Last-Translator: M Z\n"
 "Language-Team: German (http://www.transifex.com/savoirfairelinux/jami/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -286,7 +286,7 @@ msgstr "Videostummschaltung umschalten"
 
 #: ui/currentcallview.ui:400 ui/currentcallview.ui:536
 msgid "Mute video"
-msgstr "Video stumm schalten"
+msgstr "Video stummschalten"
 
 #: ui/currentcallview.ui:421
 msgid "Toggle recording"
@@ -319,7 +319,7 @@ msgstr "Ansicht"
 
 #: ui/currentcallview.ui:527
 msgid "Mute audio"
-msgstr "Audio stumm schalten"
+msgstr "Audio stummschalten"
 
 #: ui/currentcallview.ui:563
 msgid "Activate Plugin"
@@ -327,7 +327,7 @@ msgstr "Plugin aktivieren"
 
 #: ui/currentcallview.ui:572
 msgid "Transfer"
-msgstr "Transfer"
+msgstr "Übertragung"
 
 #: ui/currentcallview.ui:622
 msgid "Transfer to"
@@ -380,7 +380,7 @@ msgstr "Importiere ein Konto von deinem Archiv"
 
 #: ui/accountcreationwizard.ui:108
 msgid "Advanced features"
-msgstr "Erweiterte Fähigkeiten"
+msgstr "Erweiterte Funktionen"
 
 #: ui/accountcreationwizard.ui:119
 msgid "Connect to a JAMS server"
@@ -406,7 +406,7 @@ msgstr "Informationen."
 msgid ""
 "You can obtain an archive by clicking on \"Backup account\" in the account "
 "settings. This will create a .gz file on your device."
-msgstr "Du kannst ein Archiv erstellen, indem du in den Kontoeinstellungen auf \"Konto sichern\" klickst. Dadurch wird eine .gz-Datei auf deinem Gerät erstellt."
+msgstr "Sie können ein Archiv erstellen, indem Sie in den Kontoeinstellungen auf \"Konto sichern\" klicken. Dadurch wird eine .gz-Datei auf Ihrem Gerät erstellt."
 
 #: ui/accountcreationwizard.ui:328
 msgid "PIN"
@@ -447,13 +447,13 @@ msgstr "Konto mit Passwort verschlüsseln"
 msgid ""
 "Choose a password to encrypt your account on this device.  Note that the "
 "password cannot be recovered."
-msgstr "Wähle ein Passwort zum Verschlüsseln deines Kontos auf diesem Gerät. Beachte, dass das Passwort nicht wiederhergestellt werden kann."
+msgstr "Wählen Sie ein Passwort, um Ihr Konto auf diesem Gerät zu verschlüsseln. Beachten Sie, dass das Passwort nicht wiederhergestellt werden kann."
 
 #: ui/accountcreationwizard.ui:658
 msgid ""
 "Choose a password to encrypt your account on this device.\n"
 "Note that the password cannot be recovered."
-msgstr "Wähle ein Passwort zum Verschlüsseln deines Kontos auf diesem Gerät.\nBeachte, dass das Passwort nicht wiederhergestellt werden kann."
+msgstr "Wählen Sie ein Passwort, um Ihr Konto auf diesem Gerät zu verschlüsseln. Beachten Sie, dass das Passwort nicht wiederhergestellt werden kann."
 
 #: ui/accountcreationwizard.ui:686
 msgid ""
@@ -568,7 +568,7 @@ msgstr "Jami aktiv lassen, wenn das Fenster geschlossen ist."
 
 #: ui/generalsettingsview.ui:168
 msgid "Bring Jami to the foreground on incoming calls"
-msgstr "Eingehender Anruf automatisch im Vordergrund"
+msgstr "Eingehenden Anruf automatisch im Vordergrund"
 
 #: ui/generalsettingsview.ui:204
 msgid "Notifications"
@@ -1031,11 +1031,11 @@ msgstr "Eingehend..."
 
 #: ui/incomingcallview.ui:152
 msgid "Accept"
-msgstr "Akzeptieren"
+msgstr "Annehmen"
 
 #: ui/incomingcallview.ui:172
 msgid "Reject"
-msgstr "Abweisen"
+msgstr "Ablehnen"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
@@ -1106,7 +1106,7 @@ msgstr "Netzwerksuche wird durchgeführt..."
 
 #: src/usernameregistrationbox.cpp:323
 msgid "Enter the password of your Jami account"
-msgstr "Passwort deines Jami-Kontos eingeben"
+msgstr "Passwort Ihres Jami-Kontos eingeben"
 
 #: src/usernameregistrationbox.cpp:355
 msgid "Registration in progress…"
@@ -1177,7 +1177,7 @@ msgstr "Konversation öffnen"
 #: src/notifier.cpp:360 src/notifier.cpp:376
 msgctxt ""
 msgid "Accept"
-msgstr "Akzeptieren"
+msgstr "Annehmen"
 
 #: src/notifier.cpp:367
 msgctxt ""
@@ -1195,7 +1195,7 @@ msgstr "Auflegen"
 
 #: src/video/video_widget.cpp:451
 msgid "Maximize"
-msgstr "Maximiere"
+msgstr "Maximieren"
 
 #: src/video/video_widget.cpp:466
 msgid "Minimize"
@@ -1207,7 +1207,7 @@ msgstr "Moderator entfernen"
 
 #: src/video/video_widget.cpp:486
 msgid "Set moderator"
-msgstr "Moderator einstellen"
+msgstr "Moderator festlegen"
 
 #: src/video/video_widget.cpp:550
 msgid "More options"
@@ -1219,11 +1219,11 @@ msgstr "Datei auswählen"
 
 #: src/video/video_widget.cpp:951
 msgid "Share _screen area"
-msgstr "Bildschir_mausschnitt teilen"
+msgstr "Bildschirm_bereich freigeben"
 
 #: src/video/video_widget.cpp:959
 msgid "Share _monitor"
-msgstr "_Gesamten Bildschirm teilen"
+msgstr "_Gesamten Bildschirm freigeben"
 
 #: src/video/video_widget.cpp:966
 msgid "Stream _file"
@@ -1310,7 +1310,7 @@ msgstr "_Einladung annehmen"
 
 #: src/conversationpopupmenu.cpp:253
 msgid "_Discard invitation"
-msgstr "Einladung _verwerfen"
+msgstr "Einladung _ablehnen"
 
 #: src/conversationpopupmenu.cpp:256
 msgid "_Block invitations"
@@ -1362,17 +1362,17 @@ msgstr "Bei der Erstellung des SIP-Kontos ist ein Fehler aufgetreten."
 
 #: src/accountcreationwizard.cpp:338
 msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr "Konto kann nicht geladen werden, bitte prüfe deine PIN und dein Passwort."
+msgstr "Konto kann nicht geladen werden, bitte prüfen Sie Ihre PIN und Ihr Passwort."
 
 #: src/accountcreationwizard.cpp:342
 msgid ""
 "Cannot retrieve any account, please verify your archive and your password."
-msgstr "Konto kann nicht geladen werden, bitte prüfe dein Archiv und dein Passwort."
+msgstr "Konto kann nicht geladen werden, bitte prüfen Sie Ihr Archiv und Ihr Passwort."
 
 #: src/accountcreationwizard.cpp:346
 msgid ""
 "Cannot connect to provided account manager. Please check your credentials."
-msgstr "Es kann keine Verbindung mit dem angegebenen Kontoverwalter hergestellt werden. Bitte prüfe deine Zugangsdaten."
+msgstr "Es kann keine Verbindung mit dem angegebenen Kontoverwalter hergestellt werden. Bitte prüfen Sie Ihre Zugangsdaten."
 
 #: src/accountcreationwizard.cpp:535
 msgid "Generating your rendez-vous…"
@@ -1380,7 +1380,7 @@ msgstr "Generieren Ihres Rendezvous…"
 
 #: src/accountcreationwizard.cpp:537
 msgid "Generating your Jami account…"
-msgstr "Erzeuge dein Jami-Konto..."
+msgstr "Erstelle Ihr Jami-Konto..."
 
 #: src/accountcreationwizard.cpp:553
 msgid "Passwords don't match"
@@ -1594,7 +1594,7 @@ msgstr "Automatisch"
 
 #: src/currentcallview.cpp:1763
 msgid "me"
-msgstr "ich"
+msgstr "Ich"
 
 #: src/newaccountsettingsview.cpp:611
 msgid ""
