@@ -1,7 +1,27 @@
+#  Copyright (C) 2015-2022 Savoir-faire Linux Inc.
+#  Author: Stepan Salenikovich <stepan.salenikovich@savoirfairelinux.com>
+#  Author: Sébastien Blin <sebastien.blin@savoirfairelinux.com>
+#  Author: Guillaume Roguez <guillaume.roguez@savoirfairelinux.com>
+#  Author: Amin Bandali <amin.bandali@savoirfairelinux.com>
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA.
+
 CMAKE_MINIMUM_REQUIRED(VERSION 3.1.0)
 
-# First, check is the compiler is new enough, most version of Clang are fine
-# until problems arise, checking for GCC is enough
+# First, check if the compiler is new enough, most versions of Clang
+# are fine until problems arise, checking for GCC is enough
 IF (CMAKE_COMPILER_IS_GNUCC)
    EXECUTE_PROCESS(COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
    IF (GCC_VERSION VERSION_GREATER 4.8 OR GCC_VERSION VERSION_EQUAL 4.8)
@@ -239,70 +259,71 @@ IF (CMAKE_COMPILER_IS_GNUCC)
 ENDIF()
 
 # source files to compile
-SET( SRC_FILES
-   src/main.cpp
-   src/client.h
-   src/client.cpp
-   src/client_options.h
-   src/client_options.c
-   src/mainwindow.h
-   src/mainwindow.cpp
-   src/incomingcallview.h
-   src/incomingcallview.cpp
-   src/currentcallview.h
-   src/currentcallview.cpp
-   src/utils/drawing.h
-   src/utils/drawing.cpp
-   src/video/video_widget.h
-   src/video/video_widget.cpp
-   src/accountcreationwizard.h
-   src/accountcreationwizard.cpp
-   src/accountmigrationview.h
-   src/accountmigrationview.cpp
-   src/usernameregistrationbox.h
-   src/usernameregistrationbox.cpp
-   src/defines.h
-   src/video/xrectsel.h
-   src/video/xrectsel.c
-   src/dialogs.h
-   src/dialogs.cpp
-   src/mediasettingsview.h
-   src/mediasettingsview.cpp
-   src/pluginsettingsview.h
-   src/pluginsettingsview.cpp
-   src/newaccountsettingsview.h
-   src/newaccountsettingsview.cpp
-   src/generalsettingsview.h
-   src/generalsettingsview.cpp
-   src/notifier.h
-   src/notifier.cpp
-   src/utils/files.h
-   src/utils/files.cpp
+set(APP_SRC_DIR ${PROJECT_SOURCE_DIR}/src/app)
+SET(SRC_FILES
+   ${APP_SRC_DIR}/main.cpp
+   ${APP_SRC_DIR}/client.h
+   ${APP_SRC_DIR}/client.cpp
+   ${APP_SRC_DIR}/client_options.h
+   ${APP_SRC_DIR}/client_options.c
+   ${APP_SRC_DIR}/mainwindow.h
+   ${APP_SRC_DIR}/mainwindow.cpp
+   ${APP_SRC_DIR}/incomingcallview.h
+   ${APP_SRC_DIR}/incomingcallview.cpp
+   ${APP_SRC_DIR}/currentcallview.h
+   ${APP_SRC_DIR}/currentcallview.cpp
+   ${APP_SRC_DIR}/utils/drawing.h
+   ${APP_SRC_DIR}/utils/drawing.cpp
+   ${APP_SRC_DIR}/video/video_widget.h
+   ${APP_SRC_DIR}/video/video_widget.cpp
+   ${APP_SRC_DIR}/accountcreationwizard.h
+   ${APP_SRC_DIR}/accountcreationwizard.cpp
+   ${APP_SRC_DIR}/accountmigrationview.h
+   ${APP_SRC_DIR}/accountmigrationview.cpp
+   ${APP_SRC_DIR}/usernameregistrationbox.h
+   ${APP_SRC_DIR}/usernameregistrationbox.cpp
+   ${APP_SRC_DIR}/defines.h
+   ${APP_SRC_DIR}/video/xrectsel.h
+   ${APP_SRC_DIR}/video/xrectsel.c
+   ${APP_SRC_DIR}/dialogs.h
+   ${APP_SRC_DIR}/dialogs.cpp
+   ${APP_SRC_DIR}/mediasettingsview.h
+   ${APP_SRC_DIR}/mediasettingsview.cpp
+   ${APP_SRC_DIR}/pluginsettingsview.h
+   ${APP_SRC_DIR}/pluginsettingsview.cpp
+   ${APP_SRC_DIR}/newaccountsettingsview.h
+   ${APP_SRC_DIR}/newaccountsettingsview.cpp
+   ${APP_SRC_DIR}/generalsettingsview.h
+   ${APP_SRC_DIR}/generalsettingsview.cpp
+   ${APP_SRC_DIR}/notifier.h
+   ${APP_SRC_DIR}/notifier.cpp
+   ${APP_SRC_DIR}/utils/files.h
+   ${APP_SRC_DIR}/utils/files.cpp
    ${GIT_REVISION_OUTPUT_FILE}
-   src/native/dbuserrorhandler.h
-   src/native/dbuserrorhandler.cpp
-   src/welcomeview.h
-   src/welcomeview.cpp
-   src/webkitchatcontainer.h
-   src/webkitchatcontainer.cpp
-   src/chatview.h
-   src/messagingwidget.h
-   src/messagingwidget.cpp
-   src/chatview.cpp
-   src/avatarmanipulation.h
-   src/avatarmanipulation.cpp
-   src/cc-crop-area.h
-   src/cc-crop-area.c
-   src/conversationsview.h
-   src/conversationsview.cpp
-   src/conversationpopupmenu.h
-   src/conversationpopupmenu.cpp
-   src/accountinfopointer.h
-   src/profileview.h
-   src/profileview.cpp
+   ${APP_SRC_DIR}/native/dbuserrorhandler.h
+   ${APP_SRC_DIR}/native/dbuserrorhandler.cpp
+   ${APP_SRC_DIR}/welcomeview.h
+   ${APP_SRC_DIR}/welcomeview.cpp
+   ${APP_SRC_DIR}/webkitchatcontainer.h
+   ${APP_SRC_DIR}/webkitchatcontainer.cpp
+   ${APP_SRC_DIR}/chatview.h
+   ${APP_SRC_DIR}/messagingwidget.h
+   ${APP_SRC_DIR}/messagingwidget.cpp
+   ${APP_SRC_DIR}/chatview.cpp
+   ${APP_SRC_DIR}/avatarmanipulation.h
+   ${APP_SRC_DIR}/avatarmanipulation.cpp
+   ${APP_SRC_DIR}/cc-crop-area.h
+   ${APP_SRC_DIR}/cc-crop-area.c
+   ${APP_SRC_DIR}/conversationsview.h
+   ${APP_SRC_DIR}/conversationsview.cpp
+   ${APP_SRC_DIR}/conversationpopupmenu.h
+   ${APP_SRC_DIR}/conversationpopupmenu.cpp
+   ${APP_SRC_DIR}/accountinfopointer.h
+   ${APP_SRC_DIR}/profileview.h
+   ${APP_SRC_DIR}/profileview.cpp
    # Generated marshals
-   src/marshals.h
-   src/marshals.cpp
+   ${APP_SRC_DIR}/marshals.h
+   ${APP_SRC_DIR}/marshals.cpp
 )
 
 # compile glib resource files to c code
@@ -315,7 +336,7 @@ GLIB_COMPILE_RESOURCES( GLIB_RESOURCES_RING
 )
 
 # IF(${ENABLE_TEST} MATCHES true)
-#    ADD_SUBDIRECTORY( src/test)
+#    ADD_SUBDIRECTORY( ${APP_SRC_DIR}/test)
 # ENDIF()
 
 # for translations
@@ -406,7 +427,7 @@ ENDIF()
 
 # create config header file to pass cmake settings to source code
 CONFIGURE_FILE (
-   "${PROJECT_SOURCE_DIR}/src/config.h.in"
+   "${APP_SRC_DIR}/config.h.in"
    "${PROJECT_BINARY_DIR}/config.h"
 )
 
@@ -449,7 +470,7 @@ INSTALL(FILES jami-gnome.appdata.xml
 # install shell script which will launch Jami
 INSTALL(
    FILES
-      "${PROJECT_SOURCE_DIR}/src/jami"
+      "${APP_SRC_DIR}/jami"
    DESTINATION
       ${CMAKE_INSTALL_PREFIX}/bin
    PERMISSIONS
