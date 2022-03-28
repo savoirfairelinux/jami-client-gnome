@@ -14,145 +14,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-14 03:09-0400\n"
-"PO-Revision-Date: 2022-03-02 20:39+0000\n"
-"Last-Translator: Omar Macías Molina <omar.maciasmolina@gmail.com>\n"
+"POT-Creation-Date: 2022-03-28 03:09-0400\n"
+"PO-Revision-Date: 2015-09-10 22:02+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>, 2021-2022\n"
 "Language-Team: Catalan (http://www.transifex.com/savoirfairelinux/jami/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ui/help-overlay.ui:13
-msgctxt "shortcut window"
-msgid "General"
-msgstr "General"
-
-#: ui/help-overlay.ui:18
-msgctxt "shortcut window"
-msgid "Open application menu"
-msgstr "Obre el menú de l'aplicació"
-
-#: ui/help-overlay.ui:25
-msgctxt "shortcut window"
-msgid "Open account list"
-msgstr "Obre la llista de comptes"
-
-#: ui/help-overlay.ui:32
-msgctxt "shortcut window"
-msgid "Select search bar"
-msgstr "Selecciona barra de búsqueda"
-
-#: ui/help-overlay.ui:39
-msgctxt "shortcut window"
-msgid "Focus the list of conversations"
-msgstr "Mostra la llista de converses"
-
-#: ui/help-overlay.ui:46
-msgctxt "shortcut window"
-msgid "Focus the list pending requests"
-msgstr "Mostra la llista de peticions pendents"
-
-#: ui/help-overlay.ui:53
-msgctxt "shortcut window"
-msgid "Toggle fullscreen"
-msgstr "Commuta la visualització de pantalla sencera"
-
-#: ui/help-overlay.ui:63
-msgctxt "shortcut window"
-msgid "Conversations"
-msgstr "Converses"
-
-#: ui/help-overlay.ui:68
-msgctxt "shortcut window"
-msgid "Start a video call"
-msgstr "Comença una videotrucada"
-
-#: ui/help-overlay.ui:75
-msgctxt "shortcut window"
-msgid "Start an audio call"
-msgstr "Comença una trucada de veu."
-
-#: ui/help-overlay.ui:82
-msgctxt "shortcut window"
-msgid "Clear history"
-msgstr "Neteja historial"
-
-#: ui/help-overlay.ui:89
-msgctxt "shortcut window"
-msgid "Add conversation"
-msgstr "Afegir conversa"
-
-#: ui/help-overlay.ui:96
-msgctxt "shortcut window"
-msgid "Remove conversation"
-msgstr "Esborra conversa"
-
-#: ui/help-overlay.ui:103
-msgctxt "shortcut window"
-msgid "Block contact"
-msgstr "Bloqueja el contacte"
-
-#: ui/help-overlay.ui:110
-msgctxt "shortcut window"
-msgid "Unblock contact"
-msgstr "Desbloca contacte"
-
-#: ui/help-overlay.ui:117
-msgctxt "shortcut window"
-msgid "Copy contact name"
-msgstr "Copia nom del contacte"
-
-#: ui/help-overlay.ui:127
-msgctxt "shortcut window"
-msgid "Call"
-msgstr "Trucada"
-
-#: ui/help-overlay.ui:132
-msgctxt "shortcut window"
-msgid "Accept call"
-msgstr "Accepta trucada"
-
-#: ui/help-overlay.ui:139
-msgctxt "shortcut window"
-msgid "Decline call"
-msgstr "Rebutja trucada"
-
-#: ui/help-overlay.ui:148
-msgctxt "shortcut window"
-msgid "Settings"
-msgstr "Opcions"
-
-#: ui/help-overlay.ui:153
-msgctxt "shortcut window"
-msgid "Open/Close settings page"
-msgstr "Obre/Tanca pàgina de preferències"
-
-#: ui/help-overlay.ui:160
-msgctxt "shortcut window"
-msgid "Open general settings"
-msgstr "Obre preferències generals"
-
-#: ui/help-overlay.ui:167
-msgctxt "shortcut window"
-msgid "Open media settings"
-msgstr "Obre preferències de mitjans"
-
-#: ui/help-overlay.ui:174
-msgctxt "shortcut window"
-msgid "Open account settings"
-msgstr "Obre preferències del compte"
-
-#: ui/help-overlay.ui:184
-msgctxt "shortcut window"
-msgid "Chat view"
-msgstr "Vista de xat"
-
-#: ui/help-overlay.ui:189
-msgctxt "shortcut window"
-msgid "Write on a new line"
-msgstr "Escriu en una nova línia"
 
 #: ui/mainwindow.ui:63
 msgid "Menu"
@@ -170,8 +40,8 @@ msgstr "Mitjans"
 msgid "Plugin"
 msgstr ""
 
-#: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:530
-#: ui/newaccountsettingsview.ui:387
+#: ui/mainwindow.ui:136 ui/newaccountsettingsview.ui:387
+#: ui/accountcreationwizard.ui:530
 msgid "Account"
 msgstr "Compte"
 
@@ -186,473 +56,6 @@ msgstr "Converses"
 #: ui/mainwindow.ui:327 ui/mainwindow.ui:334
 msgid "Contact requests"
 msgstr "Peticions de contacte"
-
-#: ui/accountmigrationview.ui:20
-msgid "Account migration required"
-msgstr "Migració de compte requerida"
-
-#: ui/accountmigrationview.ui:31
-msgid "This account is malformed, please enter your password"
-msgstr "Aquest compte és defectuós, inseriu la vostra contrasenya"
-
-#: ui/accountmigrationview.ui:90
-msgid "Alias"
-msgstr "Àlies"
-
-#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:1093
-#: ui/accountcreationwizard.ui:1311 ui/profile.ui:73
-#: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
-#: src/accountcreationwizard.cpp:1078
-msgid "Username"
-msgstr "Nom d'usuari"
-
-#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:286
-#: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
-#: ui/accountcreationwizard.ui:1347 ui/newaccountsettingsview.ui:502
-#: ui/newaccountsettingsview.ui:742
-msgid "Password"
-msgstr "Contrasenya"
-
-#: ui/accountmigrationview.ui:205
-msgid "Account manager"
-msgstr "Gestor del compte"
-
-#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
-#: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:1014 src/newaccountsettingsview.cpp:2172
-msgid "Delete account"
-msgstr "Esborrar compte"
-
-#: ui/accountmigrationview.ui:251
-msgid "Migrate account"
-msgstr "Migrar compte"
-
-#: ui/accountmigrationview.ui:283
-msgid "Migrating your Jami account…"
-msgstr "Migrant el teu compte Jami…"
-
-#: ui/accountmigrationview.ui:295
-msgid "Migration failed, wrong password?"
-msgstr "Migració fallida, contrasenya equivocada?"
-
-#: ui/currentcallview.ui:284
-msgid "End this call"
-msgstr "Finalitza aquesta trucada"
-
-#: ui/currentcallview.ui:288 ui/currentcallview.ui:581
-msgid "End call"
-msgstr "Finalitza la trucada"
-
-#: ui/currentcallview.ui:308 ui/currentcallview.ui:554
-msgid "Add participant"
-msgstr "Afegir participant"
-
-#: ui/currentcallview.ui:327
-msgid "Toggle transfer"
-msgstr "Activa transferència"
-
-#: ui/currentcallview.ui:346
-msgid "Toggle hold"
-msgstr "Mantenir en espera"
-
-#: ui/currentcallview.ui:350 ui/currentcallview.ui:375
-#: ui/currentcallview.ui:545
-msgid "Hold"
-msgstr "En espera"
-
-#: ui/currentcallview.ui:371
-msgid "Toggle mute audio"
-msgstr "Activa silenci d'àudio"
-
-#: ui/currentcallview.ui:396
-msgid "Toggle mute video"
-msgstr "Activa silenci de vídeo"
-
-#: ui/currentcallview.ui:400 ui/currentcallview.ui:536
-msgid "Mute video"
-msgstr "Silencia el vídeo"
-
-#: ui/currentcallview.ui:421
-msgid "Toggle recording"
-msgstr "Activa enregistrament"
-
-#: ui/currentcallview.ui:424 ui/currentcallview.ui:599
-#: ui/messagingwidget.ui:29 src/chatview.cpp:467
-msgid "Record"
-msgstr "Grava"
-
-#: ui/currentcallview.ui:464
-msgid "Adjust outgoing video quality"
-msgstr "Ajusta la qualitat del vídeo sortint"
-
-#: ui/currentcallview.ui:469 ui/currentcallview.ui:590
-msgid "Video quality"
-msgstr "Qualitat de vídeo"
-
-#: ui/currentcallview.ui:488
-msgid "Toggle show chat"
-msgstr "Mostra el xat"
-
-#: ui/currentcallview.ui:492 ui/currentcallview.ui:509
-msgid "Chat"
-msgstr "Xat"
-
-#: ui/currentcallview.ui:518
-msgid "View"
-msgstr ""
-
-#: ui/currentcallview.ui:527
-msgid "Mute audio"
-msgstr "Silencia l'àudio"
-
-#: ui/currentcallview.ui:563
-msgid "Activate Plugin"
-msgstr ""
-
-#: ui/currentcallview.ui:572
-msgid "Transfer"
-msgstr "Transferència"
-
-#: ui/currentcallview.ui:622
-msgid "Transfer to"
-msgstr "Transfereix a"
-
-#: ui/currentcallview.ui:686
-msgid "Add"
-msgstr "Afegir"
-
-#: ui/currentcallview.ui:752 ui/chatview.ui:41 src/pluginsettingsview.cpp:126
-#: src/pluginsettingsview.cpp:140
-msgid "Choose plugin"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:42
-msgid "Welcome to"
-msgstr "Benvingut a"
-
-#: ui/accountcreationwizard.ui:76
-msgid "Create a Jami account"
-msgstr "Crear un compte Jami"
-
-#: ui/accountcreationwizard.ui:77
-msgid "Create a new Jami account on this device (for new users)"
-msgstr "Crea un nou compte Jami en aquest dispositiu (per a usuaris nous)"
-
-#: ui/accountcreationwizard.ui:84
-msgid "Create a rendezvous point"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:85
-msgid "Create a Rendezvous point"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:92
-msgid "Link this device to an existing account"
-msgstr "Enllaça aquest dispositiu a un compte ja existent"
-
-#: ui/accountcreationwizard.ui:93
-msgid "Import an account with your PIN generated on another device"
-msgstr "Importa un compte amb el teu PIN generat en un altre dispositiu"
-
-#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:695
-msgid "Restore an account from backup"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:101
-msgid "Import an account via your archive"
-msgstr "Importa des d'un compte mitjançant el teu arxiu"
-
-#: ui/accountcreationwizard.ui:108
-msgid "Advanced features"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:119
-msgid "Connect to a JAMS server"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:120
-msgid "Get your account via your credentials."
-msgstr "Obtingui el seu compte mitjançant els seus credencials."
-
-#: ui/accountcreationwizard.ui:127
-msgid "Add a SIP account"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:199
-msgid "Archive"
-msgstr "Arxiu"
-
-#: ui/accountcreationwizard.ui:205 ui/accountcreationwizard.ui:334
-msgid "Informations."
-msgstr "Informacions."
-
-#: ui/accountcreationwizard.ui:258
-msgid ""
-"You can obtain an archive by clicking on \"Backup account\" in the account "
-"settings. This will create a .gz file on your device."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:328
-msgid "PIN"
-msgstr "PIN"
-
-#: ui/accountcreationwizard.ui:390
-msgid ""
-"Enter the PIN from another configured Jami account. Use the \"Link Another "
-"Device\" feature to obtain a PIN."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
-#: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
-msgid "Back"
-msgstr "Enrere"
-
-#: ui/accountcreationwizard.ui:449 ui/profile.ui:7
-#: ui/newaccountsettingsview.ui:307
-msgid "Profile"
-msgstr "Perfil"
-
-#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1077
-msgid "Register username"
-msgstr "Registra nom d'usuari"
-
-#: ui/accountcreationwizard.ui:568
-msgid ""
-"By checking this, you will register a unique username on the Jami network. "
-"People can use it to contact you instead of using your ID, which is 40 "
-"characters long."
-msgstr "Marcant aquesta opció, registrarà un nom d'usuari únic a la xarxa Jami. La gent pot utilitzar-lo en comptes del seu ID, que té una longitud de 40 caràcters, per contactar amb vostè."
-
-#: ui/accountcreationwizard.ui:630
-msgid "Encrypt account with password"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:631
-msgid ""
-"Choose a password to encrypt your account on this device.  Note that the "
-"password cannot be recovered."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:658
-msgid ""
-"Choose a password to encrypt your account on this device.\n"
-"Note that the password cannot be recovered."
-msgstr ""
-
-#: ui/accountcreationwizard.ui:686
-msgid ""
-"This password will be used to encrypt your account data and to link new "
-"devices to your account."
-msgstr "Aquesta contrasenya serà emprada per xifrar les dades del seu compte i vincular nous dispositius amb el seu compte."
-
-#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:877
-msgid "Confirm password"
-msgstr "Confirmi contrasenya"
-
-#: ui/accountcreationwizard.ui:772
-msgid "Next"
-msgstr "Següent"
-
-#: ui/accountcreationwizard.ui:826
-msgid "Backup your account!"
-msgstr "Fes còpia de seguretat del compte"
-
-#: ui/accountcreationwizard.ui:842
-msgid ""
-"This account only exists on this device. If you lost your device or "
-"uninstall the application, your account will be deleted. You can backup your"
-" account now or later."
-msgstr "Aquest compte només existeix en aquest dispositiu. Si ha perdut el seu dispositiu o desinstaŀla l'aplicació, el seu compte s'esborrarà. Pot fer una còpia de seguretat del seu compte ara o desprès."
-
-#: ui/accountcreationwizard.ui:849
-msgid "Never show me this again"
-msgstr "No mostris mai més això."
-
-#: ui/accountcreationwizard.ui:863 ui/newaccountsettingsview.ui:539
-#: src/accountcreationwizard.cpp:441 src/newaccountsettingsview.cpp:2105
-msgid "Export account"
-msgstr "Exporta el compte"
-
-#: ui/accountcreationwizard.ui:873
-msgid "Skip"
-msgstr "Salta"
-
-#: ui/accountcreationwizard.ui:899
-msgid "Registering username…"
-msgstr "Registrant nom d'usuari…"
-
-#: ui/accountcreationwizard.ui:906
-msgid "This may take a few minutes."
-msgstr "Això pot trigar uns minuts."
-
-#: ui/accountcreationwizard.ui:932
-msgid "Retrieving your Jami account…"
-msgstr "Recuperant el seu compte Jami…"
-
-#: ui/accountcreationwizard.ui:973 ui/newaccountsettingsview.ui:262
-msgid "OK"
-msgstr "D'acord"
-
-#: ui/accountcreationwizard.ui:998
-msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:1043
-msgid "JAMS URL"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:1068
-msgid "Enter your JAMS credentials"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:1167
-msgid "Connect"
-msgstr "Connectar"
-
-#: ui/accountcreationwizard.ui:1195
-msgid "Configure an existing SIP account"
-msgstr ""
-
-#: ui/accountcreationwizard.ui:1240
-msgid "Server"
-msgstr "Servidor"
-
-#: ui/accountcreationwizard.ui:1276 ui/newaccountsettingsview.ui:783
-#: ui/newaccountsettingsview.ui:1409
-msgid "Proxy"
-msgstr "Intermediari"
-
-#: ui/accountcreationwizard.ui:1385
-msgid "Create SIP account"
-msgstr ""
-
-#: ui/gearsmenu.ui:7
-msgid "Keyboard _Shortcuts"
-msgstr "_Dreceres de teclat"
-
-#: ui/gearsmenu.ui:11
-msgid "_About"
-msgstr "_Sobre"
-
-#: ui/gearsmenu.ui:17
-msgid "_Quit"
-msgstr "_Tanca"
-
-#: ui/generalsettingsview.ui:58
-msgid "System"
-msgstr "Sistema"
-
-#: ui/generalsettingsview.ui:96
-msgid "Start application on login"
-msgstr "Obre aplicació a l'inici de sessió"
-
-#: ui/generalsettingsview.ui:132
-msgid "Keep Jami active when window is closed."
-msgstr "Manté Jami actiu al tancar la finestra."
-
-#: ui/generalsettingsview.ui:168
-msgid "Bring Jami to the foreground on incoming calls"
-msgstr "Mostra Jami en primer pla al rebre una trucada"
-
-#: ui/generalsettingsview.ui:204
-msgid "Notifications"
-msgstr "Notificacions"
-
-#: ui/generalsettingsview.ui:243
-msgid "Enable notifications for incoming calls"
-msgstr "Habilita notificacions per a trucades entrants"
-
-#: ui/generalsettingsview.ui:279
-msgid "Enable notifications for pending requests"
-msgstr "Habilita notificacions per a peticions pendents"
-
-#: ui/generalsettingsview.ui:315
-msgid "Enable notifications for new chat messages"
-msgstr "Habilita notificacions per a nous missatges de xat"
-
-#: ui/generalsettingsview.ui:351
-msgid "Chatview"
-msgstr "Vista de xat"
-
-#: ui/generalsettingsview.ui:390
-msgid "Show typing indications"
-msgstr "Mostra indicacions d'escriptura «Escrivint…»"
-
-#: ui/generalsettingsview.ui:426
-msgid "Display images and videos into the chatview"
-msgstr "Mostra imatges i vídeos a la vista de xat"
-
-#: ui/generalsettingsview.ui:463
-msgid "Show chatview on the right (on the bottom if off)"
-msgstr "Mostra vista de xat a la dreta (a baix de tot si està deshabilitat)"
-
-#: ui/generalsettingsview.ui:500
-msgid "Download folder"
-msgstr "Carpeta de descàrrega"
-
-#: ui/generalsettingsview.ui:537
-msgid "History"
-msgstr "Historial"
-
-#: ui/generalsettingsview.ui:576
-msgid "Keep history for (days, 0 = unlimited)"
-msgstr "Manté historial durant (dies, 0 = iŀlimitat)"
-
-#: ui/generalsettingsview.ui:606
-msgid "Clear all history"
-msgstr "Neteja l'historial"
-
-#: ui/generalsettingsview.ui:638
-msgid "Call Recording"
-msgstr "Enregistrament de trucades"
-
-#: ui/generalsettingsview.ui:676
-msgid "Record local video"
-msgstr "Enregistra vídeo local"
-
-#: ui/generalsettingsview.ui:712
-msgid "Always record calls"
-msgstr "Enregistra trucades sempre"
-
-#: ui/generalsettingsview.ui:749
-msgid "Record folder"
-msgstr "Carpeta on desar enregistraments"
-
-#: ui/generalsettingsview.ui:786
-msgid "Bitrate for call recordings (kb/s)"
-msgstr "Bitrate de l'enregistrament de trucades (kb/s)"
-
-#: ui/generalsettingsview.ui:824
-msgid "File transfer"
-msgstr "Transferència de fitxers"
-
-#: ui/generalsettingsview.ui:862
-msgid "Allow incoming files from unknown contacts"
-msgstr "Permet fitxers entrants de contactes desconeguts"
-
-#: ui/generalsettingsview.ui:899
-msgid "Automatically accept incoming files"
-msgstr "Accepta automàticament fitxers entrants"
-
-#: ui/generalsettingsview.ui:937
-msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr "Accepta transferències per sota de (Mb, 0 = iŀlimitat)"
-
-#: ui/profile.ui:58
-msgid "Informations"
-msgstr "Informacions"
-
-#: ui/profile.ui:88 ui/newaccountsettingsview.ui:433
-msgid "ID"
-msgstr "ID"
-
-#: ui/profile.ui:153
-msgid "QR Code"
-msgstr "Codi QR"
-
-#: ui/profile.ui:179
-msgid "Is swarm"
-msgstr ""
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
@@ -706,6 +109,54 @@ msgstr ""
 msgid "Enable hardware acceleration"
 msgstr ""
 
+#: ui/accountmigrationview.ui:20
+msgid "Account migration required"
+msgstr "Migració de compte requerida"
+
+#: ui/accountmigrationview.ui:31
+msgid "This account is malformed, please enter your password"
+msgstr "Aquest compte és defectuós, inseriu la vostra contrasenya"
+
+#: ui/accountmigrationview.ui:90
+msgid "Alias"
+msgstr "Àlies"
+
+#: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
+#: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
+#: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
+#: src/accountcreationwizard.cpp:1078
+msgid "Username"
+msgstr "Nom d'usuari"
+
+#: ui/accountmigrationview.ui:165 ui/newaccountsettingsview.ui:502
+#: ui/newaccountsettingsview.ui:742 ui/accountcreationwizard.ui:286
+#: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
+#: ui/accountcreationwizard.ui:1347
+msgid "Password"
+msgstr "Contrasenya"
+
+#: ui/accountmigrationview.ui:205
+msgid "Account manager"
+msgstr "Gestor del compte"
+
+#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
+#: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
+#: src/newaccountsettingsview.cpp:1014 src/newaccountsettingsview.cpp:2172
+msgid "Delete account"
+msgstr "Esborrar compte"
+
+#: ui/accountmigrationview.ui:251
+msgid "Migrate account"
+msgstr "Migrar compte"
+
+#: ui/accountmigrationview.ui:283
+msgid "Migrating your Jami account…"
+msgstr "Migrant el teu compte Jami…"
+
+#: ui/accountmigrationview.ui:295
+msgid "Migration failed, wrong password?"
+msgstr "Migració fallida, contrasenya equivocada?"
+
 #: ui/newaccountsettingsview.ui:15 ui/pluginsettingsview.ui:15
 msgid "Add device"
 msgstr "Afegir dispositiu"
@@ -741,9 +192,27 @@ msgstr "Exporta a la xarxa"
 msgid "Your generated pin:"
 msgstr "Ha generat el PIN:"
 
+#: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:973
+msgid "OK"
+msgstr "D'acord"
+
+#: ui/newaccountsettingsview.ui:307 ui/profile.ui:7
+#: ui/accountcreationwizard.ui:449
+msgid "Profile"
+msgstr "Perfil"
+
+#: ui/newaccountsettingsview.ui:433 ui/profile.ui:88
+msgid "ID"
+msgstr "ID"
+
 #: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
 msgstr "Cliqueu per canviar la contrasenya"
+
+#: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
+#: src/newaccountsettingsview.cpp:2105 src/accountcreationwizard.cpp:441
+msgid "Export account"
+msgstr "Exporta el compte"
 
 #: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
@@ -756,6 +225,11 @@ msgstr "Servidor SIP"
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
 msgstr "contrasenya"
+
+#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
+#: ui/accountcreationwizard.ui:1276
+msgid "Proxy"
+msgstr "Intermediari"
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
@@ -977,29 +451,10 @@ msgstr "Primer port de vídeo RTP"
 msgid "Video RTP Max port"
 msgstr "Últim port de vídeo RTP"
 
-#: ui/usernameregistrationbox.ui:28
-msgid "register username"
-msgstr "Registra nom d'usuari"
-
-#: ui/pluginsettingsview.ui:44
-msgid "Plugins"
-msgstr ""
-
-#: ui/pluginsettingsview.ui:85
-msgid "Enable plugins"
-msgstr ""
-
-#: ui/pluginsettingsview.ui:128
-msgid "Installed Plugins"
-msgstr ""
-
-#: ui/pluginsettingsview.ui:136
-msgid "Install Plugin"
-msgstr ""
-
-#: ui/chatview.ui:73
-msgid "Send Invitation"
-msgstr "Enviar Invitació"
+#: ui/messagingwidget.ui:29 ui/currentcallview.ui:424
+#: ui/currentcallview.ui:599 src/chatview.cpp:467
+msgid "Record"
+msgstr "Grava"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
@@ -1009,17 +464,144 @@ msgstr "Enregistra missatge d'àudio"
 msgid "End without message"
 msgstr "Finalitza sense missatge"
 
-#: ui/incomingcallview.ui:99
-msgid "Incoming…"
-msgstr "Entrant…"
+#: ui/chatview.ui:41 ui/currentcallview.ui:752 src/pluginsettingsview.cpp:126
+#: src/pluginsettingsview.cpp:140
+msgid "Choose plugin"
+msgstr ""
 
-#: ui/incomingcallview.ui:152
-msgid "Accept"
-msgstr "Accepta"
+#: ui/chatview.ui:73
+msgid "Send Invitation"
+msgstr "Enviar Invitació"
 
-#: ui/incomingcallview.ui:172
-msgid "Reject"
-msgstr "Rebutja"
+#: ui/help-overlay.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "General"
+
+#: ui/help-overlay.ui:18
+msgctxt "shortcut window"
+msgid "Open application menu"
+msgstr "Obre el menú de l'aplicació"
+
+#: ui/help-overlay.ui:25
+msgctxt "shortcut window"
+msgid "Open account list"
+msgstr "Obre la llista de comptes"
+
+#: ui/help-overlay.ui:32
+msgctxt "shortcut window"
+msgid "Select search bar"
+msgstr "Selecciona barra de búsqueda"
+
+#: ui/help-overlay.ui:39
+msgctxt "shortcut window"
+msgid "Focus the list of conversations"
+msgstr "Mostra la llista de converses"
+
+#: ui/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Focus the list pending requests"
+msgstr "Mostra la llista de peticions pendents"
+
+#: ui/help-overlay.ui:53
+msgctxt "shortcut window"
+msgid "Toggle fullscreen"
+msgstr "Commuta la visualització de pantalla sencera"
+
+#: ui/help-overlay.ui:63
+msgctxt "shortcut window"
+msgid "Conversations"
+msgstr "Converses"
+
+#: ui/help-overlay.ui:68
+msgctxt "shortcut window"
+msgid "Start a video call"
+msgstr "Comença una videotrucada"
+
+#: ui/help-overlay.ui:75
+msgctxt "shortcut window"
+msgid "Start an audio call"
+msgstr "Comença una trucada de veu."
+
+#: ui/help-overlay.ui:82
+msgctxt "shortcut window"
+msgid "Clear history"
+msgstr "Neteja historial"
+
+#: ui/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Add conversation"
+msgstr "Afegir conversa"
+
+#: ui/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Remove conversation"
+msgstr "Esborra conversa"
+
+#: ui/help-overlay.ui:103
+msgctxt "shortcut window"
+msgid "Block contact"
+msgstr "Bloqueja el contacte"
+
+#: ui/help-overlay.ui:110
+msgctxt "shortcut window"
+msgid "Unblock contact"
+msgstr "Desbloca contacte"
+
+#: ui/help-overlay.ui:117
+msgctxt "shortcut window"
+msgid "Copy contact name"
+msgstr "Copia nom del contacte"
+
+#: ui/help-overlay.ui:127
+msgctxt "shortcut window"
+msgid "Call"
+msgstr "Trucada"
+
+#: ui/help-overlay.ui:132
+msgctxt "shortcut window"
+msgid "Accept call"
+msgstr "Accepta trucada"
+
+#: ui/help-overlay.ui:139
+msgctxt "shortcut window"
+msgid "Decline call"
+msgstr "Rebutja trucada"
+
+#: ui/help-overlay.ui:148
+msgctxt "shortcut window"
+msgid "Settings"
+msgstr "Opcions"
+
+#: ui/help-overlay.ui:153
+msgctxt "shortcut window"
+msgid "Open/Close settings page"
+msgstr "Obre/Tanca pàgina de preferències"
+
+#: ui/help-overlay.ui:160
+msgctxt "shortcut window"
+msgid "Open general settings"
+msgstr "Obre preferències generals"
+
+#: ui/help-overlay.ui:167
+msgctxt "shortcut window"
+msgid "Open media settings"
+msgstr "Obre preferències de mitjans"
+
+#: ui/help-overlay.ui:174
+msgctxt "shortcut window"
+msgid "Open account settings"
+msgstr "Obre preferències del compte"
+
+#: ui/help-overlay.ui:184
+msgctxt "shortcut window"
+msgid "Chat view"
+msgstr "Vista de xat"
+
+#: ui/help-overlay.ui:189
+msgctxt "shortcut window"
+msgid "Write on a new line"
+msgstr "Escriu en una nova línia"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
@@ -1037,86 +619,511 @@ msgstr "Retorna"
 msgid "Set selection as image"
 msgstr "Utilitza la selecció com a imatge"
 
-#: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
-#: src/video/video_widget.cpp:872 src/video/video_widget.cpp:892
-#: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:463
-#: src/chatview.cpp:391 src/chatview.cpp:406
+#: ui/profile.ui:58
+msgid "Informations"
+msgstr "Informacions"
+
+#: ui/profile.ui:153
+msgid "QR Code"
+msgstr "Codi QR"
+
+#: ui/profile.ui:179
+msgid "Is swarm"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:42
+msgid "Welcome to"
+msgstr "Benvingut a"
+
+#: ui/accountcreationwizard.ui:76
+msgid "Create a Jami account"
+msgstr "Crear un compte Jami"
+
+#: ui/accountcreationwizard.ui:77
+msgid "Create a new Jami account on this device (for new users)"
+msgstr "Crea un nou compte Jami en aquest dispositiu (per a usuaris nous)"
+
+#: ui/accountcreationwizard.ui:84
+msgid "Create a rendezvous point"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:85
+msgid "Create a Rendezvous point"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:92
+msgid "Link this device to an existing account"
+msgstr "Enllaça aquest dispositiu a un compte ja existent"
+
+#: ui/accountcreationwizard.ui:93
+msgid "Import an account with your PIN generated on another device"
+msgstr "Importa un compte amb el teu PIN generat en un altre dispositiu"
+
+#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:695
+msgid "Restore an account from backup"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:101
+msgid "Import an account via your archive"
+msgstr "Importa des d'un compte mitjançant el teu arxiu"
+
+#: ui/accountcreationwizard.ui:108
+msgid "Advanced features"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:119
+msgid "Connect to a JAMS server"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:120
+msgid "Get your account via your credentials."
+msgstr "Obtingui el seu compte mitjançant els seus credencials."
+
+#: ui/accountcreationwizard.ui:127
+msgid "Add a SIP account"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:199
+msgid "Archive"
+msgstr "Arxiu"
+
+#: ui/accountcreationwizard.ui:205 ui/accountcreationwizard.ui:334
+msgid "Informations."
+msgstr "Informacions."
+
+#: ui/accountcreationwizard.ui:258
+msgid ""
+"You can obtain an archive by clicking on \"Backup account\" in the account "
+"settings. This will create a .gz file on your device."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:328
+msgid "PIN"
+msgstr "PIN"
+
+#: ui/accountcreationwizard.ui:390
+msgid ""
+"Enter the PIN from another configured Jami account. Use the \"Link Another "
+"Device\" feature to obtain a PIN."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
+#: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
+msgid "Back"
+msgstr "Enrere"
+
+#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1077
+msgid "Register username"
+msgstr "Registra nom d'usuari"
+
+#: ui/accountcreationwizard.ui:568
+msgid ""
+"By checking this, you will register a unique username on the Jami network. "
+"People can use it to contact you instead of using your ID, which is 40 "
+"characters long."
+msgstr "Marcant aquesta opció, registrarà un nom d'usuari únic a la xarxa Jami. La gent pot utilitzar-lo en comptes del seu ID, que té una longitud de 40 caràcters, per contactar amb vostè."
+
+#: ui/accountcreationwizard.ui:630
+msgid "Encrypt account with password"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:631
+msgid ""
+"Choose a password to encrypt your account on this device.  Note that the "
+"password cannot be recovered."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:658
+msgid ""
+"Choose a password to encrypt your account on this device.\n"
+"Note that the password cannot be recovered."
+msgstr ""
+
+#: ui/accountcreationwizard.ui:686
+msgid ""
+"This password will be used to encrypt your account data and to link new "
+"devices to your account."
+msgstr "Aquesta contrasenya serà emprada per xifrar les dades del seu compte i vincular nous dispositius amb el seu compte."
+
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:877
+msgid "Confirm password"
+msgstr "Confirmi contrasenya"
+
+#: ui/accountcreationwizard.ui:772
+msgid "Next"
+msgstr "Següent"
+
+#: ui/accountcreationwizard.ui:826
+msgid "Backup your account!"
+msgstr "Fes còpia de seguretat del compte"
+
+#: ui/accountcreationwizard.ui:842
+msgid ""
+"This account only exists on this device. If you lost your device or "
+"uninstall the application, your account will be deleted. You can backup your"
+" account now or later."
+msgstr "Aquest compte només existeix en aquest dispositiu. Si ha perdut el seu dispositiu o desinstaŀla l'aplicació, el seu compte s'esborrarà. Pot fer una còpia de seguretat del seu compte ara o desprès."
+
+#: ui/accountcreationwizard.ui:849
+msgid "Never show me this again"
+msgstr "No mostris mai més això."
+
+#: ui/accountcreationwizard.ui:873
+msgid "Skip"
+msgstr "Salta"
+
+#: ui/accountcreationwizard.ui:899
+msgid "Registering username…"
+msgstr "Registrant nom d'usuari…"
+
+#: ui/accountcreationwizard.ui:906
+msgid "This may take a few minutes."
+msgstr "Això pot trigar uns minuts."
+
+#: ui/accountcreationwizard.ui:932
+msgid "Retrieving your Jami account…"
+msgstr "Recuperant el seu compte Jami…"
+
+#: ui/accountcreationwizard.ui:998
+msgid "Enter Jami Account Management Server (JAMS) URL"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:1043
+msgid "JAMS URL"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:1068
+msgid "Enter your JAMS credentials"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:1167
+msgid "Connect"
+msgstr "Connectar"
+
+#: ui/accountcreationwizard.ui:1195
+msgid "Configure an existing SIP account"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:1240
+msgid "Server"
+msgstr "Servidor"
+
+#: ui/accountcreationwizard.ui:1385
+msgid "Create SIP account"
+msgstr ""
+
+#: ui/generalsettingsview.ui:58
+msgid "System"
+msgstr "Sistema"
+
+#: ui/generalsettingsview.ui:96
+msgid "Start application on login"
+msgstr "Obre aplicació a l'inici de sessió"
+
+#: ui/generalsettingsview.ui:132
+msgid "Keep Jami active when window is closed."
+msgstr "Manté Jami actiu al tancar la finestra."
+
+#: ui/generalsettingsview.ui:168
+msgid "Bring Jami to the foreground on incoming calls"
+msgstr "Mostra Jami en primer pla al rebre una trucada"
+
+#: ui/generalsettingsview.ui:204
+msgid "Notifications"
+msgstr "Notificacions"
+
+#: ui/generalsettingsview.ui:243
+msgid "Enable notifications for incoming calls"
+msgstr "Habilita notificacions per a trucades entrants"
+
+#: ui/generalsettingsview.ui:279
+msgid "Enable notifications for pending requests"
+msgstr "Habilita notificacions per a peticions pendents"
+
+#: ui/generalsettingsview.ui:315
+msgid "Enable notifications for new chat messages"
+msgstr "Habilita notificacions per a nous missatges de xat"
+
+#: ui/generalsettingsview.ui:351
+msgid "Chatview"
+msgstr "Vista de xat"
+
+#: ui/generalsettingsview.ui:390
+msgid "Show typing indications"
+msgstr "Mostra indicacions d'escriptura «Escrivint…»"
+
+#: ui/generalsettingsview.ui:426
+msgid "Display images and videos into the chatview"
+msgstr "Mostra imatges i vídeos a la vista de xat"
+
+#: ui/generalsettingsview.ui:463
+msgid "Show chatview on the right (on the bottom if off)"
+msgstr "Mostra vista de xat a la dreta (a baix de tot si està deshabilitat)"
+
+#: ui/generalsettingsview.ui:500
+msgid "Download folder"
+msgstr "Carpeta de descàrrega"
+
+#: ui/generalsettingsview.ui:537
+msgid "History"
+msgstr "Historial"
+
+#: ui/generalsettingsview.ui:576
+msgid "Keep history for (days, 0 = unlimited)"
+msgstr "Manté historial durant (dies, 0 = iŀlimitat)"
+
+#: ui/generalsettingsview.ui:606
+msgid "Clear all history"
+msgstr "Neteja l'historial"
+
+#: ui/generalsettingsview.ui:638
+msgid "Call Recording"
+msgstr "Enregistrament de trucades"
+
+#: ui/generalsettingsview.ui:676
+msgid "Record local video"
+msgstr "Enregistra vídeo local"
+
+#: ui/generalsettingsview.ui:712
+msgid "Always record calls"
+msgstr "Enregistra trucades sempre"
+
+#: ui/generalsettingsview.ui:749
+msgid "Record folder"
+msgstr "Carpeta on desar enregistraments"
+
+#: ui/generalsettingsview.ui:786
+msgid "Bitrate for call recordings (kb/s)"
+msgstr "Bitrate de l'enregistrament de trucades (kb/s)"
+
+#: ui/generalsettingsview.ui:824
+msgid "File transfer"
+msgstr "Transferència de fitxers"
+
+#: ui/generalsettingsview.ui:862
+msgid "Allow incoming files from unknown contacts"
+msgstr "Permet fitxers entrants de contactes desconeguts"
+
+#: ui/generalsettingsview.ui:899
+msgid "Automatically accept incoming files"
+msgstr "Accepta automàticament fitxers entrants"
+
+#: ui/generalsettingsview.ui:937
+msgid "Accept transfer below (in Mb, 0 = unlimited)"
+msgstr "Accepta transferències per sota de (Mb, 0 = iŀlimitat)"
+
+#: ui/usernameregistrationbox.ui:28
+msgid "register username"
+msgstr "Registra nom d'usuari"
+
+#: ui/incomingcallview.ui:99
+msgid "Incoming…"
+msgstr "Entrant…"
+
+#: ui/incomingcallview.ui:152
+msgid "Accept"
+msgstr "Accepta"
+
+#: ui/incomingcallview.ui:172
+msgid "Reject"
+msgstr "Rebutja"
+
+#: ui/currentcallview.ui:284
+msgid "End this call"
+msgstr "Finalitza aquesta trucada"
+
+#: ui/currentcallview.ui:288 ui/currentcallview.ui:581
+msgid "End call"
+msgstr "Finalitza la trucada"
+
+#: ui/currentcallview.ui:308 ui/currentcallview.ui:554
+msgid "Add participant"
+msgstr "Afegir participant"
+
+#: ui/currentcallview.ui:327
+msgid "Toggle transfer"
+msgstr "Activa transferència"
+
+#: ui/currentcallview.ui:346
+msgid "Toggle hold"
+msgstr "Mantenir en espera"
+
+#: ui/currentcallview.ui:350 ui/currentcallview.ui:375
+#: ui/currentcallview.ui:545
+msgid "Hold"
+msgstr "En espera"
+
+#: ui/currentcallview.ui:371
+msgid "Toggle mute audio"
+msgstr "Activa silenci d'àudio"
+
+#: ui/currentcallview.ui:396
+msgid "Toggle mute video"
+msgstr "Activa silenci de vídeo"
+
+#: ui/currentcallview.ui:400 ui/currentcallview.ui:536
+msgid "Mute video"
+msgstr "Silencia el vídeo"
+
+#: ui/currentcallview.ui:421
+msgid "Toggle recording"
+msgstr "Activa enregistrament"
+
+#: ui/currentcallview.ui:464
+msgid "Adjust outgoing video quality"
+msgstr "Ajusta la qualitat del vídeo sortint"
+
+#: ui/currentcallview.ui:469 ui/currentcallview.ui:590
+msgid "Video quality"
+msgstr "Qualitat de vídeo"
+
+#: ui/currentcallview.ui:488
+msgid "Toggle show chat"
+msgstr "Mostra el xat"
+
+#: ui/currentcallview.ui:492 ui/currentcallview.ui:509
+msgid "Chat"
+msgstr "Xat"
+
+#: ui/currentcallview.ui:518
+msgid "View"
+msgstr ""
+
+#: ui/currentcallview.ui:527
+msgid "Mute audio"
+msgstr "Silencia l'àudio"
+
+#: ui/currentcallview.ui:563
+msgid "Activate Plugin"
+msgstr ""
+
+#: ui/currentcallview.ui:572
+msgid "Transfer"
+msgstr "Transferència"
+
+#: ui/currentcallview.ui:622
+msgid "Transfer to"
+msgstr "Transfereix a"
+
+#: ui/currentcallview.ui:686
+msgid "Add"
+msgstr "Afegir"
+
+#: ui/pluginsettingsview.ui:44
+msgid "Plugins"
+msgstr ""
+
+#: ui/pluginsettingsview.ui:85
+msgid "Enable plugins"
+msgstr ""
+
+#: ui/pluginsettingsview.ui:128
+msgid "Installed Plugins"
+msgstr ""
+
+#: ui/pluginsettingsview.ui:136
+msgid "Install Plugin"
+msgstr ""
+
+#: ui/gearsmenu.ui:7
+msgid "Keyboard _Shortcuts"
+msgstr "_Dreceres de teclat"
+
+#: ui/gearsmenu.ui:11
+msgid "_About"
+msgstr "_Sobre"
+
+#: ui/gearsmenu.ui:17
+msgid "_Quit"
+msgstr "_Tanca"
+
+#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
+msgctxt "Name of error window (dialog)"
+msgid "Jami Error"
+msgstr "Error de Jami"
+
+#: src/native/dbuserrorhandler.cpp:57
+msgid "Trying to reconnect to the Jami daemon (jamid)…"
+msgstr ""
+
+#: src/native/dbuserrorhandler.cpp:87
+msgid ""
+"Could not re-connect to the Jami daemon (jamid).\n"
+"Jami will now quit."
+msgstr ""
+
+#: src/currentcallview.cpp:1180
+msgid "Current conference (all accounts)"
+msgstr "Conferència actual (tots els comptes)"
+
+#: src/currentcallview.cpp:1215
+msgid "Current calls (all accounts)"
+msgstr "Trucades actuals (tots els comptes)"
+
+#: src/currentcallview.cpp:1234
+msgid "Online contacts"
+msgstr "Contactes en línia"
+
+#: src/currentcallview.cpp:1688
+msgctxt "Enable automatic video quality"
+msgid "Auto"
+msgstr "Automàtic"
+
+#: src/currentcallview.cpp:1763
+msgid "me"
+msgstr "jo"
+
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:1013
+msgid ""
+"Warning! This action will remove this account on this device!\n"
+"Note: this action cannot be undone. Also, your registered name can be lost!"
+msgstr "Atenció! Aquesta acció eliminarà el compte d'aquest dispositiu!\nNota: aquesta acció no es pot desfer. A més, el vostre nom registrat es pot perdre!"
+
+#: src/chatview.cpp:388 src/chatview.cpp:402
+msgid "Send File"
+msgstr "Envia el fitxer"
+
+#: src/chatview.cpp:388 src/chatview.cpp:402
+#: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:949
+#: src/accountcreationwizard.cpp:875 src/accountcreationwizard.cpp:892
+msgid "Save File"
+msgstr "Desa fitxer"
+
+#: src/chatview.cpp:391 src/chatview.cpp:406 src/video/video_widget.cpp:872
+#: src/video/video_widget.cpp:892 src/pluginsettingsview.cpp:129
+#: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:440
+#: src/avatarmanipulation.cpp:463
 msgid "_Open"
 msgstr "_Obre"
 
-#: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
-#: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
-#: src/video/video_widget.cpp:873 src/video/video_widget.cpp:891
-#: src/avatarmanipulation.cpp:441 src/avatarmanipulation.cpp:462
-#: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:895
-#: src/chatview.cpp:392 src/chatview.cpp:405
-#: src/newaccountsettingsview.cpp:936 src/newaccountsettingsview.cpp:952
+#: src/chatview.cpp:391 src/chatview.cpp:406 src/generalsettingsview.cpp:237
+#: src/generalsettingsview.cpp:252 src/newaccountsettingsview.cpp:935
+#: src/newaccountsettingsview.cpp:953 src/accountcreationwizard.cpp:878
+#: src/accountcreationwizard.cpp:896
+msgid "_Save"
+msgstr "_Desa"
+
+#: src/chatview.cpp:392 src/chatview.cpp:405 src/generalsettingsview.cpp:238
+#: src/generalsettingsview.cpp:251 src/newaccountsettingsview.cpp:936
+#: src/newaccountsettingsview.cpp:952 src/video/video_widget.cpp:873
+#: src/video/video_widget.cpp:891 src/pluginsettingsview.cpp:130
+#: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:441
+#: src/avatarmanipulation.cpp:462 src/accountcreationwizard.cpp:879
+#: src/accountcreationwizard.cpp:895
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
-#: src/pluginsettingsview.cpp:201
-msgid ""
-"Warning! This action will uninstall the plugin!\n"
-"Note: this action cannot be undone."
-msgstr ""
+#: src/chatview.cpp:457
+msgid "Retry"
+msgstr "Reintentar"
 
-#: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
-msgid "Uninstall Plugin"
-msgstr ""
+#: src/chatview.cpp:704
+msgid "Stop"
+msgstr "Para"
 
-#: src/pluginsettingsview.cpp:284
-msgid "Load/Unload Plugin"
-msgstr ""
-
-#: src/usernameregistrationbox.cpp:162 src/usernameregistrationbox.cpp:185
-msgid "Register this username on the name server"
-msgstr "Registra aquest nom d'usuari en el servei de noms"
-
-#: src/usernameregistrationbox.cpp:171
-msgid "Username already taken"
-msgstr "Nom d'usuari ja registrat."
-
-#: src/usernameregistrationbox.cpp:178
-msgid "Invalid username"
-msgstr "Nom d'usuari invalid"
-
-#: src/usernameregistrationbox.cpp:192
-msgid "Lookup unavailable, check your network connection"
-msgstr "Cerca no disponible, verifiqueu la vostra connexió de xarxa"
-
-#: src/usernameregistrationbox.cpp:272
-msgid "Performing lookup…"
-msgstr "Realitzant cerca…"
-
-#: src/usernameregistrationbox.cpp:323
-msgid "Enter the password of your Jami account"
-msgstr "Inseriu la contrasenya del vostre compte Jami"
-
-#: src/usernameregistrationbox.cpp:355
-msgid "Registration in progress…"
-msgstr "Registre en procès…"
-
-#: src/usernameregistrationbox.cpp:374
-msgid "Name registration Error"
-msgstr "Error de registre de nom"
-
-#: src/usernameregistrationbox.cpp:433
-msgid ""
-"Unable to register name (Invalid name). Your username should contains "
-"between 3 and 32 alphanumerics characters (or underscore)."
-msgstr "No s'ha pogut registrar el nom (nom invàlid). El seu nom ha de contenir entre 3 i 32 caràcters alfanumèrics (o guió baix)."
-
-#: src/usernameregistrationbox.cpp:437
-msgid "Unable to register name (Wrong password)."
-msgstr "No s'ha pogut registrar el nom (contrasenya incorrecta)."
-
-#: src/usernameregistrationbox.cpp:441
-msgid "Unable to register name (Username already taken)."
-msgstr "No s'ha pogut registrar el nom (nom d'usuari no disponible)"
-
-#: src/usernameregistrationbox.cpp:445
-msgid "Unable to register name (Network error) - check your connection."
-msgstr "No s'ha pogut registrar el nom (error de xarxa) - verifiqueu la vostra connexió."
+#: src/chatview.cpp:1275
+msgid "Send"
+msgstr "Envia"
 
 #: src/generalsettingsview.cpp:162
 msgid ""
@@ -1128,50 +1135,162 @@ msgstr "Açò és una operació destructiva. Esteu segur que voleu esborrar tot 
 msgid "Choose download folder"
 msgstr "Esculli carpeta de descàrregues"
 
-#: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
-#: src/accountcreationwizard.cpp:878 src/accountcreationwizard.cpp:896
-#: src/chatview.cpp:391 src/chatview.cpp:406
-#: src/newaccountsettingsview.cpp:935 src/newaccountsettingsview.cpp:953
-msgid "_Save"
-msgstr "_Desa"
-
-#: src/welcomeview.cpp:93
+#: src/newaccountsettingsview.cpp:611
 msgid ""
-"This is your Jami username.\n"
-"Copy and share it with your friends!"
-msgstr "Aquest es el seu nom d'usuari Jami.\nCopiï'l i comparteixi'l amb els seus amics!"
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
+msgstr "Atenció! Aquesta acció revocarà el dispositiu!\nNota: aquesta acció no es pot desfer."
 
-#: src/welcomeview.cpp:101
+#: src/newaccountsettingsview.cpp:612
+msgid "Enter password to revoke device"
+msgstr "Inseriu la contrasenya per revocar el dispositiu"
+
+#: src/newaccountsettingsview.cpp:660
+msgid "This device"
+msgstr ""
+
+#: src/newaccountsettingsview.cpp:683
+msgid "Edit name"
+msgstr "Editar el nom"
+
+#: src/newaccountsettingsview.cpp:683
+msgid "Revoke device"
+msgstr "Revoca el dispositiu"
+
+#: src/newaccountsettingsview.cpp:705
+msgid "Error when revoking device"
+msgstr "S'ha produït un error al revocar el dispositiu"
+
+#: src/newaccountsettingsview.cpp:778
+msgid "Unban"
+msgstr "Desbloca"
+
+#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
+#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
+msgid "Change password"
+msgstr "Canvia la contrasenya"
+
+#: src/newaccountsettingsview.cpp:814
+msgid "New password and its confirmation are different!"
+msgstr "La nova contrasenya i la seva confirmació no coincideixen!"
+
+#: src/newaccountsettingsview.cpp:825
+msgid "Incorrect password!"
+msgstr "Contrasenya incorrecta!"
+
+#: src/newaccountsettingsview.cpp:862
+msgid "Note: this will change the password only on this device."
+msgstr "Nota: això canviarà la contrasenya només en aquest dispositiu."
+
+#: src/newaccountsettingsview.cpp:865
+msgid "Current password"
+msgstr "Contrasenya actual"
+
+#: src/newaccountsettingsview.cpp:871
+msgid "New password"
+msgstr "Nova contrasenya"
+
+#: src/newaccountsettingsview.cpp:974 src/accountcreationwizard.cpp:918
+msgid "You need to enter your password to export the full archive."
+msgstr "Ha d'introduir la seva contrasenya per exportar l'arxiu complet."
+
+#: src/newaccountsettingsview.cpp:975 src/accountcreationwizard.cpp:919
+msgid "Enter password to export archive"
+msgstr "Inseriu contrasenya per exportar l'arxiu"
+
+#: src/newaccountsettingsview.cpp:998 src/accountcreationwizard.cpp:942
+msgid "Account exported!"
+msgstr "Compte exportat!"
+
+#: src/newaccountsettingsview.cpp:998 src/accountcreationwizard.cpp:942
+msgid "Export account failure."
+msgstr "Exportació de compte fallida."
+
+#: src/newaccountsettingsview.cpp:1778
+msgid "Exporting account…"
+msgstr "Exportant compte…"
+
+#: src/newaccountsettingsview.cpp:1803
+msgid "Bad password"
+msgstr "Mala contrasenya"
+
+#: src/newaccountsettingsview.cpp:1811
+msgid "Network error, try again"
+msgstr "Error de xarxa, proveu de nou"
+
+#: src/newaccountsettingsview.cpp:1819
+msgid "Unknown error"
+msgstr "Error desconegut"
+
+#: src/newaccountsettingsview.cpp:1832
+msgid "Could not initiate export to the Jami, try again"
+msgstr "No s'ha pogut iniciar l'exportació a Jami, prova un altre cop"
+
+#: src/newaccountsettingsview.cpp:1891
+msgid "Error: wrong password!"
+msgstr "Error: contrasenya incorrecta!"
+
+#: src/newaccountsettingsview.cpp:1894
+msgid "Error: unknown device!"
+msgstr "Error: contrasenya desconeguda!"
+
+#: src/newaccountsettingsview.cpp:2069
+msgid "Initializing…"
+msgstr "Inicialitzant…"
+
+#: src/newaccountsettingsview.cpp:2072
+msgid "Offline"
+msgstr "Fora de línia"
+
+#: src/newaccountsettingsview.cpp:2075
+msgid "Connecting…"
+msgstr "Connectant…"
+
+#: src/newaccountsettingsview.cpp:2078
+msgid "Online"
+msgstr "En línia"
+
+#: src/newaccountsettingsview.cpp:2082
+msgid "Unknown status"
+msgstr "Estat desconegut"
+
+#: src/newaccountsettingsview.cpp:2116
+msgid "••••••••"
+msgstr "••••••••"
+
+#: src/newaccountsettingsview.cpp:2116
+msgid "no password set"
+msgstr "Cap contrasenya establerta"
+
+#: src/newaccountsettingsview.cpp:2172
+msgid "Remove account"
+msgstr "Elimina el compte"
+
+#: src/client.cpp:114
+#, c-format
 msgid ""
-"This is your ID.\n"
-"Copy and share it with your friends!"
-msgstr "Aquest és el seu ID.\nCopiï'l i comparteixi'l amb els seus amics!"
+"Unable to initialize.\n"
+"Make sure the Jami daemon (jamid) is running.\n"
+"Error: %s"
+msgstr ""
 
-#: src/welcomeview.cpp:213
-msgid ""
-"Jami is free software for universal communication which respects the "
-"freedoms and privacy of its users."
-msgstr "Jami és un programari lliure de comunicació universal, que respecta les llibertats i la privacitat dels seus usuaris."
+#: src/client.cpp:117
+msgid "Jami Error"
+msgstr "Error de Jami"
 
-#: src/notifier.cpp:352
+#: src/client.cpp:387 src/client.cpp:444
+msgid "Jami needs your attention"
+msgstr ""
+
+#: src/client.cpp:427
 msgctxt ""
-msgid "Open conversation"
-msgstr "Obre conversa"
+"In the status icon menu, toggle action to show or hide the Jami main window"
+msgid "Show Jami"
+msgstr "Mostrar Jami"
 
-#: src/notifier.cpp:360 src/notifier.cpp:376
-msgctxt ""
-msgid "Accept"
-msgstr "Accepta"
-
-#: src/notifier.cpp:367
-msgctxt ""
-msgid "Refuse"
-msgstr "Rebutja"
-
-#: src/notifier.cpp:383
-msgctxt ""
-msgid "Decline"
-msgstr "Rebutja"
+#: src/client.cpp:431
+msgid "Quit"
+msgstr "Tancar"
 
 #: src/video/video_widget.cpp:436
 msgid "Hangup"
@@ -1216,201 +1335,6 @@ msgstr "Transmet _fitxer"
 #: src/video/video_widget.cpp:976
 msgid "Show advanced information"
 msgstr "Mostra informació avançada"
-
-#: src/avatarmanipulation.cpp:437 src/avatarmanipulation.cpp:459
-msgid "Open Avatar Image"
-msgstr "Obre imatge de l'avatar"
-
-#: src/messagingwidget.cpp:223
-msgid "Contact appears to be busy. Leave a message ?"
-msgstr "El contacte sembla estar ocupat. Deixar un missatge?"
-
-#: src/messagingwidget.cpp:245
-msgid "Stop recording"
-msgstr "Para d'enregistrar."
-
-#: src/messagingwidget.cpp:259
-msgid "Send recorded message"
-msgstr "Envia missatge enregistrat"
-
-#: src/dialogs.cpp:63
-#, c-format
-msgctxt "Do not translate the release name nor the status (beta, final, ...)"
-msgid ""
-"\"%s\"\n"
-"(%s)"
-msgstr ""
-
-#: src/dialogs.cpp:138
-msgid ""
-"The GNOME client for Jami.\n"
-"Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "El client de GNOME per a Jami.\nJami és programari lliure per a comunicacions universals que respecta les llibertats i privacitat dels seus usuaris."
-
-#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
-msgctxt "Name of error window (dialog)"
-msgid "Jami Error"
-msgstr "Error de Jami"
-
-#: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Jami daemon (jamid)…"
-msgstr ""
-
-#: src/native/dbuserrorhandler.cpp:87
-msgid ""
-"Could not re-connect to the Jami daemon (jamid).\n"
-"Jami will now quit."
-msgstr ""
-
-#: src/client_options.c:65
-msgid "Enable debug"
-msgstr "Habilitar depuració"
-
-#: src/client_options.c:67
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
-msgstr "Restaura l'estat ocult de la finestra principal (només s'aplica a la instància principal)"
-
-#: src/client_options.c:84
-msgid "- GNOME client for Jami"
-msgstr "- El client GNOME per a Jami"
-
-#: src/conversationpopupmenu.cpp:237
-msgid "Place _video call"
-msgstr "Fes una _video trucada"
-
-#: src/conversationpopupmenu.cpp:240
-msgid "Place _audio call"
-msgstr "Fes una trucada de _veu"
-
-#: src/conversationpopupmenu.cpp:246
-msgid "_Add to conversations"
-msgstr "_Afegir a les converses"
-
-#: src/conversationpopupmenu.cpp:250
-msgid "_Accept invitation"
-msgstr ""
-
-#: src/conversationpopupmenu.cpp:253
-msgid "_Discard invitation"
-msgstr "_Rebutja invitació"
-
-#: src/conversationpopupmenu.cpp:256
-msgid "_Block invitations"
-msgstr "_Bloca invitacions"
-
-#: src/conversationpopupmenu.cpp:261
-msgid "C_lear history"
-msgstr "_Neteja historial"
-
-#: src/conversationpopupmenu.cpp:265
-msgid "_Remove conversation"
-msgstr "_Esborra conversa"
-
-#: src/conversationpopupmenu.cpp:271
-msgid "_Block contact"
-msgstr "_Bloca contacte"
-
-#: src/conversationpopupmenu.cpp:275
-msgid "_Unblock contact"
-msgstr "_Desbloca contacte"
-
-#: src/conversationpopupmenu.cpp:282
-msgid "_Profile"
-msgstr "_Perfil"
-
-#: src/profileview.cpp:131
-msgid "(None)"
-msgstr "(Cap)"
-
-#: src/profileview.cpp:160
-msgid "Yes"
-msgstr ""
-
-#: src/profileview.cpp:160
-msgid "No"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:326
-msgid "An error occurred during the account creation."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:330
-msgid "An error occurred during the rendez-vous creation."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:334
-msgid "An error occurred during the SIP account creation."
-msgstr ""
-
-#: src/accountcreationwizard.cpp:338
-msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr "No es pot recuperar cap compte, si us plau, verifiqui el seu PIN i la seva contrasenya."
-
-#: src/accountcreationwizard.cpp:342
-msgid ""
-"Cannot retrieve any account, please verify your archive and your password."
-msgstr "No es pot recuperar cap compte, si us plau, verifiqui el seu arxiu i la seva contrasenya."
-
-#: src/accountcreationwizard.cpp:346
-msgid ""
-"Cannot connect to provided account manager. Please check your credentials."
-msgstr "No es pot reconnectar al gestor de comptes donat. Si us plau, verifiqui els seus credencials."
-
-#: src/accountcreationwizard.cpp:535
-msgid "Generating your rendez-vous…"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:537
-msgid "Generating your Jami account…"
-msgstr "Generant el seu compte Jami…"
-
-#: src/accountcreationwizard.cpp:553
-msgid "Passwords don't match"
-msgstr "No coincideixen les contrasenyes"
-
-#: src/accountcreationwizard.cpp:674
-msgid "Enter Jami account password"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:675
-msgid "Link device"
-msgstr ""
-
-#: src/accountcreationwizard.cpp:694
-msgid "Import from backup"
-msgstr "Importa des d'una còpia de seguretat"
-
-#: src/accountcreationwizard.cpp:875 src/accountcreationwizard.cpp:892
-#: src/chatview.cpp:388 src/chatview.cpp:402
-#: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:949
-msgid "Save File"
-msgstr "Desa fitxer"
-
-#: src/accountcreationwizard.cpp:918 src/newaccountsettingsview.cpp:974
-msgid "You need to enter your password to export the full archive."
-msgstr "Ha d'introduir la seva contrasenya per exportar l'arxiu complet."
-
-#: src/accountcreationwizard.cpp:919 src/newaccountsettingsview.cpp:975
-msgid "Enter password to export archive"
-msgstr "Inseriu contrasenya per exportar l'arxiu"
-
-#: src/accountcreationwizard.cpp:942 src/newaccountsettingsview.cpp:998
-msgid "Account exported!"
-msgstr "Compte exportat!"
-
-#: src/accountcreationwizard.cpp:942 src/newaccountsettingsview.cpp:998
-msgid "Export account failure."
-msgstr "Exportació de compte fallida."
-
-#: src/accountcreationwizard.cpp:1108
-msgid "Register name"
-msgstr "Registrar nom"
-
-#: src/accountcreationwizard.cpp:1109
-msgid "Name"
-msgstr "Nom"
 
 #: src/mainwindow.cpp:206
 msgid "Add account…"
@@ -1511,186 +1435,262 @@ msgstr "Bloqueja el contacte"
 msgid "Do you really want to block this contact?"
 msgstr "Realment vol blocar aquest contacte?"
 
-#: src/chatview.cpp:388 src/chatview.cpp:402
-msgid "Send File"
-msgstr "Envia el fitxer"
-
-#: src/chatview.cpp:457
-msgid "Retry"
-msgstr "Reintentar"
-
-#: src/chatview.cpp:704
-msgid "Stop"
-msgstr "Para"
-
-#: src/chatview.cpp:1275
-msgid "Send"
-msgstr "Envia"
-
-#: src/client.cpp:114
-#, c-format
+#: src/welcomeview.cpp:93
 msgid ""
-"Unable to initialize.\n"
-"Make sure the Jami daemon (jamid) is running.\n"
-"Error: %s"
-msgstr ""
+"This is your Jami username.\n"
+"Copy and share it with your friends!"
+msgstr "Aquest es el seu nom d'usuari Jami.\nCopiï'l i comparteixi'l amb els seus amics!"
 
-#: src/client.cpp:117
-msgid "Jami Error"
-msgstr "Error de Jami"
+#: src/welcomeview.cpp:101
+msgid ""
+"This is your ID.\n"
+"Copy and share it with your friends!"
+msgstr "Aquest és el seu ID.\nCopiï'l i comparteixi'l amb els seus amics!"
 
-#: src/client.cpp:387 src/client.cpp:444
-msgid "Jami needs your attention"
-msgstr ""
+#: src/welcomeview.cpp:213
+msgid ""
+"Jami is free software for universal communication which respects the "
+"freedoms and privacy of its users."
+msgstr "Jami és un programari lliure de comunicació universal, que respecta les llibertats i la privacitat dels seus usuaris."
 
-#: src/client.cpp:427
+#: src/client_options.c:65
+msgid "Enable debug"
+msgstr "Habilitar depuració"
+
+#: src/client_options.c:67
+msgid ""
+"Restores the hidden state of the main window (only applicable to the primary"
+" instance)"
+msgstr "Restaura l'estat ocult de la finestra principal (només s'aplica a la instància principal)"
+
+#: src/client_options.c:84
+msgid "- GNOME client for Jami"
+msgstr "- El client GNOME per a Jami"
+
+#: src/notifier.cpp:352
 msgctxt ""
-"In the status icon menu, toggle action to show or hide the Jami main window"
-msgid "Show Jami"
-msgstr "Mostrar Jami"
+msgid "Open conversation"
+msgstr "Obre conversa"
 
-#: src/client.cpp:431
-msgid "Quit"
-msgstr "Tancar"
+#: src/notifier.cpp:360 src/notifier.cpp:376
+msgctxt ""
+msgid "Accept"
+msgstr "Accepta"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:1013
+#: src/notifier.cpp:367
+msgctxt ""
+msgid "Refuse"
+msgstr "Rebutja"
+
+#: src/notifier.cpp:383
+msgctxt ""
+msgid "Decline"
+msgstr "Rebutja"
+
+#: src/pluginsettingsview.cpp:201
 msgid ""
-"Warning! This action will remove this account on this device!\n"
-"Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr "Atenció! Aquesta acció eliminarà el compte d'aquest dispositiu!\nNota: aquesta acció no es pot desfer. A més, el vostre nom registrat es pot perdre!"
-
-#: src/currentcallview.cpp:1180
-msgid "Current conference (all accounts)"
-msgstr "Conferència actual (tots els comptes)"
-
-#: src/currentcallview.cpp:1215
-msgid "Current calls (all accounts)"
-msgstr "Trucades actuals (tots els comptes)"
-
-#: src/currentcallview.cpp:1234
-msgid "Online contacts"
-msgstr "Contactes en línia"
-
-#: src/currentcallview.cpp:1688
-msgctxt "Enable automatic video quality"
-msgid "Auto"
-msgstr "Automàtic"
-
-#: src/currentcallview.cpp:1763
-msgid "me"
-msgstr "jo"
-
-#: src/newaccountsettingsview.cpp:611
-msgid ""
-"Warning! This action will revoke the device!\n"
+"Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr "Atenció! Aquesta acció revocarà el dispositiu!\nNota: aquesta acció no es pot desfer."
-
-#: src/newaccountsettingsview.cpp:612
-msgid "Enter password to revoke device"
-msgstr "Inseriu la contrasenya per revocar el dispositiu"
-
-#: src/newaccountsettingsview.cpp:660
-msgid "This device"
 msgstr ""
 
-#: src/newaccountsettingsview.cpp:683
-msgid "Edit name"
-msgstr "Editar el nom"
+#: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
+msgid "Uninstall Plugin"
+msgstr ""
 
-#: src/newaccountsettingsview.cpp:683
-msgid "Revoke device"
-msgstr "Revoca el dispositiu"
+#: src/pluginsettingsview.cpp:284
+msgid "Load/Unload Plugin"
+msgstr ""
 
-#: src/newaccountsettingsview.cpp:705
-msgid "Error when revoking device"
-msgstr "S'ha produït un error al revocar el dispositiu"
+#: src/profileview.cpp:131
+msgid "(None)"
+msgstr "(Cap)"
 
-#: src/newaccountsettingsview.cpp:778
-msgid "Unban"
-msgstr "Desbloca"
+#: src/profileview.cpp:160
+msgid "Yes"
+msgstr ""
 
-#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
-#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
-msgid "Change password"
-msgstr "Canvia la contrasenya"
+#: src/profileview.cpp:160
+msgid "No"
+msgstr ""
 
-#: src/newaccountsettingsview.cpp:814
-msgid "New password and its confirmation are different!"
-msgstr "La nova contrasenya i la seva confirmació no coincideixen!"
+#: src/usernameregistrationbox.cpp:162 src/usernameregistrationbox.cpp:185
+msgid "Register this username on the name server"
+msgstr "Registra aquest nom d'usuari en el servei de noms"
 
-#: src/newaccountsettingsview.cpp:825
-msgid "Incorrect password!"
-msgstr "Contrasenya incorrecta!"
+#: src/usernameregistrationbox.cpp:171
+msgid "Username already taken"
+msgstr "Nom d'usuari ja registrat."
 
-#: src/newaccountsettingsview.cpp:862
-msgid "Note: this will change the password only on this device."
-msgstr "Nota: això canviarà la contrasenya només en aquest dispositiu."
+#: src/usernameregistrationbox.cpp:178
+msgid "Invalid username"
+msgstr "Nom d'usuari invalid"
 
-#: src/newaccountsettingsview.cpp:865
-msgid "Current password"
-msgstr "Contrasenya actual"
+#: src/usernameregistrationbox.cpp:192
+msgid "Lookup unavailable, check your network connection"
+msgstr "Cerca no disponible, verifiqueu la vostra connexió de xarxa"
 
-#: src/newaccountsettingsview.cpp:871
-msgid "New password"
-msgstr "Nova contrasenya"
+#: src/usernameregistrationbox.cpp:272
+msgid "Performing lookup…"
+msgstr "Realitzant cerca…"
 
-#: src/newaccountsettingsview.cpp:1778
-msgid "Exporting account…"
-msgstr "Exportant compte…"
+#: src/usernameregistrationbox.cpp:323
+msgid "Enter the password of your Jami account"
+msgstr "Inseriu la contrasenya del vostre compte Jami"
 
-#: src/newaccountsettingsview.cpp:1803
-msgid "Bad password"
-msgstr "Mala contrasenya"
+#: src/usernameregistrationbox.cpp:355
+msgid "Registration in progress…"
+msgstr "Registre en procès…"
 
-#: src/newaccountsettingsview.cpp:1811
-msgid "Network error, try again"
-msgstr "Error de xarxa, proveu de nou"
+#: src/usernameregistrationbox.cpp:374
+msgid "Name registration Error"
+msgstr "Error de registre de nom"
 
-#: src/newaccountsettingsview.cpp:1819
-msgid "Unknown error"
-msgstr "Error desconegut"
+#: src/usernameregistrationbox.cpp:433
+msgid ""
+"Unable to register name (Invalid name). Your username should contains "
+"between 3 and 32 alphanumerics characters (or underscore)."
+msgstr "No s'ha pogut registrar el nom (nom invàlid). El seu nom ha de contenir entre 3 i 32 caràcters alfanumèrics (o guió baix)."
 
-#: src/newaccountsettingsview.cpp:1832
-msgid "Could not initiate export to the Jami, try again"
-msgstr "No s'ha pogut iniciar l'exportació a Jami, prova un altre cop"
+#: src/usernameregistrationbox.cpp:437
+msgid "Unable to register name (Wrong password)."
+msgstr "No s'ha pogut registrar el nom (contrasenya incorrecta)."
 
-#: src/newaccountsettingsview.cpp:1891
-msgid "Error: wrong password!"
-msgstr "Error: contrasenya incorrecta!"
+#: src/usernameregistrationbox.cpp:441
+msgid "Unable to register name (Username already taken)."
+msgstr "No s'ha pogut registrar el nom (nom d'usuari no disponible)"
 
-#: src/newaccountsettingsview.cpp:1894
-msgid "Error: unknown device!"
-msgstr "Error: contrasenya desconeguda!"
+#: src/usernameregistrationbox.cpp:445
+msgid "Unable to register name (Network error) - check your connection."
+msgstr "No s'ha pogut registrar el nom (error de xarxa) - verifiqueu la vostra connexió."
 
-#: src/newaccountsettingsview.cpp:2069
-msgid "Initializing…"
-msgstr "Inicialitzant…"
+#: src/messagingwidget.cpp:223
+msgid "Contact appears to be busy. Leave a message ?"
+msgstr "El contacte sembla estar ocupat. Deixar un missatge?"
 
-#: src/newaccountsettingsview.cpp:2072
-msgid "Offline"
-msgstr "Fora de línia"
+#: src/messagingwidget.cpp:245
+msgid "Stop recording"
+msgstr "Para d'enregistrar."
 
-#: src/newaccountsettingsview.cpp:2075
-msgid "Connecting…"
-msgstr "Connectant…"
+#: src/messagingwidget.cpp:259
+msgid "Send recorded message"
+msgstr "Envia missatge enregistrat"
 
-#: src/newaccountsettingsview.cpp:2078
-msgid "Online"
-msgstr "En línia"
+#: src/dialogs.cpp:63
+#, c-format
+msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+msgid ""
+"\"%s\"\n"
+"(%s)"
+msgstr ""
 
-#: src/newaccountsettingsview.cpp:2082
-msgid "Unknown status"
-msgstr "Estat desconegut"
+#: src/dialogs.cpp:138
+msgid ""
+"The GNOME client for Jami.\n"
+"Jami is free software for universal communication which respects the freedoms and privacy of its users."
+msgstr "El client de GNOME per a Jami.\nJami és programari lliure per a comunicacions universals que respecta les llibertats i privacitat dels seus usuaris."
 
-#: src/newaccountsettingsview.cpp:2116
-msgid "••••••••"
-msgstr "••••••••"
+#: src/conversationpopupmenu.cpp:237
+msgid "Place _video call"
+msgstr "Fes una _video trucada"
 
-#: src/newaccountsettingsview.cpp:2116
-msgid "no password set"
-msgstr "Cap contrasenya establerta"
+#: src/conversationpopupmenu.cpp:240
+msgid "Place _audio call"
+msgstr "Fes una trucada de _veu"
 
-#: src/newaccountsettingsview.cpp:2172
-msgid "Remove account"
-msgstr "Elimina el compte"
+#: src/conversationpopupmenu.cpp:246
+msgid "_Add to conversations"
+msgstr "_Afegir a les converses"
+
+#: src/conversationpopupmenu.cpp:250
+msgid "_Accept invitation"
+msgstr ""
+
+#: src/conversationpopupmenu.cpp:253
+msgid "_Discard invitation"
+msgstr "_Rebutja invitació"
+
+#: src/conversationpopupmenu.cpp:256
+msgid "_Block invitations"
+msgstr "_Bloca invitacions"
+
+#: src/conversationpopupmenu.cpp:261
+msgid "C_lear history"
+msgstr "_Neteja historial"
+
+#: src/conversationpopupmenu.cpp:265
+msgid "_Remove conversation"
+msgstr "_Esborra conversa"
+
+#: src/conversationpopupmenu.cpp:271
+msgid "_Block contact"
+msgstr "_Bloca contacte"
+
+#: src/conversationpopupmenu.cpp:275
+msgid "_Unblock contact"
+msgstr "_Desbloca contacte"
+
+#: src/conversationpopupmenu.cpp:282
+msgid "_Profile"
+msgstr "_Perfil"
+
+#: src/avatarmanipulation.cpp:437 src/avatarmanipulation.cpp:459
+msgid "Open Avatar Image"
+msgstr "Obre imatge de l'avatar"
+
+#: src/accountcreationwizard.cpp:326
+msgid "An error occurred during the account creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:330
+msgid "An error occurred during the rendez-vous creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:334
+msgid "An error occurred during the SIP account creation."
+msgstr ""
+
+#: src/accountcreationwizard.cpp:338
+msgid "Cannot retrieve any account, please verify your PIN and your password."
+msgstr "No es pot recuperar cap compte, si us plau, verifiqui el seu PIN i la seva contrasenya."
+
+#: src/accountcreationwizard.cpp:342
+msgid ""
+"Cannot retrieve any account, please verify your archive and your password."
+msgstr "No es pot recuperar cap compte, si us plau, verifiqui el seu arxiu i la seva contrasenya."
+
+#: src/accountcreationwizard.cpp:346
+msgid ""
+"Cannot connect to provided account manager. Please check your credentials."
+msgstr "No es pot reconnectar al gestor de comptes donat. Si us plau, verifiqui els seus credencials."
+
+#: src/accountcreationwizard.cpp:535
+msgid "Generating your rendez-vous…"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:537
+msgid "Generating your Jami account…"
+msgstr "Generant el seu compte Jami…"
+
+#: src/accountcreationwizard.cpp:553
+msgid "Passwords don't match"
+msgstr "No coincideixen les contrasenyes"
+
+#: src/accountcreationwizard.cpp:674
+msgid "Enter Jami account password"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:675
+msgid "Link device"
+msgstr ""
+
+#: src/accountcreationwizard.cpp:694
+msgid "Import from backup"
+msgstr "Importa des d'una còpia de seguretat"
+
+#: src/accountcreationwizard.cpp:1108
+msgid "Register name"
+msgstr "Registrar nom"
+
+#: src/accountcreationwizard.cpp:1109
+msgid "Name"
+msgstr "Nom"
