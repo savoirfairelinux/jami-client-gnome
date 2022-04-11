@@ -10,145 +10,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jami\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-14 03:09-0400\n"
-"PO-Revision-Date: 2022-03-07 09:14+0000\n"
-"Last-Translator: . . <ovari123@zoho.com>\n"
+"POT-Creation-Date: 2022-04-11 03:09-0400\n"
+"PO-Revision-Date: 2015-09-10 22:02+0000\n"
+"Last-Translator: . . <ovari123@zoho.com>, 2022\n"
 "Language-Team: Albanian (Albania) (http://www.transifex.com/savoirfairelinux/jami/language/sq_AL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sq_AL\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ui/help-overlay.ui:13
-msgctxt "shortcut window"
-msgid "General"
-msgstr "Të përgjithshme"
-
-#: ui/help-overlay.ui:18
-msgctxt "shortcut window"
-msgid "Open application menu"
-msgstr "Hapni menu aplikacionesh"
-
-#: ui/help-overlay.ui:25
-msgctxt "shortcut window"
-msgid "Open account list"
-msgstr "Hapni listë llogarish"
-
-#: ui/help-overlay.ui:32
-msgctxt "shortcut window"
-msgid "Select search bar"
-msgstr "Përzgjidhni shtyllë kërkimesh"
-
-#: ui/help-overlay.ui:39
-msgctxt "shortcut window"
-msgid "Focus the list of conversations"
-msgstr "Përqendrohu te lista e bisedave"
-
-#: ui/help-overlay.ui:46
-msgctxt "shortcut window"
-msgid "Focus the list pending requests"
-msgstr "Përqendrohu te lista e kërkesave pezull"
-
-#: ui/help-overlay.ui:53
-msgctxt "shortcut window"
-msgid "Toggle fullscreen"
-msgstr "Kalo/Dil nga Sa Krejt Ekrani"
-
-#: ui/help-overlay.ui:63
-msgctxt "shortcut window"
-msgid "Conversations"
-msgstr "Biseda"
-
-#: ui/help-overlay.ui:68
-msgctxt "shortcut window"
-msgid "Start a video call"
-msgstr "Filloni një thirrje video"
-
-#: ui/help-overlay.ui:75
-msgctxt "shortcut window"
-msgid "Start an audio call"
-msgstr "Filloni një thirrje audio"
-
-#: ui/help-overlay.ui:82
-msgctxt "shortcut window"
-msgid "Clear history"
-msgstr "Spastroje historikun"
-
-#: ui/help-overlay.ui:89
-msgctxt "shortcut window"
-msgid "Add conversation"
-msgstr "Shtoni bisedë"
-
-#: ui/help-overlay.ui:96
-msgctxt "shortcut window"
-msgid "Remove conversation"
-msgstr "Hiqe bisedën"
-
-#: ui/help-overlay.ui:103
-msgctxt "shortcut window"
-msgid "Block contact"
-msgstr "Bllokojeni kontaktin"
-
-#: ui/help-overlay.ui:110
-msgctxt "shortcut window"
-msgid "Unblock contact"
-msgstr "Zhbllokoje kontaktin"
-
-#: ui/help-overlay.ui:117
-msgctxt "shortcut window"
-msgid "Copy contact name"
-msgstr "Kopjo emër kontakti"
-
-#: ui/help-overlay.ui:127
-msgctxt "shortcut window"
-msgid "Call"
-msgstr "Thirre"
-
-#: ui/help-overlay.ui:132
-msgctxt "shortcut window"
-msgid "Accept call"
-msgstr "Pranoje thirrjen"
-
-#: ui/help-overlay.ui:139
-msgctxt "shortcut window"
-msgid "Decline call"
-msgstr "Hidhe tej thirrjen"
-
-#: ui/help-overlay.ui:148
-msgctxt "shortcut window"
-msgid "Settings"
-msgstr "Rregullime"
-
-#: ui/help-overlay.ui:153
-msgctxt "shortcut window"
-msgid "Open/Close settings page"
-msgstr "Hap/Mbyll faqe rregullimesh"
-
-#: ui/help-overlay.ui:160
-msgctxt "shortcut window"
-msgid "Open general settings"
-msgstr "Hap rregullimet e përgjithshme"
-
-#: ui/help-overlay.ui:167
-msgctxt "shortcut window"
-msgid "Open media settings"
-msgstr "Hap rregullime mediash"
-
-#: ui/help-overlay.ui:174
-msgctxt "shortcut window"
-msgid "Open account settings"
-msgstr "Hap rregullime llogarie"
-
-#: ui/help-overlay.ui:184
-msgctxt "shortcut window"
-msgid "Chat view"
-msgstr "Pamje fjalosje"
-
-#: ui/help-overlay.ui:189
-msgctxt "shortcut window"
-msgid "Write on a new line"
-msgstr "Shkruani një rresht të ri"
 
 #: ui/mainwindow.ui:63
 msgid "Menu"
@@ -166,8 +36,8 @@ msgstr "Media"
 msgid "Plugin"
 msgstr "Shtojcë"
 
-#: ui/mainwindow.ui:136 ui/accountcreationwizard.ui:530
-#: ui/newaccountsettingsview.ui:387
+#: ui/mainwindow.ui:136 ui/newaccountsettingsview.ui:387
+#: ui/accountcreationwizard.ui:530
 msgid "Account"
 msgstr "Llogari"
 
@@ -182,473 +52,6 @@ msgstr "Biseda"
 #: ui/mainwindow.ui:327 ui/mainwindow.ui:334
 msgid "Contact requests"
 msgstr "Kërkesa kontakti"
-
-#: ui/accountmigrationview.ui:20
-msgid "Account migration required"
-msgstr "Lyp migrim llogarie"
-
-#: ui/accountmigrationview.ui:31
-msgid "This account is malformed, please enter your password"
-msgstr "Kjo llogari është e keqformuar, ju lutemi, jepni fjalëkalimin tuaj"
-
-#: ui/accountmigrationview.ui:90
-msgid "Alias"
-msgstr "Alias"
-
-#: ui/accountmigrationview.ui:127 ui/accountcreationwizard.ui:1093
-#: ui/accountcreationwizard.ui:1311 ui/profile.ui:73
-#: ui/newaccountsettingsview.ui:476 ui/newaccountsettingsview.ui:706
-#: src/accountcreationwizard.cpp:1078
-msgid "Username"
-msgstr "Emër përdoruesi"
-
-#: ui/accountmigrationview.ui:165 ui/accountcreationwizard.ui:286
-#: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
-#: ui/accountcreationwizard.ui:1347 ui/newaccountsettingsview.ui:502
-#: ui/newaccountsettingsview.ui:742
-msgid "Password"
-msgstr "Krijoni llogari"
-
-#: ui/accountmigrationview.ui:205
-msgid "Account manager"
-msgstr "Përgjegjës llogarish"
-
-#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
-#: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
-#: src/newaccountsettingsview.cpp:1014 src/newaccountsettingsview.cpp:2172
-msgid "Delete account"
-msgstr "Fshije llogarinë"
-
-#: ui/accountmigrationview.ui:251
-msgid "Migrate account"
-msgstr "Migroni llogari"
-
-#: ui/accountmigrationview.ui:283
-msgid "Migrating your Jami account…"
-msgstr "Po migrohet llogaria juaj Jami…"
-
-#: ui/accountmigrationview.ui:295
-msgid "Migration failed, wrong password?"
-msgstr "Migrimi dështoi, fjalëkalim i gabuar?"
-
-#: ui/currentcallview.ui:284
-msgid "End this call"
-msgstr "Përfundoje këtë thirrje"
-
-#: ui/currentcallview.ui:288 ui/currentcallview.ui:581
-msgid "End call"
-msgstr "Përfundoje thirrjen"
-
-#: ui/currentcallview.ui:308 ui/currentcallview.ui:554
-msgid "Add participant"
-msgstr "Shtoni pjesëmarrës"
-
-#: ui/currentcallview.ui:327
-msgid "Toggle transfer"
-msgstr "Shfaq/fshih shpërngulje"
-
-#: ui/currentcallview.ui:346
-msgid "Toggle hold"
-msgstr "Mbaje/Braktise"
-
-#: ui/currentcallview.ui:350 ui/currentcallview.ui:375
-#: ui/currentcallview.ui:545
-msgid "Hold"
-msgstr "Mbaje"
-
-#: ui/currentcallview.ui:371
-msgid "Toggle mute audio"
-msgstr "Vini/hiqni heshtje audioje"
-
-#: ui/currentcallview.ui:396
-msgid "Toggle mute video"
-msgstr "Vini/hiqni heshtje videoje"
-
-#: ui/currentcallview.ui:400 ui/currentcallview.ui:536
-msgid "Mute video"
-msgstr "Mbylli videon"
-
-#: ui/currentcallview.ui:421
-msgid "Toggle recording"
-msgstr "Shfa/fshih incizim"
-
-#: ui/currentcallview.ui:424 ui/currentcallview.ui:599
-#: ui/messagingwidget.ui:29 src/chatview.cpp:467
-msgid "Record"
-msgstr "Regjistroje"
-
-#: ui/currentcallview.ui:464
-msgid "Adjust outgoing video quality"
-msgstr "Rregulloni cilësinë e videos së dërguar"
-
-#: ui/currentcallview.ui:469 ui/currentcallview.ui:590
-msgid "Video quality"
-msgstr "Cilësi videoje"
-
-#: ui/currentcallview.ui:488
-msgid "Toggle show chat"
-msgstr "Shfaqni/fshihni fjalosje"
-
-#: ui/currentcallview.ui:492 ui/currentcallview.ui:509
-msgid "Chat"
-msgstr "Fjalosje"
-
-#: ui/currentcallview.ui:518
-msgid "View"
-msgstr "Shiheni"
-
-#: ui/currentcallview.ui:527
-msgid "Mute audio"
-msgstr "Mbylli zërin"
-
-#: ui/currentcallview.ui:563
-msgid "Activate Plugin"
-msgstr "Aktivizoje Shtojcën"
-
-#: ui/currentcallview.ui:572
-msgid "Transfer"
-msgstr "Shpërngule"
-
-#: ui/currentcallview.ui:622
-msgid "Transfer to"
-msgstr "Shpërngule te"
-
-#: ui/currentcallview.ui:686
-msgid "Add"
-msgstr "Shtoje"
-
-#: ui/currentcallview.ui:752 ui/chatview.ui:41 src/pluginsettingsview.cpp:126
-#: src/pluginsettingsview.cpp:140
-msgid "Choose plugin"
-msgstr "Zgjidhni shtojcë"
-
-#: ui/accountcreationwizard.ui:42
-msgid "Welcome to"
-msgstr "Mirë se vini te"
-
-#: ui/accountcreationwizard.ui:76
-msgid "Create a Jami account"
-msgstr "Krijoni një llogari Jami"
-
-#: ui/accountcreationwizard.ui:77
-msgid "Create a new Jami account on this device (for new users)"
-msgstr "Krijoni një llogari të re Jami në këtë pajisje (për përdorues të rinj)"
-
-#: ui/accountcreationwizard.ui:84
-msgid "Create a rendezvous point"
-msgstr "Krijoni një pikë takimesh"
-
-#: ui/accountcreationwizard.ui:85
-msgid "Create a Rendezvous point"
-msgstr "Krijoni një pikë Takimi"
-
-#: ui/accountcreationwizard.ui:92
-msgid "Link this device to an existing account"
-msgstr "Lidheni këtë pajisje me një llogari ekzistuese"
-
-#: ui/accountcreationwizard.ui:93
-msgid "Import an account with your PIN generated on another device"
-msgstr "Importoni një llogari me PIN-in tuaj të prodhuar në një tjetër pajisje"
-
-#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:695
-msgid "Restore an account from backup"
-msgstr "Riktheni një llogari prej një kopjeruajtje"
-
-#: ui/accountcreationwizard.ui:101
-msgid "Import an account via your archive"
-msgstr "Importoni një llogari përmes arkivit tuaj"
-
-#: ui/accountcreationwizard.ui:108
-msgid "Advanced features"
-msgstr "Veçori të thelluara"
-
-#: ui/accountcreationwizard.ui:119
-msgid "Connect to a JAMS server"
-msgstr "Lidhu me një shërbyes JAMS"
-
-#: ui/accountcreationwizard.ui:120
-msgid "Get your account via your credentials."
-msgstr "Merreni llogarinë tuaj për mes kredencialeve tuaja."
-
-#: ui/accountcreationwizard.ui:127
-msgid "Add a SIP account"
-msgstr "Shtoni një llogari SIP"
-
-#: ui/accountcreationwizard.ui:199
-msgid "Archive"
-msgstr "Arkiv"
-
-#: ui/accountcreationwizard.ui:205 ui/accountcreationwizard.ui:334
-msgid "Informations."
-msgstr "Informacione."
-
-#: ui/accountcreationwizard.ui:258
-msgid ""
-"You can obtain an archive by clicking on \"Backup account\" in the account "
-"settings. This will create a .gz file on your device."
-msgstr "Një arkiv mund ta keni duke klikuar mbi “Kopjeruani llogari”, te rregullime llogarie. Kjo do të krijojë në pajisjen tuaj një kartelë .gz."
-
-#: ui/accountcreationwizard.ui:328
-msgid "PIN"
-msgstr "PIN"
-
-#: ui/accountcreationwizard.ui:390
-msgid ""
-"Enter the PIN from another configured Jami account. Use the \"Link Another "
-"Device\" feature to obtain a PIN."
-msgstr "Jepni PIN-in prej një llogarie tjetër Jami të formësuar. Që të merrni një PIN, përdorni veçorinë “Lidhni Pajisje Tjetër”."
-
-#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
-#: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
-msgid "Back"
-msgstr "Mbrapsht"
-
-#: ui/accountcreationwizard.ui:449 ui/profile.ui:7
-#: ui/newaccountsettingsview.ui:307
-msgid "Profile"
-msgstr "Profil"
-
-#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1077
-msgid "Register username"
-msgstr "Regjistroni emër përdoruesi"
-
-#: ui/accountcreationwizard.ui:568
-msgid ""
-"By checking this, you will register a unique username on the Jami network. "
-"People can use it to contact you instead of using your ID, which is 40 "
-"characters long."
-msgstr "Duke i vënë shenjë kësaj, do të regjistroni një emër përdoruesi unik në rrjetin Jami. Njerëzit mund ta përdorin për t’u lidhur me ju, në vend se të ID-së tuaj, që është 40 shenja i gjatë."
-
-#: ui/accountcreationwizard.ui:630
-msgid "Encrypt account with password"
-msgstr "Fshehtëzoje llogarinë me fjalëkalim"
-
-#: ui/accountcreationwizard.ui:631
-msgid ""
-"Choose a password to encrypt your account on this device.  Note that the "
-"password cannot be recovered."
-msgstr "Zgjidhni një fjalëkalim për të fshehtëzuar llogarinë tuaj në këtë pajisje. Mbani parasysh që fjalëkalimi s’mund të rikthehet."
-
-#: ui/accountcreationwizard.ui:658
-msgid ""
-"Choose a password to encrypt your account on this device.\n"
-"Note that the password cannot be recovered."
-msgstr "Zgjidhni një fjalëkalim për të fshehtëzuar llogarinë tuaj në këtë pajisje.\nMbani parasysh që fjalëkalimi s’mund të rikthehet."
-
-#: ui/accountcreationwizard.ui:686
-msgid ""
-"This password will be used to encrypt your account data and to link new "
-"devices to your account."
-msgstr "Ky fjalëkalim do të përdoret për të fshehtëzuar të dhënat e llogarisë tuaj dhe për të lidhur pajisje të reja në të."
-
-#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:877
-msgid "Confirm password"
-msgstr "Ripohoni fjalëkalimin"
-
-#: ui/accountcreationwizard.ui:772
-msgid "Next"
-msgstr "Pasuesi"
-
-#: ui/accountcreationwizard.ui:826
-msgid "Backup your account!"
-msgstr "Kopjeruani llogarinë tuaj!"
-
-#: ui/accountcreationwizard.ui:842
-msgid ""
-"This account only exists on this device. If you lost your device or "
-"uninstall the application, your account will be deleted. You can backup your"
-" account now or later."
-msgstr "Kjo llogari ekziston vetëm në këtë pajisje. Nëse humbët pajisjen tuaj ose e çinstaluat aplikacionin, llogaria juaj do të fshihet. Llogarinë tuaj mund ta kopjeruani tani ose më vonë."
-
-#: ui/accountcreationwizard.ui:849
-msgid "Never show me this again"
-msgstr "Mos ma shfaq më kurrë këtë"
-
-#: ui/accountcreationwizard.ui:863 ui/newaccountsettingsview.ui:539
-#: src/accountcreationwizard.cpp:441 src/newaccountsettingsview.cpp:2105
-msgid "Export account"
-msgstr "Eksportoni llogari"
-
-#: ui/accountcreationwizard.ui:873
-msgid "Skip"
-msgstr "Anashkaloje"
-
-#: ui/accountcreationwizard.ui:899
-msgid "Registering username…"
-msgstr "Po regjistrohet emër përdoruesi…"
-
-#: ui/accountcreationwizard.ui:906
-msgid "This may take a few minutes."
-msgstr "Kjo mund të hajë pak minuta."
-
-#: ui/accountcreationwizard.ui:932
-msgid "Retrieving your Jami account…"
-msgstr "Po merret llogaria juaj Jami…"
-
-#: ui/accountcreationwizard.ui:973 ui/newaccountsettingsview.ui:262
-msgid "OK"
-msgstr "Në rregull"
-
-#: ui/accountcreationwizard.ui:998
-msgid "Enter Jami Account Management Server (JAMS) URL"
-msgstr "Jepni URL Shërbyesi Administrimi Llogarish Jami (JAMS)"
-
-#: ui/accountcreationwizard.ui:1043
-msgid "JAMS URL"
-msgstr "URL JAM-i"
-
-#: ui/accountcreationwizard.ui:1068
-msgid "Enter your JAMS credentials"
-msgstr "Jepni kredencialet tuaj për te JAMS"
-
-#: ui/accountcreationwizard.ui:1167
-msgid "Connect"
-msgstr "Lidhu"
-
-#: ui/accountcreationwizard.ui:1195
-msgid "Configure an existing SIP account"
-msgstr "Formësoni një llogari SIP ekzistuese"
-
-#: ui/accountcreationwizard.ui:1240
-msgid "Server"
-msgstr "Shërbyes"
-
-#: ui/accountcreationwizard.ui:1276 ui/newaccountsettingsview.ui:783
-#: ui/newaccountsettingsview.ui:1409
-msgid "Proxy"
-msgstr "Ndërmjetës"
-
-#: ui/accountcreationwizard.ui:1385
-msgid "Create SIP account"
-msgstr "Krijoni llogari SIP"
-
-#: ui/gearsmenu.ui:7
-msgid "Keyboard _Shortcuts"
-msgstr "_Shkurtore Tastiere"
-
-#: ui/gearsmenu.ui:11
-msgid "_About"
-msgstr "_Rreth"
-
-#: ui/gearsmenu.ui:17
-msgid "_Quit"
-msgstr "_Dil"
-
-#: ui/generalsettingsview.ui:58
-msgid "System"
-msgstr "Sistem"
-
-#: ui/generalsettingsview.ui:96
-msgid "Start application on login"
-msgstr "Nise aplikacionin kur bëhet hyrja në sistem"
-
-#: ui/generalsettingsview.ui:132
-msgid "Keep Jami active when window is closed."
-msgstr "Mbaje Jami-n aktiv, kur mbyllet dritarja."
-
-#: ui/generalsettingsview.ui:168
-msgid "Bring Jami to the foreground on incoming calls"
-msgstr "Sille Jami-n përpara për thirrje ardhëse"
-
-#: ui/generalsettingsview.ui:204
-msgid "Notifications"
-msgstr "Njoftime"
-
-#: ui/generalsettingsview.ui:243
-msgid "Enable notifications for incoming calls"
-msgstr "Aktivizo njoftimet për thirrje ardhëse"
-
-#: ui/generalsettingsview.ui:279
-msgid "Enable notifications for pending requests"
-msgstr "Aktivizo njoftime për kërkesa pezull"
-
-#: ui/generalsettingsview.ui:315
-msgid "Enable notifications for new chat messages"
-msgstr "Aktivizo njoftimet për mesazhe të reja fjalosjesh"
-
-#: ui/generalsettingsview.ui:351
-msgid "Chatview"
-msgstr "Pamje fjalosjeje"
-
-#: ui/generalsettingsview.ui:390
-msgid "Show typing indications"
-msgstr "Shfaq shenja shtypjeje"
-
-#: ui/generalsettingsview.ui:426
-msgid "Display images and videos into the chatview"
-msgstr "Shfaq te pamja e fjalosjes figura dhe video"
-
-#: ui/generalsettingsview.ui:463
-msgid "Show chatview on the right (on the bottom if off)"
-msgstr "Shfaqe pamjen e fjalosjes djathtas (poshtë, nëse është off)"
-
-#: ui/generalsettingsview.ui:500
-msgid "Download folder"
-msgstr "Dosje Shkarkimi"
-
-#: ui/generalsettingsview.ui:537
-msgid "History"
-msgstr "Historik"
-
-#: ui/generalsettingsview.ui:576
-msgid "Keep history for (days, 0 = unlimited)"
-msgstr "Mbaje historikun për (ditë, 0 = pa kufizim)"
-
-#: ui/generalsettingsview.ui:606
-msgid "Clear all history"
-msgstr "Spastro krejt historikun"
-
-#: ui/generalsettingsview.ui:638
-msgid "Call Recording"
-msgstr "Incizim Thirrjesh"
-
-#: ui/generalsettingsview.ui:676
-msgid "Record local video"
-msgstr "Regjistro video lokale"
-
-#: ui/generalsettingsview.ui:712
-msgid "Always record calls"
-msgstr "Incizoji përherë thirrjet"
-
-#: ui/generalsettingsview.ui:749
-msgid "Record folder"
-msgstr "Dosje incizimesh"
-
-#: ui/generalsettingsview.ui:786
-msgid "Bitrate for call recordings (kb/s)"
-msgstr "Vlerë bitrate për incizime thirrjesh (kb/s)"
-
-#: ui/generalsettingsview.ui:824
-msgid "File transfer"
-msgstr "Shpërngulje kartelash"
-
-#: ui/generalsettingsview.ui:862
-msgid "Allow incoming files from unknown contacts"
-msgstr "Lejo kartela ardhëse prej kontaktesh të panjohur"
-
-#: ui/generalsettingsview.ui:899
-msgid "Automatically accept incoming files"
-msgstr "Prano automatikisht kartela ardhëse"
-
-#: ui/generalsettingsview.ui:937
-msgid "Accept transfer below (in Mb, 0 = unlimited)"
-msgstr "Prano shpërnguljen më poshtë (në Mb, 0 = e pakufizuar)"
-
-#: ui/profile.ui:58
-msgid "Informations"
-msgstr "Informacione"
-
-#: ui/profile.ui:88 ui/newaccountsettingsview.ui:433
-msgid "ID"
-msgstr "ID"
-
-#: ui/profile.ui:153
-msgid "QR Code"
-msgstr "Kod QR"
-
-#: ui/profile.ui:179
-msgid "Is swarm"
-msgstr ""
 
 #: ui/mediasettingsview.ui:28
 msgid "Audio"
@@ -702,6 +105,54 @@ msgstr "Shpejtësi kuadrosh:"
 msgid "Enable hardware acceleration"
 msgstr "Aktivizo përshpejtim hardware-i:"
 
+#: ui/accountmigrationview.ui:20
+msgid "Account migration required"
+msgstr "Lyp migrim llogarie"
+
+#: ui/accountmigrationview.ui:31
+msgid "This account is malformed, please enter your password"
+msgstr "Kjo llogari është e keqformuar, ju lutemi, jepni fjalëkalimin tuaj"
+
+#: ui/accountmigrationview.ui:90
+msgid "Alias"
+msgstr "Alias"
+
+#: ui/accountmigrationview.ui:127 ui/newaccountsettingsview.ui:476
+#: ui/newaccountsettingsview.ui:706 ui/profile.ui:73
+#: ui/accountcreationwizard.ui:1093 ui/accountcreationwizard.ui:1311
+#: src/accountcreationwizard.cpp:1078
+msgid "Username"
+msgstr "Emër përdoruesi"
+
+#: ui/accountmigrationview.ui:165 ui/newaccountsettingsview.ui:502
+#: ui/newaccountsettingsview.ui:742 ui/accountcreationwizard.ui:286
+#: ui/accountcreationwizard.ui:685 ui/accountcreationwizard.ui:1129
+#: ui/accountcreationwizard.ui:1347
+msgid "Password"
+msgstr "Krijoni llogari"
+
+#: ui/accountmigrationview.ui:205
+msgid "Account manager"
+msgstr "Përgjegjës llogarish"
+
+#: ui/accountmigrationview.ui:236 ui/newaccountsettingsview.ui:554
+#: ui/newaccountsettingsview.ui:847 src/accountmigrationview.cpp:187
+#: src/newaccountsettingsview.cpp:1014 src/newaccountsettingsview.cpp:2172
+msgid "Delete account"
+msgstr "Fshije llogarinë"
+
+#: ui/accountmigrationview.ui:251
+msgid "Migrate account"
+msgstr "Migroni llogari"
+
+#: ui/accountmigrationview.ui:283
+msgid "Migrating your Jami account…"
+msgstr "Po migrohet llogaria juaj Jami…"
+
+#: ui/accountmigrationview.ui:295
+msgid "Migration failed, wrong password?"
+msgstr "Migrimi dështoi, fjalëkalim i gabuar?"
+
 #: ui/newaccountsettingsview.ui:15 ui/pluginsettingsview.ui:15
 msgid "Add device"
 msgstr "Shtoni pajisje"
@@ -737,9 +188,27 @@ msgstr "Eksportoje në rrjet"
 msgid "Your generated pin:"
 msgstr "PIN-i juaj i prodhuar:"
 
+#: ui/newaccountsettingsview.ui:262 ui/accountcreationwizard.ui:973
+msgid "OK"
+msgstr "Në rregull"
+
+#: ui/newaccountsettingsview.ui:307 ui/profile.ui:7
+#: ui/accountcreationwizard.ui:449
+msgid "Profile"
+msgstr "Profil"
+
+#: ui/newaccountsettingsview.ui:433 ui/profile.ui:88
+msgid "ID"
+msgstr "ID"
+
 #: ui/newaccountsettingsview.ui:511
 msgid "Click to change password"
 msgstr "Klikoni që të ndryshohet fjalëkalimi"
+
+#: ui/newaccountsettingsview.ui:539 ui/accountcreationwizard.ui:863
+#: src/newaccountsettingsview.cpp:2105 src/accountcreationwizard.cpp:441
+msgid "Export account"
+msgstr "Eksportoni llogari"
 
 #: ui/newaccountsettingsview.ui:591 ui/newaccountsettingsview.ui:874
 msgid "Enable account"
@@ -752,6 +221,11 @@ msgstr "Shërbyes SIP"
 #: ui/newaccountsettingsview.ui:752
 msgid "password"
 msgstr "fjalëkalim"
+
+#: ui/newaccountsettingsview.ui:783 ui/newaccountsettingsview.ui:1409
+#: ui/accountcreationwizard.ui:1276
+msgid "Proxy"
+msgstr "Ndërmjetës"
 
 #: ui/newaccountsettingsview.ui:819
 msgid "Voicemail"
@@ -973,29 +447,10 @@ msgstr "Interval Minimum Porte Video RTP"
 msgid "Video RTP Max port"
 msgstr "Interval Maksimum Porte Video RTP"
 
-#: ui/usernameregistrationbox.ui:28
-msgid "register username"
-msgstr "regjistroni emër përdoruesi"
-
-#: ui/pluginsettingsview.ui:44
-msgid "Plugins"
-msgstr "Shtojca"
-
-#: ui/pluginsettingsview.ui:85
-msgid "Enable plugins"
-msgstr "Aktivizoni shtojca"
-
-#: ui/pluginsettingsview.ui:128
-msgid "Installed Plugins"
-msgstr "Shtojca të Instaluara"
-
-#: ui/pluginsettingsview.ui:136
-msgid "Install Plugin"
-msgstr "Instalo Shtojcë"
-
-#: ui/chatview.ui:73
-msgid "Send Invitation"
-msgstr "Dërgoni Ftesë"
+#: ui/messagingwidget.ui:29 ui/currentcallview.ui:424
+#: ui/currentcallview.ui:599 src/chatview.cpp:467
+msgid "Record"
+msgstr "Regjistroje"
 
 #: ui/messagingwidget.ui:76
 msgid "Record audio message"
@@ -1005,17 +460,144 @@ msgstr "Incizo mesazh audio"
 msgid "End without message"
 msgstr "Përfundoje pa mesazh"
 
-#: ui/incomingcallview.ui:99
-msgid "Incoming…"
-msgstr "Ardhëse…"
+#: ui/chatview.ui:41 ui/currentcallview.ui:752 src/pluginsettingsview.cpp:126
+#: src/pluginsettingsview.cpp:140
+msgid "Choose plugin"
+msgstr "Zgjidhni shtojcë"
 
-#: ui/incomingcallview.ui:152
-msgid "Accept"
-msgstr "Pranoje"
+#: ui/chatview.ui:73
+msgid "Send Invitation"
+msgstr "Dërgoni Ftesë"
 
-#: ui/incomingcallview.ui:172
-msgid "Reject"
-msgstr "Hidhe poshtë"
+#: ui/help-overlay.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Të përgjithshme"
+
+#: ui/help-overlay.ui:18
+msgctxt "shortcut window"
+msgid "Open application menu"
+msgstr "Hapni menu aplikacionesh"
+
+#: ui/help-overlay.ui:25
+msgctxt "shortcut window"
+msgid "Open account list"
+msgstr "Hapni listë llogarish"
+
+#: ui/help-overlay.ui:32
+msgctxt "shortcut window"
+msgid "Select search bar"
+msgstr "Përzgjidhni shtyllë kërkimesh"
+
+#: ui/help-overlay.ui:39
+msgctxt "shortcut window"
+msgid "Focus the list of conversations"
+msgstr "Përqendrohu te lista e bisedave"
+
+#: ui/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Focus the list pending requests"
+msgstr "Përqendrohu te lista e kërkesave pezull"
+
+#: ui/help-overlay.ui:53
+msgctxt "shortcut window"
+msgid "Toggle fullscreen"
+msgstr "Kalo/Dil nga Sa Krejt Ekrani"
+
+#: ui/help-overlay.ui:63
+msgctxt "shortcut window"
+msgid "Conversations"
+msgstr "Biseda"
+
+#: ui/help-overlay.ui:68
+msgctxt "shortcut window"
+msgid "Start a video call"
+msgstr "Filloni një thirrje video"
+
+#: ui/help-overlay.ui:75
+msgctxt "shortcut window"
+msgid "Start an audio call"
+msgstr "Filloni një thirrje audio"
+
+#: ui/help-overlay.ui:82
+msgctxt "shortcut window"
+msgid "Clear history"
+msgstr "Spastroje historikun"
+
+#: ui/help-overlay.ui:89
+msgctxt "shortcut window"
+msgid "Add conversation"
+msgstr "Shtoni bisedë"
+
+#: ui/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Remove conversation"
+msgstr "Hiqe bisedën"
+
+#: ui/help-overlay.ui:103
+msgctxt "shortcut window"
+msgid "Block contact"
+msgstr "Bllokojeni kontaktin"
+
+#: ui/help-overlay.ui:110
+msgctxt "shortcut window"
+msgid "Unblock contact"
+msgstr "Zhbllokoje kontaktin"
+
+#: ui/help-overlay.ui:117
+msgctxt "shortcut window"
+msgid "Copy contact name"
+msgstr "Kopjo emër kontakti"
+
+#: ui/help-overlay.ui:127
+msgctxt "shortcut window"
+msgid "Call"
+msgstr "Thirre"
+
+#: ui/help-overlay.ui:132
+msgctxt "shortcut window"
+msgid "Accept call"
+msgstr "Pranoje thirrjen"
+
+#: ui/help-overlay.ui:139
+msgctxt "shortcut window"
+msgid "Decline call"
+msgstr "Hidhe tej thirrjen"
+
+#: ui/help-overlay.ui:148
+msgctxt "shortcut window"
+msgid "Settings"
+msgstr "Rregullime"
+
+#: ui/help-overlay.ui:153
+msgctxt "shortcut window"
+msgid "Open/Close settings page"
+msgstr "Hap/Mbyll faqe rregullimesh"
+
+#: ui/help-overlay.ui:160
+msgctxt "shortcut window"
+msgid "Open general settings"
+msgstr "Hap rregullimet e përgjithshme"
+
+#: ui/help-overlay.ui:167
+msgctxt "shortcut window"
+msgid "Open media settings"
+msgstr "Hap rregullime mediash"
+
+#: ui/help-overlay.ui:174
+msgctxt "shortcut window"
+msgid "Open account settings"
+msgstr "Hap rregullime llogarie"
+
+#: ui/help-overlay.ui:184
+msgctxt "shortcut window"
+msgid "Chat view"
+msgstr "Pamje fjalosje"
+
+#: ui/help-overlay.ui:189
+msgctxt "shortcut window"
+msgid "Write on a new line"
+msgstr "Shkruani një rresht të ri"
 
 #: ui/avatarmanipulation.ui:92 ui/avatarmanipulation.ui:125
 msgid "Take photo"
@@ -1033,86 +615,511 @@ msgstr "Kthehu"
 msgid "Set selection as image"
 msgstr "Si figurë cakto përzgjedhjen"
 
-#: src/pluginsettingsview.cpp:129 src/pluginsettingsview.cpp:144
-#: src/video/video_widget.cpp:872 src/video/video_widget.cpp:892
-#: src/avatarmanipulation.cpp:440 src/avatarmanipulation.cpp:463
-#: src/chatview.cpp:391 src/chatview.cpp:406
+#: ui/profile.ui:58
+msgid "Informations"
+msgstr "Informacione"
+
+#: ui/profile.ui:153
+msgid "QR Code"
+msgstr "Kod QR"
+
+#: ui/profile.ui:179
+msgid "Is swarm"
+msgstr ""
+
+#: ui/accountcreationwizard.ui:42
+msgid "Welcome to"
+msgstr "Mirë se vini te"
+
+#: ui/accountcreationwizard.ui:76
+msgid "Create a Jami account"
+msgstr "Krijoni një llogari Jami"
+
+#: ui/accountcreationwizard.ui:77
+msgid "Create a new Jami account on this device (for new users)"
+msgstr "Krijoni një llogari të re Jami në këtë pajisje (për përdorues të rinj)"
+
+#: ui/accountcreationwizard.ui:84
+msgid "Create a rendezvous point"
+msgstr "Krijoni një pikë takimesh"
+
+#: ui/accountcreationwizard.ui:85
+msgid "Create a Rendezvous point"
+msgstr "Krijoni një pikë Takimi"
+
+#: ui/accountcreationwizard.ui:92
+msgid "Link this device to an existing account"
+msgstr "Lidheni këtë pajisje me një llogari ekzistuese"
+
+#: ui/accountcreationwizard.ui:93
+msgid "Import an account with your PIN generated on another device"
+msgstr "Importoni një llogari me PIN-in tuaj të prodhuar në një tjetër pajisje"
+
+#: ui/accountcreationwizard.ui:100 src/accountcreationwizard.cpp:695
+msgid "Restore an account from backup"
+msgstr "Riktheni një llogari prej një kopjeruajtje"
+
+#: ui/accountcreationwizard.ui:101
+msgid "Import an account via your archive"
+msgstr "Importoni një llogari përmes arkivit tuaj"
+
+#: ui/accountcreationwizard.ui:108
+msgid "Advanced features"
+msgstr "Veçori të thelluara"
+
+#: ui/accountcreationwizard.ui:119
+msgid "Connect to a JAMS server"
+msgstr "Lidhu me një shërbyes JAMS"
+
+#: ui/accountcreationwizard.ui:120
+msgid "Get your account via your credentials."
+msgstr "Merreni llogarinë tuaj për mes kredencialeve tuaja."
+
+#: ui/accountcreationwizard.ui:127
+msgid "Add a SIP account"
+msgstr "Shtoni një llogari SIP"
+
+#: ui/accountcreationwizard.ui:199
+msgid "Archive"
+msgstr "Arkiv"
+
+#: ui/accountcreationwizard.ui:205 ui/accountcreationwizard.ui:334
+msgid "Informations."
+msgstr "Informacione."
+
+#: ui/accountcreationwizard.ui:258
+msgid ""
+"You can obtain an archive by clicking on \"Backup account\" in the account "
+"settings. This will create a .gz file on your device."
+msgstr "Një arkiv mund ta keni duke klikuar mbi “Kopjeruani llogari”, te rregullime llogarie. Kjo do të krijojë në pajisjen tuaj një kartelë .gz."
+
+#: ui/accountcreationwizard.ui:328
+msgid "PIN"
+msgstr "PIN"
+
+#: ui/accountcreationwizard.ui:390
+msgid ""
+"Enter the PIN from another configured Jami account. Use the \"Link Another "
+"Device\" feature to obtain a PIN."
+msgstr "Jepni PIN-in prej një llogarie tjetër Jami të formësuar. Që të merrni një PIN, përdorni veçorinë “Lidhni Pajisje Tjetër”."
+
+#: ui/accountcreationwizard.ui:410 ui/accountcreationwizard.ui:764
+#: ui/accountcreationwizard.ui:1159 ui/accountcreationwizard.ui:1377
+msgid "Back"
+msgstr "Mbrapsht"
+
+#: ui/accountcreationwizard.ui:567 src/accountcreationwizard.cpp:1077
+msgid "Register username"
+msgstr "Regjistroni emër përdoruesi"
+
+#: ui/accountcreationwizard.ui:568
+msgid ""
+"By checking this, you will register a unique username on the Jami network. "
+"People can use it to contact you instead of using your ID, which is 40 "
+"characters long."
+msgstr "Duke i vënë shenjë kësaj, do të regjistroni një emër përdoruesi unik në rrjetin Jami. Njerëzit mund ta përdorin për t’u lidhur me ju, në vend se të ID-së tuaj, që është 40 shenja i gjatë."
+
+#: ui/accountcreationwizard.ui:630
+msgid "Encrypt account with password"
+msgstr "Fshehtëzoje llogarinë me fjalëkalim"
+
+#: ui/accountcreationwizard.ui:631
+msgid ""
+"Choose a password to encrypt your account on this device.  Note that the "
+"password cannot be recovered."
+msgstr "Zgjidhni një fjalëkalim për të fshehtëzuar llogarinë tuaj në këtë pajisje. Mbani parasysh që fjalëkalimi s’mund të rikthehet."
+
+#: ui/accountcreationwizard.ui:658
+msgid ""
+"Choose a password to encrypt your account on this device.\n"
+"Note that the password cannot be recovered."
+msgstr "Zgjidhni një fjalëkalim për të fshehtëzuar llogarinë tuaj në këtë pajisje.\nMbani parasysh që fjalëkalimi s’mund të rikthehet."
+
+#: ui/accountcreationwizard.ui:686
+msgid ""
+"This password will be used to encrypt your account data and to link new "
+"devices to your account."
+msgstr "Ky fjalëkalim do të përdoret për të fshehtëzuar të dhënat e llogarisë tuaj dhe për të lidhur pajisje të reja në të."
+
+#: ui/accountcreationwizard.ui:725 src/newaccountsettingsview.cpp:877
+msgid "Confirm password"
+msgstr "Ripohoni fjalëkalimin"
+
+#: ui/accountcreationwizard.ui:772
+msgid "Next"
+msgstr "Pasuesi"
+
+#: ui/accountcreationwizard.ui:826
+msgid "Backup your account!"
+msgstr "Kopjeruani llogarinë tuaj!"
+
+#: ui/accountcreationwizard.ui:842
+msgid ""
+"This account only exists on this device. If you lost your device or "
+"uninstall the application, your account will be deleted. You can backup your"
+" account now or later."
+msgstr "Kjo llogari ekziston vetëm në këtë pajisje. Nëse humbët pajisjen tuaj ose e çinstaluat aplikacionin, llogaria juaj do të fshihet. Llogarinë tuaj mund ta kopjeruani tani ose më vonë."
+
+#: ui/accountcreationwizard.ui:849
+msgid "Never show me this again"
+msgstr "Mos ma shfaq më kurrë këtë"
+
+#: ui/accountcreationwizard.ui:873
+msgid "Skip"
+msgstr "Anashkaloje"
+
+#: ui/accountcreationwizard.ui:899
+msgid "Registering username…"
+msgstr "Po regjistrohet emër përdoruesi…"
+
+#: ui/accountcreationwizard.ui:906
+msgid "This may take a few minutes."
+msgstr "Kjo mund të hajë pak minuta."
+
+#: ui/accountcreationwizard.ui:932
+msgid "Retrieving your Jami account…"
+msgstr "Po merret llogaria juaj Jami…"
+
+#: ui/accountcreationwizard.ui:998
+msgid "Enter Jami Account Management Server (JAMS) URL"
+msgstr "Jepni URL Shërbyesi Administrimi Llogarish Jami (JAMS)"
+
+#: ui/accountcreationwizard.ui:1043
+msgid "JAMS URL"
+msgstr "URL JAM-i"
+
+#: ui/accountcreationwizard.ui:1068
+msgid "Enter your JAMS credentials"
+msgstr "Jepni kredencialet tuaj për te JAMS"
+
+#: ui/accountcreationwizard.ui:1167
+msgid "Connect"
+msgstr "Lidhu"
+
+#: ui/accountcreationwizard.ui:1195
+msgid "Configure an existing SIP account"
+msgstr "Formësoni një llogari SIP ekzistuese"
+
+#: ui/accountcreationwizard.ui:1240
+msgid "Server"
+msgstr "Shërbyes"
+
+#: ui/accountcreationwizard.ui:1385
+msgid "Create SIP account"
+msgstr "Krijoni llogari SIP"
+
+#: ui/generalsettingsview.ui:58
+msgid "System"
+msgstr "Sistem"
+
+#: ui/generalsettingsview.ui:96
+msgid "Start application on login"
+msgstr "Nise aplikacionin kur bëhet hyrja në sistem"
+
+#: ui/generalsettingsview.ui:132
+msgid "Keep Jami active when window is closed."
+msgstr "Mbaje Jami-n aktiv, kur mbyllet dritarja."
+
+#: ui/generalsettingsview.ui:168
+msgid "Bring Jami to the foreground on incoming calls"
+msgstr "Sille Jami-n përpara për thirrje ardhëse"
+
+#: ui/generalsettingsview.ui:204
+msgid "Notifications"
+msgstr "Njoftime"
+
+#: ui/generalsettingsview.ui:243
+msgid "Enable notifications for incoming calls"
+msgstr "Aktivizo njoftimet për thirrje ardhëse"
+
+#: ui/generalsettingsview.ui:279
+msgid "Enable notifications for pending requests"
+msgstr "Aktivizo njoftime për kërkesa pezull"
+
+#: ui/generalsettingsview.ui:315
+msgid "Enable notifications for new chat messages"
+msgstr "Aktivizo njoftimet për mesazhe të reja fjalosjesh"
+
+#: ui/generalsettingsview.ui:351
+msgid "Chatview"
+msgstr "Pamje fjalosjeje"
+
+#: ui/generalsettingsview.ui:390
+msgid "Show typing indications"
+msgstr "Shfaq shenja shtypjeje"
+
+#: ui/generalsettingsview.ui:426
+msgid "Display images and videos into the chatview"
+msgstr "Shfaq te pamja e fjalosjes figura dhe video"
+
+#: ui/generalsettingsview.ui:463
+msgid "Show chatview on the right (on the bottom if off)"
+msgstr "Shfaqe pamjen e fjalosjes djathtas (poshtë, nëse është off)"
+
+#: ui/generalsettingsview.ui:500
+msgid "Download folder"
+msgstr "Dosje Shkarkimi"
+
+#: ui/generalsettingsview.ui:537
+msgid "History"
+msgstr "Historik"
+
+#: ui/generalsettingsview.ui:576
+msgid "Keep history for (days, 0 = unlimited)"
+msgstr "Mbaje historikun për (ditë, 0 = pa kufizim)"
+
+#: ui/generalsettingsview.ui:606
+msgid "Clear all history"
+msgstr "Spastro krejt historikun"
+
+#: ui/generalsettingsview.ui:638
+msgid "Call Recording"
+msgstr "Incizim Thirrjesh"
+
+#: ui/generalsettingsview.ui:676
+msgid "Record local video"
+msgstr "Regjistro video lokale"
+
+#: ui/generalsettingsview.ui:712
+msgid "Always record calls"
+msgstr "Incizoji përherë thirrjet"
+
+#: ui/generalsettingsview.ui:749
+msgid "Record folder"
+msgstr "Dosje incizimesh"
+
+#: ui/generalsettingsview.ui:786
+msgid "Bitrate for call recordings (kb/s)"
+msgstr "Vlerë bitrate për incizime thirrjesh (kb/s)"
+
+#: ui/generalsettingsview.ui:824
+msgid "File transfer"
+msgstr "Shpërngulje kartelash"
+
+#: ui/generalsettingsview.ui:862
+msgid "Allow incoming files from unknown contacts"
+msgstr "Lejo kartela ardhëse prej kontaktesh të panjohur"
+
+#: ui/generalsettingsview.ui:899
+msgid "Automatically accept incoming files"
+msgstr "Prano automatikisht kartela ardhëse"
+
+#: ui/generalsettingsview.ui:937
+msgid "Accept transfer below (in Mb, 0 = unlimited)"
+msgstr "Prano shpërnguljen më poshtë (në Mb, 0 = e pakufizuar)"
+
+#: ui/usernameregistrationbox.ui:28
+msgid "register username"
+msgstr "regjistroni emër përdoruesi"
+
+#: ui/incomingcallview.ui:99
+msgid "Incoming…"
+msgstr "Ardhëse…"
+
+#: ui/incomingcallview.ui:152
+msgid "Accept"
+msgstr "Pranoje"
+
+#: ui/incomingcallview.ui:172
+msgid "Reject"
+msgstr "Hidhe poshtë"
+
+#: ui/currentcallview.ui:284
+msgid "End this call"
+msgstr "Përfundoje këtë thirrje"
+
+#: ui/currentcallview.ui:288 ui/currentcallview.ui:581
+msgid "End call"
+msgstr "Përfundoje thirrjen"
+
+#: ui/currentcallview.ui:308 ui/currentcallview.ui:554
+msgid "Add participant"
+msgstr "Shtoni pjesëmarrës"
+
+#: ui/currentcallview.ui:327
+msgid "Toggle transfer"
+msgstr "Shfaq/fshih shpërngulje"
+
+#: ui/currentcallview.ui:346
+msgid "Toggle hold"
+msgstr "Mbaje/Braktise"
+
+#: ui/currentcallview.ui:350 ui/currentcallview.ui:375
+#: ui/currentcallview.ui:545
+msgid "Hold"
+msgstr "Mbaje"
+
+#: ui/currentcallview.ui:371
+msgid "Toggle mute audio"
+msgstr "Vini/hiqni heshtje audioje"
+
+#: ui/currentcallview.ui:396
+msgid "Toggle mute video"
+msgstr "Vini/hiqni heshtje videoje"
+
+#: ui/currentcallview.ui:400 ui/currentcallview.ui:536
+msgid "Mute video"
+msgstr "Mbylli videon"
+
+#: ui/currentcallview.ui:421
+msgid "Toggle recording"
+msgstr "Shfa/fshih incizim"
+
+#: ui/currentcallview.ui:464
+msgid "Adjust outgoing video quality"
+msgstr "Rregulloni cilësinë e videos së dërguar"
+
+#: ui/currentcallview.ui:469 ui/currentcallview.ui:590
+msgid "Video quality"
+msgstr "Cilësi videoje"
+
+#: ui/currentcallview.ui:488
+msgid "Toggle show chat"
+msgstr "Shfaqni/fshihni fjalosje"
+
+#: ui/currentcallview.ui:492 ui/currentcallview.ui:509
+msgid "Chat"
+msgstr "Fjalosje"
+
+#: ui/currentcallview.ui:518
+msgid "View"
+msgstr "Shiheni"
+
+#: ui/currentcallview.ui:527
+msgid "Mute audio"
+msgstr "Mbylli zërin"
+
+#: ui/currentcallview.ui:563
+msgid "Activate Plugin"
+msgstr "Aktivizoje Shtojcën"
+
+#: ui/currentcallview.ui:572
+msgid "Transfer"
+msgstr "Shpërngule"
+
+#: ui/currentcallview.ui:622
+msgid "Transfer to"
+msgstr "Shpërngule te"
+
+#: ui/currentcallview.ui:686
+msgid "Add"
+msgstr "Shtoje"
+
+#: ui/pluginsettingsview.ui:44
+msgid "Plugins"
+msgstr "Shtojca"
+
+#: ui/pluginsettingsview.ui:85
+msgid "Enable plugins"
+msgstr "Aktivizoni shtojca"
+
+#: ui/pluginsettingsview.ui:128
+msgid "Installed Plugins"
+msgstr "Shtojca të Instaluara"
+
+#: ui/pluginsettingsview.ui:136
+msgid "Install Plugin"
+msgstr "Instalo Shtojcë"
+
+#: ui/gearsmenu.ui:7
+msgid "Keyboard _Shortcuts"
+msgstr "_Shkurtore Tastiere"
+
+#: ui/gearsmenu.ui:11
+msgid "_About"
+msgstr "_Rreth"
+
+#: ui/gearsmenu.ui:17
+msgid "_Quit"
+msgstr "_Dil"
+
+#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
+msgctxt "Name of error window (dialog)"
+msgid "Jami Error"
+msgstr "Gabim Jami"
+
+#: src/native/dbuserrorhandler.cpp:57
+msgid "Trying to reconnect to the Jami daemon (jamid)…"
+msgstr "Po provohet të rilidhet me demonin Jami (jamid)…"
+
+#: src/native/dbuserrorhandler.cpp:87
+msgid ""
+"Could not re-connect to the Jami daemon (jamid).\n"
+"Jami will now quit."
+msgstr "S’u rilidh dot me demonin Jami (jamid).\nJami tani do të mbyllet."
+
+#: src/currentcallview.cpp:1180
+msgid "Current conference (all accounts)"
+msgstr "Konferenca e tanishme (krejt llogaritë)"
+
+#: src/currentcallview.cpp:1215
+msgid "Current calls (all accounts)"
+msgstr "Thirrja e tanishme (krejt llogaritë)"
+
+#: src/currentcallview.cpp:1234
+msgid "Online contacts"
+msgstr "Kontakte <em>online</em>"
+
+#: src/currentcallview.cpp:1688
+msgctxt "Enable automatic video quality"
+msgid "Auto"
+msgstr "Auto"
+
+#: src/currentcallview.cpp:1763
+msgid "me"
+msgstr "unë"
+
+#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:1013
+msgid ""
+"Warning! This action will remove this account on this device!\n"
+"Note: this action cannot be undone. Also, your registered name can be lost!"
+msgstr "Kujdes! Ky veprim do të shkaktojë heqjen e kësaj llogarie në këtë pajisje!\nShënim: ky veprim s’mund të zhbëhet. Veç kësaj, mund të humbë emri që keni regjistruar!"
+
+#: src/chatview.cpp:388 src/chatview.cpp:402
+msgid "Send File"
+msgstr "Dërgo Kartelë"
+
+#: src/chatview.cpp:388 src/chatview.cpp:402
+#: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:949
+#: src/accountcreationwizard.cpp:875 src/accountcreationwizard.cpp:892
+msgid "Save File"
+msgstr "Ruaje Kartelën"
+
+#: src/chatview.cpp:391 src/chatview.cpp:406 src/video/video_widget.cpp:872
+#: src/video/video_widget.cpp:892 src/pluginsettingsview.cpp:129
+#: src/pluginsettingsview.cpp:144 src/avatarmanipulation.cpp:440
+#: src/avatarmanipulation.cpp:463
 msgid "_Open"
 msgstr "_Hape"
 
-#: src/pluginsettingsview.cpp:130 src/pluginsettingsview.cpp:143
-#: src/generalsettingsview.cpp:238 src/generalsettingsview.cpp:251
-#: src/video/video_widget.cpp:873 src/video/video_widget.cpp:891
-#: src/avatarmanipulation.cpp:441 src/avatarmanipulation.cpp:462
-#: src/accountcreationwizard.cpp:879 src/accountcreationwizard.cpp:895
-#: src/chatview.cpp:392 src/chatview.cpp:405
-#: src/newaccountsettingsview.cpp:936 src/newaccountsettingsview.cpp:952
+#: src/chatview.cpp:391 src/chatview.cpp:406 src/generalsettingsview.cpp:237
+#: src/generalsettingsview.cpp:252 src/newaccountsettingsview.cpp:935
+#: src/newaccountsettingsview.cpp:953 src/accountcreationwizard.cpp:878
+#: src/accountcreationwizard.cpp:896
+msgid "_Save"
+msgstr "_Ruaje"
+
+#: src/chatview.cpp:392 src/chatview.cpp:405 src/generalsettingsview.cpp:238
+#: src/generalsettingsview.cpp:251 src/newaccountsettingsview.cpp:936
+#: src/newaccountsettingsview.cpp:952 src/video/video_widget.cpp:873
+#: src/video/video_widget.cpp:891 src/pluginsettingsview.cpp:130
+#: src/pluginsettingsview.cpp:143 src/avatarmanipulation.cpp:441
+#: src/avatarmanipulation.cpp:462 src/accountcreationwizard.cpp:879
+#: src/accountcreationwizard.cpp:895
 msgid "_Cancel"
 msgstr "_Anuloje"
 
-#: src/pluginsettingsview.cpp:201
-msgid ""
-"Warning! This action will uninstall the plugin!\n"
-"Note: this action cannot be undone."
-msgstr "Kujdes! Ky veprim do të çinstalojë shtojcën!\nShënim: ky veprim s’mund të zhbëhet."
+#: src/chatview.cpp:457
+msgid "Retry"
+msgstr "Riprovoni"
 
-#: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
-msgid "Uninstall Plugin"
-msgstr "Çinstaloje Shtojcën"
+#: src/chatview.cpp:704
+msgid "Stop"
+msgstr "Ndale"
 
-#: src/pluginsettingsview.cpp:284
-msgid "Load/Unload Plugin"
-msgstr "Ngarko/Shkarko Shtojcën"
-
-#: src/usernameregistrationbox.cpp:162 src/usernameregistrationbox.cpp:185
-msgid "Register this username on the name server"
-msgstr "Regjistroje këtë emër përdoruesi te shërbyesi i emrave"
-
-#: src/usernameregistrationbox.cpp:171
-msgid "Username already taken"
-msgstr "Emër përdoruesi tashmë i zënë"
-
-#: src/usernameregistrationbox.cpp:178
-msgid "Invalid username"
-msgstr "Emër përdoruesi i pavlefshëm"
-
-#: src/usernameregistrationbox.cpp:192
-msgid "Lookup unavailable, check your network connection"
-msgstr "Kërkimi s’bëhet dot, kontrolloni lidhjen tuaj në rrjet"
-
-#: src/usernameregistrationbox.cpp:272
-msgid "Performing lookup…"
-msgstr "Po kryhet kërkim…"
-
-#: src/usernameregistrationbox.cpp:323
-msgid "Enter the password of your Jami account"
-msgstr "Jepni fjalëkalimin për te llogaria juaj Jami"
-
-#: src/usernameregistrationbox.cpp:355
-msgid "Registration in progress…"
-msgstr "Regjistrim në kryerje e sipër…"
-
-#: src/usernameregistrationbox.cpp:374
-msgid "Name registration Error"
-msgstr "Gabim regjistrimi emri"
-
-#: src/usernameregistrationbox.cpp:433
-msgid ""
-"Unable to register name (Invalid name). Your username should contains "
-"between 3 and 32 alphanumerics characters (or underscore)."
-msgstr "S’arrihet të regjistrohet emër (Emër i pavlefshëm). Emri juaj i përdoruesit duhet të përmbajë nga 3 deri 32 shenja alfanumerike (ose nënvijë)."
-
-#: src/usernameregistrationbox.cpp:437
-msgid "Unable to register name (Wrong password)."
-msgstr "S’arrihet të regjistrohet emër (Fjalëkalim i gabuar)."
-
-#: src/usernameregistrationbox.cpp:441
-msgid "Unable to register name (Username already taken)."
-msgstr "S’arrihet të regjistrohet emër (Emër përdoruesi i zënë tashmë)."
-
-#: src/usernameregistrationbox.cpp:445
-msgid "Unable to register name (Network error) - check your connection."
-msgstr "S’arrihet të regjistrohet emër (Gabim rrjeti) - kontrolloni lidhjen tuaj."
+#: src/chatview.cpp:1275
+msgid "Send"
+msgstr "Dërgoje"
 
 #: src/generalsettingsview.cpp:162
 msgid ""
@@ -1124,50 +1131,162 @@ msgstr "Ky është veprim me pasoja shkatërruese. Jeni i sigurt se doni të fsh
 msgid "Choose download folder"
 msgstr "Zgjidhni dosje shkarkimesh"
 
-#: src/generalsettingsview.cpp:237 src/generalsettingsview.cpp:252
-#: src/accountcreationwizard.cpp:878 src/accountcreationwizard.cpp:896
-#: src/chatview.cpp:391 src/chatview.cpp:406
-#: src/newaccountsettingsview.cpp:935 src/newaccountsettingsview.cpp:953
-msgid "_Save"
-msgstr "_Ruaje"
-
-#: src/welcomeview.cpp:93
+#: src/newaccountsettingsview.cpp:611
 msgid ""
-"This is your Jami username.\n"
-"Copy and share it with your friends!"
-msgstr "Ky është emri juaj i përdoruesit në Jami.\nKopjojeni dhe jepuani shokëve!"
+"Warning! This action will revoke the device!\n"
+"Note: this action cannot be undone."
+msgstr "Kujdes! Ky veprim do të shfuqizojë pajisjen!\nShënim: ky veprim s’mund të zhbëhet."
 
-#: src/welcomeview.cpp:101
+#: src/newaccountsettingsview.cpp:612
+msgid "Enter password to revoke device"
+msgstr "Që të shfuqizohet pajisja, jepni fjalëkalimin"
+
+#: src/newaccountsettingsview.cpp:660
+msgid "This device"
+msgstr "Këtë pajisje"
+
+#: src/newaccountsettingsview.cpp:683
+msgid "Edit name"
+msgstr "Përpunoni emrin"
+
+#: src/newaccountsettingsview.cpp:683
+msgid "Revoke device"
+msgstr "Shfuqizoje pajisjen"
+
+#: src/newaccountsettingsview.cpp:705
+msgid "Error when revoking device"
+msgstr "Gabim gjatë shfuqizimit të pajisjes"
+
+#: src/newaccountsettingsview.cpp:778
+msgid "Unban"
+msgstr "Zhdëboje"
+
+#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
+#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
+msgid "Change password"
+msgstr "Ndryshoni fjalëkalimin"
+
+#: src/newaccountsettingsview.cpp:814
+msgid "New password and its confirmation are different!"
+msgstr "Fjalëkalimi i ri dhe ripohimi për të janë të ndryshëm!"
+
+#: src/newaccountsettingsview.cpp:825
+msgid "Incorrect password!"
+msgstr "Fjalëkalim i pasaktë!"
+
+#: src/newaccountsettingsview.cpp:862
+msgid "Note: this will change the password only on this device."
+msgstr "Shënim: kjo do të ndryshojë fjalëkalimi vetëm në këtë pajisje."
+
+#: src/newaccountsettingsview.cpp:865
+msgid "Current password"
+msgstr "Fjalëkalimi i tanishëm"
+
+#: src/newaccountsettingsview.cpp:871
+msgid "New password"
+msgstr "Fjalëkalim i ri"
+
+#: src/newaccountsettingsview.cpp:974 src/accountcreationwizard.cpp:918
+msgid "You need to enter your password to export the full archive."
+msgstr "Lypset të jepni fjalëkalimin tuaj që të eksportohet arkivi i plotë."
+
+#: src/newaccountsettingsview.cpp:975 src/accountcreationwizard.cpp:919
+msgid "Enter password to export archive"
+msgstr "Jepni fjalëkalimin që të eksportohet arkivi"
+
+#: src/newaccountsettingsview.cpp:998 src/accountcreationwizard.cpp:942
+msgid "Account exported!"
+msgstr "Llogaria u eksportua!"
+
+#: src/newaccountsettingsview.cpp:998 src/accountcreationwizard.cpp:942
+msgid "Export account failure."
+msgstr "Dështim eksportimi llogarie."
+
+#: src/newaccountsettingsview.cpp:1778
+msgid "Exporting account…"
+msgstr "Po eksportohet llogari…"
+
+#: src/newaccountsettingsview.cpp:1803
+msgid "Bad password"
+msgstr "Fjalëkalim i gabuar"
+
+#: src/newaccountsettingsview.cpp:1811
+msgid "Network error, try again"
+msgstr "Gabim rrjeti, riprovoni"
+
+#: src/newaccountsettingsview.cpp:1819
+msgid "Unknown error"
+msgstr "Gabim i panjohur"
+
+#: src/newaccountsettingsview.cpp:1832
+msgid "Could not initiate export to the Jami, try again"
+msgstr "S’u fillua dot eksportimi te Jami, riprovoni"
+
+#: src/newaccountsettingsview.cpp:1891
+msgid "Error: wrong password!"
+msgstr "Gabim: fjalëkalim i gabuar!"
+
+#: src/newaccountsettingsview.cpp:1894
+msgid "Error: unknown device!"
+msgstr "Gabim: pajisje e panjohur!"
+
+#: src/newaccountsettingsview.cpp:2069
+msgid "Initializing…"
+msgstr "Po gatitet…"
+
+#: src/newaccountsettingsview.cpp:2072
+msgid "Offline"
+msgstr "Jo në linjë"
+
+#: src/newaccountsettingsview.cpp:2075
+msgid "Connecting…"
+msgstr "Po lidhet…"
+
+#: src/newaccountsettingsview.cpp:2078
+msgid "Online"
+msgstr "Në linjë"
+
+#: src/newaccountsettingsview.cpp:2082
+msgid "Unknown status"
+msgstr "Gjendje e panjohur"
+
+#: src/newaccountsettingsview.cpp:2116
+msgid "••••••••"
+msgstr "••••••••"
+
+#: src/newaccountsettingsview.cpp:2116
+msgid "no password set"
+msgstr "s’ka fjalëkalim të caktuar"
+
+#: src/newaccountsettingsview.cpp:2172
+msgid "Remove account"
+msgstr "Hiqe llogarinë"
+
+#: src/client.cpp:114
+#, c-format
 msgid ""
-"This is your ID.\n"
-"Copy and share it with your friends!"
-msgstr "Kjo është ID-ja juaj.\nKopjojeni dhe jepuani shokëve!"
+"Unable to initialize.\n"
+"Make sure the Jami daemon (jamid) is running.\n"
+"Error: %s"
+msgstr "S’arrihet të gatitet.\nSigurohuni se demoni Jami (jamid) është në punë.\nGabim: %s"
 
-#: src/welcomeview.cpp:213
-msgid ""
-"Jami is free software for universal communication which respects the "
-"freedoms and privacy of its users."
-msgstr "Jami është software i lirë për komunikim universal që respekton privatësinë e përdoruesve të tij."
+#: src/client.cpp:117
+msgid "Jami Error"
+msgstr "Gabim Jami"
 
-#: src/notifier.cpp:352
+#: src/client.cpp:387 src/client.cpp:444
+msgid "Jami needs your attention"
+msgstr "Jami lyp përkujdesjen tuaj"
+
+#: src/client.cpp:427
 msgctxt ""
-msgid "Open conversation"
-msgstr "Hap bisedë"
+"In the status icon menu, toggle action to show or hide the Jami main window"
+msgid "Show Jami"
+msgstr "Shfaq Jami"
 
-#: src/notifier.cpp:360 src/notifier.cpp:376
-msgctxt ""
-msgid "Accept"
-msgstr "Pranoje"
-
-#: src/notifier.cpp:367
-msgctxt ""
-msgid "Refuse"
-msgstr "Hidhe tej"
-
-#: src/notifier.cpp:383
-msgctxt ""
-msgid "Decline"
-msgstr "Hidhe tej"
+#: src/client.cpp:431
+msgid "Quit"
+msgstr "Dilni"
 
 #: src/video/video_widget.cpp:436
 msgid "Hangup"
@@ -1212,201 +1331,6 @@ msgstr "_Kartelë rrjedhe"
 #: src/video/video_widget.cpp:976
 msgid "Show advanced information"
 msgstr "Shfaq informacion të thelluar"
-
-#: src/avatarmanipulation.cpp:437 src/avatarmanipulation.cpp:459
-msgid "Open Avatar Image"
-msgstr "Hap Figurë Avatari"
-
-#: src/messagingwidget.cpp:223
-msgid "Contact appears to be busy. Leave a message ?"
-msgstr "Kontakti duket i zënë. Të lihet një mesazh?"
-
-#: src/messagingwidget.cpp:245
-msgid "Stop recording"
-msgstr "Ndale incizimin"
-
-#: src/messagingwidget.cpp:259
-msgid "Send recorded message"
-msgstr "Dërgo mesazhin e incizuar"
-
-#: src/dialogs.cpp:63
-#, c-format
-msgctxt "Do not translate the release name nor the status (beta, final, ...)"
-msgid ""
-"\"%s\"\n"
-"(%s)"
-msgstr "\"%s\"\n(%s)"
-
-#: src/dialogs.cpp:138
-msgid ""
-"The GNOME client for Jami.\n"
-"Jami is free software for universal communication which respects the freedoms and privacy of its users."
-msgstr "Klienti GNOME për Jami-n.\nJami është software i lirë për komunikim universal që respekton privatësinë e përdoruesve të tij."
-
-#: src/native/dbuserrorhandler.cpp:36 src/native/dbuserrorhandler.cpp:95
-msgctxt "Name of error window (dialog)"
-msgid "Jami Error"
-msgstr "Gabim Jami"
-
-#: src/native/dbuserrorhandler.cpp:57
-msgid "Trying to reconnect to the Jami daemon (jamid)…"
-msgstr "Po provohet të rilidhet me demonin Jami (jamid)…"
-
-#: src/native/dbuserrorhandler.cpp:87
-msgid ""
-"Could not re-connect to the Jami daemon (jamid).\n"
-"Jami will now quit."
-msgstr "S’u rilidh dot me demonin Jami (jamid).\nJami tani do të mbyllet."
-
-#: src/client_options.c:65
-msgid "Enable debug"
-msgstr "Aktivizo diagnostikim"
-
-#: src/client_options.c:67
-msgid ""
-"Restores the hidden state of the main window (only applicable to the primary"
-" instance)"
-msgstr "Rikthen gjendjen e fshehur të dritares kryesore (e zbatueshme vetëm për instancën parësore)"
-
-#: src/client_options.c:84
-msgid "- GNOME client for Jami"
-msgstr "- Klienti Jami për GNOME"
-
-#: src/conversationpopupmenu.cpp:237
-msgid "Place _video call"
-msgstr "Bëni thirrje _video"
-
-#: src/conversationpopupmenu.cpp:240
-msgid "Place _audio call"
-msgstr "Bëni thirrje _audio"
-
-#: src/conversationpopupmenu.cpp:246
-msgid "_Add to conversations"
-msgstr "_Shtoje te biseda"
-
-#: src/conversationpopupmenu.cpp:250
-msgid "_Accept invitation"
-msgstr "_Pranoje ftesën"
-
-#: src/conversationpopupmenu.cpp:253
-msgid "_Discard invitation"
-msgstr "_Hidhe tej ftesën"
-
-#: src/conversationpopupmenu.cpp:256
-msgid "_Block invitations"
-msgstr "_Blloko ftesat"
-
-#: src/conversationpopupmenu.cpp:261
-msgid "C_lear history"
-msgstr "_Spastroje historikun"
-
-#: src/conversationpopupmenu.cpp:265
-msgid "_Remove conversation"
-msgstr "Hi_qe bisedën"
-
-#: src/conversationpopupmenu.cpp:271
-msgid "_Block contact"
-msgstr "B_llokoje kontakt"
-
-#: src/conversationpopupmenu.cpp:275
-msgid "_Unblock contact"
-msgstr "_Zhbllokoje kontaktin"
-
-#: src/conversationpopupmenu.cpp:282
-msgid "_Profile"
-msgstr "_Profil"
-
-#: src/profileview.cpp:131
-msgid "(None)"
-msgstr "(Asnjë)"
-
-#: src/profileview.cpp:160
-msgid "Yes"
-msgstr "Po"
-
-#: src/profileview.cpp:160
-msgid "No"
-msgstr "Jo"
-
-#: src/accountcreationwizard.cpp:326
-msgid "An error occurred during the account creation."
-msgstr "Ndodhi një gabim gjatë krijimit të llogarisë."
-
-#: src/accountcreationwizard.cpp:330
-msgid "An error occurred during the rendez-vous creation."
-msgstr "Ndodhi një gabim gjatë krijimit të rendez-vous-së."
-
-#: src/accountcreationwizard.cpp:334
-msgid "An error occurred during the SIP account creation."
-msgstr "Ndodhi një gabim gjatë krijimit të llogarisë SIP."
-
-#: src/accountcreationwizard.cpp:338
-msgid "Cannot retrieve any account, please verify your PIN and your password."
-msgstr "S’merret dot ndonjë llogari, ju lutemi, verifikoni PIN-in tuaj dhe fjalëkalimin tuaj."
-
-#: src/accountcreationwizard.cpp:342
-msgid ""
-"Cannot retrieve any account, please verify your archive and your password."
-msgstr "S’merret dot ndonjë llogari, ju lutemi, verifikoni arkivin tuaj dhe fjalëkalimin tuaj."
-
-#: src/accountcreationwizard.cpp:346
-msgid ""
-"Cannot connect to provided account manager. Please check your credentials."
-msgstr "S’bëhet dot lidhja me përgjegjësin e dhënë të llogarisë. Ju lutemi, kontrolloni kredencialet tuaja."
-
-#: src/accountcreationwizard.cpp:535
-msgid "Generating your rendez-vous…"
-msgstr "Po prodhohet takimi juaj…"
-
-#: src/accountcreationwizard.cpp:537
-msgid "Generating your Jami account…"
-msgstr "Po prodhohet llogaria juaj Jami…"
-
-#: src/accountcreationwizard.cpp:553
-msgid "Passwords don't match"
-msgstr "Fjalëkalimet nuk përputhen"
-
-#: src/accountcreationwizard.cpp:674
-msgid "Enter Jami account password"
-msgstr "Jepni fjalëkalim llogarie Jami"
-
-#: src/accountcreationwizard.cpp:675
-msgid "Link device"
-msgstr "Lidhni pajisje"
-
-#: src/accountcreationwizard.cpp:694
-msgid "Import from backup"
-msgstr "Importoni prej kopjeruajtjeje"
-
-#: src/accountcreationwizard.cpp:875 src/accountcreationwizard.cpp:892
-#: src/chatview.cpp:388 src/chatview.cpp:402
-#: src/newaccountsettingsview.cpp:932 src/newaccountsettingsview.cpp:949
-msgid "Save File"
-msgstr "Ruaje Kartelën"
-
-#: src/accountcreationwizard.cpp:918 src/newaccountsettingsview.cpp:974
-msgid "You need to enter your password to export the full archive."
-msgstr "Lypset të jepni fjalëkalimin tuaj që të eksportohet arkivi i plotë."
-
-#: src/accountcreationwizard.cpp:919 src/newaccountsettingsview.cpp:975
-msgid "Enter password to export archive"
-msgstr "Jepni fjalëkalimin që të eksportohet arkivi"
-
-#: src/accountcreationwizard.cpp:942 src/newaccountsettingsview.cpp:998
-msgid "Account exported!"
-msgstr "Llogaria u eksportua!"
-
-#: src/accountcreationwizard.cpp:942 src/newaccountsettingsview.cpp:998
-msgid "Export account failure."
-msgstr "Dështim eksportimi llogarie."
-
-#: src/accountcreationwizard.cpp:1108
-msgid "Register name"
-msgstr "Regjistroni emër"
-
-#: src/accountcreationwizard.cpp:1109
-msgid "Name"
-msgstr "Emër"
 
 #: src/mainwindow.cpp:206
 msgid "Add account…"
@@ -1507,186 +1431,262 @@ msgstr "Bllokojeni kontaktin"
 msgid "Do you really want to block this contact?"
 msgstr "Doni të bllokohet vërtet ky kontakt?"
 
-#: src/chatview.cpp:388 src/chatview.cpp:402
-msgid "Send File"
-msgstr "Dërgo Kartelë"
-
-#: src/chatview.cpp:457
-msgid "Retry"
-msgstr "Riprovoni"
-
-#: src/chatview.cpp:704
-msgid "Stop"
-msgstr "Ndale"
-
-#: src/chatview.cpp:1275
-msgid "Send"
-msgstr "Dërgoje"
-
-#: src/client.cpp:114
-#, c-format
+#: src/welcomeview.cpp:93
 msgid ""
-"Unable to initialize.\n"
-"Make sure the Jami daemon (jamid) is running.\n"
-"Error: %s"
-msgstr "S’arrihet të gatitet.\nSigurohuni se demoni Jami (jamid) është në punë.\nGabim: %s"
+"This is your Jami username.\n"
+"Copy and share it with your friends!"
+msgstr "Ky është emri juaj i përdoruesit në Jami.\nKopjojeni dhe jepuani shokëve!"
 
-#: src/client.cpp:117
-msgid "Jami Error"
-msgstr "Gabim Jami"
+#: src/welcomeview.cpp:101
+msgid ""
+"This is your ID.\n"
+"Copy and share it with your friends!"
+msgstr "Kjo është ID-ja juaj.\nKopjojeni dhe jepuani shokëve!"
 
-#: src/client.cpp:387 src/client.cpp:444
-msgid "Jami needs your attention"
-msgstr "Jami lyp përkujdesjen tuaj"
+#: src/welcomeview.cpp:213
+msgid ""
+"Jami is free software for universal communication which respects the "
+"freedoms and privacy of its users."
+msgstr "Jami është software i lirë për komunikim universal që respekton privatësinë e përdoruesve të tij."
 
-#: src/client.cpp:427
+#: src/client_options.c:65
+msgid "Enable debug"
+msgstr "Aktivizo diagnostikim"
+
+#: src/client_options.c:67
+msgid ""
+"Restores the hidden state of the main window (only applicable to the primary"
+" instance)"
+msgstr "Rikthen gjendjen e fshehur të dritares kryesore (e zbatueshme vetëm për instancën parësore)"
+
+#: src/client_options.c:84
+msgid "- GNOME client for Jami"
+msgstr "- Klienti Jami për GNOME"
+
+#: src/notifier.cpp:352
 msgctxt ""
-"In the status icon menu, toggle action to show or hide the Jami main window"
-msgid "Show Jami"
-msgstr "Shfaq Jami"
+msgid "Open conversation"
+msgstr "Hap bisedë"
 
-#: src/client.cpp:431
-msgid "Quit"
-msgstr "Dilni"
+#: src/notifier.cpp:360 src/notifier.cpp:376
+msgctxt ""
+msgid "Accept"
+msgstr "Pranoje"
 
-#: src/accountmigrationview.cpp:186 src/newaccountsettingsview.cpp:1013
+#: src/notifier.cpp:367
+msgctxt ""
+msgid "Refuse"
+msgstr "Hidhe tej"
+
+#: src/notifier.cpp:383
+msgctxt ""
+msgid "Decline"
+msgstr "Hidhe tej"
+
+#: src/pluginsettingsview.cpp:201
 msgid ""
-"Warning! This action will remove this account on this device!\n"
-"Note: this action cannot be undone. Also, your registered name can be lost!"
-msgstr "Kujdes! Ky veprim do të shkaktojë heqjen e kësaj llogarie në këtë pajisje!\nShënim: ky veprim s’mund të zhbëhet. Veç kësaj, mund të humbë emri që keni regjistruar!"
-
-#: src/currentcallview.cpp:1180
-msgid "Current conference (all accounts)"
-msgstr "Konferenca e tanishme (krejt llogaritë)"
-
-#: src/currentcallview.cpp:1215
-msgid "Current calls (all accounts)"
-msgstr "Thirrja e tanishme (krejt llogaritë)"
-
-#: src/currentcallview.cpp:1234
-msgid "Online contacts"
-msgstr "Kontakte <em>online</em>"
-
-#: src/currentcallview.cpp:1688
-msgctxt "Enable automatic video quality"
-msgid "Auto"
-msgstr "Auto"
-
-#: src/currentcallview.cpp:1763
-msgid "me"
-msgstr "unë"
-
-#: src/newaccountsettingsview.cpp:611
-msgid ""
-"Warning! This action will revoke the device!\n"
+"Warning! This action will uninstall the plugin!\n"
 "Note: this action cannot be undone."
-msgstr "Kujdes! Ky veprim do të shfuqizojë pajisjen!\nShënim: ky veprim s’mund të zhbëhet."
+msgstr "Kujdes! Ky veprim do të çinstalojë shtojcën!\nShënim: ky veprim s’mund të zhbëhet."
 
-#: src/newaccountsettingsview.cpp:612
-msgid "Enter password to revoke device"
-msgstr "Që të shfuqizohet pajisja, jepni fjalëkalimin"
+#: src/pluginsettingsview.cpp:202 src/pluginsettingsview.cpp:270
+msgid "Uninstall Plugin"
+msgstr "Çinstaloje Shtojcën"
 
-#: src/newaccountsettingsview.cpp:660
-msgid "This device"
-msgstr "Këtë pajisje"
+#: src/pluginsettingsview.cpp:284
+msgid "Load/Unload Plugin"
+msgstr "Ngarko/Shkarko Shtojcën"
 
-#: src/newaccountsettingsview.cpp:683
-msgid "Edit name"
-msgstr "Përpunoni emrin"
+#: src/profileview.cpp:131
+msgid "(None)"
+msgstr "(Asnjë)"
 
-#: src/newaccountsettingsview.cpp:683
-msgid "Revoke device"
-msgstr "Shfuqizoje pajisjen"
+#: src/profileview.cpp:160
+msgid "Yes"
+msgstr "Po"
 
-#: src/newaccountsettingsview.cpp:705
-msgid "Error when revoking device"
-msgstr "Gabim gjatë shfuqizimit të pajisjes"
+#: src/profileview.cpp:160
+msgid "No"
+msgstr "Jo"
 
-#: src/newaccountsettingsview.cpp:778
-msgid "Unban"
-msgstr "Zhdëboje"
+#: src/usernameregistrationbox.cpp:162 src/usernameregistrationbox.cpp:185
+msgid "Register this username on the name server"
+msgstr "Regjistroje këtë emër përdoruesi te shërbyesi i emrave"
 
-#: src/newaccountsettingsview.cpp:801 src/newaccountsettingsview.cpp:824
-#: src/newaccountsettingsview.cpp:848 src/newaccountsettingsview.cpp:884
-msgid "Change password"
-msgstr "Ndryshoni fjalëkalimin"
+#: src/usernameregistrationbox.cpp:171
+msgid "Username already taken"
+msgstr "Emër përdoruesi tashmë i zënë"
 
-#: src/newaccountsettingsview.cpp:814
-msgid "New password and its confirmation are different!"
-msgstr "Fjalëkalimi i ri dhe ripohimi për të janë të ndryshëm!"
+#: src/usernameregistrationbox.cpp:178
+msgid "Invalid username"
+msgstr "Emër përdoruesi i pavlefshëm"
 
-#: src/newaccountsettingsview.cpp:825
-msgid "Incorrect password!"
-msgstr "Fjalëkalim i pasaktë!"
+#: src/usernameregistrationbox.cpp:192
+msgid "Lookup unavailable, check your network connection"
+msgstr "Kërkimi s’bëhet dot, kontrolloni lidhjen tuaj në rrjet"
 
-#: src/newaccountsettingsview.cpp:862
-msgid "Note: this will change the password only on this device."
-msgstr "Shënim: kjo do të ndryshojë fjalëkalimi vetëm në këtë pajisje."
+#: src/usernameregistrationbox.cpp:272
+msgid "Performing lookup…"
+msgstr "Po kryhet kërkim…"
 
-#: src/newaccountsettingsview.cpp:865
-msgid "Current password"
-msgstr "Fjalëkalimi i tanishëm"
+#: src/usernameregistrationbox.cpp:323
+msgid "Enter the password of your Jami account"
+msgstr "Jepni fjalëkalimin për te llogaria juaj Jami"
 
-#: src/newaccountsettingsview.cpp:871
-msgid "New password"
-msgstr "Fjalëkalim i ri"
+#: src/usernameregistrationbox.cpp:355
+msgid "Registration in progress…"
+msgstr "Regjistrim në kryerje e sipër…"
 
-#: src/newaccountsettingsview.cpp:1778
-msgid "Exporting account…"
-msgstr "Po eksportohet llogari…"
+#: src/usernameregistrationbox.cpp:374
+msgid "Name registration Error"
+msgstr "Gabim regjistrimi emri"
 
-#: src/newaccountsettingsview.cpp:1803
-msgid "Bad password"
-msgstr "Fjalëkalim i gabuar"
+#: src/usernameregistrationbox.cpp:433
+msgid ""
+"Unable to register name (Invalid name). Your username should contains "
+"between 3 and 32 alphanumerics characters (or underscore)."
+msgstr "S’arrihet të regjistrohet emër (Emër i pavlefshëm). Emri juaj i përdoruesit duhet të përmbajë nga 3 deri 32 shenja alfanumerike (ose nënvijë)."
 
-#: src/newaccountsettingsview.cpp:1811
-msgid "Network error, try again"
-msgstr "Gabim rrjeti, riprovoni"
+#: src/usernameregistrationbox.cpp:437
+msgid "Unable to register name (Wrong password)."
+msgstr "S’arrihet të regjistrohet emër (Fjalëkalim i gabuar)."
 
-#: src/newaccountsettingsview.cpp:1819
-msgid "Unknown error"
-msgstr "Gabim i panjohur"
+#: src/usernameregistrationbox.cpp:441
+msgid "Unable to register name (Username already taken)."
+msgstr "S’arrihet të regjistrohet emër (Emër përdoruesi i zënë tashmë)."
 
-#: src/newaccountsettingsview.cpp:1832
-msgid "Could not initiate export to the Jami, try again"
-msgstr "S’u fillua dot eksportimi te Jami, riprovoni"
+#: src/usernameregistrationbox.cpp:445
+msgid "Unable to register name (Network error) - check your connection."
+msgstr "S’arrihet të regjistrohet emër (Gabim rrjeti) - kontrolloni lidhjen tuaj."
 
-#: src/newaccountsettingsview.cpp:1891
-msgid "Error: wrong password!"
-msgstr "Gabim: fjalëkalim i gabuar!"
+#: src/messagingwidget.cpp:223
+msgid "Contact appears to be busy. Leave a message ?"
+msgstr "Kontakti duket i zënë. Të lihet një mesazh?"
 
-#: src/newaccountsettingsview.cpp:1894
-msgid "Error: unknown device!"
-msgstr "Gabim: pajisje e panjohur!"
+#: src/messagingwidget.cpp:245
+msgid "Stop recording"
+msgstr "Ndale incizimin"
 
-#: src/newaccountsettingsview.cpp:2069
-msgid "Initializing…"
-msgstr "Po gatitet…"
+#: src/messagingwidget.cpp:259
+msgid "Send recorded message"
+msgstr "Dërgo mesazhin e incizuar"
 
-#: src/newaccountsettingsview.cpp:2072
-msgid "Offline"
-msgstr "Jo në linjë"
+#: src/dialogs.cpp:63
+#, c-format
+msgctxt "Do not translate the release name nor the status (beta, final, ...)"
+msgid ""
+"\"%s\"\n"
+"(%s)"
+msgstr "\"%s\"\n(%s)"
 
-#: src/newaccountsettingsview.cpp:2075
-msgid "Connecting…"
-msgstr "Po lidhet…"
+#: src/dialogs.cpp:138
+msgid ""
+"The GNOME client for Jami.\n"
+"Jami is free software for universal communication which respects the freedoms and privacy of its users."
+msgstr "Klienti GNOME për Jami-n.\nJami është software i lirë për komunikim universal që respekton privatësinë e përdoruesve të tij."
 
-#: src/newaccountsettingsview.cpp:2078
-msgid "Online"
-msgstr "Në linjë"
+#: src/conversationpopupmenu.cpp:237
+msgid "Place _video call"
+msgstr "Bëni thirrje _video"
 
-#: src/newaccountsettingsview.cpp:2082
-msgid "Unknown status"
-msgstr "Gjendje e panjohur"
+#: src/conversationpopupmenu.cpp:240
+msgid "Place _audio call"
+msgstr "Bëni thirrje _audio"
 
-#: src/newaccountsettingsview.cpp:2116
-msgid "••••••••"
-msgstr "••••••••"
+#: src/conversationpopupmenu.cpp:246
+msgid "_Add to conversations"
+msgstr "_Shtoje te biseda"
 
-#: src/newaccountsettingsview.cpp:2116
-msgid "no password set"
-msgstr "s’ka fjalëkalim të caktuar"
+#: src/conversationpopupmenu.cpp:250
+msgid "_Accept invitation"
+msgstr "_Pranoje ftesën"
 
-#: src/newaccountsettingsview.cpp:2172
-msgid "Remove account"
-msgstr "Hiqe llogarinë"
+#: src/conversationpopupmenu.cpp:253
+msgid "_Discard invitation"
+msgstr "_Hidhe tej ftesën"
+
+#: src/conversationpopupmenu.cpp:256
+msgid "_Block invitations"
+msgstr "_Blloko ftesat"
+
+#: src/conversationpopupmenu.cpp:261
+msgid "C_lear history"
+msgstr "_Spastroje historikun"
+
+#: src/conversationpopupmenu.cpp:265
+msgid "_Remove conversation"
+msgstr "Hi_qe bisedën"
+
+#: src/conversationpopupmenu.cpp:271
+msgid "_Block contact"
+msgstr "B_llokoje kontakt"
+
+#: src/conversationpopupmenu.cpp:275
+msgid "_Unblock contact"
+msgstr "_Zhbllokoje kontaktin"
+
+#: src/conversationpopupmenu.cpp:282
+msgid "_Profile"
+msgstr "_Profil"
+
+#: src/avatarmanipulation.cpp:437 src/avatarmanipulation.cpp:459
+msgid "Open Avatar Image"
+msgstr "Hap Figurë Avatari"
+
+#: src/accountcreationwizard.cpp:326
+msgid "An error occurred during the account creation."
+msgstr "Ndodhi një gabim gjatë krijimit të llogarisë."
+
+#: src/accountcreationwizard.cpp:330
+msgid "An error occurred during the rendez-vous creation."
+msgstr "Ndodhi një gabim gjatë krijimit të rendez-vous-së."
+
+#: src/accountcreationwizard.cpp:334
+msgid "An error occurred during the SIP account creation."
+msgstr "Ndodhi një gabim gjatë krijimit të llogarisë SIP."
+
+#: src/accountcreationwizard.cpp:338
+msgid "Cannot retrieve any account, please verify your PIN and your password."
+msgstr "S’merret dot ndonjë llogari, ju lutemi, verifikoni PIN-in tuaj dhe fjalëkalimin tuaj."
+
+#: src/accountcreationwizard.cpp:342
+msgid ""
+"Cannot retrieve any account, please verify your archive and your password."
+msgstr "S’merret dot ndonjë llogari, ju lutemi, verifikoni arkivin tuaj dhe fjalëkalimin tuaj."
+
+#: src/accountcreationwizard.cpp:346
+msgid ""
+"Cannot connect to provided account manager. Please check your credentials."
+msgstr "S’bëhet dot lidhja me përgjegjësin e dhënë të llogarisë. Ju lutemi, kontrolloni kredencialet tuaja."
+
+#: src/accountcreationwizard.cpp:535
+msgid "Generating your rendez-vous…"
+msgstr "Po prodhohet takimi juaj…"
+
+#: src/accountcreationwizard.cpp:537
+msgid "Generating your Jami account…"
+msgstr "Po prodhohet llogaria juaj Jami…"
+
+#: src/accountcreationwizard.cpp:553
+msgid "Passwords don't match"
+msgstr "Fjalëkalimet nuk përputhen"
+
+#: src/accountcreationwizard.cpp:674
+msgid "Enter Jami account password"
+msgstr "Jepni fjalëkalim llogarie Jami"
+
+#: src/accountcreationwizard.cpp:675
+msgid "Link device"
+msgstr "Lidhni pajisje"
+
+#: src/accountcreationwizard.cpp:694
+msgid "Import from backup"
+msgstr "Importoni prej kopjeruajtjeje"
+
+#: src/accountcreationwizard.cpp:1108
+msgid "Register name"
+msgstr "Regjistroni emër"
+
+#: src/accountcreationwizard.cpp:1109
+msgid "Name"
+msgstr "Emër"
